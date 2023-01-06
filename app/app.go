@@ -89,7 +89,10 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	"github.com/jim380/Re/cmd"
-	
+
+	fixmodule "github.com/jim380/Re/x/fix"
+	fixmodulekeeper "github.com/jim380/Re/x/fix/keeper"
+	fixmoduletypes "github.com/jim380/Re/x/fix/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -137,7 +140,8 @@ var (
 				upgraderest.ProposalCancelRESTHandler,
 			),
 		),
-		
+
+		fixmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -148,7 +152,7 @@ var (
 		ibctransfertypes.ModuleName:                   {authtypes.Minter, authtypes.Burner},
 		ccvconsumertypes.ConsumerRedistributeName:     nil,
 		ccvconsumertypes.ConsumerToSendToProviderName: nil,
-	
+
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -208,7 +212,7 @@ type ReApp struct {
 	ScopedICAHostKeeper     capabilitykeeper.ScopedKeeper
 	ScopedCCVConsumerKeeper capabilitykeeper.ScopedKeeper
 
-
+	FixKeeper fixmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -246,6 +250,7 @@ func NewReApp(
 		paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey, evidencetypes.StoreKey,
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, ccvconsumertypes.StoreKey,
 		adminmodulemoduletypes.StoreKey,
+		fixmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -422,6 +427,14 @@ func NewReApp(
 	)
 	adminModule := adminmodulemodule.NewAppModule(appCodec, app.AdminmoduleKeeper)
 
+	app.FixKeeper = *fixmodulekeeper.NewKeeper(
+		appCodec,
+		keys[fixmoduletypes.StoreKey],
+		keys[fixmoduletypes.MemStoreKey],
+		app.GetSubspace(fixmoduletypes.ModuleName),
+	)
+	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -459,6 +472,7 @@ func NewReApp(
 		consumerModule,
 		adminModule,
 
+		fixModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -484,7 +498,8 @@ func NewReApp(
 		vestingtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
-	
+
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -505,7 +520,8 @@ func NewReApp(
 		vestingtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
-		
+
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -531,7 +547,8 @@ func NewReApp(
 		vestingtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
-	
+
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -556,7 +573,8 @@ func NewReApp(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
-		
+
+		fixModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -579,8 +597,8 @@ func NewReApp(
 				SignModeHandler: encodingConfig.TxConfig.SignModeHandler(),
 				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
 			},
-			IBCKeeper:          app.IBCKeeper,
-			ConsumerKeeper:     app.ConsumerKeeper,
+			IBCKeeper:      app.IBCKeeper,
+			ConsumerKeeper: app.ConsumerKeeper,
 		},
 	)
 	if err != nil {
@@ -753,6 +771,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
 
+	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

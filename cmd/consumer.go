@@ -18,7 +18,6 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/jim380/Re/testutil"
-
 )
 
 func AddConsumerSectionCmd(defaultNodeHome string) *cobra.Command {
