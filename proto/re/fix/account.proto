@@ -1,0 +1,18 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+message Account {
+  string index = 1; 
+  string companyName = 2; 
+  string address = 3; 
+  string emailAddress = 4; 
+  int32 phoneNumber = 5; 
+  string website = 6; 
+  repeated string socialMediaLinks = 7; 
+  bytes governmentIssuedId = 8; 
+  int32 createdAt = 9; 
+  string creator = 10;
+}
+
