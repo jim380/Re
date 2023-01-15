@@ -11,13 +11,14 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Check if the value already exists
-	_, isFound := k.GetAccount(
+	// Check if the Account already exists
+	accountExists, isFound := k.GetAccount(
 		ctx,
 		msg.Index,
 	)
+
 	if isFound {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "This Account Already Exists")
 	}
 
 	var account = types.Account{
@@ -32,7 +33,28 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		GovernmentIssuedId: msg.GovernmentIssuedId,
 		CreatedAt:          msg.CreatedAt,
 	}
+    
+	if accountExists.Creator == account.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "You Are Not Allowed to Have a double Account with the same Wallet Adddress")
+	}
 
+	if accountExists.CompanyName == account.CompanyName {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Account Name Already Exists")
+	}
+
+	if accountExists.EmailAddress == account.EmailAddress {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Email Address Already Exists")
+	}
+
+	if accountExists.PhoneNumber == account.PhoneNumber {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Phone Number Already Exists")
+	}
+
+	//To Do
+	// include checks for GOVERNMENT ISSUED ID
+	//Also check to see if all user's GOVERNMENT ISSUED ID can be passed through governance proposal mechanism for authentic verification of the documents by the community
+
+	//set a new account if all checks passes
 	k.SetAccount(
 		ctx,
 		account,
