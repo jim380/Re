@@ -5,6 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
@@ -20,7 +21,7 @@ func (k Keeper) AccountAll(c context.Context, req *types.QueryAllAccountRequest)
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
-	accountStore := prefix.NewStore(store, types.KeyPrefix(types.AccountKeyPrefix))
+	accountStore := prefix.NewStore(store, types.KeyPrefix(types.AccountKey))
 
 	pageRes, err := query.Paginate(accountStore, req.Pagination, func(key []byte, value []byte) error {
 		var account types.Account
@@ -43,15 +44,12 @@ func (k Keeper) Account(c context.Context, req *types.QueryGetAccountRequest) (*
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	ctx := sdk.UnwrapSDKContext(c)
 
-	val, found := k.GetAccount(
-		ctx,
-		req.Index,
-	)
+	ctx := sdk.UnwrapSDKContext(c)
+	account, found := k.GetAccount(ctx, req.Id)
 	if !found {
-		return nil, status.Error(codes.NotFound, "not found")
+		return nil, sdkerrors.ErrKeyNotFound
 	}
 
-	return &types.QueryGetAccountResponse{Account: val}, nil
+	return &types.QueryGetAccountResponse{Account: account}, nil
 }

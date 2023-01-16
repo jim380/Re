@@ -1,9 +1,5 @@
 package types
 
-import "encoding/binary"
-
-var _ binary.ByteOrder
-
 const (
 	// ModuleName defines the module name
 	ModuleName = "fix"
@@ -23,19 +19,6 @@ func KeyPrefix(p string) []byte {
 }
 
 const (
-	// AccountKeyPrefix is the prefix to retrieve all Account
-	AccountKeyPrefix = "Account/value/"
+	AccountKey      = "Account/value/"
+	AccountCountKey = "Account/count/"
 )
-
-// AccountKey returns the store key to retrieve a Account from the index fields
-func AccountKey(
-	index string,
-) []byte {
-	var key []byte
-
-	indexBytes := []byte(index)
-	key = append(key, indexBytes...)
-	key = append(key, []byte("/")...)
-
-	return key
-}

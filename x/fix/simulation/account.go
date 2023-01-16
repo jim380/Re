@@ -2,7 +2,6 @@ package simulation
 
 import (
 	"math/rand"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
@@ -13,9 +12,6 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func SimulateMsgCreateAccount(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
@@ -25,15 +21,8 @@ func SimulateMsgCreateAccount(
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
 
-		i := r.Int()
 		msg := &types.MsgCreateAccount{
 			Creator: simAccount.Address.String(),
-			Index:   strconv.Itoa(i),
-		}
-
-		_, found := k.GetAccount(ctx, msg.Index)
-		if found {
-			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "Account already exist"), nil, nil
 		}
 
 		txCtx := simulation.OperationInput{
@@ -79,8 +68,7 @@ func SimulateMsgUpdateAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-
-		msg.Index = account.Index
+		msg.Id = account.Id
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -125,8 +113,7 @@ func SimulateMsgDeleteAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-
-		msg.Index = account.Index
+		msg.Id = account.Id
 
 		txCtx := simulation.OperationInput{
 			R:               r,

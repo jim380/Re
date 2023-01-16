@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"strconv"
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -12,15 +11,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func createNAccount(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Account {
 	items := make([]types.Account, n)
 	for i := range items {
-		items[i].Index = strconv.Itoa(i)
-
-		keeper.SetAccount(ctx, items[i])
+		items[i].Id = keeper.AppendAccount(ctx, items[i])
 	}
 	return items
 }
@@ -29,26 +23,21 @@ func TestAccountGet(t *testing.T) {
 	keeper, ctx := keepertest.FixKeeper(t)
 	items := createNAccount(keeper, ctx, 10)
 	for _, item := range items {
-		rst, found := keeper.GetAccount(ctx,
-			item.Index,
-		)
+		got, found := keeper.GetAccount(ctx, item.Id)
 		require.True(t, found)
 		require.Equal(t,
 			nullify.Fill(&item),
-			nullify.Fill(&rst),
+			nullify.Fill(&got),
 		)
 	}
 }
+
 func TestAccountRemove(t *testing.T) {
 	keeper, ctx := keepertest.FixKeeper(t)
 	items := createNAccount(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemoveAccount(ctx,
-			item.Index,
-		)
-		_, found := keeper.GetAccount(ctx,
-			item.Index,
-		)
+		keeper.RemoveAccount(ctx, item.Id)
+		_, found := keeper.GetAccount(ctx, item.Id)
 		require.False(t, found)
 	}
 }
@@ -60,4 +49,11 @@ func TestAccountGetAll(t *testing.T) {
 		nullify.Fill(items),
 		nullify.Fill(keeper.GetAllAccount(ctx)),
 	)
+}
+
+func TestAccountCount(t *testing.T) {
+	keeper, ctx := keepertest.FixKeeper(t)
+	items := createNAccount(keeper, ctx, 10)
+	count := uint64(len(items))
+	require.Equal(t, count, keeper.GetAccountCount(ctx))
 }

@@ -13,22 +13,9 @@ const (
 
 var _ sdk.Msg = &MsgCreateAccount{}
 
-func NewMsgCreateAccount(
-	creator string,
-	index string,
-	companyName string,
-	address string,
-	emailAddress string,
-	phoneNumber int32,
-	website string,
-	socialMediaLinks []string,
-	governmentIssuedId []byte,
-	createdAt int32,
-
-) *MsgCreateAccount {
+func NewMsgCreateAccount(creator string, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgCreateAccount {
 	return &MsgCreateAccount{
 		Creator:            creator,
-		Index:              index,
 		CompanyName:        companyName,
 		Address:            address,
 		EmailAddress:       emailAddress,
@@ -36,7 +23,6 @@ func NewMsgCreateAccount(
 		Website:            website,
 		SocialMediaLinks:   socialMediaLinks,
 		GovernmentIssuedId: governmentIssuedId,
-		CreatedAt:          createdAt,
 	}
 }
 
@@ -71,22 +57,10 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(
-	creator string,
-	index string,
-	companyName string,
-	address string,
-	emailAddress string,
-	phoneNumber int32,
-	website string,
-	socialMediaLinks []string,
-	governmentIssuedId [] byte,
-	createdAt int32,
-
-) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, id uint64, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
+		Id:                 id,
 		Creator:            creator,
-		Index:              index,
 		CompanyName:        companyName,
 		Address:            address,
 		EmailAddress:       emailAddress,
@@ -94,7 +68,6 @@ func NewMsgUpdateAccount(
 		Website:            website,
 		SocialMediaLinks:   socialMediaLinks,
 		GovernmentIssuedId: governmentIssuedId,
-		CreatedAt:          createdAt,
 	}
 }
 
@@ -129,14 +102,10 @@ func (msg *MsgUpdateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeleteAccount{}
 
-func NewMsgDeleteAccount(
-	creator string,
-	index string,
-
-) *MsgDeleteAccount {
+func NewMsgDeleteAccount(creator string, id uint64) *MsgDeleteAccount {
 	return &MsgDeleteAccount{
+		Id:      id,
 		Creator: creator,
-		Index:   index,
 	}
 }
 func (msg *MsgDeleteAccount) Route() string {

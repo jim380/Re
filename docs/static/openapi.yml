@@ -22814,13 +22814,14 @@ paths:
           schema:
             type: object
             properties:
-              account:
+              Account:
                 type: array
                 items:
                   type: object
                   properties:
-                    index:
+                    id:
                       type: string
+                      format: uint64
                     companyName:
                       type: string
                     address:
@@ -22838,7 +22839,6 @@ paths:
                         type: string
                     governmentIssuedId:
                       type: string
-                      format: byte
                     createdAt:
                       type: integer
                       format: int32
@@ -22936,21 +22936,11 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/account/{index}:
+  /jim380/Re/fix/account/{id}:
     get:
-      summary: Queries a Account by index.
+      summary: Queries a Account by id.
       operationId: Jim380ReFixAccount
       responses:
         '200':
@@ -22958,11 +22948,12 @@ paths:
           schema:
             type: object
             properties:
-              account:
+              Account:
                 type: object
                 properties:
-                  index:
+                  id:
                     type: string
+                    format: uint64
                   companyName:
                     type: string
                   address:
@@ -22980,7 +22971,6 @@ paths:
                       type: string
                   governmentIssuedId:
                     type: string
-                    format: byte
                   createdAt:
                     type: integer
                     format: int32
@@ -23005,10 +22995,11 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: index
+        - name: id
           in: path
           required: true
           type: string
+          format: uint64
       tags:
         - Query
   /jim380/Re/fix/params:
@@ -42616,8 +42607,9 @@ definitions:
   jim380.re.fix.Account:
     type: object
     properties:
-      index:
+      id:
         type: string
+        format: uint64
       companyName:
         type: string
       address:
@@ -42635,7 +42627,6 @@ definitions:
           type: string
       governmentIssuedId:
         type: string
-        format: byte
       createdAt:
         type: integer
         format: int32
@@ -42643,6 +42634,10 @@ definitions:
         type: string
   jim380.re.fix.MsgCreateAccountResponse:
     type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   jim380.re.fix.MsgDeleteAccountResponse:
     type: object
   jim380.re.fix.MsgUpdateAccountResponse:
@@ -42653,13 +42648,14 @@ definitions:
   jim380.re.fix.QueryAllAccountResponse:
     type: object
     properties:
-      account:
+      Account:
         type: array
         items:
           type: object
           properties:
-            index:
+            id:
               type: string
+              format: uint64
             companyName:
               type: string
             address:
@@ -42677,7 +42673,6 @@ definitions:
                 type: string
             governmentIssuedId:
               type: string
-              format: byte
             createdAt:
               type: integer
               format: int32
@@ -42711,11 +42706,12 @@ definitions:
   jim380.re.fix.QueryGetAccountResponse:
     type: object
     properties:
-      account:
+      Account:
         type: object
         properties:
-          index:
+          id:
             type: string
+            format: uint64
           companyName:
             type: string
           address:
@@ -42733,7 +42729,6 @@ definitions:
               type: string
           governmentIssuedId:
             type: string
-            format: byte
           createdAt:
             type: integer
             format: int32

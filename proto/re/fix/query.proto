@@ -16,9 +16,9 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/params";
   }
-  // Queries a Account by index.
+  // Queries a Account by id.
 	rpc Account(QueryGetAccountRequest) returns (QueryGetAccountResponse) {
-		option (google.api.http).get = "/jim380/Re/fix/account/{index}";
+		option (google.api.http).get = "/jim380/Re/fix/account/{id}";
 	}
 
 	// Queries a list of Account items.
@@ -39,12 +39,11 @@ message QueryParamsResponse {
 }
 
 message QueryGetAccountRequest {
-	  string index = 1;
-
+	uint64 id = 1;
 }
 
 message QueryGetAccountResponse {
-	Account account = 1 [(gogoproto.nullable) = false];
+	Account Account = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllAccountRequest {
@@ -52,7 +51,7 @@ message QueryAllAccountRequest {
 }
 
 message QueryAllAccountResponse {
-	repeated Account account = 1 [(gogoproto.nullable) = false];
+	repeated Account Account = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

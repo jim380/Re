@@ -2,7 +2,6 @@ package cli_test
 
 import (
 	"fmt"
-	"strconv"
 	"testing"
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -18,9 +17,6 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func networkWithAccountObjects(t *testing.T, n int) (*network.Network, []types.Account) {
 	t.Helper()
 	cfg := network.DefaultConfig()
@@ -29,7 +25,7 @@ func networkWithAccountObjects(t *testing.T, n int) (*network.Network, []types.A
 
 	for i := 0; i < n; i++ {
 		account := types.Account{
-			Index: strconv.Itoa(i),
+			Id: uint64(i),
 		}
 		nullify.Fill(&account)
 		state.AccountList = append(state.AccountList, account)
@@ -48,32 +44,28 @@ func TestShowAccount(t *testing.T) {
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
 	for _, tc := range []struct {
-		desc    string
-		idIndex string
-
+		desc string
+		id   string
 		args []string
 		err  error
 		obj  types.Account
 	}{
 		{
-			desc:    "found",
-			idIndex: objs[0].Index,
-
+			desc: "found",
+			id:   fmt.Sprintf("%d", objs[0].Id),
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc:    "not found",
-			idIndex: strconv.Itoa(100000),
-
+			desc: "not found",
+			id:   "not_found",
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
 		},
 	} {
+		tc := tc
 		t.Run(tc.desc, func(t *testing.T) {
-			args := []string{
-				tc.idIndex,
-			}
+			args := []string{tc.id}
 			args = append(args, tc.args...)
 			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowAccount(), args)
 			if tc.err != nil {

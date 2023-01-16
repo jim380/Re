@@ -19,15 +19,17 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	// Check for duplicated index in account
-	accountIndexMap := make(map[string]struct{})
-
+	// Check for duplicated ID in account
+	accountIdMap := make(map[uint64]bool)
+	accountCount := gs.GetAccountCount()
 	for _, elem := range gs.AccountList {
-		index := string(AccountKey(elem.Index))
-		if _, ok := accountIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for account")
+		if _, ok := accountIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for account")
 		}
-		accountIndexMap[index] = struct{}{}
+		if elem.Id >= accountCount {
+			return fmt.Errorf("account id should be lower or equal than the last id")
+		}
+		accountIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

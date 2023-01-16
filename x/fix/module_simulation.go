@@ -49,14 +49,15 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		AccountList: []types.Account{
 			{
+				Id:      0,
 				Creator: sample.AccAddress(),
-				Index:   "0",
 			},
 			{
+				Id:      1,
 				Creator: sample.AccAddress(),
-				Index:   "1",
 			},
 		},
+		AccountCount: 2,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&fixGenesis)
