@@ -90,6 +90,9 @@ import (
 
 	"github.com/jim380/Re/cmd"
 
+	"github.com/jim380/Re/x/did"
+	didkeeper "github.com/jim380/Re/x/did/keeper"
+	didtypes "github.com/jim380/Re/x/did/types"
 	fixmodule "github.com/jim380/Re/x/fix"
 	fixmodulekeeper "github.com/jim380/Re/x/fix/keeper"
 	fixmoduletypes "github.com/jim380/Re/x/fix/types"
@@ -142,6 +145,7 @@ var (
 		),
 
 		fixmodule.AppModuleBasic{},
+		did.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -213,6 +217,8 @@ type ReApp struct {
 	ScopedCCVConsumerKeeper capabilitykeeper.ScopedKeeper
 
 	FixKeeper fixmodulekeeper.Keeper
+
+	didKeeper didkeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -251,6 +257,7 @@ func NewReApp(
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, ccvconsumertypes.StoreKey,
 		adminmodulemoduletypes.StoreKey,
 		fixmoduletypes.StoreKey,
+		didtypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -435,6 +442,12 @@ func NewReApp(
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.didKeeper = *didkeeper.NewKeeper(
+		appCodec,
+		keys[didtypes.StoreKey],
+		keys[didtypes.MemStoreKey],
+	)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -473,6 +486,7 @@ func NewReApp(
 		adminModule,
 
 		fixModule,
+		did.NewAppModule(appCodec, app.didKeeper),
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -500,6 +514,7 @@ func NewReApp(
 		adminmodulemoduletypes.ModuleName,
 
 		fixmoduletypes.ModuleName,
+		didtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -522,6 +537,7 @@ func NewReApp(
 		adminmodulemoduletypes.ModuleName,
 
 		fixmoduletypes.ModuleName,
+		didtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -549,6 +565,7 @@ func NewReApp(
 		adminmodulemoduletypes.ModuleName,
 
 		fixmoduletypes.ModuleName,
+		didtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -575,6 +592,7 @@ func NewReApp(
 		transferModule,
 
 		fixModule,
+		//didModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -772,6 +790,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
 
 	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
+	paramsKeeper.Subspace(didtypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
