@@ -24,6 +24,7 @@ func (k Keeper) DID(c context.Context, req *types.QueryDIDRequest) (*types.Query
 
 	did := string(didBz)
 	docWithSeq := k.GetDIDDocument(ctx, did)
+
 	if docWithSeq.Empty() {
 		return nil, status.Error(codes.NotFound, "DID not found")
 	}

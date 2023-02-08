@@ -485,10 +485,11 @@ func (s Service) Valid() bool {
 	return s.Id != "" && s.Type != "" && s.ServiceEndpoint != ""
 }
 
-func NewDIDDocumentWithSeq(doc *DIDDocument, seq uint64) DIDDocumentWithSeq {
+func NewDIDDocumentWithSeq(doc *DIDDocument, seq uint64, creator string) DIDDocumentWithSeq {
 	return DIDDocumentWithSeq{
 		Document: doc,
 		Sequence: seq,
+		Creator: creator,
 	}
 }
 
@@ -504,8 +505,8 @@ func (d DIDDocumentWithSeq) Valid() bool {
 
 // Deactivate creates a new DIDDocumentWithSeq with an empty DIDDocument (tombstone).
 // Note that it requires a new sequence.
-func (d DIDDocumentWithSeq) Deactivate(newSeq uint64) DIDDocumentWithSeq {
-	return NewDIDDocumentWithSeq(&DIDDocument{}, newSeq)
+func (d DIDDocumentWithSeq) Deactivate(newSeq uint64, creator string) DIDDocumentWithSeq {
+	return NewDIDDocumentWithSeq(&DIDDocument{}, newSeq, creator)
 }
 
 // Deactivated returns true if the DIDDocument has been activated.

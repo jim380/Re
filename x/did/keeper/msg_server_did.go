@@ -3,6 +3,8 @@ package keeper
 import (
 	"context"
 
+	//"log"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/x/did/internal/secp256k1util"
@@ -14,6 +16,7 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	cur := keeper.GetDIDDocument(ctx, msg.Did)
+
 	if !cur.Empty() {
 		if cur.Deactivated() {
 			return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
@@ -27,7 +30,12 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 		return nil, err
 	}
 
-	docWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq))
+	//if cur.Creator == msg.FromAddress {
+	//	return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
+	//}
+
+	docWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
+
 	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq)
 	return &types.MsgCreateDIDResponse{}, nil
 }
@@ -49,7 +57,7 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 		return nil, err
 	}
 
-	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq)
+	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
 	keeper.SetDIDDocument(ctx, msg.Did, newDocWithSeq)
 	return &types.MsgUpdateDIDResponse{}, nil
 }
@@ -75,7 +83,7 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 		return nil, err
 	}
 
-	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq.Deactivate(newSeq))
+	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
 
 }
@@ -92,13 +100,16 @@ func VerifyDIDOwnership(signData *types.DIDDocument, seq uint64, doc *types.DIDD
 	if verificationMethod.Type != types.ES256K_2019 && verificationMethod.Type != types.ES256K_2018 {
 		return 0, sdkerrors.Wrapf(types.ErrVerificationMethodKeyTypeNotImplemented, "VerificationMethod: %v", verificationMethod.Type)
 	}
+
 	pubKeySecp256k1, err := secp256k1util.PubKeyFromBase58(verificationMethod.PublicKeyBase58)
 	if err != nil {
 		return 0, sdkerrors.Wrapf(types.ErrInvalidSecp256k1PublicKey, "PublicKey: %v", verificationMethod.PublicKeyBase58)
 	}
+
 	newSeq, ok := types.Verify(sig, signData, seq, pubKeySecp256k1)
 	if !ok {
 		return 0, types.ErrSigVerificationFailed
 	}
+
 	return newSeq, nil
 }

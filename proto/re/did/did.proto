@@ -57,6 +57,7 @@ message Service {
 message DIDDocumentWithSeq {
   DIDDocument document = 1;
   uint64 sequence = 2;
+  string creator = 3;
 }
 
 // DataWithSeq defines a message for data with a sequence number for preventing replay attacks.

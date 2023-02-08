@@ -26,6 +26,7 @@ func (k Keeper) GetDIDDocument(ctx sdk.Context, did string) types.DIDDocumentWit
 	return doc
 }
 
+
 func (k Keeper) ListDIDs(ctx sdk.Context) []string {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
 	dids := make([]string, 0)
@@ -38,3 +39,4 @@ func (k Keeper) ListDIDs(ctx sdk.Context) []string {
 	}
 	return dids
 }
+
