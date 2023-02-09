@@ -23029,6 +23029,8 @@ paths:
                             service_endpoint:
                               type: string
                           description: Service defines a service in the W3C DID Document.
+                      creator:
+                        type: string
                     description: >-
                       NOTE: All 'json_name' and 'gogoproto.customtype' tags are
                       for Re to unmarshal the v1.3 genesis which is in the W3C
@@ -23038,7 +23040,7 @@ paths:
                   sequence:
                     type: string
                     format: uint64
-                  from_address:
+                  creator:
                     type: string
                 description: >-
                   DIDDocumentWithSeq defines a message for DID Document with a
@@ -42802,6 +42804,8 @@ definitions:
             service_endpoint:
               type: string
           description: Service defines a service in the W3C DID Document.
+      creator:
+        type: string
     description: >-
       NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re to
       unmarshal the v1.3 genesis which is in the W3C JSON-LD format.
@@ -42964,6 +42968,8 @@ definitions:
                 service_endpoint:
                   type: string
               description: Service defines a service in the W3C DID Document.
+          creator:
+            type: string
         description: >-
           NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re to
           unmarshal the v1.3 genesis which is in the W3C JSON-LD format.
@@ -42972,7 +42978,7 @@ definitions:
       sequence:
         type: string
         format: uint64
-      from_address:
+      creator:
         type: string
     description: >-
       DIDDocumentWithSeq defines a message for DID Document with a sequence
@@ -43156,6 +43162,8 @@ definitions:
                     service_endpoint:
                       type: string
                   description: Service defines a service in the W3C DID Document.
+              creator:
+                type: string
             description: >-
               NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re
               to unmarshal the v1.3 genesis which is in the W3C JSON-LD format.
@@ -43164,7 +43172,7 @@ definitions:
           sequence:
             type: string
             format: uint64
-          from_address:
+          creator:
             type: string
         description: >-
           DIDDocumentWithSeq defines a message for DID Document with a sequence

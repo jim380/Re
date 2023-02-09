@@ -3,8 +3,6 @@ package keeper
 import (
 	"context"
 
-	//"log"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/x/did/internal/secp256k1util"
@@ -15,28 +13,26 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	cur := keeper.GetDIDDocument(ctx, msg.Did)
-
-	if !cur.Empty() {
-		if cur.Deactivated() {
-			return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
-		}
-		return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
-	}
-
 	seq := types.InitialSequence
 	_, err := VerifyDIDOwnership(msg.Document, seq, msg.Document, msg.VerificationMethodId, msg.Signature)
 	if err != nil {
 		return nil, err
 	}
 
-	//if cur.Creator == msg.FromAddress {
-	//	return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
-	//}
-
 	docWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
 
-	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq)
+	getDIDDocument := keeper.GetDIDDocument(ctx, docWithSeq)
+	if getDIDDocument.Creator == msg.FromAddress {
+		return nil, sdkerrors.Wrapf(types.ErrAccountExists, "AccountAddress: %s", msg.FromAddress)
+	}
+	if !getDIDDocument.Empty() {
+		if getDIDDocument.Deactivated() {
+			return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
+		}
+		return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
+	}
+
+	keeper.SetDIDDocument(ctx, docWithSeq, docWithSeq)
 	return &types.MsgCreateDIDResponse{}, nil
 }
 
@@ -44,7 +40,7 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
+	docWithSeq := keeper.HasDIDDocument(ctx, msg.Did)
 	if docWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
@@ -58,7 +54,7 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	}
 
 	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
-	keeper.SetDIDDocument(ctx, msg.Did, newDocWithSeq)
+	keeper.SetDIDDocument(ctx, newDocWithSeq, newDocWithSeq)
 	return &types.MsgUpdateDIDResponse{}, nil
 }
 
@@ -66,7 +62,7 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
+	docWithSeq := keeper.HasDIDDocument(ctx, msg.Did)
 	if docWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
@@ -83,7 +79,7 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 		return nil, err
 	}
 
-	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq.Deactivate(newSeq, msg.FromAddress))
+	keeper.SetDIDDocument(ctx, docWithSeq, docWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
 
 }

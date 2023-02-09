@@ -55,6 +55,7 @@ func (msg *MsgCreateDID) ValidateBasic() error {
 	if addr.Empty() {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "Address: %s", addr.String())
 	}
+
 	return nil
 }
 

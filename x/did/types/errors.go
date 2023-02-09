@@ -6,7 +6,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// x/did module sentinel errors
+// x/did module errors
 var (
 	ErrDIDExists                               = sdkerrors.Register(ModuleName, 2, "DID already exists")
 	ErrInvalidDID                              = sdkerrors.Register(ModuleName, 3, "Invalid DID")
@@ -22,4 +22,5 @@ var (
 	ErrDIDDeactivated                          = sdkerrors.Register(ModuleName, 13, "DID was already deactivated")
 	CodeInvalidKeyController                   = sdkerrors.Register(ModuleName, 14, "Invalid key controller")
 	ErrVerificationMethodKeyTypeNotImplemented = sdkerrors.Register(ModuleName, 15, "Verification not implemented with key type")
+	ErrAccountExists                           = sdkerrors.Register(ModuleName, 16, "DID already exists with this Account Address")
 )

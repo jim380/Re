@@ -13,7 +13,6 @@ import (
 	"github.com/jim380/Re/x/did/types"
 )
 
-
 func CmdCreateDID() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-did",
@@ -39,6 +38,7 @@ func CmdCreateDID() *cobra.Command {
 			fromAddress := clientCtx.GetFromAddress()
 
 			msg, err := newMsgCreateDID(fromAddress, privKey)
+
 			if err != nil {
 				return err
 			}
@@ -153,4 +153,3 @@ func CmdDeactivateDID() *cobra.Command {
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
-
