@@ -21,7 +21,7 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 
 	docWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
 
-	getDIDDocument := keeper.GetDIDDocument(ctx, docWithSeq)
+	getDIDDocument := keeper.GetDIDDocumentWithCreator(ctx, docWithSeq)
 	if getDIDDocument.Creator == msg.FromAddress {
 		return nil, sdkerrors.Wrapf(types.ErrAccountExists, "AccountAddress: %s", msg.FromAddress)
 	}
@@ -32,7 +32,8 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 		return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
 	}
 
-	keeper.SetDIDDocument(ctx, docWithSeq, docWithSeq)
+	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq)
+	keeper.SetDIDDocumentWithCreator(ctx, docWithSeq, docWithSeq)
 	return &types.MsgCreateDIDResponse{}, nil
 }
 
@@ -40,7 +41,7 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.HasDIDDocument(ctx, msg.Did)
+	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
 	if docWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
@@ -54,7 +55,7 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	}
 
 	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
-	keeper.SetDIDDocument(ctx, newDocWithSeq, newDocWithSeq)
+	keeper.SetDIDDocumentWithCreator(ctx, newDocWithSeq, newDocWithSeq)
 	return &types.MsgUpdateDIDResponse{}, nil
 }
 
@@ -62,7 +63,7 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.HasDIDDocument(ctx, msg.Did)
+	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
 	if docWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
@@ -79,7 +80,7 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 		return nil, err
 	}
 
-	keeper.SetDIDDocument(ctx, docWithSeq, docWithSeq.Deactivate(newSeq, msg.FromAddress))
+	keeper.SetDIDDocumentWithCreator(ctx, docWithSeq, docWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
 
 }
