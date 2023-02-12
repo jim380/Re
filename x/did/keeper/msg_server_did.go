@@ -9,6 +9,7 @@ import (
 	"github.com/jim380/Re/x/did/types"
 )
 
+// CreateDID registers DID document on RE Protocol
 func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*types.MsgCreateDIDResponse, error) {
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -37,6 +38,7 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 	return &types.MsgCreateDIDResponse{}, nil
 }
 
+// UpdateDID updates DID document on RE Protocol
 func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*types.MsgUpdateDIDResponse, error) {
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -55,10 +57,27 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	}
 
 	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
-	keeper.SetDIDDocumentWithCreator(ctx, newDocWithSeq, newDocWithSeq)
+	if docWithSeq.Document.Id != newDocWithSeq.Document.Id {
+		return nil, sdkerrors.Wrapf(types.ErrNotTheSameDID, "DID: %s", msg.Did)
+	}
+
+	//only account owner can update DID
+	if docWithSeq.Creator != newDocWithSeq.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
+	}
+
+	//verification method's Public Key and Type for updating must be the same at DID creation
+	for i := range docWithSeq.Document.VerificationMethods {
+		if docWithSeq.Document.VerificationMethods[i].PublicKeyBase58 != newDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 && docWithSeq.Document.VerificationMethods[i].Type != newDocWithSeq.Document.VerificationMethods[i].Type {
+			return nil, sdkerrors.Wrapf(types.ErrSigVerificationFailed, "Verification Methods: %s", newDocWithSeq.Document.VerificationMethods[i])
+		}
+	}
+
+	keeper.SetDIDDocument(ctx, newDocWithSeq.Document.Id, newDocWithSeq)
 	return &types.MsgUpdateDIDResponse{}, nil
 }
 
+// DeactivateDID deactivates DID document on RE Protocol
 func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivateDID) (*types.MsgDeactivateDIDResponse, error) {
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
