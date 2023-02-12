@@ -23,4 +23,6 @@ var (
 	CodeInvalidKeyController                   = sdkerrors.Register(ModuleName, 14, "Invalid key controller")
 	ErrVerificationMethodKeyTypeNotImplemented = sdkerrors.Register(ModuleName, 15, "Verification not implemented with key type")
 	ErrAccountExists                           = sdkerrors.Register(ModuleName, 16, "DID already exists with this Account Address")
+	ErrNotUserAccount                          = sdkerrors.Register(ModuleName, 17, "This is not the Account Address that created the DID")
+	ErrNotTheSameDID                           = sdkerrors.Register(ModuleName, 18, "DID is unique, hence it can not be changed")
 )
