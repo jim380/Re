@@ -60,3 +60,23 @@ func (k Keeper) GetDIDDocumentWithCreator(ctx sdk.Context, creator types.DIDDocu
 	k.cdc.MustUnmarshalLengthPrefixed(bz, &doc)
 	return doc
 }
+
+func (k Keeper) SetDeactivatedDIDDocument(ctx sdk.Context, creator string, doc types.DIDDocumentWithSeq) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	key := []byte(creator)
+	bz := k.cdc.MustMarshalLengthPrefixed(&doc)
+	store.Set(key, bz)
+}
+
+func (k Keeper) GetDeactivatedDIDDocument(ctx sdk.Context, creator string) types.DIDDocumentWithSeq {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	key := []byte(creator)
+	bz := store.Get(key)
+	if bz == nil {
+		return types.DIDDocumentWithSeq{}
+	}
+
+	var doc types.DIDDocumentWithSeq
+	k.cdc.MustUnmarshalLengthPrefixed(bz, &doc)
+	return doc
+}

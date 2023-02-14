@@ -23029,8 +23029,6 @@ paths:
                             service_endpoint:
                               type: string
                           description: Service defines a service in the W3C DID Document.
-                      creator:
-                        type: string
                     description: >-
                       NOTE: All 'json_name' and 'gogoproto.customtype' tags are
                       for Re to unmarshal the v1.3 genesis which is in the W3C
@@ -42804,8 +42802,6 @@ definitions:
             service_endpoint:
               type: string
           description: Service defines a service in the W3C DID Document.
-      creator:
-        type: string
     description: >-
       NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re to
       unmarshal the v1.3 genesis which is in the W3C JSON-LD format.
@@ -42968,8 +42964,6 @@ definitions:
                 service_endpoint:
                   type: string
               description: Service defines a service in the W3C DID Document.
-          creator:
-            type: string
         description: >-
           NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re to
           unmarshal the v1.3 genesis which is in the W3C JSON-LD format.
@@ -42983,6 +42977,9 @@ definitions:
     description: >-
       DIDDocumentWithSeq defines a message for DID Document with a sequence
       number for preventing replay attacks.
+  re.did.MsgActivateDIDResponse:
+    type: object
+    description: MsgActivateDIDResponse defines the Msg/MsgActivateDID response type.
   re.did.MsgCreateDIDResponse:
     type: object
     description: MsgCreateDIDResponse defines the Msg/CreateDID response type.
@@ -43162,8 +43159,6 @@ definitions:
                     service_endpoint:
                       type: string
                   description: Service defines a service in the W3C DID Document.
-              creator:
-                type: string
             description: >-
               NOTE: All 'json_name' and 'gogoproto.customtype' tags are for Re
               to unmarshal the v1.3 genesis which is in the W3C JSON-LD format.

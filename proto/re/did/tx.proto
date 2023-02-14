@@ -17,6 +17,9 @@ service Msg {
 
   // DeactivateDID defines a method for deactivating a DID.
   rpc DeactivateDID(MsgDeactivateDID) returns (MsgDeactivateDIDResponse);
+   
+   // ActivateDID defines a method for activating a DID.
+  rpc ActivateDID(MsgActivateDID) returns (MsgActivateDIDResponse);
 }
 
 // MsgCreateDID defines the Msg/CreateDID request type.
@@ -53,3 +56,11 @@ message MsgDeactivateDID {
 
 // MsgDeactivateDIDResponse defines the Msg/DeactivateDID response type.
 message MsgDeactivateDIDResponse {}
+
+//  MsgActivateDID defines the Msg/MsgActivateDID request type.
+message MsgActivateDID {
+  string from_address = 1;
+}
+
+// MsgActivateDIDResponse defines the Msg/MsgActivateDID response type.
+message  MsgActivateDIDResponse {}
