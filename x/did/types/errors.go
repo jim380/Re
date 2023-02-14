@@ -25,4 +25,5 @@ var (
 	ErrAccountExists                           = sdkerrors.Register(ModuleName, 16, "DID already exists with this Account Address")
 	ErrNotUserAccount                          = sdkerrors.Register(ModuleName, 17, "This is not the Account Address that created the DID")
 	ErrNotTheSameDID                           = sdkerrors.Register(ModuleName, 18, "DID is unique, hence it can not be changed")
+	ErrDIDNotDeactivated                       = sdkerrors.Register(ModuleName, 19, "DID is not deactivated")
 )

@@ -42977,15 +42977,15 @@ definitions:
     description: >-
       DIDDocumentWithSeq defines a message for DID Document with a sequence
       number for preventing replay attacks.
-  re.did.MsgActivateDIDResponse:
-    type: object
-    description: MsgActivateDIDResponse defines the Msg/MsgActivateDID response type.
   re.did.MsgCreateDIDResponse:
     type: object
     description: MsgCreateDIDResponse defines the Msg/CreateDID response type.
   re.did.MsgDeactivateDIDResponse:
     type: object
     description: MsgDeactivateDIDResponse defines the Msg/DeactivateDID response type.
+  re.did.MsgReActivateDIDResponse:
+    type: object
+    description: MsgActivateDIDResponse defines the Msg/MsgActivateDID response type.
   re.did.MsgUpdateDIDResponse:
     type: object
     description: MsgUpdateDIDResponse defines the Msg/UpdateDID response type.

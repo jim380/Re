@@ -153,3 +153,30 @@ func CmdDeactivateDID() *cobra.Command {
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
+
+func CmdReActivateDID() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "reactivate-did",
+		Short: "Reactivate a DID Document",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			fromAddress := clientCtx.GetFromAddress()
+
+			msg := types.NewMsgReActivateDID(fromAddress.String())
+
+			if err != nil {
+				return err
+			}
+
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), &msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
+	cmd.Flags().Bool(flagInteractive, false, "Interactively prompt user for BIP39 mnemonic and passphrase")
+	return cmd
+}

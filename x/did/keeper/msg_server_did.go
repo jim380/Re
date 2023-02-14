@@ -103,8 +103,37 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 		return nil, err
 	}
 
+	keeper.SetDeactivatedDIDDocument(ctx, msg.FromAddress, docWithSeq)
 	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
+
+}
+
+// ReActivateDID reactivates DID document on RE Protocol
+func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivateDID) (*types.MsgReActivateDIDResponse, error) {
+	keeper := m.Keeper
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	docWithSeq := keeper.GetDeactivatedDIDDocument(ctx, msg.FromAddress)
+
+	if docWithSeq.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
+	}
+
+	//get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
+	activedocWithSeq := keeper.GetDIDDocument(ctx, docWithSeq.Document.Id)
+
+	if !activedocWithSeq.Document.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrDIDNotDeactivated, "DID: %s", activedocWithSeq.Document.Id)
+	}
+	if docWithSeq.Creator != msg.FromAddress {
+		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
+	}
+
+	// if all checks passes, reset the DIDDocument
+	keeper.SetDIDDocument(ctx, docWithSeq.Document.Id, docWithSeq)
+
+	return &types.MsgReActivateDIDResponse{}, nil
 
 }
 

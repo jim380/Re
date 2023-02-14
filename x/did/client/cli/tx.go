@@ -25,6 +25,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateDID())
 	cmd.AddCommand(CmdUpdateDID())
 	cmd.AddCommand(CmdDeactivateDID())
+	cmd.AddCommand(CmdReActivateDID())
 
 	return cmd
 }
