@@ -158,3 +158,43 @@ func (msg MsgDeactivateDID) GetSigners() []sdk.AccAddress {
 	}
 	return []sdk.AccAddress{creator}
 }
+
+var _ sdk.Msg = &MsgReActivateDID{}
+
+// NewMsgDeactivateDID is a constructor of MsgDeactivateDID.
+func NewMsgReActivateDID(fromAddr string) MsgReActivateDID {
+	return MsgReActivateDID{fromAddr}
+}
+
+// Route returns the name of the module.
+func (msg MsgReActivateDID) Route() string { return RouterKey }
+
+// Type returns the name of the action.
+func (msg MsgReActivateDID) Type() string { return "reactivate_did" }
+
+// VaValidateBasic runs stateless checks on the message.
+func (msg MsgReActivateDID) ValidateBasic() error {
+
+	addr, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	if err != nil {
+		return err
+	}
+	if addr.Empty() {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "Address: %s", addr.String())
+	}
+	return nil
+}
+
+// GetSignBytes returns the canonical byte representation of the message. Used to generate a signature.
+func (msg MsgReActivateDID) GetSignBytes() []byte {
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+}
+
+// GetSigners return the addresses of signers that must sign.
+func (msg MsgReActivateDID) GetSigners() []sdk.AccAddress {
+	creator, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
+}

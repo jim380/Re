@@ -18,9 +18,14 @@ const (
 )
 
 var (
-	DIDDocumentKey = []byte{0x00}
+	DIDDocumentKey            = []byte{0x00}
+	DIDDocumentDeactivatedKey = []byte{0x01}
 )
 
 func GetDIDDocumentKey() []byte {
 	return DIDDocumentKey
+}
+
+func GetDIDDocumentDeactivatedKey() []byte {
+	return DIDDocumentDeactivatedKey
 }
