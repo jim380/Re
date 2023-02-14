@@ -18,5 +18,9 @@ const (
 )
 
 var (
-	DIDKeyPrefix = []byte{0x00}
+	DIDDocumentKey = []byte{0x00}
 )
+
+func GetDIDDocumentKey() []byte {
+	return DIDDocumentKey
+}

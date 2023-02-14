@@ -7,14 +7,14 @@ import (
 )
 
 func (k Keeper) SetDIDDocument(ctx sdk.Context, did string, doc types.DIDDocumentWithSeq) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetDIDDocumentKey())
 	key := []byte(did)
 	bz := k.cdc.MustMarshalLengthPrefixed(&doc)
 	store.Set(key, bz)
 }
 
 func (k Keeper) GetDIDDocument(ctx sdk.Context, did string) types.DIDDocumentWithSeq {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetDIDDocumentKey())
 	key := []byte(did)
 	bz := store.Get(key)
 	if bz == nil {
@@ -27,7 +27,7 @@ func (k Keeper) GetDIDDocument(ctx sdk.Context, did string) types.DIDDocumentWit
 }
 
 func (k Keeper) ListDIDs(ctx sdk.Context) []string {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetDIDDocumentKey())
 	dids := make([]string, 0)
 
 	iter := sdk.KVStorePrefixIterator(store, []byte{})
@@ -41,7 +41,7 @@ func (k Keeper) ListDIDs(ctx sdk.Context) []string {
 
 // set the DIDDOCUMENT
 func (k Keeper) SetDIDDocumentWithCreator(ctx sdk.Context, creator types.DIDDocumentWithSeq, doc types.DIDDocumentWithSeq) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetDIDDocumentKey())
 	key := []byte(creator.Creator)
 	bz := k.cdc.MustMarshalLengthPrefixed(&doc)
 	store.Set(key, bz)
@@ -49,7 +49,7 @@ func (k Keeper) SetDIDDocumentWithCreator(ctx sdk.Context, creator types.DIDDocu
 
 // get the DIDDOCUMENT
 func (k Keeper) GetDIDDocumentWithCreator(ctx sdk.Context, creator types.DIDDocumentWithSeq) types.DIDDocumentWithSeq {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.DIDKeyPrefix)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetDIDDocumentKey())
 	key := []byte(creator.Creator)
 	bz := store.Get(key)
 	if bz == nil {
