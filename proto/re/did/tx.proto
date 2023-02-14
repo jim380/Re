@@ -19,7 +19,7 @@ service Msg {
   rpc DeactivateDID(MsgDeactivateDID) returns (MsgDeactivateDIDResponse);
    
    // ActivateDID defines a method for activating a DID.
-  rpc ActivateDID(MsgReActivateDID) returns (MsgReActivateDIDResponse);
+  rpc ReactivateDID(MsgReActivateDID) returns (MsgReActivateDIDResponse);
 }
 
 // MsgCreateDID defines the Msg/CreateDID request type.
