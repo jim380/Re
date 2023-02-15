@@ -3,6 +3,7 @@ package jim380.re.fix;
 
 import "gogoproto/gogo.proto";
 import "re/fix/params.proto";
+import "re/fix/account.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/jim380/Re/x/fix/types";
@@ -10,5 +11,7 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 // GenesisState defines the fix module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated Account accountList = 2 [(gogoproto.nullable) = false];
+  uint64 accountCount = 3;
   // this line is used by starport scaffolding # genesis/proto/state
 }
