@@ -1,0 +1,12 @@
+syntax = "proto3";
+package re.did;
+
+option java_multiple_files = true;
+option go_package = "github.com/jim380/Re/x/did/types";
+
+import "re/did/did.proto";
+
+// GenesisState defines the did module's genesis state.
+message GenesisState {
+  map<string, DIDDocumentWithSeq> documents = 1;
+}
