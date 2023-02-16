@@ -27,17 +27,15 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// Remove Address, Email, Phone Number since it can be gotten from website or from social media
 type MsgCreateAccount struct {
-	Creator            string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CompanyName        string   `protobuf:"bytes,2,opt,name=companyName,proto3" json:"companyName,omitempty"`
-	Address            string   `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
-	EmailAddress       string   `protobuf:"bytes,4,opt,name=emailAddress,proto3" json:"emailAddress,omitempty"`
-	PhoneNumber        int32    `protobuf:"varint,5,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
-	Website            string   `protobuf:"bytes,6,opt,name=website,proto3" json:"website,omitempty"`
-	SocialMediaLinks   []string `protobuf:"bytes,7,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
-	GovernmentIssuedId string   `protobuf:"bytes,8,opt,name=governmentIssuedId,proto3" json:"governmentIssuedId,omitempty"`
-	CreatedAt          int32    `protobuf:"varint,9,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
-	Id                 uint64   `protobuf:"varint,10,opt,name=id,proto3" json:"id,omitempty"`
+	Creator          string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CompanyName      string   `protobuf:"bytes,2,opt,name=companyName,proto3" json:"companyName,omitempty"`
+	Website          string   `protobuf:"bytes,3,opt,name=website,proto3" json:"website,omitempty"`
+	SocialMediaLinks []string `protobuf:"bytes,4,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
+	DID              string   `protobuf:"bytes,5,opt,name=DID,proto3" json:"DID,omitempty"`
+	CreatedAt        int32    `protobuf:"varint,6,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
+	Id               uint64   `protobuf:"varint,7,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (m *MsgCreateAccount) Reset()         { *m = MsgCreateAccount{} }
@@ -87,27 +85,6 @@ func (m *MsgCreateAccount) GetCompanyName() string {
 	return ""
 }
 
-func (m *MsgCreateAccount) GetAddress() string {
-	if m != nil {
-		return m.Address
-	}
-	return ""
-}
-
-func (m *MsgCreateAccount) GetEmailAddress() string {
-	if m != nil {
-		return m.EmailAddress
-	}
-	return ""
-}
-
-func (m *MsgCreateAccount) GetPhoneNumber() int32 {
-	if m != nil {
-		return m.PhoneNumber
-	}
-	return 0
-}
-
 func (m *MsgCreateAccount) GetWebsite() string {
 	if m != nil {
 		return m.Website
@@ -122,9 +99,9 @@ func (m *MsgCreateAccount) GetSocialMediaLinks() []string {
 	return nil
 }
 
-func (m *MsgCreateAccount) GetGovernmentIssuedId() string {
+func (m *MsgCreateAccount) GetDID() string {
 	if m != nil {
-		return m.GovernmentIssuedId
+		return m.DID
 	}
 	return ""
 }
@@ -188,15 +165,13 @@ func (m *MsgCreateAccountResponse) GetId() uint64 {
 }
 
 type MsgUpdateAccount struct {
-	Creator            string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id                 uint64   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	CompanyName        string   `protobuf:"bytes,3,opt,name=companyName,proto3" json:"companyName,omitempty"`
-	Address            string   `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
-	EmailAddress       string   `protobuf:"bytes,5,opt,name=emailAddress,proto3" json:"emailAddress,omitempty"`
-	PhoneNumber        int32    `protobuf:"varint,6,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
-	Website            string   `protobuf:"bytes,7,opt,name=website,proto3" json:"website,omitempty"`
-	SocialMediaLinks   []string `protobuf:"bytes,8,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
-	GovernmentIssuedId string   `protobuf:"bytes,9,opt,name=governmentIssuedId,proto3" json:"governmentIssuedId,omitempty"`
+	Creator          string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id               uint64   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	CompanyName      string   `protobuf:"bytes,3,opt,name=companyName,proto3" json:"companyName,omitempty"`
+	Website          string   `protobuf:"bytes,4,opt,name=website,proto3" json:"website,omitempty"`
+	SocialMediaLinks []string `protobuf:"bytes,5,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
+	DID              string   `protobuf:"bytes,6,opt,name=DID,proto3" json:"DID,omitempty"`
+	CreatedAt        int32    `protobuf:"varint,7,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
 }
 
 func (m *MsgUpdateAccount) Reset()         { *m = MsgUpdateAccount{} }
@@ -253,27 +228,6 @@ func (m *MsgUpdateAccount) GetCompanyName() string {
 	return ""
 }
 
-func (m *MsgUpdateAccount) GetAddress() string {
-	if m != nil {
-		return m.Address
-	}
-	return ""
-}
-
-func (m *MsgUpdateAccount) GetEmailAddress() string {
-	if m != nil {
-		return m.EmailAddress
-	}
-	return ""
-}
-
-func (m *MsgUpdateAccount) GetPhoneNumber() int32 {
-	if m != nil {
-		return m.PhoneNumber
-	}
-	return 0
-}
-
 func (m *MsgUpdateAccount) GetWebsite() string {
 	if m != nil {
 		return m.Website
@@ -288,11 +242,18 @@ func (m *MsgUpdateAccount) GetSocialMediaLinks() []string {
 	return nil
 }
 
-func (m *MsgUpdateAccount) GetGovernmentIssuedId() string {
+func (m *MsgUpdateAccount) GetDID() string {
 	if m != nil {
-		return m.GovernmentIssuedId
+		return m.DID
 	}
 	return ""
+}
+
+func (m *MsgUpdateAccount) GetCreatedAt() int32 {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return 0
 }
 
 type MsgUpdateAccountResponse struct {
@@ -431,37 +392,33 @@ func init() {
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 471 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0x3f, 0x8f, 0xd3, 0x30,
-	0x18, 0xc6, 0x9b, 0xf4, 0xdf, 0xc5, 0x50, 0x38, 0x59, 0x0c, 0x56, 0x85, 0x42, 0x94, 0x85, 0xea,
-	0x86, 0x04, 0x71, 0x0b, 0x42, 0x2c, 0x05, 0x96, 0x93, 0xe8, 0x0d, 0x91, 0x18, 0x8e, 0x2d, 0x8d,
-	0xdf, 0xeb, 0x19, 0x9a, 0x38, 0xb2, 0x5d, 0xe8, 0x7d, 0x0b, 0x26, 0x3e, 0x09, 0x1f, 0x82, 0xf1,
-	0xc4, 0xc4, 0x88, 0xda, 0x2f, 0x82, 0x62, 0xa7, 0xc7, 0xb9, 0x84, 0x16, 0x6e, 0xf4, 0xfb, 0x3c,
-	0xef, 0x4f, 0xd1, 0xf3, 0xc4, 0x46, 0xf7, 0x05, 0xc4, 0xe7, 0x6c, 0x19, 0xab, 0x65, 0x54, 0x0a,
-	0xae, 0x38, 0x1e, 0xbc, 0x67, 0xf9, 0xf1, 0xb3, 0x27, 0x91, 0x80, 0xe8, 0x9c, 0x2d, 0x87, 0x0f,
-	0x6a, 0x3d, 0xcd, 0x32, 0xbe, 0x28, 0x94, 0x31, 0x85, 0xdf, 0x5d, 0x74, 0x38, 0x91, 0xb3, 0x57,
-	0x02, 0x52, 0x05, 0x63, 0x23, 0x61, 0x82, 0xfa, 0x59, 0x35, 0xe0, 0x82, 0x38, 0x81, 0x33, 0xf2,
-	0x92, 0xcd, 0x11, 0x07, 0xe8, 0x4e, 0xc6, 0xf3, 0x32, 0x2d, 0x2e, 0x4f, 0xd3, 0x1c, 0x88, 0xab,
-	0xd5, 0x9b, 0xa3, 0x6a, 0x37, 0xa5, 0x54, 0x80, 0x94, 0xa4, 0x6d, 0x76, 0xeb, 0x23, 0x0e, 0xd1,
-	0x5d, 0xc8, 0x53, 0x36, 0x1f, 0xd7, 0x72, 0x47, 0xcb, 0xd6, 0xac, 0xe2, 0x97, 0x17, 0xbc, 0x80,
-	0xd3, 0x45, 0x3e, 0x05, 0x41, 0xba, 0x81, 0x33, 0xea, 0x26, 0x37, 0x47, 0x15, 0xff, 0x13, 0x4c,
-	0x25, 0x53, 0x40, 0x7a, 0x86, 0x5f, 0x1f, 0xf1, 0x11, 0x3a, 0x94, 0x3c, 0x63, 0xe9, 0x7c, 0x02,
-	0x94, 0xa5, 0x6f, 0x58, 0xf1, 0x41, 0x92, 0x7e, 0xd0, 0x1e, 0x79, 0xc9, 0x1f, 0x73, 0x1c, 0x21,
-	0x3c, 0xe3, 0x1f, 0x41, 0x14, 0x39, 0x14, 0xea, 0x44, 0xca, 0x05, 0xd0, 0x13, 0x4a, 0x0e, 0x34,
-	0xb0, 0x41, 0xc1, 0x0f, 0x91, 0xa7, 0x23, 0x00, 0x3a, 0x56, 0xc4, 0xd3, 0x5f, 0xf5, 0x7b, 0x80,
-	0xef, 0x21, 0x97, 0x51, 0x82, 0x02, 0x67, 0xd4, 0x49, 0x5c, 0x46, 0xc3, 0x23, 0x44, 0xb6, 0x33,
-	0x4d, 0x40, 0x96, 0xbc, 0x90, 0x50, 0x7b, 0x9d, 0x6b, 0xef, 0x57, 0x53, 0xc0, 0xdb, 0x92, 0xfe,
-	0x53, 0x01, 0x66, 0xdd, 0xdd, 0xac, 0x6f, 0x17, 0xd2, 0xde, 0x59, 0x48, 0x67, 0x77, 0x21, 0xdd,
-	0xfd, 0x85, 0xf4, 0x76, 0x16, 0xd2, 0xdf, 0x5f, 0xc8, 0xc1, 0x7f, 0x15, 0xe2, 0xfd, 0xad, 0x90,
-	0x70, 0xa8, 0x23, 0xb6, 0x52, 0xdb, 0x44, 0x1c, 0xbe, 0xd0, 0x89, 0xbe, 0x86, 0x39, 0xdc, 0x22,
-	0xd1, 0x9a, 0x6c, 0x6d, 0x6f, 0xc8, 0x4f, 0xbf, 0xb8, 0xa8, 0x3d, 0x91, 0x33, 0x7c, 0x86, 0x06,
-	0xf6, 0x8d, 0x79, 0x14, 0x59, 0x97, 0x2d, 0xda, 0xae, 0x7f, 0xf8, 0x78, 0x8f, 0xe1, 0xfa, 0xff,
-	0x38, 0x43, 0x03, 0xfb, 0x5f, 0x68, 0x40, 0x5b, 0x86, 0x26, 0x74, 0x63, 0x2e, 0x15, 0xda, 0x0e,
-	0xa5, 0x01, 0x6d, 0x19, 0x9a, 0xd0, 0x8d, 0xc1, 0xbc, 0x7c, 0xfe, 0x6d, 0xe5, 0x3b, 0x57, 0x2b,
-	0xdf, 0xf9, 0xb9, 0xf2, 0x9d, 0xcf, 0x6b, 0xbf, 0x75, 0xb5, 0xf6, 0x5b, 0x3f, 0xd6, 0x7e, 0xeb,
-	0x5d, 0x30, 0x63, 0xea, 0x62, 0x31, 0x8d, 0x32, 0x9e, 0xc7, 0x06, 0x16, 0x27, 0x10, 0x2f, 0xcd,
-	0x53, 0x75, 0x59, 0x82, 0x9c, 0xf6, 0xf4, 0x4b, 0x74, 0xfc, 0x2b, 0x00, 0x00, 0xff, 0xff, 0x62,
-	0x74, 0x82, 0xcb, 0xc1, 0x04, 0x00, 0x00,
+	// 410 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x93, 0xbd, 0x4e, 0xe3, 0x40,
+	0x14, 0x85, 0x33, 0x76, 0x7e, 0x94, 0x59, 0x65, 0x37, 0x1a, 0x6d, 0x31, 0x8a, 0x56, 0x5e, 0xcb,
+	0xcd, 0x5a, 0x29, 0xec, 0xd5, 0xa6, 0x59, 0xad, 0xb6, 0x09, 0xa4, 0x41, 0x22, 0x14, 0x96, 0x28,
+	0x42, 0xe7, 0xd8, 0x93, 0x30, 0x10, 0x7b, 0x2c, 0x8f, 0x23, 0x9c, 0xb7, 0xa0, 0xe2, 0x99, 0x28,
+	0x53, 0x50, 0x50, 0xa2, 0xe4, 0x45, 0x90, 0xff, 0x02, 0x63, 0x4c, 0x82, 0xe8, 0x3c, 0xf7, 0x9e,
+	0x73, 0xe4, 0xfb, 0xdd, 0x19, 0xf8, 0x2d, 0x24, 0xe6, 0x8c, 0xc6, 0x66, 0x14, 0x1b, 0x41, 0xc8,
+	0x22, 0x86, 0x3a, 0x57, 0xd4, 0x1b, 0xfc, 0xfd, 0x6d, 0x84, 0xc4, 0x98, 0xd1, 0xb8, 0xf7, 0x3d,
+	0xef, 0xdb, 0x8e, 0xc3, 0x96, 0x7e, 0x94, 0x89, 0xb4, 0x07, 0x00, 0xbb, 0x63, 0x3e, 0x3f, 0x0e,
+	0x89, 0x1d, 0x91, 0x61, 0xd6, 0x42, 0x18, 0xb6, 0x9c, 0xa4, 0xc0, 0x42, 0x0c, 0x54, 0xa0, 0xb7,
+	0xad, 0xe2, 0x88, 0x54, 0xf8, 0xc5, 0x61, 0x5e, 0x60, 0xfb, 0xab, 0x33, 0xdb, 0x23, 0x58, 0x4a,
+	0xbb, 0xaf, 0x4b, 0x89, 0xf7, 0x86, 0x4c, 0x39, 0x8d, 0x08, 0x96, 0x33, 0x6f, 0x7e, 0x44, 0x7d,
+	0xd8, 0xe5, 0xcc, 0xa1, 0xf6, 0x62, 0x4c, 0x5c, 0x6a, 0x9f, 0x52, 0xff, 0x9a, 0xe3, 0xba, 0x2a,
+	0xeb, 0x6d, 0xeb, 0x4d, 0x1d, 0x75, 0xa1, 0x3c, 0x3a, 0x19, 0xe1, 0x46, 0x9a, 0x90, 0x7c, 0xa2,
+	0x1f, 0xb0, 0x9d, 0xfe, 0x04, 0x71, 0x87, 0x11, 0x6e, 0xaa, 0x40, 0x6f, 0x58, 0x2f, 0x05, 0xf4,
+	0x15, 0x4a, 0xd4, 0xc5, 0x2d, 0x15, 0xe8, 0x75, 0x4b, 0xa2, 0xae, 0xd6, 0x87, 0xb8, 0x3c, 0x95,
+	0x45, 0x78, 0xc0, 0x7c, 0x4e, 0x72, 0x2d, 0xd8, 0x69, 0x73, 0x04, 0xe7, 0x81, 0xfb, 0x21, 0x04,
+	0x99, 0x5d, 0x2a, 0xec, 0x65, 0x24, 0xf2, 0x5e, 0x24, 0xf5, 0xc3, 0x48, 0x1a, 0xfb, 0x91, 0x34,
+	0xdf, 0x41, 0xd2, 0x2a, 0x21, 0xd1, 0x7a, 0x29, 0x02, 0x61, 0xaa, 0x02, 0x81, 0xf6, 0x3f, 0x9d,
+	0x78, 0x44, 0x16, 0xe4, 0x13, 0x13, 0xe7, 0xc9, 0x82, 0xbb, 0x48, 0xfe, 0x73, 0x27, 0x41, 0x79,
+	0xcc, 0xe7, 0x68, 0x02, 0x3b, 0xe2, 0x9d, 0xfa, 0x69, 0x08, 0xd7, 0xd1, 0x28, 0xaf, 0xa7, 0xf7,
+	0xeb, 0x80, 0x60, 0xb7, 0xbf, 0x09, 0xec, 0x88, 0xbb, 0xaa, 0x88, 0x16, 0x04, 0x55, 0xd1, 0x95,
+	0x5c, 0x92, 0x68, 0x11, 0x4a, 0x45, 0xb4, 0x20, 0xa8, 0x8a, 0xae, 0x04, 0x73, 0xf4, 0xef, 0x7e,
+	0xa3, 0x80, 0xf5, 0x46, 0x01, 0x4f, 0x1b, 0x05, 0xdc, 0x6e, 0x95, 0xda, 0x7a, 0xab, 0xd4, 0x1e,
+	0xb7, 0x4a, 0xed, 0x42, 0x9d, 0xd3, 0xe8, 0x72, 0x39, 0x35, 0x1c, 0xe6, 0x99, 0x59, 0x98, 0x69,
+	0x11, 0x33, 0xce, 0x1e, 0xf3, 0x2a, 0x20, 0x7c, 0xda, 0x4c, 0xdf, 0xea, 0xe0, 0x39, 0x00, 0x00,
+	0xff, 0xff, 0x6d, 0x10, 0x25, 0x4d, 0xe3, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -639,19 +596,19 @@ func (m *MsgCreateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.Id != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.Id))
 		i--
-		dAtA[i] = 0x50
+		dAtA[i] = 0x38
 	}
 	if m.CreatedAt != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.CreatedAt))
 		i--
-		dAtA[i] = 0x48
+		dAtA[i] = 0x30
 	}
-	if len(m.GovernmentIssuedId) > 0 {
-		i -= len(m.GovernmentIssuedId)
-		copy(dAtA[i:], m.GovernmentIssuedId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.GovernmentIssuedId)))
+	if len(m.DID) > 0 {
+		i -= len(m.DID)
+		copy(dAtA[i:], m.DID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DID)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x2a
 	}
 	if len(m.SocialMediaLinks) > 0 {
 		for iNdEx := len(m.SocialMediaLinks) - 1; iNdEx >= 0; iNdEx-- {
@@ -659,32 +616,13 @@ func (m *MsgCreateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			copy(dAtA[i:], m.SocialMediaLinks[iNdEx])
 			i = encodeVarintTx(dAtA, i, uint64(len(m.SocialMediaLinks[iNdEx])))
 			i--
-			dAtA[i] = 0x3a
+			dAtA[i] = 0x22
 		}
 	}
 	if len(m.Website) > 0 {
 		i -= len(m.Website)
 		copy(dAtA[i:], m.Website)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.Website)))
-		i--
-		dAtA[i] = 0x32
-	}
-	if m.PhoneNumber != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.PhoneNumber))
-		i--
-		dAtA[i] = 0x28
-	}
-	if len(m.EmailAddress) > 0 {
-		i -= len(m.EmailAddress)
-		copy(dAtA[i:], m.EmailAddress)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.EmailAddress)))
-		i--
-		dAtA[i] = 0x22
-	}
-	if len(m.Address) > 0 {
-		i -= len(m.Address)
-		copy(dAtA[i:], m.Address)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Address)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -753,12 +691,17 @@ func (m *MsgUpdateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.GovernmentIssuedId) > 0 {
-		i -= len(m.GovernmentIssuedId)
-		copy(dAtA[i:], m.GovernmentIssuedId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.GovernmentIssuedId)))
+	if m.CreatedAt != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.CreatedAt))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x38
+	}
+	if len(m.DID) > 0 {
+		i -= len(m.DID)
+		copy(dAtA[i:], m.DID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DID)))
+		i--
+		dAtA[i] = 0x32
 	}
 	if len(m.SocialMediaLinks) > 0 {
 		for iNdEx := len(m.SocialMediaLinks) - 1; iNdEx >= 0; iNdEx-- {
@@ -766,32 +709,13 @@ func (m *MsgUpdateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			copy(dAtA[i:], m.SocialMediaLinks[iNdEx])
 			i = encodeVarintTx(dAtA, i, uint64(len(m.SocialMediaLinks[iNdEx])))
 			i--
-			dAtA[i] = 0x42
+			dAtA[i] = 0x2a
 		}
 	}
 	if len(m.Website) > 0 {
 		i -= len(m.Website)
 		copy(dAtA[i:], m.Website)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.Website)))
-		i--
-		dAtA[i] = 0x3a
-	}
-	if m.PhoneNumber != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.PhoneNumber))
-		i--
-		dAtA[i] = 0x30
-	}
-	if len(m.EmailAddress) > 0 {
-		i -= len(m.EmailAddress)
-		copy(dAtA[i:], m.EmailAddress)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.EmailAddress)))
-		i--
-		dAtA[i] = 0x2a
-	}
-	if len(m.Address) > 0 {
-		i -= len(m.Address)
-		copy(dAtA[i:], m.Address)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Address)))
 		i--
 		dAtA[i] = 0x22
 	}
@@ -923,17 +847,6 @@ func (m *MsgCreateAccount) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Address)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	l = len(m.EmailAddress)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	if m.PhoneNumber != 0 {
-		n += 1 + sovTx(uint64(m.PhoneNumber))
-	}
 	l = len(m.Website)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
@@ -944,7 +857,7 @@ func (m *MsgCreateAccount) Size() (n int) {
 			n += 1 + l + sovTx(uint64(l))
 		}
 	}
-	l = len(m.GovernmentIssuedId)
+	l = len(m.DID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -986,17 +899,6 @@ func (m *MsgUpdateAccount) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Address)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	l = len(m.EmailAddress)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	if m.PhoneNumber != 0 {
-		n += 1 + sovTx(uint64(m.PhoneNumber))
-	}
 	l = len(m.Website)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
@@ -1007,9 +909,12 @@ func (m *MsgUpdateAccount) Size() (n int) {
 			n += 1 + l + sovTx(uint64(l))
 		}
 	}
-	l = len(m.GovernmentIssuedId)
+	l = len(m.DID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.CreatedAt != 0 {
+		n += 1 + sovTx(uint64(m.CreatedAt))
 	}
 	return n
 }
@@ -1149,89 +1054,6 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Address = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EmailAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EmailAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PhoneNumber", wireType)
-			}
-			m.PhoneNumber = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.PhoneNumber |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 6:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Website", wireType)
 			}
 			var stringLen uint64
@@ -1262,7 +1084,7 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.Website = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SocialMediaLinks", wireType)
 			}
@@ -1294,9 +1116,9 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.SocialMediaLinks = append(m.SocialMediaLinks, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 8:
+		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GovernmentIssuedId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1324,9 +1146,9 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.GovernmentIssuedId = string(dAtA[iNdEx:postIndex])
+			m.DID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
 			}
@@ -1345,7 +1167,7 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 7:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
@@ -1568,89 +1390,6 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Address = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EmailAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EmailAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 6:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PhoneNumber", wireType)
-			}
-			m.PhoneNumber = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.PhoneNumber |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 7:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Website", wireType)
 			}
 			var stringLen uint64
@@ -1681,7 +1420,7 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.Website = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 8:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SocialMediaLinks", wireType)
 			}
@@ -1713,9 +1452,9 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.SocialMediaLinks = append(m.SocialMediaLinks, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 9:
+		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GovernmentIssuedId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1743,8 +1482,27 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.GovernmentIssuedId = string(dAtA[iNdEx:postIndex])
+			m.DID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			m.CreatedAt = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CreatedAt |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])

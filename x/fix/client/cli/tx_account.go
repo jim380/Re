@@ -9,33 +9,30 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/jim380/Re/x/fix/types"
-	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 func CmdCreateAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-account [company-name] [address] [email-address] [phone-number] [website] [social-media-links] [government-issued-id]",
+		Use:   "create-account [company-name] [website] [social-media-links] [DID]",
 		Short: "Create a new account",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+
 			argCompanyName := args[0]
-			argAddress := args[1]
-			argEmailAddress := args[2]
-			argPhoneNumber, err := cast.ToInt32E(args[3])
-			if err != nil {
-				return err
-			}
-			argWebsite := args[4]
-			argSocialMediaLinks := strings.Split(args[5], listSeparator)
-			argGovernmentIssuedId := args[6]
+
+			argWebsite := args[1]
+
+			argSocialMediaLinks := strings.Split(args[2], listSeparator)
+
+			argDID := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateAccount(clientCtx.GetFromAddress().String(), argCompanyName, argAddress, argEmailAddress, argPhoneNumber, argWebsite, argSocialMediaLinks, argGovernmentIssuedId)
+			msg := types.NewMsgCreateAccount(clientCtx.GetFromAddress().String(), argCompanyName, argWebsite, argSocialMediaLinks, argDID)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -50,9 +47,9 @@ func CmdCreateAccount() *cobra.Command {
 
 func CmdUpdateAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-account [id] [company-name] [address] [email-address] [phone-number] [website] [social-media-links] [government-issued-id]",
+		Use:   "update-account [id] [company-name] [website] [social-media-links] [DID]",
 		Short: "Update a account",
-		Args:  cobra.ExactArgs(8),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
@@ -61,27 +58,18 @@ func CmdUpdateAccount() *cobra.Command {
 
 			argCompanyName := args[1]
 
-			argAddress := args[2]
+			argWebsite := args[2]
 
-			argEmailAddress := args[3]
+			argSocialMediaLinks := strings.Split(args[3], listSeparator)
 
-			argPhoneNumber, err := cast.ToInt32E(args[4])
-			if err != nil {
-				return err
-			}
-
-			argWebsite := args[5]
-
-			argSocialMediaLinks := strings.Split(args[6], listSeparator)
-
-			argGovernmentIssuedId := args[7]
+			argDID := args[4]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateAccount(clientCtx.GetFromAddress().String(), id, argCompanyName, argAddress, argEmailAddress, argPhoneNumber, argWebsite, argSocialMediaLinks, argGovernmentIssuedId)
+			msg := types.NewMsgUpdateAccount(clientCtx.GetFromAddress().String(), id, argCompanyName, argWebsite, argSocialMediaLinks, argDID)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

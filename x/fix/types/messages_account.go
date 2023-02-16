@@ -13,16 +13,13 @@ const (
 
 var _ sdk.Msg = &MsgCreateAccount{}
 
-func NewMsgCreateAccount(creator string, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgCreateAccount {
+func NewMsgCreateAccount(creator string, companyName string, website string, socialMediaLinks []string, DID string) *MsgCreateAccount {
 	return &MsgCreateAccount{
-		Creator:            creator,
-		CompanyName:        companyName,
-		Address:            address,
-		EmailAddress:       emailAddress,
-		PhoneNumber:        phoneNumber,
-		Website:            website,
-		SocialMediaLinks:   socialMediaLinks,
-		GovernmentIssuedId: governmentIssuedId,
+		Creator:          creator,
+		CompanyName:      companyName,
+		Website:          website,
+		SocialMediaLinks: socialMediaLinks,
+		DID:              DID,
 	}
 }
 
@@ -57,17 +54,14 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(creator string, id uint64, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, id uint64, companyName string, website string, socialMediaLinks []string, DID string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
-		Id:                 id,
-		Creator:            creator,
-		CompanyName:        companyName,
-		Address:            address,
-		EmailAddress:       emailAddress,
-		PhoneNumber:        phoneNumber,
-		Website:            website,
-		SocialMediaLinks:   socialMediaLinks,
-		GovernmentIssuedId: governmentIssuedId,
+		Id:               id,
+		Creator:          creator,
+		CompanyName:      companyName,
+		Website:          website,
+		SocialMediaLinks: socialMediaLinks,
+		DID:              DID,
 	}
 }
 

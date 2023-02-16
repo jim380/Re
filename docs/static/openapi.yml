@@ -22824,20 +22824,13 @@ paths:
                       format: uint64
                     companyName:
                       type: string
-                    address:
-                      type: string
-                    emailAddress:
-                      type: string
-                    phoneNumber:
-                      type: integer
-                      format: int32
                     website:
                       type: string
                     socialMediaLinks:
                       type: array
                       items:
                         type: string
-                    governmentIssuedId:
+                    DID:
                       type: string
                     createdAt:
                       type: integer
@@ -22936,6 +22929,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{id}:
@@ -22956,20 +22959,13 @@ paths:
                     format: uint64
                   companyName:
                     type: string
-                  address:
-                    type: string
-                  emailAddress:
-                    type: string
-                  phoneNumber:
-                    type: integer
-                    format: int32
                   website:
                     type: string
                   socialMediaLinks:
                     type: array
                     items:
                       type: string
-                  governmentIssuedId:
+                  DID:
                     type: string
                   createdAt:
                     type: integer
@@ -42844,20 +42840,13 @@ definitions:
         format: uint64
       companyName:
         type: string
-      address:
-        type: string
-      emailAddress:
-        type: string
-      phoneNumber:
-        type: integer
-        format: int32
       website:
         type: string
       socialMediaLinks:
         type: array
         items:
           type: string
-      governmentIssuedId:
+      DID:
         type: string
       createdAt:
         type: integer
@@ -42890,20 +42879,13 @@ definitions:
               format: uint64
             companyName:
               type: string
-            address:
-              type: string
-            emailAddress:
-              type: string
-            phoneNumber:
-              type: integer
-              format: int32
             website:
               type: string
             socialMediaLinks:
               type: array
               items:
                 type: string
-            governmentIssuedId:
+            DID:
               type: string
             createdAt:
               type: integer
@@ -42946,20 +42928,13 @@ definitions:
             format: uint64
           companyName:
             type: string
-          address:
-            type: string
-          emailAddress:
-            type: string
-          phoneNumber:
-            type: integer
-            format: int32
           website:
             type: string
           socialMediaLinks:
             type: array
             items:
               type: string
-          governmentIssuedId:
+          DID:
             type: string
           createdAt:
             type: integer

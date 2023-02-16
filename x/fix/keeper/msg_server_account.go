@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"regexp"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -24,16 +23,13 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 	}
 
 	var account = types.Account{
-		Id:                 msg.Id,
-		Creator:            msg.Creator,
-		CompanyName:        msg.CompanyName,
-		Address:            msg.Address,
-		EmailAddress:       msg.EmailAddress,
-		PhoneNumber:        msg.PhoneNumber,
-		Website:            msg.Website,
-		SocialMediaLinks:   msg.SocialMediaLinks,
-		GovernmentIssuedId: msg.GovernmentIssuedId,
-		CreatedAt:          int32(time.Now().Unix()),
+		Id:               msg.Id,
+		Creator:          msg.Creator,
+		CompanyName:      msg.CompanyName,
+		Website:          msg.Website,
+		SocialMediaLinks: msg.SocialMediaLinks,
+		DID:              msg.DID,
+		CreatedAt:        int32(time.Now().Unix()),
 	}
 
 	if accountExists.Creator == account.Creator {
@@ -43,22 +39,6 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 	if accountExists.CompanyName == account.CompanyName {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Account Name Already Exists")
 	}
-
-	if accountExists.EmailAddress == account.EmailAddress {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Email Address Already Exists")
-	}
-
-	if accountExists.PhoneNumber == account.PhoneNumber {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Phone Number Already Exists")
-	}
-
-	// define the regular expression pattern for email
-	pattern := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	if !pattern.MatchString(account.EmailAddress) {
-		fmt.Println("Email is not in the correct format")
-	}
-
-	//government issued id should be an image and should be converted to byte
 
 	id := k.AppendAccount(
 		ctx,
@@ -74,15 +54,12 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var account = types.Account{
-		Creator:            msg.Creator,
-		Id:                 msg.Id,
-		CompanyName:        msg.CompanyName,
-		Address:            msg.Address,
-		EmailAddress:       msg.EmailAddress,
-		PhoneNumber:        msg.PhoneNumber,
-		Website:            msg.Website,
-		SocialMediaLinks:   msg.SocialMediaLinks,
-		GovernmentIssuedId: msg.GovernmentIssuedId,
+		Creator:          msg.Creator,
+		Id:               msg.Id,
+		CompanyName:      msg.CompanyName,
+		Website:          msg.Website,
+		SocialMediaLinks: msg.SocialMediaLinks,
+		DID:              msg.DID,
 	}
 
 	// Checks that the element exists

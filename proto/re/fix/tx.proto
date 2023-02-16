@@ -14,17 +14,15 @@ service Msg {
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
+// Remove Address, Email, Phone Number since it can be gotten from website or from social media
 message MsgCreateAccount {
   string creator = 1;
   string companyName = 2;
-  string address = 3;
-  string emailAddress = 4;
-  int32 phoneNumber = 5;
-  string website = 6;
-  repeated string socialMediaLinks = 7;
-  string governmentIssuedId = 8;
-  int32 createdAt = 9;
-  uint64 id = 10;
+  string website = 3;
+  repeated string socialMediaLinks = 4;
+  string DID = 5;
+  int32 createdAt = 6;
+  uint64 id = 7;
 }
 
 message MsgCreateAccountResponse {
@@ -35,13 +33,10 @@ message MsgUpdateAccount {
   string creator = 1;
   uint64 id = 2;
   string companyName = 3;
-  string address = 4;
-  string emailAddress = 5;
-  int32 phoneNumber = 6;
-  string website = 7;
-  repeated string socialMediaLinks = 8;
-  string governmentIssuedId = 9;
-  // createdAt = 10;
+  string website = 4;
+  repeated string socialMediaLinks = 5;
+  string DID = 6;
+  int32 createdAt = 7;
 }
 
 message MsgUpdateAccountResponse {}
