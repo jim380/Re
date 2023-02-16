@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,23 +14,24 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	count := k.GetAccountCount(ctx)
+
 	// Check if the value already exists
-	accountExists, isFound := k.GetAccount(
-		ctx,
-		msg.Id,
-	)
-	if isFound {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
-	}
+	accountExists, _ := k.GetAccount(ctx, msg.Id)
 
 	var account = types.Account{
-		Id:               msg.Id,
+		Id:               count,
 		Creator:          msg.Creator,
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
 		DID:              msg.DID,
 		CreatedAt:        int32(time.Now().Unix()),
+	}
+	log.Println("Check this", accountExists.Creator, account.Creator)
+
+	if accountExists.Id == account.Id {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
 	}
 
 	if accountExists.Creator == account.Creator {
