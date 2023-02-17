@@ -14,27 +14,29 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	count := k.GetAccountCount(ctx)
+	//count := k.GetAccountCount(ctx)
 
 	// Check if the value already exists
-	accountExists, _ := k.GetAccount(ctx, msg.Id)
+	accountExists := k.GetAccount(ctx, msg.Did)
 
 	var account = types.Account{
-		Id:               count,
 		Creator:          msg.Creator,
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		DID:              msg.DID,
+		DID:              msg.Did,
 		CreatedAt:        int32(time.Now().Unix()),
 	}
-	log.Println("Check this", accountExists.Creator, account.Creator)
 
-	if accountExists.Id == account.Id {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
+	log.Println("Check this", accountExists, account)
+
+	if accountExists.DID == account.DID {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "DID already set")
 	}
 
-	if accountExists.Creator == account.Creator {
+	//check if DID is valid from the FIX module
+
+	if accountExists.Creator == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "You Are Not Allowed to Have a double Account with the same Wallet Adddress")
 	}
 
@@ -42,14 +44,10 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Account Name Already Exists")
 	}
 
-	id := k.AppendAccount(
-		ctx,
-		account,
-	)
+	//set account to store if all checks passes
+	k.SetAccount(ctx, msg.Did, account)
 
-	return &types.MsgCreateAccountResponse{
-		Id: id,
-	}, nil
+	return &types.MsgCreateAccountResponse{}, nil
 }
 
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
@@ -57,17 +55,16 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 
 	var account = types.Account{
 		Creator:          msg.Creator,
-		Id:               msg.Id,
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		DID:              msg.DID,
+		DID:              msg.Did,
 	}
 
 	// Checks that the element exists
-	val, found := k.GetAccount(ctx, msg.Id)
-	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	val := k.GetAccount(ctx, msg.Did)
+	if val.Empty() {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("DID %d doesn't exist", msg.Did))
 	}
 
 	// Checks if the msg creator is the same as the current owner
@@ -75,7 +72,7 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.SetAccount(ctx, account)
+	k.SetAccount(ctx, val.DID, account)
 
 	return &types.MsgUpdateAccountResponse{}, nil
 }
@@ -84,17 +81,17 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Checks that the element exists
-	val, found := k.GetAccount(ctx, msg.Id)
-	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	acc := k.GetAccount(ctx, msg.Did)
+	if acc.Empty() {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("DID %d doesn't exist", msg.Did))
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
+	if msg.Creator != acc.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.RemoveAccount(ctx, msg.Id)
+	//k.RemoveAccount(ctx, msg.Did)
 
 	return &types.MsgDeleteAccountResponse{}, nil
 }

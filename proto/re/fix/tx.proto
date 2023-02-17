@@ -20,30 +20,28 @@ message MsgCreateAccount {
   string companyName = 2;
   string website = 3;
   repeated string socialMediaLinks = 4;
-  string DID = 5;
+  string did = 5;
   int32 createdAt = 6;
-  uint64 id = 7;
 }
 
 message MsgCreateAccountResponse {
-  uint64 id = 1;
+  string did = 1;
 }
 
 message MsgUpdateAccount {
   string creator = 1;
-  uint64 id = 2;
-  string companyName = 3;
-  string website = 4;
-  repeated string socialMediaLinks = 5;
-  string DID = 6;
-  int32 createdAt = 7;
+  string companyName = 2;
+  string website = 3;
+  repeated string socialMediaLinks = 4;
+  string did = 5;
+  int32 createdAt = 6;
 }
 
 message MsgUpdateAccountResponse {}
 
 message MsgDeleteAccount {
   string creator = 1;
-  uint64 id = 2;
+  string did = 2;
 }
 
 message MsgDeleteAccountResponse {}

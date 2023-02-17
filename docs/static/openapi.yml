@@ -22941,7 +22941,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/account/{id}:
+  /jim380/Re/fix/account/{did}:
     get:
       summary: Queries a Account by id.
       operationId: Jim380ReFixAccount
@@ -22991,11 +22991,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: did
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/params:
@@ -42856,9 +42855,8 @@ definitions:
   jim380.re.fix.MsgCreateAccountResponse:
     type: object
     properties:
-      id:
+      did:
         type: string
-        format: uint64
   jim380.re.fix.MsgDeleteAccountResponse:
     type: object
   jim380.re.fix.MsgUpdateAccountResponse:

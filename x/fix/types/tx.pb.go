@@ -33,9 +33,8 @@ type MsgCreateAccount struct {
 	CompanyName      string   `protobuf:"bytes,2,opt,name=companyName,proto3" json:"companyName,omitempty"`
 	Website          string   `protobuf:"bytes,3,opt,name=website,proto3" json:"website,omitempty"`
 	SocialMediaLinks []string `protobuf:"bytes,4,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
-	DID              string   `protobuf:"bytes,5,opt,name=DID,proto3" json:"DID,omitempty"`
+	Did              string   `protobuf:"bytes,5,opt,name=did,proto3" json:"did,omitempty"`
 	CreatedAt        int32    `protobuf:"varint,6,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
-	Id               uint64   `protobuf:"varint,7,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (m *MsgCreateAccount) Reset()         { *m = MsgCreateAccount{} }
@@ -99,9 +98,9 @@ func (m *MsgCreateAccount) GetSocialMediaLinks() []string {
 	return nil
 }
 
-func (m *MsgCreateAccount) GetDID() string {
+func (m *MsgCreateAccount) GetDid() string {
 	if m != nil {
-		return m.DID
+		return m.Did
 	}
 	return ""
 }
@@ -113,15 +112,8 @@ func (m *MsgCreateAccount) GetCreatedAt() int32 {
 	return 0
 }
 
-func (m *MsgCreateAccount) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
 type MsgCreateAccountResponse struct {
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Did string `protobuf:"bytes,1,opt,name=did,proto3" json:"did,omitempty"`
 }
 
 func (m *MsgCreateAccountResponse) Reset()         { *m = MsgCreateAccountResponse{} }
@@ -157,21 +149,20 @@ func (m *MsgCreateAccountResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgCreateAccountResponse proto.InternalMessageInfo
 
-func (m *MsgCreateAccountResponse) GetId() uint64 {
+func (m *MsgCreateAccountResponse) GetDid() string {
 	if m != nil {
-		return m.Id
+		return m.Did
 	}
-	return 0
+	return ""
 }
 
 type MsgUpdateAccount struct {
 	Creator          string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id               uint64   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	CompanyName      string   `protobuf:"bytes,3,opt,name=companyName,proto3" json:"companyName,omitempty"`
-	Website          string   `protobuf:"bytes,4,opt,name=website,proto3" json:"website,omitempty"`
-	SocialMediaLinks []string `protobuf:"bytes,5,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
-	DID              string   `protobuf:"bytes,6,opt,name=DID,proto3" json:"DID,omitempty"`
-	CreatedAt        int32    `protobuf:"varint,7,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
+	CompanyName      string   `protobuf:"bytes,2,opt,name=companyName,proto3" json:"companyName,omitempty"`
+	Website          string   `protobuf:"bytes,3,opt,name=website,proto3" json:"website,omitempty"`
+	SocialMediaLinks []string `protobuf:"bytes,4,rep,name=socialMediaLinks,proto3" json:"socialMediaLinks,omitempty"`
+	Did              string   `protobuf:"bytes,5,opt,name=did,proto3" json:"did,omitempty"`
+	CreatedAt        int32    `protobuf:"varint,6,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
 }
 
 func (m *MsgUpdateAccount) Reset()         { *m = MsgUpdateAccount{} }
@@ -214,13 +205,6 @@ func (m *MsgUpdateAccount) GetCreator() string {
 	return ""
 }
 
-func (m *MsgUpdateAccount) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
 func (m *MsgUpdateAccount) GetCompanyName() string {
 	if m != nil {
 		return m.CompanyName
@@ -242,9 +226,9 @@ func (m *MsgUpdateAccount) GetSocialMediaLinks() []string {
 	return nil
 }
 
-func (m *MsgUpdateAccount) GetDID() string {
+func (m *MsgUpdateAccount) GetDid() string {
 	if m != nil {
-		return m.DID
+		return m.Did
 	}
 	return ""
 }
@@ -294,7 +278,7 @@ var xxx_messageInfo_MsgUpdateAccountResponse proto.InternalMessageInfo
 
 type MsgDeleteAccount struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Did     string `protobuf:"bytes,2,opt,name=did,proto3" json:"did,omitempty"`
 }
 
 func (m *MsgDeleteAccount) Reset()         { *m = MsgDeleteAccount{} }
@@ -337,11 +321,11 @@ func (m *MsgDeleteAccount) GetCreator() string {
 	return ""
 }
 
-func (m *MsgDeleteAccount) GetId() uint64 {
+func (m *MsgDeleteAccount) GetDid() string {
 	if m != nil {
-		return m.Id
+		return m.Did
 	}
-	return 0
+	return ""
 }
 
 type MsgDeleteAccountResponse struct {
@@ -392,33 +376,31 @@ func init() {
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 410 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x93, 0xbd, 0x4e, 0xe3, 0x40,
-	0x14, 0x85, 0x33, 0x76, 0x7e, 0x94, 0x59, 0x65, 0x37, 0x1a, 0x6d, 0x31, 0x8a, 0x56, 0x5e, 0xcb,
-	0xcd, 0x5a, 0x29, 0xec, 0xd5, 0xa6, 0x59, 0xad, 0xb6, 0x09, 0xa4, 0x41, 0x22, 0x14, 0x96, 0x28,
-	0x42, 0xe7, 0xd8, 0x93, 0x30, 0x10, 0x7b, 0x2c, 0x8f, 0x23, 0x9c, 0xb7, 0xa0, 0xe2, 0x99, 0x28,
-	0x53, 0x50, 0x50, 0xa2, 0xe4, 0x45, 0x90, 0xff, 0x02, 0x63, 0x4c, 0x82, 0xe8, 0x3c, 0xf7, 0x9e,
-	0x73, 0xe4, 0xfb, 0xdd, 0x19, 0xf8, 0x2d, 0x24, 0xe6, 0x8c, 0xc6, 0x66, 0x14, 0x1b, 0x41, 0xc8,
-	0x22, 0x86, 0x3a, 0x57, 0xd4, 0x1b, 0xfc, 0xfd, 0x6d, 0x84, 0xc4, 0x98, 0xd1, 0xb8, 0xf7, 0x3d,
-	0xef, 0xdb, 0x8e, 0xc3, 0x96, 0x7e, 0x94, 0x89, 0xb4, 0x07, 0x00, 0xbb, 0x63, 0x3e, 0x3f, 0x0e,
-	0x89, 0x1d, 0x91, 0x61, 0xd6, 0x42, 0x18, 0xb6, 0x9c, 0xa4, 0xc0, 0x42, 0x0c, 0x54, 0xa0, 0xb7,
-	0xad, 0xe2, 0x88, 0x54, 0xf8, 0xc5, 0x61, 0x5e, 0x60, 0xfb, 0xab, 0x33, 0xdb, 0x23, 0x58, 0x4a,
-	0xbb, 0xaf, 0x4b, 0x89, 0xf7, 0x86, 0x4c, 0x39, 0x8d, 0x08, 0x96, 0x33, 0x6f, 0x7e, 0x44, 0x7d,
-	0xd8, 0xe5, 0xcc, 0xa1, 0xf6, 0x62, 0x4c, 0x5c, 0x6a, 0x9f, 0x52, 0xff, 0x9a, 0xe3, 0xba, 0x2a,
-	0xeb, 0x6d, 0xeb, 0x4d, 0x1d, 0x75, 0xa1, 0x3c, 0x3a, 0x19, 0xe1, 0x46, 0x9a, 0x90, 0x7c, 0xa2,
-	0x1f, 0xb0, 0x9d, 0xfe, 0x04, 0x71, 0x87, 0x11, 0x6e, 0xaa, 0x40, 0x6f, 0x58, 0x2f, 0x05, 0xf4,
-	0x15, 0x4a, 0xd4, 0xc5, 0x2d, 0x15, 0xe8, 0x75, 0x4b, 0xa2, 0xae, 0xd6, 0x87, 0xb8, 0x3c, 0x95,
-	0x45, 0x78, 0xc0, 0x7c, 0x4e, 0x72, 0x2d, 0xd8, 0x69, 0x73, 0x04, 0xe7, 0x81, 0xfb, 0x21, 0x04,
-	0x99, 0x5d, 0x2a, 0xec, 0x65, 0x24, 0xf2, 0x5e, 0x24, 0xf5, 0xc3, 0x48, 0x1a, 0xfb, 0x91, 0x34,
-	0xdf, 0x41, 0xd2, 0x2a, 0x21, 0xd1, 0x7a, 0x29, 0x02, 0x61, 0xaa, 0x02, 0x81, 0xf6, 0x3f, 0x9d,
-	0x78, 0x44, 0x16, 0xe4, 0x13, 0x13, 0xe7, 0xc9, 0x82, 0xbb, 0x48, 0xfe, 0x73, 0x27, 0x41, 0x79,
-	0xcc, 0xe7, 0x68, 0x02, 0x3b, 0xe2, 0x9d, 0xfa, 0x69, 0x08, 0xd7, 0xd1, 0x28, 0xaf, 0xa7, 0xf7,
-	0xeb, 0x80, 0x60, 0xb7, 0xbf, 0x09, 0xec, 0x88, 0xbb, 0xaa, 0x88, 0x16, 0x04, 0x55, 0xd1, 0x95,
-	0x5c, 0x92, 0x68, 0x11, 0x4a, 0x45, 0xb4, 0x20, 0xa8, 0x8a, 0xae, 0x04, 0x73, 0xf4, 0xef, 0x7e,
-	0xa3, 0x80, 0xf5, 0x46, 0x01, 0x4f, 0x1b, 0x05, 0xdc, 0x6e, 0x95, 0xda, 0x7a, 0xab, 0xd4, 0x1e,
-	0xb7, 0x4a, 0xed, 0x42, 0x9d, 0xd3, 0xe8, 0x72, 0x39, 0x35, 0x1c, 0xe6, 0x99, 0x59, 0x98, 0x69,
-	0x11, 0x33, 0xce, 0x1e, 0xf3, 0x2a, 0x20, 0x7c, 0xda, 0x4c, 0xdf, 0xea, 0xe0, 0x39, 0x00, 0x00,
-	0xff, 0xff, 0x6d, 0x10, 0x25, 0x4d, 0xe3, 0x03, 0x00, 0x00,
+	// 374 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x93, 0x3f, 0x4f, 0xc2, 0x40,
+	0x18, 0xc6, 0x39, 0x2a, 0x18, 0xce, 0x10, 0xc9, 0xc5, 0xe1, 0x42, 0x4c, 0x6d, 0x58, 0x24, 0xc6,
+	0xb4, 0x46, 0x16, 0xe3, 0x60, 0x82, 0x3a, 0x8a, 0x43, 0x13, 0x07, 0xdc, 0x4a, 0xfb, 0x82, 0xa7,
+	0xb4, 0xd7, 0xf4, 0x8e, 0x58, 0xbe, 0x85, 0x93, 0x9f, 0xc8, 0xc1, 0x91, 0xd1, 0xd1, 0xc0, 0x17,
+	0x31, 0x6d, 0x29, 0x78, 0xd8, 0x44, 0x57, 0xb7, 0xde, 0xfb, 0xe7, 0xd7, 0x7b, 0x9e, 0xf7, 0x5e,
+	0xbc, 0x1b, 0x81, 0x35, 0x64, 0xb1, 0x25, 0x63, 0x33, 0x8c, 0xb8, 0xe4, 0xa4, 0xfe, 0xc8, 0xfc,
+	0xce, 0xd9, 0x89, 0x19, 0x81, 0x39, 0x64, 0x71, 0x73, 0x6f, 0x99, 0x77, 0x5c, 0x97, 0x4f, 0x02,
+	0x99, 0x15, 0xb5, 0xde, 0x10, 0x6e, 0xf4, 0xc4, 0xe8, 0x2a, 0x02, 0x47, 0x42, 0x37, 0x4b, 0x11,
+	0x8a, 0xb7, 0xdd, 0x24, 0xc0, 0x23, 0x8a, 0x0c, 0xd4, 0xae, 0xd9, 0xf9, 0x91, 0x18, 0x78, 0xc7,
+	0xe5, 0x7e, 0xe8, 0x04, 0xd3, 0x5b, 0xc7, 0x07, 0x5a, 0x4e, 0xb3, 0xdf, 0x43, 0x49, 0xef, 0x33,
+	0x0c, 0x04, 0x93, 0x40, 0xb5, 0xac, 0x77, 0x79, 0x24, 0x47, 0xb8, 0x21, 0xb8, 0xcb, 0x9c, 0x71,
+	0x0f, 0x3c, 0xe6, 0xdc, 0xb0, 0xe0, 0x49, 0xd0, 0x2d, 0x43, 0x6b, 0xd7, 0xec, 0x1f, 0x71, 0xd2,
+	0xc0, 0x9a, 0xc7, 0x3c, 0x5a, 0x49, 0x09, 0xc9, 0x27, 0xd9, 0xc7, 0xb5, 0xf4, 0x12, 0xe0, 0x75,
+	0x25, 0xad, 0x1a, 0xa8, 0x5d, 0xb1, 0xd7, 0x81, 0xd6, 0x31, 0xa6, 0x9b, 0x2a, 0x6c, 0x10, 0x21,
+	0x0f, 0x04, 0xe4, 0x2c, 0xb4, 0x62, 0xe5, 0xa2, 0xef, 0x42, 0xef, 0x5f, 0x8b, 0x6e, 0xa6, 0xa2,
+	0x15, 0x15, 0xb9, 0xe8, 0xd6, 0x45, 0xaa, 0xf0, 0x1a, 0xc6, 0xf0, 0x17, 0x85, 0xcb, 0x3f, 0x97,
+	0xd7, 0x16, 0x65, 0x6c, 0xa5, 0x3f, 0x67, 0x9f, 0xbe, 0x96, 0xb1, 0xd6, 0x13, 0x23, 0xd2, 0xc7,
+	0x75, 0xf5, 0xdd, 0x1c, 0x98, 0xca, 0x93, 0x33, 0x37, 0x47, 0xd2, 0x3c, 0xfc, 0xa5, 0x60, 0x35,
+	0xb3, 0x3e, 0xae, 0xab, 0xd3, 0x29, 0x40, 0x2b, 0x05, 0x45, 0xe8, 0x42, 0x67, 0x12, 0xb4, 0x6a,
+	0x4b, 0x01, 0x5a, 0x29, 0x28, 0x42, 0x17, 0x1a, 0x73, 0x79, 0xfe, 0x3e, 0xd7, 0xd1, 0x6c, 0xae,
+	0xa3, 0xcf, 0xb9, 0x8e, 0x5e, 0x16, 0x7a, 0x69, 0xb6, 0xd0, 0x4b, 0x1f, 0x0b, 0xbd, 0x74, 0x6f,
+	0x8c, 0x98, 0x7c, 0x98, 0x0c, 0x4c, 0x97, 0xfb, 0x56, 0x06, 0xb3, 0x6c, 0xb0, 0xe2, 0x6c, 0x61,
+	0xa7, 0x21, 0x88, 0x41, 0x35, 0xdd, 0xc7, 0xce, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x22, 0xbb,
+	0x6f, 0xad, 0xc7, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -593,20 +575,15 @@ func (m *MsgCreateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
-		i--
-		dAtA[i] = 0x38
-	}
 	if m.CreatedAt != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.CreatedAt))
 		i--
 		dAtA[i] = 0x30
 	}
-	if len(m.DID) > 0 {
-		i -= len(m.DID)
-		copy(dAtA[i:], m.DID)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.DID)))
+	if len(m.Did) > 0 {
+		i -= len(m.Did)
+		copy(dAtA[i:], m.Did)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Did)))
 		i--
 		dAtA[i] = 0x2a
 	}
@@ -663,10 +640,12 @@ func (m *MsgCreateAccountResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+	if len(m.Did) > 0 {
+		i -= len(m.Did)
+		copy(dAtA[i:], m.Did)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Did)))
 		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -694,14 +673,14 @@ func (m *MsgUpdateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.CreatedAt != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.CreatedAt))
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x30
 	}
-	if len(m.DID) > 0 {
-		i -= len(m.DID)
-		copy(dAtA[i:], m.DID)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.DID)))
+	if len(m.Did) > 0 {
+		i -= len(m.Did)
+		copy(dAtA[i:], m.Did)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Did)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x2a
 	}
 	if len(m.SocialMediaLinks) > 0 {
 		for iNdEx := len(m.SocialMediaLinks) - 1; iNdEx >= 0; iNdEx-- {
@@ -709,7 +688,7 @@ func (m *MsgUpdateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			copy(dAtA[i:], m.SocialMediaLinks[iNdEx])
 			i = encodeVarintTx(dAtA, i, uint64(len(m.SocialMediaLinks[iNdEx])))
 			i--
-			dAtA[i] = 0x2a
+			dAtA[i] = 0x22
 		}
 	}
 	if len(m.Website) > 0 {
@@ -717,19 +696,14 @@ func (m *MsgUpdateAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.Website)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.Website)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x1a
 	}
 	if len(m.CompanyName) > 0 {
 		i -= len(m.CompanyName)
 		copy(dAtA[i:], m.CompanyName)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.CompanyName)))
 		i--
-		dAtA[i] = 0x1a
-	}
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
-		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x12
 	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
@@ -784,10 +758,12 @@ func (m *MsgDeleteAccount) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+	if len(m.Did) > 0 {
+		i -= len(m.Did)
+		copy(dAtA[i:], m.Did)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Did)))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x12
 	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
@@ -857,15 +833,12 @@ func (m *MsgCreateAccount) Size() (n int) {
 			n += 1 + l + sovTx(uint64(l))
 		}
 	}
-	l = len(m.DID)
+	l = len(m.Did)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.CreatedAt != 0 {
 		n += 1 + sovTx(uint64(m.CreatedAt))
-	}
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
 	}
 	return n
 }
@@ -876,8 +849,9 @@ func (m *MsgCreateAccountResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
+	l = len(m.Did)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -891,9 +865,6 @@ func (m *MsgUpdateAccount) Size() (n int) {
 	l = len(m.Creator)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
-	}
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
 	}
 	l = len(m.CompanyName)
 	if l > 0 {
@@ -909,7 +880,7 @@ func (m *MsgUpdateAccount) Size() (n int) {
 			n += 1 + l + sovTx(uint64(l))
 		}
 	}
-	l = len(m.DID)
+	l = len(m.Did)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -938,8 +909,9 @@ func (m *MsgDeleteAccount) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
+	l = len(m.Did)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -1118,7 +1090,7 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Did", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1146,7 +1118,7 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.DID = string(dAtA[iNdEx:postIndex])
+			m.Did = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 0 {
@@ -1163,25 +1135,6 @@ func (m *MsgCreateAccount) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.CreatedAt |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 7:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1237,10 +1190,10 @@ func (m *MsgCreateAccountResponse) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Did", wireType)
 			}
-			m.Id = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1250,11 +1203,24 @@ func (m *MsgCreateAccountResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Did = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -1338,25 +1304,6 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CompanyName", wireType)
 			}
@@ -1388,7 +1335,7 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.CompanyName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 4:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Website", wireType)
 			}
@@ -1420,7 +1367,7 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.Website = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SocialMediaLinks", wireType)
 			}
@@ -1452,9 +1399,9 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			}
 			m.SocialMediaLinks = append(m.SocialMediaLinks, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 6:
+		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Did", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1482,9 +1429,9 @@ func (m *MsgUpdateAccount) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.DID = string(dAtA[iNdEx:postIndex])
+			m.Did = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
 			}
@@ -1636,10 +1583,10 @@ func (m *MsgDeleteAccount) Unmarshal(dAtA []byte) error {
 			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Did", wireType)
 			}
-			m.Id = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1649,11 +1596,24 @@ func (m *MsgDeleteAccount) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Did = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])

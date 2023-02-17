@@ -18,7 +18,7 @@ service Query {
   }
   // Queries a Account by id.
 	rpc Account(QueryGetAccountRequest) returns (QueryGetAccountResponse) {
-		option (google.api.http).get = "/jim380/Re/fix/account/{id}";
+		option (google.api.http).get = "/jim380/Re/fix/account/{did}";
 	}
 
 	// Queries a list of Account items.
@@ -39,7 +39,7 @@ message QueryParamsResponse {
 }
 
 message QueryGetAccountRequest {
-	uint64 id = 1;
+	string did = 1;
 }
 
 message QueryGetAccountResponse {

@@ -21,7 +21,7 @@ func (k Keeper) AccountAll(c context.Context, req *types.QueryAllAccountRequest)
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
-	accountStore := prefix.NewStore(store, types.KeyPrefix(types.AccountKey))
+	accountStore := prefix.NewStore(store, types.GetAccountKey())
 
 	pageRes, err := query.Paginate(accountStore, req.Pagination, func(key []byte, value []byte) error {
 		var account types.Account
@@ -46,8 +46,8 @@ func (k Keeper) Account(c context.Context, req *types.QueryGetAccountRequest) (*
 	}
 
 	ctx := sdk.UnwrapSDKContext(c)
-	account, found := k.GetAccount(ctx, req.Id)
-	if !found {
+	account := k.GetAccount(ctx, req.Did)
+	if account.Empty() {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
 

@@ -9,23 +9,25 @@ import (
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// Set all the account
-	for _, elem := range genState.AccountList {
-		k.SetAccount(ctx, elem)
+	for _, acc := range genState.AccountList {
+		k.SetAccount(ctx, acc.DID, acc)
 	}
 
 	// Set account count
-	k.SetAccountCount(ctx, genState.AccountCount)
+	//k.SetAccountCount(ctx, genState.AccountCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
 
 // ExportGenesis returns the module's exported genesis
 func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
+
 	genesis := types.DefaultGenesis()
 	genesis.Params = k.GetParams(ctx)
 
 	genesis.AccountList = k.GetAllAccount(ctx)
-	genesis.AccountCount = k.GetAccountCount(ctx)
+
+	//genesis.AccountCount = k.GetAccountCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

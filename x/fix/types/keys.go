@@ -14,11 +14,15 @@ const (
 	MemStoreKey = "mem_fix"
 )
 
-func KeyPrefix(p string) []byte {
-	return []byte(p)
+var (
+	AccountKey      = []byte{0x00}
+	AccountCountKey = []byte{0x01}
+)
+
+func GetAccountKey() []byte {
+	return AccountKey
 }
 
-const (
-	AccountKey      = "Account/value/"
-	AccountCountKey = "Account/count/"
-)
+func GetAccountCountKey() []byte {
+	return AccountCountKey
+}

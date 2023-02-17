@@ -13,13 +13,13 @@ const (
 
 var _ sdk.Msg = &MsgCreateAccount{}
 
-func NewMsgCreateAccount(creator string, companyName string, website string, socialMediaLinks []string, DID string) *MsgCreateAccount {
+func NewMsgCreateAccount(creator string, companyName string, website string, socialMediaLinks []string, did string) *MsgCreateAccount {
 	return &MsgCreateAccount{
 		Creator:          creator,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
-		DID:              DID,
+		Did:              did,
 	}
 }
 
@@ -54,14 +54,13 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(creator string, id uint64, companyName string, website string, socialMediaLinks []string, DID string) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, companyName string, website string, socialMediaLinks []string, did string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
-		Id:               id,
 		Creator:          creator,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
-		DID:              DID,
+		Did:              did,
 	}
 }
 
@@ -96,9 +95,9 @@ func (msg *MsgUpdateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeleteAccount{}
 
-func NewMsgDeleteAccount(creator string, id uint64) *MsgDeleteAccount {
+func NewMsgDeleteAccount(creator string, did string) *MsgDeleteAccount {
 	return &MsgDeleteAccount{
-		Id:      id,
+		Did:     did,
 		Creator: creator,
 	}
 }
@@ -129,4 +128,8 @@ func (msg *MsgDeleteAccount) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
+}
+
+func (a Account) Empty() bool {
+	return a.DID == ""
 }

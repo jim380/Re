@@ -1,8 +1,6 @@
 package cli
 
 import (
-	"strconv"
-
 	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -47,29 +45,25 @@ func CmdCreateAccount() *cobra.Command {
 
 func CmdUpdateAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-account [id] [company-name] [website] [social-media-links] [DID]",
+		Use:   "update-account [company-name] [website] [social-media-links] [DID]",
 		Short: "Update a account",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
 
-			argCompanyName := args[1]
+			argCompanyName := args[0]
 
-			argWebsite := args[2]
+			argWebsite := args[1]
 
-			argSocialMediaLinks := strings.Split(args[3], listSeparator)
+			argSocialMediaLinks := strings.Split(args[2], listSeparator)
 
-			argDID := args[4]
+			argDID := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateAccount(clientCtx.GetFromAddress().String(), id, argCompanyName, argWebsite, argSocialMediaLinks, argDID)
+			msg := types.NewMsgUpdateAccount(clientCtx.GetFromAddress().String(), argCompanyName, argWebsite, argSocialMediaLinks, argDID)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -84,21 +78,19 @@ func CmdUpdateAccount() *cobra.Command {
 
 func CmdDeleteAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-account [id]",
-		Short: "Delete a account by id",
+		Use:   "delete-account [did]",
+		Short: "Delete a account by DID",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+
+			argDID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgDeleteAccount(clientCtx.GetFromAddress().String(), id)
+			msg := types.NewMsgDeleteAccount(clientCtx.GetFromAddress().String(), argDID)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
