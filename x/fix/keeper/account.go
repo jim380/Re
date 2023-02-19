@@ -28,6 +28,19 @@ func (k Keeper) GetAccount(ctx sdk.Context, did string) types.Account {
 	return account
 }
 
+// SetAccountCreator sets Re Creator account address.
+func (k Keeper) SetAccountCreator(ctx sdk.Context, creator sdk.AccAddress) {
+	store := ctx.KVStore(k.storeKey)
+	bz := creator
+	store.Set(types.GetAccountKey(), bz)
+}
+
+// GetAccountCreator gets Re Creator account address.
+func (k Keeper) GetAccountCreator(ctx sdk.Context) sdk.AccAddress {
+	store := ctx.KVStore(k.storeKey)
+	return store.Get(types.GetAccountKey())
+}
+
 // RemoveAccount removes a account from the store
 func (k Keeper) RemoveAccount(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetAccountKey())

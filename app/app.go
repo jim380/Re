@@ -439,6 +439,7 @@ func NewReApp(
 		keys[fixmoduletypes.StoreKey],
 		keys[fixmoduletypes.MemStoreKey],
 		app.GetSubspace(fixmoduletypes.ModuleName),
+		app.didKeeper,
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 

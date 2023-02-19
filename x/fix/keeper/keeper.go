@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	didkeeper "github.com/jim380/Re/x/did/keeper"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -14,17 +14,19 @@ import (
 type (
 	Keeper struct {
 		cdc        codec.BinaryCodec
-		storeKey   storetypes.StoreKey
-		memKey     storetypes.StoreKey
+		storeKey   sdk.StoreKey
+		memKey     sdk.StoreKey
 		paramstore paramtypes.Subspace
+		didKeeper  didkeeper.Keeper
 	}
 )
 
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	storeKey,
-	memKey storetypes.StoreKey,
+	memKey sdk.StoreKey,
 	ps paramtypes.Subspace,
+	didKeeper didkeeper.Keeper,
 
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -38,6 +40,7 @@ func NewKeeper(
 		storeKey:   storeKey,
 		memKey:     memKey,
 		paramstore: ps,
+		didKeeper:  didKeeper,
 	}
 }
 

@@ -14,10 +14,20 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//count := k.GetAccountCount(ctx)
+	addr, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Invalid Address")
+	}
+
+	//getAddr := k.GetAccountCreator(ctx)
 
 	// Check if the value already exists
-	accountExists := k.GetAccount(ctx, msg.Did)
+	//accountExists := k.GetAccount(ctx, msg.Did)
+
+	//check if DID is valid from the FIX module
+
+	getDID := k.didKeeper.GetDIDDocument(ctx, msg.Did)
+	log.Println(getDID)
 
 	var account = types.Account{
 		Creator:          msg.Creator,
@@ -28,24 +38,22 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		CreatedAt:        int32(time.Now().Unix()),
 	}
 
-	log.Println("Check this", accountExists, account)
-
-	if accountExists.DID == account.DID {
+	/*if accountExists.DID == account.DID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "DID already set")
 	}
 
-	//check if DID is valid from the FIX module
-
-	if accountExists.Creator == msg.Creator {
+	if getAddr.Equals(addr) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "You Are Not Allowed to Have a double Account with the same Wallet Adddress")
 	}
 
 	if accountExists.CompanyName == account.CompanyName {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Account Name Already Exists")
 	}
+	*/
 
 	//set account to store if all checks passes
 	k.SetAccount(ctx, msg.Did, account)
+	k.SetAccountCreator(ctx, addr)
 
 	return &types.MsgCreateAccountResponse{}, nil
 }
