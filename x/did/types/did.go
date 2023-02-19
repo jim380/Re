@@ -489,7 +489,7 @@ func NewDIDDocumentWithSeq(doc *DIDDocument, seq uint64, creator string) DIDDocu
 	return DIDDocumentWithSeq{
 		Document: doc,
 		Sequence: seq,
-		Creator: creator,
+		Creator:  creator,
 	}
 }
 

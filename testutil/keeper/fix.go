@@ -9,7 +9,6 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
-	didKeeper "github.com/jim380/Re/x/did/keeper"
 	"github.com/jim380/Re/x/fix/keeper"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/stretchr/testify/require"
@@ -42,7 +41,7 @@ func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		*didKeeper.NewKeeper(cdc, storeKey, memStoreKey),
+		nil,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

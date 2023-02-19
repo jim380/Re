@@ -1,49 +1,7 @@
 syntax = "proto3";
 package jim380.re.fix;
 
-import "re/fix/account.proto";
-// this line is used by starport scaffolding # proto/tx/import
-
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 // Msg defines the Msg service.
-service Msg {
-    rpc CreateAccount(MsgCreateAccount) returns (MsgCreateAccountResponse);
-  rpc UpdateAccount(MsgUpdateAccount) returns (MsgUpdateAccountResponse);
-  rpc DeleteAccount(MsgDeleteAccount) returns (MsgDeleteAccountResponse);
-// this line is used by starport scaffolding # proto/tx/rpc
-}
-
-// Remove Address, Email, Phone Number since it can be gotten from website or from social media
-message MsgCreateAccount {
-  string creator = 1;
-  string companyName = 2;
-  string website = 3;
-  repeated string socialMediaLinks = 4;
-  string did = 5;
-  int32 createdAt = 6;
-}
-
-message MsgCreateAccountResponse {
-  string did = 1;
-}
-
-message MsgUpdateAccount {
-  string creator = 1;
-  string companyName = 2;
-  string website = 3;
-  repeated string socialMediaLinks = 4;
-  string did = 5;
-  int32 createdAt = 6;
-}
-
-message MsgUpdateAccountResponse {}
-
-message MsgDeleteAccount {
-  string creator = 1;
-  string did = 2;
-}
-
-message MsgDeleteAccountResponse {}
-
-// this line is used by starport scaffolding # proto/tx/message
+service Msg {}
