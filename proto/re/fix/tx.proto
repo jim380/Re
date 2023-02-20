@@ -1,7 +1,45 @@
 syntax = "proto3";
+
 package jim380.re.fix;
+
+import "re/fix/account.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 // Msg defines the Msg service.
-service Msg {}
+service Msg {
+  rpc CreateAccount (MsgCreateAccount) returns (MsgCreateAccountResponse);
+  rpc UpdateAccount (MsgUpdateAccount) returns (MsgUpdateAccountResponse);
+  rpc DeleteAccount (MsgDeleteAccount) returns (MsgDeleteAccountResponse);
+}
+message MsgCreateAccount {
+  string creator          = 1;
+  string did              = 2;
+  string companyName      = 3;
+  string website          = 4;
+  string socialMediaLinks = 5;
+  int32  createdAt        = 6;
+}
+
+message MsgCreateAccountResponse {
+  string did = 1;
+}
+
+message MsgUpdateAccount {
+  string creator          = 1;
+  string did              = 2;
+  string companyName      = 3;
+  string website          = 4;
+  string socialMediaLinks = 5;
+  int32  createdAt        = 6;
+}
+
+message MsgUpdateAccountResponse {}
+
+message MsgDeleteAccount {
+  string creator = 1;
+  string did      = 2;
+}
+
+message MsgDeleteAccountResponse {}
+

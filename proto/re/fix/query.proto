@@ -1,26 +1,58 @@
 syntax = "proto3";
+
 package jim380.re.fix;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "re/fix/params.proto";
+import "re/fix/account.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/params";
+  
+  }
+  
+  // Queries a list of Account items.
+  rpc Account    (QueryGetAccountRequest) returns (QueryGetAccountResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/account/{did}";
+  
+  }
+  rpc AccountAll (QueryAllAccountRequest) returns (QueryAllAccountResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/account";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryGetAccountRequest {
+  string did = 1;
+}
+
+message QueryGetAccountResponse {
+  Account Account = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllAccountRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAccountResponse {
+  repeated Account                                Account    = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

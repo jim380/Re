@@ -9,6 +9,7 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 
+	didKeeper "github.com/jim380/Re/x/did/keeper"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -19,7 +20,7 @@ type (
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
 
-		didKeeper types.DidKeeper
+		didKeeper didKeeper.Keeper
 	}
 )
 
@@ -29,7 +30,7 @@ func NewKeeper(
 	memKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
-	didKeeper types.DidKeeper,
+	didKeeper didKeeper.Keeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {

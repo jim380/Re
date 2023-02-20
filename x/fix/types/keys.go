@@ -17,3 +17,16 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+var (
+	AccountKey      = []byte{0x00}
+	AccountCountKey = []byte{0x01}
+)
+
+func GetAccountKey() []byte {
+	return AccountKey
+}
+
+func GetAccountCountKey() []byte {
+	return AccountCountKey
+}
