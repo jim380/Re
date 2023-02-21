@@ -129,3 +129,11 @@ func (msg *MsgDeleteAccount) ValidateBasic() error {
 	}
 	return nil
 }
+
+func EmptyDID(did string) bool {
+	return did == ""
+}
+
+func (a Account) Empty() bool {
+	return EmptyDID(a.Did)
+}

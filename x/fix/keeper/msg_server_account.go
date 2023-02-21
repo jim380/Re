@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -10,12 +9,23 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// CreateAccount creates account for users of Re Protocol
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	getDID := k.didKeeper.GetDIDDocument(ctx, msg.Did)
+	//get DID Document from the DID module && check if DID is exists
+	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
+	if getDidDocument.Document.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	}
+
 	getAcc := k.GetAccount(ctx, msg.Did)
-	fmt.Println("This should work", getDID, getAcc)
+	if getAcc.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Creator)
+	}
+	if getDidDocument.Creator != getAcc.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrAccountUserIsNotTheSame, "Account: %s", msg.Creator)
+	}
 
 	var account = types.Account{
 		Creator:          msg.Creator,
@@ -26,6 +36,16 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		CreatedAt:        int32(time.Now().Unix()),
 	}
 
+	// check if DID is used already
+	if getAcc.Did == account.Did {
+		return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+	}
+
+	// no account should be created with same COMPANY NAME
+	if getAcc.CompanyName == account.CompanyName {
+		return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
+	}
+ 
 	k.SetAccount(ctx, msg.Did, account)
 
 	return &types.MsgCreateAccountResponse{}, nil
