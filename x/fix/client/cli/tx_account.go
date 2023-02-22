@@ -39,8 +39,8 @@ func CmdCreateAccount() *cobra.Command {
 
 func CmdUpdateAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-account [id] [did] [company-name] [website] [social-media-links]",
-		Short: "Update a account",
+		Use:   "update-account [did] [company-name] [website] [social-media-links]",
+		Short: "Update an account",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			//id, err := strconv.ParseUint(args[0], 10, 64)

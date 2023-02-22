@@ -19,14 +19,6 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 	}
 
-	getAcc := k.GetAccount(ctx, msg.Did)
-	if getAcc.Empty() {
-		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Creator)
-	}
-	if getDidDocument.Creator != getAcc.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrAccountUserIsNotTheSame, "Account: %s", msg.Creator)
-	}
-
 	var account = types.Account{
 		Creator:          msg.Creator,
 		Did:              msg.Did,
@@ -36,17 +28,39 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		CreatedAt:        int32(time.Now().Unix()),
 	}
 
-	// check if DID is used already
-	if getAcc.Did == account.Did {
-		return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+	//creator of DID Document should be same with creator of Account
+	if getDidDocument.Creator != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrAccountUserIsNotTheSame, "Account: %s", msg.Creator)
 	}
 
-	// no account should be created with same COMPANY NAME
-	if getAcc.CompanyName == account.CompanyName {
+	//getAcc := k.GetAccount(ctx, msg.Did)
+	//if getAcc.Did == account.Did {
+	//	return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+	//}
+
+	//check for if the provided company name is not taken
+	getCompanyName := k.GetAccountCompanyName(ctx, msg.CompanyName)
+	if getCompanyName == account.CompanyName {
 		return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 	}
- 
+
+	// check for if the provided website is not taken
+	getWebsite := k.GetAccountWebsite(ctx, msg.Website)
+	if getWebsite == account.Website {
+		return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
+	}
+
+	// get creator of the account
+	creator, _ := sdk.AccAddressFromBech32(msg.Creator)
+	getAddr := k.GetAccountCreator(ctx)
+	if getAddr.Equals(creator) {
+		return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Creator)
+	}
+
 	k.SetAccount(ctx, msg.Did, account)
+	k.SetAccountCompanyName(ctx, msg.CompanyName, account)
+	k.SetAccountWebsite(ctx, msg.Website, account)
+	k.SetAccountCreator(ctx, creator)
 
 	return &types.MsgCreateAccountResponse{}, nil
 }

@@ -9,8 +9,9 @@ import (
 // x/fix module sentinel errors
 var (
 	ErrInvalidDidDocument      = sdkerrors.Register(ModuleName, 2, "Invalid DID Document")
-	ErrAccountIsEmpty          = sdkerrors.Register(ModuleName, 3, "Account is empty")
+	ErrAccountIsTaken          = sdkerrors.Register(ModuleName, 3, "Account Address is used already")
 	ErrAccountUserIsNotTheSame = sdkerrors.Register(ModuleName, 4, "Account creator must be the same with DID creator")
 	ErrDIDIsTaken              = sdkerrors.Register(ModuleName, 5, "DID exists with an account already")
-	ErrCompanyNameIsTaken      = sdkerrors.Register(ModuleName, 5, "Company Name exists with an account already")
+	ErrCompanyNameIsTaken      = sdkerrors.Register(ModuleName, 6, "Company Name exists with an account already")
+	ErrWebsiteIstaken          = sdkerrors.Register(ModuleName, 7, "Website is used already")
 )
