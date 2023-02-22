@@ -33,10 +33,10 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		return nil, sdkerrors.Wrapf(types.ErrAccountUserIsNotTheSame, "Account: %s", msg.Creator)
 	}
 
-	//getAcc := k.GetAccount(ctx, msg.Did)
-	//if getAcc.Did == account.Did {
-	//	return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
-	//}
+	getAcc := k.GetAccount(ctx, msg.Did)
+	if getAcc.Did == account.Did {
+		return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+	}
 
 	//check for if the provided company name is not taken
 	getCompanyName := k.GetAccountCompanyName(ctx, msg.CompanyName)
@@ -65,6 +65,7 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 	return &types.MsgCreateAccountResponse{}, nil
 }
 
+// UpdateAccount updates account for users of Re Protocol
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -79,16 +80,28 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 
 	// Checks that the element exists
 	val := k.GetAccount(ctx, msg.Did)
-	//if !val {
-	//	return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
-	//}
+	if val.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	}
 
 	// Checks if the msg creator is the same as the current owner
 	if msg.Creator != val.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		return nil, sdkerrors.Wrapf(types.ErrAccountUserIsNotTheSame, "Account: %s", msg.Creator)
+	}
+
+	companyName := k.GetAccountCompanyName(ctx, msg.CompanyName)
+	if companyName == msg.CompanyName {
+		return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
+	}
+
+	website := k.GetAccountWebsite(ctx, msg.Website)
+	if website == msg.Website {
+		return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
 	}
 
 	k.SetAccount(ctx, msg.Did, account)
+	k.SetAccountCompanyName(ctx, msg.CompanyName, account)
+	k.SetAccountWebsite(ctx, msg.Website, account)
 
 	return &types.MsgUpdateAccountResponse{}, nil
 }
