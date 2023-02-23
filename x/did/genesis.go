@@ -11,7 +11,6 @@ import (
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, data types.GenesisState) {
 	for did, doc := range data.Documents {
 		k.SetDIDDocument(ctx, did, *doc)
-		k.SetDIDDocumentWithCreator(ctx, *doc, *doc)
 	}
 }
 
@@ -27,7 +26,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	for _, did := range k.ListDIDs(ctx) {
 		key := types.GenesisDIDDocumentKey{DID: did}.Marshal()
-		document := k.GetDIDDocumentWithCreator(ctx, types.DIDDocumentWithSeq{})
+		document := k.GetDIDDocument(ctx, did)
 		documentsMap[key] = &document
 	}
 
