@@ -26,29 +26,29 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 
 	for _, did := range k.getDIDs(ctx) {
 
-		getAcc := k.GetAccount(ctx, did)
+		existingAccount := k.GetAccount(ctx, did)
 
-		if getAcc.Did == msg.Did {
+		if existingAccount.Did == msg.Did {
 			return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
 		}
 
 		//check for if the provided company name is not taken
-		if getAcc.CompanyName == msg.CompanyName {
+		if existingAccount.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
 
 		// check for if the provided website is not taken
-		if getAcc.Website == msg.Website {
+		if existingAccount.Website == msg.Website {
 			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
 		}
 
 		// check for if account address is not used already
-		if getAcc.Creator == msg.Creator {
+		if existingAccount.Creator == msg.Creator {
 			return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Creator)
 		}
 	}
 
-	var account = types.Account{
+	var newAccount = types.Account{
 		Creator:          msg.Creator,
 		Did:              msg.Did,
 		CompanyName:      msg.CompanyName,
@@ -57,8 +57,8 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		CreatedAt:        int32(time.Now().Unix()),
 	}
 
-	// set account data to store
-	k.SetAccount(ctx, msg.Did, account)
+	// set new account data to store
+	k.SetAccount(ctx, msg.Did, newAccount)
 
 	return &types.MsgCreateAccountResponse{}, nil
 }
@@ -79,21 +79,19 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 
 	for _, did := range k.getDIDs(ctx) {
 		// Checks if an account exists
-		val := k.GetAccount(ctx, did)
-		if val.Empty() {
+		existingAccount := k.GetAccount(ctx, did)
+		if existingAccount.Empty() {
 			return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 		}
-
-		if val.CompanyName == msg.CompanyName {
+		if existingAccount.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
-
-		if val.Website == msg.Website {
+		if existingAccount.Website == msg.Website {
 			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
 		}
 	}
 
-	var account = types.Account{
+	var editedAccount = types.Account{
 		Creator:          msg.Creator,
 		Did:              msg.Did,
 		CompanyName:      msg.CompanyName,
@@ -103,7 +101,7 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 	}
 
 	// set edited account data to store
-	k.SetAccount(ctx, msg.Did, account)
+	k.SetAccount(ctx, msg.Did, editedAccount)
 
 	return &types.MsgUpdateAccountResponse{}, nil
 }
@@ -113,13 +111,13 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Checks if an account exists
-	val := k.GetAccount(ctx, msg.Did)
-	if val.Empty() {
+	existingAccount := k.GetAccount(ctx, msg.Did)
+	if existingAccount.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
+	if msg.Creator != existingAccount.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
 	}
 
