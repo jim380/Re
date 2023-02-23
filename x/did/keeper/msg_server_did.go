@@ -20,21 +20,25 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 		return nil, err
 	}
 
-	docWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
+	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
 
-	getDIDDocument := keeper.GetDIDDocumentWithCreator(ctx, docWithSeq)
-	if !getDIDDocument.Empty() {
-		if getDIDDocument.Deactivated() {
-			return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
+	for _, did := range keeper.ListDIDs(ctx) {
+		existingDIDDocument := keeper.GetDIDDocument(ctx, did)
+		if !existingDIDDocument.Empty() {
+			if existingDIDDocument.Deactivated() {
+				return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
+			}
+			if existingDIDDocument.Document.Id == msg.Did {
+				return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
+			}
 		}
-		return nil, sdkerrors.Wrapf(types.ErrDIDExists, "DID: %s", msg.Did)
-	}
-	if getDIDDocument.Creator == msg.FromAddress {
-		return nil, sdkerrors.Wrapf(types.ErrAccountExists, "AccountAddress: %s", msg.FromAddress)
+		if existingDIDDocument.Creator == msg.FromAddress {
+			return nil, sdkerrors.Wrapf(types.ErrAccountExists, "AccountAddress: %s", msg.FromAddress)
+		}
 	}
 
-	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq)
-	keeper.SetDIDDocumentWithCreator(ctx, docWithSeq, docWithSeq)
+	// set new document to store
+	keeper.SetDIDDocument(ctx, msg.Did, newDocWithSeq)
 	return &types.MsgCreateDIDResponse{}, nil
 }
 
@@ -43,37 +47,37 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
-	if docWithSeq.Empty() {
+	existingDocWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
+	if existingDocWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
-	if docWithSeq.Deactivated() {
+	if existingDocWithSeq.Deactivated() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
 	}
 
-	newSeq, err := VerifyDIDOwnership(msg.Document, docWithSeq.Sequence, docWithSeq.Document, msg.VerificationMethodId, msg.Signature)
+	newSeq, err := VerifyDIDOwnership(msg.Document, existingDocWithSeq.Sequence, existingDocWithSeq.Document, msg.VerificationMethodId, msg.Signature)
 	if err != nil {
 		return nil, err
 	}
 
-	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
-	if docWithSeq.Document.Id != newDocWithSeq.Document.Id {
+	editedDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, newSeq, msg.FromAddress)
+	if existingDocWithSeq.Document.Id != editedDocWithSeq.Document.Id {
 		return nil, sdkerrors.Wrapf(types.ErrNotTheSameDID, "DID: %s", msg.Did)
 	}
 
 	//only account owner can update DID
-	if docWithSeq.Creator != newDocWithSeq.Creator {
+	if existingDocWithSeq.Creator != editedDocWithSeq.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
 	//verification method's Public Key and Type for updating must be the same at DID creation
-	for i := range docWithSeq.Document.VerificationMethods {
-		if docWithSeq.Document.VerificationMethods[i].PublicKeyBase58 != newDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 && docWithSeq.Document.VerificationMethods[i].Type != newDocWithSeq.Document.VerificationMethods[i].Type {
-			return nil, sdkerrors.Wrapf(types.ErrSigVerificationFailed, "Verification Methods: %s", newDocWithSeq.Document.VerificationMethods[i])
+	for i := range existingDocWithSeq.Document.VerificationMethods {
+		if existingDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 != editedDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 && existingDocWithSeq.Document.VerificationMethods[i].Type != editedDocWithSeq.Document.VerificationMethods[i].Type {
+			return nil, sdkerrors.Wrapf(types.ErrSigVerificationFailed, "Verification Methods: %s", editedDocWithSeq.Document.VerificationMethods[i])
 		}
 	}
 
-	keeper.SetDIDDocument(ctx, newDocWithSeq.Document.Id, newDocWithSeq)
+	keeper.SetDIDDocument(ctx, editedDocWithSeq.Document.Id, editedDocWithSeq)
 	return &types.MsgUpdateDIDResponse{}, nil
 }
 
@@ -82,11 +86,11 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
-	if docWithSeq.Empty() {
+	existingDocWithSeq := keeper.GetDIDDocument(ctx, msg.Did)
+	if existingDocWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotFound, "DID: %s", msg.Did)
 	}
-	if docWithSeq.Deactivated() {
+	if existingDocWithSeq.Deactivated() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDDeactivated, "DID: %s", msg.Did)
 	}
 
@@ -94,17 +98,17 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 		Id: msg.Did,
 	}
 
-	if docWithSeq.Creator != msg.FromAddress {
+	if existingDocWithSeq.Creator != msg.FromAddress {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
-	newSeq, err := VerifyDIDOwnership(&doc, docWithSeq.Sequence, docWithSeq.Document, msg.VerificationMethodId, msg.Signature)
+	newSeq, err := VerifyDIDOwnership(&doc, existingDocWithSeq.Sequence, existingDocWithSeq.Document, msg.VerificationMethodId, msg.Signature)
 	if err != nil {
 		return nil, err
 	}
 
-	keeper.SetDeactivatedDIDDocument(ctx, msg.FromAddress, docWithSeq)
-	keeper.SetDIDDocument(ctx, msg.Did, docWithSeq.Deactivate(newSeq, msg.FromAddress))
+	keeper.SetDeactivatedDIDDocument(ctx, msg.FromAddress, existingDocWithSeq)
+	keeper.SetDIDDocument(ctx, msg.Did, existingDocWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
 
 }
@@ -114,24 +118,24 @@ func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivate
 	keeper := m.Keeper
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	docWithSeq := keeper.GetDeactivatedDIDDocument(ctx, msg.FromAddress)
+	existingDocWithSeq := keeper.GetDeactivatedDIDDocument(ctx, msg.FromAddress)
 
-	if docWithSeq.Empty() {
+	if existingDocWithSeq.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
 	//get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
-	activedocWithSeq := keeper.GetDIDDocument(ctx, docWithSeq.Document.Id)
+	activedocWithSeq := keeper.GetDIDDocument(ctx, existingDocWithSeq.Document.Id)
 
 	if !activedocWithSeq.Document.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrDIDNotDeactivated, "DID: %s", activedocWithSeq.Document.Id)
 	}
-	if docWithSeq.Creator != msg.FromAddress {
+	if existingDocWithSeq.Creator != msg.FromAddress {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
 	// if all checks passes, reset the DIDDocument
-	keeper.SetDIDDocument(ctx, docWithSeq.Document.Id, docWithSeq)
+	keeper.SetDIDDocument(ctx, existingDocWithSeq.Document.Id, existingDocWithSeq)
 
 	return &types.MsgReActivateDIDResponse{}, nil
 
