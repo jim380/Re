@@ -2,8 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
-	"regexp"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -11,111 +9,121 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// CreateAccount creates account for users of Re Protocol
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Check if the value already exists
-	accountExists, isFound := k.GetAccount(
-		ctx,
-		msg.Id,
-	)
-	if isFound {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
+	//get DID Document from the DID module && check if DID is exists
+	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
+	if getDidDocument.Document.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	}
+
+	//creator of DID Document should be same with creator of Account
+	if getDidDocument.Creator != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
+	}
+
+	for _, did := range k.getDIDs(ctx) {
+
+		getAcc := k.GetAccount(ctx, did)
+
+		if getAcc.Did == msg.Did {
+			return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+		}
+
+		//check for if the provided company name is not taken
+		if getAcc.CompanyName == msg.CompanyName {
+			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
+		}
+
+		// check for if the provided website is not taken
+		if getAcc.Website == msg.Website {
+			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
+		}
+
+		// check for if account address is not used already
+		if getAcc.Creator == msg.Creator {
+			return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Creator)
+		}
 	}
 
 	var account = types.Account{
-		Id:                 msg.Id,
-		Creator:            msg.Creator,
-		CompanyName:        msg.CompanyName,
-		Address:            msg.Address,
-		EmailAddress:       msg.EmailAddress,
-		PhoneNumber:        msg.PhoneNumber,
-		Website:            msg.Website,
-		SocialMediaLinks:   msg.SocialMediaLinks,
-		GovernmentIssuedId: msg.GovernmentIssuedId,
-		CreatedAt:          int32(time.Now().Unix()),
+		Creator:          msg.Creator,
+		Did:              msg.Did,
+		CompanyName:      msg.CompanyName,
+		Website:          msg.Website,
+		SocialMediaLinks: msg.SocialMediaLinks,
+		CreatedAt:        int32(time.Now().Unix()),
 	}
 
-	if accountExists.Creator == account.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "You Are Not Allowed to Have a double Account with the same Wallet Adddress")
-	}
+	// set account data to store
+	k.SetAccount(ctx, msg.Did, account)
 
-	if accountExists.CompanyName == account.CompanyName {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Account Name Already Exists")
-	}
-
-	if accountExists.EmailAddress == account.EmailAddress {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Email Address Already Exists")
-	}
-
-	if accountExists.PhoneNumber == account.PhoneNumber {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Phone Number Already Exists")
-	}
-
-	// define the regular expression pattern for email
-	pattern := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	if !pattern.MatchString(account.EmailAddress) {
-		fmt.Println("Email is not in the correct format")
-	}
-
-	//government issued id should be an image and should be converted to byte
-
-	id := k.AppendAccount(
-		ctx,
-		account,
-	)
-
-	return &types.MsgCreateAccountResponse{
-		Id: id,
-	}, nil
+	return &types.MsgCreateAccountResponse{}, nil
 }
 
+// UpdateAccount updates account for users of Re Protocol
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//get DID Document from the DID module && check if DID is exists
+	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
+	if getDidDocument.Document.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	}
+	//creator of DID Document should be same with creator of Account
+	if getDidDocument.Creator != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
+	}
+
+	for _, did := range k.getDIDs(ctx) {
+		// Checks if an account exists
+		val := k.GetAccount(ctx, did)
+		if val.Empty() {
+			return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+		}
+
+		if val.CompanyName == msg.CompanyName {
+			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
+		}
+
+		if val.Website == msg.Website {
+			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
+		}
+	}
+
 	var account = types.Account{
-		Creator:            msg.Creator,
-		Id:                 msg.Id,
-		CompanyName:        msg.CompanyName,
-		Address:            msg.Address,
-		EmailAddress:       msg.EmailAddress,
-		PhoneNumber:        msg.PhoneNumber,
-		Website:            msg.Website,
-		SocialMediaLinks:   msg.SocialMediaLinks,
-		GovernmentIssuedId: msg.GovernmentIssuedId,
+		Creator:          msg.Creator,
+		Did:              msg.Did,
+		CompanyName:      msg.CompanyName,
+		Website:          msg.Website,
+		SocialMediaLinks: msg.SocialMediaLinks,
+		CreatedAt:        int32(time.Now().Unix()),
 	}
 
-	// Checks that the element exists
-	val, found := k.GetAccount(ctx, msg.Id)
-	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
-	}
-
-	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
-	}
-
-	k.SetAccount(ctx, account)
+	// set edited account data to store
+	k.SetAccount(ctx, msg.Did, account)
 
 	return &types.MsgUpdateAccountResponse{}, nil
 }
 
+// DeleteAccount deletes an account for users of Re Protocol
 func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAccount) (*types.MsgDeleteAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Checks that the element exists
-	val, found := k.GetAccount(ctx, msg.Id)
-	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	// Checks if an account exists
+	val := k.GetAccount(ctx, msg.Did)
+	if val.Empty() {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 	}
 
 	// Checks if the msg creator is the same as the current owner
 	if msg.Creator != val.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
 	}
 
-	k.RemoveAccount(ctx, msg.Id)
+	k.RemoveAccount(ctx, msg.Did)
 
 	return &types.MsgDeleteAccountResponse{}, nil
 }

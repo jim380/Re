@@ -49,11 +49,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		AccountList: []types.Account{
 			{
-				Id:      0,
+				Did:     "",
 				Creator: sample.AccAddress(),
 			},
 			{
-				Id:      1,
+				Did:     "",
 				Creator: sample.AccAddress(),
 			},
 		},

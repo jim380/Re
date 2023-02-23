@@ -15,6 +15,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
+
+	didKeeper "github.com/jim380/Re/x/did/keeper"
 )
 
 func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -41,6 +43,7 @@ func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
+		*didKeeper.NewKeeper(cdc, storeKey, memStoreKey),
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

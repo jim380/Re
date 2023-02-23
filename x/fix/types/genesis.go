@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"strconv"
 )
 
 // DefaultIndex is the default global index
@@ -20,16 +21,20 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated ID in account
-	accountIdMap := make(map[uint64]bool)
+	accountDidMap := make(map[string]bool)
 	accountCount := gs.GetAccountCount()
 	for _, elem := range gs.AccountList {
-		if _, ok := accountIdMap[elem.Id]; ok {
+		if _, ok := accountDidMap[elem.Did]; ok {
 			return fmt.Errorf("duplicated id for account")
 		}
-		if elem.Id >= accountCount {
+		did, err := strconv.ParseUint(elem.Did, 10, 64)
+		if err != nil {
+			// Handle the error if the conversion fails
+		}
+		if did >= accountCount {
 			return fmt.Errorf("account id should be lower or equal than the last id")
 		}
-		accountIdMap[elem.Id] = true
+		accountDidMap[elem.Did] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

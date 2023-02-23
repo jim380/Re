@@ -18,7 +18,15 @@ func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
-const (
-	AccountKey      = "Account/value/"
-	AccountCountKey = "Account/count/"
+var (
+	AccountKey      = []byte{0x00}
+	AccountCountKey = []byte{0x01}
 )
+
+func GetAccountKey() []byte {
+	return AccountKey
+}
+
+func GetAccountCountKey() []byte {
+	return AccountCountKey
+}

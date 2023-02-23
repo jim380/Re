@@ -5,6 +5,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
+type DidKeeper interface {
+	// Methods imported from did should be defined here
+}
+
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
 type AccountKeeper interface {
 	GetAccount(ctx sdk.Context, addr sdk.AccAddress) types.AccountI

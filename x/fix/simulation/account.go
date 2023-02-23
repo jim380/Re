@@ -68,7 +68,7 @@ func SimulateMsgUpdateAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = account.Id
+		msg.Did = account.Did
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -113,7 +113,7 @@ func SimulateMsgDeleteAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = account.Id
+		msg.Did = account.Did
 
 		txCtx := simulation.OperationInput{
 			R:               r,

@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,21 +44,18 @@ func CmdListAccount() *cobra.Command {
 
 func CmdShowAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-account [id]",
-		Short: "shows a account",
+		Use:   "show-account [did]",
+		Short: "shows an account",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
+			did := args[0]
+
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
-
 			params := &types.QueryGetAccountRequest{
-				Id: id,
+				Did: did,
 			}
 
 			res, err := queryClient.Account(context.Background(), params)

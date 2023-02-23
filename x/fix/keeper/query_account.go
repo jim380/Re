@@ -5,23 +5,24 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+	//sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) AccountAll(c context.Context, req *types.QueryAllAccountRequest) (*types.QueryAllAccountResponse, error) {
+func (k Keeper) AccountAll(goCtx context.Context, req *types.QueryAllAccountRequest) (*types.QueryAllAccountResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	var accounts []types.Account
-	ctx := sdk.UnwrapSDKContext(c)
+	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	accountStore := prefix.NewStore(store, types.KeyPrefix(types.AccountKey))
+	accountStore := prefix.NewStore(store, types.GetAccountKey())
 
 	pageRes, err := query.Paginate(accountStore, req.Pagination, func(key []byte, value []byte) error {
 		var account types.Account
@@ -40,16 +41,16 @@ func (k Keeper) AccountAll(c context.Context, req *types.QueryAllAccountRequest)
 	return &types.QueryAllAccountResponse{Account: accounts, Pagination: pageRes}, nil
 }
 
-func (k Keeper) Account(c context.Context, req *types.QueryGetAccountRequest) (*types.QueryGetAccountResponse, error) {
+func (k Keeper) Account(goCtx context.Context, req *types.QueryGetAccountRequest) (*types.QueryGetAccountResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	ctx := sdk.UnwrapSDKContext(c)
-	account, found := k.GetAccount(ctx, req.Id)
-	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
-	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	account := k.GetAccount(ctx, req.Did)
+	//if !found {
+	//	return nil, sdkerrors.ErrKeyNotFound
+	//}
 
 	return &types.QueryGetAccountResponse{Account: account}, nil
 }

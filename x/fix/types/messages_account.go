@@ -13,16 +13,13 @@ const (
 
 var _ sdk.Msg = &MsgCreateAccount{}
 
-func NewMsgCreateAccount(creator string, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgCreateAccount {
+func NewMsgCreateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgCreateAccount {
 	return &MsgCreateAccount{
-		Creator:            creator,
-		CompanyName:        companyName,
-		Address:            address,
-		EmailAddress:       emailAddress,
-		PhoneNumber:        phoneNumber,
-		Website:            website,
-		SocialMediaLinks:   socialMediaLinks,
-		GovernmentIssuedId: governmentIssuedId,
+		Creator:          creator,
+		Did:              did,
+		CompanyName:      companyName,
+		Website:          website,
+		SocialMediaLinks: socialMediaLinks,
 	}
 }
 
@@ -57,17 +54,13 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(creator string, id uint64, companyName string, address string, emailAddress string, phoneNumber int32, website string, socialMediaLinks []string, governmentIssuedId string) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
-		Id:                 id,
-		Creator:            creator,
-		CompanyName:        companyName,
-		Address:            address,
-		EmailAddress:       emailAddress,
-		PhoneNumber:        phoneNumber,
-		Website:            website,
-		SocialMediaLinks:   socialMediaLinks,
-		GovernmentIssuedId: governmentIssuedId,
+		Creator:          creator,
+		Did:              did,
+		CompanyName:      companyName,
+		Website:          website,
+		SocialMediaLinks: socialMediaLinks,
 	}
 }
 
@@ -102,9 +95,9 @@ func (msg *MsgUpdateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeleteAccount{}
 
-func NewMsgDeleteAccount(creator string, id uint64) *MsgDeleteAccount {
+func NewMsgDeleteAccount(creator string, did string) *MsgDeleteAccount {
 	return &MsgDeleteAccount{
-		Id:      id,
+		Did:     did,
 		Creator: creator,
 	}
 }
@@ -135,4 +128,12 @@ func (msg *MsgDeleteAccount) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
+}
+
+func EmptyDID(did string) bool {
+	return did == ""
+}
+
+func (a Account) Empty() bool {
+	return EmptyDID(a.Did)
 }

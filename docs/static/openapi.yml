@@ -22806,7 +22806,6 @@ paths:
         - Query
   /jim380/Re/fix/account:
     get:
-      summary: Queries a list of Account items.
       operationId: Jim380ReFixAccountAll
       responses:
         '200':
@@ -22819,25 +22818,13 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
+                    did:
                       type: string
-                      format: uint64
                     companyName:
                       type: string
-                    address:
-                      type: string
-                    emailAddress:
-                      type: string
-                    phoneNumber:
-                      type: integer
-                      format: int32
                     website:
                       type: string
                     socialMediaLinks:
-                      type: array
-                      items:
-                        type: string
-                    governmentIssuedId:
                       type: string
                     createdAt:
                       type: integer
@@ -22936,11 +22923,21 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/account/{id}:
+  /jim380/Re/fix/account/{did}:
     get:
-      summary: Queries a Account by id.
+      summary: Queries a list of Account items.
       operationId: Jim380ReFixAccount
       responses:
         '200':
@@ -22951,25 +22948,13 @@ paths:
               Account:
                 type: object
                 properties:
-                  id:
+                  did:
                     type: string
-                    format: uint64
                   companyName:
                     type: string
-                  address:
-                    type: string
-                  emailAddress:
-                    type: string
-                  phoneNumber:
-                    type: integer
-                    format: int32
                   website:
                     type: string
                   socialMediaLinks:
-                    type: array
-                    items:
-                      type: string
-                  governmentIssuedId:
                     type: string
                   createdAt:
                     type: integer
@@ -22995,11 +22980,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: did
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/params:
@@ -42839,25 +42823,13 @@ definitions:
   jim380.re.fix.Account:
     type: object
     properties:
-      id:
+      did:
         type: string
-        format: uint64
       companyName:
         type: string
-      address:
-        type: string
-      emailAddress:
-        type: string
-      phoneNumber:
-        type: integer
-        format: int32
       website:
         type: string
       socialMediaLinks:
-        type: array
-        items:
-          type: string
-      governmentIssuedId:
         type: string
       createdAt:
         type: integer
@@ -42867,9 +42839,8 @@ definitions:
   jim380.re.fix.MsgCreateAccountResponse:
     type: object
     properties:
-      id:
+      did:
         type: string
-        format: uint64
   jim380.re.fix.MsgDeleteAccountResponse:
     type: object
   jim380.re.fix.MsgUpdateAccountResponse:
@@ -42885,25 +42856,13 @@ definitions:
         items:
           type: object
           properties:
-            id:
+            did:
               type: string
-              format: uint64
             companyName:
               type: string
-            address:
-              type: string
-            emailAddress:
-              type: string
-            phoneNumber:
-              type: integer
-              format: int32
             website:
               type: string
             socialMediaLinks:
-              type: array
-              items:
-                type: string
-            governmentIssuedId:
               type: string
             createdAt:
               type: integer
@@ -42941,25 +42900,13 @@ definitions:
       Account:
         type: object
         properties:
-          id:
+          did:
             type: string
-            format: uint64
           companyName:
             type: string
-          address:
-            type: string
-          emailAddress:
-            type: string
-          phoneNumber:
-            type: integer
-            format: int32
           website:
             type: string
           socialMediaLinks:
-            type: array
-            items:
-              type: string
-          governmentIssuedId:
             type: string
           createdAt:
             type: integer
