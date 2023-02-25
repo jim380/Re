@@ -22923,16 +22923,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -23041,6 +23031,84 @@ paths:
                       format: uint64
                     sessionName:
                       type: string
+                    logonInitiator:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                            bodyLength:
+                              type: string
+                              format: byte
+                            msgType:
+                              type: string
+                            senderCompID:
+                              type: string
+                            targetCompID:
+                              type: string
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                            sendingTime:
+                              type: string
+                              format: int64
+                        encryptMethod:
+                          type: string
+                          format: int64
+                        heartBtInt:
+                          type: string
+                          format: int64
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                    logonAcceptor:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                            bodyLength:
+                              type: string
+                              format: byte
+                            msgType:
+                              type: string
+                            senderCompID:
+                              type: string
+                            targetCompID:
+                              type: string
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                            sendingTime:
+                              type: string
+                              format: int64
+                        encryptMethod:
+                          type: string
+                          format: int64
+                        heartBtInt:
+                          type: string
+                          format: int64
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                    IsLoggedIn:
+                      type: boolean
+                    IsAccepted:
+                      type: boolean
               pagination:
                 type: object
                 properties:
@@ -23133,16 +23201,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions/{id}:
@@ -23163,6 +23221,84 @@ paths:
                     format: uint64
                   sessionName:
                     type: string
+                  logonInitiator:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                          bodyLength:
+                            type: string
+                            format: byte
+                          msgType:
+                            type: string
+                          senderCompID:
+                            type: string
+                          targetCompID:
+                            type: string
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                          sendingTime:
+                            type: string
+                            format: int64
+                      encryptMethod:
+                        type: string
+                        format: int64
+                      heartBtInt:
+                        type: string
+                        format: int64
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                  logonAcceptor:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                          bodyLength:
+                            type: string
+                            format: byte
+                          msgType:
+                            type: string
+                          senderCompID:
+                            type: string
+                          targetCompID:
+                            type: string
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                          sendingTime:
+                            type: string
+                            format: int64
+                      encryptMethod:
+                        type: string
+                        format: int64
+                      heartBtInt:
+                        type: string
+                        format: int64
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                  IsLoggedIn:
+                    type: boolean
+                  IsAccepted:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -43003,12 +43139,108 @@ definitions:
         format: int32
       creator:
         type: string
+  jim380.re.fix.Header:
+    type: object
+    properties:
+      beginString:
+        type: string
+      bodyLength:
+        type: string
+        format: byte
+      msgType:
+        type: string
+      senderCompID:
+        type: string
+      targetCompID:
+        type: string
+      msgSeqNum:
+        type: string
+        format: int64
+      sendingTime:
+        type: string
+        format: int64
+  jim380.re.fix.LogonAcceptor:
+    type: object
+    properties:
+      address:
+        type: string
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+          bodyLength:
+            type: string
+            format: byte
+          msgType:
+            type: string
+          senderCompID:
+            type: string
+          targetCompID:
+            type: string
+          msgSeqNum:
+            type: string
+            format: int64
+          sendingTime:
+            type: string
+            format: int64
+      encryptMethod:
+        type: string
+        format: int64
+      heartBtInt:
+        type: string
+        format: int64
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+  jim380.re.fix.LogonInitiator:
+    type: object
+    properties:
+      address:
+        type: string
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+          bodyLength:
+            type: string
+            format: byte
+          msgType:
+            type: string
+          senderCompID:
+            type: string
+          targetCompID:
+            type: string
+          msgSeqNum:
+            type: string
+            format: int64
+          sendingTime:
+            type: string
+            format: int64
+      encryptMethod:
+        type: string
+        format: int64
+      heartBtInt:
+        type: string
+        format: int64
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
   jim380.re.fix.MsgCreateAccountResponse:
     type: object
     properties:
       did:
         type: string
   jim380.re.fix.MsgDeleteAccountResponse:
+    type: object
+  jim380.re.fix.MsgLogonInitiatorResponse:
     type: object
   jim380.re.fix.MsgUpdateAccountResponse:
     type: object
@@ -43074,6 +43306,84 @@ definitions:
               format: uint64
             sessionName:
               type: string
+            logonInitiator:
+              type: object
+              properties:
+                address:
+                  type: string
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: byte
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                      format: int64
+                encryptMethod:
+                  type: string
+                  format: int64
+                heartBtInt:
+                  type: string
+                  format: int64
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+            logonAcceptor:
+              type: object
+              properties:
+                address:
+                  type: string
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: byte
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                      format: int64
+                encryptMethod:
+                  type: string
+                  format: int64
+                heartBtInt:
+                  type: string
+                  format: int64
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+            IsLoggedIn:
+              type: boolean
+            IsAccepted:
+              type: boolean
       pagination:
         type: object
         properties:
@@ -43129,6 +43439,84 @@ definitions:
             format: uint64
           sessionName:
             type: string
+          logonInitiator:
+            type: object
+            properties:
+              address:
+                type: string
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                  bodyLength:
+                    type: string
+                    format: byte
+                  msgType:
+                    type: string
+                  senderCompID:
+                    type: string
+                  targetCompID:
+                    type: string
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                  sendingTime:
+                    type: string
+                    format: int64
+              encryptMethod:
+                type: string
+                format: int64
+              heartBtInt:
+                type: string
+                format: int64
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+          logonAcceptor:
+            type: object
+            properties:
+              address:
+                type: string
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                  bodyLength:
+                    type: string
+                    format: byte
+                  msgType:
+                    type: string
+                  senderCompID:
+                    type: string
+                  targetCompID:
+                    type: string
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                  sendingTime:
+                    type: string
+                    format: int64
+              encryptMethod:
+                type: string
+                format: int64
+              heartBtInt:
+                type: string
+                format: int64
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+          IsLoggedIn:
+            type: boolean
+          IsAccepted:
+            type: boolean
   jim380.re.fix.QueryParamsResponse:
     type: object
     properties:
@@ -43144,6 +43532,90 @@ definitions:
         format: uint64
       sessionName:
         type: string
+      logonInitiator:
+        type: object
+        properties:
+          address:
+            type: string
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: byte
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+                format: int64
+          encryptMethod:
+            type: string
+            format: int64
+          heartBtInt:
+            type: string
+            format: int64
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+      logonAcceptor:
+        type: object
+        properties:
+          address:
+            type: string
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: byte
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+                format: int64
+          encryptMethod:
+            type: string
+            format: int64
+          heartBtInt:
+            type: string
+            format: int64
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+      IsLoggedIn:
+        type: boolean
+      IsAccepted:
+        type: boolean
+  jim380.re.fix.Trailer:
+    type: object
+    properties:
+      checkSum:
+        type: string
+        format: int64
   re.did.DIDDocument:
     type: object
     properties:

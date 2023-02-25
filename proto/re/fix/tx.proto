@@ -6,11 +6,14 @@ import "re/fix/account.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/sessions.proto";
+
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount (MsgCreateAccount) returns (MsgCreateAccountResponse);
-  rpc UpdateAccount (MsgUpdateAccount) returns (MsgUpdateAccountResponse);
-  rpc DeleteAccount (MsgDeleteAccount) returns (MsgDeleteAccountResponse);
+  rpc CreateAccount  (MsgCreateAccount ) returns (MsgCreateAccountResponse );
+  rpc UpdateAccount  (MsgUpdateAccount ) returns (MsgUpdateAccountResponse );
+  rpc DeleteAccount  (MsgDeleteAccount ) returns (MsgDeleteAccountResponse );
+  rpc LogonInitiator (MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -38,8 +41,19 @@ message MsgUpdateAccountResponse {}
 
 message MsgDeleteAccount {
   string creator = 1;
-  string did      = 2;
+  string did     = 2;
 }
 
 message MsgDeleteAccountResponse {}
+
+message MsgLogonInitiator {
+  uint64 id = 1;
+  string sessionName = 2;
+  LogonInitiator logonInitiator = 3;
+  bool IsLoggedIn = 4;
+  bool IsAccepted = 5;
+  string initiatorAddress = 6; 
+}
+
+message MsgLogonInitiatorResponse {}
 

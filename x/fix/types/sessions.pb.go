@@ -23,8 +23,14 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Sessions struct {
-	Id          uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	SessionName string `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	Id               uint64          `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	SessionName      string          `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	LogonInitiator   *LogonInitiator `protobuf:"bytes,3,opt,name=logonInitiator,proto3" json:"logonInitiator,omitempty"`
+	InitiatorAddress string          `protobuf:"bytes,4,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
+	LogonAcceptor    *LogonAcceptor  `protobuf:"bytes,5,opt,name=logonAcceptor,proto3" json:"logonAcceptor,omitempty"`
+	AcceptorAddress  string          `protobuf:"bytes,6,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
+	IsLoggedIn       bool            `protobuf:"varint,7,opt,name=IsLoggedIn,proto3" json:"IsLoggedIn,omitempty"`
+	IsAccepted       bool            `protobuf:"varint,8,opt,name=IsAccepted,proto3" json:"IsAccepted,omitempty"`
 }
 
 func (m *Sessions) Reset()         { *m = Sessions{} }
@@ -74,25 +80,220 @@ func (m *Sessions) GetSessionName() string {
 	return ""
 }
 
+func (m *Sessions) GetLogonInitiator() *LogonInitiator {
+	if m != nil {
+		return m.LogonInitiator
+	}
+	return nil
+}
+
+func (m *Sessions) GetInitiatorAddress() string {
+	if m != nil {
+		return m.InitiatorAddress
+	}
+	return ""
+}
+
+func (m *Sessions) GetLogonAcceptor() *LogonAcceptor {
+	if m != nil {
+		return m.LogonAcceptor
+	}
+	return nil
+}
+
+func (m *Sessions) GetAcceptorAddress() string {
+	if m != nil {
+		return m.AcceptorAddress
+	}
+	return ""
+}
+
+func (m *Sessions) GetIsLoggedIn() bool {
+	if m != nil {
+		return m.IsLoggedIn
+	}
+	return false
+}
+
+func (m *Sessions) GetIsAccepted() bool {
+	if m != nil {
+		return m.IsAccepted
+	}
+	return false
+}
+
+type LogonInitiator struct {
+	Header        *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	EncryptMethod int64    `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
+	HeartBtInt    int64    `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
+	Trailer       *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *LogonInitiator) Reset()         { *m = LogonInitiator{} }
+func (m *LogonInitiator) String() string { return proto.CompactTextString(m) }
+func (*LogonInitiator) ProtoMessage()    {}
+func (*LogonInitiator) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7d4d646ca64d70e3, []int{1}
+}
+func (m *LogonInitiator) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LogonInitiator) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LogonInitiator.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LogonInitiator) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LogonInitiator.Merge(m, src)
+}
+func (m *LogonInitiator) XXX_Size() int {
+	return m.Size()
+}
+func (m *LogonInitiator) XXX_DiscardUnknown() {
+	xxx_messageInfo_LogonInitiator.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LogonInitiator proto.InternalMessageInfo
+
+func (m *LogonInitiator) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *LogonInitiator) GetEncryptMethod() int64 {
+	if m != nil {
+		return m.EncryptMethod
+	}
+	return 0
+}
+
+func (m *LogonInitiator) GetHeartBtInt() int64 {
+	if m != nil {
+		return m.HeartBtInt
+	}
+	return 0
+}
+
+func (m *LogonInitiator) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+type LogonAcceptor struct {
+	Header        *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	EncryptMethod int64    `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
+	HeartBtInt    int64    `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
+	Trailer       *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *LogonAcceptor) Reset()         { *m = LogonAcceptor{} }
+func (m *LogonAcceptor) String() string { return proto.CompactTextString(m) }
+func (*LogonAcceptor) ProtoMessage()    {}
+func (*LogonAcceptor) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7d4d646ca64d70e3, []int{2}
+}
+func (m *LogonAcceptor) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LogonAcceptor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LogonAcceptor.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LogonAcceptor) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LogonAcceptor.Merge(m, src)
+}
+func (m *LogonAcceptor) XXX_Size() int {
+	return m.Size()
+}
+func (m *LogonAcceptor) XXX_DiscardUnknown() {
+	xxx_messageInfo_LogonAcceptor.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LogonAcceptor proto.InternalMessageInfo
+
+func (m *LogonAcceptor) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *LogonAcceptor) GetEncryptMethod() int64 {
+	if m != nil {
+		return m.EncryptMethod
+	}
+	return 0
+}
+
+func (m *LogonAcceptor) GetHeartBtInt() int64 {
+	if m != nil {
+		return m.HeartBtInt
+	}
+	return 0
+}
+
+func (m *LogonAcceptor) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Sessions)(nil), "jim380.re.fix.Sessions")
+	proto.RegisterType((*LogonInitiator)(nil), "jim380.re.fix.LogonInitiator")
+	proto.RegisterType((*LogonAcceptor)(nil), "jim380.re.fix.LogonAcceptor")
 }
 
 func init() { proto.RegisterFile("re/fix/sessions.proto", fileDescriptor_7d4d646ca64d70e3) }
 
 var fileDescriptor_7d4d646ca64d70e3 = []byte{
-	// 164 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2d, 0x4a, 0xd5, 0x4f,
-	0xcb, 0xac, 0xd0, 0x2f, 0x4e, 0x2d, 0x2e, 0xce, 0xcc, 0xcf, 0x2b, 0xd6, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0xe2, 0xcd, 0xca, 0xcc, 0x35, 0xb6, 0x30, 0xd0, 0x2b, 0x4a, 0xd5, 0x4b, 0xcb, 0xac,
-	0x50, 0xb2, 0xe1, 0xe2, 0x08, 0x86, 0x2a, 0x10, 0xe2, 0xe3, 0x62, 0xca, 0x4c, 0x91, 0x60, 0x54,
-	0x60, 0xd4, 0x60, 0x09, 0x62, 0xca, 0x4c, 0x11, 0x52, 0xe0, 0xe2, 0x86, 0x6a, 0xf6, 0x4b, 0xcc,
-	0x4d, 0x95, 0x60, 0x52, 0x60, 0xd4, 0xe0, 0x0c, 0x42, 0x16, 0x72, 0xb2, 0x3a, 0xf1, 0x48, 0x8e,
-	0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58,
-	0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0x85, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd, 0xe4,
-	0xfc, 0x5c, 0x7d, 0x88, 0x8d, 0xfa, 0x41, 0xa9, 0xfa, 0x15, 0x60, 0x17, 0x95, 0x54, 0x16, 0xa4,
-	0x16, 0x27, 0xb1, 0x81, 0xdd, 0x63, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x2a, 0x9b, 0x42, 0x13,
-	0xa8, 0x00, 0x00, 0x00,
+	// 409 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x53, 0x41, 0x8b, 0xd3, 0x40,
+	0x18, 0xed, 0xa4, 0x6b, 0xb7, 0x4e, 0x48, 0x95, 0x81, 0x95, 0x20, 0x6e, 0x08, 0xc5, 0x43, 0x10,
+	0x4c, 0x96, 0xee, 0x45, 0xbc, 0x6d, 0x41, 0x30, 0xb0, 0x7a, 0x18, 0x3d, 0x79, 0x91, 0xd9, 0xcc,
+	0xd7, 0x64, 0xa4, 0xc9, 0x84, 0x99, 0x11, 0xda, 0x7f, 0xe1, 0xaf, 0xd1, 0xbf, 0xe0, 0xb1, 0x47,
+	0x2f, 0x82, 0xb4, 0x7f, 0x44, 0x3a, 0x49, 0xa0, 0x89, 0xfe, 0x81, 0xbd, 0x25, 0xef, 0xbd, 0xef,
+	0xbd, 0x37, 0xdf, 0x30, 0xf8, 0x42, 0x41, 0xb2, 0x12, 0x9b, 0x44, 0x83, 0xd6, 0x42, 0x56, 0x3a,
+	0xae, 0x95, 0x34, 0x92, 0x78, 0x5f, 0x44, 0x79, 0xfd, 0xea, 0x2a, 0x56, 0x10, 0xaf, 0xc4, 0xe6,
+	0xe9, 0x65, 0xa7, 0x32, 0xac, 0xe2, 0x4c, 0xf1, 0xcf, 0x25, 0x68, 0xcd, 0x72, 0x68, 0xd4, 0xf3,
+	0xdf, 0x0e, 0x9e, 0x7e, 0x68, 0x0d, 0xc8, 0x0c, 0x3b, 0x82, 0xfb, 0x28, 0x44, 0xd1, 0x19, 0x75,
+	0x04, 0x27, 0x21, 0x76, 0x5b, 0xf3, 0xf7, 0xac, 0x04, 0xdf, 0x09, 0x51, 0xf4, 0x90, 0x9e, 0x42,
+	0xe4, 0x0d, 0x9e, 0xad, 0x65, 0x2e, 0xab, 0xb4, 0x12, 0x46, 0x30, 0x23, 0x95, 0x3f, 0x0e, 0x51,
+	0xe4, 0x2e, 0x2e, 0xe3, 0x5e, 0x8b, 0xf8, 0xb6, 0x27, 0xa2, 0x83, 0x21, 0xf2, 0x02, 0x3f, 0x16,
+	0xdd, 0xcf, 0x0d, 0xe7, 0x0a, 0xb4, 0xf6, 0xcf, 0x6c, 0xda, 0x3f, 0x38, 0x59, 0x62, 0xcf, 0x4e,
+	0xdf, 0x64, 0x19, 0xd4, 0xc7, 0xc4, 0x07, 0x36, 0xf1, 0xd9, 0xff, 0x12, 0x3b, 0x0d, 0xed, 0x8f,
+	0x90, 0x08, 0x3f, 0x62, 0xed, 0x77, 0x17, 0x37, 0xb1, 0x71, 0x43, 0x98, 0x04, 0x18, 0xa7, 0xfa,
+	0x56, 0xe6, 0x39, 0xf0, 0xb4, 0xf2, 0xcf, 0x43, 0x14, 0x4d, 0xe9, 0x09, 0xd2, 0xf0, 0x8d, 0x2f,
+	0x70, 0x7f, 0xda, 0xf1, 0x1d, 0x32, 0xff, 0x81, 0xf0, 0xac, 0x7f, 0x78, 0xf2, 0x12, 0x4f, 0x0a,
+	0x60, 0x1c, 0x94, 0xdd, 0xb4, 0xbb, 0xb8, 0x18, 0x34, 0x7f, 0x6b, 0x49, 0xda, 0x8a, 0xc8, 0x73,
+	0xec, 0x41, 0x95, 0xa9, 0x6d, 0x6d, 0xde, 0x81, 0x29, 0x24, 0xb7, 0xd7, 0x30, 0xa6, 0x7d, 0xf0,
+	0xd8, 0xa3, 0x00, 0xa6, 0xcc, 0xd2, 0xa4, 0x95, 0xb1, 0x97, 0x30, 0xa6, 0x27, 0x08, 0xb9, 0xc2,
+	0xe7, 0x46, 0x31, 0xb1, 0x06, 0x65, 0x17, 0xeb, 0x2e, 0x9e, 0x0c, 0x52, 0x3f, 0x36, 0x2c, 0xed,
+	0x64, 0xf3, 0xef, 0x08, 0x7b, 0xbd, 0x25, 0xde, 0x93, 0xe2, 0xcb, 0xd7, 0x3f, 0xf7, 0x01, 0xda,
+	0xed, 0x03, 0xf4, 0x67, 0x1f, 0xa0, 0x6f, 0x87, 0x60, 0xb4, 0x3b, 0x04, 0xa3, 0x5f, 0x87, 0x60,
+	0xf4, 0x29, 0xcc, 0x85, 0x29, 0xbe, 0xde, 0xc5, 0x99, 0x2c, 0x93, 0xc6, 0x24, 0xa1, 0x90, 0x6c,
+	0xec, 0xfb, 0x30, 0xdb, 0x1a, 0xf4, 0xdd, 0xc4, 0xbe, 0x8a, 0xeb, 0xbf, 0x01, 0x00, 0x00, 0xff,
+	0xff, 0x2b, 0x21, 0xe1, 0x7a, 0x5c, 0x03, 0x00, 0x00,
 }
 
 func (m *Sessions) Marshal() (dAtA []byte, err error) {
@@ -115,6 +316,64 @@ func (m *Sessions) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.IsAccepted {
+		i--
+		if m.IsAccepted {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x40
+	}
+	if m.IsLoggedIn {
+		i--
+		if m.IsLoggedIn {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x38
+	}
+	if len(m.AcceptorAddress) > 0 {
+		i -= len(m.AcceptorAddress)
+		copy(dAtA[i:], m.AcceptorAddress)
+		i = encodeVarintSessions(dAtA, i, uint64(len(m.AcceptorAddress)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.LogonAcceptor != nil {
+		{
+			size, err := m.LogonAcceptor.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.InitiatorAddress) > 0 {
+		i -= len(m.InitiatorAddress)
+		copy(dAtA[i:], m.InitiatorAddress)
+		i = encodeVarintSessions(dAtA, i, uint64(len(m.InitiatorAddress)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.LogonInitiator != nil {
+		{
+			size, err := m.LogonInitiator.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
 	if len(m.SessionName) > 0 {
 		i -= len(m.SessionName)
 		copy(dAtA[i:], m.SessionName)
@@ -126,6 +385,120 @@ func (m *Sessions) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintSessions(dAtA, i, uint64(m.Id))
 		i--
 		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LogonInitiator) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LogonInitiator) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LogonInitiator) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.HeartBtInt != 0 {
+		i = encodeVarintSessions(dAtA, i, uint64(m.HeartBtInt))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.EncryptMethod != 0 {
+		i = encodeVarintSessions(dAtA, i, uint64(m.EncryptMethod))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LogonAcceptor) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LogonAcceptor) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LogonAcceptor) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.HeartBtInt != 0 {
+		i = encodeVarintSessions(dAtA, i, uint64(m.HeartBtInt))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.EncryptMethod != 0 {
+		i = encodeVarintSessions(dAtA, i, uint64(m.EncryptMethod))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSessions(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -152,6 +525,74 @@ func (m *Sessions) Size() (n int) {
 	}
 	l = len(m.SessionName)
 	if l > 0 {
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	if m.LogonInitiator != nil {
+		l = m.LogonInitiator.Size()
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	l = len(m.InitiatorAddress)
+	if l > 0 {
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	if m.LogonAcceptor != nil {
+		l = m.LogonAcceptor.Size()
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	l = len(m.AcceptorAddress)
+	if l > 0 {
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	if m.IsLoggedIn {
+		n += 2
+	}
+	if m.IsAccepted {
+		n += 2
+	}
+	return n
+}
+
+func (m *LogonInitiator) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	if m.EncryptMethod != 0 {
+		n += 1 + sovSessions(uint64(m.EncryptMethod))
+	}
+	if m.HeartBtInt != 0 {
+		n += 1 + sovSessions(uint64(m.HeartBtInt))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	return n
+}
+
+func (m *LogonAcceptor) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovSessions(uint64(l))
+	}
+	if m.EncryptMethod != 0 {
+		n += 1 + sovSessions(uint64(m.EncryptMethod))
+	}
+	if m.HeartBtInt != 0 {
+		n += 1 + sovSessions(uint64(m.HeartBtInt))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
 		n += 1 + l + sovSessions(uint64(l))
 	}
 	return n
@@ -242,6 +683,502 @@ func (m *Sessions) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.SessionName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LogonInitiator", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.LogonInitiator == nil {
+				m.LogonInitiator = &LogonInitiator{}
+			}
+			if err := m.LogonInitiator.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InitiatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InitiatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LogonAcceptor", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.LogonAcceptor == nil {
+				m.LogonAcceptor = &LogonAcceptor{}
+			}
+			if err := m.LogonAcceptor.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AcceptorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AcceptorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsLoggedIn", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsLoggedIn = bool(v != 0)
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsAccepted", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsAccepted = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSessions(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LogonInitiator) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSessions
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LogonInitiator: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LogonInitiator: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EncryptMethod", wireType)
+			}
+			m.EncryptMethod = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EncryptMethod |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HeartBtInt", wireType)
+			}
+			m.HeartBtInt = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HeartBtInt |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSessions(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LogonAcceptor) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSessions
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LogonAcceptor: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LogonAcceptor: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EncryptMethod", wireType)
+			}
+			m.EncryptMethod = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EncryptMethod |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HeartBtInt", wireType)
+			}
+			m.HeartBtInt = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HeartBtInt |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSessions
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSessions
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSessions
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

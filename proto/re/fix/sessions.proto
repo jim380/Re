@@ -10,22 +10,24 @@ message Sessions {
   uint64 id = 1;
   string sessionName = 2; 
   LogonInitiator logonInitiator  = 3;
-  LogonAcceptor logonAcceptor = 4;
+  string initiatorAddress = 4;
+  LogonAcceptor logonAcceptor = 5;
+  string acceptorAddress = 6;
+  bool IsLoggedIn = 7;
+  bool IsAccepted = 8;
 }
 
 
 message LogonInitiator {
-  string address = 1; 
-  Header hear = 2;
-  int64 encryptMethod =3;
-  int64 HeartBtInt = 4;
-  Trailer trailer = 5;
+  Header header = 1;
+  int64 encryptMethod =2;
+  int64 heartBtInt = 3;
+  Trailer trailer = 4;
 }
 
-message LogonAcceptor {
-  string address = 1; 
-  Header hear = 2;
-  int64 encryptMethod =3;
-  int64 HeartBtInt = 4;
-  Trailer trailer = 5;
+message LogonAcceptor { 
+  Header header = 1;
+  int64 encryptMethod =2;
+  int64 heartBtInt = 3;
+  Trailer trailer = 4;
 }
