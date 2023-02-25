@@ -13,6 +13,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetAccount(ctx, elem.Did, elem)
 	}
 
+	// Set all the sessions
+	for _, elem := range genState.SessionsList {
+		k.SetSessions(ctx, elem)
+	}
+
+	// Set sessions count
+	k.SetSessionsCount(ctx, genState.SessionsCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -23,6 +30,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.Params = k.GetParams(ctx)
 
 	genesis.AccountList = k.GetAllAccount(ctx)
+	genesis.SessionsList = k.GetAllSessions(ctx)
+	genesis.SessionsCount = k.GetSessionsCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

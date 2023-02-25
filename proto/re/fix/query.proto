@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "re/fix/params.proto";
 import "re/fix/account.proto";
+import "re/fix/sessions.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -26,6 +27,16 @@ service Query {
   }
   rpc AccountAll (QueryAllAccountRequest) returns (QueryAllAccountResponse) {
     option (google.api.http).get = "/jim380/Re/fix/account";
+  
+  }
+  
+  // Queries a list of Sessions items.
+  rpc Sessions    (QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/sessions/{id}";
+  
+  }
+  rpc SessionsAll (QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/sessions";
   
   }
 }
@@ -53,6 +64,23 @@ message QueryAllAccountRequest {
 
 message QueryAllAccountResponse {
   repeated Account                                Account    = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSessionsRequest {
+  uint64 id = 1;
+}
+
+message QueryGetSessionsResponse {
+  Sessions Sessions = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSessionsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSessionsResponse {
+  repeated Sessions                               Sessions   = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
