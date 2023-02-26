@@ -17,20 +17,14 @@ const (
 func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInitiator) (*types.MsgLogonInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionName)
-	if !found {
-
-	}
-	if session.LogonInitiator.Header.MsgSeqNum == msg.LogonInitiator.Header.MsgSeqNum {
-
-	}
-
 	// DID will be used senderCompID and targetCompID for both parties
 	// get DID from registered accounts
 	senderCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.SenderCompID)
 	if senderCompID.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.LogonInitiator.Header.SenderCompID)
+	}
+	if senderCompID.Creator != msg.InitiatorAddress {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.InitiatorAddress)
 	}
 
 	targetCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.TargetCompID)
@@ -38,48 +32,42 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
-	// generate new session name for each session
-	sessionName, err := generateRandomString(sessionNameLength)
-	if err != nil {
-		panic(err)
+	// same DID can not be used for intiating and accepting in the same session
+	//if senderCompID.Did == targetCompID.Did {
+
+	//}
+
+	//check for if this session Name exists already
+	_, found := k.GetSessions(ctx, msg.SessionName)
+	if found {
+		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionName)
 	}
 
-	// get the sending time
+	//get the sending time
 	sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
+	msg.LogonInitiator.Header.SendingTime = sendingTime
 
-	// get MsgSeqNum from  GetSessionsCount
+	//get MsgSeqNum from  GetSessionsCount
 	msgSeqNum := k.GetSessionsCount(ctx)
+	msg.LogonInitiator.Header.MsgSeqNum = int64(msgSeqNum) + 1
 
-	// body length of logon message
-	body := msg.SessionName + msg.InitiatorAddress + strconv.FormatInt(msg.LogonInitiator.EncryptMethod, 10) + strconv.FormatInt(msg.LogonInitiator.HeartBtInt, 10)
-	bodyLength := msg.BodyLength(body)
+	//body length of logon message
+	msgBody := msg.SessionName + msg.InitiatorAddress + strconv.FormatInt(msg.LogonInitiator.EncryptMethod, 10) + strconv.FormatInt(msg.LogonInitiator.HeartBtInt, 10)
+	bodyLength := msg.BodyLength(msgBody)
+	msg.LogonInitiator.Header.BodyLength = bodyLength
 
 	//set the standard header
-	header := types.Header{
-		BeginString:  msg.FIXVersion(),
-		BodyLength:   bodyLength,
-		MsgType:      msg.LogonInitiator.Header.MsgType,
-		SenderCompID: senderCompID.Did,
-		TargetCompID: targetCompID.Did,
-		MsgSeqNum:    int64(msgSeqNum) + 1,
-		SendingTime:  sendingTime,
-	}
+	header := types.NewHeader(msg.LogonInitiator.Header.MsgType, senderCompID.Did, targetCompID.Did)
+	//header.BeginString = msg.FIXVersion()
 
 	// set the standard trailer
-	trailer := types.Trailer{
-		CheckSum: msg.LogonInitiator.Trailer.CheckSum,
-	}
+	//trailer := types.NewTrailer(bodyLength)
 
 	// set the logon initiator message
-	logonInitiator := types.LogonInitiator{
-		Header:        &header,
-		EncryptMethod: msg.LogonInitiator.EncryptMethod,
-		HeartBtInt:    msg.LogonInitiator.HeartBtInt,
-		Trailer:       &trailer,
-	}
+	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt)
 
 	var newSession = types.Sessions{
-		SessionName:      sessionName,
+		SessionName:      msg.SessionName,
 		LogonInitiator:   &logonInitiator,
 		IsLoggedIn:       false,
 		IsAccepted:       false,

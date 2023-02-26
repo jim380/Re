@@ -15,4 +15,6 @@ var (
 	ErrCompanyNameIsTaken = sdkerrors.Register(ModuleName, 6, "Company Name exists with an account already")
 	ErrWebsiteIstaken     = sdkerrors.Register(ModuleName, 7, "Website is used already")
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, 8, "Incorrect Account Owner")
+
+	ErrSessionNameFound = sdkerrors.Register(ModuleName, 9, "Session Name exists")
 )

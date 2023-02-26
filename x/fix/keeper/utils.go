@@ -21,3 +21,12 @@ func generateRandomString(length int) (string, error) {
 	}
 	return string(b), nil
 }
+
+func calculateChecksum(msg string) int64 {
+	var sum int
+	for _, r := range msg {
+		sum += int(r)
+	}
+	sum %= 256
+	return int64(sum)
+}

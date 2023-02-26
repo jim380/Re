@@ -12,10 +12,10 @@ const (
 
 var _ sdk.Msg = &MsgLogonInitiator{}
 
-func NewMsgLogonInitiator(initiatorAddress string, sessionName string) *MsgLogonInitiator {
+func NewMsgLogonInitiator(initiatorAddress string, logonInitator LogonInitiator) *MsgLogonInitiator {
 	return &MsgLogonInitiator{
 		InitiatorAddress: initiatorAddress,
-		SessionName:      sessionName,
+		LogonInitiator:   &logonInitator,
 	}
 }
 
@@ -60,4 +60,26 @@ func (msg *MsgLogonInitiator) BodyLength(msgLength string) int64 {
 	length := len(logonMsg)
 	msg.LogonInitiator.Header.BodyLength = int64(length)
 	return msg.LogonInitiator.Header.BodyLength
+}
+
+func NewHeader(msgType string, senderCompID string, targetCompID string) Header {
+	return Header{
+		MsgType:      msgType,
+		SenderCompID: senderCompID,
+		TargetCompID: targetCompID,
+	}
+}
+
+func NewTrailer(checkSum int64) Trailer {
+	return Trailer{
+		CheckSum: checkSum,
+	}
+}
+
+func NewLogonInitiator(header Header, encryptMethod int64, heartBtInt int64) LogonInitiator {
+	return LogonInitiator{
+		Header:        &header,
+		EncryptMethod: encryptMethod,
+		HeartBtInt:    heartBtInt,
+	}
 }
