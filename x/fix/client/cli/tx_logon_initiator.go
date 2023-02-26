@@ -2,6 +2,7 @@ package cli
 
 import (
 	"strconv"
+	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -41,12 +42,32 @@ func CmdLogonInitiator() *cobra.Command {
 				return err
 			}
 
-			header := types.NewHeader(argMsgType, argSenderCompID, argTargetCompID)
+			sessionName, _ := generateRandomString(sessionNameLength)
 
-			argLogonIntiator := types.NewLogonInitiator(header, int64(argEncryptMethod), int64(argHeartBtInt))
+			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
+
+			//sample of the msg
+			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
+			//body length of logon message
+			msgBody := sessionName + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
+
+			bodyLength := BodyLength(msgBody)
+
+			msgSeqNum := int64(0) + 1
+
+			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
+
+			//get the length of checksum excluding the checksum field
+			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
+			setCheckSum := calculateChecksum(checkSum)
+
+			trailer := types.NewTrailer(setCheckSum)
+
+			argLogonIntiator := types.NewLogonInitiator(header, int64(argEncryptMethod), int64(argHeartBtInt), trailer)
 
 			msg := types.NewMsgLogonInitiator(
 				clientCtx.GetFromAddress().String(),
+				sessionName,
 				argLogonIntiator,
 			)
 			if err := msg.ValidateBasic(); err != nil {

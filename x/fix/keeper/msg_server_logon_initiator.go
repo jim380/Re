@@ -2,16 +2,10 @@ package keeper
 
 import (
 	"context"
-	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/x/fix/types"
-)
-
-const (
-	sessionNameLength = 10
 )
 
 func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInitiator) (*types.MsgLogonInitiatorResponse, error) {
@@ -32,9 +26,9 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
-	// same DID can not be used for intiating and accepting in the same session
+	//same DID can not be used for intiating and accepting in the same FIX session
 	//if senderCompID.Did == targetCompID.Did {
-
+	//	return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
 	//}
 
 	//check for if this session Name exists already
@@ -43,28 +37,21 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionName)
 	}
 
-	//get the sending time
-	sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
-	msg.LogonInitiator.Header.SendingTime = sendingTime
-
 	//get MsgSeqNum from  GetSessionsCount
 	msgSeqNum := k.GetSessionsCount(ctx)
 	msg.LogonInitiator.Header.MsgSeqNum = int64(msgSeqNum) + 1
 
-	//body length of logon message
-	msgBody := msg.SessionName + msg.InitiatorAddress + strconv.FormatInt(msg.LogonInitiator.EncryptMethod, 10) + strconv.FormatInt(msg.LogonInitiator.HeartBtInt, 10)
-	bodyLength := msg.BodyLength(msgBody)
-	msg.LogonInitiator.Header.BodyLength = bodyLength
-
 	//set the standard header
-	header := types.NewHeader(msg.LogonInitiator.Header.MsgType, senderCompID.Did, targetCompID.Did)
-	//header.BeginString = msg.FIXVersion()
+	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Did, targetCompID.Did, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime)
 
-	// set the standard trailer
-	//trailer := types.NewTrailer(bodyLength)
+	//set the FIX Version
+	header.BeginString = msg.FIXVersion()
+
+	//set the standard trailer
+	trailer := types.NewTrailer(msg.LogonInitiator.Trailer.CheckSum)
 
 	// set the logon initiator message
-	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt)
+	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt, trailer)
 
 	var newSession = types.Sessions{
 		SessionName:      msg.SessionName,

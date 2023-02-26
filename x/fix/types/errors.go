@@ -17,4 +17,5 @@ var (
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, 8, "Incorrect Account Owner")
 
 	ErrSessionNameFound = sdkerrors.Register(ModuleName, 9, "Session Name exists")
+	ErrSessionSameDID   = sdkerrors.Register(ModuleName, 10, "Session can not use same DID for senderCompID and targetCompID")
 )

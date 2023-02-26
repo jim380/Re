@@ -12,9 +12,10 @@ const (
 
 var _ sdk.Msg = &MsgLogonInitiator{}
 
-func NewMsgLogonInitiator(initiatorAddress string, logonInitator LogonInitiator) *MsgLogonInitiator {
+func NewMsgLogonInitiator(initiatorAddress string, sessionName string, logonInitator LogonInitiator) *MsgLogonInitiator {
 	return &MsgLogonInitiator{
 		InitiatorAddress: initiatorAddress,
+		SessionName:      sessionName,
 		LogonInitiator:   &logonInitator,
 	}
 }
@@ -53,20 +54,14 @@ func (msg *MsgLogonInitiator) FIXVersion() string {
 	return msg.LogonInitiator.Header.BeginString
 }
 
-func (msg *MsgLogonInitiator) BodyLength(msgLength string) int64 {
-	//sample of the msg
-	// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
-	logonMsg := msgLength
-	length := len(logonMsg)
-	msg.LogonInitiator.Header.BodyLength = int64(length)
-	return msg.LogonInitiator.Header.BodyLength
-}
-
-func NewHeader(msgType string, senderCompID string, targetCompID string) Header {
+func NewHeader(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string) Header {
 	return Header{
+		BodyLength:   bodyLength,
 		MsgType:      msgType,
 		SenderCompID: senderCompID,
 		TargetCompID: targetCompID,
+		MsgSeqNum:    msgSeqNum,
+		SendingTime:  sendingTime,
 	}
 }
 
@@ -76,10 +71,11 @@ func NewTrailer(checkSum int64) Trailer {
 	}
 }
 
-func NewLogonInitiator(header Header, encryptMethod int64, heartBtInt int64) LogonInitiator {
+func NewLogonInitiator(header Header, encryptMethod int64, heartBtInt int64, trailer Trailer) LogonInitiator {
 	return LogonInitiator{
 		Header:        &header,
 		EncryptMethod: encryptMethod,
 		HeartBtInt:    heartBtInt,
+		Trailer:       &trailer,
 	}
 }
