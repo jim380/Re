@@ -47,12 +47,11 @@ message MsgDeleteAccount {
 message MsgDeleteAccountResponse {}
 
 message MsgLogonInitiator {
-  uint64 id = 1;
-  string sessionName = 2;
-  LogonInitiator logonInitiator = 3;
-  bool IsLoggedIn = 4;
-  bool IsAccepted = 5;
-  string initiatorAddress = 6; 
+  string sessionName = 1;
+  LogonInitiator logonInitiator = 2;
+  bool IsLoggedIn = 3;
+  bool IsAccepted = 4;
+  string initiatorAddress = 5; 
 }
 
 message MsgLogonInitiatorResponse {}

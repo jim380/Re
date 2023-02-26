@@ -15,7 +15,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set all the sessions
 	for _, elem := range genState.SessionsList {
-		k.SetSessions(ctx, elem)
+		k.SetSessions(ctx, elem.SessionName, elem)
 	}
 
 	// Set sessions count

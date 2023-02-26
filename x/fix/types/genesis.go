@@ -38,16 +38,17 @@ func (gs GenesisState) Validate() error {
 		accountDidMap[elem.Did] = true
 	}
 	// Check for duplicated ID in sessions
-	sessionsIdMap := make(map[uint64]bool)
+	sessionsIdMap := make(map[string]bool)
 	sessionsCount := gs.GetSessionsCount()
 	for _, elem := range gs.SessionsList {
-		if _, ok := sessionsIdMap[elem.Id]; ok {
+		if _, ok := sessionsIdMap[elem.SessionName]; ok {
 			return fmt.Errorf("duplicated id for sessions")
 		}
-		if elem.Id >= sessionsCount {
+		sessionName, _ := strconv.ParseUint(elem.SessionName, 10, 64)
+		if sessionName >= sessionsCount {
 			return fmt.Errorf("sessions id should be lower or equal than the last id")
 		}
-		sessionsIdMap[elem.Id] = true
+		sessionsIdMap[elem.SessionName] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

@@ -32,7 +32,7 @@ service Query {
   
   // Queries a list of Sessions items.
   rpc Sessions    (QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/sessions/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/sessions/{sessionName}";
   
   }
   rpc SessionsAll (QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
@@ -68,7 +68,7 @@ message QueryAllAccountResponse {
 }
 
 message QueryGetSessionsRequest {
-  uint64 id = 1;
+  string sessionName = 1;
 }
 
 message QueryGetSessionsResponse {

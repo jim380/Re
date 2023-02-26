@@ -5,7 +5,10 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgLogonInitiator = "logon_initiator"
+const (
+	fixVersion            = "FIX4.4"
+	TypeMsgLogonInitiator = "logon_initiator"
+)
 
 var _ sdk.Msg = &MsgLogonInitiator{}
 
@@ -43,4 +46,18 @@ func (msg *MsgLogonInitiator) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
+}
+
+func (msg *MsgLogonInitiator) FIXVersion() string {
+	msg.LogonInitiator.Header.BeginString = fixVersion
+	return msg.LogonInitiator.Header.BeginString
+}
+
+func (msg *MsgLogonInitiator) BodyLength(msgLength string) int64 {
+	//sample of the msg
+	// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
+	logonMsg := msgLength
+	length := len(logonMsg)
+	msg.LogonInitiator.Header.BodyLength = int64(length)
+	return msg.LogonInitiator.Header.BodyLength
 }

@@ -32,38 +32,19 @@ func (k Keeper) SetSessionsCount(ctx sdk.Context, count uint64) {
 	store.Set(byteKey, bz)
 }
 
-// AppendSessions appends a sessions in the store with a new id and update the count
-func (k Keeper) AppendSessions(
-	ctx sdk.Context,
-	sessions types.Sessions,
-) uint64 {
-	// Create the sessions
-	count := k.GetSessionsCount(ctx)
-
-	// Set the ID of the appended value
-	sessions.Id = count
-
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	appendedValue := k.cdc.MustMarshal(&sessions)
-	store.Set(GetSessionsIDBytes(sessions.Id), appendedValue)
-
-	// Update sessions count
-	k.SetSessionsCount(ctx, count+1)
-
-	return count
-}
-
 // SetSessions set a specific sessions in the store
-func (k Keeper) SetSessions(ctx sdk.Context, sessions types.Sessions) {
+func (k Keeper) SetSessions(ctx sdk.Context, sessionName string, sessions types.Sessions) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
+	key := []byte(sessionName)
 	b := k.cdc.MustMarshal(&sessions)
-	store.Set(GetSessionsIDBytes(sessions.Id), b)
+	store.Set(key, b)
 }
 
 // GetSessions returns a sessions from its id
-func (k Keeper) GetSessions(ctx sdk.Context, id uint64) (val types.Sessions, found bool) {
+func (k Keeper) GetSessions(ctx sdk.Context, sessionName string) (val types.Sessions, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	b := store.Get(GetSessionsIDBytes(id))
+	key := []byte(sessionName)
+	b := store.Get(key)
 	if b == nil {
 		return val, false
 	}

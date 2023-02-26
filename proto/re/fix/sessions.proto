@@ -7,14 +7,13 @@ import "re/fix/standard_message.proto";
 
 
 message Sessions {
-  uint64 id = 1;
-  string sessionName = 2; 
-  LogonInitiator logonInitiator  = 3;
-  string initiatorAddress = 4;
-  LogonAcceptor logonAcceptor = 5;
-  string acceptorAddress = 6;
-  bool IsLoggedIn = 7;
-  bool IsAccepted = 8;
+  string sessionName = 1; 
+  LogonInitiator logonInitiator  = 2;
+  string initiatorAddress = 3;
+  LogonAcceptor logonAcceptor = 4;
+  string acceptorAddress = 5;
+  bool IsLoggedIn = 6;
+  bool IsAccepted = 7;
 }
 
 

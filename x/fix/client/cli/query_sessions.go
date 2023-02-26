@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -53,13 +52,10 @@ func CmdShowSessions() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argSessionName := args[0]
 
 			params := &types.QueryGetSessionsRequest{
-				Id: id,
+				SessionName: argSessionName,
 			}
 
 			res, err := queryClient.Sessions(context.Background(), params)

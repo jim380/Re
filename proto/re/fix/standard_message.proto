@@ -5,12 +5,12 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 
 message Header {
   string beginString = 1; 
-  bytes bodyLength = 2;
+  int64 bodyLength = 2;
   string msgType = 3;
   string senderCompID = 4;
   string targetCompID = 5;
   int64 msgSeqNum = 6;
-  int64 sendingTime = 7;
+  string sendingTime = 7;
 }
 
 message Trailer {
