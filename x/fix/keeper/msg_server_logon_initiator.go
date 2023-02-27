@@ -11,7 +11,7 @@ import (
 func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInitiator) (*types.MsgLogonInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// DID will be used senderCompID and targetCompID for both parties
+	// DID will be used as senderCompID and targetCompID for both parties
 	// get DID from registered accounts
 	senderCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.SenderCompID)
 	if senderCompID.Empty() {
@@ -27,9 +27,9 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	//same DID can not be used for intiating and accepting in the same FIX session
-	//if senderCompID.Did == targetCompID.Did {
-	//	return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
-	//}
+	if senderCompID.Did == targetCompID.Did {
+		return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
+	}
 
 	//check for if this session Name exists already
 	_, found := k.GetSessions(ctx, msg.SessionName)
@@ -37,15 +37,11 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionName)
 	}
 
-	//get MsgSeqNum from  GetSessionsCount
-	msgSeqNum := k.GetSessionsCount(ctx)
-	msg.LogonInitiator.Header.MsgSeqNum = int64(msgSeqNum) + 1
-
 	//set the standard header
 	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Did, targetCompID.Did, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime)
 
 	//set the FIX Version
-	header.BeginString = msg.FIXVersion()
+	header.BeginString = msg.FIXVersionByInitiator()
 
 	//set the standard trailer
 	trailer := types.NewTrailer(msg.LogonInitiator.Trailer.CheckSum)
@@ -53,7 +49,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	// set the logon initiator message
 	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt, trailer)
 
-	var newSession = types.Sessions{
+	var newInitiatorSession = types.Sessions{
 		SessionName:      msg.SessionName,
 		LogonInitiator:   &logonInitiator,
 		IsLoggedIn:       false,
@@ -61,8 +57,8 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		InitiatorAddress: msg.InitiatorAddress,
 	}
 
-	//set new logon session to store
-	k.SetSessions(ctx, msg.SessionName, newSession)
+	//set new Initiator logon session to store
+	k.SetSessions(ctx, msg.SessionName, newInitiatorSession)
 
 	return &types.MsgLogonInitiatorResponse{}, nil
 }

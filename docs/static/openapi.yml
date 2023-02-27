@@ -23026,16 +23026,11 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     sessionName:
                       type: string
                     logonInitiator:
                       type: object
                       properties:
-                        address:
-                          type: string
                         header:
                           type: object
                           properties:
@@ -23043,7 +23038,7 @@ paths:
                               type: string
                             bodyLength:
                               type: string
-                              format: byte
+                              format: int64
                             msgType:
                               type: string
                             senderCompID:
@@ -23055,7 +23050,6 @@ paths:
                               format: int64
                             sendingTime:
                               type: string
-                              format: int64
                         encryptMethod:
                           type: string
                           format: int64
@@ -23068,11 +23062,11 @@ paths:
                             checkSum:
                               type: string
                               format: int64
+                    initiatorAddress:
+                      type: string
                     logonAcceptor:
                       type: object
                       properties:
-                        address:
-                          type: string
                         header:
                           type: object
                           properties:
@@ -23080,7 +23074,7 @@ paths:
                               type: string
                             bodyLength:
                               type: string
-                              format: byte
+                              format: int64
                             msgType:
                               type: string
                             senderCompID:
@@ -23092,7 +23086,6 @@ paths:
                               format: int64
                             sendingTime:
                               type: string
-                              format: int64
                         encryptMethod:
                           type: string
                           format: int64
@@ -23105,6 +23098,8 @@ paths:
                             checkSum:
                               type: string
                               format: int64
+                    acceptorAddress:
+                      type: string
                     IsLoggedIn:
                       type: boolean
                     IsAccepted:
@@ -23203,7 +23198,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/sessions/{id}:
+  /jim380/Re/fix/sessions/{sessionName}:
     get:
       summary: Queries a list of Sessions items.
       operationId: Jim380ReFixSessions
@@ -23216,16 +23211,11 @@ paths:
               Sessions:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
                   sessionName:
                     type: string
                   logonInitiator:
                     type: object
                     properties:
-                      address:
-                        type: string
                       header:
                         type: object
                         properties:
@@ -23233,7 +23223,7 @@ paths:
                             type: string
                           bodyLength:
                             type: string
-                            format: byte
+                            format: int64
                           msgType:
                             type: string
                           senderCompID:
@@ -23245,7 +23235,6 @@ paths:
                             format: int64
                           sendingTime:
                             type: string
-                            format: int64
                       encryptMethod:
                         type: string
                         format: int64
@@ -23258,11 +23247,11 @@ paths:
                           checkSum:
                             type: string
                             format: int64
+                  initiatorAddress:
+                    type: string
                   logonAcceptor:
                     type: object
                     properties:
-                      address:
-                        type: string
                       header:
                         type: object
                         properties:
@@ -23270,7 +23259,7 @@ paths:
                             type: string
                           bodyLength:
                             type: string
-                            format: byte
+                            format: int64
                           msgType:
                             type: string
                           senderCompID:
@@ -23282,7 +23271,6 @@ paths:
                             format: int64
                           sendingTime:
                             type: string
-                            format: int64
                       encryptMethod:
                         type: string
                         format: int64
@@ -23295,6 +23283,8 @@ paths:
                           checkSum:
                             type: string
                             format: int64
+                  acceptorAddress:
+                    type: string
                   IsLoggedIn:
                     type: boolean
                   IsAccepted:
@@ -23318,11 +23308,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: sessionName
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /re/did/dids/{did_base64}:
@@ -43146,7 +43135,7 @@ definitions:
         type: string
       bodyLength:
         type: string
-        format: byte
+        format: int64
       msgType:
         type: string
       senderCompID:
@@ -43158,12 +43147,9 @@ definitions:
         format: int64
       sendingTime:
         type: string
-        format: int64
   jim380.re.fix.LogonAcceptor:
     type: object
     properties:
-      address:
-        type: string
       header:
         type: object
         properties:
@@ -43171,7 +43157,7 @@ definitions:
             type: string
           bodyLength:
             type: string
-            format: byte
+            format: int64
           msgType:
             type: string
           senderCompID:
@@ -43183,7 +43169,6 @@ definitions:
             format: int64
           sendingTime:
             type: string
-            format: int64
       encryptMethod:
         type: string
         format: int64
@@ -43199,8 +43184,6 @@ definitions:
   jim380.re.fix.LogonInitiator:
     type: object
     properties:
-      address:
-        type: string
       header:
         type: object
         properties:
@@ -43208,7 +43191,7 @@ definitions:
             type: string
           bodyLength:
             type: string
-            format: byte
+            format: int64
           msgType:
             type: string
           senderCompID:
@@ -43220,7 +43203,6 @@ definitions:
             format: int64
           sendingTime:
             type: string
-            format: int64
       encryptMethod:
         type: string
         format: int64
@@ -43239,6 +43221,8 @@ definitions:
       did:
         type: string
   jim380.re.fix.MsgDeleteAccountResponse:
+    type: object
+  jim380.re.fix.MsgLogonAcceptorResponse:
     type: object
   jim380.re.fix.MsgLogonInitiatorResponse:
     type: object
@@ -43301,16 +43285,11 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             sessionName:
               type: string
             logonInitiator:
               type: object
               properties:
-                address:
-                  type: string
                 header:
                   type: object
                   properties:
@@ -43318,7 +43297,7 @@ definitions:
                       type: string
                     bodyLength:
                       type: string
-                      format: byte
+                      format: int64
                     msgType:
                       type: string
                     senderCompID:
@@ -43330,7 +43309,6 @@ definitions:
                       format: int64
                     sendingTime:
                       type: string
-                      format: int64
                 encryptMethod:
                   type: string
                   format: int64
@@ -43343,11 +43321,11 @@ definitions:
                     checkSum:
                       type: string
                       format: int64
+            initiatorAddress:
+              type: string
             logonAcceptor:
               type: object
               properties:
-                address:
-                  type: string
                 header:
                   type: object
                   properties:
@@ -43355,7 +43333,7 @@ definitions:
                       type: string
                     bodyLength:
                       type: string
-                      format: byte
+                      format: int64
                     msgType:
                       type: string
                     senderCompID:
@@ -43367,7 +43345,6 @@ definitions:
                       format: int64
                     sendingTime:
                       type: string
-                      format: int64
                 encryptMethod:
                   type: string
                   format: int64
@@ -43380,6 +43357,8 @@ definitions:
                     checkSum:
                       type: string
                       format: int64
+            acceptorAddress:
+              type: string
             IsLoggedIn:
               type: boolean
             IsAccepted:
@@ -43434,16 +43413,11 @@ definitions:
       Sessions:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           sessionName:
             type: string
           logonInitiator:
             type: object
             properties:
-              address:
-                type: string
               header:
                 type: object
                 properties:
@@ -43451,7 +43425,7 @@ definitions:
                     type: string
                   bodyLength:
                     type: string
-                    format: byte
+                    format: int64
                   msgType:
                     type: string
                   senderCompID:
@@ -43463,7 +43437,6 @@ definitions:
                     format: int64
                   sendingTime:
                     type: string
-                    format: int64
               encryptMethod:
                 type: string
                 format: int64
@@ -43476,11 +43449,11 @@ definitions:
                   checkSum:
                     type: string
                     format: int64
+          initiatorAddress:
+            type: string
           logonAcceptor:
             type: object
             properties:
-              address:
-                type: string
               header:
                 type: object
                 properties:
@@ -43488,7 +43461,7 @@ definitions:
                     type: string
                   bodyLength:
                     type: string
-                    format: byte
+                    format: int64
                   msgType:
                     type: string
                   senderCompID:
@@ -43500,7 +43473,6 @@ definitions:
                     format: int64
                   sendingTime:
                     type: string
-                    format: int64
               encryptMethod:
                 type: string
                 format: int64
@@ -43513,6 +43485,8 @@ definitions:
                   checkSum:
                     type: string
                     format: int64
+          acceptorAddress:
+            type: string
           IsLoggedIn:
             type: boolean
           IsAccepted:
@@ -43527,16 +43501,11 @@ definitions:
   jim380.re.fix.Sessions:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       sessionName:
         type: string
       logonInitiator:
         type: object
         properties:
-          address:
-            type: string
           header:
             type: object
             properties:
@@ -43544,7 +43513,7 @@ definitions:
                 type: string
               bodyLength:
                 type: string
-                format: byte
+                format: int64
               msgType:
                 type: string
               senderCompID:
@@ -43556,7 +43525,6 @@ definitions:
                 format: int64
               sendingTime:
                 type: string
-                format: int64
           encryptMethod:
             type: string
             format: int64
@@ -43569,11 +43537,11 @@ definitions:
               checkSum:
                 type: string
                 format: int64
+      initiatorAddress:
+        type: string
       logonAcceptor:
         type: object
         properties:
-          address:
-            type: string
           header:
             type: object
             properties:
@@ -43581,7 +43549,7 @@ definitions:
                 type: string
               bodyLength:
                 type: string
-                format: byte
+                format: int64
               msgType:
                 type: string
               senderCompID:
@@ -43593,7 +43561,6 @@ definitions:
                 format: int64
               sendingTime:
                 type: string
-                format: int64
           encryptMethod:
             type: string
             format: int64
@@ -43606,6 +43573,8 @@ definitions:
               checkSum:
                 type: string
                 format: int64
+      acceptorAddress:
+        type: string
       IsLoggedIn:
         type: boolean
       IsAccepted:

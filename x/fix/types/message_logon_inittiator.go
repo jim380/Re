@@ -49,7 +49,7 @@ func (msg *MsgLogonInitiator) ValidateBasic() error {
 	return nil
 }
 
-func (msg *MsgLogonInitiator) FIXVersion() string {
+func (msg *MsgLogonInitiator) FIXVersionByInitiator() string {
 	msg.LogonInitiator.Header.BeginString = fixVersion
 	return msg.LogonInitiator.Header.BeginString
 }
