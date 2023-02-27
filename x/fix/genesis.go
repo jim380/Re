@@ -20,6 +20,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set sessions count
 	k.SetSessionsCount(ctx, genState.SessionsCount)
+	// Set all the sessionReject
+	for _, elem := range genState.SessionRejectList {
+		k.SetSessionReject(ctx, elem.SessionName, elem)
+	}
+
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }

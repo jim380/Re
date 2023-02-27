@@ -8,6 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "re/fix/params.proto";
 import "re/fix/account.proto";
 import "re/fix/sessions.proto";
+import "re/fix/session_reject.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -37,6 +38,16 @@ service Query {
   }
   rpc SessionsAll (QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/sessions";
+  
+  }
+  
+  // Queries a list of SessionReject items.
+  rpc SessionReject    (QueryGetSessionRejectRequest) returns (QueryGetSessionRejectResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/session/reject/{sessionName}";
+  
+  }
+  rpc SessionRejectAll (QueryAllSessionRejectRequest) returns (QueryAllSessionRejectResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/session/reject";
   
   }
 }
@@ -82,5 +93,22 @@ message QueryAllSessionsRequest {
 message QueryAllSessionsResponse {
   repeated Sessions                               Sessions   = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSessionRejectRequest {
+  string sessionName = 1;
+}
+
+message QueryGetSessionRejectResponse {
+  SessionReject SessionReject = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSessionRejectRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSessionRejectResponse {
+  repeated SessionReject                          SessionReject = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
 }
 

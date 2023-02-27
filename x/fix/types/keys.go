@@ -35,3 +35,8 @@ const (
 	SessionsKey      = "Sessions/value/"
 	SessionsCountKey = "Sessions/count/"
 )
+
+const (
+	SessionRejectKey      = "SessionReject/value/"
+	SessionRejectCountKey = "SessionReject/count/"
+)
