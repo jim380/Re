@@ -36,6 +36,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDeleteAccount int = 100
 
+	opWeightMsgLogonInitiator = "op_weight_msg_logon_initiator"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLogonInitiator int = 100
+
+	opWeightMsgLogonAcceptor = "op_weight_msg_logon_acceptor"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLogonAcceptor int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -112,6 +120,28 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeleteAccount,
 		fixsimulation.SimulateMsgDeleteAccount(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLogonInitiator int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLogonInitiator, &weightMsgLogonInitiator, nil,
+		func(_ *rand.Rand) {
+			weightMsgLogonInitiator = defaultWeightMsgLogonInitiator
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLogonInitiator,
+		fixsimulation.SimulateMsgLogonInitiator(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLogonAcceptor int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLogonAcceptor, &weightMsgLogonAcceptor, nil,
+		func(_ *rand.Rand) {
+			weightMsgLogonAcceptor = defaultWeightMsgLogonAcceptor
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLogonAcceptor,
+		fixsimulation.SimulateMsgLogonAcceptor(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

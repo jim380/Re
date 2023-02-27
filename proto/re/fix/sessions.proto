@@ -1,0 +1,32 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+
+message Sessions {
+  string sessionName = 1; 
+  LogonInitiator logonInitiator  = 2;
+  string initiatorAddress = 3;
+  LogonAcceptor logonAcceptor = 4;
+  string acceptorAddress = 5;
+  bool IsLoggedIn = 6;
+  bool IsAccepted = 7;
+}
+
+
+message LogonInitiator {
+  Header header = 1;
+  int64 encryptMethod =2;
+  int64 heartBtInt = 3;
+  Trailer trailer = 4;
+}
+
+message LogonAcceptor { 
+  Header header = 1;
+  int64 encryptMethod =2;
+  int64 heartBtInt = 3;
+  Trailer trailer = 4;
+}

@@ -15,4 +15,11 @@ var (
 	ErrCompanyNameIsTaken = sdkerrors.Register(ModuleName, 6, "Company Name exists with an account already")
 	ErrWebsiteIstaken     = sdkerrors.Register(ModuleName, 7, "Website is used already")
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, 8, "Incorrect Account Owner")
+
+	ErrSessionNameFound  = sdkerrors.Register(ModuleName, 9, "Session Name exists")
+	ErrSessionSameDID    = sdkerrors.Register(ModuleName, 10, "Session can not use same DID for senderCompID and targetCompID")
+	ErrEmptySession      = sdkerrors.Register(ModuleName, 11, "Session does not Exist")
+	ErrWrongSession      = sdkerrors.Register(ModuleName, 12, "The Session provided does not tally with account")
+	ErrIncorrectDID      = sdkerrors.Register(ModuleName, 13, "senderCompID and targetCompID does not match in session")
+	ErrSessionIsAccepted = sdkerrors.Register(ModuleName, 14, "session accepted already")
 )

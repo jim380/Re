@@ -30,3 +30,8 @@ func GetAccountKey() []byte {
 func GetAccountCountKey() []byte {
 	return AccountCountKey
 }
+
+const (
+	SessionsKey      = "Sessions/value/"
+	SessionsCountKey = "Sessions/count/"
+)
