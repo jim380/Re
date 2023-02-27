@@ -55,9 +55,9 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	LogonAcceptor := types.NewLogonAcceptor(header, msg.LogonAcceptor.EncryptMethod, msg.LogonAcceptor.HeartBtInt, trailer)
 
 	//TODO
-	//prevent Txs from being sent once IsloggedIn and IsAccepted are set to true
+	//prevent Txs from being sent once IsAccepted are set to true and check the status
 	//if session.status != "logon-request" || session.status != "rejected"  && session.IsAccepted == false {
-	//	return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "SessionIsAccepted: %s", session.IsAccepted)
+	//
 	//}
 
 	var newAcceptorSession = types.Sessions{
