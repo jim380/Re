@@ -24,13 +24,14 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 
 	//checks that DID provided matches with the DID in the session
 	//at logon acceptor, targetCompID becomes senderCompID and senderCompID becomes targetCompID
-	if session.LogonInitiator.Header.TargetCompID != msg.LogonAcceptor.Header.SenderCompID {
-		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
-	}
-	if session.LogonInitiator.Header.SenderCompID != msg.LogonAcceptor.Header.TargetCompID {
-		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
-	}
-
+	/*
+		if session.LogonInitiator.Header.TargetCompID != msg.LogonAcceptor.Header.SenderCompID {
+			return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
+		}
+		if session.LogonInitiator.Header.SenderCompID != msg.LogonAcceptor.Header.TargetCompID {
+			return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
+		}
+	*/
 	//get DID from GetAccount to have access to the account creator
 	senderCompID := k.GetAccount(ctx, msg.LogonAcceptor.Header.SenderCompID)
 	if senderCompID.Empty() {
@@ -52,6 +53,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	// set the logon initiator message
 	LogonAcceptor := types.NewLogonAcceptor(header, msg.LogonAcceptor.EncryptMethod, msg.LogonAcceptor.HeartBtInt, trailer)
 
+	//TODO
 	//prevent Txs from being sent once IsloggedIn and IsAccepted are set to true
 	//if session.IsLoggedIn == false && session.IsAccepted == false {
 	//	return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "SessionIsAccepted: %s", session.IsAccepted)
@@ -61,7 +63,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		SessionName:      session.SessionName,
 		LogonInitiator:   session.LogonInitiator,
 		LogonAcceptor:    &LogonAcceptor,
-		IsLoggedIn:       true,
+		Status:           "loggedIn",
 		IsAccepted:       true,
 		InitiatorAddress: session.InitiatorAddress,
 		AcceptorAddress:  msg.AcceptorAddress,

@@ -15,6 +15,7 @@ service Msg {
   rpc DeleteAccount  (MsgDeleteAccount ) returns (MsgDeleteAccountResponse );
   rpc LogonInitiator (MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
   rpc LogonAcceptor  (MsgLogonAcceptor ) returns (MsgLogonAcceptorResponse );
+  rpc TerminateLogon (MsgTerminateLogon) returns (MsgTerminateLogonResponse);
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -50,7 +51,7 @@ message MsgDeleteAccountResponse {}
 message MsgLogonInitiator {
   string         sessionName      = 1;
   LogonInitiator logonInitiator   = 2;
-  bool           IsLoggedIn       = 3;
+  string         status           = 3;
   bool           IsAccepted       = 4;
   string         initiatorAddress = 5;
 }
@@ -58,12 +59,20 @@ message MsgLogonInitiator {
 message MsgLogonInitiatorResponse {}
 
 message MsgLogonAcceptor {
-  string         sessionName     = 1;
-  LogonAcceptor logonAcceptor  = 2;
-  bool           IsLoggedIn       = 3;
-  bool           IsAccepted       = 4;
-  string         acceptorAddress  = 5;
+  string        sessionName     = 1;
+  LogonAcceptor logonAcceptor   = 2;
+  string        status          = 3;
+  bool          IsAccepted      = 4;
+  string        acceptorAddress = 5;
 }
 
 message MsgLogonAcceptorResponse {}
+
+message MsgTerminateLogon {
+  string initiatorAddress = 1;
+  string sessionName      = 2;
+  string did              = 3;
+} 
+
+message MsgTerminateLogonResponse {}
 

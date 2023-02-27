@@ -77,7 +77,7 @@ func CmdUpdateAccount() *cobra.Command {
 func CmdDeleteAccount() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete-account [did]",
-		Short: "Delete a account by did",
+		Short: "Delete an account by did",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			did := args[0]
