@@ -14,6 +14,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgLogonInitiator{}, "fix/LogonInitiator", nil)
 	cdc.RegisterConcrete(&MsgLogonAcceptor{}, "fix/LogonAcceptor", nil)
 	cdc.RegisterConcrete(&MsgTerminateLogon{}, "fix/TerminateLogon", nil)
+	cdc.RegisterConcrete(&MsgLogonReject{}, "fix/LogonReject", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -31,6 +32,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTerminateLogon{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgLogonReject{},
 	)
 	// this line is used by starport scaffolding # 3
 

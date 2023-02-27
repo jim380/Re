@@ -48,6 +48,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgTerminateLogon int = 100
 
+	opWeightMsgLogonReject = "op_weight_msg_logon_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLogonReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -157,6 +161,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgTerminateLogon,
 		fixsimulation.SimulateMsgTerminateLogon(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLogonReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLogonReject, &weightMsgLogonReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgLogonReject = defaultWeightMsgLogonReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLogonReject,
+		fixsimulation.SimulateMsgLogonReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -7,6 +7,7 @@ import "re/fix/account.proto";
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 import "re/fix/sessions.proto";
+import "re/fix/standard_message.proto";
 
 // Msg defines the Msg service.
 service Msg {
@@ -16,6 +17,7 @@ service Msg {
   rpc LogonInitiator (MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
   rpc LogonAcceptor  (MsgLogonAcceptor ) returns (MsgLogonAcceptorResponse );
   rpc TerminateLogon (MsgTerminateLogon) returns (MsgTerminateLogonResponse);
+  rpc LogonReject    (MsgLogonReject   ) returns (MsgLogonRejectResponse   );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -72,7 +74,17 @@ message MsgTerminateLogon {
   string initiatorAddress = 1;
   string sessionName      = 2;
   string did              = 3;
-} 
+}
 
 message MsgTerminateLogonResponse {}
+
+message MsgLogonReject {
+  string acceptorAddress     = 1;
+  string sessionName = 2;
+  Header header = 3;
+  string text = 4;
+  Trailer trailer = 5;
+}
+
+message MsgLogonRejectResponse {}
 

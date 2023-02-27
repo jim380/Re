@@ -85,3 +85,23 @@ func GetSessionsIDBytes(id uint64) []byte {
 func GetSessionsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
+
+// SetSessionReject set a specific sessionReject in the store
+func (k Keeper) SetSessionReject(ctx sdk.Context, sessionName string, sessionReject types.SessionReject) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
+	key := []byte(sessionName)
+	b := k.cdc.MustMarshal(&sessionReject)
+	store.Set(key, b)
+}
+
+// GetSessionReject returns a sessionReject from its sessionName
+func (k Keeper) GetSessionReject(ctx sdk.Context, sessionName string) (val types.SessionReject, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
+	key := []byte(sessionName)
+	b := store.Get(key)
+	if b == nil {
+		return val, false
+	}
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
+}
