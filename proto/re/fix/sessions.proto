@@ -12,7 +12,7 @@ message Sessions {
   string initiatorAddress = 3;
   LogonAcceptor logonAcceptor = 4;
   string acceptorAddress = 5;
-  bool IsLoggedIn = 6;
+  string status = 6;
   bool IsAccepted = 7;
 }
 

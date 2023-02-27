@@ -53,9 +53,9 @@ func (k Keeper) GetSessions(ctx sdk.Context, sessionName string) (val types.Sess
 }
 
 // RemoveSessions removes a sessions from the store
-func (k Keeper) RemoveSessions(ctx sdk.Context, id uint64) {
+func (k Keeper) RemoveSessions(ctx sdk.Context, sessionName string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	store.Delete(GetSessionsIDBytes(id))
+	store.Delete([]byte(sessionName))
 }
 
 // GetAllSessions returns all sessions

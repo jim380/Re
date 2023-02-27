@@ -44,7 +44,7 @@ func CmdListSessions() *cobra.Command {
 
 func CmdShowSessions() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-sessions [id]",
+		Use:   "show-sessions [session-name]",
 		Short: "shows a sessions",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

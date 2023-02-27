@@ -366,7 +366,7 @@ var xxx_messageInfo_MsgDeleteAccountResponse proto.InternalMessageInfo
 type MsgLogonInitiator struct {
 	SessionName      string          `protobuf:"bytes,1,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
 	LogonInitiator   *LogonInitiator `protobuf:"bytes,2,opt,name=logonInitiator,proto3" json:"logonInitiator,omitempty"`
-	IsLoggedIn       bool            `protobuf:"varint,3,opt,name=IsLoggedIn,proto3" json:"IsLoggedIn,omitempty"`
+	Status           string          `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
 	IsAccepted       bool            `protobuf:"varint,4,opt,name=IsAccepted,proto3" json:"IsAccepted,omitempty"`
 	InitiatorAddress string          `protobuf:"bytes,5,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
 }
@@ -418,11 +418,11 @@ func (m *MsgLogonInitiator) GetLogonInitiator() *LogonInitiator {
 	return nil
 }
 
-func (m *MsgLogonInitiator) GetIsLoggedIn() bool {
+func (m *MsgLogonInitiator) GetStatus() string {
 	if m != nil {
-		return m.IsLoggedIn
+		return m.Status
 	}
-	return false
+	return ""
 }
 
 func (m *MsgLogonInitiator) GetIsAccepted() bool {
@@ -478,7 +478,7 @@ var xxx_messageInfo_MsgLogonInitiatorResponse proto.InternalMessageInfo
 type MsgLogonAcceptor struct {
 	SessionName     string         `protobuf:"bytes,1,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
 	LogonAcceptor   *LogonAcceptor `protobuf:"bytes,2,opt,name=logonAcceptor,proto3" json:"logonAcceptor,omitempty"`
-	IsLoggedIn      bool           `protobuf:"varint,3,opt,name=IsLoggedIn,proto3" json:"IsLoggedIn,omitempty"`
+	Status          string         `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
 	IsAccepted      bool           `protobuf:"varint,4,opt,name=IsAccepted,proto3" json:"IsAccepted,omitempty"`
 	AcceptorAddress string         `protobuf:"bytes,5,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
 }
@@ -530,11 +530,11 @@ func (m *MsgLogonAcceptor) GetLogonAcceptor() *LogonAcceptor {
 	return nil
 }
 
-func (m *MsgLogonAcceptor) GetIsLoggedIn() bool {
+func (m *MsgLogonAcceptor) GetStatus() string {
 	if m != nil {
-		return m.IsLoggedIn
+		return m.Status
 	}
-	return false
+	return ""
 }
 
 func (m *MsgLogonAcceptor) GetIsAccepted() bool {
@@ -587,6 +587,102 @@ func (m *MsgLogonAcceptorResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgLogonAcceptorResponse proto.InternalMessageInfo
 
+type MsgTerminateLogon struct {
+	InitiatorAddress string `protobuf:"bytes,1,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
+	SessionName      string `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	Did              string `protobuf:"bytes,3,opt,name=did,proto3" json:"did,omitempty"`
+}
+
+func (m *MsgTerminateLogon) Reset()         { *m = MsgTerminateLogon{} }
+func (m *MsgTerminateLogon) String() string { return proto.CompactTextString(m) }
+func (*MsgTerminateLogon) ProtoMessage()    {}
+func (*MsgTerminateLogon) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{10}
+}
+func (m *MsgTerminateLogon) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTerminateLogon) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTerminateLogon.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTerminateLogon) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTerminateLogon.Merge(m, src)
+}
+func (m *MsgTerminateLogon) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTerminateLogon) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTerminateLogon.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTerminateLogon proto.InternalMessageInfo
+
+func (m *MsgTerminateLogon) GetInitiatorAddress() string {
+	if m != nil {
+		return m.InitiatorAddress
+	}
+	return ""
+}
+
+func (m *MsgTerminateLogon) GetSessionName() string {
+	if m != nil {
+		return m.SessionName
+	}
+	return ""
+}
+
+func (m *MsgTerminateLogon) GetDid() string {
+	if m != nil {
+		return m.Did
+	}
+	return ""
+}
+
+type MsgTerminateLogonResponse struct {
+}
+
+func (m *MsgTerminateLogonResponse) Reset()         { *m = MsgTerminateLogonResponse{} }
+func (m *MsgTerminateLogonResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgTerminateLogonResponse) ProtoMessage()    {}
+func (*MsgTerminateLogonResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{11}
+}
+func (m *MsgTerminateLogonResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTerminateLogonResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTerminateLogonResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTerminateLogonResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTerminateLogonResponse.Merge(m, src)
+}
+func (m *MsgTerminateLogonResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTerminateLogonResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTerminateLogonResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTerminateLogonResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateAccount)(nil), "jim380.re.fix.MsgCreateAccount")
 	proto.RegisterType((*MsgCreateAccountResponse)(nil), "jim380.re.fix.MsgCreateAccountResponse")
@@ -598,47 +694,52 @@ func init() {
 	proto.RegisterType((*MsgLogonInitiatorResponse)(nil), "jim380.re.fix.MsgLogonInitiatorResponse")
 	proto.RegisterType((*MsgLogonAcceptor)(nil), "jim380.re.fix.MsgLogonAcceptor")
 	proto.RegisterType((*MsgLogonAcceptorResponse)(nil), "jim380.re.fix.MsgLogonAcceptorResponse")
+	proto.RegisterType((*MsgTerminateLogon)(nil), "jim380.re.fix.MsgTerminateLogon")
+	proto.RegisterType((*MsgTerminateLogonResponse)(nil), "jim380.re.fix.MsgTerminateLogonResponse")
 }
 
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 549 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x55, 0x31, 0x6f, 0xd3, 0x40,
-	0x14, 0xae, 0x09, 0x2d, 0xf4, 0x45, 0x69, 0xc3, 0x09, 0x24, 0x63, 0x8a, 0x6b, 0x65, 0x21, 0x42,
-	0xc8, 0x46, 0xed, 0x82, 0x18, 0x90, 0x52, 0x60, 0x88, 0x94, 0x30, 0x58, 0x62, 0x28, 0x62, 0x71,
-	0xec, 0x57, 0x73, 0x90, 0xf8, 0x2c, 0x9f, 0x2b, 0xd2, 0x7f, 0xc1, 0x8f, 0x62, 0x60, 0xa3, 0x23,
-	0x23, 0x4a, 0x16, 0x7e, 0x06, 0xf2, 0x9d, 0x6d, 0x7c, 0xce, 0xa1, 0x22, 0x98, 0xd8, 0xe2, 0xef,
-	0xbe, 0xf7, 0xf9, 0x7d, 0xdf, 0xbd, 0x17, 0xc3, 0x7e, 0x86, 0xde, 0x19, 0x5d, 0x7a, 0xf9, 0xd2,
-	0x4d, 0x33, 0x96, 0x33, 0xd2, 0x7b, 0x4f, 0x17, 0xc7, 0x4f, 0x1e, 0xbb, 0x19, 0xba, 0x67, 0x74,
-	0x69, 0xdd, 0x2e, 0xcf, 0x83, 0x30, 0x64, 0xe7, 0x49, 0x2e, 0x49, 0xd6, 0x9d, 0x12, 0xe5, 0xc8,
-	0x39, 0x65, 0x09, 0x97, 0xf0, 0xe0, 0xb3, 0x01, 0xfd, 0x29, 0x8f, 0x9f, 0x67, 0x18, 0xe4, 0x38,
-	0x92, 0x15, 0xc4, 0x84, 0x1b, 0x61, 0x01, 0xb0, 0xcc, 0x34, 0x1c, 0x63, 0xb8, 0xeb, 0x57, 0x8f,
-	0xa4, 0x0f, 0x9d, 0x88, 0x46, 0xe6, 0x35, 0x81, 0x16, 0x3f, 0x89, 0x03, 0xdd, 0x90, 0x2d, 0xd2,
-	0x20, 0xb9, 0x78, 0x15, 0x2c, 0xd0, 0xec, 0x88, 0x93, 0x26, 0x54, 0xa8, 0x7d, 0xc4, 0x19, 0xa7,
-	0x39, 0x9a, 0xd7, 0xa5, 0x5a, 0xf9, 0x48, 0x1e, 0x42, 0x9f, 0xb3, 0x90, 0x06, 0xf3, 0x29, 0x46,
-	0x34, 0x98, 0xd0, 0xe4, 0x03, 0x37, 0xb7, 0x05, 0x65, 0x03, 0x27, 0x07, 0xb0, 0x2b, 0x9a, 0xc0,
-	0x68, 0x94, 0x9b, 0x3b, 0x8e, 0x31, 0xdc, 0xf6, 0x7f, 0x01, 0x83, 0x47, 0x60, 0xb6, 0x5d, 0xf8,
-	0xc8, 0x53, 0x96, 0x70, 0xac, 0x7a, 0x36, 0xea, 0x9e, 0x2b, 0xd3, 0xaf, 0xd3, 0xe8, 0xbf, 0x36,
-	0x6d, 0x09, 0xd3, 0x8a, 0x8b, 0xca, 0xf4, 0xe0, 0x99, 0x70, 0xf8, 0x02, 0xe7, 0xf8, 0x57, 0x0e,
-	0x4b, 0x6d, 0xa5, 0xbe, 0xd6, 0xfe, 0x61, 0xc0, 0xad, 0x29, 0x8f, 0x27, 0x2c, 0x66, 0xc9, 0x38,
-	0xa1, 0x39, 0x15, 0x1a, 0x0e, 0x74, 0xcb, 0xd9, 0x12, 0x99, 0xc8, 0x37, 0x34, 0x21, 0xf2, 0x12,
-	0xf6, 0xe6, 0x4a, 0x8d, 0x78, 0x61, 0xf7, 0xe8, 0xbe, 0xab, 0x0c, 0xb0, 0xab, 0x0a, 0xfb, 0xad,
-	0x22, 0x62, 0x03, 0x8c, 0xf9, 0x84, 0xc5, 0x31, 0x46, 0xe3, 0x44, 0x64, 0x7f, 0xd3, 0x6f, 0x20,
-	0xf2, 0x7c, 0x14, 0x86, 0x98, 0xe6, 0x18, 0x89, 0xf4, 0xc5, 0x79, 0x85, 0x14, 0x17, 0x40, 0x2b,
-	0xb1, 0x51, 0x14, 0x65, 0xc8, 0xeb, 0x0b, 0x68, 0xe3, 0x83, 0x7b, 0x70, 0x77, 0xc3, 0x69, 0x9d,
-	0xc3, 0x4a, 0x8e, 0x91, 0x38, 0x95, 0xea, 0x7f, 0x14, 0xc3, 0x09, 0xf4, 0xe6, 0xcd, 0x92, 0x32,
-	0x85, 0x03, 0x5d, 0x0a, 0x15, 0xc7, 0x57, 0x4b, 0xfe, 0x39, 0x83, 0x21, 0xec, 0x07, 0xa5, 0x96,
-	0x1a, 0x41, 0x1b, 0x2e, 0x07, 0x41, 0x6d, 0xa6, 0x0c, 0xe0, 0xe8, 0x6b, 0x07, 0x3a, 0x53, 0x1e,
-	0x93, 0x53, 0xe8, 0xa9, 0x7f, 0x20, 0x87, 0x2d, 0x2f, 0xed, 0xdd, 0xb4, 0x1e, 0x5c, 0x41, 0xa8,
-	0x97, 0xf7, 0x14, 0x7a, 0xea, 0x9a, 0x6a, 0xa4, 0x15, 0x82, 0x4e, 0x5a, 0xbb, 0x22, 0x85, 0xb4,
-	0xba, 0x1f, 0x1a, 0x69, 0x85, 0xa0, 0x93, 0xd6, 0x6e, 0x08, 0x79, 0x0b, 0x7b, 0xed, 0xed, 0xd8,
-	0x2c, 0x55, 0x19, 0xd6, 0xf0, 0x2a, 0x46, 0xb3, 0x71, 0x75, 0xe6, 0x0e, 0x7f, 0x53, 0x5a, 0x11,
-	0x74, 0x8d, 0x6b, 0x6f, 0xf4, 0xe4, 0xe9, 0x97, 0x95, 0x6d, 0x5c, 0xae, 0x6c, 0xe3, 0xfb, 0xca,
-	0x36, 0x3e, 0xad, 0xed, 0xad, 0xcb, 0xb5, 0xbd, 0xf5, 0x6d, 0x6d, 0x6f, 0xbd, 0x71, 0x62, 0x9a,
-	0xbf, 0x3b, 0x9f, 0xb9, 0x21, 0x5b, 0x78, 0x52, 0xcc, 0xf3, 0xd1, 0x5b, 0xca, 0x2f, 0xd1, 0x45,
-	0x8a, 0x7c, 0xb6, 0x23, 0xbe, 0x28, 0xc7, 0x3f, 0x03, 0x00, 0x00, 0xff, 0xff, 0xcd, 0x02, 0x1e,
-	0xdb, 0xa0, 0x06, 0x00, 0x00,
+	// 595 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x55, 0x41, 0x6f, 0xd3, 0x30,
+	0x14, 0x6e, 0xd6, 0xad, 0xb0, 0x57, 0x75, 0x2b, 0x16, 0xa0, 0x50, 0x46, 0x56, 0xf5, 0x42, 0x85,
+	0x50, 0x8a, 0xb6, 0x0b, 0xe2, 0x80, 0xd4, 0x01, 0x87, 0x49, 0x2b, 0x87, 0x08, 0x0e, 0x43, 0x5c,
+	0xd2, 0xe4, 0xad, 0x18, 0xda, 0x38, 0x8a, 0x5d, 0xd1, 0xfd, 0x0b, 0xfe, 0x08, 0xff, 0x82, 0x03,
+	0xc7, 0x1d, 0x11, 0xa7, 0xa9, 0xfd, 0x23, 0x28, 0xb6, 0xd3, 0xd5, 0xa9, 0xd1, 0xd0, 0x6e, 0xdc,
+	0x9a, 0xcf, 0xdf, 0xfb, 0xfc, 0xbe, 0xcf, 0xcf, 0x2e, 0xec, 0x66, 0xd8, 0x3b, 0xa3, 0xb3, 0x9e,
+	0x98, 0xf9, 0x69, 0xc6, 0x04, 0x23, 0x8d, 0xcf, 0x74, 0x72, 0xf8, 0xfc, 0x99, 0x9f, 0xa1, 0x7f,
+	0x46, 0x67, 0xad, 0xbb, 0x7a, 0x3d, 0x8c, 0x22, 0x36, 0x4d, 0x84, 0x22, 0xb5, 0xee, 0x69, 0x94,
+	0x23, 0xe7, 0x94, 0x25, 0x5c, 0xc1, 0x9d, 0x1f, 0x0e, 0x34, 0x07, 0x7c, 0xf4, 0x2a, 0xc3, 0x50,
+	0x60, 0x5f, 0x55, 0x10, 0x17, 0x6e, 0x45, 0x39, 0xc0, 0x32, 0xd7, 0x69, 0x3b, 0xdd, 0xed, 0xa0,
+	0xf8, 0x24, 0x4d, 0xa8, 0xc6, 0x34, 0x76, 0x37, 0x24, 0x9a, 0xff, 0x24, 0x6d, 0xa8, 0x47, 0x6c,
+	0x92, 0x86, 0xc9, 0xf9, 0xdb, 0x70, 0x82, 0x6e, 0x55, 0xae, 0xac, 0x42, 0xb9, 0xda, 0x57, 0x1c,
+	0x72, 0x2a, 0xd0, 0xdd, 0x54, 0x6a, 0xfa, 0x93, 0x3c, 0x81, 0x26, 0x67, 0x11, 0x0d, 0xc7, 0x03,
+	0x8c, 0x69, 0x78, 0x42, 0x93, 0x2f, 0xdc, 0xdd, 0x92, 0x94, 0x35, 0x9c, 0xec, 0xc1, 0xb6, 0x6c,
+	0x02, 0xe3, 0xbe, 0x70, 0x6b, 0x6d, 0xa7, 0xbb, 0x15, 0x5c, 0x01, 0x9d, 0xa7, 0xe0, 0x96, 0x5d,
+	0x04, 0xc8, 0x53, 0x96, 0x70, 0x2c, 0x7a, 0x76, 0x96, 0x3d, 0x17, 0xa6, 0xdf, 0xa7, 0xf1, 0x7f,
+	0x6d, 0xba, 0x25, 0x4d, 0x1b, 0x2e, 0x0a, 0xd3, 0x9d, 0x97, 0xd2, 0xe1, 0x6b, 0x1c, 0xe3, 0x8d,
+	0x1c, 0x6a, 0x6d, 0xa3, 0x7e, 0xa9, 0x7d, 0xe9, 0xc0, 0x9d, 0x01, 0x1f, 0x9d, 0xb0, 0x11, 0x4b,
+	0x8e, 0x13, 0x2a, 0xa8, 0xd4, 0x68, 0x43, 0x5d, 0xcf, 0x96, 0xcc, 0x44, 0xed, 0xb0, 0x0a, 0x91,
+	0x37, 0xb0, 0x33, 0x36, 0x6a, 0xe4, 0x86, 0xf5, 0x83, 0x47, 0xbe, 0x31, 0xc0, 0xbe, 0x29, 0x1c,
+	0x94, 0x8a, 0xc8, 0x7d, 0xa8, 0x71, 0x11, 0x8a, 0x29, 0xd7, 0xb9, 0xeb, 0x2f, 0xe2, 0x01, 0x1c,
+	0xf3, 0x7e, 0x14, 0x61, 0x2a, 0x30, 0x96, 0xa9, 0xdf, 0x0e, 0x56, 0x90, 0x3c, 0x78, 0x5a, 0x88,
+	0xf4, 0xe3, 0x38, 0x43, 0xbe, 0x0c, 0xbe, 0x8c, 0x77, 0x1e, 0xc2, 0x83, 0x35, 0x87, 0x4b, 0xff,
+	0xbf, 0xd5, 0xf8, 0xc8, 0x55, 0xa5, 0xfe, 0x4f, 0xf6, 0x8f, 0xa0, 0x31, 0x5e, 0x2d, 0xd1, 0xee,
+	0xf7, 0x6c, 0xee, 0x0b, 0x4e, 0x60, 0x96, 0xdc, 0xd8, 0x7b, 0x17, 0x76, 0x43, 0xad, 0x61, 0x5a,
+	0x2f, 0xc3, 0xfa, 0xe0, 0xcd, 0x26, 0x0a, 0xe3, 0x5c, 0x9e, 0xfb, 0x3b, 0xcc, 0x26, 0x34, 0x09,
+	0x05, 0x4a, 0x92, 0x35, 0x56, 0xc7, 0x1e, 0x6b, 0x39, 0xa4, 0x8d, 0xf5, 0x90, 0xf4, 0x24, 0x56,
+	0xaf, 0x26, 0x51, 0x1d, 0x85, 0xb9, 0x69, 0xd1, 0xd1, 0xc1, 0xf7, 0x4d, 0xa8, 0x0e, 0xf8, 0x88,
+	0x9c, 0x42, 0xc3, 0x7c, 0xc2, 0xf6, 0x4b, 0xa9, 0x96, 0x5f, 0x87, 0xd6, 0xe3, 0x6b, 0x08, 0xcb,
+	0xe7, 0xe3, 0x14, 0x1a, 0xe6, 0x43, 0x61, 0x91, 0x36, 0x08, 0x36, 0x69, 0xeb, 0x25, 0xcd, 0xa5,
+	0xcd, 0x1b, 0x6a, 0x91, 0x36, 0x08, 0x36, 0x69, 0xeb, 0x1d, 0x25, 0x1f, 0x61, 0xa7, 0x7c, 0x3f,
+	0xd7, 0x4b, 0x4d, 0x46, 0xab, 0x7b, 0x1d, 0x63, 0xb5, 0x71, 0x73, 0xfa, 0xf7, 0xff, 0x52, 0x5a,
+	0x10, 0x6c, 0x8d, 0x5b, 0x67, 0x2c, 0x6f, 0xbc, 0x34, 0x60, 0x96, 0xc6, 0x4d, 0x86, 0xad, 0x71,
+	0xfb, 0xbc, 0x1c, 0xbd, 0xf8, 0x39, 0xf7, 0x9c, 0x8b, 0xb9, 0xe7, 0x5c, 0xce, 0x3d, 0xe7, 0xdb,
+	0xc2, 0xab, 0x5c, 0x2c, 0xbc, 0xca, 0xaf, 0x85, 0x57, 0xf9, 0xd0, 0x1e, 0x51, 0xf1, 0x69, 0x3a,
+	0xf4, 0x23, 0x36, 0xe9, 0x29, 0xb5, 0x5e, 0x80, 0xbd, 0x99, 0xfa, 0xa7, 0x3d, 0x4f, 0x91, 0x0f,
+	0x6b, 0xf2, 0x1f, 0xf3, 0xf0, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa5, 0xfc, 0x8b, 0x67, 0x80,
+	0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -658,6 +759,7 @@ type MsgClient interface {
 	DeleteAccount(ctx context.Context, in *MsgDeleteAccount, opts ...grpc.CallOption) (*MsgDeleteAccountResponse, error)
 	LogonInitiator(ctx context.Context, in *MsgLogonInitiator, opts ...grpc.CallOption) (*MsgLogonInitiatorResponse, error)
 	LogonAcceptor(ctx context.Context, in *MsgLogonAcceptor, opts ...grpc.CallOption) (*MsgLogonAcceptorResponse, error)
+	TerminateLogon(ctx context.Context, in *MsgTerminateLogon, opts ...grpc.CallOption) (*MsgTerminateLogonResponse, error)
 }
 
 type msgClient struct {
@@ -713,6 +815,15 @@ func (c *msgClient) LogonAcceptor(ctx context.Context, in *MsgLogonAcceptor, opt
 	return out, nil
 }
 
+func (c *msgClient) TerminateLogon(ctx context.Context, in *MsgTerminateLogon, opts ...grpc.CallOption) (*MsgTerminateLogonResponse, error) {
+	out := new(MsgTerminateLogonResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/TerminateLogon", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateAccount(context.Context, *MsgCreateAccount) (*MsgCreateAccountResponse, error)
@@ -720,6 +831,7 @@ type MsgServer interface {
 	DeleteAccount(context.Context, *MsgDeleteAccount) (*MsgDeleteAccountResponse, error)
 	LogonInitiator(context.Context, *MsgLogonInitiator) (*MsgLogonInitiatorResponse, error)
 	LogonAcceptor(context.Context, *MsgLogonAcceptor) (*MsgLogonAcceptorResponse, error)
+	TerminateLogon(context.Context, *MsgTerminateLogon) (*MsgTerminateLogonResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -740,6 +852,9 @@ func (*UnimplementedMsgServer) LogonInitiator(ctx context.Context, req *MsgLogon
 }
 func (*UnimplementedMsgServer) LogonAcceptor(ctx context.Context, req *MsgLogonAcceptor) (*MsgLogonAcceptorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LogonAcceptor not implemented")
+}
+func (*UnimplementedMsgServer) TerminateLogon(ctx context.Context, req *MsgTerminateLogon) (*MsgTerminateLogonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TerminateLogon not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -836,6 +951,24 @@ func _Msg_LogonAcceptor_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_TerminateLogon_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTerminateLogon)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TerminateLogon(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/TerminateLogon",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TerminateLogon(ctx, req.(*MsgTerminateLogon))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "jim380.re.fix.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -859,6 +992,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LogonAcceptor",
 			Handler:    _Msg_LogonAcceptor_Handler,
+		},
+		{
+			MethodName: "TerminateLogon",
+			Handler:    _Msg_TerminateLogon_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1141,15 +1278,12 @@ func (m *MsgLogonInitiator) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.IsLoggedIn {
+	if len(m.Status) > 0 {
+		i -= len(m.Status)
+		copy(dAtA[i:], m.Status)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Status)))
 		i--
-		if m.IsLoggedIn {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x1a
 	}
 	if m.LogonInitiator != nil {
 		{
@@ -1233,15 +1367,12 @@ func (m *MsgLogonAcceptor) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.IsLoggedIn {
+	if len(m.Status) > 0 {
+		i -= len(m.Status)
+		copy(dAtA[i:], m.Status)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Status)))
 		i--
-		if m.IsLoggedIn {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x1a
 	}
 	if m.LogonAcceptor != nil {
 		{
@@ -1281,6 +1412,73 @@ func (m *MsgLogonAcceptorResponse) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *MsgLogonAcceptorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTerminateLogon) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTerminateLogon) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTerminateLogon) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Did) > 0 {
+		i -= len(m.Did)
+		copy(dAtA[i:], m.Did)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Did)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SessionName) > 0 {
+		i -= len(m.SessionName)
+		copy(dAtA[i:], m.SessionName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.InitiatorAddress) > 0 {
+		i -= len(m.InitiatorAddress)
+		copy(dAtA[i:], m.InitiatorAddress)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.InitiatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTerminateLogonResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTerminateLogonResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTerminateLogonResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1425,8 +1623,9 @@ func (m *MsgLogonInitiator) Size() (n int) {
 		l = m.LogonInitiator.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.IsLoggedIn {
-		n += 2
+	l = len(m.Status)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.IsAccepted {
 		n += 2
@@ -1461,8 +1660,9 @@ func (m *MsgLogonAcceptor) Size() (n int) {
 		l = m.LogonAcceptor.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.IsLoggedIn {
-		n += 2
+	l = len(m.Status)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.IsAccepted {
 		n += 2
@@ -1475,6 +1675,36 @@ func (m *MsgLogonAcceptor) Size() (n int) {
 }
 
 func (m *MsgLogonAcceptorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgTerminateLogon) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.InitiatorAddress)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionName)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Did)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgTerminateLogonResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2341,10 +2571,10 @@ func (m *MsgLogonInitiator) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IsLoggedIn", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
-			var v int
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -2354,12 +2584,24 @@ func (m *MsgLogonInitiator) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				v |= int(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			m.IsLoggedIn = bool(v != 0)
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Status = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field IsAccepted", wireType)
@@ -2581,10 +2823,10 @@ func (m *MsgLogonAcceptor) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IsLoggedIn", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
-			var v int
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -2594,12 +2836,24 @@ func (m *MsgLogonAcceptor) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				v |= int(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			m.IsLoggedIn = bool(v != 0)
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Status = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field IsAccepted", wireType)
@@ -2700,6 +2954,202 @@ func (m *MsgLogonAcceptorResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgLogonAcceptorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTerminateLogon) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTerminateLogon: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTerminateLogon: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InitiatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InitiatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Did", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Did = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTerminateLogonResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTerminateLogonResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTerminateLogonResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

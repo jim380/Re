@@ -27,9 +27,11 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	//same DID can not be used for intiating and accepting in the same FIX session
-	if senderCompID.Did == targetCompID.Did {
-		return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
-	}
+	/*
+		if senderCompID.Did == targetCompID.Did {
+			return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
+		}
+	*/
 
 	//check for if this session Name exists already
 	_, found := k.GetSessions(ctx, msg.SessionName)
@@ -52,7 +54,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	var newInitiatorSession = types.Sessions{
 		SessionName:      msg.SessionName,
 		LogonInitiator:   &logonInitiator,
-		IsLoggedIn:       false,
+		Status:           "logon-request",
 		IsAccepted:       false,
 		InitiatorAddress: msg.InitiatorAddress,
 	}
