@@ -50,11 +50,14 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	sessionReject.Header = session.LogonInitiator.Header
 	sessionReject.Trailer = session.LogonInitiator.Trailer
 
+	//set msgType to 3, [msgType 35 = 3] for sesssion rejection
+	sessionReject.Header.MsgType = "3"
+
 	//set session status to rejected
 	session.Status = "rejected"
-	k.SetSessions(ctx, msg.SessionName, session)
 
 	//set rejected session to sore
+	k.SetSessions(ctx, msg.SessionName, session)
 	k.SetSessionReject(ctx, msg.SessionName, sessionReject)
 
 	return &types.MsgLogonRejectResponse{}, nil
