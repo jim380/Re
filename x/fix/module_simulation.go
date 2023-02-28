@@ -56,6 +56,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgLogoutInitiator int = 100
 
+	opWeightMsgLogoutAcceptor = "op_weight_msg_logout_acceptor"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLogoutAcceptor int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -187,6 +191,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgLogoutInitiator,
 		fixsimulation.SimulateMsgLogoutInitiator(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLogoutAcceptor int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLogoutAcceptor, &weightMsgLogoutAcceptor, nil,
+		func(_ *rand.Rand) {
+			weightMsgLogoutAcceptor = defaultWeightMsgLogoutAcceptor
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLogoutAcceptor,
+		fixsimulation.SimulateMsgLogoutAcceptor(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -20,6 +20,7 @@ service Msg {
   rpc TerminateLogon  (MsgTerminateLogon ) returns (MsgTerminateLogonResponse );
   rpc LogonReject     (MsgLogonReject    ) returns (MsgLogonRejectResponse    );
   rpc LogoutInitiator (MsgLogoutInitiator) returns (MsgLogoutInitiatorResponse);
+  rpc LogoutAcceptor  (MsgLogoutAcceptor ) returns (MsgLogoutAcceptorResponse );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -91,10 +92,18 @@ message MsgLogonReject {
 message MsgLogonRejectResponse {}
 
 message MsgLogoutInitiator {
-  string initiatorAddress     = 1;
-  string sessionName = 2;
+  string                 initiatorAddress       = 1;
+  string                 sessionName            = 2;
   SessionLogoutInitiator sessionLogoutInitiator = 3;
 }
 
 message MsgLogoutInitiatorResponse {}
+
+message MsgLogoutAcceptor {
+  string                 acceptorAddress       = 1;
+  string                 sessionName            = 2;
+  SessionLogoutAcceptor sessionLogoutAcceptor = 3;
+}
+
+message MsgLogoutAcceptorResponse {}
 

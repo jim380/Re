@@ -8,6 +8,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// LogonInitiator initiates the session
 func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInitiator) (*types.MsgLogonInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

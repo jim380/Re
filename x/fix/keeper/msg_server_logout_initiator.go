@@ -8,6 +8,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// LogoutInitiator requests for logout from the session
 func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutInitiator) (*types.MsgLogoutInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -21,20 +22,20 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 	//include all cheecks
 	//check that the address initiating a session logout belongs to the session
 
-	sessionLogout := types.SessionLogout{
+	sessionLogoutInitiator := types.SessionLogout{
 		InitiatorAddress:       msg.InitiatorAddress,
 		SessionName:            msg.SessionName,
 		SessionLogoutInitiator: msg.SessionLogoutInitiator,
 	}
 
-	sessionLogout.InitiatorAddress = session.InitiatorAddress
-	sessionLogout.SessionLogoutInitiator.Header = session.LogonInitiator.Header
-	sessionLogout.SessionLogoutInitiator.Trailer.CheckSum = session.LogonInitiator.Trailer.CheckSum
-	sessionLogout.SessionLogoutInitiator.Header.MsgType = "5"
-	sessionLogout.SessionLogoutInitiator.Text = msg.SessionLogoutInitiator.Text
+	sessionLogoutInitiator.InitiatorAddress = session.InitiatorAddress
+	sessionLogoutInitiator.SessionLogoutInitiator.Header = session.LogonInitiator.Header
+	sessionLogoutInitiator.SessionLogoutInitiator.Trailer = session.LogonInitiator.Trailer
+	sessionLogoutInitiator.SessionLogoutInitiator.Header.MsgType = "5"
+	sessionLogoutInitiator.SessionLogoutInitiator.Text = msg.SessionLogoutInitiator.Text
 
 	//set session logout to store
-	k.SetSessionLogout(ctx, msg.SessionName, sessionLogout)
+	k.SetSessionLogout(ctx, msg.SessionName, sessionLogoutInitiator)
 
 	return &types.MsgLogoutInitiatorResponse{}, nil
 }

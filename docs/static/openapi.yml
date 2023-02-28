@@ -43714,6 +43714,8 @@ definitions:
     type: object
   jim380.re.fix.MsgLogonRejectResponse:
     type: object
+  jim380.re.fix.MsgLogoutAcceptorResponse:
+    type: object
   jim380.re.fix.MsgLogoutInitiatorResponse:
     type: object
   jim380.re.fix.MsgTerminateLogonResponse:
