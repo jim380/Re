@@ -30,6 +30,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetSessionLogout(ctx, elem.SessionName, elem)
 	}
 
+	// Set all the orders
+	for _, elem := range genState.OrdersList {
+		k.SetOrders(ctx, elem.SessionName, elem)
+	}
+
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }

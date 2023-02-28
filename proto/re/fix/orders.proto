@@ -1,0 +1,24 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+
+message Orders {
+  string sessionName = 1;
+  Header header = 2;
+  string clOrdID = 3;
+  string symbol = 4;
+  int64 side = 5;
+  string orderQty = 6;
+  int64 ordType = 7;
+  string price = 8;
+  int64 timeInForce = 9;
+  string text = 10;
+  string transactTime = 11;
+  Trailer trailer = 12;
+  string status = 13;
+  string creator = 14;
+}

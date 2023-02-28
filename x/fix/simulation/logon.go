@@ -10,7 +10,6 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-
 func SimulateMsgLogonInitiator(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,

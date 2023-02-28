@@ -45,4 +45,3 @@ func SimulateMsgLogoutAcceptor(
 		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "LogoutAcceptor simulation not implemented"), nil, nil
 	}
 }
-
