@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -15,7 +16,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	//TODO
 	// get session, check if session exists and if the status is set to loggedIn
 	// check for account address
-	// include checks for all the field messages
+	// include checks for all the FIX Protocol messages
 	// add more check cases
 
 	//check for if this session Name exists
@@ -23,16 +24,16 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
 	}
-   if session.Status != "loggedIn" {
-	return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionName))
-	 
-   }
+
+	if session.Status != "loggedIn" {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionName))
+	}
+
 	//check if order exists
 	order, found := k.GetOrders(ctx, msg.SessionName)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
 	}
-
 
 	newOrder := types.Orders{
 		SessionName:  session.SessionName,
@@ -50,11 +51,13 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		Status:       msg.Status,
 		Creator:      msg.Creator,
 	}
-   
+
 	//set the msgType
 	newOrder.Header.MsgType = "D"
+	newOrder.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newOrder.Status = "Requested"
 
-   k.SetOrders(ctx, msg.SessionName, newOrder)
+	k.SetOrders(ctx, msg.SessionName, newOrder)
 
 	return &types.MsgNewOrderSingleResponse{}, nil
 }

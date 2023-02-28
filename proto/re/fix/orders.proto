@@ -12,9 +12,9 @@ message Orders {
   string clOrdID = 3;
   string symbol = 4;
   int64 side = 5;
-  float orderQty = 6;
+  string orderQty = 6;
   int64 ordType = 7;
-  float price = 8;
+  string price = 8;
   int64 timeInForce = 9;
   string text = 10;
   string transactTime = 11;

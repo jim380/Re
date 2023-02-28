@@ -115,9 +115,9 @@ message MsgNewOrderSingle {
   string clOrdID = 4;
   string symbol = 5;
   int64 side = 6;
-  float orderQty = 7;
+  string orderQty = 7;
   int64 ordType = 8;
-  float price = 9;
+  string price = 9;
   int64 timeInForce = 10;
   string text = 11;
   string transactTime = 12;
