@@ -37,6 +37,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdLogonAcceptor())
 	cmd.AddCommand(CmdTerminateLogon())
 	cmd.AddCommand(CmdLogonReject())
+	cmd.AddCommand(CmdLogoutInitiator())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

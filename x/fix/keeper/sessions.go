@@ -106,7 +106,6 @@ func (k Keeper) GetSessionReject(ctx sdk.Context, sessionName string) (val types
 	return val, true
 }
 
-
 // SetSessionLogout set a specific sessionLogout in the store
 func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionName string, sessionLogout types.SessionLogout) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
