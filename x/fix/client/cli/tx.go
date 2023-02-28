@@ -40,6 +40,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdLogoutInitiator())
 	cmd.AddCommand(CmdLogoutAcceptor())
 	cmd.AddCommand(CmdNewOrderSingle())
+	cmd.AddCommand(CmdOrderCancelRequest())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

@@ -9,21 +9,24 @@ import "re/fix/sessions.proto";
 import "re/fix/session_reject.proto";
 import "re/fix/session_logout.proto";
 import "re/fix/orders.proto";
+import "re/fix/orders_cancel_request.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 // GenesisState defines the fix module's genesis state.
 message GenesisState {
-           Params        params             =  1 [(gogoproto.nullable) = false];
-  repeated Account       accountList        =  2 [(gogoproto.nullable) = false];
-           uint64        accountCount       =  3;
-  repeated Sessions      sessionsList       =  4 [(gogoproto.nullable) = false];
-           uint64        sessionsCount      =  5;
-  repeated SessionReject sessionRejectList  =  6 [(gogoproto.nullable) = false];
-           uint64        sessionRejectCount =  7;
-  repeated SessionLogout sessionLogoutList  =  8 [(gogoproto.nullable) = false];
-           uint64        sessionLogoutCount =  9;
-  repeated Orders        ordersList         = 10 [(gogoproto.nullable) = false];
-           uint64        ordersCount        = 11;
+           Params              params                   =  1 [(gogoproto.nullable) = false];
+  repeated Account             accountList              =  2 [(gogoproto.nullable) = false];
+           uint64              accountCount             =  3;
+  repeated Sessions            sessionsList             =  4 [(gogoproto.nullable) = false];
+           uint64              sessionsCount            =  5;
+  repeated SessionReject       sessionRejectList        =  6 [(gogoproto.nullable) = false];
+           uint64              sessionRejectCount       =  7;
+  repeated SessionLogout       sessionLogoutList        =  8 [(gogoproto.nullable) = false];
+           uint64              sessionLogoutCount       =  9;
+  repeated Orders              ordersList               = 10 [(gogoproto.nullable) = false];
+           uint64              ordersCount              = 11;
+  repeated OrdersCancelRequest ordersCancelRequestList  = 12 [(gogoproto.nullable) = false];
+           uint64              ordersCancelRequestCount = 13;
 }
 
