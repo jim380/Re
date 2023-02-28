@@ -9,6 +9,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// LogonReject enables an Acceptor to reject the logon session
 func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject) (*types.MsgLogonRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

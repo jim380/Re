@@ -795,6 +795,198 @@ func (m *MsgLogonRejectResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgLogonRejectResponse proto.InternalMessageInfo
 
+type MsgLogoutInitiator struct {
+	InitiatorAddress       string                  `protobuf:"bytes,1,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
+	SessionName            string                  `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionLogoutInitiator *SessionLogoutInitiator `protobuf:"bytes,3,opt,name=sessionLogoutInitiator,proto3" json:"sessionLogoutInitiator,omitempty"`
+}
+
+func (m *MsgLogoutInitiator) Reset()         { *m = MsgLogoutInitiator{} }
+func (m *MsgLogoutInitiator) String() string { return proto.CompactTextString(m) }
+func (*MsgLogoutInitiator) ProtoMessage()    {}
+func (*MsgLogoutInitiator) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{14}
+}
+func (m *MsgLogoutInitiator) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLogoutInitiator) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLogoutInitiator.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLogoutInitiator) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLogoutInitiator.Merge(m, src)
+}
+func (m *MsgLogoutInitiator) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLogoutInitiator) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLogoutInitiator.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLogoutInitiator proto.InternalMessageInfo
+
+func (m *MsgLogoutInitiator) GetInitiatorAddress() string {
+	if m != nil {
+		return m.InitiatorAddress
+	}
+	return ""
+}
+
+func (m *MsgLogoutInitiator) GetSessionName() string {
+	if m != nil {
+		return m.SessionName
+	}
+	return ""
+}
+
+func (m *MsgLogoutInitiator) GetSessionLogoutInitiator() *SessionLogoutInitiator {
+	if m != nil {
+		return m.SessionLogoutInitiator
+	}
+	return nil
+}
+
+type MsgLogoutInitiatorResponse struct {
+}
+
+func (m *MsgLogoutInitiatorResponse) Reset()         { *m = MsgLogoutInitiatorResponse{} }
+func (m *MsgLogoutInitiatorResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgLogoutInitiatorResponse) ProtoMessage()    {}
+func (*MsgLogoutInitiatorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{15}
+}
+func (m *MsgLogoutInitiatorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLogoutInitiatorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLogoutInitiatorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLogoutInitiatorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLogoutInitiatorResponse.Merge(m, src)
+}
+func (m *MsgLogoutInitiatorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLogoutInitiatorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLogoutInitiatorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLogoutInitiatorResponse proto.InternalMessageInfo
+
+type MsgLogoutAcceptor struct {
+	AcceptorAddress       string                 `protobuf:"bytes,1,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
+	SessionName           string                 `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionLogoutAcceptor *SessionLogoutAcceptor `protobuf:"bytes,3,opt,name=sessionLogoutAcceptor,proto3" json:"sessionLogoutAcceptor,omitempty"`
+}
+
+func (m *MsgLogoutAcceptor) Reset()         { *m = MsgLogoutAcceptor{} }
+func (m *MsgLogoutAcceptor) String() string { return proto.CompactTextString(m) }
+func (*MsgLogoutAcceptor) ProtoMessage()    {}
+func (*MsgLogoutAcceptor) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{16}
+}
+func (m *MsgLogoutAcceptor) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLogoutAcceptor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLogoutAcceptor.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLogoutAcceptor) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLogoutAcceptor.Merge(m, src)
+}
+func (m *MsgLogoutAcceptor) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLogoutAcceptor) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLogoutAcceptor.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLogoutAcceptor proto.InternalMessageInfo
+
+func (m *MsgLogoutAcceptor) GetAcceptorAddress() string {
+	if m != nil {
+		return m.AcceptorAddress
+	}
+	return ""
+}
+
+func (m *MsgLogoutAcceptor) GetSessionName() string {
+	if m != nil {
+		return m.SessionName
+	}
+	return ""
+}
+
+func (m *MsgLogoutAcceptor) GetSessionLogoutAcceptor() *SessionLogoutAcceptor {
+	if m != nil {
+		return m.SessionLogoutAcceptor
+	}
+	return nil
+}
+
+type MsgLogoutAcceptorResponse struct {
+}
+
+func (m *MsgLogoutAcceptorResponse) Reset()         { *m = MsgLogoutAcceptorResponse{} }
+func (m *MsgLogoutAcceptorResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgLogoutAcceptorResponse) ProtoMessage()    {}
+func (*MsgLogoutAcceptorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{17}
+}
+func (m *MsgLogoutAcceptorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLogoutAcceptorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLogoutAcceptorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLogoutAcceptorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLogoutAcceptorResponse.Merge(m, src)
+}
+func (m *MsgLogoutAcceptorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLogoutAcceptorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLogoutAcceptorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLogoutAcceptorResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateAccount)(nil), "jim380.re.fix.MsgCreateAccount")
 	proto.RegisterType((*MsgCreateAccountResponse)(nil), "jim380.re.fix.MsgCreateAccountResponse")
@@ -810,56 +1002,67 @@ func init() {
 	proto.RegisterType((*MsgTerminateLogonResponse)(nil), "jim380.re.fix.MsgTerminateLogonResponse")
 	proto.RegisterType((*MsgLogonReject)(nil), "jim380.re.fix.MsgLogonReject")
 	proto.RegisterType((*MsgLogonRejectResponse)(nil), "jim380.re.fix.MsgLogonRejectResponse")
+	proto.RegisterType((*MsgLogoutInitiator)(nil), "jim380.re.fix.MsgLogoutInitiator")
+	proto.RegisterType((*MsgLogoutInitiatorResponse)(nil), "jim380.re.fix.MsgLogoutInitiatorResponse")
+	proto.RegisterType((*MsgLogoutAcceptor)(nil), "jim380.re.fix.MsgLogoutAcceptor")
+	proto.RegisterType((*MsgLogoutAcceptorResponse)(nil), "jim380.re.fix.MsgLogoutAcceptorResponse")
 }
 
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 703 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x56, 0xc1, 0x4f, 0x13, 0x4f,
-	0x14, 0x66, 0x29, 0x94, 0x1f, 0xaf, 0x29, 0xf0, 0x9b, 0x08, 0x59, 0x2b, 0x2c, 0x4d, 0x13, 0x63,
-	0x63, 0xb4, 0x25, 0xe5, 0x62, 0x3c, 0x98, 0x14, 0x35, 0x91, 0x84, 0x7a, 0x58, 0xf1, 0x80, 0x31,
-	0x31, 0xc3, 0xee, 0xa3, 0x0c, 0xb6, 0xbb, 0xcd, 0xce, 0x10, 0xcb, 0xd5, 0xbf, 0xc0, 0x3f, 0xca,
-	0x83, 0x47, 0xbc, 0x19, 0x4f, 0x84, 0xfe, 0x23, 0xa6, 0xb3, 0x33, 0x65, 0x67, 0x3b, 0x08, 0xe1,
-	0xe6, 0x6d, 0xf7, 0xbd, 0xef, 0x7d, 0xfb, 0x7d, 0x6f, 0xe6, 0xbd, 0x2c, 0x2c, 0x27, 0xd8, 0x3c,
-	0x62, 0xc3, 0xa6, 0x18, 0x36, 0x06, 0x49, 0x2c, 0x62, 0x52, 0x3e, 0x61, 0xfd, 0xed, 0x67, 0x5b,
-	0x8d, 0x04, 0x1b, 0x47, 0x6c, 0x58, 0xb9, 0xa7, 0xf2, 0x34, 0x08, 0xe2, 0xd3, 0x48, 0xa4, 0xa0,
-	0xca, 0xaa, 0x8a, 0x72, 0xe4, 0x9c, 0xc5, 0x11, 0x57, 0xe1, 0x0d, 0x1d, 0x16, 0x34, 0x0a, 0x69,
-	0x12, 0x7e, 0xea, 0x23, 0xe7, 0xb4, 0x8b, 0x69, 0xba, 0xf6, 0xdd, 0x81, 0x95, 0x0e, 0xef, 0xbe,
-	0x4c, 0x90, 0x0a, 0x6c, 0xa7, 0x84, 0xc4, 0x85, 0x85, 0x60, 0x1c, 0x88, 0x13, 0xd7, 0xa9, 0x3a,
-	0xf5, 0x45, 0x5f, 0xbf, 0x92, 0x15, 0x28, 0x84, 0x2c, 0x74, 0x67, 0x65, 0x74, 0xfc, 0x48, 0xaa,
-	0x50, 0x0a, 0xe2, 0xfe, 0x80, 0x46, 0x67, 0x6f, 0x69, 0x1f, 0xdd, 0x82, 0xcc, 0x64, 0x43, 0x63,
-	0xb6, 0x2f, 0x78, 0xc8, 0x99, 0x40, 0x77, 0x2e, 0x65, 0x53, 0xaf, 0xe4, 0x31, 0xac, 0xf0, 0x38,
-	0x60, 0xb4, 0xd7, 0xc1, 0x90, 0xd1, 0x3d, 0x16, 0x7d, 0xe6, 0xee, 0xbc, 0x84, 0x4c, 0xc5, 0xc9,
-	0x3a, 0x2c, 0x4a, 0x11, 0x18, 0xb6, 0x85, 0x5b, 0xac, 0x3a, 0xf5, 0x79, 0xff, 0x2a, 0x50, 0x7b,
-	0x02, 0x6e, 0xde, 0x85, 0x8f, 0x7c, 0x10, 0x47, 0x1c, 0xb5, 0x66, 0x67, 0xa2, 0x59, 0x9b, 0x7e,
-	0x3f, 0x08, 0xff, 0x69, 0xd3, 0x15, 0x69, 0xda, 0x70, 0xa1, 0x4d, 0xd7, 0x5e, 0x48, 0x87, 0xaf,
-	0xb0, 0x87, 0x77, 0x72, 0xa8, 0xb8, 0x8d, 0xfa, 0x09, 0xf7, 0x85, 0x03, 0xff, 0x77, 0x78, 0x77,
-	0x2f, 0xee, 0xc6, 0xd1, 0x6e, 0xc4, 0x04, 0x93, 0x1c, 0x55, 0x28, 0xa9, 0xab, 0x27, 0x7b, 0x92,
-	0x7e, 0x21, 0x1b, 0x22, 0xaf, 0x61, 0xa9, 0x67, 0xd4, 0xc8, 0x0f, 0x96, 0x5a, 0x1b, 0x0d, 0xe3,
-	0x7e, 0x37, 0x4c, 0x62, 0x3f, 0x57, 0x44, 0xd6, 0xa0, 0xc8, 0x05, 0x15, 0xa7, 0x5c, 0xf5, 0x5d,
-	0xbd, 0x11, 0x0f, 0x60, 0x97, 0xb7, 0x83, 0x00, 0x07, 0x02, 0x43, 0xd9, 0xf5, 0xff, 0xfc, 0x4c,
-	0x64, 0xdc, 0x78, 0xa6, 0x49, 0xda, 0x61, 0x98, 0x20, 0x9f, 0x34, 0x3e, 0x1f, 0xaf, 0x3d, 0x80,
-	0xfb, 0x53, 0x0e, 0x27, 0xfe, 0x7f, 0xa7, 0xd7, 0x47, 0x66, 0x53, 0xf6, 0x5b, 0xd9, 0xdf, 0x81,
-	0x72, 0x2f, 0x5b, 0xa2, 0xdc, 0xaf, 0xdb, 0xdc, 0x6b, 0x8c, 0x6f, 0x96, 0xdc, 0xd9, 0x7b, 0x1d,
-	0x96, 0xa9, 0xe2, 0x30, 0xad, 0xe7, 0xc3, 0xea, 0xe0, 0x4d, 0x11, 0xda, 0x38, 0x97, 0xe7, 0xbe,
-	0x8f, 0x49, 0x9f, 0x45, 0x54, 0xa0, 0x04, 0x59, 0xdb, 0xea, 0xd8, 0xdb, 0x9a, 0x6f, 0xd2, 0xec,
-	0x74, 0x93, 0xd4, 0x4d, 0x2c, 0x5c, 0xdd, 0xc4, 0xf4, 0x28, 0xcc, 0x8f, 0x4e, 0x14, 0xfd, 0x74,
-	0x60, 0x49, 0xcb, 0xf5, 0xf1, 0x04, 0x03, 0x61, 0xb3, 0xea, 0x58, 0xad, 0xde, 0x42, 0xcd, 0x53,
-	0x28, 0x1e, 0x23, 0x0d, 0x31, 0x91, 0x82, 0x4a, 0xad, 0xd5, 0xdc, 0x59, 0xbd, 0x91, 0x49, 0x5f,
-	0x81, 0x08, 0x81, 0x39, 0x81, 0x43, 0xa1, 0x26, 0x5e, 0x3e, 0x93, 0x2d, 0x58, 0x10, 0x09, 0x65,
-	0x3d, 0x4c, 0x64, 0xc7, 0x4b, 0xad, 0xb5, 0x1c, 0xc7, 0x7e, 0x9a, 0xf5, 0x35, 0xac, 0xe6, 0xc2,
-	0x9a, 0x69, 0x49, 0xbb, 0x6d, 0x7d, 0x9d, 0x87, 0x42, 0x87, 0x77, 0xc9, 0x01, 0x94, 0xcd, 0x85,
-	0xbd, 0x99, 0xe3, 0xcc, 0xef, 0xc2, 0xca, 0xa3, 0x1b, 0x00, 0x93, 0x65, 0x79, 0x00, 0x65, 0x73,
-	0x2d, 0x5a, 0xa8, 0x0d, 0x80, 0x8d, 0xda, 0xba, 0x92, 0xc6, 0xd4, 0xe6, 0x3e, 0xb2, 0x50, 0x1b,
-	0x00, 0x1b, 0xb5, 0x75, 0x23, 0x91, 0x8f, 0xb0, 0x94, 0xdf, 0x46, 0xd3, 0xa5, 0x26, 0xa2, 0x52,
-	0xbf, 0x09, 0x91, 0x15, 0x6e, 0xce, 0xfa, 0xe6, 0x35, 0xa5, 0x1a, 0x60, 0x13, 0x6e, 0x9d, 0xa8,
-	0xb1, 0xf0, 0xdc, 0x38, 0x59, 0x84, 0x9b, 0x08, 0x9b, 0x70, 0xfb, 0x74, 0x90, 0x77, 0x50, 0xca,
-	0x4e, 0xc6, 0xc6, 0x35, 0xaa, 0xd2, 0x74, 0xe5, 0xe1, 0x5f, 0xd3, 0x9a, 0x74, 0xe7, 0xf9, 0x8f,
-	0x4b, 0xcf, 0x39, 0xbf, 0xf4, 0x9c, 0x8b, 0x4b, 0xcf, 0xf9, 0x36, 0xf2, 0x66, 0xce, 0x47, 0xde,
-	0xcc, 0xaf, 0x91, 0x37, 0xf3, 0xa1, 0xda, 0x65, 0xe2, 0xf8, 0xf4, 0xb0, 0x11, 0xc4, 0xfd, 0x66,
-	0x4a, 0xd5, 0xf4, 0xb1, 0x39, 0x4c, 0xff, 0x65, 0xce, 0x06, 0xc8, 0x0f, 0x8b, 0xf2, 0xa7, 0x63,
-	0xfb, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xec, 0x08, 0x3e, 0xa2, 0xe2, 0x08, 0x00, 0x00,
+	// 816 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x56, 0x4d, 0x4f, 0xdb, 0x4a,
+	0x14, 0xc5, 0x04, 0xc2, 0xe3, 0x46, 0x01, 0xde, 0xe8, 0x11, 0xf9, 0x19, 0x08, 0x79, 0xd1, 0x43,
+	0x4d, 0xab, 0x36, 0x41, 0x61, 0x53, 0x75, 0x51, 0x29, 0xb4, 0x95, 0x8a, 0x44, 0xba, 0x30, 0x74,
+	0x01, 0x6a, 0x85, 0x8c, 0x3d, 0x84, 0xa1, 0x89, 0x1d, 0x79, 0x26, 0x6a, 0xf8, 0x17, 0xfd, 0x3f,
+	0x5d, 0x21, 0x75, 0xd1, 0x25, 0xdd, 0x55, 0x5d, 0x21, 0xf8, 0x23, 0x55, 0xc6, 0x63, 0xc7, 0x33,
+	0x99, 0x10, 0x84, 0xd8, 0x74, 0x17, 0xdf, 0x7b, 0xee, 0x99, 0x73, 0xee, 0x7c, 0xdc, 0xc0, 0x62,
+	0x88, 0x6b, 0x27, 0xa4, 0x5f, 0x63, 0xfd, 0x6a, 0x37, 0x0c, 0x58, 0x80, 0xf2, 0x67, 0xa4, 0xb3,
+	0xf5, 0x7c, 0xb3, 0x1a, 0xe2, 0xea, 0x09, 0xe9, 0x5b, 0xff, 0x88, 0xbc, 0xe3, 0xba, 0x41, 0xcf,
+	0x67, 0x11, 0xc8, 0x5a, 0x16, 0x51, 0x8a, 0x29, 0x25, 0x81, 0x4f, 0x45, 0x78, 0x2d, 0x0e, 0x33,
+	0xc7, 0xf7, 0x9c, 0xd0, 0x3b, 0xea, 0x60, 0x4a, 0x9d, 0x16, 0x16, 0xe9, 0x15, 0xb9, 0xea, 0xa8,
+	0x1d, 0xb4, 0x82, 0x9e, 0xa0, 0x2c, 0x7f, 0x33, 0x60, 0xa9, 0x49, 0x5b, 0xaf, 0x42, 0xec, 0x30,
+	0xdc, 0x88, 0x56, 0x43, 0x26, 0xcc, 0xb9, 0x83, 0x40, 0x10, 0x9a, 0x46, 0xc9, 0xa8, 0xcc, 0xdb,
+	0xf1, 0x27, 0x5a, 0x82, 0x8c, 0x47, 0x3c, 0x73, 0x9a, 0x47, 0x07, 0x3f, 0x51, 0x09, 0x72, 0x6e,
+	0xd0, 0xe9, 0x3a, 0xfe, 0xf9, 0x3b, 0xa7, 0x83, 0xcd, 0x0c, 0xcf, 0xa4, 0x43, 0x03, 0xb6, 0xcf,
+	0xf8, 0x98, 0x12, 0x86, 0xcd, 0x99, 0x88, 0x4d, 0x7c, 0xa2, 0x27, 0xb0, 0x44, 0x03, 0x97, 0x38,
+	0xed, 0x26, 0xf6, 0x88, 0xb3, 0x4b, 0xfc, 0x4f, 0xd4, 0x9c, 0xe5, 0x90, 0x91, 0x38, 0x5a, 0x85,
+	0x79, 0x2e, 0x02, 0x7b, 0x0d, 0x66, 0x66, 0x4b, 0x46, 0x65, 0xd6, 0x1e, 0x06, 0xca, 0x4f, 0xc1,
+	0x54, 0x5d, 0xd8, 0x98, 0x76, 0x03, 0x9f, 0xe2, 0x58, 0xb3, 0x91, 0x68, 0x8e, 0x4d, 0xbf, 0xef,
+	0x7a, 0x7f, 0xb4, 0x69, 0x8b, 0x9b, 0x96, 0x5c, 0xc4, 0xa6, 0xcb, 0x2f, 0xb9, 0xc3, 0xd7, 0xb8,
+	0x8d, 0xef, 0xe5, 0x50, 0x70, 0x4b, 0xf5, 0x09, 0xf7, 0x95, 0x01, 0x7f, 0x37, 0x69, 0x6b, 0x37,
+	0x68, 0x05, 0xfe, 0x8e, 0x4f, 0x18, 0xe1, 0x1c, 0x25, 0xc8, 0x89, 0x13, 0xc6, 0x7b, 0x12, 0xad,
+	0x90, 0x0e, 0xa1, 0x37, 0xb0, 0xd0, 0x96, 0x6a, 0xf8, 0x82, 0xb9, 0xfa, 0x5a, 0x55, 0x3a, 0xfc,
+	0x55, 0x99, 0xd8, 0x56, 0x8a, 0x50, 0x01, 0xb2, 0x94, 0x39, 0xac, 0x47, 0x45, 0xdf, 0xc5, 0x17,
+	0x2a, 0x02, 0xec, 0xd0, 0x86, 0xeb, 0xe2, 0x2e, 0xc3, 0x1e, 0xef, 0xfa, 0x5f, 0x76, 0x2a, 0x32,
+	0x68, 0x3c, 0x89, 0x49, 0x1a, 0x9e, 0x17, 0x62, 0x9a, 0x34, 0x5e, 0x8d, 0x97, 0x57, 0xe0, 0xdf,
+	0x11, 0x87, 0x89, 0xff, 0x5f, 0xd1, 0xf1, 0xe1, 0xd9, 0x88, 0xfd, 0x4e, 0xf6, 0xb7, 0x21, 0xdf,
+	0x4e, 0x97, 0x08, 0xf7, 0xab, 0x3a, 0xf7, 0x31, 0xc6, 0x96, 0x4b, 0xee, 0xed, 0xbd, 0x02, 0x8b,
+	0x8e, 0xe0, 0x90, 0xad, 0xab, 0x61, 0xb1, 0xf1, 0xb2, 0x88, 0xd8, 0x38, 0xe5, 0xfb, 0xbe, 0x8f,
+	0xc3, 0x0e, 0xf1, 0x1d, 0x86, 0x39, 0x48, 0xdb, 0x56, 0x43, 0xdf, 0x56, 0xb5, 0x49, 0xd3, 0xa3,
+	0x4d, 0x12, 0x27, 0x31, 0x33, 0x3c, 0x89, 0xd1, 0x56, 0xc8, 0x8b, 0x26, 0x8a, 0x7e, 0x18, 0xb0,
+	0x10, 0xcb, 0xb5, 0xf1, 0x19, 0x76, 0x99, 0xce, 0xaa, 0xa1, 0xb5, 0x7a, 0x07, 0x35, 0xcf, 0x20,
+	0x7b, 0x8a, 0x1d, 0x0f, 0x87, 0x5c, 0x50, 0xae, 0xbe, 0xac, 0xec, 0xd5, 0x5b, 0x9e, 0xb4, 0x05,
+	0x08, 0x21, 0x98, 0x61, 0xb8, 0xcf, 0xc4, 0x8d, 0xe7, 0xbf, 0xd1, 0x26, 0xcc, 0xb1, 0xd0, 0x21,
+	0x6d, 0x1c, 0xf2, 0x8e, 0xe7, 0xea, 0x05, 0x85, 0x63, 0x3f, 0xca, 0xda, 0x31, 0xac, 0x6c, 0x42,
+	0x41, 0xb6, 0x94, 0xb8, 0xbd, 0x30, 0x00, 0x89, 0x54, 0x8f, 0x0d, 0x2f, 0xc4, 0xc3, 0xee, 0xc0,
+	0x47, 0x28, 0x88, 0x4f, 0x65, 0x1d, 0xd1, 0x83, 0x0d, 0x45, 0xff, 0x9e, 0x16, 0x6c, 0x8f, 0x21,
+	0x29, 0xaf, 0x82, 0x35, 0x6a, 0x21, 0x71, 0xf8, 0x75, 0xf8, 0xb4, 0xf4, 0x58, 0x72, 0xea, 0x1f,
+	0x72, 0x4b, 0x0f, 0x61, 0x59, 0x52, 0x96, 0xdc, 0xc6, 0xc8, 0xdd, 0xff, 0xb7, 0xb9, 0x4b, 0x2e,
+	0x84, 0x9e, 0x22, 0xf5, 0x6a, 0xa4, 0xb0, 0xc2, 0x5a, 0xfd, 0x22, 0x0b, 0x99, 0x26, 0x6d, 0xa1,
+	0x03, 0xc8, 0xcb, 0xd3, 0x76, 0x5d, 0x59, 0x52, 0x1d, 0x64, 0xd6, 0xa3, 0x09, 0x80, 0x64, 0xd2,
+	0x1d, 0x40, 0x5e, 0x9e, 0x69, 0x1a, 0x6a, 0x09, 0xa0, 0xa3, 0xd6, 0xce, 0x93, 0x01, 0xb5, 0x3c,
+	0x4c, 0x34, 0xd4, 0x12, 0x40, 0x47, 0xad, 0x1d, 0x27, 0xe8, 0x03, 0x2c, 0xa8, 0xa3, 0x64, 0xb4,
+	0x54, 0x46, 0x58, 0x95, 0x49, 0x88, 0xb4, 0x70, 0xf9, 0xa1, 0x5e, 0x1f, 0x53, 0x1a, 0x03, 0x74,
+	0xc2, 0xb5, 0xcf, 0xe1, 0x40, 0xb8, 0xf2, 0x16, 0x6a, 0x84, 0xcb, 0x08, 0x9d, 0x70, 0xfd, 0xd3,
+	0x86, 0xf6, 0x20, 0x97, 0x7e, 0xd6, 0xd6, 0xc6, 0xa8, 0x8a, 0xd2, 0xd6, 0xc6, 0xad, 0xe9, 0x84,
+	0xf4, 0x08, 0x16, 0xd5, 0xd7, 0xe3, 0x3f, 0x7d, 0x65, 0x0a, 0x62, 0x3d, 0x9e, 0x08, 0x51, 0x37,
+	0x33, 0x75, 0x79, 0x4b, 0xe3, 0x8a, 0x93, 0x86, 0x57, 0x26, 0x21, 0x62, 0xf6, 0xed, 0x17, 0xdf,
+	0xaf, 0x8b, 0xc6, 0xe5, 0x75, 0xd1, 0xb8, 0xba, 0x2e, 0x1a, 0x5f, 0x6e, 0x8a, 0x53, 0x97, 0x37,
+	0xc5, 0xa9, 0x9f, 0x37, 0xc5, 0xa9, 0xc3, 0x52, 0x8b, 0xb0, 0xd3, 0xde, 0x71, 0xd5, 0x0d, 0x3a,
+	0xb5, 0x88, 0xad, 0x66, 0xe3, 0x5a, 0x3f, 0xfa, 0x93, 0x7d, 0xde, 0xc5, 0xf4, 0x38, 0xcb, 0xff,
+	0xf0, 0x6e, 0xfd, 0x0e, 0x00, 0x00, 0xff, 0xff, 0x9a, 0xbe, 0x3a, 0x13, 0x7b, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -881,6 +1084,8 @@ type MsgClient interface {
 	LogonAcceptor(ctx context.Context, in *MsgLogonAcceptor, opts ...grpc.CallOption) (*MsgLogonAcceptorResponse, error)
 	TerminateLogon(ctx context.Context, in *MsgTerminateLogon, opts ...grpc.CallOption) (*MsgTerminateLogonResponse, error)
 	LogonReject(ctx context.Context, in *MsgLogonReject, opts ...grpc.CallOption) (*MsgLogonRejectResponse, error)
+	LogoutInitiator(ctx context.Context, in *MsgLogoutInitiator, opts ...grpc.CallOption) (*MsgLogoutInitiatorResponse, error)
+	LogoutAcceptor(ctx context.Context, in *MsgLogoutAcceptor, opts ...grpc.CallOption) (*MsgLogoutAcceptorResponse, error)
 }
 
 type msgClient struct {
@@ -954,6 +1159,24 @@ func (c *msgClient) LogonReject(ctx context.Context, in *MsgLogonReject, opts ..
 	return out, nil
 }
 
+func (c *msgClient) LogoutInitiator(ctx context.Context, in *MsgLogoutInitiator, opts ...grpc.CallOption) (*MsgLogoutInitiatorResponse, error) {
+	out := new(MsgLogoutInitiatorResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/LogoutInitiator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) LogoutAcceptor(ctx context.Context, in *MsgLogoutAcceptor, opts ...grpc.CallOption) (*MsgLogoutAcceptorResponse, error) {
+	out := new(MsgLogoutAcceptorResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/LogoutAcceptor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateAccount(context.Context, *MsgCreateAccount) (*MsgCreateAccountResponse, error)
@@ -963,6 +1186,8 @@ type MsgServer interface {
 	LogonAcceptor(context.Context, *MsgLogonAcceptor) (*MsgLogonAcceptorResponse, error)
 	TerminateLogon(context.Context, *MsgTerminateLogon) (*MsgTerminateLogonResponse, error)
 	LogonReject(context.Context, *MsgLogonReject) (*MsgLogonRejectResponse, error)
+	LogoutInitiator(context.Context, *MsgLogoutInitiator) (*MsgLogoutInitiatorResponse, error)
+	LogoutAcceptor(context.Context, *MsgLogoutAcceptor) (*MsgLogoutAcceptorResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -989,6 +1214,12 @@ func (*UnimplementedMsgServer) TerminateLogon(ctx context.Context, req *MsgTermi
 }
 func (*UnimplementedMsgServer) LogonReject(ctx context.Context, req *MsgLogonReject) (*MsgLogonRejectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LogonReject not implemented")
+}
+func (*UnimplementedMsgServer) LogoutInitiator(ctx context.Context, req *MsgLogoutInitiator) (*MsgLogoutInitiatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogoutInitiator not implemented")
+}
+func (*UnimplementedMsgServer) LogoutAcceptor(ctx context.Context, req *MsgLogoutAcceptor) (*MsgLogoutAcceptorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogoutAcceptor not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -1121,6 +1352,42 @@ func _Msg_LogonReject_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_LogoutInitiator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLogoutInitiator)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LogoutInitiator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/LogoutInitiator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LogoutInitiator(ctx, req.(*MsgLogoutInitiator))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_LogoutAcceptor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLogoutAcceptor)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LogoutAcceptor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/LogoutAcceptor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LogoutAcceptor(ctx, req.(*MsgLogoutAcceptor))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "jim380.re.fix.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -1152,6 +1419,14 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LogonReject",
 			Handler:    _Msg_LogonReject_Handler,
+		},
+		{
+			MethodName: "LogoutInitiator",
+			Handler:    _Msg_LogoutInitiator_Handler,
+		},
+		{
+			MethodName: "LogoutAcceptor",
+			Handler:    _Msg_LogoutAcceptor_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1733,6 +2008,150 @@ func (m *MsgLogonRejectResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgLogoutInitiator) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLogoutInitiator) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLogoutInitiator) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.SessionLogoutInitiator != nil {
+		{
+			size, err := m.SessionLogoutInitiator.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SessionName) > 0 {
+		i -= len(m.SessionName)
+		copy(dAtA[i:], m.SessionName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.InitiatorAddress) > 0 {
+		i -= len(m.InitiatorAddress)
+		copy(dAtA[i:], m.InitiatorAddress)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.InitiatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLogoutInitiatorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLogoutInitiatorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLogoutInitiatorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLogoutAcceptor) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLogoutAcceptor) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLogoutAcceptor) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.SessionLogoutAcceptor != nil {
+		{
+			size, err := m.SessionLogoutAcceptor.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SessionName) > 0 {
+		i -= len(m.SessionName)
+		copy(dAtA[i:], m.SessionName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.AcceptorAddress) > 0 {
+		i -= len(m.AcceptorAddress)
+		copy(dAtA[i:], m.AcceptorAddress)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.AcceptorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLogoutAcceptorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLogoutAcceptorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLogoutAcceptorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -1990,6 +2409,66 @@ func (m *MsgLogonReject) Size() (n int) {
 }
 
 func (m *MsgLogonRejectResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgLogoutInitiator) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.InitiatorAddress)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionName)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.SessionLogoutInitiator != nil {
+		l = m.SessionLogoutInitiator.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgLogoutInitiatorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgLogoutAcceptor) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.AcceptorAddress)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionName)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.SessionLogoutAcceptor != nil {
+		l = m.SessionLogoutAcceptor.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgLogoutAcceptorResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3703,6 +4182,406 @@ func (m *MsgLogonRejectResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgLogonRejectResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLogoutInitiator) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLogoutInitiator: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLogoutInitiator: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InitiatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InitiatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionLogoutInitiator", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SessionLogoutInitiator == nil {
+				m.SessionLogoutInitiator = &SessionLogoutInitiator{}
+			}
+			if err := m.SessionLogoutInitiator.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLogoutInitiatorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLogoutInitiatorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLogoutInitiatorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLogoutAcceptor) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLogoutAcceptor: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLogoutAcceptor: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AcceptorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AcceptorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionLogoutAcceptor", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SessionLogoutAcceptor == nil {
+				m.SessionLogoutAcceptor = &SessionLogoutAcceptor{}
+			}
+			if err := m.SessionLogoutAcceptor.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLogoutAcceptorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLogoutAcceptorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLogoutAcceptorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

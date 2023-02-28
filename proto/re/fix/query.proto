@@ -9,6 +9,7 @@ import "re/fix/params.proto";
 import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/session_reject.proto";
+import "re/fix/session_logout.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -48,6 +49,16 @@ service Query {
   }
   rpc SessionRejectAll (QueryAllSessionRejectRequest) returns (QueryAllSessionRejectResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/reject";
+  
+  }
+  
+  // Queries a list of SessionLogout items.
+  rpc SessionLogout    (QueryGetSessionLogoutRequest) returns (QueryGetSessionLogoutResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/session/logout/{sessionName}";
+  
+  }
+  rpc SessionLogoutAll (QueryAllSessionLogoutRequest) returns (QueryAllSessionLogoutResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/session/logout";
   
   }
 }
@@ -109,6 +120,23 @@ message QueryAllSessionRejectRequest {
 
 message QueryAllSessionRejectResponse {
   repeated SessionReject                          SessionReject = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
+}
+
+message QueryGetSessionLogoutRequest {
+ string sessionName = 1;
+}
+
+message QueryGetSessionLogoutResponse {
+  SessionLogout SessionLogout = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSessionLogoutRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSessionLogoutResponse {
+  repeated SessionLogout                          SessionLogout = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination    = 2;
 }
 

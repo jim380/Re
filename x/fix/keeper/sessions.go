@@ -105,3 +105,23 @@ func (k Keeper) GetSessionReject(ctx sdk.Context, sessionName string) (val types
 	k.cdc.MustUnmarshal(b, &val)
 	return val, true
 }
+
+// SetSessionLogout set a specific sessionLogout in the store
+func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionName string, sessionLogout types.SessionLogout) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
+	key := []byte(sessionName)
+	b := k.cdc.MustMarshal(&sessionLogout)
+	store.Set(key, b)
+}
+
+// GetSessionLogout returns a sessionLogout from its session name
+func (k Keeper) GetSessionLogout(ctx sdk.Context, sessionName string) (val types.SessionLogout, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
+	key := []byte(sessionName)
+	b := store.Get(key)
+	if b == nil {
+		return val, false
+	}
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
+}

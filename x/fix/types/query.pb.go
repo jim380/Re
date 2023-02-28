@@ -665,6 +665,190 @@ func (m *QueryAllSessionRejectResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetSessionLogoutRequest struct {
+	SessionName string `protobuf:"bytes,1,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+}
+
+func (m *QueryGetSessionLogoutRequest) Reset()         { *m = QueryGetSessionLogoutRequest{} }
+func (m *QueryGetSessionLogoutRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetSessionLogoutRequest) ProtoMessage()    {}
+func (*QueryGetSessionLogoutRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_979860cc6e2c0384, []int{14}
+}
+func (m *QueryGetSessionLogoutRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetSessionLogoutRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetSessionLogoutRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetSessionLogoutRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetSessionLogoutRequest.Merge(m, src)
+}
+func (m *QueryGetSessionLogoutRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetSessionLogoutRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetSessionLogoutRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetSessionLogoutRequest proto.InternalMessageInfo
+
+func (m *QueryGetSessionLogoutRequest) GetSessionName() string {
+	if m != nil {
+		return m.SessionName
+	}
+	return ""
+}
+
+type QueryGetSessionLogoutResponse struct {
+	SessionLogout SessionLogout `protobuf:"bytes,1,opt,name=SessionLogout,proto3" json:"SessionLogout"`
+}
+
+func (m *QueryGetSessionLogoutResponse) Reset()         { *m = QueryGetSessionLogoutResponse{} }
+func (m *QueryGetSessionLogoutResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetSessionLogoutResponse) ProtoMessage()    {}
+func (*QueryGetSessionLogoutResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_979860cc6e2c0384, []int{15}
+}
+func (m *QueryGetSessionLogoutResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetSessionLogoutResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetSessionLogoutResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetSessionLogoutResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetSessionLogoutResponse.Merge(m, src)
+}
+func (m *QueryGetSessionLogoutResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetSessionLogoutResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetSessionLogoutResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetSessionLogoutResponse proto.InternalMessageInfo
+
+func (m *QueryGetSessionLogoutResponse) GetSessionLogout() SessionLogout {
+	if m != nil {
+		return m.SessionLogout
+	}
+	return SessionLogout{}
+}
+
+type QueryAllSessionLogoutRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllSessionLogoutRequest) Reset()         { *m = QueryAllSessionLogoutRequest{} }
+func (m *QueryAllSessionLogoutRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllSessionLogoutRequest) ProtoMessage()    {}
+func (*QueryAllSessionLogoutRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_979860cc6e2c0384, []int{16}
+}
+func (m *QueryAllSessionLogoutRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllSessionLogoutRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllSessionLogoutRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllSessionLogoutRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllSessionLogoutRequest.Merge(m, src)
+}
+func (m *QueryAllSessionLogoutRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllSessionLogoutRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllSessionLogoutRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllSessionLogoutRequest proto.InternalMessageInfo
+
+func (m *QueryAllSessionLogoutRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllSessionLogoutResponse struct {
+	SessionLogout []SessionLogout     `protobuf:"bytes,1,rep,name=SessionLogout,proto3" json:"SessionLogout"`
+	Pagination    *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllSessionLogoutResponse) Reset()         { *m = QueryAllSessionLogoutResponse{} }
+func (m *QueryAllSessionLogoutResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllSessionLogoutResponse) ProtoMessage()    {}
+func (*QueryAllSessionLogoutResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_979860cc6e2c0384, []int{17}
+}
+func (m *QueryAllSessionLogoutResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllSessionLogoutResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllSessionLogoutResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllSessionLogoutResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllSessionLogoutResponse.Merge(m, src)
+}
+func (m *QueryAllSessionLogoutResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllSessionLogoutResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllSessionLogoutResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllSessionLogoutResponse proto.InternalMessageInfo
+
+func (m *QueryAllSessionLogoutResponse) GetSessionLogout() []SessionLogout {
+	if m != nil {
+		return m.SessionLogout
+	}
+	return nil
+}
+
+func (m *QueryAllSessionLogoutResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "jim380.re.fix.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "jim380.re.fix.QueryParamsResponse")
@@ -680,59 +864,68 @@ func init() {
 	proto.RegisterType((*QueryGetSessionRejectResponse)(nil), "jim380.re.fix.QueryGetSessionRejectResponse")
 	proto.RegisterType((*QueryAllSessionRejectRequest)(nil), "jim380.re.fix.QueryAllSessionRejectRequest")
 	proto.RegisterType((*QueryAllSessionRejectResponse)(nil), "jim380.re.fix.QueryAllSessionRejectResponse")
+	proto.RegisterType((*QueryGetSessionLogoutRequest)(nil), "jim380.re.fix.QueryGetSessionLogoutRequest")
+	proto.RegisterType((*QueryGetSessionLogoutResponse)(nil), "jim380.re.fix.QueryGetSessionLogoutResponse")
+	proto.RegisterType((*QueryAllSessionLogoutRequest)(nil), "jim380.re.fix.QueryAllSessionLogoutRequest")
+	proto.RegisterType((*QueryAllSessionLogoutResponse)(nil), "jim380.re.fix.QueryAllSessionLogoutResponse")
 }
 
 func init() { proto.RegisterFile("re/fix/query.proto", fileDescriptor_979860cc6e2c0384) }
 
 var fileDescriptor_979860cc6e2c0384 = []byte{
-	// 745 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcf, 0x4f, 0x13, 0x41,
-	0x14, 0xc7, 0xbb, 0x54, 0x41, 0x87, 0x90, 0x90, 0xe1, 0x47, 0xb1, 0x96, 0x05, 0x27, 0x02, 0x06,
-	0x64, 0x47, 0x68, 0x62, 0xfc, 0x71, 0x11, 0x0e, 0x62, 0x3c, 0x18, 0xa8, 0xf1, 0xe2, 0x45, 0xa7,
-	0xed, 0xb0, 0x2e, 0x69, 0x77, 0xca, 0xee, 0xd6, 0x40, 0x08, 0x9a, 0x78, 0xf4, 0x64, 0xa2, 0x27,
-	0x0f, 0xfa, 0x3f, 0x78, 0xf5, 0x1f, 0xe0, 0x48, 0xe2, 0xc5, 0x93, 0x31, 0xe0, 0x1f, 0x62, 0x76,
-	0xe6, 0x2d, 0xdd, 0x9f, 0xa5, 0x9a, 0xde, 0x36, 0x33, 0xdf, 0x79, 0xdf, 0xcf, 0x7b, 0x6f, 0xe7,
-	0xed, 0x22, 0xec, 0x70, 0xba, 0x6d, 0xed, 0xd1, 0xdd, 0x36, 0x77, 0xf6, 0x8d, 0x96, 0x23, 0x3c,
-	0x81, 0x47, 0x76, 0xac, 0x66, 0xf9, 0xce, 0x2d, 0xc3, 0xe1, 0xc6, 0xb6, 0xb5, 0x57, 0x1c, 0x37,
-	0x85, 0x29, 0xe4, 0x0e, 0xf5, 0x9f, 0x94, 0xa8, 0x58, 0x32, 0x85, 0x30, 0x1b, 0x9c, 0xb2, 0x96,
-	0x45, 0x99, 0x6d, 0x0b, 0x8f, 0x79, 0x96, 0xb0, 0x5d, 0xd8, 0x5d, 0xac, 0x09, 0xb7, 0x29, 0x5c,
-	0x5a, 0x65, 0x2e, 0x57, 0xb1, 0xe9, 0xeb, 0x95, 0x2a, 0xf7, 0xd8, 0x0a, 0x6d, 0x31, 0xd3, 0xb2,
-	0xa5, 0x18, 0xb4, 0x63, 0x80, 0xd0, 0x62, 0x0e, 0x6b, 0x06, 0x01, 0xc6, 0x61, 0x91, 0xd5, 0x6a,
-	0xa2, 0x6d, 0x7b, 0xb0, 0x3a, 0x01, 0xab, 0x2e, 0x77, 0xdd, 0x90, 0xdb, 0xd5, 0xe8, 0xf2, 0x0b,
-	0x87, 0xef, 0xf0, 0x1a, 0x9c, 0x21, 0xe3, 0x08, 0x6f, 0xf9, 0x00, 0x9b, 0x32, 0x7c, 0x85, 0xef,
-	0xb6, 0xb9, 0xeb, 0x91, 0xc7, 0x68, 0x2c, 0xb2, 0xea, 0xb6, 0x84, 0xed, 0x72, 0x5c, 0x46, 0x83,
-	0x0a, 0x63, 0x4a, 0x9b, 0xd5, 0x6e, 0x0c, 0xaf, 0x4e, 0x18, 0x91, 0x5a, 0x18, 0x4a, 0xbe, 0x7e,
-	0xe1, 0xe8, 0xd7, 0x4c, 0xae, 0x02, 0x52, 0xb2, 0x88, 0x26, 0x65, 0xac, 0x0d, 0xee, 0xad, 0x29,
-	0x5c, 0x70, 0xc1, 0xa3, 0x28, 0x5f, 0xb7, 0xea, 0x32, 0xd6, 0xe5, 0x8a, 0xff, 0x48, 0xb6, 0x50,
-	0x21, 0xa1, 0x05, 0xef, 0xdb, 0x68, 0x08, 0x96, 0xc0, 0x7c, 0x32, 0x66, 0x0e, 0xbb, 0xe0, 0x1e,
-	0x88, 0xc9, 0x4b, 0xb0, 0x5f, 0x6b, 0x34, 0x62, 0xf6, 0x0f, 0x11, 0xea, 0x54, 0x1b, 0x82, 0xce,
-	0x1b, 0xaa, 0x35, 0x86, 0xdf, 0x1a, 0x43, 0xb5, 0x1d, 0x5a, 0x63, 0x6c, 0x32, 0x93, 0xc3, 0xd9,
-	0x4a, 0xe8, 0x24, 0xf9, 0xac, 0x01, 0x75, 0xd8, 0x22, 0x8d, 0x3a, 0xdf, 0x33, 0x35, 0xde, 0x88,
-	0xb0, 0x0d, 0x48, 0xb6, 0x85, 0x73, 0xd9, 0x94, 0x69, 0x04, 0xee, 0x7e, 0xa7, 0xa2, 0x4f, 0xe1,
-	0xb5, 0x08, 0xf2, 0x9f, 0x45, 0xc3, 0xf0, 0x4a, 0x3c, 0x61, 0x4d, 0x0e, 0x6d, 0x08, 0x2f, 0x91,
-	0x67, 0x68, 0x2a, 0x79, 0x18, 0x32, 0xbb, 0x8b, 0x2e, 0x05, 0x6b, 0x50, 0xbb, 0x42, 0x2c, 0xb5,
-	0x60, 0x1b, 0x72, 0x3b, 0x93, 0x13, 0xd6, 0xa9, 0x57, 0x9c, 0xa9, 0x5f, 0x3d, 0xf9, 0xa2, 0x01,
-	0x7a, 0xc4, 0x23, 0x15, 0x3d, 0xff, 0x0f, 0xe8, 0xfd, 0xeb, 0xcb, 0x03, 0x54, 0x8a, 0x95, 0xb6,
-	0x22, 0xaf, 0x65, 0xef, 0xcd, 0xb1, 0xd0, 0x74, 0x46, 0x04, 0x48, 0xf3, 0x11, 0x1a, 0x89, 0x6c,
-	0x40, 0x39, 0x4b, 0xe9, 0xb9, 0x2a, 0x0d, 0x24, 0x1c, 0x3d, 0x48, 0xb6, 0x01, 0xb6, 0x53, 0xcc,
-	0x28, 0x6c, 0xbf, 0xba, 0xf6, 0x4d, 0x83, 0x9c, 0x92, 0x46, 0xd9, 0x39, 0xe5, 0xff, 0x2b, 0xa7,
-	0xbe, 0x75, 0x72, 0xf5, 0xfb, 0x10, 0xba, 0x28, 0xa1, 0xb1, 0x8d, 0x06, 0xd5, 0x04, 0xc4, 0xd7,
-	0x62, 0x3c, 0xc9, 0x11, 0x5b, 0x24, 0xdd, 0x24, 0xca, 0x86, 0x4c, 0xbf, 0xfb, 0xf1, 0xe7, 0xe3,
-	0x40, 0x01, 0x4f, 0x50, 0xa5, 0xa5, 0x95, 0xf0, 0xb7, 0x00, 0xbf, 0x39, 0x1b, 0x2e, 0x78, 0x2e,
-	0x2d, 0x5a, 0x62, 0xe2, 0x16, 0xe7, 0xcf, 0x93, 0x81, 0xf1, 0x75, 0x69, 0xac, 0xe3, 0x52, 0xcc,
-	0x18, 0xbe, 0x37, 0xf4, 0xa0, 0x6e, 0xd5, 0x0f, 0xf1, 0x01, 0x42, 0x70, 0x70, 0xad, 0xd1, 0x48,
-	0x47, 0x48, 0x4c, 0xdd, 0x74, 0x84, 0xe4, 0xe4, 0x24, 0xba, 0x44, 0x98, 0xc2, 0x93, 0xe9, 0x08,
-	0xf8, 0xbd, 0xd6, 0xb9, 0xc5, 0x38, 0x2b, 0xaf, 0xd8, 0x78, 0x29, 0x2e, 0x9c, 0xab, 0x03, 0xf7,
-	0x65, 0xe9, 0xbe, 0x80, 0xe7, 0x62, 0xee, 0xc1, 0xa7, 0x95, 0x1e, 0x84, 0xae, 0xe2, 0x21, 0x7e,
-	0x8b, 0x86, 0x83, 0x10, 0x7e, 0x29, 0xb2, 0x72, 0xec, 0x09, 0x27, 0x65, 0x62, 0x91, 0x19, 0x89,
-	0x73, 0x05, 0x17, 0x32, 0x70, 0xf0, 0x57, 0x2d, 0x76, 0x31, 0xf0, 0x52, 0xf7, 0x54, 0x23, 0x17,
-	0xb8, 0x78, 0xb3, 0x37, 0x31, 0xd0, 0x94, 0x25, 0xcd, 0x32, 0x5e, 0x4a, 0xa7, 0xa1, 0xea, 0x07,
-	0x23, 0x56, 0xa2, 0x4f, 0x1a, 0x1a, 0x8d, 0x84, 0xf3, 0x0b, 0xb5, 0xd4, 0xbd, 0x00, 0x3d, 0x40,
-	0x66, 0x4d, 0x0a, 0x32, 0x27, 0x21, 0x67, 0xf0, 0x74, 0x57, 0xc8, 0xf5, 0x7b, 0x47, 0x27, 0xba,
-	0x76, 0x7c, 0xa2, 0x6b, 0xbf, 0x4f, 0x74, 0xed, 0xc3, 0xa9, 0x9e, 0x3b, 0x3e, 0xd5, 0x73, 0x3f,
-	0x4f, 0xf5, 0xdc, 0xf3, 0x59, 0xd3, 0xf2, 0x5e, 0xb5, 0xab, 0x46, 0x4d, 0x34, 0x43, 0x21, 0xf6,
-	0x64, 0x10, 0x6f, 0xbf, 0xc5, 0xdd, 0xea, 0xa0, 0xfc, 0x85, 0x2a, 0xff, 0x0d, 0x00, 0x00, 0xff,
-	0xff, 0x52, 0x28, 0xd9, 0xc7, 0x26, 0x0a, 0x00, 0x00,
+	// 826 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x57, 0xcd, 0x4e, 0x13, 0x5f,
+	0x14, 0xef, 0xd0, 0xff, 0x1f, 0xe5, 0x12, 0x12, 0x72, 0xf9, 0x28, 0xd6, 0x32, 0xe0, 0x8d, 0x80,
+	0x01, 0x99, 0x11, 0x9a, 0x18, 0x3f, 0x36, 0xc2, 0x42, 0x8c, 0x31, 0x06, 0x6a, 0xdc, 0xb8, 0xd1,
+	0x69, 0x7b, 0x19, 0x87, 0xb4, 0x73, 0x4b, 0x67, 0x6a, 0x20, 0x04, 0x4d, 0x5c, 0xba, 0x32, 0xd1,
+	0x95, 0x0b, 0x7d, 0x07, 0x9f, 0x82, 0x25, 0x89, 0x1b, 0x57, 0xc6, 0x50, 0x1f, 0xc1, 0x07, 0x30,
+	0xbd, 0xf7, 0x0c, 0x9d, 0x3b, 0x1f, 0x9d, 0x11, 0xcb, 0xae, 0x39, 0xf7, 0xdc, 0xf3, 0xfb, 0x38,
+	0x33, 0xe7, 0x4c, 0x11, 0x6e, 0x52, 0x7d, 0xdb, 0xda, 0xd3, 0x77, 0x5b, 0xb4, 0xb9, 0xaf, 0x35,
+	0x9a, 0xcc, 0x65, 0x78, 0x64, 0xc7, 0xaa, 0x17, 0x6f, 0xdd, 0xd0, 0x9a, 0x54, 0xdb, 0xb6, 0xf6,
+	0xf2, 0xe3, 0x26, 0x33, 0x19, 0x3f, 0xd1, 0x3b, 0xbf, 0x44, 0x52, 0xbe, 0x60, 0x32, 0x66, 0xd6,
+	0xa8, 0x6e, 0x34, 0x2c, 0xdd, 0xb0, 0x6d, 0xe6, 0x1a, 0xae, 0xc5, 0x6c, 0x07, 0x4e, 0x17, 0x2b,
+	0xcc, 0xa9, 0x33, 0x47, 0x2f, 0x1b, 0x0e, 0x15, 0xb5, 0xf5, 0x57, 0x2b, 0x65, 0xea, 0x1a, 0x2b,
+	0x7a, 0xc3, 0x30, 0x2d, 0x9b, 0x27, 0x43, 0xee, 0x18, 0x50, 0x68, 0x18, 0x4d, 0xa3, 0xee, 0x15,
+	0x18, 0x87, 0xa0, 0x51, 0xa9, 0xb0, 0x96, 0xed, 0x42, 0x74, 0x02, 0xa2, 0x0e, 0x75, 0x1c, 0x1f,
+	0xda, 0x65, 0x39, 0xfc, 0xbc, 0x49, 0x77, 0x68, 0xc5, 0x8d, 0x39, 0xac, 0x31, 0x93, 0xb5, 0xe0,
+	0x90, 0x8c, 0x23, 0xbc, 0xd5, 0x61, 0xb7, 0xc9, 0xb1, 0x4b, 0x74, 0xb7, 0x45, 0x1d, 0x97, 0x3c,
+	0x44, 0x63, 0x52, 0xd4, 0x69, 0x30, 0xdb, 0xa1, 0xb8, 0x88, 0x06, 0x05, 0xc7, 0x29, 0x65, 0x56,
+	0xb9, 0x36, 0xbc, 0x3a, 0xa1, 0x49, 0x46, 0x69, 0x22, 0x7d, 0xfd, 0xbf, 0xa3, 0x1f, 0x33, 0x99,
+	0x12, 0xa4, 0x92, 0x45, 0x34, 0xc9, 0x6b, 0x6d, 0x50, 0x77, 0x4d, 0x68, 0x01, 0x14, 0x3c, 0x8a,
+	0xb2, 0x55, 0xab, 0xca, 0x6b, 0x0d, 0x95, 0x3a, 0x3f, 0xc9, 0x16, 0xca, 0x85, 0x72, 0x01, 0xfb,
+	0x26, 0xba, 0x00, 0x21, 0x00, 0x9f, 0x0c, 0x80, 0xc3, 0x29, 0xa0, 0x7b, 0xc9, 0xe4, 0x05, 0xc0,
+	0xaf, 0xd5, 0x6a, 0x01, 0xf8, 0xfb, 0x08, 0x75, 0x5b, 0x01, 0x45, 0xe7, 0x35, 0xd1, 0x37, 0xad,
+	0xd3, 0x37, 0x4d, 0x3c, 0x13, 0xd0, 0x37, 0x6d, 0xd3, 0x30, 0x29, 0xdc, 0x2d, 0xf9, 0x6e, 0x92,
+	0x4f, 0x0a, 0xb0, 0xf6, 0x43, 0x44, 0xb1, 0xce, 0xa6, 0x66, 0x8d, 0x37, 0x24, 0x6e, 0x03, 0x9c,
+	0xdb, 0x42, 0x22, 0x37, 0x01, 0x2a, 0x91, 0xbb, 0xdb, 0x75, 0xf4, 0x09, 0x3c, 0x33, 0x9e, 0xfe,
+	0x59, 0x34, 0x0c, 0x8f, 0xc4, 0x63, 0xa3, 0x4e, 0xa1, 0x0d, 0xfe, 0x10, 0x79, 0x8a, 0xa6, 0xc2,
+	0x97, 0x41, 0xd9, 0x6d, 0x74, 0xd1, 0x8b, 0x81, 0x77, 0xb9, 0x80, 0x34, 0xef, 0x18, 0xb4, 0x9d,
+	0xa6, 0x13, 0xa3, 0xeb, 0x57, 0x90, 0x53, 0xbf, 0x7a, 0xf2, 0x59, 0x01, 0xea, 0x12, 0x46, 0x24,
+	0xf5, 0xec, 0x5f, 0x50, 0xef, 0x5f, 0x5f, 0xee, 0xa1, 0x42, 0xc0, 0xda, 0x12, 0x7f, 0x67, 0xd3,
+	0x37, 0xc7, 0x42, 0xd3, 0x31, 0x15, 0x40, 0xe6, 0x03, 0x34, 0x22, 0x1d, 0x80, 0x9d, 0x85, 0x68,
+	0xad, 0x22, 0x07, 0x04, 0xcb, 0x17, 0xc9, 0x36, 0x90, 0xed, 0x9a, 0x29, 0x93, 0xed, 0x57, 0xd7,
+	0xbe, 0x2a, 0xa0, 0x29, 0x0c, 0x14, 0xaf, 0x29, 0x7b, 0x26, 0x4d, 0xe7, 0xd9, 0xc9, 0x47, 0x7c,
+	0xc0, 0xfe, 0x4b, 0x27, 0xbd, 0x0a, 0x21, 0xd5, 0xe2, 0xa0, 0x77, 0x27, 0x45, 0x4e, 0x40, 0xb5,
+	0x08, 0x46, 0x74, 0x52, 0x26, 0x7b, 0x8e, 0x9d, 0x4c, 0xd6, 0x94, 0x3d, 0x93, 0xa6, 0xbe, 0x75,
+	0x72, 0xf5, 0xf7, 0x10, 0xfa, 0x9f, 0x93, 0xc6, 0x36, 0x1a, 0x14, 0xbb, 0x0c, 0x5f, 0x09, 0xf0,
+	0x09, 0x2f, 0xcb, 0x3c, 0xe9, 0x95, 0x22, 0x60, 0xc8, 0xf4, 0xdb, 0x6f, 0xbf, 0x3e, 0x0c, 0xe4,
+	0xf0, 0x84, 0x2e, 0x72, 0xf5, 0x92, 0x7f, 0xe5, 0xe3, 0xd7, 0xa7, 0x6b, 0x02, 0xcf, 0x45, 0x55,
+	0x0b, 0xed, 0xce, 0xfc, 0x7c, 0x52, 0x1a, 0x00, 0x5f, 0xe5, 0xc0, 0x2a, 0x2e, 0x04, 0x80, 0xe1,
+	0xb3, 0x42, 0x3f, 0xa8, 0x5a, 0xd5, 0x43, 0x7c, 0x80, 0x10, 0x5c, 0x5c, 0xab, 0xd5, 0xa2, 0x29,
+	0x84, 0xf6, 0x67, 0x34, 0x85, 0xf0, 0x0e, 0x24, 0x2a, 0xa7, 0x30, 0x85, 0x27, 0xa3, 0x29, 0xe0,
+	0x77, 0x4a, 0x77, 0x1e, 0xe3, 0x38, 0x5d, 0x81, 0x45, 0x91, 0x5f, 0x48, 0xcc, 0x03, 0xf4, 0x65,
+	0x8e, 0xbe, 0x80, 0xe7, 0x02, 0xe8, 0xde, 0x17, 0x94, 0x7e, 0xe0, 0x7b, 0x15, 0x0f, 0xf1, 0x1b,
+	0x34, 0xec, 0x95, 0xe8, 0x58, 0x11, 0xa7, 0x31, 0x15, 0x9d, 0x88, 0xdd, 0x43, 0x66, 0x38, 0x9d,
+	0x4b, 0x38, 0x17, 0x43, 0x07, 0x7f, 0x51, 0x02, 0x23, 0x0e, 0x2f, 0xf5, 0x96, 0x2a, 0x8d, 0xe2,
+	0xfc, 0xf5, 0x74, 0xc9, 0xc0, 0xa6, 0xc8, 0xd9, 0x2c, 0xe3, 0xa5, 0x68, 0x36, 0xba, 0xf8, 0x8e,
+	0x0c, 0x58, 0xf4, 0x51, 0x41, 0xa3, 0x52, 0xb9, 0x8e, 0x51, 0x4b, 0xbd, 0x0d, 0x48, 0x41, 0x32,
+	0x6e, 0xe6, 0x93, 0x39, 0x4e, 0x72, 0x06, 0x4f, 0xf7, 0x24, 0xe9, 0x37, 0x0e, 0x06, 0x43, 0x82,
+	0x71, 0xd2, 0xe4, 0x4b, 0x32, 0x4e, 0x9e, 0x5e, 0x89, 0xc6, 0x89, 0x6f, 0xec, 0x78, 0xe3, 0x44,
+	0xb9, 0x14, 0xc6, 0xa5, 0x20, 0x19, 0x37, 0x62, 0x13, 0x8d, 0x13, 0x24, 0xd7, 0xef, 0x1c, 0x9d,
+	0xa8, 0xca, 0xf1, 0x89, 0xaa, 0xfc, 0x3c, 0x51, 0x95, 0xf7, 0x6d, 0x35, 0x73, 0xdc, 0x56, 0x33,
+	0xdf, 0xdb, 0x6a, 0xe6, 0xd9, 0xac, 0x69, 0xb9, 0x2f, 0x5b, 0x65, 0xad, 0xc2, 0xea, 0xbe, 0x12,
+	0x7b, 0xbc, 0x88, 0xbb, 0xdf, 0xa0, 0x4e, 0x79, 0x90, 0xff, 0x8b, 0x28, 0xfe, 0x09, 0x00, 0x00,
+	0xff, 0xff, 0xc8, 0x7c, 0x3c, 0xfb, 0x46, 0x0d, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -758,6 +951,9 @@ type QueryClient interface {
 	// Queries a list of SessionReject items.
 	SessionReject(ctx context.Context, in *QueryGetSessionRejectRequest, opts ...grpc.CallOption) (*QueryGetSessionRejectResponse, error)
 	SessionRejectAll(ctx context.Context, in *QueryAllSessionRejectRequest, opts ...grpc.CallOption) (*QueryAllSessionRejectResponse, error)
+	// Queries a list of SessionLogout items.
+	SessionLogout(ctx context.Context, in *QueryGetSessionLogoutRequest, opts ...grpc.CallOption) (*QueryGetSessionLogoutResponse, error)
+	SessionLogoutAll(ctx context.Context, in *QueryAllSessionLogoutRequest, opts ...grpc.CallOption) (*QueryAllSessionLogoutResponse, error)
 }
 
 type queryClient struct {
@@ -831,6 +1027,24 @@ func (c *queryClient) SessionRejectAll(ctx context.Context, in *QueryAllSessionR
 	return out, nil
 }
 
+func (c *queryClient) SessionLogout(ctx context.Context, in *QueryGetSessionLogoutRequest, opts ...grpc.CallOption) (*QueryGetSessionLogoutResponse, error) {
+	out := new(QueryGetSessionLogoutResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Query/SessionLogout", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) SessionLogoutAll(ctx context.Context, in *QueryAllSessionLogoutRequest, opts ...grpc.CallOption) (*QueryAllSessionLogoutResponse, error) {
+	out := new(QueryAllSessionLogoutResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Query/SessionLogoutAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -844,6 +1058,9 @@ type QueryServer interface {
 	// Queries a list of SessionReject items.
 	SessionReject(context.Context, *QueryGetSessionRejectRequest) (*QueryGetSessionRejectResponse, error)
 	SessionRejectAll(context.Context, *QueryAllSessionRejectRequest) (*QueryAllSessionRejectResponse, error)
+	// Queries a list of SessionLogout items.
+	SessionLogout(context.Context, *QueryGetSessionLogoutRequest) (*QueryGetSessionLogoutResponse, error)
+	SessionLogoutAll(context.Context, *QueryAllSessionLogoutRequest) (*QueryAllSessionLogoutResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -870,6 +1087,12 @@ func (*UnimplementedQueryServer) SessionReject(ctx context.Context, req *QueryGe
 }
 func (*UnimplementedQueryServer) SessionRejectAll(ctx context.Context, req *QueryAllSessionRejectRequest) (*QueryAllSessionRejectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SessionRejectAll not implemented")
+}
+func (*UnimplementedQueryServer) SessionLogout(ctx context.Context, req *QueryGetSessionLogoutRequest) (*QueryGetSessionLogoutResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SessionLogout not implemented")
+}
+func (*UnimplementedQueryServer) SessionLogoutAll(ctx context.Context, req *QueryAllSessionLogoutRequest) (*QueryAllSessionLogoutResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SessionLogoutAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -1002,6 +1225,42 @@ func _Query_SessionRejectAll_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_SessionLogout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetSessionLogoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SessionLogout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Query/SessionLogout",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SessionLogout(ctx, req.(*QueryGetSessionLogoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_SessionLogoutAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllSessionLogoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SessionLogoutAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Query/SessionLogoutAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SessionLogoutAll(ctx, req.(*QueryAllSessionLogoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "jim380.re.fix.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -1033,6 +1292,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SessionRejectAll",
 			Handler:    _Query_SessionRejectAll_Handler,
+		},
+		{
+			MethodName: "SessionLogout",
+			Handler:    _Query_SessionLogout_Handler,
+		},
+		{
+			MethodName: "SessionLogoutAll",
+			Handler:    _Query_SessionLogoutAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1536,6 +1803,153 @@ func (m *QueryAllSessionRejectResponse) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetSessionLogoutRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetSessionLogoutRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetSessionLogoutRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SessionName) > 0 {
+		i -= len(m.SessionName)
+		copy(dAtA[i:], m.SessionName)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.SessionName)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetSessionLogoutResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetSessionLogoutResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetSessionLogoutResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.SessionLogout.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllSessionLogoutRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllSessionLogoutRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllSessionLogoutRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllSessionLogoutResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllSessionLogoutResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllSessionLogoutResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.SessionLogout) > 0 {
+		for iNdEx := len(m.SessionLogout) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.SessionLogout[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1724,6 +2138,62 @@ func (m *QueryAllSessionRejectResponse) Size() (n int) {
 	_ = l
 	if len(m.SessionReject) > 0 {
 		for _, e := range m.SessionReject {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetSessionLogoutRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.SessionName)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetSessionLogoutResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.SessionLogout.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllSessionLogoutRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllSessionLogoutResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.SessionLogout) > 0 {
+		for _, e := range m.SessionLogout {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2927,6 +3397,377 @@ func (m *QueryAllSessionRejectResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.SessionReject = append(m.SessionReject, SessionReject{})
 			if err := m.SessionReject[len(m.SessionReject)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetSessionLogoutRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetSessionLogoutRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetSessionLogoutRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetSessionLogoutResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetSessionLogoutResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetSessionLogoutResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionLogout", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.SessionLogout.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllSessionLogoutRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllSessionLogoutRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllSessionLogoutRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllSessionLogoutResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllSessionLogoutResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllSessionLogoutResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionLogout", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionLogout = append(m.SessionLogout, SessionLogout{})
+			if err := m.SessionLogout[len(m.SessionLogout)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

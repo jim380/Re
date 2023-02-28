@@ -8,6 +8,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// LogonAcceptor accepts the session
 func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAcceptor) (*types.MsgLogonAcceptorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

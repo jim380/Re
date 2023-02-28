@@ -8,6 +8,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// TerminateLogon terminates an initiated session by the initiator
 func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminateLogon) (*types.MsgTerminateLogonResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
