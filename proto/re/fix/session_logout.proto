@@ -1,0 +1,26 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+message SessionLogout {
+  string sessionName = 2; 
+  string initiatorAddress = 3;
+  string acceptorAddress = 4;
+  SessionLogoutInitiator sessionLogoutInitiator = 5;
+  SessionLogoutAcceptor sessionLogoutAcceptor = 6;
+}
+
+message SessionLogoutInitiator {
+  Header header = 2;
+  string text = 3;
+  Trailer trailer = 4;
+}
+
+message SessionLogoutAcceptor {
+  Header header = 2;
+  string text = 3;
+  Trailer trailer = 4;
+}

@@ -7,6 +7,7 @@ import "re/fix/params.proto";
 import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/session_reject.proto";
+import "re/fix/session_logout.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -19,5 +20,7 @@ message GenesisState {
            uint64        sessionsCount      = 5;
   repeated SessionReject sessionRejectList  = 6 [(gogoproto.nullable) = false];
            uint64        sessionRejectCount = 7;
+  repeated SessionLogout sessionLogoutList  = 8 [(gogoproto.nullable) = false];
+           uint64        sessionLogoutCount = 9;
 }
 

@@ -40,3 +40,8 @@ const (
 	SessionRejectKey      = "SessionReject/value/"
 	SessionRejectCountKey = "SessionReject/count/"
 )
+
+const (
+	SessionLogoutKey      = "SessionLogout/value/"
+	SessionLogoutCountKey = "SessionLogout/count/"
+)
