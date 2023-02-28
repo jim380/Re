@@ -21,6 +21,7 @@ service Msg {
   rpc LogonReject     (MsgLogonReject    ) returns (MsgLogonRejectResponse    );
   rpc LogoutInitiator (MsgLogoutInitiator) returns (MsgLogoutInitiatorResponse);
   rpc LogoutAcceptor  (MsgLogoutAcceptor ) returns (MsgLogoutAcceptorResponse );
+  rpc NewOrderSingle  (MsgNewOrderSingle ) returns (MsgNewOrderSingleResponse );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -100,10 +101,29 @@ message MsgLogoutInitiator {
 message MsgLogoutInitiatorResponse {}
 
 message MsgLogoutAcceptor {
-  string                 acceptorAddress       = 1;
-  string                 sessionName            = 2;
+  string                acceptorAddress       = 1;
+  string                sessionName           = 2;
   SessionLogoutAcceptor sessionLogoutAcceptor = 3;
 }
 
 message MsgLogoutAcceptorResponse {}
+
+message MsgNewOrderSingle {
+  string creator     = 1;
+  string sessionName = 2;
+  Header header = 3;
+  string clOrdID = 4;
+  string symbol = 5;
+  int64 side = 6;
+  float orderQty = 7;
+  int64 ordType = 8;
+  float price = 9;
+  int64 timeInForce = 10;
+  string text = 11;
+  string transactTime = 12;
+  Trailer trailer = 13;
+  string status = 14;
+}
+
+message MsgNewOrderSingleResponse {}
 
