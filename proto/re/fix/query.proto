@@ -10,6 +10,7 @@ import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/session_reject.proto";
 import "re/fix/session_logout.proto";
+import "re/fix/orders.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -59,6 +60,16 @@ service Query {
   }
   rpc SessionLogoutAll (QueryAllSessionLogoutRequest) returns (QueryAllSessionLogoutResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/logout";
+  
+  }
+  
+  // Queries a list of Orders items.
+  rpc Orders    (QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders/{sessionName}";
+  
+  }
+  rpc OrdersAll (QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders";
   
   }
 }
@@ -124,7 +135,7 @@ message QueryAllSessionRejectResponse {
 }
 
 message QueryGetSessionLogoutRequest {
- string sessionName = 1;
+  string sessionName = 1;
 }
 
 message QueryGetSessionLogoutResponse {
@@ -138,5 +149,22 @@ message QueryAllSessionLogoutRequest {
 message QueryAllSessionLogoutResponse {
   repeated SessionLogout                          SessionLogout = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination    = 2;
+}
+
+message QueryGetOrdersRequest {
+  string sessionName = 1;
+}
+
+message QueryGetOrdersResponse {
+  Orders Orders = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOrdersRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOrdersResponse {
+  repeated Orders                                 Orders     = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

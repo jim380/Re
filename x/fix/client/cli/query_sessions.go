@@ -135,7 +135,6 @@ func CmdShowSessionReject() *cobra.Command {
 	return cmd
 }
 
-
 func CmdListSessionLogout() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list-session-logout",

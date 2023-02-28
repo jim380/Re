@@ -45,3 +45,8 @@ const (
 	SessionLogoutKey      = "SessionLogout/value/"
 	SessionLogoutCountKey = "SessionLogout/count/"
 )
+
+const (
+	OrdersKey      = "Orders/value/"
+	OrdersCountKey = "Orders/count/"
+)
