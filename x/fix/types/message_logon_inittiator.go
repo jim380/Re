@@ -12,10 +12,10 @@ const (
 
 var _ sdk.Msg = &MsgLogonInitiator{}
 
-func NewMsgLogonInitiator(initiatorAddress string, sessionName string, logonInitator LogonInitiator) *MsgLogonInitiator {
+func NewMsgLogonInitiator(initiatorAddress string, sessionID string, logonInitator LogonInitiator) *MsgLogonInitiator {
 	return &MsgLogonInitiator{
 		InitiatorAddress: initiatorAddress,
-		SessionName:      sessionName,
+		SessionID:        sessionID,
 		LogonInitiator:   &logonInitator,
 	}
 }

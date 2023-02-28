@@ -6,7 +6,7 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message SessionReject {
-  string sessionName = 1; 
+  string sessionID = 1; 
   Header header = 2;
   string text = 3;
   Trailer trailer = 4;

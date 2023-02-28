@@ -46,7 +46,7 @@ func (k Keeper) OrdersCancelRequest(goCtx context.Context, req *types.QueryGetOr
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.SessionName)
+	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

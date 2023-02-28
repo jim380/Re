@@ -46,7 +46,7 @@ func (k Keeper) SessionReject(goCtx context.Context, req *types.QueryGetSessionR
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	sessionReject, found := k.GetSessionReject(ctx, req.SessionName)
+	sessionReject, found := k.GetSessionReject(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

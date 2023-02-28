@@ -52,10 +52,10 @@ func CmdShowOrders() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			params := &types.QueryGetOrdersRequest{
-				SessionName: argSessionName,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.Orders(context.Background(), params)

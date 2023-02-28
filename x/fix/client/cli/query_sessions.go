@@ -52,10 +52,10 @@ func CmdShowSessions() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			params := &types.QueryGetSessionsRequest{
-				SessionName: argSessionName,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.Sessions(context.Background(), params)
@@ -115,10 +115,10 @@ func CmdShowSessionReject() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			params := &types.QueryGetSessionRejectRequest{
-				SessionName: argSessionName,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.SessionReject(context.Background(), params)
@@ -178,10 +178,10 @@ func CmdShowSessionLogout() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			params := &types.QueryGetSessionLogoutRequest{
-				SessionName: argSessionName,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.SessionLogout(context.Background(), params)

@@ -9,10 +9,10 @@ const TypeMsgLogoutInitiator = "logout_initiator"
 
 var _ sdk.Msg = &MsgLogoutInitiator{}
 
-func NewMsgLogoutInitiator(initiatorAddress string, sessionName string, text SessionLogoutInitiator) *MsgLogoutInitiator {
+func NewMsgLogoutInitiator(initiatorAddress string, sessionID string, text SessionLogoutInitiator) *MsgLogoutInitiator {
 	return &MsgLogoutInitiator{
 		InitiatorAddress:       initiatorAddress,
-		SessionName:            sessionName,
+		SessionID:            sessionID,
 		SessionLogoutInitiator: &text,
 	}
 }

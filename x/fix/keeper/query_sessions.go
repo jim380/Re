@@ -46,7 +46,7 @@ func (k Keeper) Sessions(goCtx context.Context, req *types.QueryGetSessionsReque
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	sessions, found := k.GetSessions(ctx, req.SessionName)
+	sessions, found := k.GetSessions(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

@@ -9,10 +9,10 @@ const TypeMsgTerminateLogon = "terminate_logon"
 
 var _ sdk.Msg = &MsgTerminateLogon{}
 
-func NewMsgTerminateLogon(initiatorAddress string, sessionName string, did string) *MsgTerminateLogon {
+func NewMsgTerminateLogon(initiatorAddress string, sessionID string, did string) *MsgTerminateLogon {
 	return &MsgTerminateLogon{
 		InitiatorAddress: initiatorAddress,
-		SessionName:      sessionName,
+		SessionID:      sessionID,
 		Did:              did,
 	}
 }

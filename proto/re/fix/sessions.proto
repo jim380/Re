@@ -7,7 +7,7 @@ import "re/fix/standard_message.proto";
 
 
 message Sessions {
-  string sessionName = 1; 
+  string sessionID = 1; 
   LogonInitiator logonInitiator  = 2;
   string initiatorAddress = 3;
   LogonAcceptor logonAcceptor = 4;

@@ -36,7 +36,7 @@ service Query {
   
   // Queries a list of Sessions items.
   rpc Sessions    (QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/sessions/{sessionName}";
+    option (google.api.http).get = "/jim380/Re/fix/sessions/{sessionID}";
   
   }
   rpc SessionsAll (QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
@@ -46,7 +46,7 @@ service Query {
   
   // Queries a list of SessionReject items.
   rpc SessionReject    (QueryGetSessionRejectRequest) returns (QueryGetSessionRejectResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/reject/{sessionName}";
+    option (google.api.http).get = "/jim380/Re/fix/session/reject/{sessionID}";
   
   }
   rpc SessionRejectAll (QueryAllSessionRejectRequest) returns (QueryAllSessionRejectResponse) {
@@ -56,7 +56,7 @@ service Query {
   
   // Queries a list of SessionLogout items.
   rpc SessionLogout    (QueryGetSessionLogoutRequest) returns (QueryGetSessionLogoutResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/logout/{sessionName}";
+    option (google.api.http).get = "/jim380/Re/fix/session/logout/{sessionID}";
   
   }
   rpc SessionLogoutAll (QueryAllSessionLogoutRequest) returns (QueryAllSessionLogoutResponse) {
@@ -66,7 +66,7 @@ service Query {
   
   // Queries a list of Orders items.
   rpc Orders    (QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/{sessionName}";
+    option (google.api.http).get = "/jim380/Re/fix/orders/{sessionID}";
   
   }
   rpc OrdersAll (QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
@@ -76,7 +76,7 @@ service Query {
   
   // Queries a list of OrdersCancelRequest items.
   rpc OrdersCancelRequest    (QueryGetOrdersCancelRequestRequest) returns (QueryGetOrdersCancelRequestResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/{sessionName}";
+    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/{sessionID}";
   
   }
   rpc OrdersCancelRequestAll (QueryAllOrdersCancelRequestRequest) returns (QueryAllOrdersCancelRequestResponse) {
@@ -112,7 +112,7 @@ message QueryAllAccountResponse {
 }
 
 message QueryGetSessionsRequest {
-  string sessionName = 1;
+  string sessionID = 1;
 }
 
 message QueryGetSessionsResponse {
@@ -129,7 +129,7 @@ message QueryAllSessionsResponse {
 }
 
 message QueryGetSessionRejectRequest {
-  string sessionName = 1;
+  string sessionID = 1;
 }
 
 message QueryGetSessionRejectResponse {
@@ -146,7 +146,7 @@ message QueryAllSessionRejectResponse {
 }
 
 message QueryGetSessionLogoutRequest {
-  string sessionName = 1;
+  string sessionID = 1;
 }
 
 message QueryGetSessionLogoutResponse {
@@ -163,7 +163,7 @@ message QueryAllSessionLogoutResponse {
 }
 
 message QueryGetOrdersRequest {
-  string sessionName = 1;
+  string sessionID = 1;
 }
 
 message QueryGetOrdersResponse {
@@ -180,7 +180,7 @@ message QueryAllOrdersResponse {
 }
 
 message QueryGetOrdersCancelRequestRequest {
-  string sessionName  = 1;
+  string sessionID  = 1;
 }
 
 message QueryGetOrdersCancelRequestResponse {

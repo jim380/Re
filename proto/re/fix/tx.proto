@@ -56,7 +56,7 @@ message MsgDeleteAccount {
 message MsgDeleteAccountResponse {}
 
 message MsgLogonInitiator {
-  string         sessionName      = 1;
+  string         sessionID      = 1;
   LogonInitiator logonInitiator   = 2;
   string         status           = 3;
   bool           IsAccepted       = 4;
@@ -66,7 +66,7 @@ message MsgLogonInitiator {
 message MsgLogonInitiatorResponse {}
 
 message MsgLogonAcceptor {
-  string        sessionName     = 1;
+  string        sessionID     = 1;
   LogonAcceptor logonAcceptor   = 2;
   string        status          = 3;
   bool          IsAccepted      = 4;
@@ -77,7 +77,7 @@ message MsgLogonAcceptorResponse {}
 
 message MsgTerminateLogon {
   string initiatorAddress = 1;
-  string sessionName      = 2;
+  string sessionID      = 2;
   string did              = 3;
 }
 
@@ -85,7 +85,7 @@ message MsgTerminateLogonResponse {}
 
 message MsgLogonReject {
   string  acceptorAddress = 1;
-  string  sessionName     = 2;
+  string  sessionID     = 2;
   Header  header          = 3;
   string  text            = 4;
   Trailer trailer         = 5;
@@ -95,7 +95,7 @@ message MsgLogonRejectResponse {}
 
 message MsgLogoutInitiator {
   string                 initiatorAddress       = 1;
-  string                 sessionName            = 2;
+  string                 sessionID            = 2;
   SessionLogoutInitiator sessionLogoutInitiator = 3;
 }
 
@@ -103,7 +103,7 @@ message MsgLogoutInitiatorResponse {}
 
 message MsgLogoutAcceptor {
   string                acceptorAddress       = 1;
-  string                sessionName           = 2;
+  string                sessionID           = 2;
   SessionLogoutAcceptor sessionLogoutAcceptor = 3;
 }
 
@@ -111,7 +111,7 @@ message MsgLogoutAcceptorResponse {}
 
 message MsgNewOrderSingle {
   string  creator      =  1;
-  string  sessionName  =  2;
+  string  sessionID  =  2;
   Header  header       =  3;
   string  clOrdID      =  4;
   string  symbol       =  5;
@@ -129,7 +129,7 @@ message MsgNewOrderSingle {
 message MsgNewOrderSingleResponse {}
 
 message MsgOrderCancelRequest {
-  string sessionName = 1; 
+  string sessionID = 1; 
   Header header = 2;
   string origClOrdID = 3;
   string clOrdID = 4;

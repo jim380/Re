@@ -52,10 +52,10 @@ func CmdShowOrdersCancelRequest() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			params := &types.QueryGetOrdersCancelRequestRequest{
-				SessionName: argSessionName,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.OrdersCancelRequest(context.Background(), params)

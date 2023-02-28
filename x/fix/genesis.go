@@ -15,33 +15,31 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set all the sessions
 	for _, elem := range genState.SessionsList {
-		k.SetSessions(ctx, elem.SessionName, elem)
+		k.SetSessions(ctx, elem.SessionID, elem)
 	}
 
 	// Set sessions count
 	k.SetSessionsCount(ctx, genState.SessionsCount)
 	// Set all the sessionReject
 	for _, elem := range genState.SessionRejectList {
-		k.SetSessionReject(ctx, elem.SessionName, elem)
+		k.SetSessionReject(ctx, elem.SessionID, elem)
 	}
 
 	// Set all the sessionLogout
 	for _, elem := range genState.SessionLogoutList {
-		k.SetSessionLogout(ctx, elem.SessionName, elem)
+		k.SetSessionLogout(ctx, elem.SessionID, elem)
 	}
 
 	// Set all the orders
 	for _, elem := range genState.OrdersList {
-		k.SetOrders(ctx, elem.SessionName, elem)
+		k.SetOrders(ctx, elem.SessionID, elem)
 	}
 
 	// Set all the ordersCancelRequest
 	for _, elem := range genState.OrdersCancelRequestList {
-		k.SetOrdersCancelRequest(ctx, elem)
+		k.SetOrdersCancelRequest(ctx, elem.SessionID, elem)
 	}
 
-	// Set ordersCancelRequest count
-	k.SetOrdersCancelRequestCount(ctx, genState.OrdersCancelRequestCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -55,8 +53,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.SessionsList = k.GetAllSessions(ctx)
 	genesis.SessionsCount = k.GetSessionsCount(ctx)
 
-	genesis.OrdersCancelRequestList = k.GetAllOrdersCancelRequest(ctx)
-	genesis.OrdersCancelRequestCount = k.GetOrdersCancelRequestCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

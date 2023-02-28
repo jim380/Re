@@ -152,15 +152,15 @@ func request_Query_Sessions_0(ctx context.Context, marshaler runtime.Marshaler, 
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.Sessions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -179,15 +179,15 @@ func local_request_Query_Sessions_0(ctx context.Context, marshaler runtime.Marsh
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.Sessions(ctx, &protoReq)
@@ -242,15 +242,15 @@ func request_Query_SessionReject_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.SessionReject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -269,15 +269,15 @@ func local_request_Query_SessionReject_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.SessionReject(ctx, &protoReq)
@@ -332,15 +332,15 @@ func request_Query_SessionLogout_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.SessionLogout(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -359,15 +359,15 @@ func local_request_Query_SessionLogout_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.SessionLogout(ctx, &protoReq)
@@ -422,15 +422,15 @@ func request_Query_Orders_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.Orders(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -449,15 +449,15 @@ func local_request_Query_Orders_0(ctx context.Context, marshaler runtime.Marshal
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.Orders(ctx, &protoReq)
@@ -512,15 +512,15 @@ func request_Query_OrdersCancelRequest_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.OrdersCancelRequest(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -539,15 +539,15 @@ func local_request_Query_OrdersCancelRequest_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
-	val, ok = pathParams["sessionName"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.SessionName, err = runtime.String(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.OrdersCancelRequest(ctx, &protoReq)
@@ -1207,23 +1207,23 @@ var (
 
 	pattern_Query_AccountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "account"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Sessions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "sessions", "sessionName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Sessions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "sessions", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_SessionsAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "sessions"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SessionReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "session", "reject", "sessionName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SessionReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "session", "reject", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_SessionRejectAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "session", "reject"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SessionLogout_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "session", "logout", "sessionName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SessionLogout_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "session", "logout", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_SessionLogoutAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "session", "logout"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "sessionName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "orders", "cancel", "sessionName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "orders", "cancel", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersCancelRequestAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "orders", "cancel"}, "", runtime.AssumeColonVerbOpt(true)))
 )
