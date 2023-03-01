@@ -10,7 +10,7 @@ message OrdersExecutionReport {
   string sessionID = 1; 
   Header header = 2;
   string clOrdID = 3;
-  string OrderID = 4;
+  string orderID = 4;
   string execID = 5;
   string ordStatus = 6;
   string execType = 7;
