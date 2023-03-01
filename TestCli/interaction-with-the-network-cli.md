@@ -156,4 +156,10 @@ red tx did deactivate-did <did> <key-id> \
 Like updating a DID, a `<key-id>` must be specified and the corresponding key-pair should be used to make a signature
 so that Re can verify that you are the DID owner.
 
+### Reactivate a DID
+
+```
+red tx did reactivate-did --from <address> --keyring-backend string --chain-id <chain-id>
+
+```
 
