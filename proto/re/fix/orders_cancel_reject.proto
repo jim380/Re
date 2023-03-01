@@ -1,0 +1,19 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+message OrdersCancelReject {
+  string sessionID = 1; 
+  Header header = 2;
+  string orderID = 3;
+  string origClOrdID = 4;
+  string clOrdID = 5;
+  int64 cxlRejReason = 6;
+  int64 cxlRejResponseTo =7;
+  string TransactTime = 8;
+  Trailer trailer = 9;
+  string creator = 10;
+}

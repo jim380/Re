@@ -57,3 +57,30 @@ func (k Keeper) RemoveOrdersCancelRequest(ctx sdk.Context, sessionID string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRequestKey))
 	store.Delete([]byte(sessionID))
 }
+
+
+// SetOrdersCancelReject set a specific ordersCancelReject in the store
+func (k Keeper) SetOrdersCancelReject(ctx sdk.Context, sessionID string, ordersCancelReject types.OrdersCancelReject) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	key := []byte(sessionID)
+	b := k.cdc.MustMarshal(&ordersCancelReject)
+	store.Set(key, b)
+}
+
+// GetOrdersCancelReject returns a ordersCancelReject from its id
+func (k Keeper) GetOrdersCancelReject(ctx sdk.Context, sessionID string) (val types.OrdersCancelReject, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	key := []byte(sessionID)
+	b := store.Get(key)
+	if b == nil {
+		return val, false
+	}
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
+}
+
+// RemoveOrdersCancelReject removes a ordersCancelReject from the store
+func (k Keeper) RemoveOrdersCancelReject(ctx sdk.Context, sessionID string) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	store.Delete([]byte(sessionID))
+}

@@ -12,6 +12,7 @@ import "re/fix/session_reject.proto";
 import "re/fix/session_logout.proto";
 import "re/fix/orders.proto";
 import "re/fix/orders_cancel_request.proto";
+import "re/fix/orders_cancel_reject.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -50,7 +51,7 @@ service Query {
   
   }
   rpc SessionRejectAll (QueryAllSessionRejectRequest) returns (QueryAllSessionRejectResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/reject";
+    option (google.api.http).get = "/jim380/Re/fix/session/rejects";
   
   }
   
@@ -60,7 +61,7 @@ service Query {
   
   }
   rpc SessionLogoutAll (QueryAllSessionLogoutRequest) returns (QueryAllSessionLogoutResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/logout";
+    option (google.api.http).get = "/jim380/Re/fix/session/logouts";
   
   }
   
@@ -76,11 +77,21 @@ service Query {
   
   // Queries a list of OrdersCancelRequest items.
   rpc OrdersCancelRequest    (QueryGetOrdersCancelRequestRequest) returns (QueryGetOrdersCancelRequestResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/{sessionID}";
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_request/{sessionID}";
   
   }
   rpc OrdersCancelRequestAll (QueryAllOrdersCancelRequestRequest) returns (QueryAllOrdersCancelRequestResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/cancel";
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_requests";
+  
+  }
+  
+  // Queries a list of OrdersCancelReject items.
+  rpc OrdersCancelReject    (QueryGetOrdersCancelRejectRequest) returns (QueryGetOrdersCancelRejectResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_reject/{sessionID}";
+  
+  }
+  rpc OrdersCancelRejectAll (QueryAllOrdersCancelRejectRequest) returns (QueryAllOrdersCancelRejectResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_rejects";
   
   }
 }
@@ -180,7 +191,7 @@ message QueryAllOrdersResponse {
 }
 
 message QueryGetOrdersCancelRequestRequest {
-  string sessionID  = 1;
+  string sessionID = 1;
 }
 
 message QueryGetOrdersCancelRequestResponse {
@@ -194,5 +205,22 @@ message QueryAllOrdersCancelRequestRequest {
 message QueryAllOrdersCancelRequestResponse {
   repeated OrdersCancelRequest                    OrdersCancelRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination          = 2;
+}
+
+message QueryGetOrdersCancelRejectRequest {
+  string sessionID = 1;
+}
+
+message QueryGetOrdersCancelRejectResponse {
+  OrdersCancelReject OrdersCancelReject = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOrdersCancelRejectRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOrdersCancelRejectResponse {
+  repeated OrdersCancelReject                     OrdersCancelReject = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
 }
 

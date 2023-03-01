@@ -36,7 +36,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	}
 
 	newOrder := types.Orders{
-		SessionID:  session.SessionID,
+		SessionID:    session.SessionID,
 		Header:       session.LogonInitiator.Header,
 		ClOrdID:      msg.ClOrdID,
 		Symbol:       msg.Symbol,

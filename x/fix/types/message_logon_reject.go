@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgLogonReject{}
 func NewMsgLogonReject(acceptorAddress string, sessionID string, text string, did Header) *MsgLogonReject {
 	return &MsgLogonReject{
 		AcceptorAddress: acceptorAddress,
-		SessionID:     sessionID,
+		SessionID:       sessionID,
 		Text:            text,
 		Header:          &did,
 	}
