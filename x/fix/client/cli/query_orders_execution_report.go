@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,21 +44,18 @@ func CmdListOrdersExecutionReport() *cobra.Command {
 
 func CmdShowOrdersExecutionReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders-execution-report [id]",
-		Short: "shows a orders_execution-report",
+		Use:   "show-orders-execution-report [sessionID]",
+		Short: "shows an orders_execution-report",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argSessionID := args[0]
 
 			params := &types.QueryGetOrdersExecutionReportRequest{
-				Id: id,
+				SessionID: argSessionID,
 			}
 
 			res, err := queryClient.OrdersExecutionReport(context.Background(), params)

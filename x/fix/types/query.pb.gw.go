@@ -692,15 +692,15 @@ func request_Query_OrdersExecutionReport_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := client.OrdersExecutionReport(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -719,15 +719,15 @@ func local_request_Query_OrdersExecutionReport_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["sessionID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SessionID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
 	}
 
 	msg, err := server.OrdersExecutionReport(ctx, &protoReq)
@@ -1583,9 +1583,9 @@ var (
 
 	pattern_Query_OrdersCancelRejectAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_cancel_rejects"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_execution_report", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_execution_report", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersExecutionReportAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_execution_report"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersExecutionReportAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_execution_reports"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

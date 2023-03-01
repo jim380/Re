@@ -23,7 +23,7 @@ func CmdOrderCancelRequest() *cobra.Command {
 
 			argOrigClOrdID := args[1]
 
-			argclOrdID := args[0]
+			argclOrdID := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

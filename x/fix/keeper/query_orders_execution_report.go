@@ -46,7 +46,7 @@ func (k Keeper) OrdersExecutionReport(goCtx context.Context, req *types.QueryGet
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.Id)
+	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

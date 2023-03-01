@@ -157,8 +157,27 @@ message MsgOrderCancelReject {
 message MsgOrderCancelRejectResponse {}
 
 message MsgOrderExecutionReport {
-  string creator   = 1;
-  string sessionID = 2;
+  string sessionID = 1; 
+  Header header = 2;
+  string clOrdID = 3;
+  string orderID = 4;
+  string execID = 5;
+  string ordStatus = 6;
+  string execType = 7;
+  string symbol = 8;
+  int64 side = 9;
+  int64 orderQty = 10;
+  int64 price = 11;
+  int64 timeInForce = 12;
+  int64 lastPx = 13;
+  int64 lastQty = 14;
+  int64 leavesQty = 15;
+  int64 cumQty = 16;
+  int64 avgPx = 17;
+  string text = 18;
+  string transactTime = 19;
+  Trailer trailer = 20;
+  string creator = 21;
 }
 
 message MsgOrderExecutionReportResponse {}
