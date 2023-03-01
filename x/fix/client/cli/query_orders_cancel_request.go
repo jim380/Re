@@ -44,7 +44,7 @@ func CmdListOrdersCancelRequest() *cobra.Command {
 
 func CmdShowOrdersCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders-cancel-request [sessionName]",
+		Use:   "show-orders-cancel-request [sessionID]",
 		Short: "shows an ordersCancelRequest",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

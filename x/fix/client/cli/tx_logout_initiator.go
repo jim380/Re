@@ -14,11 +14,12 @@ var _ = strconv.Itoa(0)
 
 func CmdLogoutInitiator() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logout-initiator [session-name] [text]",
+		Use:   "logout-initiator [sessionID] [text]",
 		Short: "Broadcast message logout-initiator",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argSessionName := args[0]
+
+			argSessionID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -33,7 +34,7 @@ func CmdLogoutInitiator() *cobra.Command {
 
 			msg := types.NewMsgLogoutInitiator(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSessionID,
 				sessionLogoutInitiator,
 			)
 			if err := msg.ValidateBasic(); err != nil {

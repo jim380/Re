@@ -14,11 +14,16 @@ var _ = strconv.Itoa(0)
 
 func CmdOrderCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-cancel-request [session-name]",
+		Use:   "order-cancel-request [session-name] [OrigClOrdID] [ClOrdID]",
 		Short: "Broadcast message order-cancel-request",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argSessionName := args[0]
+
+			argSession := args[0]
+
+			argOrigClOrdID := args[1]
+
+			argclOrdID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -27,7 +32,9 @@ func CmdOrderCancelRequest() *cobra.Command {
 
 			msg := types.NewMsgOrderCancelRequest(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSession,
+				argOrigClOrdID,
+				argclOrdID,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

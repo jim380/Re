@@ -16,7 +16,7 @@ var _ = strconv.Itoa(0)
 
 func CmdLogonAcceptor() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-acceptor [session-name] [msg-type] [sender-compID] [target-compID] [encrypt-method] [heart-beat-int]",
+		Use:   "logon-acceptor [sessionID] [msg-type] [sender-compID] [target-compID] [encrypt-method] [heart-beat-int]",
 		Short: "Broadcast message logon-acceptor",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -26,7 +26,7 @@ func CmdLogonAcceptor() *cobra.Command {
 				return err
 			}
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			argMsgType := args[1]
 
@@ -49,7 +49,7 @@ func CmdLogonAcceptor() *cobra.Command {
 			//sample of the msg
 			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
 			//body length of logon message
-			msgBody := argSessionName + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
+			msgBody := argSessionID + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
 			bodyLength := BodyLength(msgBody)
 
@@ -58,7 +58,7 @@ func CmdLogonAcceptor() *cobra.Command {
 			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
 
 			//get the length of checksum excluding the checksum field
-			checkSum := argSessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
+			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 			setCheckSum := calculateChecksum(checkSum)
 
 			trailer := types.NewTrailer(setCheckSum)
@@ -67,7 +67,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			msg := types.NewMsgLogonAcceptor(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSessionID,
 				argLogonAcceptor,
 			)
 			if err := msg.ValidateBasic(); err != nil {

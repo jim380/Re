@@ -44,7 +44,7 @@ func CmdListOrders() *cobra.Command {
 
 func CmdShowOrders() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders [id]",
+		Use:   "show-orders [sessionID]",
 		Short: "shows a orders",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

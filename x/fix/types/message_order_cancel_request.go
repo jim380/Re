@@ -9,10 +9,12 @@ const TypeMsgOrderCancelRequest = "order_cancel_request"
 
 var _ sdk.Msg = &MsgOrderCancelRequest{}
 
-func NewMsgOrderCancelRequest(creator string, sessionID string) *MsgOrderCancelRequest {
+func NewMsgOrderCancelRequest(creator string, sessionID string, origClOrdID string, clOrdID string) *MsgOrderCancelRequest {
 	return &MsgOrderCancelRequest{
 		Creator:     creator,
-		SessionID: sessionID,
+		SessionID:   sessionID,
+		OrigClOrdID: origClOrdID,
+		ClOrdID:     clOrdID,
 	}
 }
 

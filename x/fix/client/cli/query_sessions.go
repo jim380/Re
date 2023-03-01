@@ -44,7 +44,7 @@ func CmdListSessions() *cobra.Command {
 
 func CmdShowSessions() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-sessions [session-name]",
+		Use:   "show-sessions [sessionID]",
 		Short: "shows a sessions",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -107,7 +107,7 @@ func CmdListSessionReject() *cobra.Command {
 
 func CmdShowSessionReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-session-reject [session-name]",
+		Use:   "show-session-reject [sessionID]",
 		Short: "shows a rejected session",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -170,7 +170,7 @@ func CmdListSessionLogout() *cobra.Command {
 
 func CmdShowSessionLogout() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-session-logout [id]",
+		Use:   "show-session-logout [sessionID]",
 		Short: "shows a session-logout",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

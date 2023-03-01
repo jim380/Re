@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdLogonReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-reject [session-name] [did] [text]",
+		Use:   "logon-reject [sessionID] [did] [text]",
 		Short: "Broadcast message logon-reject",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -24,7 +24,7 @@ func CmdLogonReject() *cobra.Command {
 				return err
 			}
 
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			argDID := args[1]
 			header := types.Header{
@@ -35,7 +35,7 @@ func CmdLogonReject() *cobra.Command {
 
 			msg := types.NewMsgLogonReject(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSessionID,
 				argText,
 				header,
 			)
