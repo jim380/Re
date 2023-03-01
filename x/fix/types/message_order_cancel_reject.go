@@ -9,14 +9,14 @@ const TypeMsgOrderCancelReject = "order_cancel_reject"
 
 var _ sdk.Msg = &MsgOrderCancelReject{}
 
-func NewMsgOrderCancelReject(creator string, sessionID string,  orderID string, origClOrdID string, clOrdID string, cxlRejReason int64, cxlRejResponseTo int64) *MsgOrderCancelReject {
+func NewMsgOrderCancelReject(creator string, sessionID string, orderID string, origClOrdID string, clOrdID string, cxlRejReason int64, cxlRejResponseTo int64) *MsgOrderCancelReject {
 	return &MsgOrderCancelReject{
-		Creator:   creator,
-		SessionID: sessionID,
-		OrderID: orderID,
-		OrigClOrdID: origClOrdID,
-		ClOrdID: clOrdID,
-		CxlRejReason: cxlRejReason,
+		Creator:          creator,
+		SessionID:        sessionID,
+		OrderID:          orderID,
+		OrigClOrdID:      origClOrdID,
+		ClOrdID:          clOrdID,
+		CxlRejReason:     cxlRejReason,
 		CxlRejResponseTo: cxlRejResponseTo,
 	}
 }

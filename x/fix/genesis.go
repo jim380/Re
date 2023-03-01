@@ -45,6 +45,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetOrdersCancelReject(ctx, elem.SessionID, elem)
 	}
 
+	// Set all the ordersExecutionReport
+	for _, elem := range genState.OrdersExecutionReportList {
+		k.SetOrdersExecutionReport(ctx, elem)
+	}
+
+	// Set ordersExecutionReport count
+	k.SetOrdersExecutionReportCount(ctx, genState.OrdersExecutionReportCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -58,6 +65,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.SessionsList = k.GetAllSessions(ctx)
 	genesis.SessionsCount = k.GetSessionsCount(ctx)
 
+	genesis.OrdersExecutionReportList = k.GetAllOrdersExecutionReport(ctx)
+	genesis.OrdersExecutionReportCount = k.GetOrdersExecutionReportCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

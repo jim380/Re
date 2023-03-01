@@ -58,7 +58,6 @@ func (k Keeper) RemoveOrdersCancelRequest(ctx sdk.Context, sessionID string) {
 	store.Delete([]byte(sessionID))
 }
 
-
 // SetOrdersCancelReject set a specific ordersCancelReject in the store
 func (k Keeper) SetOrdersCancelReject(ctx sdk.Context, sessionID string, ordersCancelReject types.OrdersCancelReject) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))

@@ -11,13 +11,14 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		AccountList:             []Account{},
-		SessionsList:            []Sessions{},
-		SessionRejectList:       []SessionReject{},
-		SessionLogoutList:       []SessionLogout{},
-		OrdersList:              []Orders{},
-		OrdersCancelRequestList: []OrdersCancelRequest{},
-		OrdersCancelRejectList:  []OrdersCancelReject{},
+		AccountList:               []Account{},
+		SessionsList:              []Sessions{},
+		SessionRejectList:         []SessionReject{},
+		SessionLogoutList:         []SessionLogout{},
+		OrdersList:                []Orders{},
+		OrdersCancelRequestList:   []OrdersCancelRequest{},
+		OrdersCancelRejectList:    []OrdersCancelReject{},
+		OrdersExecutionReportList: []OrdersExecutionReport{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -119,6 +120,18 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("ordersCancelReject id should be lower or equal than the last id")
 		}
 		ordersCancelRejectIdMap[elem.SessionID] = true
+	}
+	// Check for duplicated ID in ordersExecutionReport
+	ordersExecutionReportIdMap := make(map[uint64]bool)
+	ordersExecutionReportCount := gs.GetOrdersExecutionReportCount()
+	for _, elem := range gs.OrdersExecutionReportList {
+		if _, ok := ordersExecutionReportIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for ordersExecutionReport")
+		}
+		if elem.Id >= ordersExecutionReportCount {
+			return fmt.Errorf("ordersExecutionReport id should be lower or equal than the last id")
+		}
+		ordersExecutionReportIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

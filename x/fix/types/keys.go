@@ -60,3 +60,8 @@ const (
 	OrdersCancelRejectKey      = "OrdersCancelReject/value/"
 	OrdersCancelRejectCountKey = "OrdersCancelReject/count/"
 )
+
+const (
+	OrdersExecutionReportKey      = "OrdersExecutionReport/value/"
+	OrdersExecutionReportCountKey = "OrdersExecutionReport/count/"
+)

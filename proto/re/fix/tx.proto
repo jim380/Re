@@ -12,18 +12,19 @@ import "re/fix/session_logout.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount      (MsgCreateAccount     ) returns (MsgCreateAccountResponse     );
-  rpc UpdateAccount      (MsgUpdateAccount     ) returns (MsgUpdateAccountResponse     );
-  rpc DeleteAccount      (MsgDeleteAccount     ) returns (MsgDeleteAccountResponse     );
-  rpc LogonInitiator     (MsgLogonInitiator    ) returns (MsgLogonInitiatorResponse    );
-  rpc LogonAcceptor      (MsgLogonAcceptor     ) returns (MsgLogonAcceptorResponse     );
-  rpc TerminateLogon     (MsgTerminateLogon    ) returns (MsgTerminateLogonResponse    );
-  rpc LogonReject        (MsgLogonReject       ) returns (MsgLogonRejectResponse       );
-  rpc LogoutInitiator    (MsgLogoutInitiator   ) returns (MsgLogoutInitiatorResponse   );
-  rpc LogoutAcceptor     (MsgLogoutAcceptor    ) returns (MsgLogoutAcceptorResponse    );
-  rpc NewOrderSingle     (MsgNewOrderSingle    ) returns (MsgNewOrderSingleResponse    );
-  rpc OrderCancelRequest (MsgOrderCancelRequest) returns (MsgOrderCancelRequestResponse);
-  rpc OrderCancelReject  (MsgOrderCancelReject ) returns (MsgOrderCancelRejectResponse );
+  rpc CreateAccount        (MsgCreateAccount       ) returns (MsgCreateAccountResponse       );
+  rpc UpdateAccount        (MsgUpdateAccount       ) returns (MsgUpdateAccountResponse       );
+  rpc DeleteAccount        (MsgDeleteAccount       ) returns (MsgDeleteAccountResponse       );
+  rpc LogonInitiator       (MsgLogonInitiator      ) returns (MsgLogonInitiatorResponse      );
+  rpc LogonAcceptor        (MsgLogonAcceptor       ) returns (MsgLogonAcceptorResponse       );
+  rpc TerminateLogon       (MsgTerminateLogon      ) returns (MsgTerminateLogonResponse      );
+  rpc LogonReject          (MsgLogonReject         ) returns (MsgLogonRejectResponse         );
+  rpc LogoutInitiator      (MsgLogoutInitiator     ) returns (MsgLogoutInitiatorResponse     );
+  rpc LogoutAcceptor       (MsgLogoutAcceptor      ) returns (MsgLogoutAcceptorResponse      );
+  rpc NewOrderSingle       (MsgNewOrderSingle      ) returns (MsgNewOrderSingleResponse      );
+  rpc OrderCancelRequest   (MsgOrderCancelRequest  ) returns (MsgOrderCancelRequestResponse  );
+  rpc OrderCancelReject    (MsgOrderCancelReject   ) returns (MsgOrderCancelRejectResponse   );
+  rpc OrderExecutionReport (MsgOrderExecutionReport) returns (MsgOrderExecutionReportResponse);
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -141,17 +142,24 @@ message MsgOrderCancelRequest {
 message MsgOrderCancelRequestResponse {}
 
 message MsgOrderCancelReject {
-  string sessionID = 1; 
-  Header header = 2;
-  string orderID = 3;
-  string origClOrdID = 4;
-  string clOrdID = 5;
-  int64 cxlRejReason = 6;
-  int64 cxlRejResponseTo =7;
-  string TransactTime = 8;
-  Trailer trailer = 9;
-  string creator = 10;
+  string  sessionID        =  1;
+  Header  header           =  2;
+  string  orderID          =  3;
+  string  origClOrdID      =  4;
+  string  clOrdID          =  5;
+  int64   cxlRejReason     =  6;
+  int64   cxlRejResponseTo =  7;
+  string  TransactTime     =  8;
+  Trailer trailer          =  9;
+  string  creator          = 10;
 }
 
 message MsgOrderCancelRejectResponse {}
+
+message MsgOrderExecutionReport {
+  string creator   = 1;
+  string sessionID = 2;
+}
+
+message MsgOrderExecutionReportResponse {}
 
