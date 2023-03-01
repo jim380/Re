@@ -24,7 +24,7 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 
 	sessionLogoutInitiator := types.SessionLogout{
 		InitiatorAddress:       msg.InitiatorAddress,
-		SessionID:            msg.SessionID,
+		SessionID:              msg.SessionID,
 		SessionLogoutInitiator: msg.SessionLogoutInitiator,
 	}
 

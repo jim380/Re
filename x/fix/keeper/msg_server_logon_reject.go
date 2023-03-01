@@ -41,7 +41,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 
 	var sessionReject = types.SessionReject{
 		AcceptorAddress: msg.AcceptorAddress,
-		SessionID:     msg.SessionID,
+		SessionID:       msg.SessionID,
 		Header:          msg.Header,
 		Text:            msg.Text,
 		Trailer:         msg.Trailer,

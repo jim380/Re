@@ -17,6 +17,7 @@ func DefaultGenesis() *GenesisState {
 		SessionLogoutList:       []SessionLogout{},
 		OrdersList:              []Orders{},
 		OrdersCancelRequestList: []OrdersCancelRequest{},
+		OrdersCancelRejectList:  []OrdersCancelReject{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -105,6 +106,19 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("ordersCancelRequest id should be lower or equal than the last id")
 		}
 		ordersCancelRequestIdMap[elem.SessionID] = true
+	}
+	// Check for duplicated ID in ordersCancelReject
+	ordersCancelRejectIdMap := make(map[string]bool)
+	ordersCancelRejectCount := gs.GetOrdersCancelRejectCount()
+	for _, elem := range gs.OrdersCancelRejectList {
+		if _, ok := ordersCancelRejectIdMap[elem.SessionID]; ok {
+			return fmt.Errorf("duplicated id for ordersCancelReject")
+		}
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= ordersCancelRejectCount {
+			return fmt.Errorf("ordersCancelReject id should be lower or equal than the last id")
+		}
+		ordersCancelRejectIdMap[elem.SessionID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgLogoutInitiator{}
 func NewMsgLogoutInitiator(initiatorAddress string, sessionID string, text SessionLogoutInitiator) *MsgLogoutInitiator {
 	return &MsgLogoutInitiator{
 		InitiatorAddress:       initiatorAddress,
-		SessionID:            sessionID,
+		SessionID:              sessionID,
 		SessionLogoutInitiator: &text,
 	}
 }

@@ -22990,7 +22990,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    sessionName:
+                    sessionID:
                       type: string
                     header:
                       type: object
@@ -23136,97 +23136,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/orders/{sessionName}:
-    get:
-      summary: Queries a list of Orders items.
-      operationId: Jim380ReFixOrders
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              Orders:
-                type: object
-                properties:
-                  sessionName:
-                    type: string
-                  header:
-                    type: object
-                    properties:
-                      beginString:
-                        type: string
-                      bodyLength:
-                        type: string
-                        format: int64
-                      msgType:
-                        type: string
-                      senderCompID:
-                        type: string
-                      targetCompID:
-                        type: string
-                      msgSeqNum:
-                        type: string
-                        format: int64
-                      sendingTime:
-                        type: string
-                  clOrdID:
-                    type: string
-                  symbol:
-                    type: string
-                  side:
-                    type: string
-                    format: int64
-                  orderQty:
-                    type: string
-                  ordType:
-                    type: string
-                    format: int64
-                  price:
-                    type: string
-                  timeInForce:
-                    type: string
-                    format: int64
-                  text:
-                    type: string
-                  transactTime:
-                    type: string
-                  trailer:
-                    type: object
-                    properties:
-                      checkSum:
-                        type: string
-                        format: int64
-                  status:
-                    type: string
-                  creator:
-                    type: string
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: sessionName
-          in: path
-          required: true
-          type: string
-      tags:
-        - Query
-  /jim380/Re/fix/orders_cancel_request:
+  /jim380/Re/fix/orders/cancel:
     get:
       operationId: Jim380ReFixOrdersCancelRequestAll
       responses:
@@ -23240,10 +23150,38 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
+                    sessionID:
                       type: string
-                      format: uint64
-                    sessionName:
+                    header:
+                      type: object
+                      properties:
+                        beginString:
+                          type: string
+                        bodyLength:
+                          type: string
+                          format: int64
+                        msgType:
+                          type: string
+                        senderCompID:
+                          type: string
+                        targetCompID:
+                          type: string
+                        msgSeqNum:
+                          type: string
+                          format: int64
+                        sendingTime:
+                          type: string
+                    origClOrdID:
+                      type: string
+                    clOrdID:
+                      type: string
+                    trailer:
+                      type: object
+                      properties:
+                        checkSum:
+                          type: string
+                          format: int64
+                    creator:
                       type: string
               pagination:
                 type: object
@@ -23339,7 +23277,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/orders_cancel_request/{id}:
+  /jim380/Re/fix/orders/cancel/{sessionID}:
     get:
       summary: Queries a list of OrdersCancelRequest items.
       operationId: Jim380ReFixOrdersCancelRequest
@@ -23352,10 +23290,284 @@ paths:
               OrdersCancelRequest:
                 type: object
                 properties:
+                  sessionID:
+                    type: string
+                  header:
+                    type: object
+                    properties:
+                      beginString:
+                        type: string
+                      bodyLength:
+                        type: string
+                        format: int64
+                      msgType:
+                        type: string
+                      senderCompID:
+                        type: string
+                      targetCompID:
+                        type: string
+                      msgSeqNum:
+                        type: string
+                        format: int64
+                      sendingTime:
+                        type: string
+                  origClOrdID:
+                    type: string
+                  clOrdID:
+                    type: string
+                  trailer:
+                    type: object
+                    properties:
+                      checkSum:
+                        type: string
+                        format: int64
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: sessionID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /jim380/Re/fix/orders/{sessionID}:
+    get:
+      summary: Queries a list of Orders items.
+      operationId: Jim380ReFixOrders
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Orders:
+                type: object
+                properties:
+                  sessionID:
+                    type: string
+                  header:
+                    type: object
+                    properties:
+                      beginString:
+                        type: string
+                      bodyLength:
+                        type: string
+                        format: int64
+                      msgType:
+                        type: string
+                      senderCompID:
+                        type: string
+                      targetCompID:
+                        type: string
+                      msgSeqNum:
+                        type: string
+                        format: int64
+                      sendingTime:
+                        type: string
+                  clOrdID:
+                    type: string
+                  symbol:
+                    type: string
+                  side:
+                    type: string
+                    format: int64
+                  orderQty:
+                    type: string
+                  ordType:
+                    type: string
+                    format: int64
+                  price:
+                    type: string
+                  timeInForce:
+                    type: string
+                    format: int64
+                  text:
+                    type: string
+                  transactTime:
+                    type: string
+                  trailer:
+                    type: object
+                    properties:
+                      checkSum:
+                        type: string
+                        format: int64
+                  status:
+                    type: string
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: sessionID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /jim380/Re/fix/orders_cancel_reject:
+    get:
+      operationId: Jim380ReFixOrdersCancelRejectAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              OrdersCancelReject:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sessionID:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/orders_cancel_reject/{id}:
+    get:
+      summary: Queries a list of OrdersCancelReject items.
+      operationId: Jim380ReFixOrdersCancelReject
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              OrdersCancelReject:
+                type: object
+                properties:
                   id:
                     type: string
                     format: uint64
-                  sessionName:
+                  sessionID:
                     type: string
         default:
           description: An unexpected error response.
@@ -23433,7 +23645,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    sessionName:
+                    sessionID:
                       type: string
                     initiatorAddress:
                       type: string
@@ -23593,7 +23805,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/session/logout/{sessionName}:
+  /jim380/Re/fix/session/logout/{sessionID}:
     get:
       summary: Queries a list of SessionLogout items.
       operationId: Jim380ReFixSessionLogout
@@ -23606,7 +23818,7 @@ paths:
               SessionLogout:
                 type: object
                 properties:
-                  sessionName:
+                  sessionID:
                     type: string
                   initiatorAddress:
                     type: string
@@ -23691,7 +23903,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: sessionName
+        - name: sessionID
           in: path
           required: true
           type: string
@@ -23711,7 +23923,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    sessionName:
+                    sessionID:
                       type: string
                     header:
                       type: object
@@ -23836,7 +24048,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/session/reject/{sessionName}:
+  /jim380/Re/fix/session/reject/{sessionID}:
     get:
       summary: Queries a list of SessionReject items.
       operationId: Jim380ReFixSessionReject
@@ -23849,7 +24061,7 @@ paths:
               SessionReject:
                 type: object
                 properties:
-                  sessionName:
+                  sessionID:
                     type: string
                   header:
                     type: object
@@ -23899,7 +24111,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: sessionName
+        - name: sessionID
           in: path
           required: true
           type: string
@@ -23919,7 +24131,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    sessionName:
+                    sessionID:
                       type: string
                     logonInitiator:
                       type: object
@@ -24091,7 +24303,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/sessions/{sessionName}:
+  /jim380/Re/fix/sessions/{sessionID}:
     get:
       summary: Queries a list of Sessions items.
       operationId: Jim380ReFixSessions
@@ -24104,7 +24316,7 @@ paths:
               Sessions:
                 type: object
                 properties:
-                  sessionName:
+                  sessionID:
                     type: string
                   logonInitiator:
                     type: object
@@ -24201,7 +24413,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: sessionName
+        - name: sessionID
           in: path
           required: true
           type: string
@@ -44127,6 +44339,8 @@ definitions:
     type: object
   jim380.re.fix.MsgNewOrderSingleResponse:
     type: object
+  jim380.re.fix.MsgOrderCancelRejectResponse:
+    type: object
   jim380.re.fix.MsgOrderCancelRequestResponse:
     type: object
   jim380.re.fix.MsgTerminateLogonResponse:
@@ -44136,7 +44350,7 @@ definitions:
   jim380.re.fix.Orders:
     type: object
     properties:
-      sessionName:
+      sessionID:
         type: string
       header:
         type: object
@@ -44188,13 +44402,49 @@ definitions:
         type: string
       creator:
         type: string
-  jim380.re.fix.OrdersCancelRequest:
+  jim380.re.fix.OrdersCancelReject:
     type: object
     properties:
       id:
         type: string
         format: uint64
-      sessionName:
+      sessionID:
+        type: string
+  jim380.re.fix.OrdersCancelRequest:
+    type: object
+    properties:
+      sessionID:
+        type: string
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+          bodyLength:
+            type: string
+            format: int64
+          msgType:
+            type: string
+          senderCompID:
+            type: string
+          targetCompID:
+            type: string
+          msgSeqNum:
+            type: string
+            format: int64
+          sendingTime:
+            type: string
+      origClOrdID:
+        type: string
+      clOrdID:
+        type: string
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+      creator:
         type: string
   jim380.re.fix.Params:
     type: object
@@ -44245,6 +44495,44 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  jim380.re.fix.QueryAllOrdersCancelRejectResponse:
+    type: object
+    properties:
+      OrdersCancelReject:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sessionID:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   jim380.re.fix.QueryAllOrdersCancelRequestResponse:
     type: object
     properties:
@@ -44253,10 +44541,38 @@ definitions:
         items:
           type: object
           properties:
-            id:
+            sessionID:
               type: string
-              format: uint64
-            sessionName:
+            header:
+              type: object
+              properties:
+                beginString:
+                  type: string
+                bodyLength:
+                  type: string
+                  format: int64
+                msgType:
+                  type: string
+                senderCompID:
+                  type: string
+                targetCompID:
+                  type: string
+                msgSeqNum:
+                  type: string
+                  format: int64
+                sendingTime:
+                  type: string
+            origClOrdID:
+              type: string
+            clOrdID:
+              type: string
+            trailer:
+              type: object
+              properties:
+                checkSum:
+                  type: string
+                  format: int64
+            creator:
               type: string
       pagination:
         type: object
@@ -44291,7 +44607,7 @@ definitions:
         items:
           type: object
           properties:
-            sessionName:
+            sessionID:
               type: string
             header:
               type: object
@@ -44376,7 +44692,7 @@ definitions:
         items:
           type: object
           properties:
-            sessionName:
+            sessionID:
               type: string
             initiatorAddress:
               type: string
@@ -44475,7 +44791,7 @@ definitions:
         items:
           type: object
           properties:
-            sessionName:
+            sessionID:
               type: string
             header:
               type: object
@@ -44539,7 +44855,7 @@ definitions:
         items:
           type: object
           properties:
-            sessionName:
+            sessionID:
               type: string
             logonInitiator:
               type: object
@@ -44661,16 +44977,55 @@ definitions:
             format: int32
           creator:
             type: string
+  jim380.re.fix.QueryGetOrdersCancelRejectResponse:
+    type: object
+    properties:
+      OrdersCancelReject:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sessionID:
+            type: string
   jim380.re.fix.QueryGetOrdersCancelRequestResponse:
     type: object
     properties:
       OrdersCancelRequest:
         type: object
         properties:
-          id:
+          sessionID:
             type: string
-            format: uint64
-          sessionName:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: int64
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+          origClOrdID:
+            type: string
+          clOrdID:
+            type: string
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+          creator:
             type: string
   jim380.re.fix.QueryGetOrdersResponse:
     type: object
@@ -44678,7 +45033,7 @@ definitions:
       Orders:
         type: object
         properties:
-          sessionName:
+          sessionID:
             type: string
           header:
             type: object
@@ -44736,7 +45091,7 @@ definitions:
       SessionLogout:
         type: object
         properties:
-          sessionName:
+          sessionID:
             type: string
           initiatorAddress:
             type: string
@@ -44808,7 +45163,7 @@ definitions:
       SessionReject:
         type: object
         properties:
-          sessionName:
+          sessionID:
             type: string
           header:
             type: object
@@ -44845,7 +45200,7 @@ definitions:
       Sessions:
         type: object
         properties:
-          sessionName:
+          sessionID:
             type: string
           logonInitiator:
             type: object
@@ -44933,7 +45288,7 @@ definitions:
   jim380.re.fix.SessionLogout:
     type: object
     properties:
-      sessionName:
+      sessionID:
         type: string
       initiatorAddress:
         type: string
@@ -45062,7 +45417,7 @@ definitions:
   jim380.re.fix.SessionReject:
     type: object
     properties:
-      sessionName:
+      sessionID:
         type: string
       header:
         type: object
@@ -45096,7 +45451,7 @@ definitions:
   jim380.re.fix.Sessions:
     type: object
     properties:
-      sessionName:
+      sessionID:
         type: string
       logonInitiator:
         type: object

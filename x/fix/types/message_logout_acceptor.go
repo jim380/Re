@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgLogoutAcceptor{}
 func NewMsgLogoutAcceptor(acceptorAddress string, sessionID string, text SessionLogoutAcceptor) *MsgLogoutAcceptor {
 	return &MsgLogoutAcceptor{
 		AcceptorAddress:       acceptorAddress,
-		SessionID:           sessionID,
+		SessionID:             sessionID,
 		SessionLogoutAcceptor: &text,
 	}
 }

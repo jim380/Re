@@ -40,6 +40,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetOrdersCancelRequest(ctx, elem.SessionID, elem)
 	}
 
+	// Set all the ordersCancelReject
+	for _, elem := range genState.OrdersCancelRejectList {
+		k.SetOrdersCancelReject(ctx, elem.SessionID, elem)
+	}
+
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }

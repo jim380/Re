@@ -15,7 +15,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	// TODO: Handling the message
 	//Fetch session
 	// check for existing origClOrdID
-	// check that account address with the creator
+	// check that account address equals the creator
 
 	//set order cancel request data
 	orderCancelRequest := types.OrdersCancelRequest{

@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgTerminateLogon{}
 func NewMsgTerminateLogon(initiatorAddress string, sessionID string, did string) *MsgTerminateLogon {
 	return &MsgTerminateLogon{
 		InitiatorAddress: initiatorAddress,
-		SessionID:      sessionID,
+		SessionID:        sessionID,
 		Did:              did,
 	}
 }

@@ -10,6 +10,7 @@ import "re/fix/session_reject.proto";
 import "re/fix/session_logout.proto";
 import "re/fix/orders.proto";
 import "re/fix/orders_cancel_request.proto";
+import "re/fix/orders_cancel_reject.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -28,5 +29,7 @@ message GenesisState {
            uint64              ordersCount              = 11;
   repeated OrdersCancelRequest ordersCancelRequestList  = 12 [(gogoproto.nullable) = false];
            uint64              ordersCancelRequestCount = 13;
+  repeated OrdersCancelReject  ordersCancelRejectList   = 14 [(gogoproto.nullable) = false];
+           uint64              ordersCancelRejectCount  = 15;
 }
 
