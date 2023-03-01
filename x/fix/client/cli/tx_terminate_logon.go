@@ -14,11 +14,12 @@ var _ = strconv.Itoa(0)
 
 func CmdTerminateLogon() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "terminate-logon [session-name] [did]",
+		Use:   "terminate-logon [sessionID] [did]",
 		Short: "Broadcast message terminate-logon",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argSessionName := args[0]
+
+			argSessionID := args[0]
 			argDid := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -28,7 +29,7 @@ func CmdTerminateLogon() *cobra.Command {
 
 			msg := types.NewMsgTerminateLogon(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSessionID,
 				argDid,
 			)
 			if err := msg.ValidateBasic(); err != nil {

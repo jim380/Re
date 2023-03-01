@@ -9,10 +9,10 @@ const TypeMsgLogoutAcceptor = "logout_acceptor"
 
 var _ sdk.Msg = &MsgLogoutAcceptor{}
 
-func NewMsgLogoutAcceptor(acceptorAddress string, sessionName string, text SessionLogoutAcceptor) *MsgLogoutAcceptor {
+func NewMsgLogoutAcceptor(acceptorAddress string, sessionID string, text SessionLogoutAcceptor) *MsgLogoutAcceptor {
 	return &MsgLogoutAcceptor{
 		AcceptorAddress:       acceptorAddress,
-		SessionName:           sessionName,
+		SessionID:           sessionID,
 		SessionLogoutAcceptor: &text,
 	}
 }

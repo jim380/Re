@@ -35,9 +35,9 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	*/
 
 	//check for if this session Name exists already
-	_, found := k.GetSessions(ctx, msg.SessionName)
+	_, found := k.GetSessions(ctx, msg.SessionID)
 	if found {
-		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionID)
 	}
 
 	//set the standard header
@@ -53,7 +53,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt, trailer)
 
 	var newInitiatorSession = types.Sessions{
-		SessionName:      msg.SessionName,
+		SessionID:        msg.SessionID,
 		LogonInitiator:   &logonInitiator,
 		Status:           "logon-request",
 		IsAccepted:       false,
@@ -61,7 +61,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	//set new Initiator logon session to store
-	k.SetSessions(ctx, msg.SessionName, newInitiatorSession)
+	k.SetSessions(ctx, msg.SessionID, newInitiatorSession)
 
 	return &types.MsgLogonInitiatorResponse{}, nil
 }

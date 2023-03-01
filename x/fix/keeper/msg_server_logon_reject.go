@@ -14,9 +14,9 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	if session.Status != "logon-request" {
@@ -41,7 +41,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 
 	var sessionReject = types.SessionReject{
 		AcceptorAddress: msg.AcceptorAddress,
-		SessionName:     msg.SessionName,
+		SessionID:     msg.SessionID,
 		Header:          msg.Header,
 		Text:            msg.Text,
 		Trailer:         msg.Trailer,
@@ -58,8 +58,8 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	session.Status = "rejected"
 
 	//set rejected session to sore
-	k.SetSessions(ctx, msg.SessionName, session)
-	k.SetSessionReject(ctx, msg.SessionName, sessionReject)
+	k.SetSessions(ctx, msg.SessionID, session)
+	k.SetSessionReject(ctx, msg.SessionID, sessionReject)
 
 	return &types.MsgLogonRejectResponse{}, nil
 }

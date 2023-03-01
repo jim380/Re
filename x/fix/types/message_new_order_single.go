@@ -9,10 +9,10 @@ const TypeMsgNewOrderSingle = "new_order_single"
 
 var _ sdk.Msg = &MsgNewOrderSingle{}
 
-func NewMsgNewOrderSingle(creator string, sessionName string, clOrdID string, symbol string, side int64, orderQty string, ordType int64, price string, timeInForce int64, text string) *MsgNewOrderSingle {
+func NewMsgNewOrderSingle(creator string, sessionID string, clOrdID string, symbol string, side int64, orderQty string, ordType int64, price string, timeInForce int64, text string) *MsgNewOrderSingle {
 	return &MsgNewOrderSingle{
 		Creator:     creator,
-		SessionName: sessionName,
+		SessionID:   sessionID,
 		ClOrdID:     clOrdID,
 		Symbol:      symbol,
 		Side:        side,

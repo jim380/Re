@@ -13,9 +13,9 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	//TODO
@@ -24,7 +24,7 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 
 	sessionLogoutInitiator := types.SessionLogout{
 		InitiatorAddress:       msg.InitiatorAddress,
-		SessionName:            msg.SessionName,
+		SessionID:            msg.SessionID,
 		SessionLogoutInitiator: msg.SessionLogoutInitiator,
 	}
 
@@ -35,7 +35,7 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 	sessionLogoutInitiator.SessionLogoutInitiator.Text = msg.SessionLogoutInitiator.Text
 
 	//set session logout to store
-	k.SetSessionLogout(ctx, msg.SessionName, sessionLogoutInitiator)
+	k.SetSessionLogout(ctx, msg.SessionID, sessionLogoutInitiator)
 
 	return &types.MsgLogoutInitiatorResponse{}, nil
 }

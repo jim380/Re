@@ -13,14 +13,14 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	//checks that the provided session name matches with the existing session name in store
-	if session.SessionName != msg.SessionName {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSession, "Session Name: %s", msg.SessionName)
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongSession, "Session Name: %s", msg.SessionID)
 	}
 
 	//checks that DID provided matches with the DID in the session
@@ -62,7 +62,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	//}
 
 	var newAcceptorSession = types.Sessions{
-		SessionName:      session.SessionName,
+		SessionID:        session.SessionID,
 		LogonInitiator:   session.LogonInitiator,
 		LogonAcceptor:    &LogonAcceptor,
 		Status:           "loggedIn",
@@ -72,7 +72,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	}
 
 	//set new Acceptor logon session to store
-	k.SetSessions(ctx, msg.SessionName, newAcceptorSession)
+	k.SetSessions(ctx, msg.SessionID, newAcceptorSession)
 
 	return &types.MsgLogonAcceptorResponse{}, nil
 }

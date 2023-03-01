@@ -14,15 +14,15 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	//get logout session, if not found, then logout is not initiated
-	initiatedLogoutSesssion, found := k.GetSessionLogout(ctx, msg.SessionName)
+	initiatedLogoutSesssion, found := k.GetSessionLogout(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Logout was not initiated", msg.SessionName))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Logout was not initiated", msg.SessionID))
 	}
 
 	/*
@@ -38,7 +38,7 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 
 	sessionLogoutAcceptor := types.SessionLogout{
 		AcceptorAddress:        msg.AcceptorAddress,
-		SessionName:            msg.SessionName,
+		SessionID:              msg.SessionID,
 		SessionLogoutAcceptor:  msg.SessionLogoutAcceptor,
 		InitiatorAddress:       initiatedLogoutSesssion.InitiatorAddress,
 		SessionLogoutInitiator: initiatedLogoutSesssion.SessionLogoutInitiator,
@@ -51,10 +51,10 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Text = msg.SessionLogoutAcceptor.Text
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Header.MsgType = "5"
 
-	k.SetSessionLogout(ctx, msg.SessionName, sessionLogoutAcceptor)
+	k.SetSessionLogout(ctx, msg.SessionID, sessionLogoutAcceptor)
 
 	//remove session from store
-	k.RemoveSessions(ctx, msg.SessionName)
+	k.RemoveSessions(ctx, msg.SessionID)
 
 	return &types.MsgLogoutAcceptorResponse{}, nil
 }

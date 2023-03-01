@@ -20,23 +20,23 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	// add more check cases
 
 	//check for if this session Name exists
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	if session.Status != "loggedIn" {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionName))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionID))
 	}
 
 	//check if order exists
-	order, found := k.GetOrders(ctx, msg.SessionName)
+	order, found := k.GetOrders(ctx, msg.SessionID)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
 	}
 
 	newOrder := types.Orders{
-		SessionName:  session.SessionName,
+		SessionID:  session.SessionID,
 		Header:       session.LogonInitiator.Header,
 		ClOrdID:      msg.ClOrdID,
 		Symbol:       msg.Symbol,
@@ -57,7 +57,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	newOrder.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
 	newOrder.Status = "Requested"
 
-	k.SetOrders(ctx, msg.SessionName, newOrder)
+	k.SetOrders(ctx, msg.SessionID, newOrder)
 
 	return &types.MsgNewOrderSingleResponse{}, nil
 }

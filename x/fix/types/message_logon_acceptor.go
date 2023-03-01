@@ -9,10 +9,10 @@ const TypeMsgLogonAcceptor = "logon_acceptor"
 
 var _ sdk.Msg = &MsgLogonAcceptor{}
 
-func NewMsgLogonAcceptor(acceptorAddress string, sessionName string, LogonAcceptor LogonAcceptor) *MsgLogonAcceptor {
+func NewMsgLogonAcceptor(acceptorAddress string, sessionID string, LogonAcceptor LogonAcceptor) *MsgLogonAcceptor {
 	return &MsgLogonAcceptor{
 		AcceptorAddress: acceptorAddress,
-		SessionName:     sessionName,
+		SessionID:     sessionID,
 		LogonAcceptor:   &LogonAcceptor,
 	}
 }

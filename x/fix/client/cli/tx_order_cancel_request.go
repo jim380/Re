@@ -12,30 +12,29 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdLogoutAcceptor() *cobra.Command {
+func CmdOrderCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logout-acceptor [sessionID] [session-name",
-		Short: "Broadcast message logout-acceptor",
-		Args:  cobra.ExactArgs(2),
+		Use:   "order-cancel-request [session-name] [OrigClOrdID] [ClOrdID]",
+		Short: "Broadcast message order-cancel-request",
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-			argSessionID := args[0]
+			argSession := args[0]
+
+			argOrigClOrdID := args[1]
+
+			argclOrdID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			argText := args[0]
-
-			sessionLogoutInitiator := types.SessionLogoutAcceptor{
-				Text: argText,
-			}
-
-			msg := types.NewMsgLogoutAcceptor(
+			msg := types.NewMsgOrderCancelRequest(
 				clientCtx.GetFromAddress().String(),
-				argSessionID,
-				sessionLogoutInitiator,
+				argSession,
+				argOrigClOrdID,
+				argclOrdID,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdNewOrderSingle() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "new-order-single [session-name] [ClOrdID] [Symbol] [Side] [OrderQty] [OrdType] [Price] [TimeInForce] [Text]",
+		Use:   "new-order-single [sessionID] [ClOrdID] [Symbol] [Side] [OrderQty] [OrdType] [Price] [TimeInForce] [Text]",
 		Short: "Broadcast message new-order-single",
 		Args:  cobra.ExactArgs(9),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -24,7 +24,7 @@ func CmdNewOrderSingle() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argSessionName := args[0]
+			argSessionID := args[0]
 
 			argClOrdID := args[1]
 
@@ -53,7 +53,7 @@ func CmdNewOrderSingle() *cobra.Command {
 
 			msg := types.NewMsgNewOrderSingle(
 				clientCtx.GetFromAddress().String(),
-				argSessionName,
+				argSessionID,
 				argClOrdID,
 				argSymbol,
 				argSide,

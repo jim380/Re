@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListOrders() *cobra.Command {
+func CmdListOrdersCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-orders",
-		Short: "list all orders",
+		Use:   "list-orders-cancel-request",
+		Short: "list all ordersCancelRequest",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,11 +23,11 @@ func CmdListOrders() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllOrdersRequest{
+			params := &types.QueryAllOrdersCancelRequestRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.OrdersAll(context.Background(), params)
+			res, err := queryClient.OrdersCancelRequestAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -42,10 +42,10 @@ func CmdListOrders() *cobra.Command {
 	return cmd
 }
 
-func CmdShowOrders() *cobra.Command {
+func CmdShowOrdersCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders [sessionID]",
-		Short: "shows a orders",
+		Use:   "show-orders-cancel-request [sessionID]",
+		Short: "shows an ordersCancelRequest",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -54,11 +54,11 @@ func CmdShowOrders() *cobra.Command {
 
 			argSessionID := args[0]
 
-			params := &types.QueryGetOrdersRequest{
+			params := &types.QueryGetOrdersCancelRequestRequest{
 				SessionID: argSessionID,
 			}
 
-			res, err := queryClient.Orders(context.Background(), params)
+			res, err := queryClient.OrdersCancelRequest(context.Background(), params)
 			if err != nil {
 				return err
 			}

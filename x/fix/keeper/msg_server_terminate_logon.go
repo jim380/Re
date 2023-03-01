@@ -13,9 +13,9 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//check if the session exits with the DID
-	session, found := k.GetSessions(ctx, msg.SessionName)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
 	if session.InitiatorAddress != msg.InitiatorAddress {
@@ -24,11 +24,11 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 
 	//check that session is not accepted yet
 	if session.Status != "logon-request" {
-		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Account: %s", msg.SessionName)
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Account: %s", msg.SessionID)
 	}
 
 	//remove session from store
-	k.RemoveSessions(ctx, msg.SessionName)
+	k.RemoveSessions(ctx, msg.SessionID)
 
 	return &types.MsgTerminateLogonResponse{}, nil
 }

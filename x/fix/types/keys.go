@@ -50,3 +50,8 @@ const (
 	OrdersKey      = "Orders/value/"
 	OrdersCountKey = "Orders/count/"
 )
+
+const (
+	OrdersCancelRequestKey      = "OrdersCancelRequest/value/"
+	OrdersCancelRequestCountKey = "OrdersCancelRequest/count/"
+)

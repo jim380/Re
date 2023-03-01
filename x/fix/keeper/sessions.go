@@ -33,17 +33,17 @@ func (k Keeper) SetSessionsCount(ctx sdk.Context, count uint64) {
 }
 
 // SetSessions set a specific sessions in the store
-func (k Keeper) SetSessions(ctx sdk.Context, sessionName string, sessions types.Sessions) {
+func (k Keeper) SetSessions(ctx sdk.Context, sessionID string, sessions types.Sessions) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessions)
 	store.Set(key, b)
 }
 
 // GetSessions returns a sessions from its id
-func (k Keeper) GetSessions(ctx sdk.Context, sessionName string) (val types.Sessions, found bool) {
+func (k Keeper) GetSessions(ctx sdk.Context, sessionID string) (val types.Sessions, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
 		return val, false
@@ -53,9 +53,9 @@ func (k Keeper) GetSessions(ctx sdk.Context, sessionName string) (val types.Sess
 }
 
 // RemoveSessions removes a sessions from the store
-func (k Keeper) RemoveSessions(ctx sdk.Context, sessionName string) {
+func (k Keeper) RemoveSessions(ctx sdk.Context, sessionID string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
-	store.Delete([]byte(sessionName))
+	store.Delete([]byte(sessionID))
 }
 
 // GetAllSessions returns all sessions
@@ -87,17 +87,17 @@ func GetSessionsIDFromBytes(bz []byte) uint64 {
 }
 
 // SetSessionReject set a specific sessionReject in the store
-func (k Keeper) SetSessionReject(ctx sdk.Context, sessionName string, sessionReject types.SessionReject) {
+func (k Keeper) SetSessionReject(ctx sdk.Context, sessionID string, sessionReject types.SessionReject) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessionReject)
 	store.Set(key, b)
 }
 
 // GetSessionReject returns a sessionReject from its sessionName
-func (k Keeper) GetSessionReject(ctx sdk.Context, sessionName string) (val types.SessionReject, found bool) {
+func (k Keeper) GetSessionReject(ctx sdk.Context, sessionID string) (val types.SessionReject, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
 		return val, false
@@ -107,17 +107,17 @@ func (k Keeper) GetSessionReject(ctx sdk.Context, sessionName string) (val types
 }
 
 // SetSessionLogout set a specific sessionLogout in the store
-func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionName string, sessionLogout types.SessionLogout) {
+func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionID string, sessionLogout types.SessionLogout) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessionLogout)
 	store.Set(key, b)
 }
 
 // GetSessionLogout returns a sessionLogout from its session name
-func (k Keeper) GetSessionLogout(ctx sdk.Context, sessionName string) (val types.SessionLogout, found bool) {
+func (k Keeper) GetSessionLogout(ctx sdk.Context, sessionID string) (val types.SessionLogout, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
-	key := []byte(sessionName)
+	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
 		return val, false

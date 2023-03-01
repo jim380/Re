@@ -364,7 +364,7 @@ func (m *MsgDeleteAccountResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgDeleteAccountResponse proto.InternalMessageInfo
 
 type MsgLogonInitiator struct {
-	SessionName      string          `protobuf:"bytes,1,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID        string          `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	LogonInitiator   *LogonInitiator `protobuf:"bytes,2,opt,name=logonInitiator,proto3" json:"logonInitiator,omitempty"`
 	Status           string          `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
 	IsAccepted       bool            `protobuf:"varint,4,opt,name=IsAccepted,proto3" json:"IsAccepted,omitempty"`
@@ -404,9 +404,9 @@ func (m *MsgLogonInitiator) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgLogonInitiator proto.InternalMessageInfo
 
-func (m *MsgLogonInitiator) GetSessionName() string {
+func (m *MsgLogonInitiator) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -476,7 +476,7 @@ func (m *MsgLogonInitiatorResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgLogonInitiatorResponse proto.InternalMessageInfo
 
 type MsgLogonAcceptor struct {
-	SessionName     string         `protobuf:"bytes,1,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID       string         `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	LogonAcceptor   *LogonAcceptor `protobuf:"bytes,2,opt,name=logonAcceptor,proto3" json:"logonAcceptor,omitempty"`
 	Status          string         `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
 	IsAccepted      bool           `protobuf:"varint,4,opt,name=IsAccepted,proto3" json:"IsAccepted,omitempty"`
@@ -516,9 +516,9 @@ func (m *MsgLogonAcceptor) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgLogonAcceptor proto.InternalMessageInfo
 
-func (m *MsgLogonAcceptor) GetSessionName() string {
+func (m *MsgLogonAcceptor) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -589,7 +589,7 @@ var xxx_messageInfo_MsgLogonAcceptorResponse proto.InternalMessageInfo
 
 type MsgTerminateLogon struct {
 	InitiatorAddress string `protobuf:"bytes,1,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
-	SessionName      string `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID        string `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	Did              string `protobuf:"bytes,3,opt,name=did,proto3" json:"did,omitempty"`
 }
 
@@ -633,9 +633,9 @@ func (m *MsgTerminateLogon) GetInitiatorAddress() string {
 	return ""
 }
 
-func (m *MsgTerminateLogon) GetSessionName() string {
+func (m *MsgTerminateLogon) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -685,7 +685,7 @@ var xxx_messageInfo_MsgTerminateLogonResponse proto.InternalMessageInfo
 
 type MsgLogonReject struct {
 	AcceptorAddress string   `protobuf:"bytes,1,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
-	SessionName     string   `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID       string   `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	Header          *Header  `protobuf:"bytes,3,opt,name=header,proto3" json:"header,omitempty"`
 	Text            string   `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
 	Trailer         *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
@@ -731,9 +731,9 @@ func (m *MsgLogonReject) GetAcceptorAddress() string {
 	return ""
 }
 
-func (m *MsgLogonReject) GetSessionName() string {
+func (m *MsgLogonReject) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -797,7 +797,7 @@ var xxx_messageInfo_MsgLogonRejectResponse proto.InternalMessageInfo
 
 type MsgLogoutInitiator struct {
 	InitiatorAddress       string                  `protobuf:"bytes,1,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
-	SessionName            string                  `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID              string                  `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	SessionLogoutInitiator *SessionLogoutInitiator `protobuf:"bytes,3,opt,name=sessionLogoutInitiator,proto3" json:"sessionLogoutInitiator,omitempty"`
 }
 
@@ -841,9 +841,9 @@ func (m *MsgLogoutInitiator) GetInitiatorAddress() string {
 	return ""
 }
 
-func (m *MsgLogoutInitiator) GetSessionName() string {
+func (m *MsgLogoutInitiator) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -893,7 +893,7 @@ var xxx_messageInfo_MsgLogoutInitiatorResponse proto.InternalMessageInfo
 
 type MsgLogoutAcceptor struct {
 	AcceptorAddress       string                 `protobuf:"bytes,1,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
-	SessionName           string                 `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID             string                 `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	SessionLogoutAcceptor *SessionLogoutAcceptor `protobuf:"bytes,3,opt,name=sessionLogoutAcceptor,proto3" json:"sessionLogoutAcceptor,omitempty"`
 }
 
@@ -937,9 +937,9 @@ func (m *MsgLogoutAcceptor) GetAcceptorAddress() string {
 	return ""
 }
 
-func (m *MsgLogoutAcceptor) GetSessionName() string {
+func (m *MsgLogoutAcceptor) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -989,7 +989,7 @@ var xxx_messageInfo_MsgLogoutAcceptorResponse proto.InternalMessageInfo
 
 type MsgNewOrderSingle struct {
 	Creator      string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	SessionName  string   `protobuf:"bytes,2,opt,name=sessionName,proto3" json:"sessionName,omitempty"`
+	SessionID    string   `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	Header       *Header  `protobuf:"bytes,3,opt,name=header,proto3" json:"header,omitempty"`
 	ClOrdID      string   `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
 	Symbol       string   `protobuf:"bytes,5,opt,name=symbol,proto3" json:"symbol,omitempty"`
@@ -1044,9 +1044,9 @@ func (m *MsgNewOrderSingle) GetCreator() string {
 	return ""
 }
 
-func (m *MsgNewOrderSingle) GetSessionName() string {
+func (m *MsgNewOrderSingle) GetSessionID() string {
 	if m != nil {
-		return m.SessionName
+		return m.SessionID
 	}
 	return ""
 }
@@ -1171,6 +1171,126 @@ func (m *MsgNewOrderSingleResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgNewOrderSingleResponse proto.InternalMessageInfo
 
+type MsgOrderCancelRequest struct {
+	SessionID   string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	Header      *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	OrigClOrdID string   `protobuf:"bytes,3,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
+	ClOrdID     string   `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
+	Trailer     *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator     string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+}
+
+func (m *MsgOrderCancelRequest) Reset()         { *m = MsgOrderCancelRequest{} }
+func (m *MsgOrderCancelRequest) String() string { return proto.CompactTextString(m) }
+func (*MsgOrderCancelRequest) ProtoMessage()    {}
+func (*MsgOrderCancelRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{20}
+}
+func (m *MsgOrderCancelRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgOrderCancelRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgOrderCancelRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgOrderCancelRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgOrderCancelRequest.Merge(m, src)
+}
+func (m *MsgOrderCancelRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgOrderCancelRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgOrderCancelRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgOrderCancelRequest proto.InternalMessageInfo
+
+func (m *MsgOrderCancelRequest) GetSessionID() string {
+	if m != nil {
+		return m.SessionID
+	}
+	return ""
+}
+
+func (m *MsgOrderCancelRequest) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *MsgOrderCancelRequest) GetOrigClOrdID() string {
+	if m != nil {
+		return m.OrigClOrdID
+	}
+	return ""
+}
+
+func (m *MsgOrderCancelRequest) GetClOrdID() string {
+	if m != nil {
+		return m.ClOrdID
+	}
+	return ""
+}
+
+func (m *MsgOrderCancelRequest) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+func (m *MsgOrderCancelRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+type MsgOrderCancelRequestResponse struct {
+}
+
+func (m *MsgOrderCancelRequestResponse) Reset()         { *m = MsgOrderCancelRequestResponse{} }
+func (m *MsgOrderCancelRequestResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgOrderCancelRequestResponse) ProtoMessage()    {}
+func (*MsgOrderCancelRequestResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{21}
+}
+func (m *MsgOrderCancelRequestResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgOrderCancelRequestResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgOrderCancelRequestResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgOrderCancelRequestResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgOrderCancelRequestResponse.Merge(m, src)
+}
+func (m *MsgOrderCancelRequestResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgOrderCancelRequestResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgOrderCancelRequestResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgOrderCancelRequestResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateAccount)(nil), "jim380.re.fix.MsgCreateAccount")
 	proto.RegisterType((*MsgCreateAccountResponse)(nil), "jim380.re.fix.MsgCreateAccountResponse")
@@ -1192,74 +1312,81 @@ func init() {
 	proto.RegisterType((*MsgLogoutAcceptorResponse)(nil), "jim380.re.fix.MsgLogoutAcceptorResponse")
 	proto.RegisterType((*MsgNewOrderSingle)(nil), "jim380.re.fix.MsgNewOrderSingle")
 	proto.RegisterType((*MsgNewOrderSingleResponse)(nil), "jim380.re.fix.MsgNewOrderSingleResponse")
+	proto.RegisterType((*MsgOrderCancelRequest)(nil), "jim380.re.fix.MsgOrderCancelRequest")
+	proto.RegisterType((*MsgOrderCancelRequestResponse)(nil), "jim380.re.fix.MsgOrderCancelRequestResponse")
 }
 
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 983 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0xcd, 0x6e, 0xdb, 0x46,
-	0x10, 0x36, 0xa3, 0xf8, 0x6f, 0x14, 0xd9, 0xee, 0x22, 0x36, 0x58, 0xc6, 0x56, 0x54, 0xa1, 0x41,
-	0xd5, 0xa2, 0x95, 0x02, 0xe7, 0x52, 0xf4, 0x50, 0xc0, 0x69, 0x5a, 0xd4, 0x40, 0x9c, 0xa0, 0xb4,
-	0x7b, 0x48, 0xd0, 0xc2, 0xa0, 0xc9, 0x89, 0xb2, 0x29, 0xc9, 0x15, 0x76, 0x57, 0x88, 0xf4, 0x16,
-	0x7d, 0x83, 0xbe, 0x44, 0x6f, 0x3d, 0x15, 0xe8, 0xa1, 0xc7, 0xf4, 0x56, 0xf4, 0x14, 0xd8, 0x2f,
-	0x52, 0x70, 0xb9, 0xa4, 0xb9, 0xd4, 0xda, 0x32, 0x02, 0x5f, 0x72, 0xe3, 0xce, 0x7c, 0xf3, 0xed,
-	0x7c, 0x33, 0xfb, 0x47, 0x58, 0xe7, 0x38, 0x78, 0x41, 0x27, 0x03, 0x39, 0xe9, 0x8f, 0x38, 0x93,
-	0x8c, 0xb4, 0x5e, 0xd1, 0xe4, 0xc1, 0x97, 0xf7, 0xfb, 0x1c, 0xfb, 0x2f, 0xe8, 0xc4, 0xbb, 0xad,
-	0xfd, 0x41, 0x18, 0xb2, 0x71, 0x2a, 0x73, 0x90, 0xb7, 0xa9, 0xad, 0x02, 0x85, 0xa0, 0x2c, 0x15,
-	0xda, 0xbc, 0x53, 0x98, 0x65, 0x90, 0x46, 0x01, 0x8f, 0x8e, 0x13, 0x14, 0x22, 0x18, 0xa2, 0x76,
-	0xdf, 0x31, 0xa3, 0x8e, 0x63, 0x36, 0x64, 0x63, 0x4d, 0xd9, 0xfd, 0xcb, 0x81, 0x8d, 0x03, 0x31,
-	0xfc, 0x86, 0x63, 0x20, 0x71, 0x2f, 0x9f, 0x8d, 0xb8, 0xb0, 0x1c, 0x66, 0x06, 0xc6, 0x5d, 0xa7,
-	0xe3, 0xf4, 0x56, 0xfd, 0x62, 0x48, 0x36, 0xa0, 0x11, 0xd1, 0xc8, 0xbd, 0xa1, 0xac, 0xd9, 0x27,
-	0xe9, 0x40, 0x33, 0x64, 0xc9, 0x28, 0x48, 0xa7, 0x4f, 0x82, 0x04, 0xdd, 0x86, 0xf2, 0x54, 0x4d,
-	0x19, 0xdb, 0x6b, 0x3c, 0x11, 0x54, 0xa2, 0x7b, 0x33, 0x67, 0xd3, 0x43, 0xf2, 0x19, 0x6c, 0x08,
-	0x16, 0xd2, 0x20, 0x3e, 0xc0, 0x88, 0x06, 0x8f, 0x69, 0xfa, 0x8b, 0x70, 0x17, 0x15, 0x64, 0xc6,
-	0x4e, 0xb6, 0x61, 0x55, 0x25, 0x81, 0xd1, 0x9e, 0x74, 0x97, 0x3a, 0x4e, 0x6f, 0xd1, 0x3f, 0x37,
-	0x74, 0x3f, 0x07, 0xb7, 0xae, 0xc2, 0x47, 0x31, 0x62, 0xa9, 0xc0, 0x22, 0x67, 0xa7, 0xcc, 0xb9,
-	0x10, 0xfd, 0xe3, 0x28, 0x7a, 0xaf, 0x45, 0x7b, 0x4a, 0xb4, 0xa1, 0xa2, 0x10, 0xdd, 0xfd, 0x5a,
-	0x29, 0x7c, 0x84, 0x31, 0xbe, 0x93, 0x42, 0xcd, 0x6d, 0xc4, 0x97, 0xdc, 0x6f, 0x1d, 0xf8, 0xe0,
-	0x40, 0x0c, 0x1f, 0xb3, 0x21, 0x4b, 0xf7, 0x53, 0x2a, 0xa9, 0xe2, 0xe8, 0x40, 0x53, 0xaf, 0x30,
-	0x55, 0x93, 0x7c, 0x86, 0xaa, 0x89, 0x7c, 0x0b, 0x6b, 0xb1, 0x11, 0xa3, 0x26, 0x6c, 0xee, 0xee,
-	0xf4, 0x8d, 0xc5, 0xdf, 0x37, 0x89, 0xfd, 0x5a, 0x10, 0xd9, 0x82, 0x25, 0x21, 0x03, 0x39, 0x16,
-	0xba, 0xee, 0x7a, 0x44, 0xda, 0x00, 0xfb, 0x62, 0x2f, 0x0c, 0x71, 0x24, 0x31, 0x52, 0x55, 0x5f,
-	0xf1, 0x2b, 0x96, 0xac, 0xf0, 0xb4, 0x20, 0xd9, 0x8b, 0x22, 0x8e, 0xa2, 0x2c, 0x7c, 0xdd, 0xde,
-	0xbd, 0x03, 0x1f, 0xce, 0x28, 0x2c, 0xf5, 0xff, 0x97, 0x2f, 0x1f, 0xe5, 0xcd, 0xd9, 0xaf, 0x24,
-	0xff, 0x21, 0xb4, 0xe2, 0x6a, 0x88, 0x56, 0xbf, 0x6d, 0x53, 0x5f, 0x60, 0x7c, 0x33, 0xe4, 0x9d,
-	0xb5, 0xf7, 0x60, 0x3d, 0xd0, 0x1c, 0xa6, 0xf4, 0xba, 0x59, 0x37, 0xde, 0x4c, 0xa2, 0x10, 0x2e,
-	0x54, 0xdf, 0x8f, 0x90, 0x27, 0x34, 0x0d, 0x24, 0x2a, 0x90, 0xb5, 0xac, 0x8e, 0xbd, 0xac, 0xf5,
-	0x22, 0xdd, 0x98, 0x2d, 0x92, 0x5e, 0x89, 0x8d, 0xf3, 0x95, 0x98, 0xb7, 0xc2, 0x9c, 0xb4, 0xcc,
-	0xe8, 0x1f, 0x07, 0xd6, 0x8a, 0x74, 0x7d, 0x7c, 0x85, 0xa1, 0xb4, 0x49, 0x75, 0xac, 0x52, 0xaf,
-	0x90, 0xcd, 0x17, 0xb0, 0xf4, 0x12, 0x83, 0x08, 0xb9, 0x4a, 0xa8, 0xb9, 0xbb, 0x59, 0xeb, 0xd5,
-	0xf7, 0xca, 0xe9, 0x6b, 0x10, 0x21, 0x70, 0x53, 0xe2, 0x44, 0xea, 0x1d, 0xaf, 0xbe, 0xc9, 0x7d,
-	0x58, 0x96, 0x3c, 0xa0, 0x31, 0x72, 0x55, 0xf1, 0xe6, 0xee, 0x56, 0x8d, 0xe3, 0x28, 0xf7, 0xfa,
-	0x05, 0xac, 0xeb, 0xc2, 0x96, 0x29, 0xa9, 0x54, 0xfb, 0xa7, 0x03, 0x44, 0xbb, 0xc6, 0xf2, 0x7c,
-	0x43, 0x5c, 0x6f, 0x07, 0x7e, 0x86, 0x2d, 0x3d, 0xac, 0xcd, 0xa3, 0x6b, 0x70, 0xaf, 0x96, 0xff,
-	0xa1, 0x15, 0xec, 0x5f, 0x40, 0xd2, 0xdd, 0x06, 0x6f, 0x56, 0x42, 0xa9, 0xf0, 0x8f, 0xf3, 0xa3,
-	0x65, 0x2c, 0xcb, 0x55, 0x7f, 0x9d, 0x2d, 0x7d, 0x0e, 0x9b, 0x46, 0x66, 0xe5, 0x6e, 0xcc, 0xd5,
-	0x7d, 0x7c, 0x99, 0xba, 0x72, 0x43, 0xd8, 0x29, 0x2a, 0xa7, 0x46, 0x05, 0x5b, 0x48, 0xfb, 0xbd,
-	0xa1, 0xa4, 0x3d, 0xc1, 0xd7, 0x4f, 0x79, 0x84, 0xfc, 0x90, 0xa6, 0xc3, 0x18, 0x2f, 0x39, 0x93,
-	0xaf, 0x7d, 0x75, 0x66, 0x53, 0xc5, 0x4f, 0x79, 0xb4, 0xff, 0xa8, 0xb8, 0x92, 0xf4, 0x50, 0x9d,
-	0x2a, 0xd3, 0xe4, 0x84, 0xc5, 0xfa, 0x50, 0xd0, 0xa3, 0x6c, 0x3d, 0x0b, 0x1a, 0xa1, 0xba, 0x79,
-	0x1a, 0xbe, 0xfa, 0x26, 0x1e, 0xac, 0xb0, 0x2c, 0xff, 0x1f, 0xe4, 0xd4, 0x5d, 0x56, 0xe8, 0x72,
-	0x9c, 0xcd, 0xc0, 0x78, 0x74, 0x34, 0x1d, 0xa1, 0xbb, 0xa2, 0x42, 0x8a, 0x21, 0xb9, 0x0d, 0x8b,
-	0x23, 0x4e, 0x43, 0x74, 0x57, 0x55, 0x48, 0x3e, 0xc8, 0x24, 0x4a, 0x9a, 0xe0, 0x7e, 0xfa, 0x1d,
-	0xe3, 0x21, 0xba, 0xa0, 0x62, 0xaa, 0xa6, 0x72, 0x47, 0x35, 0x2b, 0x3b, 0xaa, 0x0b, 0xb7, 0x24,
-	0x0f, 0x52, 0x11, 0x84, 0xf2, 0x88, 0x26, 0xe8, 0xde, 0x52, 0x3e, 0xc3, 0x56, 0xdd, 0x75, 0xad,
-	0x2b, 0xed, 0xba, 0xca, 0xc9, 0xba, 0x56, 0x3d, 0x59, 0x75, 0x4f, 0xcd, 0xae, 0x15, 0x3d, 0xdd,
-	0xfd, 0x6d, 0x19, 0x1a, 0x07, 0x62, 0x48, 0x9e, 0x41, 0xcb, 0x7c, 0x41, 0xdd, 0xad, 0x4d, 0x57,
-	0x7f, 0x9c, 0x78, 0x9f, 0xcc, 0x01, 0x94, 0xaf, 0x97, 0x67, 0xd0, 0x32, 0xdf, 0x29, 0x16, 0x6a,
-	0x03, 0x60, 0xa3, 0xb6, 0xbe, 0x11, 0x32, 0x6a, 0xf3, 0x81, 0x60, 0xa1, 0x36, 0x00, 0x36, 0x6a,
-	0xeb, 0x13, 0x81, 0xfc, 0x04, 0x6b, 0xf5, 0xe7, 0xc1, 0x6c, 0xa8, 0x89, 0xf0, 0x7a, 0xf3, 0x10,
-	0xd5, 0xc4, 0xcd, 0xcb, 0xf7, 0xee, 0x05, 0xa1, 0x05, 0xc0, 0x96, 0xb8, 0xf5, 0x8a, 0xcb, 0x12,
-	0xaf, 0xdd, 0x6f, 0x96, 0xc4, 0x4d, 0x84, 0x2d, 0x71, 0xfb, 0x75, 0x45, 0x0e, 0xa1, 0x59, 0xbd,
-	0xaa, 0x76, 0x2e, 0xc8, 0x2a, 0x77, 0x7b, 0xf7, 0x2e, 0x75, 0x97, 0xa4, 0xc7, 0xb0, 0x5e, 0xbf,
-	0x11, 0x3e, 0xb2, 0x47, 0x56, 0x20, 0xde, 0xa7, 0x73, 0x21, 0xf5, 0x66, 0x56, 0x0e, 0xe4, 0xce,
-	0x45, 0xc1, 0x65, 0xc1, 0x7b, 0xf3, 0x10, 0x55, 0xf6, 0xda, 0x99, 0x68, 0x61, 0x37, 0x11, 0x36,
-	0x76, 0xfb, 0x0e, 0x7d, 0xf8, 0xd5, 0xdf, 0xa7, 0x6d, 0xe7, 0xcd, 0x69, 0xdb, 0x79, 0x7b, 0xda,
-	0x76, 0x7e, 0x3d, 0x6b, 0x2f, 0xbc, 0x39, 0x6b, 0x2f, 0xfc, 0x7b, 0xd6, 0x5e, 0x78, 0xde, 0x19,
-	0x52, 0xf9, 0x72, 0x7c, 0xd2, 0x0f, 0x59, 0x32, 0xc8, 0xd9, 0x06, 0x3e, 0x0e, 0x26, 0xf9, 0x6f,
-	0xd9, 0x74, 0x84, 0xe2, 0x64, 0x49, 0xfd, 0x22, 0x3d, 0xf8, 0x3f, 0x00, 0x00, 0xff, 0xff, 0x05,
-	0x7b, 0xf8, 0xa8, 0xad, 0x0d, 0x00, 0x00,
+	// 1063 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0x31, 0x6f, 0xdb, 0x46,
+	0x14, 0x36, 0xad, 0x58, 0xb6, 0x9f, 0x22, 0xdb, 0x3d, 0xc4, 0x06, 0xcb, 0xd8, 0xb2, 0x2a, 0x24,
+	0xa8, 0x5a, 0xa4, 0x52, 0xe0, 0x2c, 0x45, 0x87, 0x02, 0x8e, 0xdd, 0xa2, 0x02, 0xa2, 0x04, 0xa5,
+	0xdd, 0x21, 0x41, 0x0b, 0x83, 0x26, 0x5f, 0xe8, 0x4b, 0x29, 0x52, 0xe5, 0x9d, 0x10, 0xe9, 0x27,
+	0x74, 0xeb, 0x4f, 0xe9, 0xd6, 0xa9, 0x5b, 0x87, 0x2e, 0x05, 0x32, 0x15, 0x1d, 0x3a, 0x14, 0xf6,
+	0xda, 0x1f, 0x51, 0xf0, 0x78, 0xa4, 0x78, 0xd4, 0xd9, 0x72, 0x03, 0x2f, 0xd9, 0x78, 0xef, 0xbe,
+	0xf7, 0xdd, 0xfb, 0xde, 0xbb, 0x7b, 0x77, 0x84, 0xf5, 0x18, 0xbb, 0x2f, 0xe9, 0xb8, 0xcb, 0xc7,
+	0x9d, 0x61, 0x1c, 0xf1, 0x88, 0xd4, 0x5f, 0xd1, 0xc1, 0xa3, 0x4f, 0x1f, 0x76, 0x62, 0xec, 0xbc,
+	0xa4, 0x63, 0xeb, 0x8e, 0x9c, 0x77, 0x5c, 0x37, 0x1a, 0x85, 0x3c, 0x05, 0x59, 0x9b, 0xd2, 0xca,
+	0x90, 0x31, 0x1a, 0x85, 0x4c, 0x9a, 0x77, 0x32, 0x33, 0x77, 0x42, 0xcf, 0x89, 0xbd, 0x93, 0x01,
+	0x32, 0xe6, 0xf8, 0x28, 0xa7, 0xef, 0xaa, 0x5e, 0x27, 0x41, 0xe4, 0x47, 0x23, 0x49, 0xd9, 0xfa,
+	0xcd, 0x80, 0x8d, 0x3e, 0xf3, 0x0f, 0x62, 0x74, 0x38, 0xee, 0xa7, 0xab, 0x11, 0x13, 0x96, 0xdd,
+	0xc4, 0x10, 0xc5, 0xa6, 0xd1, 0x34, 0xda, 0xab, 0x76, 0x36, 0x24, 0x1b, 0x50, 0xf1, 0xa8, 0x67,
+	0x2e, 0x0a, 0x6b, 0xf2, 0x49, 0x9a, 0x50, 0x73, 0xa3, 0xc1, 0xd0, 0x09, 0x27, 0x4f, 0x9d, 0x01,
+	0x9a, 0x15, 0x31, 0x53, 0x34, 0x25, 0x6c, 0xaf, 0xf1, 0x94, 0x51, 0x8e, 0xe6, 0xad, 0x94, 0x4d,
+	0x0e, 0xc9, 0xc7, 0xb0, 0xc1, 0x22, 0x97, 0x3a, 0x41, 0x1f, 0x3d, 0xea, 0x3c, 0xa1, 0xe1, 0xf7,
+	0xcc, 0x5c, 0x12, 0x90, 0x19, 0x3b, 0xd9, 0x86, 0x55, 0x11, 0x04, 0x7a, 0xfb, 0xdc, 0xac, 0x36,
+	0x8d, 0xf6, 0x92, 0x3d, 0x35, 0xb4, 0x1e, 0x80, 0x59, 0x56, 0x61, 0x23, 0x1b, 0x46, 0x21, 0xc3,
+	0x2c, 0x66, 0x23, 0x8f, 0x39, 0x13, 0xfd, 0xcd, 0xd0, 0x7b, 0xa7, 0x45, 0x5b, 0x42, 0xb4, 0xa2,
+	0x22, 0x13, 0xdd, 0xfa, 0x5c, 0x28, 0x3c, 0xc4, 0x00, 0xdf, 0x4a, 0xa1, 0xe4, 0x56, 0xfc, 0x73,
+	0xee, 0xbf, 0x0d, 0x78, 0xaf, 0xcf, 0xfc, 0x27, 0x91, 0x1f, 0x85, 0xbd, 0x90, 0x72, 0x2a, 0x38,
+	0xb6, 0x61, 0x55, 0xee, 0xb0, 0xde, 0xa1, 0xe4, 0x9f, 0x1a, 0xc8, 0x17, 0xb0, 0x16, 0x28, 0x78,
+	0xb1, 0x58, 0x6d, 0x6f, 0xa7, 0xa3, 0x6c, 0xfc, 0x8e, 0x4a, 0x6a, 0x97, 0x9c, 0xc8, 0x16, 0x54,
+	0x19, 0x77, 0xf8, 0x88, 0xc9, 0x9c, 0xcb, 0x11, 0x69, 0x00, 0xf4, 0xd8, 0xbe, 0xeb, 0xe2, 0x90,
+	0xa3, 0x27, 0x32, 0xbe, 0x62, 0x17, 0x2c, 0x49, 0xd2, 0x69, 0x46, 0xb2, 0xef, 0x79, 0x31, 0xb2,
+	0x3c, 0xe9, 0x65, 0x7b, 0xeb, 0x2e, 0xbc, 0x3f, 0xa3, 0x2e, 0xd7, 0xfe, 0x67, 0xba, 0x75, 0xc4,
+	0x6c, 0xca, 0x3e, 0x57, 0xfa, 0x63, 0xa8, 0x07, 0x45, 0xb8, 0x54, 0xbe, 0xad, 0x53, 0x9e, 0x61,
+	0x6c, 0xd5, 0xe5, 0xad, 0x75, 0xb7, 0x61, 0xdd, 0x91, 0x1c, 0xaa, 0xec, 0xb2, 0x59, 0x16, 0x5c,
+	0x0d, 0x22, 0x13, 0x1d, 0x89, 0x7a, 0x1f, 0x63, 0x3c, 0xa0, 0xa1, 0xc3, 0x51, 0x80, 0xb4, 0x29,
+	0x35, 0xf4, 0x29, 0x55, 0x13, 0xb4, 0x58, 0x4e, 0x90, 0xdc, 0x7d, 0x95, 0xe9, 0xee, 0x4b, 0x4b,
+	0xa0, 0x2e, 0x98, 0x47, 0xf3, 0x87, 0x01, 0x6b, 0x59, 0xa8, 0x36, 0xbe, 0x42, 0x97, 0xeb, 0x64,
+	0x1a, 0x5a, 0x99, 0x73, 0x22, 0xf9, 0x04, 0xaa, 0x67, 0xe8, 0x78, 0x18, 0x8b, 0x60, 0x6a, 0x7b,
+	0x9b, 0xa5, 0x1a, 0x7d, 0x25, 0x26, 0x6d, 0x09, 0x22, 0x04, 0x6e, 0x71, 0x1c, 0x73, 0x79, 0xc2,
+	0xc5, 0x37, 0x79, 0x08, 0xcb, 0x3c, 0x76, 0x68, 0x80, 0xb1, 0xc8, 0x74, 0x6d, 0x6f, 0xab, 0xc4,
+	0x71, 0x9c, 0xce, 0xda, 0x19, 0xac, 0x65, 0xc2, 0x96, 0x2a, 0x27, 0x57, 0xfa, 0xab, 0x01, 0x44,
+	0x4e, 0x8d, 0xf8, 0xf4, 0x10, 0xdc, 0x5c, 0xe6, 0xbf, 0x83, 0x2d, 0x39, 0x28, 0xad, 0x21, 0xf5,
+	0xdf, 0x2f, 0xc5, 0x7e, 0xa4, 0x05, 0xdb, 0x97, 0x90, 0xb4, 0xb6, 0xc1, 0x9a, 0x0d, 0x3f, 0x57,
+	0xf7, 0xcb, 0xb4, 0x8d, 0x8c, 0x78, 0xbe, 0xd3, 0x6f, 0xaa, 0x94, 0x2f, 0x60, 0x53, 0x89, 0x2a,
+	0x3f, 0x7d, 0xa9, 0xb2, 0x7b, 0x57, 0x29, 0xcb, 0x0f, 0x80, 0x9e, 0xa2, 0xd0, 0x21, 0x0a, 0xd8,
+	0x4c, 0xd6, 0xcf, 0x15, 0x21, 0xeb, 0x29, 0xbe, 0x7e, 0x16, 0x7b, 0x18, 0x1f, 0xd1, 0xd0, 0x0f,
+	0xf0, 0x8a, 0xde, 0x7b, 0xa3, 0x3b, 0x32, 0x59, 0x26, 0x78, 0x16, 0x7b, 0xbd, 0xc3, 0xec, 0xda,
+	0x91, 0x43, 0xd1, 0x41, 0x26, 0x83, 0xd3, 0x28, 0x90, 0x0d, 0x40, 0x8e, 0x92, 0x3d, 0xcc, 0xa8,
+	0x87, 0xe2, 0x76, 0xa9, 0xd8, 0xe2, 0x9b, 0x58, 0xb0, 0x12, 0x25, 0xb1, 0x7f, 0xcd, 0x27, 0xe6,
+	0xb2, 0x40, 0xe7, 0xe3, 0x64, 0x85, 0x28, 0xf6, 0x8e, 0x27, 0x43, 0x34, 0x57, 0x84, 0x4b, 0x36,
+	0x24, 0x77, 0x60, 0x69, 0x18, 0x53, 0x17, 0xcd, 0x55, 0xe1, 0x92, 0x0e, 0x92, 0xab, 0x92, 0xd3,
+	0x01, 0xf6, 0xc2, 0x2f, 0xa3, 0xd8, 0x45, 0x13, 0x84, 0x4f, 0xd1, 0x94, 0x9f, 0xa2, 0x5a, 0xe1,
+	0x14, 0xb5, 0xe0, 0x36, 0x8f, 0x9d, 0x90, 0x39, 0x2e, 0x3f, 0xa6, 0x03, 0x34, 0x6f, 0x8b, 0x39,
+	0xc5, 0x56, 0x3c, 0x69, 0xf5, 0x6b, 0x9d, 0xb4, 0x42, 0x17, 0x5d, 0x2b, 0x76, 0x51, 0x59, 0x4f,
+	0xb5, 0x62, 0x79, 0x3d, 0xff, 0x35, 0x60, 0xb3, 0xcf, 0x7c, 0x31, 0x75, 0xe0, 0x84, 0x2e, 0x06,
+	0x36, 0xfe, 0x30, 0x42, 0xc6, 0xe7, 0xb4, 0xfd, 0x69, 0xe5, 0x16, 0xaf, 0x53, 0xb9, 0x26, 0xd4,
+	0xa2, 0x98, 0xfa, 0x07, 0xb2, 0x7a, 0xf2, 0x49, 0x51, 0x30, 0x5d, 0x51, 0xdb, 0xff, 0xdd, 0x73,
+	0x8a, 0xdb, 0xb1, 0xaa, 0x6c, 0xc7, 0xd6, 0x2e, 0xec, 0x68, 0xd5, 0x66, 0xf9, 0xd8, 0xfb, 0x71,
+	0x05, 0x2a, 0x7d, 0xe6, 0x93, 0xe7, 0x50, 0x57, 0x5f, 0x8d, 0xbb, 0xa5, 0x45, 0xcb, 0x0f, 0x32,
+	0xeb, 0xc3, 0x39, 0x80, 0xfc, 0xc5, 0xf6, 0x1c, 0xea, 0xea, 0xdb, 0x4c, 0x43, 0xad, 0x00, 0x74,
+	0xd4, 0xda, 0x77, 0x51, 0x42, 0xad, 0x3e, 0x8a, 0x34, 0xd4, 0x0a, 0x40, 0x47, 0xad, 0x7d, 0x16,
+	0x91, 0x6f, 0x61, 0xad, 0xf4, 0x24, 0x6a, 0xce, 0xba, 0xaa, 0x08, 0xab, 0x3d, 0x0f, 0x51, 0x0c,
+	0x5c, 0x7d, 0x74, 0xec, 0x5e, 0xe2, 0x9a, 0x01, 0x74, 0x81, 0x6b, 0xaf, 0xf7, 0x24, 0xf0, 0xd2,
+	0xdd, 0xae, 0x09, 0x5c, 0x45, 0xe8, 0x02, 0xd7, 0x5f, 0xd7, 0xe4, 0x08, 0x6a, 0xc5, 0xab, 0x7a,
+	0xe7, 0x92, 0xa8, 0xd2, 0x69, 0xeb, 0xfe, 0x95, 0xd3, 0x39, 0xe9, 0x09, 0xac, 0x97, 0x6f, 0xc5,
+	0x0f, 0xf4, 0x9e, 0x05, 0x88, 0xf5, 0xd1, 0x5c, 0x48, 0xb9, 0x98, 0x85, 0x8b, 0xa9, 0x79, 0x99,
+	0x73, 0x9e, 0xf0, 0xf6, 0x3c, 0x44, 0x91, 0xbd, 0x74, 0x3f, 0x68, 0xd8, 0x55, 0x84, 0x8e, 0x5d,
+	0xdf, 0xb1, 0xc8, 0x19, 0x10, 0x4d, 0xb7, 0xba, 0x37, 0xeb, 0x3f, 0x8b, 0xb2, 0x1e, 0x5c, 0x07,
+	0x95, 0xad, 0xf4, 0xf8, 0xb3, 0xdf, 0xcf, 0x1b, 0xc6, 0x9b, 0xf3, 0x86, 0xf1, 0xcf, 0x79, 0xc3,
+	0xf8, 0xe9, 0xa2, 0xb1, 0xf0, 0xe6, 0xa2, 0xb1, 0xf0, 0xd7, 0x45, 0x63, 0xe1, 0x45, 0xd3, 0xa7,
+	0xfc, 0x6c, 0x74, 0xda, 0x71, 0xa3, 0x41, 0x37, 0x65, 0xec, 0xda, 0xd8, 0x1d, 0xa7, 0x3f, 0xbd,
+	0x93, 0x21, 0xb2, 0xd3, 0xaa, 0xf8, 0x01, 0x7d, 0xf4, 0x5f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x30,
+	0xe4, 0x27, 0x61, 0x0b, 0x0f, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1284,6 +1411,7 @@ type MsgClient interface {
 	LogoutInitiator(ctx context.Context, in *MsgLogoutInitiator, opts ...grpc.CallOption) (*MsgLogoutInitiatorResponse, error)
 	LogoutAcceptor(ctx context.Context, in *MsgLogoutAcceptor, opts ...grpc.CallOption) (*MsgLogoutAcceptorResponse, error)
 	NewOrderSingle(ctx context.Context, in *MsgNewOrderSingle, opts ...grpc.CallOption) (*MsgNewOrderSingleResponse, error)
+	OrderCancelRequest(ctx context.Context, in *MsgOrderCancelRequest, opts ...grpc.CallOption) (*MsgOrderCancelRequestResponse, error)
 }
 
 type msgClient struct {
@@ -1384,6 +1512,15 @@ func (c *msgClient) NewOrderSingle(ctx context.Context, in *MsgNewOrderSingle, o
 	return out, nil
 }
 
+func (c *msgClient) OrderCancelRequest(ctx context.Context, in *MsgOrderCancelRequest, opts ...grpc.CallOption) (*MsgOrderCancelRequestResponse, error) {
+	out := new(MsgOrderCancelRequestResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/OrderCancelRequest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateAccount(context.Context, *MsgCreateAccount) (*MsgCreateAccountResponse, error)
@@ -1396,6 +1533,7 @@ type MsgServer interface {
 	LogoutInitiator(context.Context, *MsgLogoutInitiator) (*MsgLogoutInitiatorResponse, error)
 	LogoutAcceptor(context.Context, *MsgLogoutAcceptor) (*MsgLogoutAcceptorResponse, error)
 	NewOrderSingle(context.Context, *MsgNewOrderSingle) (*MsgNewOrderSingleResponse, error)
+	OrderCancelRequest(context.Context, *MsgOrderCancelRequest) (*MsgOrderCancelRequestResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -1431,6 +1569,9 @@ func (*UnimplementedMsgServer) LogoutAcceptor(ctx context.Context, req *MsgLogou
 }
 func (*UnimplementedMsgServer) NewOrderSingle(ctx context.Context, req *MsgNewOrderSingle) (*MsgNewOrderSingleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewOrderSingle not implemented")
+}
+func (*UnimplementedMsgServer) OrderCancelRequest(ctx context.Context, req *MsgOrderCancelRequest) (*MsgOrderCancelRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OrderCancelRequest not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -1617,6 +1758,24 @@ func _Msg_NewOrderSingle_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_OrderCancelRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgOrderCancelRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).OrderCancelRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/OrderCancelRequest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).OrderCancelRequest(ctx, req.(*MsgOrderCancelRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "jim380.re.fix.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -1660,6 +1819,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NewOrderSingle",
 			Handler:    _Msg_NewOrderSingle_Handler,
+		},
+		{
+			MethodName: "OrderCancelRequest",
+			Handler:    _Msg_OrderCancelRequest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1961,10 +2124,10 @@ func (m *MsgLogonInitiator) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -2050,10 +2213,10 @@ func (m *MsgLogonAcceptor) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -2110,10 +2273,10 @@ func (m *MsgTerminateLogon) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2201,10 +2364,10 @@ func (m *MsgLogonReject) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2273,10 +2436,10 @@ func (m *MsgLogoutInitiator) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2345,10 +2508,10 @@ func (m *MsgLogoutAcceptor) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2493,10 +2656,10 @@ func (m *MsgNewOrderSingle) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.SessionName) > 0 {
-		i -= len(m.SessionName)
-		copy(dAtA[i:], m.SessionName)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionName)))
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2526,6 +2689,104 @@ func (m *MsgNewOrderSingleResponse) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *MsgNewOrderSingleResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgOrderCancelRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgOrderCancelRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgOrderCancelRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.ClOrdID) > 0 {
+		i -= len(m.ClOrdID)
+		copy(dAtA[i:], m.ClOrdID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ClOrdID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.OrigClOrdID) > 0 {
+		i -= len(m.OrigClOrdID)
+		copy(dAtA[i:], m.OrigClOrdID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OrigClOrdID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgOrderCancelRequestResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgOrderCancelRequestResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgOrderCancelRequestResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2662,7 +2923,7 @@ func (m *MsgLogonInitiator) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2699,7 +2960,7 @@ func (m *MsgLogonAcceptor) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2740,7 +3001,7 @@ func (m *MsgTerminateLogon) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2770,7 +3031,7 @@ func (m *MsgLogonReject) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2808,7 +3069,7 @@ func (m *MsgLogoutInitiator) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2838,7 +3099,7 @@ func (m *MsgLogoutAcceptor) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2868,7 +3129,7 @@ func (m *MsgNewOrderSingle) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.SessionName)
+	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -2921,6 +3182,48 @@ func (m *MsgNewOrderSingle) Size() (n int) {
 }
 
 func (m *MsgNewOrderSingleResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgOrderCancelRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.SessionID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OrigClOrdID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ClOrdID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgOrderCancelRequestResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3720,7 +4023,7 @@ func (m *MsgLogonInitiator) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -3748,7 +4051,7 @@ func (m *MsgLogonInitiator) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -3972,7 +4275,7 @@ func (m *MsgLogonAcceptor) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4000,7 +4303,7 @@ func (m *MsgLogonAcceptor) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -4256,7 +4559,7 @@ func (m *MsgTerminateLogon) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4284,7 +4587,7 @@ func (m *MsgTerminateLogon) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -4452,7 +4755,7 @@ func (m *MsgLogonReject) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4480,7 +4783,7 @@ func (m *MsgLogonReject) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -4720,7 +5023,7 @@ func (m *MsgLogoutInitiator) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4748,7 +5051,7 @@ func (m *MsgLogoutInitiator) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -4920,7 +5223,7 @@ func (m *MsgLogoutAcceptor) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4948,7 +5251,7 @@ func (m *MsgLogoutAcceptor) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -5120,7 +5423,7 @@ func (m *MsgNewOrderSingle) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SessionName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -5148,7 +5451,7 @@ func (m *MsgNewOrderSingle) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SessionName = string(dAtA[iNdEx:postIndex])
+			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -5551,6 +5854,306 @@ func (m *MsgNewOrderSingleResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgNewOrderSingleResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgOrderCancelRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgOrderCancelRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgOrderCancelRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrigClOrdID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrigClOrdID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClOrdID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClOrdID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgOrderCancelRequestResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgOrderCancelRequestResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgOrderCancelRequestResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

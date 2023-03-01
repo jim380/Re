@@ -11,11 +11,12 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		AccountList:       []Account{},
-		SessionsList:      []Sessions{},
-		SessionRejectList: []SessionReject{},
-		SessionLogoutList: []SessionLogout{},
-		OrdersList:        []Orders{},
+		AccountList:             []Account{},
+		SessionsList:            []Sessions{},
+		SessionRejectList:       []SessionReject{},
+		SessionLogoutList:       []SessionLogout{},
+		OrdersList:              []Orders{},
+		OrdersCancelRequestList: []OrdersCancelRequest{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -44,53 +45,66 @@ func (gs GenesisState) Validate() error {
 	sessionsIdMap := make(map[string]bool)
 	sessionsCount := gs.GetSessionsCount()
 	for _, elem := range gs.SessionsList {
-		if _, ok := sessionsIdMap[elem.SessionName]; ok {
+		if _, ok := sessionsIdMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessions")
 		}
-		sessionName, _ := strconv.ParseUint(elem.SessionName, 10, 64)
-		if sessionName >= sessionsCount {
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= sessionsCount {
 			return fmt.Errorf("sessions id should be lower or equal than the last id")
 		}
-		sessionsIdMap[elem.SessionName] = true
+		sessionsIdMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in sessionReject
 	sessionRejectIdMap := make(map[string]bool)
 	sessionRejectCount := gs.GetSessionRejectCount()
 	for _, elem := range gs.SessionRejectList {
-		if _, ok := sessionRejectIdMap[elem.SessionName]; ok {
+		if _, ok := sessionRejectIdMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessionReject")
 		}
-		sessionName, _ := strconv.ParseUint(elem.SessionName, 10, 64)
-		if sessionName >= sessionRejectCount {
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= sessionRejectCount {
 			return fmt.Errorf("sessionReject id should be lower or equal than the last id")
 		}
-		sessionRejectIdMap[elem.SessionName] = true
+		sessionRejectIdMap[elem.SessionID] = true
 	}
 	// Check for duplicated sessionName in sessionLogout
 	sessionLogoutIdMap := make(map[string]bool)
 	sessionLogoutCount := gs.GetSessionLogoutCount()
 	for _, elem := range gs.SessionLogoutList {
-		if _, ok := sessionLogoutIdMap[elem.SessionName]; ok {
+		if _, ok := sessionLogoutIdMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessionLogout")
 		}
-		sessionName, _ := strconv.ParseUint(elem.SessionName, 10, 64)
-		if sessionName >= sessionLogoutCount {
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= sessionLogoutCount {
 			return fmt.Errorf("sessionLogout id should be lower or equal than the last id")
 		}
-		sessionLogoutIdMap[elem.SessionName] = true
+		sessionLogoutIdMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in orders
 	ordersIdMap := make(map[string]bool)
 	ordersCount := gs.GetOrdersCount()
 	for _, elem := range gs.OrdersList {
-		if _, ok := ordersIdMap[elem.SessionName]; ok {
+		if _, ok := ordersIdMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for orders")
 		}
-		sessionName, _ := strconv.ParseUint(elem.SessionName, 10, 64)
-		if sessionName >= ordersCount {
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= ordersCount {
 			return fmt.Errorf("orders id should be lower or equal than the last id")
 		}
-		ordersIdMap[elem.SessionName] = true
+		ordersIdMap[elem.SessionID] = true
+	}
+	// Check for duplicated ID in ordersCancelRequest
+	ordersCancelRequestIdMap := make(map[string]bool)
+	ordersCancelRequestCount := gs.GetOrdersCancelRequestCount()
+	for _, elem := range gs.OrdersCancelRequestList {
+		if _, ok := ordersCancelRequestIdMap[elem.SessionID]; ok {
+			return fmt.Errorf("duplicated id for ordersCancelRequest")
+		}
+		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
+		if sessionID >= ordersCancelRequestCount {
+			return fmt.Errorf("ordersCancelRequest id should be lower or equal than the last id")
+		}
+		ordersCancelRequestIdMap[elem.SessionID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

@@ -46,7 +46,7 @@ func (k Keeper) SessionLogout(goCtx context.Context, req *types.QueryGetSessionL
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	sessionLogout, found := k.GetSessionLogout(ctx, req.SessionName)
+	sessionLogout, found := k.GetSessionLogout(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
