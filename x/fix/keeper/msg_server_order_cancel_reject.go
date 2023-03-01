@@ -36,5 +36,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	orderCancelReject.Header.MsgType = "9"
 	orderCancelReject.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
 
+	k.SetOrdersCancelReject(ctx, msg.SessionID, orderCancelReject)
+
 	return &types.MsgOrderCancelRejectResponse{}, nil
 }

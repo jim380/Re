@@ -98,11 +98,11 @@ service Query {
   
   // Queries a list of OrdersExecutionReport items.
   rpc OrdersExecutionReport    (QueryGetOrdersExecutionReportRequest) returns (QueryGetOrdersExecutionReportResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders_execution_report/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/orders_execution_report/{sessionID}";
   
   }
   rpc OrdersExecutionReportAll (QueryAllOrdersExecutionReportRequest) returns (QueryAllOrdersExecutionReportResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders_execution_report";
+    option (google.api.http).get = "/jim380/Re/fix/orders_execution_reports";
   
   }
 }
@@ -236,7 +236,7 @@ message QueryAllOrdersCancelRejectResponse {
 }
 
 message QueryGetOrdersExecutionReportRequest {
-  uint64 id = 1;
+  string sessionID = 1;
 }
 
 message QueryGetOrdersExecutionReportResponse {

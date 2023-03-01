@@ -83,3 +83,29 @@ func (k Keeper) RemoveOrdersCancelReject(ctx sdk.Context, sessionID string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
 	store.Delete([]byte(sessionID))
 }
+
+// SetOrdersExecutionReport set a specific ordersExecutionReport in the store
+func (k Keeper) SetOrdersExecutionReport(ctx sdk.Context, sessionID string, ordersExecutionReport types.OrdersExecutionReport) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	key := []byte(sessionID)
+	b := k.cdc.MustMarshal(&ordersExecutionReport)
+	store.Set(key, b)
+}
+
+// GetOrdersExecutionReport returns a ordersExecutionReport from its id
+func (k Keeper) GetOrdersExecutionReport(ctx sdk.Context, sessionID string) (val types.OrdersExecutionReport, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	key := []byte(sessionID)
+	b := store.Get(key)
+	if b == nil {
+		return val, false
+	}
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
+}
+
+// RemoveOrdersExecutionReport removes a ordersExecutionReport from the store
+func (k Keeper) RemoveOrdersExecutionReport(ctx sdk.Context, sessionID string) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	store.Delete([]byte(sessionID))
+}
