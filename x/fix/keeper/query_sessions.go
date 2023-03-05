@@ -21,7 +21,7 @@ func (k Keeper) SessionsAll(goCtx context.Context, req *types.QueryAllSessionsRe
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	sessionsStore := prefix.NewStore(store, types.KeyPrefix(types.SessionsKey))
+	sessionsStore := prefix.NewStore(store, types.GetSessionsKey())
 
 	pageRes, err := query.Paginate(sessionsStore, req.Pagination, func(key []byte, value []byte) error {
 		var sessions types.Sessions

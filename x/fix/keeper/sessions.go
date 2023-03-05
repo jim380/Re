@@ -11,7 +11,7 @@ import (
 // GetSessionsCount get the total number of sessions
 func (k Keeper) GetSessionsCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SessionsCountKey)
+	byteKey := types.KeyPrefix(string(types.GetSessionsCountKey()))
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -26,7 +26,7 @@ func (k Keeper) GetSessionsCount(ctx sdk.Context) uint64 {
 // SetSessionsCount set the total number of sessions
 func (k Keeper) SetSessionsCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SessionsCountKey)
+	byteKey := types.KeyPrefix(string(types.GetSessionsCountKey()))
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
@@ -34,7 +34,7 @@ func (k Keeper) SetSessionsCount(ctx sdk.Context, count uint64) {
 
 // SetSessions set a specific sessions in the store
 func (k Keeper) SetSessions(ctx sdk.Context, sessionID string, sessions types.Sessions) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionsKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessions)
 	store.Set(key, b)
@@ -42,7 +42,7 @@ func (k Keeper) SetSessions(ctx sdk.Context, sessionID string, sessions types.Se
 
 // GetSessions returns a sessions from its id
 func (k Keeper) GetSessions(ctx sdk.Context, sessionID string) (val types.Sessions, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionsKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -54,13 +54,13 @@ func (k Keeper) GetSessions(ctx sdk.Context, sessionID string) (val types.Sessio
 
 // RemoveSessions removes a sessions from the store
 func (k Keeper) RemoveSessions(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionsKey())
 	store.Delete([]byte(sessionID))
 }
 
 // GetAllSessions returns all sessions
 func (k Keeper) GetAllSessions(ctx sdk.Context) (list []types.Sessions) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionsKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionsKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -88,7 +88,7 @@ func GetSessionsIDFromBytes(bz []byte) uint64 {
 
 // SetSessionReject set a specific sessionReject in the store
 func (k Keeper) SetSessionReject(ctx sdk.Context, sessionID string, sessionReject types.SessionReject) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionRejectKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessionReject)
 	store.Set(key, b)
@@ -96,7 +96,7 @@ func (k Keeper) SetSessionReject(ctx sdk.Context, sessionID string, sessionRejec
 
 // GetSessionReject returns a sessionReject from its sessionName
 func (k Keeper) GetSessionReject(ctx sdk.Context, sessionID string) (val types.SessionReject, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionRejectKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionRejectKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -108,7 +108,7 @@ func (k Keeper) GetSessionReject(ctx sdk.Context, sessionID string) (val types.S
 
 // SetSessionLogout set a specific sessionLogout in the store
 func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionID string, sessionLogout types.SessionLogout) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionLogoutKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&sessionLogout)
 	store.Set(key, b)
@@ -116,7 +116,7 @@ func (k Keeper) SetSessionLogout(ctx sdk.Context, sessionID string, sessionLogou
 
 // GetSessionLogout returns a sessionLogout from its session name
 func (k Keeper) GetSessionLogout(ctx sdk.Context, sessionID string) (val types.SessionLogout, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SessionLogoutKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionLogoutKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {

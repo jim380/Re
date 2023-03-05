@@ -21,7 +21,7 @@ func (k Keeper) OrdersExecutionReportAll(goCtx context.Context, req *types.Query
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	ordersExecutionReportStore := prefix.NewStore(store, types.KeyPrefix(types.OrdersExecutionReportKey))
+	ordersExecutionReportStore := prefix.NewStore(store, types.GetOrdersExecutionReportKey())
 
 	pageRes, err := query.Paginate(ordersExecutionReportStore, req.Pagination, func(key []byte, value []byte) error {
 		var ordersExecutionReport types.OrdersExecutionReport

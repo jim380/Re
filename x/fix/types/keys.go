@@ -21,6 +21,27 @@ func KeyPrefix(p string) []byte {
 var (
 	AccountKey      = []byte{0x00}
 	AccountCountKey = []byte{0x01}
+
+	SessionsKey      = []byte{0x02}
+	SessionsCountKey = []byte{0x03}
+
+	SessionRejectKey      = []byte{0x04}
+	SessionRejectCountKey = []byte{0x05}
+
+	SessionLogoutKey      = []byte{0x06}
+	SessionLogoutCountKey = []byte{0x07}
+
+	OrdersKey      = []byte{0x08}
+	OrdersCountKey = []byte{0x09}
+
+	OrdersCancelRequestKey      = []byte{0x010}
+	OrdersCancelRequestCountKey = []byte{0x011}
+
+	OrdersCancelRejectKey      = []byte{0x012}
+	OrdersCancelRejectCountKey = []byte{0x012}
+
+	OrdersExecutionReportKey      = []byte{0x013}
+	OrdersExecutionReportCountKey = []byte{0x014}
 )
 
 func GetAccountKey() []byte {
@@ -31,37 +52,58 @@ func GetAccountCountKey() []byte {
 	return AccountCountKey
 }
 
-const (
-	SessionsKey      = "Sessions/value/"
-	SessionsCountKey = "Sessions/count/"
-)
+func GetSessionsKey() []byte {
+	return SessionsKey
+}
 
-const (
-	SessionRejectKey      = "SessionReject/value/"
-	SessionRejectCountKey = "SessionReject/count/"
-)
+func GetSessionsCountKey() []byte {
+	return SessionsCountKey
+}
 
-const (
-	SessionLogoutKey      = "SessionLogout/value/"
-	SessionLogoutCountKey = "SessionLogout/count/"
-)
+func GetSessionRejectKey() []byte {
+	return SessionRejectKey
+}
 
-const (
-	OrdersKey      = "Orders/value/"
-	OrdersCountKey = "Orders/count/"
-)
+func GetSessionRejectCountKey() []byte {
+	return SessionRejectCountKey
+}
 
-const (
-	OrdersCancelRequestKey      = "OrdersCancelRequest/value/"
-	OrdersCancelRequestCountKey = "OrdersCancelRequest/count/"
-)
+func GetSessionLogoutKey() []byte {
+	return SessionLogoutKey
+}
 
-const (
-	OrdersCancelRejectKey      = "OrdersCancelReject/value/"
-	OrdersCancelRejectCountKey = "OrdersCancelReject/count/"
-)
+func GetSessionLogoutCountKey() []byte {
+	return SessionLogoutCountKey
+}
 
-const (
-	OrdersExecutionReportKey      = "OrdersExecutionReport/value/"
-	OrdersExecutionReportCountKey = "OrdersExecutionReport/count/"
-)
+func GetOrdersKey() []byte {
+	return OrdersKey
+}
+
+func GetOrdersCountKey() []byte {
+	return OrdersCountKey
+}
+
+func GetOrdersCancelRequestKey() []byte {
+	return OrdersCancelRequestKey
+}
+
+func GetOrdersCancelRequestCountKey() []byte {
+	return OrdersCancelRequestCountKey
+}
+
+func GetOrdersCancelRejectKey() []byte {
+	return OrdersCancelRejectKey
+}
+
+func GetOrdersCancelRejectCountKey() []byte {
+	return OrdersCancelRejectCountKey
+}
+
+func GetOrdersExecutionReportKey() []byte {
+	return OrdersExecutionReportKey
+}
+
+func GetOrdersExecutionReportCountKey() []byte {
+	return OrdersExecutionReportCountKey
+}

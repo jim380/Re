@@ -21,7 +21,7 @@ func (k Keeper) OrdersAll(goCtx context.Context, req *types.QueryAllOrdersReques
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	ordersStore := prefix.NewStore(store, types.KeyPrefix(types.OrdersKey))
+	ordersStore := prefix.NewStore(store, types.GetOrdersKey())
 
 	pageRes, err := query.Paginate(ordersStore, req.Pagination, func(key []byte, value []byte) error {
 		var orders types.Orders
