@@ -8,7 +8,7 @@ import (
 
 // SetOrders set a specific orders in the store
 func (k Keeper) SetOrders(ctx sdk.Context, sessionID string, orders types.Orders) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&orders)
 	store.Set(key, b)
@@ -16,7 +16,7 @@ func (k Keeper) SetOrders(ctx sdk.Context, sessionID string, orders types.Orders
 
 // GetOrders returns a orders from its sessionName
 func (k Keeper) GetOrders(ctx sdk.Context, sessionID string) (val types.Orders, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -28,13 +28,13 @@ func (k Keeper) GetOrders(ctx sdk.Context, sessionID string) (val types.Orders, 
 
 // RemoveOrders removes a orders from the store
 func (k Keeper) RemoveOrders(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersKey())
 	store.Delete([]byte(sessionID))
 }
 
 // SetOrdersCancelRequest set a specific ordersCancelRequest in the store
 func (k Keeper) SetOrdersCancelRequest(ctx sdk.Context, sessionID string, ordersCancelRequest types.OrdersCancelRequest) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRequestKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRequestKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&ordersCancelRequest)
 	store.Set(key, b)
@@ -42,7 +42,7 @@ func (k Keeper) SetOrdersCancelRequest(ctx sdk.Context, sessionID string, orders
 
 // GetOrdersCancelRequest returns a ordersCancelRequest from its sessionName
 func (k Keeper) GetOrdersCancelRequest(ctx sdk.Context, sessionID string) (val types.OrdersCancelRequest, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRequestKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRequestKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -54,13 +54,13 @@ func (k Keeper) GetOrdersCancelRequest(ctx sdk.Context, sessionID string) (val t
 
 // RemoveOrdersCancelRequest removes a ordersCancelRequest from the store
 func (k Keeper) RemoveOrdersCancelRequest(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRequestKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRequestKey())
 	store.Delete([]byte(sessionID))
 }
 
 // SetOrdersCancelReject set a specific ordersCancelReject in the store
 func (k Keeper) SetOrdersCancelReject(ctx sdk.Context, sessionID string, ordersCancelReject types.OrdersCancelReject) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRejectKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&ordersCancelReject)
 	store.Set(key, b)
@@ -68,7 +68,7 @@ func (k Keeper) SetOrdersCancelReject(ctx sdk.Context, sessionID string, ordersC
 
 // GetOrdersCancelReject returns a ordersCancelReject from its id
 func (k Keeper) GetOrdersCancelReject(ctx sdk.Context, sessionID string) (val types.OrdersCancelReject, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRejectKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -80,13 +80,13 @@ func (k Keeper) GetOrdersCancelReject(ctx sdk.Context, sessionID string) (val ty
 
 // RemoveOrdersCancelReject removes a ordersCancelReject from the store
 func (k Keeper) RemoveOrdersCancelReject(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersCancelRejectKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersCancelRejectKey())
 	store.Delete([]byte(sessionID))
 }
 
 // SetOrdersExecutionReport set a specific ordersExecutionReport in the store
 func (k Keeper) SetOrdersExecutionReport(ctx sdk.Context, sessionID string, ordersExecutionReport types.OrdersExecutionReport) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersExecutionReportKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&ordersExecutionReport)
 	store.Set(key, b)
@@ -94,7 +94,7 @@ func (k Keeper) SetOrdersExecutionReport(ctx sdk.Context, sessionID string, orde
 
 // GetOrdersExecutionReport returns a ordersExecutionReport from its id
 func (k Keeper) GetOrdersExecutionReport(ctx sdk.Context, sessionID string) (val types.OrdersExecutionReport, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersExecutionReportKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -106,6 +106,6 @@ func (k Keeper) GetOrdersExecutionReport(ctx sdk.Context, sessionID string) (val
 
 // RemoveOrdersExecutionReport removes a ordersExecutionReport from the store
 func (k Keeper) RemoveOrdersExecutionReport(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrdersExecutionReportKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrdersExecutionReportKey())
 	store.Delete([]byte(sessionID))
 }

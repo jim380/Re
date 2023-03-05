@@ -21,7 +21,7 @@ func (k Keeper) SessionLogoutAll(goCtx context.Context, req *types.QueryAllSessi
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	sessionLogoutStore := prefix.NewStore(store, types.KeyPrefix(types.SessionLogoutKey))
+	sessionLogoutStore := prefix.NewStore(store, types.GetSessionLogoutKey())
 
 	pageRes, err := query.Paginate(sessionLogoutStore, req.Pagination, func(key []byte, value []byte) error {
 		var sessionLogout types.SessionLogout
