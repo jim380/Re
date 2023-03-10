@@ -580,7 +580,7 @@ func NewReApp(
 		icaModule,
 		consumerModule,
 		adminModule,
-		wasm.NewAppModule(appCodec, &app.WasmKeeper, nil, app.AccountKeeper, app.BankKeeper),
+		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
 
 		did.NewAppModule(appCodec, app.DidKeeper),
 		fixModule,
@@ -690,7 +690,7 @@ func NewReApp(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
-		wasm.NewAppModule(appCodec, &app.WasmKeeper, nil, app.AccountKeeper, app.BankKeeper),
+		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
 
 		//didModule,
 		fixModule,

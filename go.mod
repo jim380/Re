@@ -16,9 +16,9 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/pborman/uuid v1.2.0
 	github.com/spf13/cast v1.5.0
-	github.com/spf13/cobra v1.6.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.14.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	github.com/tendermint/tendermint v0.34.24
 	github.com/tendermint/tm-db v0.6.7
 	golang.org/x/crypto v0.2.0
@@ -56,7 +56,7 @@ require (
 	github.com/confio/ics23/go v0.9.0 // indirect
 	github.com/cosmos/btcutil v1.0.4 // indirect
 	github.com/cosmos/gorocksdb v1.2.0 // indirect
-	github.com/cosmos/iavl v0.19.4 // indirect
+	github.com/cosmos/iavl v0.17.3 // indirect
 	github.com/cosmos/ledger-cosmos-go v0.12.2 // indirect
 	github.com/danieljoos/wincred v1.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -137,7 +137,9 @@ require (
 )
 
 replace (
+	github.com/CosmWasm/wasmd v0.28.0 => github.com/neutron-org/wasmd v0.28.0-ics-support
 	github.com/cosmos/admin-module => github.com/Ethernal-Tech/admin-module v0.0.0-20221102105340-e693f4d379c3
 	github.com/cosmos/ibc-go/v3 => github.com/informalsystems/ibc-go/v3 v3.0.0-beta1.0.20220816140824-aba9c2f2b943
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+	google.golang.org/grpc => google.golang.org/grpc v1.33.2
 )
