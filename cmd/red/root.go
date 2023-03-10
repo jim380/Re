@@ -38,7 +38,7 @@ import (
 	"github.com/jim380/Re/app/params"
 )
 
-// NewRootCmd creates a new root command for neutrond. It is called once in the
+// NewRootCmd creates a new root command for red. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	encodingConfig := app.MakeEncodingConfig()
