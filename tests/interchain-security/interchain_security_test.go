@@ -14,8 +14,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
+	"github.com/jim380/Re/app"
 	appConsumer "github.com/jim380/Re/app"
-	"github.com/jim380/Re/cmd"
 )
 
 // Executes the standard group of ccv tests against a consumer and provider app.go implementation.
@@ -52,7 +52,7 @@ func NewProviderConsumerCoordinator(t *testing.T) (*ibctesting.Coordinator, *ibc
 }
 
 func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessage) {
-	encoding := cmd.MakeEncodingConfig(appConsumer.ModuleBasics)
+	encoding := app.MakeEncodingConfig()
 	app := appConsumer.NewReApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
@@ -62,8 +62,10 @@ func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessag
 		appConsumer.DefaultNodeHome,
 		0,
 		encoding,
+		app.GetEnabledProposals(),
 		simapp.EmptyAppOptions{},
+		nil,
 	)
 
-	return app.(*appConsumer.ReApp), appConsumer.NewDefaultGenesisState(encoding.Marshaler)
+	return app, appConsumer.NewDefaultGenesisState(encoding.Marshaler)
 }

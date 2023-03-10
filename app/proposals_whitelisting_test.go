@@ -12,7 +12,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 
 	"github.com/jim380/Re/app"
-	"github.com/jim380/Re/cmd"
+	//"github.com/jim380/Re/cmd"
 )
 
 func TestConsumerWhitelistingKeys(t *testing.T) {
@@ -27,7 +27,7 @@ func TestConsumerWhitelistingKeys(t *testing.T) {
 }
 
 func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessage) {
-	encoding := cmd.MakeEncodingConfig(app.ModuleBasics)
+	encoding := app.MakeEncodingConfig()
 	testApp := app.NewReApp(
 		log.NewNopLogger(),
 		tmdb.NewMemDB(),
@@ -37,8 +37,10 @@ func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessag
 		app.DefaultNodeHome,
 		0,
 		encoding,
+		app.GetEnabledProposals(),
 		simapp.EmptyAppOptions{},
+		nil,
 	)
 
-	return testApp.(*app.ReApp), app.NewDefaultGenesisState(encoding.Marshaler)
+	return testApp, app.NewDefaultGenesisState(encoding.Marshaler)
 }

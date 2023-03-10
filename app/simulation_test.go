@@ -18,7 +18,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/jim380/Re/app"
-	"github.com/jim380/Re/cmd"
+	//"github.com/jim380/Re/cmd"
 )
 
 func init() {
@@ -26,7 +26,6 @@ func init() {
 }
 
 type SimApp interface {
-	cmd.App
 	GetBaseApp() *baseapp.BaseApp
 	AppCodec() codec.Codec
 	SimulationManager() *module.SimulationManager
@@ -73,7 +72,7 @@ func BenchmarkSimulation(b *testing.B) {
 		require.NoError(b, err)
 	})
 
-	encoding := cmd.MakeEncodingConfig(app.ModuleBasics)
+	encoding := app.MakeEncodingConfig()
 
 	app := app.NewReApp(
 		logger,
@@ -84,11 +83,13 @@ func BenchmarkSimulation(b *testing.B) {
 		app.DefaultNodeHome,
 		0,
 		encoding,
+		app.GetEnabledProposals(),
 		simapp.EmptyAppOptions{},
+		nil,
 	)
 
-	simApp, ok := app.(SimApp)
-	require.True(b, ok, "can't use simapp")
+	simApp := app
+	//require.True(b, ok, "can't use simapp")
 
 	// Run randomized simulations
 	_, simParams, simErr := simulation.SimulateFromSeed(
