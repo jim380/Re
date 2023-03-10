@@ -29,7 +29,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/jim380/Re/app"
-	"github.com/jim380/Re/cmd"
+	//"github.com/jim380/Re/cmd"
 	"github.com/jim380/Re/testutil"
 )
 
@@ -62,7 +62,7 @@ func DefaultConfig() network.Config {
 	app.ModuleBasics[genutiltypes.ModuleName] = genutil.AppModuleBasic{}
 	app.ModuleBasics[stakingtypes.ModuleName] = staking.AppModuleBasic{}
 
-	encoding := cmd.MakeEncodingConfig(app.ModuleBasics)
+	encoding := app.MakeEncodingConfig()
 	return network.Config{
 		Codec:             encoding.Marshaler,
 		TxConfig:          encoding.TxConfig,
@@ -78,7 +78,9 @@ func DefaultConfig() network.Config {
 			return app.NewReApp(
 				val.Ctx.Logger, tmdb.NewMemDB(), nil, true, map[int64]bool{}, val.Ctx.Config.RootDir, 0,
 				encoding,
+				app.GetEnabledProposals(),
 				simapp.EmptyAppOptions{},
+				nil,
 				baseapp.SetPruning(pruningtypes.NewPruningOptionsFromString(val.AppConfig.Pruning)),
 				baseapp.SetMinGasPrices(val.AppConfig.MinGasPrices),
 			)
