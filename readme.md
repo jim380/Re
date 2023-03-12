@@ -1,5 +1,5 @@
 # The Re Protocol
-**Re** is a blockchain built with Cosmos SDK leveraging Interchain Security. To learn more, visit [here](https://re.cyphercore.io).
+**Re** is a blockchain built with Cosmos SDK leveraging Interchain Security. To learn more, visit [here](http://re.cyphercore.io).
 
 ## Get started
 
