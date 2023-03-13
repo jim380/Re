@@ -1,0 +1,7 @@
+syntax = "proto3";
+package jim380.re.mic;
+
+option go_package = "github.com/jim380/Re/x/mic/types";
+
+// Msg defines the Msg service.
+service Msg {}

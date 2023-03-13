@@ -15,8 +15,8 @@ import (
 
 type HandlerOptions struct {
 	ante.HandlerOptions
-	IBCKeeper      *ibckeeper.Keeper
-	ConsumerKeeper ibcconsumerkeeper.Keeper
+	IBCKeeper         *ibckeeper.Keeper
+	ConsumerKeeper    ibcconsumerkeeper.Keeper
 	WasmConfig        *wasmTypes.WasmConfig
 	TXCounterStoreKey sdk.StoreKey
 }

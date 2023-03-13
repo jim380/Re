@@ -1,0 +1,12 @@
+syntax = "proto3";
+package jim380.re.mic;
+
+import "gogoproto/gogo.proto";
+import "re/mic/params.proto";
+
+option go_package = "github.com/jim380/Re/x/mic/types";
+
+// GenesisState defines the mic module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

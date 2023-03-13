@@ -105,6 +105,9 @@ import (
 	fixmodule "github.com/jim380/Re/x/fix"
 	fixmodulekeeper "github.com/jim380/Re/x/fix/keeper"
 	fixmoduletypes "github.com/jim380/Re/x/fix/types"
+	micmodule "github.com/jim380/Re/x/mic"
+	micmodulekeeper "github.com/jim380/Re/x/mic/keeper"
+	micmoduletypes "github.com/jim380/Re/x/mic/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -183,6 +186,7 @@ var (
 
 		did.AppModuleBasic{},
 		fixmodule.AppModuleBasic{},
+		micmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -261,6 +265,8 @@ type ReApp struct {
 	DidKeeper didkeeper.Keeper
 
 	FixKeeper fixmodulekeeper.Keeper
+
+	MicKeeper micmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -313,6 +319,7 @@ func NewReApp(
 		wasm.StoreKey,
 		didtypes.StoreKey,
 		fixmoduletypes.StoreKey,
+		micmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -539,6 +546,14 @@ func NewReApp(
 		wasmOpts...,
 	)
 
+	app.MicKeeper = *micmodulekeeper.NewKeeper(
+		appCodec,
+		keys[micmoduletypes.StoreKey],
+		keys[micmoduletypes.MemStoreKey],
+		app.GetSubspace(micmoduletypes.ModuleName),
+	)
+	micModule := micmodule.NewAppModule(appCodec, app.MicKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -584,6 +599,7 @@ func NewReApp(
 
 		did.NewAppModule(appCodec, app.DidKeeper),
 		fixModule,
+		micModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -613,6 +629,7 @@ func NewReApp(
 
 		didtypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		micmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -637,6 +654,7 @@ func NewReApp(
 
 		didtypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		micmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -666,6 +684,7 @@ func NewReApp(
 
 		didtypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		micmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -694,6 +713,7 @@ func NewReApp(
 
 		//didModule,
 		fixModule,
+		micModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -915,6 +935,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 
 	paramsKeeper.Subspace(didtypes.ModuleName)
 	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
+	paramsKeeper.Subspace(micmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
