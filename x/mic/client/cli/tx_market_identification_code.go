@@ -11,7 +11,7 @@ import (
 func CmdRegisterMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "register-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
-		Short: "Create a new marketIdentificationCode",
+		Short: "Registers a new marketIdentificationCode",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argMIC := args[0]
@@ -82,7 +82,7 @@ func CmdUpdateMarketIdentificationCode() *cobra.Command {
 func CmdDeleteMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete-market-identification-code [mic]",
-		Short: "Delete a marketIdentificationCode by id",
+		Short: "Delete a marketIdentificationCode by mic",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argMIC := args[0]

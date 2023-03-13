@@ -44,7 +44,7 @@ func CmdListMarketIdentificationCode() *cobra.Command {
 
 func CmdShowMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-market-identification-code [MIC]",
+		Use:   "show-market-identification-code [mic]",
 		Short: "shows a marketIdentificationCode",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

@@ -8,7 +8,7 @@ option go_package = "github.com/jim380/Re/x/mic/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateMarketIdentificationCode (MsgRegisterMarketIdentificationCode) returns (MsgRegisterMarketIdentificationCodeResponse);
+  rpc RegisterMarketIdentificationCode (MsgRegisterMarketIdentificationCode) returns (MsgRegisterMarketIdentificationCodeResponse);
   rpc UpdateMarketIdentificationCode (MsgUpdateMarketIdentificationCode) returns (MsgUpdateMarketIdentificationCodeResponse);
   rpc DeleteMarketIdentificationCode (MsgDeleteMarketIdentificationCode) returns (MsgDeleteMarketIdentificationCodeResponse);
 }
