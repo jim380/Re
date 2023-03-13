@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package jim380.re.mic;
+
+import "re/mic/market_identification_code.proto";
+
+option go_package = "github.com/jim380/Re/x/mic/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc RegisterMarketIdentificationCode (MsgRegisterMarketIdentificationCode) returns (MsgRegisterMarketIdentificationCodeResponse);
+  rpc UpdateMarketIdentificationCode (MsgUpdateMarketIdentificationCode) returns (MsgUpdateMarketIdentificationCodeResponse);
+  rpc DeleteMarketIdentificationCode (MsgDeleteMarketIdentificationCode) returns (MsgDeleteMarketIdentificationCodeResponse);
+}
+message MsgRegisterMarketIdentificationCode {
+  string creator             = 1;
+  string MIC                 = 2;
+  string name                = 3;
+  string location            = 4;
+  string assetClass          = 5;
+  string currency            = 6;
+  string regulatoryAuthority = 7;
+  string status              = 8;
+}
+
+message MsgRegisterMarketIdentificationCodeResponse {
+}
+
+message MsgUpdateMarketIdentificationCode {
+  string creator             = 1;
+  string MIC                 = 2;
+  string name                = 3;
+  string location            = 4;
+  string assetClass          = 5;
+  string currency            = 6;
+  string regulatoryAuthority = 7;
+  string status              = 8;
+}
+
+message MsgUpdateMarketIdentificationCodeResponse {}
+
+message MsgDeleteMarketIdentificationCode {
+  string creator = 1;
+  string MIC = 2; 
+}
+
+message MsgDeleteMarketIdentificationCodeResponse {}
+
