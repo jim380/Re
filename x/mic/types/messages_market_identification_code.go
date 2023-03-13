@@ -6,15 +6,15 @@ import (
 )
 
 const (
-	TypeMsgCreateMarketIdentificationCode = "create_market_identification_code"
+	TypeMsgRegisterMarketIdentificationCode = "register_market_identification_code"
 	TypeMsgUpdateMarketIdentificationCode = "update_market_identification_code"
 	TypeMsgDeleteMarketIdentificationCode = "delete_market_identification_code"
 )
 
-var _ sdk.Msg = &MsgCreateMarketIdentificationCode{}
+var _ sdk.Msg = &MsgRegisterMarketIdentificationCode{}
 
-func NewMsgCreateMarketIdentificationCode(creator string, mIC string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgCreateMarketIdentificationCode {
-	return &MsgCreateMarketIdentificationCode{
+func NewMsgRegisterMarketIdentificationCode(creator string, mIC string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgRegisterMarketIdentificationCode {
+	return &MsgRegisterMarketIdentificationCode{
 		Creator:             creator,
 		MIC:                 mIC,
 		Name:                name,
@@ -26,15 +26,15 @@ func NewMsgCreateMarketIdentificationCode(creator string, mIC string, name strin
 	}
 }
 
-func (msg *MsgCreateMarketIdentificationCode) Route() string {
+func (msg *MsgRegisterMarketIdentificationCode) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgCreateMarketIdentificationCode) Type() string {
-	return TypeMsgCreateMarketIdentificationCode
+func (msg *MsgRegisterMarketIdentificationCode) Type() string {
+	return TypeMsgRegisterMarketIdentificationCode
 }
 
-func (msg *MsgCreateMarketIdentificationCode) GetSigners() []sdk.AccAddress {
+func (msg *MsgRegisterMarketIdentificationCode) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -42,12 +42,12 @@ func (msg *MsgCreateMarketIdentificationCode) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgCreateMarketIdentificationCode) GetSignBytes() []byte {
+func (msg *MsgRegisterMarketIdentificationCode) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgCreateMarketIdentificationCode) ValidateBasic() error {
+func (msg *MsgRegisterMarketIdentificationCode) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
@@ -57,11 +57,10 @@ func (msg *MsgCreateMarketIdentificationCode) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateMarketIdentificationCode{}
 
-func NewMsgUpdateMarketIdentificationCode(creator string, id uint64, mIC string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgUpdateMarketIdentificationCode {
+func NewMsgUpdateMarketIdentificationCode(creator string,  mic string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgUpdateMarketIdentificationCode {
 	return &MsgUpdateMarketIdentificationCode{
-		Id:                  id,
 		Creator:             creator,
-		MIC:                 mIC,
+		MIC:                 mic,
 		Name:                name,
 		Location:            location,
 		AssetClass:          assetClass,
@@ -102,9 +101,9 @@ func (msg *MsgUpdateMarketIdentificationCode) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeleteMarketIdentificationCode{}
 
-func NewMsgDeleteMarketIdentificationCode(creator string, id uint64) *MsgDeleteMarketIdentificationCode {
+func NewMsgDeleteMarketIdentificationCode(creator string, mic string) *MsgDeleteMarketIdentificationCode {
 	return &MsgDeleteMarketIdentificationCode{
-		Id:      id,
+		MIC: mic,
 		Creator: creator,
 	}
 }

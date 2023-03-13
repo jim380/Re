@@ -46,7 +46,7 @@ func (k Keeper) MarketIdentificationCode(goCtx context.Context, req *types.Query
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	marketIdentificationCode, found := k.GetMarketIdentificationCode(ctx, req.Id)
+	marketIdentificationCode, found := k.GetMarketIdentificationCode(ctx, req.MIC)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

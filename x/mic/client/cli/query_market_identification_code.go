@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListMarketIdentificationCode() *cobra.Command {
 
 func CmdShowMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-market-identification-code [id]",
+		Use:   "show-market-identification-code [MIC]",
 		Short: "shows a marketIdentificationCode",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowMarketIdentificationCode() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argMIC := args[0]
 
 			params := &types.QueryGetMarketIdentificationCodeRequest{
-				Id: id,
+				MIC: argMIC,
 			}
 
 			res, err := queryClient.MarketIdentificationCode(context.Background(), params)

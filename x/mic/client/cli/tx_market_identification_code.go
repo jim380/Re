@@ -1,8 +1,6 @@
 package cli
 
 import (
-	"strconv"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -10,9 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdCreateMarketIdentificationCode() *cobra.Command {
+func CmdRegisterMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
+		Use:   "register-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
 		Short: "Create a new marketIdentificationCode",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -29,7 +27,7 @@ func CmdCreateMarketIdentificationCode() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
+			msg := types.NewMsgRegisterMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -44,35 +42,31 @@ func CmdCreateMarketIdentificationCode() *cobra.Command {
 
 func CmdUpdateMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-market-identification-code [id] [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
+		Use:   "update-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
 		Short: "Update a marketIdentificationCode",
-		Args:  cobra.ExactArgs(8),
+		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
 
-			argMIC := args[1]
+			argMIC := args[0]
 
-			argName := args[2]
+			argName := args[1]
 
-			argLocation := args[3]
+			argLocation := args[2]
 
-			argAssetClass := args[4]
+			argAssetClass := args[3]
 
-			argCurrency := args[5]
+			argCurrency := args[4]
 
-			argRegulatoryAuthority := args[6]
+			argRegulatoryAuthority := args[5]
 
-			argStatus := args[7]
+			argStatus := args[6]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), id, argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
+			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -87,21 +81,18 @@ func CmdUpdateMarketIdentificationCode() *cobra.Command {
 
 func CmdDeleteMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-market-identification-code [id]",
+		Use:   "delete-market-identification-code [mic]",
 		Short: "Delete a marketIdentificationCode by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argMIC := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgDeleteMarketIdentificationCode(clientCtx.GetFromAddress().String(), id)
+			msg := types.NewMsgDeleteMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

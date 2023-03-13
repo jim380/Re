@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateMarketIdentificationCode{}, "mic/CreateMarketIdentificationCode", nil)
+	cdc.RegisterConcrete(&MsgRegisterMarketIdentificationCode{}, "mic/RegisterMarketIdentificationCode", nil)
 	cdc.RegisterConcrete(&MsgUpdateMarketIdentificationCode{}, "mic/UpdateMarketIdentificationCode", nil)
 	cdc.RegisterConcrete(&MsgDeleteMarketIdentificationCode{}, "mic/DeleteMarketIdentificationCode", nil)
 	// this line is used by starport scaffolding # 2
@@ -16,7 +16,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgCreateMarketIdentificationCode{},
+		&MsgRegisterMarketIdentificationCode{},
 		&MsgUpdateMarketIdentificationCode{},
 		&MsgDeleteMarketIdentificationCode{},
 	)

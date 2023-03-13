@@ -8,11 +8,11 @@ option go_package = "github.com/jim380/Re/x/mic/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateMarketIdentificationCode (MsgCreateMarketIdentificationCode) returns (MsgCreateMarketIdentificationCodeResponse);
+  rpc CreateMarketIdentificationCode (MsgRegisterMarketIdentificationCode) returns (MsgRegisterMarketIdentificationCodeResponse);
   rpc UpdateMarketIdentificationCode (MsgUpdateMarketIdentificationCode) returns (MsgUpdateMarketIdentificationCodeResponse);
   rpc DeleteMarketIdentificationCode (MsgDeleteMarketIdentificationCode) returns (MsgDeleteMarketIdentificationCodeResponse);
 }
-message MsgCreateMarketIdentificationCode {
+message MsgRegisterMarketIdentificationCode {
   string creator             = 1;
   string MIC                 = 2;
   string name                = 3;
@@ -23,8 +23,7 @@ message MsgCreateMarketIdentificationCode {
   string status              = 8;
 }
 
-message MsgCreateMarketIdentificationCodeResponse {
-  uint64 id = 1;
+message MsgRegisterMarketIdentificationCodeResponse {
 }
 
 message MsgUpdateMarketIdentificationCode {

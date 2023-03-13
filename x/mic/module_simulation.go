@@ -24,9 +24,9 @@ var (
 )
 
 const (
-	opWeightMsgCreateMarketIdentificationCode = "op_weight_msg_market_identification_code"
+	opWeightMsgRegisterMarketIdentificationCode = "op_weight_msg_market_identification_code"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateMarketIdentificationCode int = 100
+	defaultWeightMsgRegisterMarketIdentificationCode int = 100
 
 	opWeightMsgUpdateMarketIdentificationCode = "op_weight_msg_market_identification_code"
 	// TODO: Determine the simulation weight value
@@ -49,11 +49,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		MarketIdentificationCodeList: []types.MarketIdentificationCode{
 			{
-				Id:      0,
+				MIC:      "",
 				Creator: sample.AccAddress(),
 			},
 			{
-				Id:      1,
+				MIC:      "",
 				Creator: sample.AccAddress(),
 			},
 		},
@@ -81,15 +81,15 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
-	var weightMsgCreateMarketIdentificationCode int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateMarketIdentificationCode, &weightMsgCreateMarketIdentificationCode, nil,
+	var weightMsgRegisterMarketIdentificationCode int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterMarketIdentificationCode, &weightMsgRegisterMarketIdentificationCode, nil,
 		func(_ *rand.Rand) {
-			weightMsgCreateMarketIdentificationCode = defaultWeightMsgCreateMarketIdentificationCode
+			weightMsgRegisterMarketIdentificationCode = defaultWeightMsgRegisterMarketIdentificationCode
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCreateMarketIdentificationCode,
-		micsimulation.SimulateMsgCreateMarketIdentificationCode(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgRegisterMarketIdentificationCode,
+		micsimulation.SimulateMsgRegisterMarketIdentificationCode(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgUpdateMarketIdentificationCode int

@@ -9,8 +9,11 @@ import (
 	"github.com/jim380/Re/x/mic/types"
 )
 
-func (k msgServer) CreateMarketIdentificationCode(goCtx context.Context, msg *types.MsgCreateMarketIdentificationCode) (*types.MsgCreateMarketIdentificationCodeResponse, error) {
+func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *types.MsgRegisterMarketIdentificationCode) (*types.MsgRegisterMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	//TODO
+	//include checks
 
 	var marketIdentificationCode = types.MarketIdentificationCode{
 		Creator:             msg.Creator,
@@ -23,14 +26,10 @@ func (k msgServer) CreateMarketIdentificationCode(goCtx context.Context, msg *ty
 		Status:              msg.Status,
 	}
 
-	id := k.AppendMarketIdentificationCode(
-		ctx,
-		marketIdentificationCode,
-	)
+  //set MIC Data to store
+  k.SetMarketIdentificationCode(ctx, msg.MIC, marketIdentificationCode)
 
-	return &types.MsgCreateMarketIdentificationCodeResponse{
-		Id: id,
-	}, nil
+	return &types.MsgRegisterMarketIdentificationCodeResponse{}, nil
 }
 
 func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *types.MsgUpdateMarketIdentificationCode) (*types.MsgUpdateMarketIdentificationCodeResponse, error) {
@@ -38,7 +37,6 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 
 	var marketIdentificationCode = types.MarketIdentificationCode{
 		Creator:             msg.Creator,
-		Id:                  msg.Id,
 		MIC:                 msg.MIC,
 		Name:                msg.Name,
 		Location:            msg.Location,
@@ -49,9 +47,9 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	}
 
 	// Checks that the element exists
-	val, found := k.GetMarketIdentificationCode(ctx, msg.Id)
+	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s doesn't exist", msg.MIC))
 	}
 
 	// Checks if the msg creator is the same as the current owner
@@ -59,7 +57,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.SetMarketIdentificationCode(ctx, marketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, msg.MIC, marketIdentificationCode)
 
 	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
 }
@@ -68,9 +66,9 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Checks that the element exists
-	val, found := k.GetMarketIdentificationCode(ctx, msg.Id)
+	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s doesn't exist", msg.MIC))
 	}
 
 	// Checks if the msg creator is the same as the current owner
@@ -78,7 +76,7 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.RemoveMarketIdentificationCode(ctx, msg.Id)
+	k.RemoveMarketIdentificationCode(ctx, msg.MIC)
 
 	return &types.MsgDeleteMarketIdentificationCodeResponse{}, nil
 }

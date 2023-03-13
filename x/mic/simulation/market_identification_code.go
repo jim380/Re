@@ -12,7 +12,7 @@ import (
 	"github.com/jim380/Re/x/mic/types"
 )
 
-func SimulateMsgCreateMarketIdentificationCode(
+func SimulateMsgRegisterMarketIdentificationCode(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -21,7 +21,7 @@ func SimulateMsgCreateMarketIdentificationCode(
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
 
-		msg := &types.MsgCreateMarketIdentificationCode{
+		msg := &types.MsgRegisterMarketIdentificationCode{
 			Creator: simAccount.Address.String(),
 		}
 
@@ -68,7 +68,7 @@ func SimulateMsgUpdateMarketIdentificationCode(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "marketIdentificationCode creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = marketIdentificationCode.Id
+		msg.MIC = marketIdentificationCode.MIC
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -113,7 +113,7 @@ func SimulateMsgDeleteMarketIdentificationCode(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "marketIdentificationCode creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = marketIdentificationCode.Id
+		msg.MIC = marketIdentificationCode.MIC
 
 		txCtx := simulation.OperationInput{
 			R:               r,

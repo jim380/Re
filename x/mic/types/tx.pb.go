@@ -27,7 +27,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type MsgCreateMarketIdentificationCode struct {
+type MsgRegisterMarketIdentificationCode struct {
 	Creator             string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	MIC                 string `protobuf:"bytes,2,opt,name=MIC,proto3" json:"MIC,omitempty"`
 	Name                string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -38,18 +38,18 @@ type MsgCreateMarketIdentificationCode struct {
 	Status              string `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *MsgCreateMarketIdentificationCode) Reset()         { *m = MsgCreateMarketIdentificationCode{} }
-func (m *MsgCreateMarketIdentificationCode) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateMarketIdentificationCode) ProtoMessage()    {}
-func (*MsgCreateMarketIdentificationCode) Descriptor() ([]byte, []int) {
+func (m *MsgRegisterMarketIdentificationCode) Reset()         { *m = MsgRegisterMarketIdentificationCode{} }
+func (m *MsgRegisterMarketIdentificationCode) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterMarketIdentificationCode) ProtoMessage()    {}
+func (*MsgRegisterMarketIdentificationCode) Descriptor() ([]byte, []int) {
 	return fileDescriptor_29098bfa2f3bbd64, []int{0}
 }
-func (m *MsgCreateMarketIdentificationCode) XXX_Unmarshal(b []byte) error {
+func (m *MsgRegisterMarketIdentificationCode) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateMarketIdentificationCode) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRegisterMarketIdentificationCode) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateMarketIdentificationCode.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRegisterMarketIdentificationCode.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -59,94 +59,93 @@ func (m *MsgCreateMarketIdentificationCode) XXX_Marshal(b []byte, deterministic 
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateMarketIdentificationCode) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateMarketIdentificationCode.Merge(m, src)
+func (m *MsgRegisterMarketIdentificationCode) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterMarketIdentificationCode.Merge(m, src)
 }
-func (m *MsgCreateMarketIdentificationCode) XXX_Size() int {
+func (m *MsgRegisterMarketIdentificationCode) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateMarketIdentificationCode) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateMarketIdentificationCode.DiscardUnknown(m)
+func (m *MsgRegisterMarketIdentificationCode) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterMarketIdentificationCode.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateMarketIdentificationCode proto.InternalMessageInfo
+var xxx_messageInfo_MsgRegisterMarketIdentificationCode proto.InternalMessageInfo
 
-func (m *MsgCreateMarketIdentificationCode) GetCreator() string {
+func (m *MsgRegisterMarketIdentificationCode) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetMIC() string {
+func (m *MsgRegisterMarketIdentificationCode) GetMIC() string {
 	if m != nil {
 		return m.MIC
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetName() string {
+func (m *MsgRegisterMarketIdentificationCode) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetLocation() string {
+func (m *MsgRegisterMarketIdentificationCode) GetLocation() string {
 	if m != nil {
 		return m.Location
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetAssetClass() string {
+func (m *MsgRegisterMarketIdentificationCode) GetAssetClass() string {
 	if m != nil {
 		return m.AssetClass
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetCurrency() string {
+func (m *MsgRegisterMarketIdentificationCode) GetCurrency() string {
 	if m != nil {
 		return m.Currency
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetRegulatoryAuthority() string {
+func (m *MsgRegisterMarketIdentificationCode) GetRegulatoryAuthority() string {
 	if m != nil {
 		return m.RegulatoryAuthority
 	}
 	return ""
 }
 
-func (m *MsgCreateMarketIdentificationCode) GetStatus() string {
+func (m *MsgRegisterMarketIdentificationCode) GetStatus() string {
 	if m != nil {
 		return m.Status
 	}
 	return ""
 }
 
-type MsgCreateMarketIdentificationCodeResponse struct {
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+type MsgRegisterMarketIdentificationCodeResponse struct {
 }
 
-func (m *MsgCreateMarketIdentificationCodeResponse) Reset() {
-	*m = MsgCreateMarketIdentificationCodeResponse{}
+func (m *MsgRegisterMarketIdentificationCodeResponse) Reset() {
+	*m = MsgRegisterMarketIdentificationCodeResponse{}
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) String() string {
+func (m *MsgRegisterMarketIdentificationCodeResponse) String() string {
 	return proto.CompactTextString(m)
 }
-func (*MsgCreateMarketIdentificationCodeResponse) ProtoMessage() {}
-func (*MsgCreateMarketIdentificationCodeResponse) Descriptor() ([]byte, []int) {
+func (*MsgRegisterMarketIdentificationCodeResponse) ProtoMessage() {}
+func (*MsgRegisterMarketIdentificationCodeResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_29098bfa2f3bbd64, []int{1}
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateMarketIdentificationCodeResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRegisterMarketIdentificationCodeResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -156,24 +155,17 @@ func (m *MsgCreateMarketIdentificationCodeResponse) XXX_Marshal(b []byte, determ
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateMarketIdentificationCodeResponse.Merge(m, src)
+func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterMarketIdentificationCodeResponse.Merge(m, src)
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) XXX_Size() int {
+func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateMarketIdentificationCodeResponse.DiscardUnknown(m)
+func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterMarketIdentificationCodeResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateMarketIdentificationCodeResponse proto.InternalMessageInfo
-
-func (m *MsgCreateMarketIdentificationCodeResponse) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
+var xxx_messageInfo_MsgRegisterMarketIdentificationCodeResponse proto.InternalMessageInfo
 
 type MsgUpdateMarketIdentificationCode struct {
 	Creator             string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
@@ -408,8 +400,8 @@ func (m *MsgDeleteMarketIdentificationCodeResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgDeleteMarketIdentificationCodeResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgCreateMarketIdentificationCode)(nil), "jim380.re.mic.MsgCreateMarketIdentificationCode")
-	proto.RegisterType((*MsgCreateMarketIdentificationCodeResponse)(nil), "jim380.re.mic.MsgCreateMarketIdentificationCodeResponse")
+	proto.RegisterType((*MsgRegisterMarketIdentificationCode)(nil), "jim380.re.mic.MsgRegisterMarketIdentificationCode")
+	proto.RegisterType((*MsgRegisterMarketIdentificationCodeResponse)(nil), "jim380.re.mic.MsgRegisterMarketIdentificationCodeResponse")
 	proto.RegisterType((*MsgUpdateMarketIdentificationCode)(nil), "jim380.re.mic.MsgUpdateMarketIdentificationCode")
 	proto.RegisterType((*MsgUpdateMarketIdentificationCodeResponse)(nil), "jim380.re.mic.MsgUpdateMarketIdentificationCodeResponse")
 	proto.RegisterType((*MsgDeleteMarketIdentificationCode)(nil), "jim380.re.mic.MsgDeleteMarketIdentificationCode")
@@ -419,34 +411,34 @@ func init() {
 func init() { proto.RegisterFile("re/mic/tx.proto", fileDescriptor_29098bfa2f3bbd64) }
 
 var fileDescriptor_29098bfa2f3bbd64 = []byte{
-	// 423 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x54, 0xcd, 0xaa, 0xd3, 0x40,
-	0x14, 0x6e, 0x92, 0xda, 0x7b, 0x1d, 0xf0, 0x87, 0x11, 0x64, 0xe8, 0x62, 0xb8, 0x76, 0xa3, 0x22,
-	0x24, 0xc5, 0xbb, 0xb9, 0xe8, 0x4a, 0xe3, 0xa6, 0x8b, 0x20, 0x04, 0xdc, 0xb8, 0x29, 0xe9, 0xe4,
-	0x98, 0x8e, 0x26, 0x99, 0x30, 0x33, 0x81, 0xe6, 0x01, 0xdc, 0xb9, 0xf0, 0x59, 0x7c, 0x0a, 0x97,
-	0x5d, 0xba, 0x94, 0xf6, 0x45, 0x24, 0x93, 0xa6, 0x58, 0x08, 0x49, 0x05, 0x77, 0x77, 0x37, 0xe7,
-	0x9c, 0xef, 0x3b, 0xf3, 0xf1, 0x9d, 0x33, 0x83, 0x1e, 0x48, 0xf0, 0x32, 0xce, 0x3c, 0xbd, 0x71,
-	0x0b, 0x29, 0xb4, 0xc0, 0xf7, 0x3e, 0xf3, 0xec, 0xfa, 0x66, 0xee, 0x4a, 0x70, 0x33, 0xce, 0xa6,
-	0x4f, 0x0f, 0xf5, 0x2c, 0x92, 0x5f, 0x40, 0x2f, 0x79, 0x0c, 0xb9, 0xe6, 0x9f, 0x38, 0x8b, 0x34,
-	0x17, 0xf9, 0x92, 0x89, 0x18, 0x1a, 0xde, 0xec, 0xab, 0x8d, 0x9e, 0x04, 0x2a, 0xf1, 0x25, 0x44,
-	0x1a, 0x02, 0x83, 0x5e, 0x9c, 0x80, 0x7d, 0x11, 0x03, 0x26, 0xe8, 0x82, 0xd5, 0x08, 0x21, 0x89,
-	0x75, 0x65, 0x3d, 0xbb, 0x1b, 0xb6, 0x21, 0x7e, 0x88, 0x9c, 0x60, 0xe1, 0x13, 0xdb, 0x64, 0xeb,
-	0x23, 0xc6, 0x68, 0x9c, 0x47, 0x19, 0x10, 0xc7, 0xa4, 0xcc, 0x19, 0x4f, 0xd1, 0x65, 0x2a, 0x9a,
-	0x7e, 0x64, 0x6c, 0xf2, 0xc7, 0x18, 0x53, 0x84, 0x22, 0xa5, 0x40, 0xfb, 0x69, 0xa4, 0x14, 0xb9,
-	0x63, 0xaa, 0x7f, 0x65, 0x6a, 0x2e, 0x2b, 0xa5, 0x84, 0x9c, 0x55, 0x64, 0xd2, 0x70, 0xdb, 0x18,
-	0xcf, 0xd1, 0x23, 0x09, 0x49, 0x99, 0xd6, 0x52, 0xaa, 0x37, 0xa5, 0x5e, 0x0b, 0xc9, 0x75, 0x45,
-	0x2e, 0x0c, 0xac, 0xab, 0x84, 0x1f, 0xa3, 0x89, 0xd2, 0x91, 0x2e, 0x15, 0xb9, 0x34, 0xa0, 0x43,
-	0x34, 0x7b, 0x8d, 0x9e, 0x0f, 0xda, 0x10, 0x82, 0x2a, 0x44, 0xae, 0x00, 0xdf, 0x47, 0x36, 0x8f,
-	0x8d, 0x13, 0xe3, 0xd0, 0xe6, 0x71, 0x6b, 0xe2, 0x87, 0x22, 0xbe, 0xdd, 0x26, 0xbe, 0x30, 0x26,
-	0xf6, 0xdb, 0xd0, 0x9a, 0x38, 0x7b, 0x6f, 0x3c, 0x7b, 0x07, 0x29, 0xfc, 0x1f, 0xcf, 0x0e, 0xb7,
-	0xf7, 0x37, 0x6c, 0x6f, 0x7f, 0xf9, 0xc3, 0x41, 0x4e, 0xa0, 0x12, 0xfc, 0xcd, 0x42, 0x74, 0x60,
-	0xf9, 0xe7, 0xee, 0xc9, 0xdb, 0x72, 0x07, 0xf7, 0x64, 0x7a, 0xf3, 0xaf, 0x8c, 0xe3, 0x66, 0xd5,
-	0x72, 0x06, 0xd6, 0xa8, 0x43, 0x4e, 0x3f, 0xa3, 0x4b, 0xce, 0x79, 0x33, 0x32, 0x72, 0x06, 0x26,
-	0xd4, 0x21, 0xa7, 0x9f, 0xd1, 0x25, 0xe7, 0xbc, 0xa1, 0xbd, 0x7d, 0xf5, 0x73, 0x47, 0xad, 0xed,
-	0x8e, 0x5a, 0xbf, 0x77, 0xd4, 0xfa, 0xbe, 0xa7, 0xa3, 0xed, 0x9e, 0x8e, 0x7e, 0xed, 0xe9, 0xe8,
-	0xe3, 0x55, 0xc2, 0xf5, 0xba, 0x5c, 0xb9, 0x4c, 0x64, 0x5e, 0xd3, 0xdd, 0x0b, 0xc1, 0xdb, 0x34,
-	0x7f, 0x64, 0x55, 0x80, 0x5a, 0x4d, 0xcc, 0x7f, 0x77, 0xfd, 0x27, 0x00, 0x00, 0xff, 0xff, 0xcf,
-	0x7a, 0x54, 0x9e, 0x3a, 0x05, 0x00, 0x00,
+	// 428 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x54, 0xcf, 0x6b, 0xd4, 0x40,
+	0x14, 0xde, 0xec, 0xd6, 0x6d, 0x7d, 0x20, 0xca, 0x08, 0x32, 0xe4, 0x30, 0xd4, 0xf5, 0xa0, 0x52,
+	0x4c, 0x96, 0xf6, 0x52, 0x7a, 0xd3, 0x78, 0xe9, 0x21, 0x08, 0x01, 0x2f, 0x5e, 0xca, 0x74, 0xf2,
+	0x4c, 0x47, 0x93, 0x4c, 0x98, 0x99, 0x40, 0xf3, 0x07, 0x88, 0x17, 0x0f, 0xfd, 0x6b, 0xfc, 0x1b,
+	0x3c, 0xf6, 0xe8, 0x51, 0x76, 0xff, 0x11, 0xc9, 0x64, 0x53, 0x5c, 0x5c, 0x77, 0xb7, 0xe0, 0xad,
+	0xb7, 0x79, 0xef, 0x7d, 0xdf, 0x37, 0x1f, 0xdf, 0xfc, 0x80, 0x87, 0x1a, 0xc3, 0x42, 0x8a, 0xd0,
+	0x5e, 0x06, 0x95, 0x56, 0x56, 0x91, 0x07, 0x9f, 0x64, 0x71, 0x74, 0x3c, 0x0d, 0x34, 0x06, 0x85,
+	0x14, 0xfe, 0xf3, 0xc5, 0xbc, 0xe0, 0xfa, 0x33, 0xda, 0x33, 0x99, 0x62, 0x69, 0xe5, 0x47, 0x29,
+	0xb8, 0x95, 0xaa, 0x3c, 0x13, 0x2a, 0xc5, 0x8e, 0x37, 0xf9, 0x3a, 0x84, 0x67, 0xb1, 0xc9, 0x12,
+	0xcc, 0xa4, 0xb1, 0xa8, 0x63, 0x87, 0x3f, 0x5d, 0x82, 0x47, 0x2a, 0x45, 0x42, 0x61, 0x57, 0x68,
+	0xe4, 0x56, 0x69, 0xea, 0xed, 0x7b, 0x2f, 0xee, 0x27, 0x7d, 0x49, 0x1e, 0xc1, 0x28, 0x3e, 0x8d,
+	0xe8, 0xd0, 0x75, 0xdb, 0x25, 0x21, 0xb0, 0x53, 0xf2, 0x02, 0xe9, 0xc8, 0xb5, 0xdc, 0x9a, 0xf8,
+	0xb0, 0x97, 0xab, 0x4e, 0x8f, 0xee, 0xb8, 0xfe, 0x4d, 0x4d, 0x18, 0x00, 0x37, 0x06, 0x6d, 0x94,
+	0x73, 0x63, 0xe8, 0x3d, 0x37, 0xfd, 0xa3, 0xd3, 0x72, 0x45, 0xad, 0x35, 0x96, 0xa2, 0xa1, 0xe3,
+	0x8e, 0xdb, 0xd7, 0x64, 0x0a, 0x8f, 0x35, 0x66, 0x75, 0xde, 0x5a, 0x69, 0x5e, 0xd7, 0xf6, 0x42,
+	0x69, 0x69, 0x1b, 0xba, 0xeb, 0x60, 0xab, 0x46, 0xe4, 0x09, 0x8c, 0x8d, 0xe5, 0xb6, 0x36, 0x74,
+	0xcf, 0x81, 0x16, 0xd5, 0xe4, 0x15, 0x1c, 0x6c, 0x11, 0x44, 0x82, 0xa6, 0x52, 0xa5, 0xc1, 0xc9,
+	0x97, 0x21, 0x3c, 0x8d, 0x4d, 0xf6, 0xbe, 0x4a, 0xb9, 0xc5, 0x3b, 0x1c, 0xdb, 0x01, 0xbc, 0xdc,
+	0x18, 0xc3, 0x4d, 0x68, 0xef, 0x5c, 0x66, 0x6f, 0x31, 0xc7, 0xff, 0x93, 0xd9, 0x62, 0xf7, 0xf5,
+	0x82, 0xfd, 0xee, 0x87, 0xdf, 0x47, 0x30, 0x8a, 0x4d, 0x46, 0xae, 0x3c, 0x60, 0x51, 0x2b, 0xf9,
+	0x6f, 0x0f, 0x87, 0xc1, 0xd2, 0x7b, 0x0a, 0xb6, 0xb8, 0x19, 0xfe, 0xc9, 0xed, 0x39, 0xbd, 0x35,
+	0xf2, 0xcd, 0x03, 0xb6, 0xe1, 0x2a, 0x4d, 0xff, 0x96, 0x5f, 0xcf, 0xf0, 0x8f, 0x6f, 0xcb, 0x58,
+	0xb2, 0xb3, 0xe1, 0x94, 0x56, 0xd8, 0x59, 0xcf, 0x58, 0x65, 0x67, 0xbb, 0x83, 0x7b, 0x73, 0xf2,
+	0x63, 0xc6, 0xbc, 0xeb, 0x19, 0xf3, 0x7e, 0xcd, 0x98, 0x77, 0x35, 0x67, 0x83, 0xeb, 0x39, 0x1b,
+	0xfc, 0x9c, 0xb3, 0xc1, 0x87, 0xfd, 0x4c, 0xda, 0x8b, 0xfa, 0x3c, 0x10, 0xaa, 0x08, 0x3b, 0xf5,
+	0x30, 0xc1, 0xf0, 0xb2, 0xfb, 0x1b, 0x9b, 0x0a, 0xcd, 0xf9, 0xd8, 0xfd, 0x73, 0x47, 0xbf, 0x03,
+	0x00, 0x00, 0xff, 0xff, 0xf9, 0x4d, 0xcf, 0x5b, 0x32, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -461,7 +453,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	CreateMarketIdentificationCode(ctx context.Context, in *MsgCreateMarketIdentificationCode, opts ...grpc.CallOption) (*MsgCreateMarketIdentificationCodeResponse, error)
+	CreateMarketIdentificationCode(ctx context.Context, in *MsgRegisterMarketIdentificationCode, opts ...grpc.CallOption) (*MsgRegisterMarketIdentificationCodeResponse, error)
 	UpdateMarketIdentificationCode(ctx context.Context, in *MsgUpdateMarketIdentificationCode, opts ...grpc.CallOption) (*MsgUpdateMarketIdentificationCodeResponse, error)
 	DeleteMarketIdentificationCode(ctx context.Context, in *MsgDeleteMarketIdentificationCode, opts ...grpc.CallOption) (*MsgDeleteMarketIdentificationCodeResponse, error)
 }
@@ -474,8 +466,8 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) CreateMarketIdentificationCode(ctx context.Context, in *MsgCreateMarketIdentificationCode, opts ...grpc.CallOption) (*MsgCreateMarketIdentificationCodeResponse, error) {
-	out := new(MsgCreateMarketIdentificationCodeResponse)
+func (c *msgClient) CreateMarketIdentificationCode(ctx context.Context, in *MsgRegisterMarketIdentificationCode, opts ...grpc.CallOption) (*MsgRegisterMarketIdentificationCodeResponse, error) {
+	out := new(MsgRegisterMarketIdentificationCodeResponse)
 	err := c.cc.Invoke(ctx, "/jim380.re.mic.Msg/CreateMarketIdentificationCode", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -503,7 +495,7 @@ func (c *msgClient) DeleteMarketIdentificationCode(ctx context.Context, in *MsgD
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	CreateMarketIdentificationCode(context.Context, *MsgCreateMarketIdentificationCode) (*MsgCreateMarketIdentificationCodeResponse, error)
+	CreateMarketIdentificationCode(context.Context, *MsgRegisterMarketIdentificationCode) (*MsgRegisterMarketIdentificationCodeResponse, error)
 	UpdateMarketIdentificationCode(context.Context, *MsgUpdateMarketIdentificationCode) (*MsgUpdateMarketIdentificationCodeResponse, error)
 	DeleteMarketIdentificationCode(context.Context, *MsgDeleteMarketIdentificationCode) (*MsgDeleteMarketIdentificationCodeResponse, error)
 }
@@ -512,7 +504,7 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) CreateMarketIdentificationCode(ctx context.Context, req *MsgCreateMarketIdentificationCode) (*MsgCreateMarketIdentificationCodeResponse, error) {
+func (*UnimplementedMsgServer) CreateMarketIdentificationCode(ctx context.Context, req *MsgRegisterMarketIdentificationCode) (*MsgRegisterMarketIdentificationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMarketIdentificationCode not implemented")
 }
 func (*UnimplementedMsgServer) UpdateMarketIdentificationCode(ctx context.Context, req *MsgUpdateMarketIdentificationCode) (*MsgUpdateMarketIdentificationCodeResponse, error) {
@@ -527,7 +519,7 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 }
 
 func _Msg_CreateMarketIdentificationCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgCreateMarketIdentificationCode)
+	in := new(MsgRegisterMarketIdentificationCode)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -539,7 +531,7 @@ func _Msg_CreateMarketIdentificationCode_Handler(srv interface{}, ctx context.Co
 		FullMethod: "/jim380.re.mic.Msg/CreateMarketIdentificationCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateMarketIdentificationCode(ctx, req.(*MsgCreateMarketIdentificationCode))
+		return srv.(MsgServer).CreateMarketIdentificationCode(ctx, req.(*MsgRegisterMarketIdentificationCode))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -601,7 +593,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	Metadata: "re/mic/tx.proto",
 }
 
-func (m *MsgCreateMarketIdentificationCode) Marshal() (dAtA []byte, err error) {
+func (m *MsgRegisterMarketIdentificationCode) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -611,12 +603,12 @@ func (m *MsgCreateMarketIdentificationCode) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateMarketIdentificationCode) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRegisterMarketIdentificationCode) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateMarketIdentificationCode) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRegisterMarketIdentificationCode) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -680,7 +672,7 @@ func (m *MsgCreateMarketIdentificationCode) MarshalToSizedBuffer(dAtA []byte) (i
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateMarketIdentificationCodeResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRegisterMarketIdentificationCodeResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -690,21 +682,16 @@ func (m *MsgCreateMarketIdentificationCodeResponse) Marshal() (dAtA []byte, err 
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateMarketIdentificationCodeResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRegisterMarketIdentificationCodeResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateMarketIdentificationCodeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRegisterMarketIdentificationCodeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
-		i--
-		dAtA[i] = 0x8
-	}
 	return len(dAtA) - i, nil
 }
 
@@ -881,7 +868,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgCreateMarketIdentificationCode) Size() (n int) {
+func (m *MsgRegisterMarketIdentificationCode) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -922,15 +909,12 @@ func (m *MsgCreateMarketIdentificationCode) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateMarketIdentificationCodeResponse) Size() (n int) {
+func (m *MsgRegisterMarketIdentificationCodeResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
-	}
 	return n
 }
 
@@ -1016,7 +1000,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgCreateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
+func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1039,10 +1023,10 @@ func (m *MsgCreateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateMarketIdentificationCode: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRegisterMarketIdentificationCode: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateMarketIdentificationCode: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRegisterMarketIdentificationCode: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1322,7 +1306,7 @@ func (m *MsgCreateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateMarketIdentificationCodeResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRegisterMarketIdentificationCodeResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1345,31 +1329,12 @@ func (m *MsgCreateMarketIdentificationCodeResponse) Unmarshal(dAtA []byte) error
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateMarketIdentificationCodeResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRegisterMarketIdentificationCodeResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateMarketIdentificationCodeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRegisterMarketIdentificationCodeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
