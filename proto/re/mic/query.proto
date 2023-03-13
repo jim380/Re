@@ -1,26 +1,58 @@
 syntax = "proto3";
+
 package jim380.re.mic;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "re/mic/params.proto";
+import "re/mic/market_identification_code.proto";
 
 option go_package = "github.com/jim380/Re/x/mic/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/mic/params";
+  
+  }
+  
+  // Queries a list of MarketIdentificationCode items.
+  rpc MarketIdentificationCode    (QueryGetMarketIdentificationCodeRequest) returns (QueryGetMarketIdentificationCodeResponse) {
+    option (google.api.http).get = "/jim380/Re/mic/market_identification_code/{MIC}";
+  
+  }
+  rpc MarketIdentificationCodeAll (QueryAllMarketIdentificationCodeRequest) returns (QueryAllMarketIdentificationCodeResponse) {
+    option (google.api.http).get = "/jim380/Re/mic/market_identification_code";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryGetMarketIdentificationCodeRequest {
+  string MIC = 1; 
+}
+
+message QueryGetMarketIdentificationCodeResponse {
+  MarketIdentificationCode MarketIdentificationCode = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllMarketIdentificationCodeRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMarketIdentificationCodeResponse {
+  repeated MarketIdentificationCode               MarketIdentificationCode = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination               = 2;
+}
+

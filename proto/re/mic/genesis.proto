@@ -1,12 +1,17 @@
 syntax = "proto3";
+
 package jim380.re.mic;
 
 import "gogoproto/gogo.proto";
 import "re/mic/params.proto";
+import "re/mic/market_identification_code.proto";
 
 option go_package = "github.com/jim380/Re/x/mic/types";
 
 // GenesisState defines the mic module's genesis state.
 message GenesisState {
-  Params params = 1 [(gogoproto.nullable) = false];
+           Params                   params                        = 1 [(gogoproto.nullable) = false];
+  repeated MarketIdentificationCode marketIdentificationCodeList  = 2 [(gogoproto.nullable) = false];
+           uint64                   marketIdentificationCodeCount = 3;
 }
+

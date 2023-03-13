@@ -1,0 +1,15 @@
+syntax = "proto3";
+package jim380.re.mic;
+
+option go_package = "github.com/jim380/Re/x/mic/types";
+
+message MarketIdentificationCode {
+  string MIC = 1; 
+  string name = 2; 
+  string location = 3; 
+  string assetClass = 4; 
+  string currency = 5; 
+  string regulatoryAuthority = 6; 
+  string status = 7; 
+  string creator = 8;
+}

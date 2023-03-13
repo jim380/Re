@@ -19,12 +19,47 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				MarketIdentificationCodeList: []types.MarketIdentificationCode{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				MarketIdentificationCodeCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated marketIdentificationCode",
+			genState: &types.GenesisState{
+				MarketIdentificationCodeList: []types.MarketIdentificationCode{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid marketIdentificationCode count",
+			genState: &types.GenesisState{
+				MarketIdentificationCodeList: []types.MarketIdentificationCode{
+					{
+						Id: 1,
+					},
+				},
+				MarketIdentificationCodeCount: 0,
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {

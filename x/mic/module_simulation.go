@@ -24,7 +24,19 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgCreateMarketIdentificationCode = "op_weight_msg_market_identification_code"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateMarketIdentificationCode int = 100
+
+	opWeightMsgUpdateMarketIdentificationCode = "op_weight_msg_market_identification_code"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateMarketIdentificationCode int = 100
+
+	opWeightMsgDeleteMarketIdentificationCode = "op_weight_msg_market_identification_code"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgDeleteMarketIdentificationCode int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module
@@ -35,6 +47,17 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	micGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
+		MarketIdentificationCodeList: []types.MarketIdentificationCode{
+			{
+				Id:      0,
+				Creator: sample.AccAddress(),
+			},
+			{
+				Id:      1,
+				Creator: sample.AccAddress(),
+			},
+		},
+		MarketIdentificationCodeCount: 2,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&micGenesis)
@@ -57,6 +80,39 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+
+	var weightMsgCreateMarketIdentificationCode int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateMarketIdentificationCode, &weightMsgCreateMarketIdentificationCode, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateMarketIdentificationCode = defaultWeightMsgCreateMarketIdentificationCode
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateMarketIdentificationCode,
+		micsimulation.SimulateMsgCreateMarketIdentificationCode(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateMarketIdentificationCode int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateMarketIdentificationCode, &weightMsgUpdateMarketIdentificationCode, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateMarketIdentificationCode = defaultWeightMsgUpdateMarketIdentificationCode
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateMarketIdentificationCode,
+		micsimulation.SimulateMsgUpdateMarketIdentificationCode(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgDeleteMarketIdentificationCode int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgDeleteMarketIdentificationCode, &weightMsgDeleteMarketIdentificationCode, nil,
+		func(_ *rand.Rand) {
+			weightMsgDeleteMarketIdentificationCode = defaultWeightMsgDeleteMarketIdentificationCode
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDeleteMarketIdentificationCode,
+		micsimulation.SimulateMsgDeleteMarketIdentificationCode(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 
