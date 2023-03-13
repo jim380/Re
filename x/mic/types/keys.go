@@ -18,7 +18,10 @@ func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
-const (
-	MarketIdentificationCodeKey      = "MarketIdentificationCode/value/"
-	MarketIdentificationCodeCountKey = "MarketIdentificationCode/count/"
+var (
+	MarketIdentificationCodeKey = []byte{0x00}
 )
+
+func GetMarketIdentificationCodeKey() []byte {
+	return MarketIdentificationCodeKey
+}

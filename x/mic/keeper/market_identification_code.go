@@ -8,15 +8,15 @@ import (
 
 // SetMarketIdentificationCode set a specific marketIdentificationCode in the store
 func (k Keeper) SetMarketIdentificationCode(ctx sdk.Context, mic string, marketIdentificationCode types.MarketIdentificationCode) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
 	key := []byte(mic)
 	b := k.cdc.MustMarshal(&marketIdentificationCode)
 	store.Set(key, b)
 }
 
-// GetMarketIdentificationCode returns a marketIdentificationCode from its id
+// GetMarketIdentificationCode returns a marketIdentificationCode from its mic
 func (k Keeper) GetMarketIdentificationCode(ctx sdk.Context, mic string) (val types.MarketIdentificationCode, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
 	key := []byte(mic)
 	b := store.Get(key)
 	if b == nil {
@@ -28,14 +28,14 @@ func (k Keeper) GetMarketIdentificationCode(ctx sdk.Context, mic string) (val ty
 
 // RemoveMarketIdentificationCode removes a marketIdentificationCode from the store
 func (k Keeper) RemoveMarketIdentificationCode(ctx sdk.Context, mic string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
 	key := []byte(mic)
 	store.Delete(key)
 }
 
 // GetAllMarketIdentificationCode returns all marketIdentificationCode
 func (k Keeper) GetAllMarketIdentificationCode(ctx sdk.Context) (list []types.MarketIdentificationCode) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
