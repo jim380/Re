@@ -1,3 +1,5 @@
+
+![Re_Logo](https://user-images.githubusercontent.com/66339097/225161063-184973bc-675b-4de9-8b3b-97facd376ed7.png)
 # The Re Protocol
 **Re** is a blockchain built with Cosmos SDK leveraging Interchain Security. To learn more, visit [here](http://re.cyphercore.io).
 
