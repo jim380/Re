@@ -23,7 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Quote struct {
-	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	SessionID            string                  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	QuoteRequest         []*QuoteRequest         `protobuf:"bytes,2,rep,name=quoteRequest,proto3" json:"quoteRequest,omitempty"`
+	QuoteAcknowledgement []*QuoteAcknowledgement `protobuf:"bytes,3,rep,name=quoteAcknowledgement,proto3" json:"quoteAcknowledgement,omitempty"`
+	QuoteRejection       []*QuoteRejection       `protobuf:"bytes,4,rep,name=quoteRejection,proto3" json:"quoteRejection,omitempty"`
 }
 
 func (m *Quote) Reset()         { *m = Quote{} }
@@ -66,24 +69,218 @@ func (m *Quote) GetSessionID() string {
 	return ""
 }
 
+func (m *Quote) GetQuoteRequest() []*QuoteRequest {
+	if m != nil {
+		return m.QuoteRequest
+	}
+	return nil
+}
+
+func (m *Quote) GetQuoteAcknowledgement() []*QuoteAcknowledgement {
+	if m != nil {
+		return m.QuoteAcknowledgement
+	}
+	return nil
+}
+
+func (m *Quote) GetQuoteRejection() []*QuoteRejection {
+	if m != nil {
+		return m.QuoteRejection
+	}
+	return nil
+}
+
+type QuoteRequest struct {
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	//add other fields
+	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *QuoteRequest) Reset()         { *m = QuoteRequest{} }
+func (m *QuoteRequest) String() string { return proto.CompactTextString(m) }
+func (*QuoteRequest) ProtoMessage()    {}
+func (*QuoteRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_514bbb019fde7c91, []int{1}
+}
+func (m *QuoteRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QuoteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QuoteRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QuoteRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuoteRequest.Merge(m, src)
+}
+func (m *QuoteRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QuoteRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuoteRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuoteRequest proto.InternalMessageInfo
+
+func (m *QuoteRequest) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *QuoteRequest) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+type QuoteAcknowledgement struct {
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	//add other fields
+	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *QuoteAcknowledgement) Reset()         { *m = QuoteAcknowledgement{} }
+func (m *QuoteAcknowledgement) String() string { return proto.CompactTextString(m) }
+func (*QuoteAcknowledgement) ProtoMessage()    {}
+func (*QuoteAcknowledgement) Descriptor() ([]byte, []int) {
+	return fileDescriptor_514bbb019fde7c91, []int{2}
+}
+func (m *QuoteAcknowledgement) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QuoteAcknowledgement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QuoteAcknowledgement.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QuoteAcknowledgement) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuoteAcknowledgement.Merge(m, src)
+}
+func (m *QuoteAcknowledgement) XXX_Size() int {
+	return m.Size()
+}
+func (m *QuoteAcknowledgement) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuoteAcknowledgement.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuoteAcknowledgement proto.InternalMessageInfo
+
+func (m *QuoteAcknowledgement) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *QuoteAcknowledgement) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+type QuoteRejection struct {
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	//add other fields
+	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *QuoteRejection) Reset()         { *m = QuoteRejection{} }
+func (m *QuoteRejection) String() string { return proto.CompactTextString(m) }
+func (*QuoteRejection) ProtoMessage()    {}
+func (*QuoteRejection) Descriptor() ([]byte, []int) {
+	return fileDescriptor_514bbb019fde7c91, []int{3}
+}
+func (m *QuoteRejection) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QuoteRejection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QuoteRejection.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QuoteRejection) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuoteRejection.Merge(m, src)
+}
+func (m *QuoteRejection) XXX_Size() int {
+	return m.Size()
+}
+func (m *QuoteRejection) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuoteRejection.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuoteRejection proto.InternalMessageInfo
+
+func (m *QuoteRejection) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *QuoteRejection) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Quote)(nil), "jim380.re.fix.Quote")
+	proto.RegisterType((*QuoteRequest)(nil), "jim380.re.fix.QuoteRequest")
+	proto.RegisterType((*QuoteAcknowledgement)(nil), "jim380.re.fix.QuoteAcknowledgement")
+	proto.RegisterType((*QuoteRejection)(nil), "jim380.re.fix.QuoteRejection")
 }
 
 func init() { proto.RegisterFile("re/fix/quote.proto", fileDescriptor_514bbb019fde7c91) }
 
 var fileDescriptor_514bbb019fde7c91 = []byte{
-	// 148 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2a, 0x4a, 0xd5, 0x4f,
-	0xcb, 0xac, 0xd0, 0x2f, 0x2c, 0xcd, 0x2f, 0x49, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2,
-	0xcd, 0xca, 0xcc, 0x35, 0xb6, 0x30, 0xd0, 0x2b, 0x4a, 0xd5, 0x4b, 0xcb, 0xac, 0x50, 0x52, 0xe5,
-	0x62, 0x0d, 0x04, 0xc9, 0x0a, 0xc9, 0x70, 0x71, 0x16, 0xa7, 0x16, 0x17, 0x67, 0xe6, 0xe7, 0x79,
-	0xba, 0x48, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0x21, 0x04, 0x9c, 0xac, 0x4e, 0x3c, 0x92, 0x63,
-	0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96,
-	0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x21, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39,
-	0x3f, 0x57, 0x1f, 0x62, 0xb4, 0x7e, 0x50, 0xaa, 0x7e, 0x05, 0xd8, 0xde, 0x92, 0xca, 0x82, 0xd4,
-	0xe2, 0x24, 0x36, 0xb0, 0xc5, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x10, 0xfa, 0xbd, 0x9c,
-	0x8e, 0x00, 0x00, 0x00,
+	// 332 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x92, 0xc1, 0x4e, 0xf2, 0x40,
+	0x10, 0xc7, 0x29, 0x7c, 0x1f, 0x86, 0x05, 0x39, 0x6c, 0xd0, 0x34, 0x2a, 0x1b, 0x82, 0x17, 0x2e,
+	0x6e, 0x09, 0x5c, 0x8c, 0x17, 0xa3, 0xd1, 0x44, 0x8f, 0x6c, 0x4c, 0x4c, 0xbc, 0x98, 0x42, 0x07,
+	0x58, 0xa4, 0x5d, 0xd8, 0x5d, 0x02, 0xbe, 0x80, 0x67, 0x1f, 0xcb, 0x23, 0x47, 0x8f, 0xa6, 0x7d,
+	0x11, 0xe3, 0x52, 0x23, 0x6d, 0x7a, 0xe5, 0xd8, 0xce, 0x6f, 0x7e, 0xff, 0xd9, 0xc9, 0x20, 0x2c,
+	0xc1, 0x19, 0xf2, 0x95, 0x33, 0x5f, 0x08, 0x0d, 0x74, 0x26, 0x85, 0x16, 0x78, 0x7f, 0xc2, 0xfd,
+	0xee, 0x79, 0x9b, 0x4a, 0xa0, 0x43, 0xbe, 0x3a, 0xaa, 0xc7, 0x88, 0xd2, 0x6e, 0xe0, 0xb9, 0xd2,
+	0x7b, 0xf6, 0x41, 0x29, 0x77, 0x14, 0xd3, 0xcd, 0xb7, 0x3c, 0xfa, 0xdf, 0xfb, 0xe9, 0xc6, 0x27,
+	0xa8, 0xa4, 0x40, 0x29, 0x2e, 0x82, 0xfb, 0x1b, 0xdb, 0x6a, 0x58, 0xad, 0x12, 0xfb, 0xfb, 0x81,
+	0x2f, 0x51, 0xc5, 0x84, 0x30, 0x98, 0x2f, 0x40, 0x69, 0x3b, 0xdf, 0x28, 0xb4, 0xca, 0x9d, 0x63,
+	0x9a, 0x08, 0xa3, 0xbd, 0x2d, 0x84, 0x25, 0x1a, 0xf0, 0x23, 0xaa, 0x99, 0xef, 0xab, 0xc1, 0x4b,
+	0x20, 0x96, 0x53, 0xf0, 0x46, 0xe0, 0x43, 0xa0, 0xed, 0x82, 0x11, 0x9d, 0x66, 0x89, 0x52, 0x28,
+	0xcb, 0x14, 0xe0, 0x5b, 0x54, 0x8d, 0x83, 0x26, 0x30, 0xd0, 0x5c, 0x04, 0xf6, 0x3f, 0xa3, 0xac,
+	0x67, 0xcf, 0x16, 0x43, 0x2c, 0xd5, 0xd4, 0x14, 0xa8, 0xb2, 0x3d, 0x3d, 0x3e, 0x43, 0xc5, 0x31,
+	0xb8, 0x1e, 0x48, 0xb3, 0x8b, 0x72, 0xe7, 0x20, 0xa5, 0xbb, 0x33, 0x45, 0x16, 0x43, 0xb8, 0x8d,
+	0xf6, 0xb4, 0x74, 0xf9, 0x14, 0xa4, 0x9d, 0x37, 0xfc, 0x61, 0x8a, 0x7f, 0xd8, 0x54, 0xd9, 0x2f,
+	0xd6, 0x5c, 0xa2, 0x5a, 0xd6, 0x2b, 0x77, 0x1f, 0x3c, 0x47, 0xd5, 0xe4, 0x2e, 0x76, 0x1e, 0x79,
+	0x7d, 0xf1, 0x11, 0x12, 0x6b, 0x1d, 0x12, 0xeb, 0x2b, 0x24, 0xd6, 0x7b, 0x44, 0x72, 0xeb, 0x88,
+	0xe4, 0x3e, 0x23, 0x92, 0x7b, 0x6a, 0x8c, 0xb8, 0x1e, 0x2f, 0xfa, 0x74, 0x20, 0x7c, 0x67, 0x23,
+	0x71, 0x18, 0x38, 0x2b, 0x73, 0xb2, 0xfa, 0x75, 0x06, 0xaa, 0x5f, 0x34, 0x87, 0xda, 0xfd, 0x0e,
+	0x00, 0x00, 0xff, 0xff, 0xdc, 0xf3, 0x63, 0x80, 0xec, 0x02, 0x00, 0x00,
 }
 
 func (m *Quote) Marshal() (dAtA []byte, err error) {
@@ -106,10 +303,193 @@ func (m *Quote) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.QuoteRejection) > 0 {
+		for iNdEx := len(m.QuoteRejection) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.QuoteRejection[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuote(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x22
+		}
+	}
+	if len(m.QuoteAcknowledgement) > 0 {
+		for iNdEx := len(m.QuoteAcknowledgement) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.QuoteAcknowledgement[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuote(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if len(m.QuoteRequest) > 0 {
+		for iNdEx := len(m.QuoteRequest) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.QuoteRequest[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuote(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
 	if len(m.SessionID) > 0 {
 		i -= len(m.SessionID)
 		copy(dAtA[i:], m.SessionID)
 		i = encodeVarintQuote(dAtA, i, uint64(len(m.SessionID)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QuoteRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QuoteRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QuoteRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QuoteAcknowledgement) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QuoteAcknowledgement) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QuoteAcknowledgement) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QuoteRejection) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QuoteRejection) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QuoteRejection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuote(dAtA, i, uint64(size))
+		}
 		i--
 		dAtA[i] = 0xa
 	}
@@ -135,6 +515,75 @@ func (m *Quote) Size() (n int) {
 	_ = l
 	l = len(m.SessionID)
 	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	if len(m.QuoteRequest) > 0 {
+		for _, e := range m.QuoteRequest {
+			l = e.Size()
+			n += 1 + l + sovQuote(uint64(l))
+		}
+	}
+	if len(m.QuoteAcknowledgement) > 0 {
+		for _, e := range m.QuoteAcknowledgement {
+			l = e.Size()
+			n += 1 + l + sovQuote(uint64(l))
+		}
+	}
+	if len(m.QuoteRejection) > 0 {
+		for _, e := range m.QuoteRejection {
+			l = e.Size()
+			n += 1 + l + sovQuote(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *QuoteRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	return n
+}
+
+func (m *QuoteAcknowledgement) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	return n
+}
+
+func (m *QuoteRejection) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
 		n += 1 + l + sovQuote(uint64(l))
 	}
 	return n
@@ -206,6 +655,474 @@ func (m *Quote) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteRequest", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteRequest = append(m.QuoteRequest, &QuoteRequest{})
+			if err := m.QuoteRequest[len(m.QuoteRequest)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteAcknowledgement", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteAcknowledgement = append(m.QuoteAcknowledgement, &QuoteAcknowledgement{})
+			if err := m.QuoteAcknowledgement[len(m.QuoteAcknowledgement)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteRejection", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteRejection = append(m.QuoteRejection, &QuoteRejection{})
+			if err := m.QuoteRejection[len(m.QuoteRejection)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuote(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QuoteRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuote
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QuoteRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QuoteRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuote(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QuoteAcknowledgement) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuote
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QuoteAcknowledgement: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QuoteAcknowledgement: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuote(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QuoteRejection) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuote
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QuoteRejection: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QuoteRejection: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

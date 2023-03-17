@@ -7,9 +7,9 @@ import "re/fix/standard_message.proto";
 
 message Quote {
   string sessionID = 1; 
-  QuoteRequest quoteRequest = 2;
-  QuoteAcknowledgement quoteAcknowledgement = 3;
-  QuoteRejection quoteRejection = 4;
+  repeated QuoteRequest quoteRequest = 2;
+  repeated QuoteAcknowledgement quoteAcknowledgement = 3;
+  repeated QuoteRejection quoteRejection = 4;
 }
 
 message QuoteRequest {
