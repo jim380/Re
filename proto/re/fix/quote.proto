@@ -3,7 +3,29 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message Quote {
   string sessionID = 1; 
-  
+  QuoteRequest quoteRequest = 2;
+  QuoteAcknowledgement quoteAcknowledgement = 3;
+  QuoteRejection quoteRejection = 4;
+}
+
+message QuoteRequest {
+  Header header = 1;
+  //add other fields
+  Trailer trailer = 2;
+}
+
+message QuoteAcknowledgement {
+  Header header = 1;
+  //add other fields
+  Trailer trailer = 2;
+}
+
+message QuoteRejection {
+  Header header = 1;
+  //add other fields
+  Trailer trailer = 2;
 }
