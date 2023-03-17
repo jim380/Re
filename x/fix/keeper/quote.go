@@ -8,7 +8,7 @@ import (
 
 // SetQuote set a specific quote in the store
 func (k Keeper) SetQuote(ctx sdk.Context, sessionID string, quote types.Quote) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.QuoteKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetQuoteKey())
 	key := []byte(sessionID)
 	b := k.cdc.MustMarshal(&quote)
 	store.Set(key, b)
@@ -16,7 +16,7 @@ func (k Keeper) SetQuote(ctx sdk.Context, sessionID string, quote types.Quote) {
 
 // GetQuote returns a quote from its id
 func (k Keeper) GetQuote(ctx sdk.Context, sessionID string) (val types.Quote, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.QuoteKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetQuoteKey())
 	key := []byte(sessionID)
 	b := store.Get(key)
 	if b == nil {
@@ -28,14 +28,14 @@ func (k Keeper) GetQuote(ctx sdk.Context, sessionID string) (val types.Quote, fo
 
 // RemoveQuote removes a quote from the store
 func (k Keeper) RemoveQuote(ctx sdk.Context, sessionID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.QuoteKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetQuoteKey())
 	key := []byte(sessionID)
 	store.Delete(key)
 }
 
 // GetAllQuote returns all quote
 func (k Keeper) GetAllQuote(ctx sdk.Context) (list []types.Quote) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.QuoteKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetQuoteKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

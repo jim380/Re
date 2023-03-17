@@ -42,6 +42,8 @@ var (
 
 	OrdersExecutionReportKey      = []byte{0x013}
 	OrdersExecutionReportCountKey = []byte{0x014}
+
+	QuoteKey = []byte{0x015}
 )
 
 func GetAccountKey() []byte {
@@ -108,7 +110,6 @@ func GetOrdersExecutionReportCountKey() []byte {
 	return OrdersExecutionReportCountKey
 }
 
-const (
-	QuoteKey      = "Quote/value/"
-	QuoteCountKey = "Quote/count/"
-)
+func GetQuoteKey() []byte {
+	return QuoteKey
+}

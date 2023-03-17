@@ -21,7 +21,7 @@ func (k Keeper) QuoteAll(goCtx context.Context, req *types.QueryAllQuoteRequest)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	quoteStore := prefix.NewStore(store, types.KeyPrefix(types.QuoteKey))
+	quoteStore := prefix.NewStore(store, types.GetQuoteKey())
 
 	pageRes, err := query.Paginate(quoteStore, req.Pagination, func(key []byte, value []byte) error {
 		var quote types.Quote
