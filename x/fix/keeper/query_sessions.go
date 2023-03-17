@@ -54,7 +54,6 @@ func (k Keeper) Sessions(goCtx context.Context, req *types.QueryGetSessionsReque
 	return &types.QueryGetSessionsResponse{Sessions: sessions}, nil
 }
 
-
 func (k Keeper) SessionRejectAll(goCtx context.Context, req *types.QueryAllSessionRejectRequest) (*types.QueryAllSessionRejectResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
@@ -138,4 +137,3 @@ func (k Keeper) SessionLogout(goCtx context.Context, req *types.QueryGetSessionL
 
 	return &types.QueryGetSessionLogoutResponse{SessionLogout: sessionLogout}, nil
 }
-

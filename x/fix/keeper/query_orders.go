@@ -96,7 +96,6 @@ func (k Keeper) OrdersCancelRequest(goCtx context.Context, req *types.QueryGetOr
 	return &types.QueryGetOrdersCancelRequestResponse{OrdersCancelRequest: ordersCancelRequest}, nil
 }
 
-
 func (k Keeper) OrdersExecutionReportAll(goCtx context.Context, req *types.QueryAllOrdersExecutionReportRequest) (*types.QueryAllOrdersExecutionReportResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
@@ -180,4 +179,3 @@ func (k Keeper) OrdersCancelReject(goCtx context.Context, req *types.QueryGetOrd
 
 	return &types.QueryGetOrdersCancelRejectResponse{OrdersCancelReject: ordersCancelReject}, nil
 }
-

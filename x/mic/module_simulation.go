@@ -49,11 +49,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		MarketIdentificationCodeList: []types.MarketIdentificationCode{
 			{
-				MIC:      "",
+				MIC:     "",
 				Creator: sample.AccAddress(),
 			},
 			{
-				MIC:      "",
+				MIC:     "",
 				Creator: sample.AccAddress(),
 			},
 		},

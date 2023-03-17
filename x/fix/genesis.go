@@ -50,6 +50,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetOrdersExecutionReport(ctx, elem.SessionID, elem)
 	}
 
+	// Set all the quote
+	for _, elem := range genState.QuoteList {
+		k.SetQuote(ctx, elem.SessionID, elem)
+	}
+
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -63,6 +68,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.SessionsList = k.GetAllSessions(ctx)
 	genesis.SessionsCount = k.GetSessionsCount(ctx)
 
+	genesis.QuoteList = k.GetAllQuote(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

@@ -7,8 +7,8 @@ import (
 
 const (
 	TypeMsgRegisterMarketIdentificationCode = "register_market_identification_code"
-	TypeMsgUpdateMarketIdentificationCode = "update_market_identification_code"
-	TypeMsgDeleteMarketIdentificationCode = "delete_market_identification_code"
+	TypeMsgUpdateMarketIdentificationCode   = "update_market_identification_code"
+	TypeMsgDeleteMarketIdentificationCode   = "delete_market_identification_code"
 )
 
 var _ sdk.Msg = &MsgRegisterMarketIdentificationCode{}
@@ -57,7 +57,7 @@ func (msg *MsgRegisterMarketIdentificationCode) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateMarketIdentificationCode{}
 
-func NewMsgUpdateMarketIdentificationCode(creator string,  mic string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgUpdateMarketIdentificationCode {
+func NewMsgUpdateMarketIdentificationCode(creator string, mic string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgUpdateMarketIdentificationCode {
 	return &MsgUpdateMarketIdentificationCode{
 		Creator:             creator,
 		MIC:                 mic,
@@ -103,7 +103,7 @@ var _ sdk.Msg = &MsgDeleteMarketIdentificationCode{}
 
 func NewMsgDeleteMarketIdentificationCode(creator string, mic string) *MsgDeleteMarketIdentificationCode {
 	return &MsgDeleteMarketIdentificationCode{
-		MIC: mic,
+		MIC:     mic,
 		Creator: creator,
 	}
 }

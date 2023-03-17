@@ -46,7 +46,6 @@ func (msg *MsgLogoutInitiator) ValidateBasic() error {
 	return nil
 }
 
-
 const TypeMsgLogoutAcceptor = "logout_acceptor"
 
 var _ sdk.Msg = &MsgLogoutAcceptor{}

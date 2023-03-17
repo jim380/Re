@@ -16,7 +16,6 @@ message Sessions {
   bool IsAccepted = 7;
 }
 
-
 message LogonInitiator {
   Header header = 1;
   int64 encryptMethod =2;

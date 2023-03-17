@@ -82,7 +82,6 @@ func CmdLogonInitiator() *cobra.Command {
 	return cmd
 }
 
-
 func CmdLogonAcceptor() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "logon-acceptor [sessionID] [msg-type] [sender-compID] [target-compID] [encrypt-method] [heart-beat-int]",

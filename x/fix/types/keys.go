@@ -107,3 +107,8 @@ func GetOrdersExecutionReportKey() []byte {
 func GetOrdersExecutionReportCountKey() []byte {
 	return OrdersExecutionReportCountKey
 }
+
+const (
+	QuoteKey      = "Quote/value/"
+	QuoteCountKey = "Quote/count/"
+)

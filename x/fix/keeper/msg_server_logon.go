@@ -67,7 +67,6 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	return &types.MsgLogonInitiatorResponse{}, nil
 }
 
-
 // LogonAcceptor accepts the session
 func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAcceptor) (*types.MsgLogonAcceptorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -137,7 +136,6 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	return &types.MsgLogonAcceptorResponse{}, nil
 }
 
-
 // LogonReject enables an Acceptor to reject the logon session
 func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject) (*types.MsgLogonRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -193,7 +191,6 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	return &types.MsgLogonRejectResponse{}, nil
 }
 
-
 // TerminateLogon terminates an initiated session by the initiator
 func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminateLogon) (*types.MsgTerminateLogonResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -218,4 +215,3 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 
 	return &types.MsgTerminateLogonResponse{}, nil
 }
-

@@ -29,7 +29,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	var marketIdentificationCode = types.MarketIdentificationCode{
 		Creator:             msg.Creator,
 		MIC:                 msg.MIC,
-		Name:                msg.Name, 
+		Name:                msg.Name,
 		Location:            msg.Location,
 		AssetClass:          msg.AssetClass,
 		Currency:            msg.Currency,

@@ -80,7 +80,6 @@ func NewLogonInitiator(header Header, encryptMethod int64, heartBtInt int64, tra
 	}
 }
 
-
 const TypeMsgLogonAcceptor = "logon_acceptor"
 
 var _ sdk.Msg = &MsgLogonAcceptor{}
@@ -177,7 +176,6 @@ func (msg *MsgLogonReject) ValidateBasic() error {
 	}
 	return nil
 }
-
 
 const TypeMsgTerminateLogon = "terminate_logon"
 
