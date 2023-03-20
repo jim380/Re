@@ -9,23 +9,67 @@ message Quote {
   string sessionID = 1; 
   repeated QuoteRequest quoteRequest = 2;
   repeated QuoteAcknowledgement quoteAcknowledgement = 3;
-  repeated QuoteRejection quoteRejection = 4;
+  repeated QuoteRequestReject quoteRequestReject = 4;
 }
 
 message QuoteRequest {
-  Header header = 1;
-  //add other fields
-  Trailer trailer = 2;
+  Header header = 1;  //standard Header
+  string quoteReqID = 2; //Unique identifier for the Quote Request message
+  string symbol = 3; //Ticker symbol or instrument code for the security being quoted
+  string securityID = 4; //Identifier for the security being quoted
+  string securityIDSource = 5; // Specifies the source of the security identifier
+  string side = 6; //Indicates whether the quote is for a buy or sell order
+  string orderQty = 7; //Quantity of the security being quoted
+  string futSettDate = 8; // Date of the future settlement
+  string settlDate2 = 9; //Secondary settlement date for the security
+  string account = 10; // Account number for the order
+  string bidPx = 11; //Price at which the buyer is willing to buy the security
+  string offerPx = 12; //Price at which the seller is willing to sell the security
+  string currency = 13; // Currency of the quoted price
+  string validUntilTime = 14; //Time after which the quote is no longer valid
+  string expireTime = 15; //Time at which the quote will expire
+  string quoteType = 16; //Type of quote being requested (e.g. Indicative, Firm)
+  string bidSize = 17; //Quantity of securities offered at the bid price
+  string offerSize = 18; // Quantity of securities offered at the offer price
+  string mic = 19; //market identification code
+  string text = 20; // Additional information or comments about the quote request.
+  Trailer trailer = 21; //standard Trailer
 }
 
 message QuoteAcknowledgement {
-  Header header = 1;
-  //add other fields
-  Trailer trailer = 2;
+  Header header = 1; //standard Header
+  string quoteReqID = 2; //Unique identifier for the original Quote Request message
+  string quoteID = 3; //Unique identifier for the Quote
+  string quoteStatus = 4; //Status of the Quote (e.g. Accepted, Rejected, Expired)
+  string quoteType = 5; //Type of Quote (e.g. Indicative, Firm)
+  string securityID = 6; //dentifier for the security being quoted
+  string securityIDSource = 7; //Specifies the source of the security identifier
+  string symbol = 8; //Ticker symbol or instrument code for the security being quoted
+  string side = 9; //indicates whether the quote is for a buy or sell order
+  string orderQty = 10; // Quantity of the security being quoted
+  string lastQty = 11; // Quantity of the last trade
+  string lastPx = 12; //Price of the last trade
+  string bidPx = 13; // Price at which the buyer is willing to buy the security
+  string offerPx = 14; //Price at which the seller is willing to sell the security
+  string currency = 15; //Currency of the quoted price
+  string settlDate = 16; // Settlement date for the security
+  string validUntilTime = 17; //Time after which the quote is no longer valid
+  string expireTime = 18; // Time at which the quote will expire
+  string text = 19; //Additional information or comments about the quote
+  string noQuoteQualifiers = 20; // Number of Quote Qualifiers
+  string quoteQualifier = 21; // Additional information about the quote (e.g. Yield, Size)
+  string noLegs = 22; //Number of legs in the security (for multi-legged securities)
+  string legSymbol = 23; //Ticker symbol or instrument code for each leg of the security
+  string legSecurityID = 24; // Identifier for each leg of the security
+  string legSecurityIDSource = 25; //Specifies the source of the identifier for each leg of the security
+  string legRatioQty = 26; // Ratio of one leg to the other in a multi-legged security
+  Trailer trailer = 27; //standard Trailer
 }
 
-message QuoteRejection {
+message QuoteRequestReject {
   Header header = 1;
-  //add other fields
+  string quoteReqID = 2; //The ID of the original Quote Request message that is being rejected
+  string quoteRequestRejectReason = 3; //A code indicating the reason for rejecting the Quote Request. Examples include "Invalid instrument requested", "Unknown instrument", "Unsupported request type", etc.
+  string text = 3; //A human-readable description of the reason for rejecting the Quote Request
   Trailer trailer = 2;
 }
