@@ -3,11 +3,11 @@ package simulation
 import (
 	"math/rand"
 
-	"github.com/jim380/Re/x/fix/keeper"
-	"github.com/jim380/Re/x/fix/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	"github.com/jim380/Re/x/fix/keeper"
+	"github.com/jim380/Re/x/fix/types"
 )
 
 func SimulateMsgQuoteRequest(

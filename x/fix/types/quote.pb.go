@@ -26,7 +26,7 @@ type Quote struct {
 	SessionID            string                  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
 	QuoteRequest         []*QuoteRequest         `protobuf:"bytes,2,rep,name=quoteRequest,proto3" json:"quoteRequest,omitempty"`
 	QuoteAcknowledgement []*QuoteAcknowledgement `protobuf:"bytes,3,rep,name=quoteAcknowledgement,proto3" json:"quoteAcknowledgement,omitempty"`
-	QuoteRejection       []*QuoteRejection       `protobuf:"bytes,4,rep,name=quoteRejection,proto3" json:"quoteRejection,omitempty"`
+	QuoteRequestReject   []*QuoteRequestReject   `protobuf:"bytes,4,rep,name=quoteRequestReject,proto3" json:"quoteRequestReject,omitempty"`
 }
 
 func (m *Quote) Reset()         { *m = Quote{} }
@@ -83,17 +83,36 @@ func (m *Quote) GetQuoteAcknowledgement() []*QuoteAcknowledgement {
 	return nil
 }
 
-func (m *Quote) GetQuoteRejection() []*QuoteRejection {
+func (m *Quote) GetQuoteRequestReject() []*QuoteRequestReject {
 	if m != nil {
-		return m.QuoteRejection
+		return m.QuoteRequestReject
 	}
 	return nil
 }
 
 type QuoteRequest struct {
-	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	//add other fields
-	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Header           *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	QuoteReqID       string   `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	Symbol           string   `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	SecurityID       string   `protobuf:"bytes,4,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	SecurityIDSource string   `protobuf:"bytes,5,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	Side             string   `protobuf:"bytes,6,opt,name=side,proto3" json:"side,omitempty"`
+	OrderQty         string   `protobuf:"bytes,7,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	FutSettDate      string   `protobuf:"bytes,8,opt,name=futSettDate,proto3" json:"futSettDate,omitempty"`
+	SettlDate2       string   `protobuf:"bytes,9,opt,name=settlDate2,proto3" json:"settlDate2,omitempty"`
+	Account          string   `protobuf:"bytes,10,opt,name=account,proto3" json:"account,omitempty"`
+	BidPx            string   `protobuf:"bytes,11,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
+	OfferPx          string   `protobuf:"bytes,12,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
+	Currency         string   `protobuf:"bytes,13,opt,name=currency,proto3" json:"currency,omitempty"`
+	ValidUntilTime   string   `protobuf:"bytes,14,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
+	ExpireTime       string   `protobuf:"bytes,15,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
+	QuoteType        string   `protobuf:"bytes,16,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
+	BidSize          string   `protobuf:"bytes,17,opt,name=bidSize,proto3" json:"bidSize,omitempty"`
+	OfferSize        string   `protobuf:"bytes,18,opt,name=offerSize,proto3" json:"offerSize,omitempty"`
+	Mic              string   `protobuf:"bytes,19,opt,name=mic,proto3" json:"mic,omitempty"`
+	Text             string   `protobuf:"bytes,20,opt,name=text,proto3" json:"text,omitempty"`
+	Trailer          *Trailer `protobuf:"bytes,21,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator          string   `protobuf:"bytes,22,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *QuoteRequest) Reset()         { *m = QuoteRequest{} }
@@ -136,6 +155,139 @@ func (m *QuoteRequest) GetHeader() *Header {
 	return nil
 }
 
+func (m *QuoteRequest) GetQuoteReqID() string {
+	if m != nil {
+		return m.QuoteReqID
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetSecurityID() string {
+	if m != nil {
+		return m.SecurityID
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetSecurityIDSource() string {
+	if m != nil {
+		return m.SecurityIDSource
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetSide() string {
+	if m != nil {
+		return m.Side
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetOrderQty() string {
+	if m != nil {
+		return m.OrderQty
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetFutSettDate() string {
+	if m != nil {
+		return m.FutSettDate
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetSettlDate2() string {
+	if m != nil {
+		return m.SettlDate2
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetAccount() string {
+	if m != nil {
+		return m.Account
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetBidPx() string {
+	if m != nil {
+		return m.BidPx
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetOfferPx() string {
+	if m != nil {
+		return m.OfferPx
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetCurrency() string {
+	if m != nil {
+		return m.Currency
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetValidUntilTime() string {
+	if m != nil {
+		return m.ValidUntilTime
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetExpireTime() string {
+	if m != nil {
+		return m.ExpireTime
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetQuoteType() string {
+	if m != nil {
+		return m.QuoteType
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetBidSize() string {
+	if m != nil {
+		return m.BidSize
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetOfferSize() string {
+	if m != nil {
+		return m.OfferSize
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetMic() string {
+	if m != nil {
+		return m.Mic
+	}
+	return ""
+}
+
+func (m *QuoteRequest) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
 func (m *QuoteRequest) GetTrailer() *Trailer {
 	if m != nil {
 		return m.Trailer
@@ -143,10 +295,42 @@ func (m *QuoteRequest) GetTrailer() *Trailer {
 	return nil
 }
 
+func (m *QuoteRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
 type QuoteAcknowledgement struct {
-	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	//add other fields
-	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Header              *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	QuoteReqID          string   `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	QuoteID             string   `protobuf:"bytes,3,opt,name=quoteID,proto3" json:"quoteID,omitempty"`
+	QuoteStatus         string   `protobuf:"bytes,4,opt,name=quoteStatus,proto3" json:"quoteStatus,omitempty"`
+	QuoteType           string   `protobuf:"bytes,5,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
+	SecurityID          string   `protobuf:"bytes,6,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	SecurityIDSource    string   `protobuf:"bytes,7,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	Symbol              string   `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side                string   `protobuf:"bytes,9,opt,name=side,proto3" json:"side,omitempty"`
+	OrderQty            string   `protobuf:"bytes,10,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	LastQty             string   `protobuf:"bytes,11,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
+	LastPx              string   `protobuf:"bytes,12,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	BidPx               string   `protobuf:"bytes,13,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
+	OfferPx             string   `protobuf:"bytes,14,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
+	Currency            string   `protobuf:"bytes,15,opt,name=currency,proto3" json:"currency,omitempty"`
+	SettlDate           string   `protobuf:"bytes,16,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
+	ValidUntilTime      string   `protobuf:"bytes,17,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
+	ExpireTime          string   `protobuf:"bytes,18,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
+	Text                string   `protobuf:"bytes,19,opt,name=text,proto3" json:"text,omitempty"`
+	NoQuoteQualifiers   string   `protobuf:"bytes,20,opt,name=noQuoteQualifiers,proto3" json:"noQuoteQualifiers,omitempty"`
+	QuoteQualifier      string   `protobuf:"bytes,21,opt,name=quoteQualifier,proto3" json:"quoteQualifier,omitempty"`
+	NoLegs              string   `protobuf:"bytes,22,opt,name=noLegs,proto3" json:"noLegs,omitempty"`
+	LegSymbol           string   `protobuf:"bytes,23,opt,name=legSymbol,proto3" json:"legSymbol,omitempty"`
+	LegSecurityID       string   `protobuf:"bytes,24,opt,name=legSecurityID,proto3" json:"legSecurityID,omitempty"`
+	LegSecurityIDSource string   `protobuf:"bytes,25,opt,name=legSecurityIDSource,proto3" json:"legSecurityIDSource,omitempty"`
+	LegRatioQty         string   `protobuf:"bytes,26,opt,name=legRatioQty,proto3" json:"legRatioQty,omitempty"`
+	Trailer             *Trailer `protobuf:"bytes,27,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator             string   `protobuf:"bytes,28,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *QuoteAcknowledgement) Reset()         { *m = QuoteAcknowledgement{} }
@@ -189,6 +373,181 @@ func (m *QuoteAcknowledgement) GetHeader() *Header {
 	return nil
 }
 
+func (m *QuoteAcknowledgement) GetQuoteReqID() string {
+	if m != nil {
+		return m.QuoteReqID
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetQuoteID() string {
+	if m != nil {
+		return m.QuoteID
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetQuoteStatus() string {
+	if m != nil {
+		return m.QuoteStatus
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetQuoteType() string {
+	if m != nil {
+		return m.QuoteType
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetSecurityID() string {
+	if m != nil {
+		return m.SecurityID
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetSecurityIDSource() string {
+	if m != nil {
+		return m.SecurityIDSource
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetSide() string {
+	if m != nil {
+		return m.Side
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetOrderQty() string {
+	if m != nil {
+		return m.OrderQty
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLastQty() string {
+	if m != nil {
+		return m.LastQty
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLastPx() string {
+	if m != nil {
+		return m.LastPx
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetBidPx() string {
+	if m != nil {
+		return m.BidPx
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetOfferPx() string {
+	if m != nil {
+		return m.OfferPx
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetCurrency() string {
+	if m != nil {
+		return m.Currency
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetSettlDate() string {
+	if m != nil {
+		return m.SettlDate
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetValidUntilTime() string {
+	if m != nil {
+		return m.ValidUntilTime
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetExpireTime() string {
+	if m != nil {
+		return m.ExpireTime
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetNoQuoteQualifiers() string {
+	if m != nil {
+		return m.NoQuoteQualifiers
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetQuoteQualifier() string {
+	if m != nil {
+		return m.QuoteQualifier
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetNoLegs() string {
+	if m != nil {
+		return m.NoLegs
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLegSymbol() string {
+	if m != nil {
+		return m.LegSymbol
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLegSecurityID() string {
+	if m != nil {
+		return m.LegSecurityID
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLegSecurityIDSource() string {
+	if m != nil {
+		return m.LegSecurityIDSource
+	}
+	return ""
+}
+
+func (m *QuoteAcknowledgement) GetLegRatioQty() string {
+	if m != nil {
+		return m.LegRatioQty
+	}
+	return ""
+}
+
 func (m *QuoteAcknowledgement) GetTrailer() *Trailer {
 	if m != nil {
 		return m.Trailer
@@ -196,24 +555,34 @@ func (m *QuoteAcknowledgement) GetTrailer() *Trailer {
 	return nil
 }
 
-type QuoteRejection struct {
-	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	//add other fields
-	Trailer *Trailer `protobuf:"bytes,2,opt,name=trailer,proto3" json:"trailer,omitempty"`
+func (m *QuoteAcknowledgement) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
 }
 
-func (m *QuoteRejection) Reset()         { *m = QuoteRejection{} }
-func (m *QuoteRejection) String() string { return proto.CompactTextString(m) }
-func (*QuoteRejection) ProtoMessage()    {}
-func (*QuoteRejection) Descriptor() ([]byte, []int) {
+type QuoteRequestReject struct {
+	Header                   *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	QuoteReqID               string   `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	QuoteRequestRejectReason string   `protobuf:"bytes,3,opt,name=quoteRequestRejectReason,proto3" json:"quoteRequestRejectReason,omitempty"`
+	Text                     string   `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
+	Trailer                  *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator                  string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+}
+
+func (m *QuoteRequestReject) Reset()         { *m = QuoteRequestReject{} }
+func (m *QuoteRequestReject) String() string { return proto.CompactTextString(m) }
+func (*QuoteRequestReject) ProtoMessage()    {}
+func (*QuoteRequestReject) Descriptor() ([]byte, []int) {
 	return fileDescriptor_514bbb019fde7c91, []int{3}
 }
-func (m *QuoteRejection) XXX_Unmarshal(b []byte) error {
+func (m *QuoteRequestReject) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QuoteRejection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QuoteRequestReject) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QuoteRejection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QuoteRequestReject.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -223,64 +592,124 @@ func (m *QuoteRejection) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
-func (m *QuoteRejection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QuoteRejection.Merge(m, src)
+func (m *QuoteRequestReject) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuoteRequestReject.Merge(m, src)
 }
-func (m *QuoteRejection) XXX_Size() int {
+func (m *QuoteRequestReject) XXX_Size() int {
 	return m.Size()
 }
-func (m *QuoteRejection) XXX_DiscardUnknown() {
-	xxx_messageInfo_QuoteRejection.DiscardUnknown(m)
+func (m *QuoteRequestReject) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuoteRequestReject.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QuoteRejection proto.InternalMessageInfo
+var xxx_messageInfo_QuoteRequestReject proto.InternalMessageInfo
 
-func (m *QuoteRejection) GetHeader() *Header {
+func (m *QuoteRequestReject) GetHeader() *Header {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *QuoteRejection) GetTrailer() *Trailer {
+func (m *QuoteRequestReject) GetQuoteReqID() string {
+	if m != nil {
+		return m.QuoteReqID
+	}
+	return ""
+}
+
+func (m *QuoteRequestReject) GetQuoteRequestRejectReason() string {
+	if m != nil {
+		return m.QuoteRequestRejectReason
+	}
+	return ""
+}
+
+func (m *QuoteRequestReject) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *QuoteRequestReject) GetTrailer() *Trailer {
 	if m != nil {
 		return m.Trailer
 	}
 	return nil
 }
 
+func (m *QuoteRequestReject) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Quote)(nil), "jim380.re.fix.Quote")
 	proto.RegisterType((*QuoteRequest)(nil), "jim380.re.fix.QuoteRequest")
 	proto.RegisterType((*QuoteAcknowledgement)(nil), "jim380.re.fix.QuoteAcknowledgement")
-	proto.RegisterType((*QuoteRejection)(nil), "jim380.re.fix.QuoteRejection")
+	proto.RegisterType((*QuoteRequestReject)(nil), "jim380.re.fix.QuoteRequestReject")
 }
 
 func init() { proto.RegisterFile("re/fix/quote.proto", fileDescriptor_514bbb019fde7c91) }
 
 var fileDescriptor_514bbb019fde7c91 = []byte{
-	// 332 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x92, 0xc1, 0x4e, 0xf2, 0x40,
-	0x10, 0xc7, 0x29, 0x7c, 0x1f, 0x86, 0x05, 0x39, 0x6c, 0xd0, 0x34, 0x2a, 0x1b, 0x82, 0x17, 0x2e,
-	0x6e, 0x09, 0x5c, 0x8c, 0x17, 0xa3, 0xd1, 0x44, 0x8f, 0x6c, 0x4c, 0x4c, 0xbc, 0x98, 0x42, 0x07,
-	0x58, 0xa4, 0x5d, 0xd8, 0x5d, 0x02, 0xbe, 0x80, 0x67, 0x1f, 0xcb, 0x23, 0x47, 0x8f, 0xa6, 0x7d,
-	0x11, 0xe3, 0x52, 0x23, 0x6d, 0x7a, 0xe5, 0xd8, 0xce, 0x6f, 0x7e, 0xff, 0xd9, 0xc9, 0x20, 0x2c,
-	0xc1, 0x19, 0xf2, 0x95, 0x33, 0x5f, 0x08, 0x0d, 0x74, 0x26, 0x85, 0x16, 0x78, 0x7f, 0xc2, 0xfd,
-	0xee, 0x79, 0x9b, 0x4a, 0xa0, 0x43, 0xbe, 0x3a, 0xaa, 0xc7, 0x88, 0xd2, 0x6e, 0xe0, 0xb9, 0xd2,
-	0x7b, 0xf6, 0x41, 0x29, 0x77, 0x14, 0xd3, 0xcd, 0xb7, 0x3c, 0xfa, 0xdf, 0xfb, 0xe9, 0xc6, 0x27,
-	0xa8, 0xa4, 0x40, 0x29, 0x2e, 0x82, 0xfb, 0x1b, 0xdb, 0x6a, 0x58, 0xad, 0x12, 0xfb, 0xfb, 0x81,
-	0x2f, 0x51, 0xc5, 0x84, 0x30, 0x98, 0x2f, 0x40, 0x69, 0x3b, 0xdf, 0x28, 0xb4, 0xca, 0x9d, 0x63,
-	0x9a, 0x08, 0xa3, 0xbd, 0x2d, 0x84, 0x25, 0x1a, 0xf0, 0x23, 0xaa, 0x99, 0xef, 0xab, 0xc1, 0x4b,
-	0x20, 0x96, 0x53, 0xf0, 0x46, 0xe0, 0x43, 0xa0, 0xed, 0x82, 0x11, 0x9d, 0x66, 0x89, 0x52, 0x28,
-	0xcb, 0x14, 0xe0, 0x5b, 0x54, 0x8d, 0x83, 0x26, 0x30, 0xd0, 0x5c, 0x04, 0xf6, 0x3f, 0xa3, 0xac,
-	0x67, 0xcf, 0x16, 0x43, 0x2c, 0xd5, 0xd4, 0x14, 0xa8, 0xb2, 0x3d, 0x3d, 0x3e, 0x43, 0xc5, 0x31,
-	0xb8, 0x1e, 0x48, 0xb3, 0x8b, 0x72, 0xe7, 0x20, 0xa5, 0xbb, 0x33, 0x45, 0x16, 0x43, 0xb8, 0x8d,
-	0xf6, 0xb4, 0x74, 0xf9, 0x14, 0xa4, 0x9d, 0x37, 0xfc, 0x61, 0x8a, 0x7f, 0xd8, 0x54, 0xd9, 0x2f,
-	0xd6, 0x5c, 0xa2, 0x5a, 0xd6, 0x2b, 0x77, 0x1f, 0x3c, 0x47, 0xd5, 0xe4, 0x2e, 0x76, 0x1e, 0x79,
-	0x7d, 0xf1, 0x11, 0x12, 0x6b, 0x1d, 0x12, 0xeb, 0x2b, 0x24, 0xd6, 0x7b, 0x44, 0x72, 0xeb, 0x88,
-	0xe4, 0x3e, 0x23, 0x92, 0x7b, 0x6a, 0x8c, 0xb8, 0x1e, 0x2f, 0xfa, 0x74, 0x20, 0x7c, 0x67, 0x23,
-	0x71, 0x18, 0x38, 0x2b, 0x73, 0xb2, 0xfa, 0x75, 0x06, 0xaa, 0x5f, 0x34, 0x87, 0xda, 0xfd, 0x0e,
-	0x00, 0x00, 0xff, 0xff, 0xdc, 0xf3, 0x63, 0x80, 0xec, 0x02, 0x00, 0x00,
+	// 835 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0x4f, 0x6f, 0x23, 0x35,
+	0x1c, 0x6d, 0xda, 0xfc, 0x69, 0x9c, 0xa6, 0xdb, 0xba, 0xd9, 0x62, 0xba, 0x4b, 0x14, 0x0a, 0x42,
+	0x2b, 0x04, 0x49, 0xd5, 0xbd, 0xa0, 0xbd, 0x20, 0x50, 0x0e, 0x44, 0xe2, 0xb0, 0x99, 0x14, 0x21,
+	0x71, 0x41, 0x93, 0x99, 0x5f, 0xb2, 0x5e, 0x26, 0xe3, 0xd4, 0xf6, 0x40, 0xc2, 0xa7, 0x40, 0xdc,
+	0xf9, 0x00, 0x7c, 0x13, 0x8e, 0x7b, 0xe4, 0x88, 0xda, 0x0f, 0x02, 0xf2, 0xcf, 0x9e, 0x64, 0x66,
+	0x92, 0xa0, 0x5d, 0xa9, 0x37, 0xbf, 0xf7, 0x7b, 0xb6, 0x7f, 0x63, 0xbf, 0x37, 0x33, 0x84, 0x4a,
+	0xe8, 0x4d, 0xf8, 0xa2, 0x77, 0x9b, 0x08, 0x0d, 0xdd, 0xb9, 0x14, 0x5a, 0xd0, 0xe6, 0x6b, 0x3e,
+	0x7b, 0xfe, 0xc5, 0x55, 0x57, 0x42, 0x77, 0xc2, 0x17, 0x17, 0x1f, 0x38, 0x89, 0xd2, 0x7e, 0x1c,
+	0xfa, 0x32, 0xfc, 0x71, 0x06, 0x4a, 0xf9, 0x53, 0xa7, 0xbe, 0xfc, 0x7d, 0x9f, 0x54, 0x86, 0x66,
+	0x36, 0x7d, 0x4a, 0xea, 0x0a, 0x94, 0xe2, 0x22, 0x1e, 0xf4, 0x59, 0xa9, 0x53, 0x7a, 0x56, 0xf7,
+	0xd6, 0x04, 0xfd, 0x92, 0x1c, 0xe1, 0x26, 0x1e, 0xdc, 0x26, 0xa0, 0x34, 0xdb, 0xef, 0x1c, 0x3c,
+	0x6b, 0x5c, 0x3f, 0xe9, 0xe6, 0x36, 0xeb, 0x0e, 0x33, 0x12, 0x2f, 0x37, 0x81, 0x7e, 0x4f, 0x5a,
+	0x88, 0xbf, 0x0a, 0x7e, 0x8a, 0xc5, 0x2f, 0x11, 0x84, 0x53, 0x98, 0x41, 0xac, 0xd9, 0x01, 0x2e,
+	0xf4, 0xd1, 0xb6, 0x85, 0x0a, 0x52, 0x6f, 0xeb, 0x02, 0x74, 0x48, 0x68, 0x76, 0x23, 0x0f, 0x5e,
+	0x43, 0xa0, 0x59, 0x19, 0x97, 0xfd, 0xf0, 0xff, 0xfa, 0x43, 0xa1, 0xb7, 0x65, 0xf2, 0xe5, 0x9f,
+	0x15, 0x72, 0x94, 0x95, 0xd2, 0xcf, 0x49, 0xf5, 0x15, 0xf8, 0x21, 0x48, 0x3c, 0x98, 0xc6, 0xf5,
+	0xe3, 0xc2, 0xba, 0xdf, 0x60, 0xd1, 0x73, 0x22, 0xda, 0x26, 0x24, 0x5d, 0x75, 0xd0, 0x67, 0xfb,
+	0x78, 0x96, 0x19, 0x86, 0x9e, 0x93, 0xaa, 0x5a, 0xce, 0xc6, 0x22, 0x62, 0x07, 0x58, 0x73, 0xc8,
+	0xcc, 0x53, 0x10, 0x24, 0x92, 0xeb, 0xe5, 0xa0, 0xcf, 0xca, 0x76, 0xde, 0x9a, 0xa1, 0x9f, 0x92,
+	0x93, 0x35, 0x1a, 0x89, 0x44, 0x06, 0xc0, 0x2a, 0xa8, 0xda, 0xe0, 0x29, 0x25, 0x65, 0xc5, 0x43,
+	0x60, 0x55, 0xac, 0xe3, 0x98, 0x5e, 0x90, 0x43, 0x21, 0x43, 0x90, 0x43, 0xbd, 0x64, 0x35, 0xe4,
+	0x57, 0x98, 0x76, 0x48, 0x63, 0x92, 0xe8, 0x11, 0x68, 0xdd, 0xf7, 0x35, 0xb0, 0x43, 0x2c, 0x67,
+	0x29, 0xdb, 0x9d, 0xd6, 0x91, 0x01, 0xd7, 0xac, 0x9e, 0x76, 0x97, 0x32, 0x94, 0x91, 0x9a, 0x1f,
+	0x04, 0x22, 0x89, 0x35, 0x23, 0x58, 0x4c, 0x21, 0x6d, 0x91, 0xca, 0x98, 0x87, 0x2f, 0x17, 0xac,
+	0x81, 0xbc, 0x05, 0x46, 0x2f, 0x26, 0x13, 0x90, 0x2f, 0x17, 0xec, 0xc8, 0xea, 0x1d, 0x34, 0x7d,
+	0x06, 0x89, 0x94, 0x10, 0x07, 0x4b, 0xd6, 0xb4, 0x7d, 0xa6, 0x98, 0x7e, 0x42, 0x8e, 0x7f, 0xf6,
+	0x23, 0x1e, 0x7e, 0x17, 0x6b, 0x1e, 0xdd, 0xf0, 0x19, 0xb0, 0x63, 0x54, 0x14, 0x58, 0xd3, 0x2d,
+	0x2c, 0xe6, 0x5c, 0x02, 0x6a, 0x1e, 0xd9, 0x6e, 0xd7, 0x8c, 0xb1, 0x3b, 0xde, 0xc8, 0xcd, 0x72,
+	0x0e, 0xec, 0xc4, 0xda, 0x7d, 0x45, 0x98, 0xde, 0xc6, 0x3c, 0x1c, 0xf1, 0x5f, 0x81, 0x9d, 0xda,
+	0xde, 0x1c, 0x34, 0xf3, 0xb0, 0x4d, 0xac, 0x51, 0x3b, 0x6f, 0x45, 0xd0, 0x13, 0x72, 0x30, 0xe3,
+	0x01, 0x3b, 0x43, 0xde, 0x0c, 0xcd, 0x3d, 0x68, 0x58, 0x68, 0xd6, 0xb2, 0xf7, 0x60, 0xc6, 0xf4,
+	0x8a, 0xd4, 0xb4, 0xf4, 0x79, 0x04, 0x92, 0x3d, 0x46, 0x3f, 0x9d, 0x17, 0xfc, 0x74, 0x63, 0xab,
+	0x5e, 0x2a, 0x33, 0xfd, 0x04, 0x12, 0x7c, 0x2d, 0x24, 0x3b, 0xb7, 0xfd, 0x38, 0x78, 0xf9, 0x47,
+	0x8d, 0xb4, 0xb6, 0xa5, 0xe5, 0xa1, 0x3d, 0xcb, 0x48, 0x0d, 0xd1, 0xa0, 0xef, 0x4c, 0x9b, 0x42,
+	0xe3, 0x1c, 0x1c, 0x8e, 0xb4, 0xaf, 0x13, 0xe5, 0x6c, 0x9b, 0xa5, 0xf2, 0x67, 0x5d, 0x29, 0x9e,
+	0x75, 0xde, 0xf5, 0xd5, 0xb7, 0x72, 0x7d, 0x6d, 0x87, 0xeb, 0xd7, 0xc9, 0x3a, 0xcc, 0x25, 0x2b,
+	0x4d, 0x43, 0x7d, 0x47, 0x1a, 0x48, 0x21, 0x0d, 0x8c, 0xd4, 0x22, 0x5f, 0x69, 0x53, 0xb2, 0x9e,
+	0x4d, 0xa1, 0xd9, 0xc1, 0x0c, 0x57, 0xa6, 0x75, 0x68, 0xed, 0xf1, 0xe6, 0x0e, 0x8f, 0x1f, 0xef,
+	0xf6, 0xf8, 0xa3, 0x82, 0xc7, 0xf1, 0x55, 0xec, 0x72, 0x95, 0x7a, 0x73, 0x45, 0x6c, 0x49, 0xc0,
+	0xe9, 0x5b, 0x24, 0x80, 0x6e, 0x24, 0x20, 0x75, 0xe6, 0x59, 0xc6, 0x99, 0x9f, 0x91, 0xd3, 0x58,
+	0xa0, 0x9d, 0x86, 0x89, 0x1f, 0xf1, 0x09, 0x07, 0xa9, 0x9c, 0x75, 0x37, 0x0b, 0xa6, 0x93, 0xdb,
+	0x1c, 0x85, 0x76, 0xae, 0x7b, 0x05, 0xd6, 0x9c, 0x59, 0x2c, 0xbe, 0x85, 0xa9, 0x72, 0xe6, 0x75,
+	0xc8, 0x3c, 0x67, 0x04, 0xd3, 0x91, 0xbd, 0xb0, 0xf7, 0xec, 0x73, 0xae, 0x08, 0xfa, 0x31, 0x69,
+	0x1a, 0xb0, 0xb6, 0x06, 0x43, 0x45, 0x9e, 0xa4, 0x57, 0xe4, 0x2c, 0x47, 0x38, 0x83, 0xbc, 0x8f,
+	0xda, 0x6d, 0x25, 0xe3, 0xd7, 0x08, 0xa6, 0x9e, 0xaf, 0xb9, 0x30, 0xf7, 0x7b, 0x61, 0xfd, 0x9a,
+	0xa1, 0xb2, 0xf9, 0x7c, 0xf2, 0xce, 0xf9, 0x7c, 0x9a, 0xcf, 0xe7, 0xbf, 0x25, 0x42, 0x37, 0x3f,
+	0x3b, 0x0f, 0x9d, 0xce, 0x17, 0x84, 0x6d, 0x7e, 0xc7, 0x3c, 0xf0, 0x95, 0x88, 0x5d, 0x5c, 0x77,
+	0xd6, 0x57, 0x3e, 0x28, 0x6f, 0x7f, 0x43, 0x55, 0xde, 0xf9, 0x04, 0xaa, 0xb9, 0x13, 0xf8, 0xfa,
+	0xc5, 0x5f, 0x77, 0xed, 0xd2, 0x9b, 0xbb, 0x76, 0xe9, 0x9f, 0xbb, 0x76, 0xe9, 0xb7, 0xfb, 0xf6,
+	0xde, 0x9b, 0xfb, 0xf6, 0xde, 0xdf, 0xf7, 0xed, 0xbd, 0x1f, 0x3a, 0x53, 0xae, 0x5f, 0x25, 0xe3,
+	0x6e, 0x20, 0x66, 0x3d, 0xbb, 0x7c, 0xcf, 0x83, 0xde, 0x02, 0xff, 0x57, 0xf4, 0x72, 0x0e, 0x6a,
+	0x5c, 0xc5, 0xbf, 0x94, 0xe7, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0x40, 0x39, 0x3c, 0x36, 0xe9,
+	0x08, 0x00, 0x00,
 }
 
 func (m *Quote) Marshal() (dAtA []byte, err error) {
@@ -303,10 +732,10 @@ func (m *Quote) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.QuoteRejection) > 0 {
-		for iNdEx := len(m.QuoteRejection) - 1; iNdEx >= 0; iNdEx-- {
+	if len(m.QuoteRequestReject) > 0 {
+		for iNdEx := len(m.QuoteRequestReject) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.QuoteRejection[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.QuoteRequestReject[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -375,6 +804,15 @@ func (m *QuoteRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
 	if m.Trailer != nil {
 		{
 			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
@@ -384,6 +822,151 @@ func (m *QuoteRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i -= size
 			i = encodeVarintQuote(dAtA, i, uint64(size))
 		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if len(m.Mic) > 0 {
+		i -= len(m.Mic)
+		copy(dAtA[i:], m.Mic)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Mic)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x9a
+	}
+	if len(m.OfferSize) > 0 {
+		i -= len(m.OfferSize)
+		copy(dAtA[i:], m.OfferSize)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.OfferSize)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.BidSize) > 0 {
+		i -= len(m.BidSize)
+		copy(dAtA[i:], m.BidSize)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.BidSize)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.QuoteType) > 0 {
+		i -= len(m.QuoteType)
+		copy(dAtA[i:], m.QuoteType)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteType)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.ExpireTime) > 0 {
+		i -= len(m.ExpireTime)
+		copy(dAtA[i:], m.ExpireTime)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.ExpireTime)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.ValidUntilTime) > 0 {
+		i -= len(m.ValidUntilTime)
+		copy(dAtA[i:], m.ValidUntilTime)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.ValidUntilTime)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.Currency) > 0 {
+		i -= len(m.Currency)
+		copy(dAtA[i:], m.Currency)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Currency)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.OfferPx) > 0 {
+		i -= len(m.OfferPx)
+		copy(dAtA[i:], m.OfferPx)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.OfferPx)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.BidPx) > 0 {
+		i -= len(m.BidPx)
+		copy(dAtA[i:], m.BidPx)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.BidPx)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.Account) > 0 {
+		i -= len(m.Account)
+		copy(dAtA[i:], m.Account)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Account)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.SettlDate2) > 0 {
+		i -= len(m.SettlDate2)
+		copy(dAtA[i:], m.SettlDate2)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SettlDate2)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.FutSettDate) > 0 {
+		i -= len(m.FutSettDate)
+		copy(dAtA[i:], m.FutSettDate)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.FutSettDate)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.OrderQty) > 0 {
+		i -= len(m.OrderQty)
+		copy(dAtA[i:], m.OrderQty)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.OrderQty)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Side) > 0 {
+		i -= len(m.Side)
+		copy(dAtA[i:], m.Side)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Side)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.SecurityIDSource) > 0 {
+		i -= len(m.SecurityIDSource)
+		copy(dAtA[i:], m.SecurityIDSource)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SecurityIDSource)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.SecurityID) > 0 {
+		i -= len(m.SecurityID)
+		copy(dAtA[i:], m.SecurityID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SecurityID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.QuoteReqID) > 0 {
+		i -= len(m.QuoteReqID)
+		copy(dAtA[i:], m.QuoteReqID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteReqID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -422,6 +1005,15 @@ func (m *QuoteAcknowledgement) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xe2
+	}
 	if m.Trailer != nil {
 		{
 			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
@@ -431,6 +1023,205 @@ func (m *QuoteAcknowledgement) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i -= size
 			i = encodeVarintQuote(dAtA, i, uint64(size))
 		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xda
+	}
+	if len(m.LegRatioQty) > 0 {
+		i -= len(m.LegRatioQty)
+		copy(dAtA[i:], m.LegRatioQty)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LegRatioQty)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xd2
+	}
+	if len(m.LegSecurityIDSource) > 0 {
+		i -= len(m.LegSecurityIDSource)
+		copy(dAtA[i:], m.LegSecurityIDSource)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LegSecurityIDSource)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xca
+	}
+	if len(m.LegSecurityID) > 0 {
+		i -= len(m.LegSecurityID)
+		copy(dAtA[i:], m.LegSecurityID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LegSecurityID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xc2
+	}
+	if len(m.LegSymbol) > 0 {
+		i -= len(m.LegSymbol)
+		copy(dAtA[i:], m.LegSymbol)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LegSymbol)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xba
+	}
+	if len(m.NoLegs) > 0 {
+		i -= len(m.NoLegs)
+		copy(dAtA[i:], m.NoLegs)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.NoLegs)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
+	if len(m.QuoteQualifier) > 0 {
+		i -= len(m.QuoteQualifier)
+		copy(dAtA[i:], m.QuoteQualifier)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteQualifier)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
+	if len(m.NoQuoteQualifiers) > 0 {
+		i -= len(m.NoQuoteQualifiers)
+		copy(dAtA[i:], m.NoQuoteQualifiers)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.NoQuoteQualifiers)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x9a
+	}
+	if len(m.ExpireTime) > 0 {
+		i -= len(m.ExpireTime)
+		copy(dAtA[i:], m.ExpireTime)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.ExpireTime)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.ValidUntilTime) > 0 {
+		i -= len(m.ValidUntilTime)
+		copy(dAtA[i:], m.ValidUntilTime)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.ValidUntilTime)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.SettlDate) > 0 {
+		i -= len(m.SettlDate)
+		copy(dAtA[i:], m.SettlDate)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SettlDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.Currency) > 0 {
+		i -= len(m.Currency)
+		copy(dAtA[i:], m.Currency)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Currency)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.OfferPx) > 0 {
+		i -= len(m.OfferPx)
+		copy(dAtA[i:], m.OfferPx)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.OfferPx)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.BidPx) > 0 {
+		i -= len(m.BidPx)
+		copy(dAtA[i:], m.BidPx)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.BidPx)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.LastPx) > 0 {
+		i -= len(m.LastPx)
+		copy(dAtA[i:], m.LastPx)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LastPx)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.LastQty) > 0 {
+		i -= len(m.LastQty)
+		copy(dAtA[i:], m.LastQty)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.LastQty)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.OrderQty) > 0 {
+		i -= len(m.OrderQty)
+		copy(dAtA[i:], m.OrderQty)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.OrderQty)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.Side) > 0 {
+		i -= len(m.Side)
+		copy(dAtA[i:], m.Side)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Side)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.SecurityIDSource) > 0 {
+		i -= len(m.SecurityIDSource)
+		copy(dAtA[i:], m.SecurityIDSource)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SecurityIDSource)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.SecurityID) > 0 {
+		i -= len(m.SecurityID)
+		copy(dAtA[i:], m.SecurityID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.SecurityID)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.QuoteType) > 0 {
+		i -= len(m.QuoteType)
+		copy(dAtA[i:], m.QuoteType)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteType)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.QuoteStatus) > 0 {
+		i -= len(m.QuoteStatus)
+		copy(dAtA[i:], m.QuoteStatus)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteStatus)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.QuoteID) > 0 {
+		i -= len(m.QuoteID)
+		copy(dAtA[i:], m.QuoteID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.QuoteReqID) > 0 {
+		i -= len(m.QuoteReqID)
+		copy(dAtA[i:], m.QuoteReqID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteReqID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -449,7 +1240,7 @@ func (m *QuoteAcknowledgement) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QuoteRejection) Marshal() (dAtA []byte, err error) {
+func (m *QuoteRequestReject) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -459,16 +1250,23 @@ func (m *QuoteRejection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QuoteRejection) MarshalTo(dAtA []byte) (int, error) {
+func (m *QuoteRequestReject) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QuoteRejection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QuoteRequestReject) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
 	if m.Trailer != nil {
 		{
 			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
@@ -478,6 +1276,27 @@ func (m *QuoteRejection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i -= size
 			i = encodeVarintQuote(dAtA, i, uint64(size))
 		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.QuoteRequestRejectReason) > 0 {
+		i -= len(m.QuoteRequestRejectReason)
+		copy(dAtA[i:], m.QuoteRequestRejectReason)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteRequestRejectReason)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.QuoteReqID) > 0 {
+		i -= len(m.QuoteReqID)
+		copy(dAtA[i:], m.QuoteReqID)
+		i = encodeVarintQuote(dAtA, i, uint64(len(m.QuoteReqID)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -529,8 +1348,8 @@ func (m *Quote) Size() (n int) {
 			n += 1 + l + sovQuote(uint64(l))
 		}
 	}
-	if len(m.QuoteRejection) > 0 {
-		for _, e := range m.QuoteRejection {
+	if len(m.QuoteRequestReject) > 0 {
+		for _, e := range m.QuoteRequestReject {
 			l = e.Size()
 			n += 1 + l + sovQuote(uint64(l))
 		}
@@ -548,9 +1367,89 @@ func (m *QuoteRequest) Size() (n int) {
 		l = m.Header.Size()
 		n += 1 + l + sovQuote(uint64(l))
 	}
+	l = len(m.QuoteReqID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SecurityID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SecurityIDSource)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Side)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.OrderQty)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.FutSettDate)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SettlDate2)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Account)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.BidPx)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.OfferPx)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Currency)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.ValidUntilTime)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.ExpireTime)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteType)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.BidSize)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.OfferSize)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Mic)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
 	if m.Trailer != nil {
 		l = m.Trailer.Size()
-		n += 1 + l + sovQuote(uint64(l))
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
 	}
 	return n
 }
@@ -565,14 +1464,118 @@ func (m *QuoteAcknowledgement) Size() (n int) {
 		l = m.Header.Size()
 		n += 1 + l + sovQuote(uint64(l))
 	}
+	l = len(m.QuoteReqID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteStatus)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteType)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SecurityID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SecurityIDSource)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Side)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.OrderQty)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LastQty)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LastPx)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.BidPx)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.OfferPx)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Currency)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.SettlDate)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.ValidUntilTime)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.ExpireTime)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.NoQuoteQualifiers)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteQualifier)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.NoLegs)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LegSymbol)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LegSecurityID)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LegSecurityIDSource)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.LegRatioQty)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
+	}
 	if m.Trailer != nil {
 		l = m.Trailer.Size()
-		n += 1 + l + sovQuote(uint64(l))
+		n += 2 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovQuote(uint64(l))
 	}
 	return n
 }
 
-func (m *QuoteRejection) Size() (n int) {
+func (m *QuoteRequestReject) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -582,8 +1585,24 @@ func (m *QuoteRejection) Size() (n int) {
 		l = m.Header.Size()
 		n += 1 + l + sovQuote(uint64(l))
 	}
+	l = len(m.QuoteReqID)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.QuoteRequestRejectReason)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovQuote(uint64(l))
+	}
 	if m.Trailer != nil {
 		l = m.Trailer.Size()
+		n += 1 + l + sovQuote(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
 		n += 1 + l + sovQuote(uint64(l))
 	}
 	return n
@@ -726,7 +1745,7 @@ func (m *Quote) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field QuoteRejection", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteRequestReject", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -753,8 +1772,8 @@ func (m *Quote) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.QuoteRejection = append(m.QuoteRejection, &QuoteRejection{})
-			if err := m.QuoteRejection[len(m.QuoteRejection)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.QuoteRequestReject = append(m.QuoteRequestReject, &QuoteRequestReject{})
+			if err := m.QuoteRequestReject[len(m.QuoteRequestReject)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -846,6 +1865,614 @@ func (m *QuoteRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityIDSource", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityIDSource = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Side", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Side = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrderQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FutSettDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FutSettDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlDate2", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlDate2 = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Account", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Account = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BidPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BidPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OfferPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OfferPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Currency = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidUntilTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidUntilTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExpireTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExpireTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BidSize", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BidSize = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OfferSize", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OfferSize = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 19:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mic", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Mic = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
 			}
 			var msglen int
@@ -879,6 +2506,38 @@ func (m *QuoteRequest) Unmarshal(dAtA []byte) error {
 			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -968,6 +2627,806 @@ func (m *QuoteAcknowledgement) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteStatus", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteStatus = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityIDSource", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityIDSource = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Side", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Side = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrderQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BidPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BidPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OfferPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OfferPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Currency = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidUntilTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidUntilTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExpireTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExpireTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 19:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoQuoteQualifiers", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NoQuoteQualifiers = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteQualifier", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteQualifier = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoLegs", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NoLegs = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 23:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LegSymbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LegSymbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 24:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LegSecurityID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LegSecurityID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 25:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LegSecurityIDSource", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LegSecurityIDSource = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 26:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LegRatioQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LegRatioQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 27:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
 			}
 			var msglen int
@@ -1002,6 +3461,38 @@ func (m *QuoteAcknowledgement) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 28:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuote(dAtA[iNdEx:])
@@ -1023,7 +3514,7 @@ func (m *QuoteAcknowledgement) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QuoteRejection) Unmarshal(dAtA []byte) error {
+func (m *QuoteRequestReject) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1046,10 +3537,10 @@ func (m *QuoteRejection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QuoteRejection: wiretype end group for non-group")
+			return fmt.Errorf("proto: QuoteRequestReject: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QuoteRejection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QuoteRequestReject: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1090,6 +3581,102 @@ func (m *QuoteRejection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuoteRequestRejectReason", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.QuoteRequestRejectReason = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
 			}
 			var msglen int
@@ -1123,6 +3710,38 @@ func (m *QuoteRejection) Unmarshal(dAtA []byte) error {
 			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuote
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuote
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuote
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

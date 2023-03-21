@@ -1,14 +1,13 @@
 package cli
 
 import (
-    "strconv"
-	
-	 "encoding/json"
-	"github.com/spf13/cobra"
-    "github.com/cosmos/cosmos-sdk/client"
+	"strconv"
+
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/jim380/Re/x/fix/types"
+	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
@@ -19,13 +18,9 @@ func CmdQuoteRequest() *cobra.Command {
 		Short: "Broadcast message quote-request",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-      		 argSessionID := args[0]
-             argQuoteRequest := new(types.QuoteRequest)
-					err = json.Unmarshal([]byte(args[1]), argQuoteRequest)
-    				if err != nil {
-                		return err
-            		}
-            
+			argSessionID := args[0]
+			argQuoteRequest := args[1]
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -35,7 +30,6 @@ func CmdQuoteRequest() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
 				argQuoteRequest,
-				
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -46,5 +40,5 @@ func CmdQuoteRequest() *cobra.Command {
 
 	flags.AddTxFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }

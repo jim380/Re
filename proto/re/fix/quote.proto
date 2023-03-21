@@ -34,6 +34,7 @@ message QuoteRequest {
   string mic = 19; //market identification code
   string text = 20; // Additional information or comments about the quote request.
   Trailer trailer = 21; //standard Trailer
+  string creator = 22;
 }
 
 message QuoteAcknowledgement {
@@ -64,12 +65,14 @@ message QuoteAcknowledgement {
   string legSecurityIDSource = 25; //Specifies the source of the identifier for each leg of the security
   string legRatioQty = 26; // Ratio of one leg to the other in a multi-legged security
   Trailer trailer = 27; //standard Trailer
+  string creator = 28;
 }
 
 message QuoteRequestReject {
   Header header = 1;
   string quoteReqID = 2; //The ID of the original Quote Request message that is being rejected
   string quoteRequestRejectReason = 3; //A code indicating the reason for rejecting the Quote Request. Examples include "Invalid instrument requested", "Unknown instrument", "Unsupported request type", etc.
-  string text = 3; //A human-readable description of the reason for rejecting the Quote Request
-  Trailer trailer = 2;
+  string text = 4; //A human-readable description of the reason for rejecting the Quote Request
+  Trailer trailer = 5;
+  string creator = 6;
 }

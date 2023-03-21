@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package jim380.re.fix;
 
-import "re/fix/account.proto";
-import "re/fix/quote_request.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/standard_message.proto";
 import "re/fix/session_logout.proto";
+import "re/fix/quote.proto";
 
 // Msg defines the Msg service.
 service Msg {
@@ -185,9 +185,8 @@ message MsgOrderExecutionReport {
 message MsgOrderExecutionReportResponse {}
 
 message MsgQuoteRequest {
-  string       creator      = 1;
-  string       sessionID    = 2;
-  QuoteRequest quoteRequest = 3;
+  string sessionID    = 1;
+  repeated QuoteRequest quoteRequest = 2;
 }
 
 message MsgQuoteRequestResponse {}
