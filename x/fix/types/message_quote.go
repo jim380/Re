@@ -25,7 +25,7 @@ func (msg *MsgQuoteRequest) Type() string {
 }
 
 func (msg *MsgQuoteRequest) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	creator, err := sdk.AccAddressFromBech32(msg.QuoteRequest)
 	if err != nil {
 		panic(err)
 	}
