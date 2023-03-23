@@ -187,6 +187,7 @@ message MsgOrderExecutionReportResponse {}
 message MsgQuoteRequest {
   string sessionID    = 1;
   repeated QuoteRequest quoteRequest = 2;
+  string creator = 3;
 }
 
 message MsgQuoteRequestResponse {}

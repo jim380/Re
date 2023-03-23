@@ -22,4 +22,6 @@ var (
 	ErrWrongSession      = sdkerrors.Register(ModuleName, 12, "The Session provided does not tally with account")
 	ErrIncorrectDID      = sdkerrors.Register(ModuleName, 13, "senderCompID and targetCompID does not match in session")
 	ErrSessionIsAccepted = sdkerrors.Register(ModuleName, 14, "session accepted already")
+
+	ErrQuoteIsEmpty = sdkerrors.Register(ModuleName, 15, "Quote Is Empty")
 )

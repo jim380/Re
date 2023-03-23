@@ -9,8 +9,9 @@ const TypeMsgQuoteRequest = "quote_request"
 
 var _ sdk.Msg = &MsgQuoteRequest{}
 
-func NewMsgQuoteRequest(sessionID string, quoteRequest []*QuoteRequest) *MsgQuoteRequest {
+func NewMsgQuoteRequest(creator string, sessionID string, quoteRequest []*QuoteRequest) *MsgQuoteRequest {
 	return &MsgQuoteRequest{
+		Creator: creator,
 		SessionID:    sessionID,
 		QuoteRequest: quoteRequest,
 	}
@@ -25,7 +26,7 @@ func (msg *MsgQuoteRequest) Type() string {
 }
 
 func (msg *MsgQuoteRequest) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.QuoteRequest)
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
 	}
