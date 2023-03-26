@@ -45,3 +45,31 @@ func (msg *MsgQuoteRequest) ValidateBasic() error {
 	}
 	return nil
 }
+
+func NewQuoteRequest(header Header, quoteReqID string,  symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic  string, text string, trailer Trailer, creator string) *QuoteRequest {
+	return &QuoteRequest{
+      Header: &header,
+	  QuoteReqID: quoteReqID,
+	  Symbol: symbol,
+	  SecurityID: securityID,
+	  SecurityIDSource: securityIDSource,
+	  Side: side,
+	  OrderQty: orderQty,
+	  FutSettDate: futSettDate,
+	  SettlDate2: settlDate2,
+	  Account: account,
+	  BidPx: bidPx,
+	  OfferPx: offerPx,
+	  Currency: currency,
+	  ValidUntilTime: validUntilTime,
+	  ExpireTime: expireTime,
+	  QuoteType: quoteType,
+	  BidSize: bidSize,
+	  OfferSize: offerSize,
+	  Mic: mic,
+	  Text: text,
+	  Trailer: &trailer,
+	  Creator:  creator,
+
+	}
+}

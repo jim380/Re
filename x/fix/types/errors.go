@@ -24,4 +24,6 @@ var (
 	ErrSessionIsAccepted = sdkerrors.Register(ModuleName, 14, "session accepted already")
 
 	ErrQuoteIsEmpty = sdkerrors.Register(ModuleName, 15, "Quote Is Empty")
+	ErrQuoteSession = sdkerrors.Register(ModuleName, 16, "No established FIX session between parties")
+	ErrQuoteReqIDIsTaken = sdkerrors.Register(ModuleName, 17, "QuoteReqID exists already for a given Quote Request")
 )
