@@ -282,7 +282,7 @@ message QuerySessionByIDQuoteRequest {
 
 //get Quotes Response by sessionID
 message QuerySessionByIDQuoteResponse {
-  Quote Quote = 1 [(gogoproto.nullable) = false];
+  repeated Quote Quote = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllQuoteRequest {

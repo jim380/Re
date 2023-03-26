@@ -54,7 +54,7 @@ func (k Keeper) Quote(goCtx context.Context, req *types.QueryGetQuoteRequest) (*
 	return &types.QueryGetQuoteResponse{Quote: quote}, nil
 }
 
-//Query quotes by sessionID
+// Query quotes by sessionID
 func (k Keeper) QuotesBySessionID(goCtx context.Context, req *types.QuerySessionByIDQuoteRequest) (*types.QuerySessionByIDQuoteResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
@@ -62,13 +62,15 @@ func (k Keeper) QuotesBySessionID(goCtx context.Context, req *types.QuerySession
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//TODO
-	//implement this function here
-
-	quote, found := k.GetQuote(ctx, req.SessionID)
-	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+	//get all quotes and return for each sessionID
+	var quotesBySessionID []types.Quote
+	allQuote := k.GetAllQuote(ctx)
+	for _, quotes := range allQuote {
+		//check for if the requested sessionID matches with any sessionID returned from GetAllQuote()
+		if quotes.SessionID == req.SessionID {
+			quotesBySessionID = append(quotesBySessionID, quotes)
+		}
 	}
 
-	return &types.QuerySessionByIDQuoteResponse{Quote: quote}, nil
+	return &types.QuerySessionByIDQuoteResponse{Quote: quotesBySessionID}, nil
 }
