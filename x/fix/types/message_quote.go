@@ -9,7 +9,7 @@ const TypeMsgQuoteRequest = "quote_request"
 
 var _ sdk.Msg = &MsgQuoteRequest{}
 
-func NewMsgQuoteRequest(creator string, sessionID string, quoteRequest []*QuoteRequest) *MsgQuoteRequest {
+func NewMsgQuoteRequest(creator string, sessionID string, quoteRequest *QuoteRequest) *MsgQuoteRequest {
 	return &MsgQuoteRequest{
 		Creator: creator,
 		SessionID:    sessionID,

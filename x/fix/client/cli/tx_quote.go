@@ -28,12 +28,11 @@ func CmdQuoteRequest() *cobra.Command {
             
 			//TODO
 			t := types.QuoteRequest{QuoteReqID: argQuoteRequest}
-			quoteRequests := []*types.QuoteRequest{&t}
 
 			msg := types.NewMsgQuoteRequest(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
-				quoteRequests,
+				&t,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

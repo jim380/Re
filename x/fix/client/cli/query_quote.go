@@ -44,7 +44,37 @@ func CmdListQuote() *cobra.Command {
 
 func CmdShowQuote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-quote [sessionID]",
+		Use:   "show-quote [quoteReqID]",
+		Short: "shows a quote",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			argQuoteReqID := args[0]
+
+			params := &types.QueryGetQuoteRequest{
+				QuoteReqID: argQuoteReqID,
+			}
+
+			res, err := queryClient.Quote(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdShowQuotesBySessionID() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-session-quotes [sessionID]",
 		Short: "shows a quote",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -54,11 +84,11 @@ func CmdShowQuote() *cobra.Command {
 
 			argSessionID := args[0]
 
-			params := &types.QueryGetQuoteRequest{
+			params := &types.QuerySessionByIDQuoteRequest{
 				SessionID: argSessionID,
 			}
 
-			res, err := queryClient.Quote(context.Background(), params)
+			res, err := queryClient.QuotesBySessionID(context.Background(), params)
 			if err != nil {
 				return err
 			}

@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"log"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -19,7 +20,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 
 	//fetch existing Quote Request and use it to check for multiple Quote Requests
 	//same quote with quoteReqID is not allowed
-	quoteRequest, _ := k.GetQuote(ctx, msg.SessionID)
+	//quoteRequest, _ := k.GetQuote(ctx, msg.QuoteRequest.QuoteReqID)
 	//if quoteRequest.QuoteRequest.QuoteReqID == msg.QuoteRequest.
 
 	//fetch Header from existing session
@@ -32,15 +33,27 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		header = session.LogonAcceptor.Header
 	}
 
+	//fetch Trailer from existing session
+	//check that logon is established between both parties
 	//get market identification code from MIC module
+
+	quoteRequests := types.QuoteRequest{
+		Header:     header,
+		QuoteReqID: msg.QuoteRequest.QuoteReqID,
+	}
 
 	newQuoteRequest := types.Quote{
 		SessionID:    msg.SessionID,
-		QuoteRequest: msg.QuoteRequest,
+		QuoteRequest: &quoteRequests,
 	}
 
+	allQuotes := k.GetAllQuote(ctx)
+
+	log.Println("All Quotes", allQuotes)
+
+	//log.Println("testingggg", msg.QuoteRequest, len(msg.QuoteRequest))
 	//set Quote to store
-	k.SetQuote(ctx, msg.SessionID, newQuoteRequest)
+	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)
 
 	return &types.MsgQuoteRequestResponse{}, nil
 }

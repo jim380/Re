@@ -109,6 +109,10 @@ service Query {
   
   // Queries a list of Quote items.
   rpc Quote    (QueryGetQuoteRequest) returns (QueryGetQuoteResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/quote/{quoteReqID}";
+  
+  } 
+  rpc QuotesBySessionID    (QuerySessionByIDQuoteRequest) returns ( QuerySessionByIDQuoteResponse) {
     option (google.api.http).get = "/jim380/Re/fix/quote/{sessionID}";
   
   }
@@ -264,10 +268,20 @@ message QueryAllOrdersExecutionReportResponse {
 }
 
 message QueryGetQuoteRequest {
-  string sessionID = 1;
+   string quoteReqID = 1;
 }
 
 message QueryGetQuoteResponse {
+  Quote Quote = 1 [(gogoproto.nullable) = false];
+}
+
+//get Quotes by SessionID
+message QuerySessionByIDQuoteRequest {
+   string sessionID = 1;
+}
+
+//get Quotes Response by sessionID
+message QuerySessionByIDQuoteResponse {
   Quote Quote = 1 [(gogoproto.nullable) = false];
 }
 
