@@ -17,6 +17,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 
 	didKeeper "github.com/jim380/Re/x/did/keeper"
+	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -44,6 +45,7 @@ func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		memStoreKey,
 		paramsSubspace,
 		*didKeeper.NewKeeper(cdc, storeKey, memStoreKey),
+		*micKeeper.NewKeeper(cdc, storeKey, memStoreKey, paramsSubspace),
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

@@ -11,6 +11,7 @@ import (
 
 	didKeeper "github.com/jim380/Re/x/did/keeper"
 	"github.com/jim380/Re/x/fix/types"
+	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 type (
@@ -21,6 +22,7 @@ type (
 		paramstore paramtypes.Subspace
 
 		didKeeper didKeeper.Keeper
+		micKeeper micKeeper.Keeper
 	}
 )
 
@@ -31,6 +33,7 @@ func NewKeeper(
 	ps paramtypes.Subspace,
 
 	didKeeper didKeeper.Keeper,
+	micKeeper micKeeper.Keeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {
@@ -44,6 +47,7 @@ func NewKeeper(
 		paramstore: ps,
 
 		didKeeper: didKeeper,
+		micKeeper: micKeeper,
 	}
 }
 

@@ -32,4 +32,5 @@ var (
 	ErrQuoteBidPxIsEmpty    = sdkerrors.Register(ModuleName, 21, "Quote BidPx is empty")
 	ErrQuoteCurrencyIsEmpty = sdkerrors.Register(ModuleName, 22, "Quote Currency is empty")
 	ErrQuoteTypeIsEmpty     = sdkerrors.Register(ModuleName, 23, "QuoteType is empty")
+	ErrMICIsNotFound     = sdkerrors.Register(ModuleName, 24, "MIC used in Quote is not registered")
 )
