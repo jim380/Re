@@ -11,7 +11,7 @@ var _ sdk.Msg = &MsgQuoteRequest{}
 
 func NewMsgQuoteRequest(creator string, sessionID string, quoteRequest *QuoteRequest) *MsgQuoteRequest {
 	return &MsgQuoteRequest{
-		Creator: creator,
+		Creator:      creator,
 		SessionID:    sessionID,
 		QuoteRequest: quoteRequest,
 	}
@@ -46,30 +46,27 @@ func (msg *MsgQuoteRequest) ValidateBasic() error {
 	return nil
 }
 
-/*
-func NewQuoteRequest(symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic  string, text string, creator string) *QuoteRequest {
+func NewQuoteRequest(quoteReqID string, symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic string, text string, creator string) *QuoteRequest {
 	return &QuoteRequest{
-	  Symbol: symbol,
-	  SecurityID: securityID,
-	  SecurityIDSource: securityIDSource,
-	  Side: side,
-	  OrderQty: orderQty,
-	  FutSettDate: futSettDate,
-	  SettlDate2: settlDate2,
-	  Account: account,
-	  BidPx: bidPx,
-	  OfferPx: offerPx,
-	  Currency: currency,
-	  ValidUntilTime: validUntilTime,
-	  ExpireTime: expireTime,
-	  QuoteType: quoteType,
-	  BidSize: bidSize,
-	  OfferSize: offerSize,
-	  Mic: mic,
-	  Text: text,
-	  Creator:  creator,
-
+		QuoteReqID:       quoteReqID,
+		Symbol:           symbol,
+		SecurityID:       securityID,
+		SecurityIDSource: securityIDSource,
+		Side:             side,
+		OrderQty:         orderQty,
+		FutSettDate:      futSettDate,
+		SettlDate2:       settlDate2,
+		Account:          account,
+		BidPx:            bidPx,
+		OfferPx:          offerPx,
+		Currency:         currency,
+		ValidUntilTime:   validUntilTime,
+		ExpireTime:       expireTime,
+		QuoteType:        quoteType,
+		BidSize:          bidSize,
+		OfferSize:        offerSize,
+		Mic:              mic,
+		Text:             text,
+		Creator:          creator,
 	}
 }
-
-*/
