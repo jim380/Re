@@ -14,25 +14,42 @@ var _ = strconv.Itoa(0)
 
 func CmdQuoteRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-request [session-id] [quote-request]",
+		Use:   "quote-request [session-id] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] text",
 		Short: "Broadcast message quote-request",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argSessionID := args[0]
-			argQuoteRequest := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
-            
-			//TODO
-			t := types.QuoteRequest{QuoteReqID: argQuoteRequest}
+
+			argSessionID := args[0]
+			argSymbol := args[1]
+			argSecurityID := args[2]
+			argSecurityIDSource := args[3]
+			argSide := args[4]
+			argOrderQty := args[5]
+			argFutSettDate := args[6]
+			argSettlDate2 := args[7]
+			argAccount := args[8]
+			argBidPx := args[9]
+			argOfferPx := args[10]
+			argCurrency := args[11]
+			argValidUntilTime := args[12]
+			argExpireTime := args[13]
+			argQuoteType := args[14]
+			argBidSize := args[15]
+			argOfferSize := args[16]
+			argMIC := args[17]
+			argText := args[18]
+
+			quoteRequests := types.NewQuoteRequest(argSymbol, argSecurityID, argSecurityIDSource, argSide, argOrderQty, argFutSettDate, argSettlDate2, argAccount, argBidPx, argOfferPx, argCurrency, argValidUntilTime, argExpireTime, argQuoteType, argBidSize, argOfferSize, argMIC, argText, clientCtx.GetFromAddress().String())
 
 			msg := types.NewMsgQuoteRequest(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
-				&t,
+				quoteRequests,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
