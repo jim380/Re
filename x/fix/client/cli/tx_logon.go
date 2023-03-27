@@ -10,6 +10,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+	
 )
 
 var _ = strconv.Itoa(0)
@@ -42,7 +43,7 @@ func CmdLogonInitiator() *cobra.Command {
 				return err
 			}
 
-			sessionName, _ := generateRandomString(sessionNameLength)
+			sessionName, _ := types.GenerateRandomString(types.SessionNameLength)
 
 			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
 
@@ -51,7 +52,7 @@ func CmdLogonInitiator() *cobra.Command {
 			//body length of logon message
 			msgBody := sessionName + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
-			bodyLength := BodyLength(msgBody)
+			bodyLength := types.BodyLength(msgBody)
 
 			msgSeqNum := int64(0) + 1
 
@@ -59,7 +60,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			//get the length of checksum excluding the checksum field
 			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
-			setCheckSum := calculateChecksum(checkSum)
+			setCheckSum := types.CalculateChecksum(checkSum)
 
 			trailer := types.NewTrailer(setCheckSum)
 
@@ -119,7 +120,7 @@ func CmdLogonAcceptor() *cobra.Command {
 			//body length of logon message
 			msgBody := argSessionID + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
-			bodyLength := BodyLength(msgBody)
+			bodyLength := types.BodyLength(msgBody)
 
 			msgSeqNum := int64(0) + 1
 
@@ -127,7 +128,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			//get the length of checksum excluding the checksum field
 			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
-			setCheckSum := calculateChecksum(checkSum)
+			setCheckSum := types.CalculateChecksum(checkSum)
 
 			trailer := types.NewTrailer(setCheckSum)
 
