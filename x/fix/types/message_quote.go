@@ -46,6 +46,7 @@ func (msg *MsgQuoteRequest) ValidateBasic() error {
 	return nil
 }
 
+/*
 func NewQuoteRequest(symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic  string, text string, creator string) *QuoteRequest {
 	return &QuoteRequest{
 	  Symbol: symbol,
@@ -70,3 +71,5 @@ func NewQuoteRequest(symbol string, securityID string, securityIDSource string, 
 
 	}
 }
+
+*/

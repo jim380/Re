@@ -22,13 +22,6 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
 	}
 
-	//fetch existing Quote Request and use it to check for multiple Quote Requests
-	//same quote with quoteReqID is not allowed
-	quoteRequest, _ := k.GetQuote(ctx, msg.QuoteRequest.QuoteReqID)
-	if quoteRequest.QuoteRequest.QuoteReqID == msg.QuoteRequest.QuoteReqID {
-		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsTaken, "QuoteReqID: %s", msg.QuoteRequest.QuoteReqID)
-	}
-
 	//check that mandatory Quote Request fields are not empty
 	if msg.QuoteRequest.QuoteReqID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsEmpty, "QuoteReqID: %s", msg.QuoteRequest.QuoteReqID)
@@ -50,51 +43,64 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	//get market identification code from MIC module
-	mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
-	}
+	//mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
+	//if !found {
+	//	return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
+	//}
 
 	//check that the address creating the Quote Request is same addresss used to register the MIC on the mic module
-	if mic.MIC != msg.QuoteRequest.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
-	}
+	//if mic.MIC != msg.QuoteRequest.Creator {
+	//	return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
+	//}
 
-	//call new instance of QuoteRequest
-	quoteRequests := types.NewQuoteRequest(msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, mic.MIC, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
-
-	newQuoteRequest := types.Quote{
-		SessionID:    msg.SessionID,
-		QuoteRequest: quoteRequests,
+	//set quote request data
+	quoteRequests := types.QuoteRequest{
+		Header:           msg.QuoteRequest.Header,
+		QuoteReqID:       msg.QuoteRequest.QuoteReqID,
+		Symbol:           msg.QuoteRequest.Symbol,
+		SecurityID:       msg.QuoteRequest.SecurityID,
+		SecurityIDSource: msg.QuoteRequest.SecurityIDSource,
+		Side:             msg.QuoteRequest.Side,
+		OrderQty:         msg.QuoteRequest.OrderQty,
+		FutSettDate:      msg.QuoteRequest.FutSettDate,
+		SettlDate2:       msg.QuoteRequest.SettlDate2,
+		Account:          msg.QuoteRequest.Account,
+		BidPx:            msg.QuoteRequest.BidPx,
+		OfferPx:          msg.QuoteRequest.OfferPx,
+		Currency:         msg.QuoteRequest.Currency,
+		ValidUntilTime:   msg.QuoteRequest.ValidUntilTime,
+		ExpireTime:       msg.QuoteRequest.ExpireTime,
+		QuoteType:        msg.QuoteRequest.QuoteType,
+		BidSize:          msg.QuoteRequest.BidSize,
+		OfferSize:        msg.QuoteRequest.OfferSize,
+		Mic:              msg.QuoteRequest.Mic,
+		Text:             msg.QuoteRequest.Text,
+		Trailer:          msg.QuoteRequest.Trailer,
+		Creator:          msg.QuoteRequest.Creator,
 	}
 
 	//fetch Header from existing session
 	//In the FIX Protocol, a Quote Request message can be sent by either the initiator or the acceptor of the FIX session.
 	//Determine whether we are the initiator or acceptor
-	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
-		header = session.LogonInitiator.Header
-	} else {
-		header = session.LogonAcceptor.Header
-	}
+	//var header *types.Header
+	//if session.InitiatorAddress == msg.Creator {
+	//header = session.LogonInitiator.Header
+	//} else {
+	//	header = session.LogonAcceptor.Header
+	//}
 
 	//fetch Trailer from existing session
-	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
-		trailer = session.LogonInitiator.Trailer
-	} else {
-		trailer = session.LogonAcceptor.Trailer
+	//var trailer *types.Trailer
+	//if session.InitiatorAddress == msg.Creator {
+	//	trailer = session.LogonInitiator.Trailer
+	//} else {
+	//	trailer = session.LogonAcceptor.Trailer
+	//}
+
+	newQuoteRequest := types.Quote{
+		SessionID:    msg.SessionID,
+		QuoteRequest: &quoteRequests,
 	}
-
-	//set the header
-	newQuoteRequest.QuoteRequest.Header = header
-
-	//set the Trailer
-	newQuoteRequest.QuoteRequest.Trailer = trailer
-
-	//set QuoteReqID using GenerateRandomString Function
-	quoteReqID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
-	newQuoteRequest.QuoteRequest.QuoteReqID = quoteReqID
 
 	//set Quote to store
 	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)

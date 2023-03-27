@@ -6,12 +6,12 @@ import (
 )
 
 const (
-	NameChars  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	NameChars         = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	SessionNameLength = 10
-	QuoteReqIDLength = 10
+	QuoteReqIDLength  = 15
 )
 
-// randomly generate unique session name
+// randomly generate unique string
 func GenerateRandomString(length int) (string, error) {
 	b := make([]byte, length)
 	for i := range b {

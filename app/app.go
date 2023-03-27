@@ -521,6 +521,7 @@ func NewReApp(
 		app.GetSubspace(fixmoduletypes.ModuleName),
 
 		app.DidKeeper,
+		app.MicKeeper,
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 
