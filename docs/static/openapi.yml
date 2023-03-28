@@ -49466,6 +49466,8 @@ definitions:
     type: object
   jim380.re.fix.MsgQuoteAcknowledgementResponse:
     type: object
+  jim380.re.fix.MsgQuoteRequestRejectResponse:
+    type: object
   jim380.re.fix.MsgQuoteRequestResponse:
     type: object
   jim380.re.fix.MsgTerminateLogonResponse:

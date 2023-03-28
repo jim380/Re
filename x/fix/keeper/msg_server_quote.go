@@ -8,7 +8,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-// QuoteRequest creates Quote Request 
+// QuoteRequest creates Quote Request
 func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteRequest) (*types.MsgQuoteRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -97,8 +97,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	return &types.MsgQuoteRequestResponse{}, nil
 }
 
-
-// QuoteAcknowledgement creates Quote Acknowledgement
+// QuoteAcknowledgement creates Quote Acknowledgement for every Quote Request
 func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuoteAcknowledgement) (*types.MsgQuoteAcknowledgementResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -106,4 +105,14 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	_ = ctx
 
 	return &types.MsgQuoteAcknowledgementResponse{}, nil
+}
+
+// QuoteRequestReject creates Quote Request Rejection for Quote Request
+func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuoteRequestReject) (*types.MsgQuoteRequestRejectResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// TODO: Handling the message
+	_ = ctx
+
+	return &types.MsgQuoteRequestRejectResponse{}, nil
 }

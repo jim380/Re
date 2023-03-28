@@ -27,6 +27,7 @@ service Msg {
   rpc OrderExecutionReport (MsgOrderExecutionReport) returns (MsgOrderExecutionReportResponse);
   rpc QuoteRequest         (MsgQuoteRequest        ) returns (MsgQuoteRequestResponse        );
   rpc QuoteAcknowledgement (MsgQuoteAcknowledgement) returns (MsgQuoteAcknowledgementResponse);
+  rpc QuoteRequestReject   (MsgQuoteRequestReject  ) returns (MsgQuoteRequestRejectResponse  );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -193,10 +194,18 @@ message MsgQuoteRequest {
 message MsgQuoteRequestResponse {}
 
 message MsgQuoteAcknowledgement {
-  string creator      = 1;
-  string sessionID    = 2;
+  string               creator              = 1;
+  string               sessionID            = 2;
   QuoteAcknowledgement quoteAcknowledgement = 3;
 }
 
 message MsgQuoteAcknowledgementResponse {}
+
+message MsgQuoteRequestReject {
+  string creator            = 1;
+  string sessionID          = 2;
+  QuoteRequestReject quoteRequestReject = 3;
+}
+
+message MsgQuoteRequestRejectResponse {}
 

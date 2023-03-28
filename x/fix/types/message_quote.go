@@ -8,11 +8,14 @@ import (
 const (
 	TypeMsgQuoteRequest         = "quote_request"
 	TypeMsgQuoteAcknowledgement = "quote_acknowledgement"
+	TypeMsgQuoteRequestReject   = "quote_request_reject"
 )
 
 var _ sdk.Msg = &MsgQuoteAcknowledgement{}
 
 var _ sdk.Msg = &MsgQuoteRequest{}
+
+var _ sdk.Msg = &MsgQuoteRequestReject{}
 
 func NewMsgQuoteRequest(creator string, sessionID string, quoteRequest *QuoteRequest) *MsgQuoteRequest {
 	return &MsgQuoteRequest{
@@ -106,6 +109,43 @@ func (msg *MsgQuoteAcknowledgement) GetSignBytes() []byte {
 }
 
 func (msg *MsgQuoteAcknowledgement) ValidateBasic() error {
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+	return nil
+}
+
+func NewMsgQuoteRequestReject(creator string, sessionID string, quoteRequestReject *QuoteRequestReject) *MsgQuoteRequestReject {
+	return &MsgQuoteRequestReject{
+		Creator:            creator,
+		SessionID:          sessionID,
+		QuoteRequestReject: quoteRequestReject,
+	}
+}
+
+func (msg *MsgQuoteRequestReject) Route() string {
+	return RouterKey
+}
+
+func (msg *MsgQuoteRequestReject) Type() string {
+	return TypeMsgQuoteRequestReject
+}
+
+func (msg *MsgQuoteRequestReject) GetSigners() []sdk.AccAddress {
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
+}
+
+func (msg *MsgQuoteRequestReject) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func (msg *MsgQuoteRequestReject) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

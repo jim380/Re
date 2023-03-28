@@ -67,7 +67,7 @@ func CmdQuoteRequest() *cobra.Command {
 	return cmd
 }
 
-// CmdQuoteAcknowledgement is the command line tool for Quote Acknowledgement
+// CmdQuoteAcknowledgement is the command line tool for creating Quote Acknowledgement
 func CmdQuoteAcknowledgement() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "quote-acknowledgement [session-id]",
@@ -88,6 +88,40 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
 				&ack,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}
+
+// CmdQuoteRequestReject is the command line for creating Quote Request Reject
+func CmdQuoteRequestReject() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "quote-request-reject [session-id]",
+		Short: "Broadcast message quote-request-reject",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			argSessionID := args[0]
+
+			argQuoteRequestReject := types.QuoteRequestReject{}
+
+			msg := types.NewMsgQuoteRequestReject(
+				clientCtx.GetFromAddress().String(),
+				argSessionID,
+				&argQuoteRequestReject,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
