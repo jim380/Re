@@ -80,6 +80,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgQuoteRequest int = 100
 
+	opWeightMsgQuoteAcknowledgement = "op_weight_msg_quote_acknowledgement"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgQuoteAcknowledgement int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -277,6 +281,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgQuoteRequest,
 		fixsimulation.SimulateMsgQuoteRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgQuoteAcknowledgement int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgQuoteAcknowledgement, &weightMsgQuoteAcknowledgement, nil,
+		func(_ *rand.Rand) {
+			weightMsgQuoteAcknowledgement = defaultWeightMsgQuoteAcknowledgement
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgQuoteAcknowledgement,
+		fixsimulation.SimulateMsgQuoteAcknowledgement(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

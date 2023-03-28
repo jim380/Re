@@ -5,7 +5,12 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgQuoteRequest = "quote_request"
+const (
+	TypeMsgQuoteRequest         = "quote_request"
+	TypeMsgQuoteAcknowledgement = "quote_acknowledgement"
+)
+
+var _ sdk.Msg = &MsgQuoteAcknowledgement{}
 
 var _ sdk.Msg = &MsgQuoteRequest{}
 
@@ -69,4 +74,41 @@ func NewQuoteRequest(quoteReqID string, symbol string, securityID string, securi
 		Text:             text,
 		Creator:          creator,
 	}
+}
+
+func NewMsgQuoteAcknowledgement(creator string, sessionID string, quoteAcknowledgement *QuoteAcknowledgement) *MsgQuoteAcknowledgement {
+	return &MsgQuoteAcknowledgement{
+		Creator:              creator,
+		SessionID:            sessionID,
+		QuoteAcknowledgement: quoteAcknowledgement,
+	}
+}
+
+func (msg *MsgQuoteAcknowledgement) Route() string {
+	return RouterKey
+}
+
+func (msg *MsgQuoteAcknowledgement) Type() string {
+	return TypeMsgQuoteAcknowledgement
+}
+
+func (msg *MsgQuoteAcknowledgement) GetSigners() []sdk.AccAddress {
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
+}
+
+func (msg *MsgQuoteAcknowledgement) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func (msg *MsgQuoteAcknowledgement) ValidateBasic() error {
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+	return nil
 }

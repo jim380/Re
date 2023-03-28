@@ -12,6 +12,7 @@ import (
 
 var _ = strconv.Itoa(0)
 
+// CmdQuoteRequest is the command line tool for creating Quote Request
 func CmdQuoteRequest() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "quote-request [session-id] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] text",
@@ -53,6 +54,40 @@ func CmdQuoteRequest() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
 				quoteRequests,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}
+
+// CmdQuoteAcknowledgement is the command line tool for Quote Acknowledgement
+func CmdQuoteAcknowledgement() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "quote-acknowledgement [session-id]",
+		Short: "Broadcast message quote-acknowledgement",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			argSessionID := args[0]
+
+			ack := types.QuoteAcknowledgement{}
+
+			msg := types.NewMsgQuoteAcknowledgement(
+				clientCtx.GetFromAddress().String(),
+				argSessionID,
+				&ack,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

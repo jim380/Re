@@ -25528,16 +25528,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -25746,16 +25736,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -26081,16 +26061,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders_cancel_request/{sessionID}:
@@ -26300,16 +26270,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -26603,16 +26563,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/params:
@@ -26651,7 +26601,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /jim380/Re/fix/quote/{sessionID}:
+  /jim380/Re/fix/quote/{quoteReqID}:
     get:
       summary: Queries a list of Quote items.
       operationId: Jim380ReFixQuote
@@ -26667,8 +26617,316 @@ paths:
                   sessionID:
                     type: string
                   quoteRequest:
-                    type: array
-                    items:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                          bodyLength:
+                            type: string
+                            format: int64
+                          msgType:
+                            type: string
+                          senderCompID:
+                            type: string
+                          targetCompID:
+                            type: string
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                          sendingTime:
+                            type: string
+                        title: standard Header
+                      quoteReqID:
+                        type: string
+                        title: Unique identifier for the Quote Request message
+                      symbol:
+                        type: string
+                        title: >-
+                          Ticker symbol or instrument code for the security
+                          being quoted
+                      securityID:
+                        type: string
+                        title: Identifier for the security being quoted
+                      securityIDSource:
+                        type: string
+                        title: Specifies the source of the security identifier
+                      side:
+                        type: string
+                        title: Indicates whether the quote is for a buy or sell order
+                      orderQty:
+                        type: string
+                        title: Quantity of the security being quoted
+                      futSettDate:
+                        type: string
+                        title: Date of the future settlement
+                      settlDate2:
+                        type: string
+                        title: Secondary settlement date for the security
+                      account:
+                        type: string
+                        title: Account number for the order
+                      bidPx:
+                        type: string
+                        title: >-
+                          Price at which the buyer is willing to buy the
+                          security
+                      offerPx:
+                        type: string
+                        title: >-
+                          Price at which the seller is willing to sell the
+                          security
+                      currency:
+                        type: string
+                        title: Currency of the quoted price
+                      validUntilTime:
+                        type: string
+                        title: Time after which the quote is no longer valid
+                      expireTime:
+                        type: string
+                        title: Time at which the quote will expire
+                      quoteType:
+                        type: string
+                        title: Type of quote being requested (e.g. Indicative, Firm)
+                      bidSize:
+                        type: string
+                        title: Quantity of securities offered at the bid price
+                      offerSize:
+                        type: string
+                        title: Quantity of securities offered at the offer price
+                      mic:
+                        type: string
+                        title: market identification code
+                      text:
+                        type: string
+                        description: >-
+                          Additional information or comments about the quote
+                          request.
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                        title: standard Trailer
+                      creator:
+                        type: string
+                  quoteAcknowledgement:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                          bodyLength:
+                            type: string
+                            format: int64
+                          msgType:
+                            type: string
+                          senderCompID:
+                            type: string
+                          targetCompID:
+                            type: string
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                          sendingTime:
+                            type: string
+                        title: standard Header
+                      quoteReqID:
+                        type: string
+                        title: >-
+                          Unique identifier for the original Quote Request
+                          message
+                      quoteID:
+                        type: string
+                        title: Unique identifier for the Quote
+                      quoteStatus:
+                        type: string
+                        title: Status of the Quote (e.g. Accepted, Rejected, Expired)
+                      quoteType:
+                        type: string
+                        title: Type of Quote (e.g. Indicative, Firm)
+                      securityID:
+                        type: string
+                        title: dentifier for the security being quoted
+                      securityIDSource:
+                        type: string
+                        title: Specifies the source of the security identifier
+                      symbol:
+                        type: string
+                        title: >-
+                          Ticker symbol or instrument code for the security
+                          being quoted
+                      side:
+                        type: string
+                        title: indicates whether the quote is for a buy or sell order
+                      orderQty:
+                        type: string
+                        title: Quantity of the security being quoted
+                      lastQty:
+                        type: string
+                        title: Quantity of the last trade
+                      lastPx:
+                        type: string
+                        title: Price of the last trade
+                      bidPx:
+                        type: string
+                        title: >-
+                          Price at which the buyer is willing to buy the
+                          security
+                      offerPx:
+                        type: string
+                        title: >-
+                          Price at which the seller is willing to sell the
+                          security
+                      currency:
+                        type: string
+                        title: Currency of the quoted price
+                      settlDate:
+                        type: string
+                        title: Settlement date for the security
+                      validUntilTime:
+                        type: string
+                        title: Time after which the quote is no longer valid
+                      expireTime:
+                        type: string
+                        title: Time at which the quote will expire
+                      text:
+                        type: string
+                        title: Additional information or comments about the quote
+                      noQuoteQualifiers:
+                        type: string
+                        title: Number of Quote Qualifiers
+                      quoteQualifier:
+                        type: string
+                        title: >-
+                          Additional information about the quote (e.g. Yield,
+                          Size)
+                      noLegs:
+                        type: string
+                        title: >-
+                          Number of legs in the security (for multi-legged
+                          securities)
+                      legSymbol:
+                        type: string
+                        title: >-
+                          Ticker symbol or instrument code for each leg of the
+                          security
+                      legSecurityID:
+                        type: string
+                        title: Identifier for each leg of the security
+                      legSecurityIDSource:
+                        type: string
+                        title: >-
+                          Specifies the source of the identifier for each leg of
+                          the security
+                      legRatioQty:
+                        type: string
+                        title: >-
+                          Ratio of one leg to the other in a multi-legged
+                          security
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                        title: standard Trailer
+                      creator:
+                        type: string
+                  quoteRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                          bodyLength:
+                            type: string
+                            format: int64
+                          msgType:
+                            type: string
+                          senderCompID:
+                            type: string
+                          targetCompID:
+                            type: string
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                          sendingTime:
+                            type: string
+                      quoteReqID:
+                        type: string
+                        title: >-
+                          The ID of the original Quote Request message that is
+                          being rejected
+                      quoteRequestRejectReason:
+                        type: string
+                        description: >-
+                          A code indicating the reason for rejecting the Quote
+                          Request. Examples include "Invalid instrument
+                          requested", "Unknown instrument", "Unsupported request
+                          type", etc.
+                      text:
+                        type: string
+                        title: >-
+                          A human-readable description of the reason for
+                          rejecting the Quote Request
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                      creator:
+                        type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: quoteReqID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /jim380/Re/fix/quote/{sessionID}:
+    get:
+      operationId: Jim380ReFixQuotesBySessionID
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Quote:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sessionID:
+                      type: string
+                    quoteRequest:
                       type: object
                       properties:
                         header:
@@ -26769,9 +27027,7 @@ paths:
                           title: standard Trailer
                         creator:
                           type: string
-                  quoteAcknowledgement:
-                    type: array
-                    items:
+                    quoteAcknowledgement:
                       type: object
                       properties:
                         header:
@@ -26900,9 +27156,7 @@ paths:
                           title: standard Trailer
                         creator:
                           type: string
-                  quoteRequestReject:
-                    type: array
-                    items:
+                    quoteRequestReject:
                       type: object
                       properties:
                         header:
@@ -26949,6 +27203,7 @@ paths:
                               format: int64
                         creator:
                           type: string
+            title: get Quotes Response by sessionID
         default:
           description: An unexpected error response.
           schema:
@@ -26991,288 +27246,282 @@ paths:
                     sessionID:
                       type: string
                     quoteRequest:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          header:
-                            type: object
-                            properties:
-                              beginString:
-                                type: string
-                              bodyLength:
-                                type: string
-                                format: int64
-                              msgType:
-                                type: string
-                              senderCompID:
-                                type: string
-                              targetCompID:
-                                type: string
-                              msgSeqNum:
-                                type: string
-                                format: int64
-                              sendingTime:
-                                type: string
-                            title: standard Header
-                          quoteReqID:
-                            type: string
-                            title: Unique identifier for the Quote Request message
-                          symbol:
-                            type: string
-                            title: >-
-                              Ticker symbol or instrument code for the security
-                              being quoted
-                          securityID:
-                            type: string
-                            title: Identifier for the security being quoted
-                          securityIDSource:
-                            type: string
-                            title: Specifies the source of the security identifier
-                          side:
-                            type: string
-                            title: >-
-                              Indicates whether the quote is for a buy or sell
-                              order
-                          orderQty:
-                            type: string
-                            title: Quantity of the security being quoted
-                          futSettDate:
-                            type: string
-                            title: Date of the future settlement
-                          settlDate2:
-                            type: string
-                            title: Secondary settlement date for the security
-                          account:
-                            type: string
-                            title: Account number for the order
-                          bidPx:
-                            type: string
-                            title: >-
-                              Price at which the buyer is willing to buy the
-                              security
-                          offerPx:
-                            type: string
-                            title: >-
-                              Price at which the seller is willing to sell the
-                              security
-                          currency:
-                            type: string
-                            title: Currency of the quoted price
-                          validUntilTime:
-                            type: string
-                            title: Time after which the quote is no longer valid
-                          expireTime:
-                            type: string
-                            title: Time at which the quote will expire
-                          quoteType:
-                            type: string
-                            title: >-
-                              Type of quote being requested (e.g. Indicative,
-                              Firm)
-                          bidSize:
-                            type: string
-                            title: Quantity of securities offered at the bid price
-                          offerSize:
-                            type: string
-                            title: Quantity of securities offered at the offer price
-                          mic:
-                            type: string
-                            title: market identification code
-                          text:
-                            type: string
-                            description: >-
-                              Additional information or comments about the quote
-                              request.
-                          trailer:
-                            type: object
-                            properties:
-                              checkSum:
-                                type: string
-                                format: int64
-                            title: standard Trailer
-                          creator:
-                            type: string
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                            bodyLength:
+                              type: string
+                              format: int64
+                            msgType:
+                              type: string
+                            senderCompID:
+                              type: string
+                            targetCompID:
+                              type: string
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                            sendingTime:
+                              type: string
+                          title: standard Header
+                        quoteReqID:
+                          type: string
+                          title: Unique identifier for the Quote Request message
+                        symbol:
+                          type: string
+                          title: >-
+                            Ticker symbol or instrument code for the security
+                            being quoted
+                        securityID:
+                          type: string
+                          title: Identifier for the security being quoted
+                        securityIDSource:
+                          type: string
+                          title: Specifies the source of the security identifier
+                        side:
+                          type: string
+                          title: >-
+                            Indicates whether the quote is for a buy or sell
+                            order
+                        orderQty:
+                          type: string
+                          title: Quantity of the security being quoted
+                        futSettDate:
+                          type: string
+                          title: Date of the future settlement
+                        settlDate2:
+                          type: string
+                          title: Secondary settlement date for the security
+                        account:
+                          type: string
+                          title: Account number for the order
+                        bidPx:
+                          type: string
+                          title: >-
+                            Price at which the buyer is willing to buy the
+                            security
+                        offerPx:
+                          type: string
+                          title: >-
+                            Price at which the seller is willing to sell the
+                            security
+                        currency:
+                          type: string
+                          title: Currency of the quoted price
+                        validUntilTime:
+                          type: string
+                          title: Time after which the quote is no longer valid
+                        expireTime:
+                          type: string
+                          title: Time at which the quote will expire
+                        quoteType:
+                          type: string
+                          title: >-
+                            Type of quote being requested (e.g. Indicative,
+                            Firm)
+                        bidSize:
+                          type: string
+                          title: Quantity of securities offered at the bid price
+                        offerSize:
+                          type: string
+                          title: Quantity of securities offered at the offer price
+                        mic:
+                          type: string
+                          title: market identification code
+                        text:
+                          type: string
+                          description: >-
+                            Additional information or comments about the quote
+                            request.
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                          title: standard Trailer
+                        creator:
+                          type: string
                     quoteAcknowledgement:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          header:
-                            type: object
-                            properties:
-                              beginString:
-                                type: string
-                              bodyLength:
-                                type: string
-                                format: int64
-                              msgType:
-                                type: string
-                              senderCompID:
-                                type: string
-                              targetCompID:
-                                type: string
-                              msgSeqNum:
-                                type: string
-                                format: int64
-                              sendingTime:
-                                type: string
-                            title: standard Header
-                          quoteReqID:
-                            type: string
-                            title: >-
-                              Unique identifier for the original Quote Request
-                              message
-                          quoteID:
-                            type: string
-                            title: Unique identifier for the Quote
-                          quoteStatus:
-                            type: string
-                            title: >-
-                              Status of the Quote (e.g. Accepted, Rejected,
-                              Expired)
-                          quoteType:
-                            type: string
-                            title: Type of Quote (e.g. Indicative, Firm)
-                          securityID:
-                            type: string
-                            title: dentifier for the security being quoted
-                          securityIDSource:
-                            type: string
-                            title: Specifies the source of the security identifier
-                          symbol:
-                            type: string
-                            title: >-
-                              Ticker symbol or instrument code for the security
-                              being quoted
-                          side:
-                            type: string
-                            title: >-
-                              indicates whether the quote is for a buy or sell
-                              order
-                          orderQty:
-                            type: string
-                            title: Quantity of the security being quoted
-                          lastQty:
-                            type: string
-                            title: Quantity of the last trade
-                          lastPx:
-                            type: string
-                            title: Price of the last trade
-                          bidPx:
-                            type: string
-                            title: >-
-                              Price at which the buyer is willing to buy the
-                              security
-                          offerPx:
-                            type: string
-                            title: >-
-                              Price at which the seller is willing to sell the
-                              security
-                          currency:
-                            type: string
-                            title: Currency of the quoted price
-                          settlDate:
-                            type: string
-                            title: Settlement date for the security
-                          validUntilTime:
-                            type: string
-                            title: Time after which the quote is no longer valid
-                          expireTime:
-                            type: string
-                            title: Time at which the quote will expire
-                          text:
-                            type: string
-                            title: Additional information or comments about the quote
-                          noQuoteQualifiers:
-                            type: string
-                            title: Number of Quote Qualifiers
-                          quoteQualifier:
-                            type: string
-                            title: >-
-                              Additional information about the quote (e.g.
-                              Yield, Size)
-                          noLegs:
-                            type: string
-                            title: >-
-                              Number of legs in the security (for multi-legged
-                              securities)
-                          legSymbol:
-                            type: string
-                            title: >-
-                              Ticker symbol or instrument code for each leg of
-                              the security
-                          legSecurityID:
-                            type: string
-                            title: Identifier for each leg of the security
-                          legSecurityIDSource:
-                            type: string
-                            title: >-
-                              Specifies the source of the identifier for each
-                              leg of the security
-                          legRatioQty:
-                            type: string
-                            title: >-
-                              Ratio of one leg to the other in a multi-legged
-                              security
-                          trailer:
-                            type: object
-                            properties:
-                              checkSum:
-                                type: string
-                                format: int64
-                            title: standard Trailer
-                          creator:
-                            type: string
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                            bodyLength:
+                              type: string
+                              format: int64
+                            msgType:
+                              type: string
+                            senderCompID:
+                              type: string
+                            targetCompID:
+                              type: string
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                            sendingTime:
+                              type: string
+                          title: standard Header
+                        quoteReqID:
+                          type: string
+                          title: >-
+                            Unique identifier for the original Quote Request
+                            message
+                        quoteID:
+                          type: string
+                          title: Unique identifier for the Quote
+                        quoteStatus:
+                          type: string
+                          title: >-
+                            Status of the Quote (e.g. Accepted, Rejected,
+                            Expired)
+                        quoteType:
+                          type: string
+                          title: Type of Quote (e.g. Indicative, Firm)
+                        securityID:
+                          type: string
+                          title: dentifier for the security being quoted
+                        securityIDSource:
+                          type: string
+                          title: Specifies the source of the security identifier
+                        symbol:
+                          type: string
+                          title: >-
+                            Ticker symbol or instrument code for the security
+                            being quoted
+                        side:
+                          type: string
+                          title: >-
+                            indicates whether the quote is for a buy or sell
+                            order
+                        orderQty:
+                          type: string
+                          title: Quantity of the security being quoted
+                        lastQty:
+                          type: string
+                          title: Quantity of the last trade
+                        lastPx:
+                          type: string
+                          title: Price of the last trade
+                        bidPx:
+                          type: string
+                          title: >-
+                            Price at which the buyer is willing to buy the
+                            security
+                        offerPx:
+                          type: string
+                          title: >-
+                            Price at which the seller is willing to sell the
+                            security
+                        currency:
+                          type: string
+                          title: Currency of the quoted price
+                        settlDate:
+                          type: string
+                          title: Settlement date for the security
+                        validUntilTime:
+                          type: string
+                          title: Time after which the quote is no longer valid
+                        expireTime:
+                          type: string
+                          title: Time at which the quote will expire
+                        text:
+                          type: string
+                          title: Additional information or comments about the quote
+                        noQuoteQualifiers:
+                          type: string
+                          title: Number of Quote Qualifiers
+                        quoteQualifier:
+                          type: string
+                          title: >-
+                            Additional information about the quote (e.g. Yield,
+                            Size)
+                        noLegs:
+                          type: string
+                          title: >-
+                            Number of legs in the security (for multi-legged
+                            securities)
+                        legSymbol:
+                          type: string
+                          title: >-
+                            Ticker symbol or instrument code for each leg of the
+                            security
+                        legSecurityID:
+                          type: string
+                          title: Identifier for each leg of the security
+                        legSecurityIDSource:
+                          type: string
+                          title: >-
+                            Specifies the source of the identifier for each leg
+                            of the security
+                        legRatioQty:
+                          type: string
+                          title: >-
+                            Ratio of one leg to the other in a multi-legged
+                            security
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                          title: standard Trailer
+                        creator:
+                          type: string
                     quoteRequestReject:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          header:
-                            type: object
-                            properties:
-                              beginString:
-                                type: string
-                              bodyLength:
-                                type: string
-                                format: int64
-                              msgType:
-                                type: string
-                              senderCompID:
-                                type: string
-                              targetCompID:
-                                type: string
-                              msgSeqNum:
-                                type: string
-                                format: int64
-                              sendingTime:
-                                type: string
-                          quoteReqID:
-                            type: string
-                            title: >-
-                              The ID of the original Quote Request message that
-                              is being rejected
-                          quoteRequestRejectReason:
-                            type: string
-                            description: >-
-                              A code indicating the reason for rejecting the
-                              Quote Request. Examples include "Invalid
-                              instrument requested", "Unknown instrument",
-                              "Unsupported request type", etc.
-                          text:
-                            type: string
-                            title: >-
-                              A human-readable description of the reason for
-                              rejecting the Quote Request
-                          trailer:
-                            type: object
-                            properties:
-                              checkSum:
-                                type: string
-                                format: int64
-                          creator:
-                            type: string
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                            bodyLength:
+                              type: string
+                              format: int64
+                            msgType:
+                              type: string
+                            senderCompID:
+                              type: string
+                            targetCompID:
+                              type: string
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                            sendingTime:
+                              type: string
+                        quoteReqID:
+                          type: string
+                          title: >-
+                            The ID of the original Quote Request message that is
+                            being rejected
+                        quoteRequestRejectReason:
+                          type: string
+                          description: >-
+                            A code indicating the reason for rejecting the Quote
+                            Request. Examples include "Invalid instrument
+                            requested", "Unknown instrument", "Unsupported
+                            request type", etc.
+                        text:
+                          type: string
+                          title: >-
+                            A human-readable description of the reason for
+                            rejecting the Quote Request
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                        creator:
+                          type: string
               pagination:
                 type: object
                 properties:
@@ -27362,16 +27611,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -27653,16 +27892,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/session/reject/{sessionID}:
@@ -27871,16 +28100,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions:
@@ -28064,16 +28283,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -49255,6 +49464,8 @@ definitions:
     type: object
   jim380.re.fix.MsgOrderExecutionReportResponse:
     type: object
+  jim380.re.fix.MsgQuoteAcknowledgementResponse:
+    type: object
   jim380.re.fix.MsgQuoteRequestResponse:
     type: object
   jim380.re.fix.MsgTerminateLogonResponse:
@@ -49865,265 +50076,255 @@ definitions:
             sessionID:
               type: string
             quoteRequest:
-              type: array
-              items:
-                type: object
-                properties:
-                  header:
-                    type: object
-                    properties:
-                      beginString:
-                        type: string
-                      bodyLength:
-                        type: string
-                        format: int64
-                      msgType:
-                        type: string
-                      senderCompID:
-                        type: string
-                      targetCompID:
-                        type: string
-                      msgSeqNum:
-                        type: string
-                        format: int64
-                      sendingTime:
-                        type: string
-                    title: standard Header
-                  quoteReqID:
-                    type: string
-                    title: Unique identifier for the Quote Request message
-                  symbol:
-                    type: string
-                    title: >-
-                      Ticker symbol or instrument code for the security being
-                      quoted
-                  securityID:
-                    type: string
-                    title: Identifier for the security being quoted
-                  securityIDSource:
-                    type: string
-                    title: Specifies the source of the security identifier
-                  side:
-                    type: string
-                    title: Indicates whether the quote is for a buy or sell order
-                  orderQty:
-                    type: string
-                    title: Quantity of the security being quoted
-                  futSettDate:
-                    type: string
-                    title: Date of the future settlement
-                  settlDate2:
-                    type: string
-                    title: Secondary settlement date for the security
-                  account:
-                    type: string
-                    title: Account number for the order
-                  bidPx:
-                    type: string
-                    title: Price at which the buyer is willing to buy the security
-                  offerPx:
-                    type: string
-                    title: Price at which the seller is willing to sell the security
-                  currency:
-                    type: string
-                    title: Currency of the quoted price
-                  validUntilTime:
-                    type: string
-                    title: Time after which the quote is no longer valid
-                  expireTime:
-                    type: string
-                    title: Time at which the quote will expire
-                  quoteType:
-                    type: string
-                    title: Type of quote being requested (e.g. Indicative, Firm)
-                  bidSize:
-                    type: string
-                    title: Quantity of securities offered at the bid price
-                  offerSize:
-                    type: string
-                    title: Quantity of securities offered at the offer price
-                  mic:
-                    type: string
-                    title: market identification code
-                  text:
-                    type: string
-                    description: >-
-                      Additional information or comments about the quote
-                      request.
-                  trailer:
-                    type: object
-                    properties:
-                      checkSum:
-                        type: string
-                        format: int64
-                    title: standard Trailer
-                  creator:
-                    type: string
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                  title: standard Header
+                quoteReqID:
+                  type: string
+                  title: Unique identifier for the Quote Request message
+                symbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for the security being
+                    quoted
+                securityID:
+                  type: string
+                  title: Identifier for the security being quoted
+                securityIDSource:
+                  type: string
+                  title: Specifies the source of the security identifier
+                side:
+                  type: string
+                  title: Indicates whether the quote is for a buy or sell order
+                orderQty:
+                  type: string
+                  title: Quantity of the security being quoted
+                futSettDate:
+                  type: string
+                  title: Date of the future settlement
+                settlDate2:
+                  type: string
+                  title: Secondary settlement date for the security
+                account:
+                  type: string
+                  title: Account number for the order
+                bidPx:
+                  type: string
+                  title: Price at which the buyer is willing to buy the security
+                offerPx:
+                  type: string
+                  title: Price at which the seller is willing to sell the security
+                currency:
+                  type: string
+                  title: Currency of the quoted price
+                validUntilTime:
+                  type: string
+                  title: Time after which the quote is no longer valid
+                expireTime:
+                  type: string
+                  title: Time at which the quote will expire
+                quoteType:
+                  type: string
+                  title: Type of quote being requested (e.g. Indicative, Firm)
+                bidSize:
+                  type: string
+                  title: Quantity of securities offered at the bid price
+                offerSize:
+                  type: string
+                  title: Quantity of securities offered at the offer price
+                mic:
+                  type: string
+                  title: market identification code
+                text:
+                  type: string
+                  description: Additional information or comments about the quote request.
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                  title: standard Trailer
+                creator:
+                  type: string
             quoteAcknowledgement:
-              type: array
-              items:
-                type: object
-                properties:
-                  header:
-                    type: object
-                    properties:
-                      beginString:
-                        type: string
-                      bodyLength:
-                        type: string
-                        format: int64
-                      msgType:
-                        type: string
-                      senderCompID:
-                        type: string
-                      targetCompID:
-                        type: string
-                      msgSeqNum:
-                        type: string
-                        format: int64
-                      sendingTime:
-                        type: string
-                    title: standard Header
-                  quoteReqID:
-                    type: string
-                    title: Unique identifier for the original Quote Request message
-                  quoteID:
-                    type: string
-                    title: Unique identifier for the Quote
-                  quoteStatus:
-                    type: string
-                    title: Status of the Quote (e.g. Accepted, Rejected, Expired)
-                  quoteType:
-                    type: string
-                    title: Type of Quote (e.g. Indicative, Firm)
-                  securityID:
-                    type: string
-                    title: dentifier for the security being quoted
-                  securityIDSource:
-                    type: string
-                    title: Specifies the source of the security identifier
-                  symbol:
-                    type: string
-                    title: >-
-                      Ticker symbol or instrument code for the security being
-                      quoted
-                  side:
-                    type: string
-                    title: indicates whether the quote is for a buy or sell order
-                  orderQty:
-                    type: string
-                    title: Quantity of the security being quoted
-                  lastQty:
-                    type: string
-                    title: Quantity of the last trade
-                  lastPx:
-                    type: string
-                    title: Price of the last trade
-                  bidPx:
-                    type: string
-                    title: Price at which the buyer is willing to buy the security
-                  offerPx:
-                    type: string
-                    title: Price at which the seller is willing to sell the security
-                  currency:
-                    type: string
-                    title: Currency of the quoted price
-                  settlDate:
-                    type: string
-                    title: Settlement date for the security
-                  validUntilTime:
-                    type: string
-                    title: Time after which the quote is no longer valid
-                  expireTime:
-                    type: string
-                    title: Time at which the quote will expire
-                  text:
-                    type: string
-                    title: Additional information or comments about the quote
-                  noQuoteQualifiers:
-                    type: string
-                    title: Number of Quote Qualifiers
-                  quoteQualifier:
-                    type: string
-                    title: Additional information about the quote (e.g. Yield, Size)
-                  noLegs:
-                    type: string
-                    title: >-
-                      Number of legs in the security (for multi-legged
-                      securities)
-                  legSymbol:
-                    type: string
-                    title: >-
-                      Ticker symbol or instrument code for each leg of the
-                      security
-                  legSecurityID:
-                    type: string
-                    title: Identifier for each leg of the security
-                  legSecurityIDSource:
-                    type: string
-                    title: >-
-                      Specifies the source of the identifier for each leg of the
-                      security
-                  legRatioQty:
-                    type: string
-                    title: Ratio of one leg to the other in a multi-legged security
-                  trailer:
-                    type: object
-                    properties:
-                      checkSum:
-                        type: string
-                        format: int64
-                    title: standard Trailer
-                  creator:
-                    type: string
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                  title: standard Header
+                quoteReqID:
+                  type: string
+                  title: Unique identifier for the original Quote Request message
+                quoteID:
+                  type: string
+                  title: Unique identifier for the Quote
+                quoteStatus:
+                  type: string
+                  title: Status of the Quote (e.g. Accepted, Rejected, Expired)
+                quoteType:
+                  type: string
+                  title: Type of Quote (e.g. Indicative, Firm)
+                securityID:
+                  type: string
+                  title: dentifier for the security being quoted
+                securityIDSource:
+                  type: string
+                  title: Specifies the source of the security identifier
+                symbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for the security being
+                    quoted
+                side:
+                  type: string
+                  title: indicates whether the quote is for a buy or sell order
+                orderQty:
+                  type: string
+                  title: Quantity of the security being quoted
+                lastQty:
+                  type: string
+                  title: Quantity of the last trade
+                lastPx:
+                  type: string
+                  title: Price of the last trade
+                bidPx:
+                  type: string
+                  title: Price at which the buyer is willing to buy the security
+                offerPx:
+                  type: string
+                  title: Price at which the seller is willing to sell the security
+                currency:
+                  type: string
+                  title: Currency of the quoted price
+                settlDate:
+                  type: string
+                  title: Settlement date for the security
+                validUntilTime:
+                  type: string
+                  title: Time after which the quote is no longer valid
+                expireTime:
+                  type: string
+                  title: Time at which the quote will expire
+                text:
+                  type: string
+                  title: Additional information or comments about the quote
+                noQuoteQualifiers:
+                  type: string
+                  title: Number of Quote Qualifiers
+                quoteQualifier:
+                  type: string
+                  title: Additional information about the quote (e.g. Yield, Size)
+                noLegs:
+                  type: string
+                  title: Number of legs in the security (for multi-legged securities)
+                legSymbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for each leg of the
+                    security
+                legSecurityID:
+                  type: string
+                  title: Identifier for each leg of the security
+                legSecurityIDSource:
+                  type: string
+                  title: >-
+                    Specifies the source of the identifier for each leg of the
+                    security
+                legRatioQty:
+                  type: string
+                  title: Ratio of one leg to the other in a multi-legged security
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                  title: standard Trailer
+                creator:
+                  type: string
             quoteRequestReject:
-              type: array
-              items:
-                type: object
-                properties:
-                  header:
-                    type: object
-                    properties:
-                      beginString:
-                        type: string
-                      bodyLength:
-                        type: string
-                        format: int64
-                      msgType:
-                        type: string
-                      senderCompID:
-                        type: string
-                      targetCompID:
-                        type: string
-                      msgSeqNum:
-                        type: string
-                        format: int64
-                      sendingTime:
-                        type: string
-                  quoteReqID:
-                    type: string
-                    title: >-
-                      The ID of the original Quote Request message that is being
-                      rejected
-                  quoteRequestRejectReason:
-                    type: string
-                    description: >-
-                      A code indicating the reason for rejecting the Quote
-                      Request. Examples include "Invalid instrument requested",
-                      "Unknown instrument", "Unsupported request type", etc.
-                  text:
-                    type: string
-                    title: >-
-                      A human-readable description of the reason for rejecting
-                      the Quote Request
-                  trailer:
-                    type: object
-                    properties:
-                      checkSum:
-                        type: string
-                        format: int64
-                  creator:
-                    type: string
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                quoteReqID:
+                  type: string
+                  title: >-
+                    The ID of the original Quote Request message that is being
+                    rejected
+                quoteRequestRejectReason:
+                  type: string
+                  description: >-
+                    A code indicating the reason for rejecting the Quote
+                    Request. Examples include "Invalid instrument requested",
+                    "Unknown instrument", "Unsupported request type", etc.
+                text:
+                  type: string
+                  title: >-
+                    A human-readable description of the reason for rejecting the
+                    Quote Request
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                creator:
+                  type: string
       pagination:
         type: object
         properties:
@@ -50675,261 +50876,249 @@ definitions:
           sessionID:
             type: string
           quoteRequest:
-            type: array
-            items:
-              type: object
-              properties:
-                header:
-                  type: object
-                  properties:
-                    beginString:
-                      type: string
-                    bodyLength:
-                      type: string
-                      format: int64
-                    msgType:
-                      type: string
-                    senderCompID:
-                      type: string
-                    targetCompID:
-                      type: string
-                    msgSeqNum:
-                      type: string
-                      format: int64
-                    sendingTime:
-                      type: string
-                  title: standard Header
-                quoteReqID:
-                  type: string
-                  title: Unique identifier for the Quote Request message
-                symbol:
-                  type: string
-                  title: >-
-                    Ticker symbol or instrument code for the security being
-                    quoted
-                securityID:
-                  type: string
-                  title: Identifier for the security being quoted
-                securityIDSource:
-                  type: string
-                  title: Specifies the source of the security identifier
-                side:
-                  type: string
-                  title: Indicates whether the quote is for a buy or sell order
-                orderQty:
-                  type: string
-                  title: Quantity of the security being quoted
-                futSettDate:
-                  type: string
-                  title: Date of the future settlement
-                settlDate2:
-                  type: string
-                  title: Secondary settlement date for the security
-                account:
-                  type: string
-                  title: Account number for the order
-                bidPx:
-                  type: string
-                  title: Price at which the buyer is willing to buy the security
-                offerPx:
-                  type: string
-                  title: Price at which the seller is willing to sell the security
-                currency:
-                  type: string
-                  title: Currency of the quoted price
-                validUntilTime:
-                  type: string
-                  title: Time after which the quote is no longer valid
-                expireTime:
-                  type: string
-                  title: Time at which the quote will expire
-                quoteType:
-                  type: string
-                  title: Type of quote being requested (e.g. Indicative, Firm)
-                bidSize:
-                  type: string
-                  title: Quantity of securities offered at the bid price
-                offerSize:
-                  type: string
-                  title: Quantity of securities offered at the offer price
-                mic:
-                  type: string
-                  title: market identification code
-                text:
-                  type: string
-                  description: Additional information or comments about the quote request.
-                trailer:
-                  type: object
-                  properties:
-                    checkSum:
-                      type: string
-                      format: int64
-                  title: standard Trailer
-                creator:
-                  type: string
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                  bodyLength:
+                    type: string
+                    format: int64
+                  msgType:
+                    type: string
+                  senderCompID:
+                    type: string
+                  targetCompID:
+                    type: string
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                  sendingTime:
+                    type: string
+                title: standard Header
+              quoteReqID:
+                type: string
+                title: Unique identifier for the Quote Request message
+              symbol:
+                type: string
+                title: Ticker symbol or instrument code for the security being quoted
+              securityID:
+                type: string
+                title: Identifier for the security being quoted
+              securityIDSource:
+                type: string
+                title: Specifies the source of the security identifier
+              side:
+                type: string
+                title: Indicates whether the quote is for a buy or sell order
+              orderQty:
+                type: string
+                title: Quantity of the security being quoted
+              futSettDate:
+                type: string
+                title: Date of the future settlement
+              settlDate2:
+                type: string
+                title: Secondary settlement date for the security
+              account:
+                type: string
+                title: Account number for the order
+              bidPx:
+                type: string
+                title: Price at which the buyer is willing to buy the security
+              offerPx:
+                type: string
+                title: Price at which the seller is willing to sell the security
+              currency:
+                type: string
+                title: Currency of the quoted price
+              validUntilTime:
+                type: string
+                title: Time after which the quote is no longer valid
+              expireTime:
+                type: string
+                title: Time at which the quote will expire
+              quoteType:
+                type: string
+                title: Type of quote being requested (e.g. Indicative, Firm)
+              bidSize:
+                type: string
+                title: Quantity of securities offered at the bid price
+              offerSize:
+                type: string
+                title: Quantity of securities offered at the offer price
+              mic:
+                type: string
+                title: market identification code
+              text:
+                type: string
+                description: Additional information or comments about the quote request.
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                title: standard Trailer
+              creator:
+                type: string
           quoteAcknowledgement:
-            type: array
-            items:
-              type: object
-              properties:
-                header:
-                  type: object
-                  properties:
-                    beginString:
-                      type: string
-                    bodyLength:
-                      type: string
-                      format: int64
-                    msgType:
-                      type: string
-                    senderCompID:
-                      type: string
-                    targetCompID:
-                      type: string
-                    msgSeqNum:
-                      type: string
-                      format: int64
-                    sendingTime:
-                      type: string
-                  title: standard Header
-                quoteReqID:
-                  type: string
-                  title: Unique identifier for the original Quote Request message
-                quoteID:
-                  type: string
-                  title: Unique identifier for the Quote
-                quoteStatus:
-                  type: string
-                  title: Status of the Quote (e.g. Accepted, Rejected, Expired)
-                quoteType:
-                  type: string
-                  title: Type of Quote (e.g. Indicative, Firm)
-                securityID:
-                  type: string
-                  title: dentifier for the security being quoted
-                securityIDSource:
-                  type: string
-                  title: Specifies the source of the security identifier
-                symbol:
-                  type: string
-                  title: >-
-                    Ticker symbol or instrument code for the security being
-                    quoted
-                side:
-                  type: string
-                  title: indicates whether the quote is for a buy or sell order
-                orderQty:
-                  type: string
-                  title: Quantity of the security being quoted
-                lastQty:
-                  type: string
-                  title: Quantity of the last trade
-                lastPx:
-                  type: string
-                  title: Price of the last trade
-                bidPx:
-                  type: string
-                  title: Price at which the buyer is willing to buy the security
-                offerPx:
-                  type: string
-                  title: Price at which the seller is willing to sell the security
-                currency:
-                  type: string
-                  title: Currency of the quoted price
-                settlDate:
-                  type: string
-                  title: Settlement date for the security
-                validUntilTime:
-                  type: string
-                  title: Time after which the quote is no longer valid
-                expireTime:
-                  type: string
-                  title: Time at which the quote will expire
-                text:
-                  type: string
-                  title: Additional information or comments about the quote
-                noQuoteQualifiers:
-                  type: string
-                  title: Number of Quote Qualifiers
-                quoteQualifier:
-                  type: string
-                  title: Additional information about the quote (e.g. Yield, Size)
-                noLegs:
-                  type: string
-                  title: Number of legs in the security (for multi-legged securities)
-                legSymbol:
-                  type: string
-                  title: >-
-                    Ticker symbol or instrument code for each leg of the
-                    security
-                legSecurityID:
-                  type: string
-                  title: Identifier for each leg of the security
-                legSecurityIDSource:
-                  type: string
-                  title: >-
-                    Specifies the source of the identifier for each leg of the
-                    security
-                legRatioQty:
-                  type: string
-                  title: Ratio of one leg to the other in a multi-legged security
-                trailer:
-                  type: object
-                  properties:
-                    checkSum:
-                      type: string
-                      format: int64
-                  title: standard Trailer
-                creator:
-                  type: string
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                  bodyLength:
+                    type: string
+                    format: int64
+                  msgType:
+                    type: string
+                  senderCompID:
+                    type: string
+                  targetCompID:
+                    type: string
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                  sendingTime:
+                    type: string
+                title: standard Header
+              quoteReqID:
+                type: string
+                title: Unique identifier for the original Quote Request message
+              quoteID:
+                type: string
+                title: Unique identifier for the Quote
+              quoteStatus:
+                type: string
+                title: Status of the Quote (e.g. Accepted, Rejected, Expired)
+              quoteType:
+                type: string
+                title: Type of Quote (e.g. Indicative, Firm)
+              securityID:
+                type: string
+                title: dentifier for the security being quoted
+              securityIDSource:
+                type: string
+                title: Specifies the source of the security identifier
+              symbol:
+                type: string
+                title: Ticker symbol or instrument code for the security being quoted
+              side:
+                type: string
+                title: indicates whether the quote is for a buy or sell order
+              orderQty:
+                type: string
+                title: Quantity of the security being quoted
+              lastQty:
+                type: string
+                title: Quantity of the last trade
+              lastPx:
+                type: string
+                title: Price of the last trade
+              bidPx:
+                type: string
+                title: Price at which the buyer is willing to buy the security
+              offerPx:
+                type: string
+                title: Price at which the seller is willing to sell the security
+              currency:
+                type: string
+                title: Currency of the quoted price
+              settlDate:
+                type: string
+                title: Settlement date for the security
+              validUntilTime:
+                type: string
+                title: Time after which the quote is no longer valid
+              expireTime:
+                type: string
+                title: Time at which the quote will expire
+              text:
+                type: string
+                title: Additional information or comments about the quote
+              noQuoteQualifiers:
+                type: string
+                title: Number of Quote Qualifiers
+              quoteQualifier:
+                type: string
+                title: Additional information about the quote (e.g. Yield, Size)
+              noLegs:
+                type: string
+                title: Number of legs in the security (for multi-legged securities)
+              legSymbol:
+                type: string
+                title: Ticker symbol or instrument code for each leg of the security
+              legSecurityID:
+                type: string
+                title: Identifier for each leg of the security
+              legSecurityIDSource:
+                type: string
+                title: >-
+                  Specifies the source of the identifier for each leg of the
+                  security
+              legRatioQty:
+                type: string
+                title: Ratio of one leg to the other in a multi-legged security
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                title: standard Trailer
+              creator:
+                type: string
           quoteRequestReject:
-            type: array
-            items:
-              type: object
-              properties:
-                header:
-                  type: object
-                  properties:
-                    beginString:
-                      type: string
-                    bodyLength:
-                      type: string
-                      format: int64
-                    msgType:
-                      type: string
-                    senderCompID:
-                      type: string
-                    targetCompID:
-                      type: string
-                    msgSeqNum:
-                      type: string
-                      format: int64
-                    sendingTime:
-                      type: string
-                quoteReqID:
-                  type: string
-                  title: >-
-                    The ID of the original Quote Request message that is being
-                    rejected
-                quoteRequestRejectReason:
-                  type: string
-                  description: >-
-                    A code indicating the reason for rejecting the Quote
-                    Request. Examples include "Invalid instrument requested",
-                    "Unknown instrument", "Unsupported request type", etc.
-                text:
-                  type: string
-                  title: >-
-                    A human-readable description of the reason for rejecting the
-                    Quote Request
-                trailer:
-                  type: object
-                  properties:
-                    checkSum:
-                      type: string
-                      format: int64
-                creator:
-                  type: string
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                  bodyLength:
+                    type: string
+                    format: int64
+                  msgType:
+                    type: string
+                  senderCompID:
+                    type: string
+                  targetCompID:
+                    type: string
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                  sendingTime:
+                    type: string
+              quoteReqID:
+                type: string
+                title: >-
+                  The ID of the original Quote Request message that is being
+                  rejected
+              quoteRequestRejectReason:
+                type: string
+                description: >-
+                  A code indicating the reason for rejecting the Quote Request.
+                  Examples include "Invalid instrument requested", "Unknown
+                  instrument", "Unsupported request type", etc.
+              text:
+                type: string
+                title: >-
+                  A human-readable description of the reason for rejecting the
+                  Quote Request
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+              creator:
+                type: string
   jim380.re.fix.QueryGetSessionLogoutResponse:
     type: object
     properties:
@@ -51130,261 +51319,516 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  jim380.re.fix.QuerySessionByIDQuoteResponse:
+    type: object
+    properties:
+      Quote:
+        type: array
+        items:
+          type: object
+          properties:
+            sessionID:
+              type: string
+            quoteRequest:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                  title: standard Header
+                quoteReqID:
+                  type: string
+                  title: Unique identifier for the Quote Request message
+                symbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for the security being
+                    quoted
+                securityID:
+                  type: string
+                  title: Identifier for the security being quoted
+                securityIDSource:
+                  type: string
+                  title: Specifies the source of the security identifier
+                side:
+                  type: string
+                  title: Indicates whether the quote is for a buy or sell order
+                orderQty:
+                  type: string
+                  title: Quantity of the security being quoted
+                futSettDate:
+                  type: string
+                  title: Date of the future settlement
+                settlDate2:
+                  type: string
+                  title: Secondary settlement date for the security
+                account:
+                  type: string
+                  title: Account number for the order
+                bidPx:
+                  type: string
+                  title: Price at which the buyer is willing to buy the security
+                offerPx:
+                  type: string
+                  title: Price at which the seller is willing to sell the security
+                currency:
+                  type: string
+                  title: Currency of the quoted price
+                validUntilTime:
+                  type: string
+                  title: Time after which the quote is no longer valid
+                expireTime:
+                  type: string
+                  title: Time at which the quote will expire
+                quoteType:
+                  type: string
+                  title: Type of quote being requested (e.g. Indicative, Firm)
+                bidSize:
+                  type: string
+                  title: Quantity of securities offered at the bid price
+                offerSize:
+                  type: string
+                  title: Quantity of securities offered at the offer price
+                mic:
+                  type: string
+                  title: market identification code
+                text:
+                  type: string
+                  description: Additional information or comments about the quote request.
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                  title: standard Trailer
+                creator:
+                  type: string
+            quoteAcknowledgement:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                  title: standard Header
+                quoteReqID:
+                  type: string
+                  title: Unique identifier for the original Quote Request message
+                quoteID:
+                  type: string
+                  title: Unique identifier for the Quote
+                quoteStatus:
+                  type: string
+                  title: Status of the Quote (e.g. Accepted, Rejected, Expired)
+                quoteType:
+                  type: string
+                  title: Type of Quote (e.g. Indicative, Firm)
+                securityID:
+                  type: string
+                  title: dentifier for the security being quoted
+                securityIDSource:
+                  type: string
+                  title: Specifies the source of the security identifier
+                symbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for the security being
+                    quoted
+                side:
+                  type: string
+                  title: indicates whether the quote is for a buy or sell order
+                orderQty:
+                  type: string
+                  title: Quantity of the security being quoted
+                lastQty:
+                  type: string
+                  title: Quantity of the last trade
+                lastPx:
+                  type: string
+                  title: Price of the last trade
+                bidPx:
+                  type: string
+                  title: Price at which the buyer is willing to buy the security
+                offerPx:
+                  type: string
+                  title: Price at which the seller is willing to sell the security
+                currency:
+                  type: string
+                  title: Currency of the quoted price
+                settlDate:
+                  type: string
+                  title: Settlement date for the security
+                validUntilTime:
+                  type: string
+                  title: Time after which the quote is no longer valid
+                expireTime:
+                  type: string
+                  title: Time at which the quote will expire
+                text:
+                  type: string
+                  title: Additional information or comments about the quote
+                noQuoteQualifiers:
+                  type: string
+                  title: Number of Quote Qualifiers
+                quoteQualifier:
+                  type: string
+                  title: Additional information about the quote (e.g. Yield, Size)
+                noLegs:
+                  type: string
+                  title: Number of legs in the security (for multi-legged securities)
+                legSymbol:
+                  type: string
+                  title: >-
+                    Ticker symbol or instrument code for each leg of the
+                    security
+                legSecurityID:
+                  type: string
+                  title: Identifier for each leg of the security
+                legSecurityIDSource:
+                  type: string
+                  title: >-
+                    Specifies the source of the identifier for each leg of the
+                    security
+                legRatioQty:
+                  type: string
+                  title: Ratio of one leg to the other in a multi-legged security
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                  title: standard Trailer
+                creator:
+                  type: string
+            quoteRequestReject:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                    bodyLength:
+                      type: string
+                      format: int64
+                    msgType:
+                      type: string
+                    senderCompID:
+                      type: string
+                    targetCompID:
+                      type: string
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                    sendingTime:
+                      type: string
+                quoteReqID:
+                  type: string
+                  title: >-
+                    The ID of the original Quote Request message that is being
+                    rejected
+                quoteRequestRejectReason:
+                  type: string
+                  description: >-
+                    A code indicating the reason for rejecting the Quote
+                    Request. Examples include "Invalid instrument requested",
+                    "Unknown instrument", "Unsupported request type", etc.
+                text:
+                  type: string
+                  title: >-
+                    A human-readable description of the reason for rejecting the
+                    Quote Request
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                creator:
+                  type: string
+    title: get Quotes Response by sessionID
   jim380.re.fix.Quote:
     type: object
     properties:
       sessionID:
         type: string
       quoteRequest:
-        type: array
-        items:
-          type: object
-          properties:
-            header:
-              type: object
-              properties:
-                beginString:
-                  type: string
-                bodyLength:
-                  type: string
-                  format: int64
-                msgType:
-                  type: string
-                senderCompID:
-                  type: string
-                targetCompID:
-                  type: string
-                msgSeqNum:
-                  type: string
-                  format: int64
-                sendingTime:
-                  type: string
-              title: standard Header
-            quoteReqID:
-              type: string
-              title: Unique identifier for the Quote Request message
-            symbol:
-              type: string
-              title: Ticker symbol or instrument code for the security being quoted
-            securityID:
-              type: string
-              title: Identifier for the security being quoted
-            securityIDSource:
-              type: string
-              title: Specifies the source of the security identifier
-            side:
-              type: string
-              title: Indicates whether the quote is for a buy or sell order
-            orderQty:
-              type: string
-              title: Quantity of the security being quoted
-            futSettDate:
-              type: string
-              title: Date of the future settlement
-            settlDate2:
-              type: string
-              title: Secondary settlement date for the security
-            account:
-              type: string
-              title: Account number for the order
-            bidPx:
-              type: string
-              title: Price at which the buyer is willing to buy the security
-            offerPx:
-              type: string
-              title: Price at which the seller is willing to sell the security
-            currency:
-              type: string
-              title: Currency of the quoted price
-            validUntilTime:
-              type: string
-              title: Time after which the quote is no longer valid
-            expireTime:
-              type: string
-              title: Time at which the quote will expire
-            quoteType:
-              type: string
-              title: Type of quote being requested (e.g. Indicative, Firm)
-            bidSize:
-              type: string
-              title: Quantity of securities offered at the bid price
-            offerSize:
-              type: string
-              title: Quantity of securities offered at the offer price
-            mic:
-              type: string
-              title: market identification code
-            text:
-              type: string
-              description: Additional information or comments about the quote request.
-            trailer:
-              type: object
-              properties:
-                checkSum:
-                  type: string
-                  format: int64
-              title: standard Trailer
-            creator:
-              type: string
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: int64
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+            title: standard Header
+          quoteReqID:
+            type: string
+            title: Unique identifier for the Quote Request message
+          symbol:
+            type: string
+            title: Ticker symbol or instrument code for the security being quoted
+          securityID:
+            type: string
+            title: Identifier for the security being quoted
+          securityIDSource:
+            type: string
+            title: Specifies the source of the security identifier
+          side:
+            type: string
+            title: Indicates whether the quote is for a buy or sell order
+          orderQty:
+            type: string
+            title: Quantity of the security being quoted
+          futSettDate:
+            type: string
+            title: Date of the future settlement
+          settlDate2:
+            type: string
+            title: Secondary settlement date for the security
+          account:
+            type: string
+            title: Account number for the order
+          bidPx:
+            type: string
+            title: Price at which the buyer is willing to buy the security
+          offerPx:
+            type: string
+            title: Price at which the seller is willing to sell the security
+          currency:
+            type: string
+            title: Currency of the quoted price
+          validUntilTime:
+            type: string
+            title: Time after which the quote is no longer valid
+          expireTime:
+            type: string
+            title: Time at which the quote will expire
+          quoteType:
+            type: string
+            title: Type of quote being requested (e.g. Indicative, Firm)
+          bidSize:
+            type: string
+            title: Quantity of securities offered at the bid price
+          offerSize:
+            type: string
+            title: Quantity of securities offered at the offer price
+          mic:
+            type: string
+            title: market identification code
+          text:
+            type: string
+            description: Additional information or comments about the quote request.
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+            title: standard Trailer
+          creator:
+            type: string
       quoteAcknowledgement:
-        type: array
-        items:
-          type: object
-          properties:
-            header:
-              type: object
-              properties:
-                beginString:
-                  type: string
-                bodyLength:
-                  type: string
-                  format: int64
-                msgType:
-                  type: string
-                senderCompID:
-                  type: string
-                targetCompID:
-                  type: string
-                msgSeqNum:
-                  type: string
-                  format: int64
-                sendingTime:
-                  type: string
-              title: standard Header
-            quoteReqID:
-              type: string
-              title: Unique identifier for the original Quote Request message
-            quoteID:
-              type: string
-              title: Unique identifier for the Quote
-            quoteStatus:
-              type: string
-              title: Status of the Quote (e.g. Accepted, Rejected, Expired)
-            quoteType:
-              type: string
-              title: Type of Quote (e.g. Indicative, Firm)
-            securityID:
-              type: string
-              title: dentifier for the security being quoted
-            securityIDSource:
-              type: string
-              title: Specifies the source of the security identifier
-            symbol:
-              type: string
-              title: Ticker symbol or instrument code for the security being quoted
-            side:
-              type: string
-              title: indicates whether the quote is for a buy or sell order
-            orderQty:
-              type: string
-              title: Quantity of the security being quoted
-            lastQty:
-              type: string
-              title: Quantity of the last trade
-            lastPx:
-              type: string
-              title: Price of the last trade
-            bidPx:
-              type: string
-              title: Price at which the buyer is willing to buy the security
-            offerPx:
-              type: string
-              title: Price at which the seller is willing to sell the security
-            currency:
-              type: string
-              title: Currency of the quoted price
-            settlDate:
-              type: string
-              title: Settlement date for the security
-            validUntilTime:
-              type: string
-              title: Time after which the quote is no longer valid
-            expireTime:
-              type: string
-              title: Time at which the quote will expire
-            text:
-              type: string
-              title: Additional information or comments about the quote
-            noQuoteQualifiers:
-              type: string
-              title: Number of Quote Qualifiers
-            quoteQualifier:
-              type: string
-              title: Additional information about the quote (e.g. Yield, Size)
-            noLegs:
-              type: string
-              title: Number of legs in the security (for multi-legged securities)
-            legSymbol:
-              type: string
-              title: Ticker symbol or instrument code for each leg of the security
-            legSecurityID:
-              type: string
-              title: Identifier for each leg of the security
-            legSecurityIDSource:
-              type: string
-              title: >-
-                Specifies the source of the identifier for each leg of the
-                security
-            legRatioQty:
-              type: string
-              title: Ratio of one leg to the other in a multi-legged security
-            trailer:
-              type: object
-              properties:
-                checkSum:
-                  type: string
-                  format: int64
-              title: standard Trailer
-            creator:
-              type: string
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: int64
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+            title: standard Header
+          quoteReqID:
+            type: string
+            title: Unique identifier for the original Quote Request message
+          quoteID:
+            type: string
+            title: Unique identifier for the Quote
+          quoteStatus:
+            type: string
+            title: Status of the Quote (e.g. Accepted, Rejected, Expired)
+          quoteType:
+            type: string
+            title: Type of Quote (e.g. Indicative, Firm)
+          securityID:
+            type: string
+            title: dentifier for the security being quoted
+          securityIDSource:
+            type: string
+            title: Specifies the source of the security identifier
+          symbol:
+            type: string
+            title: Ticker symbol or instrument code for the security being quoted
+          side:
+            type: string
+            title: indicates whether the quote is for a buy or sell order
+          orderQty:
+            type: string
+            title: Quantity of the security being quoted
+          lastQty:
+            type: string
+            title: Quantity of the last trade
+          lastPx:
+            type: string
+            title: Price of the last trade
+          bidPx:
+            type: string
+            title: Price at which the buyer is willing to buy the security
+          offerPx:
+            type: string
+            title: Price at which the seller is willing to sell the security
+          currency:
+            type: string
+            title: Currency of the quoted price
+          settlDate:
+            type: string
+            title: Settlement date for the security
+          validUntilTime:
+            type: string
+            title: Time after which the quote is no longer valid
+          expireTime:
+            type: string
+            title: Time at which the quote will expire
+          text:
+            type: string
+            title: Additional information or comments about the quote
+          noQuoteQualifiers:
+            type: string
+            title: Number of Quote Qualifiers
+          quoteQualifier:
+            type: string
+            title: Additional information about the quote (e.g. Yield, Size)
+          noLegs:
+            type: string
+            title: Number of legs in the security (for multi-legged securities)
+          legSymbol:
+            type: string
+            title: Ticker symbol or instrument code for each leg of the security
+          legSecurityID:
+            type: string
+            title: Identifier for each leg of the security
+          legSecurityIDSource:
+            type: string
+            title: >-
+              Specifies the source of the identifier for each leg of the
+              security
+          legRatioQty:
+            type: string
+            title: Ratio of one leg to the other in a multi-legged security
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+            title: standard Trailer
+          creator:
+            type: string
       quoteRequestReject:
-        type: array
-        items:
-          type: object
-          properties:
-            header:
-              type: object
-              properties:
-                beginString:
-                  type: string
-                bodyLength:
-                  type: string
-                  format: int64
-                msgType:
-                  type: string
-                senderCompID:
-                  type: string
-                targetCompID:
-                  type: string
-                msgSeqNum:
-                  type: string
-                  format: int64
-                sendingTime:
-                  type: string
-            quoteReqID:
-              type: string
-              title: >-
-                The ID of the original Quote Request message that is being
-                rejected
-            quoteRequestRejectReason:
-              type: string
-              description: >-
-                A code indicating the reason for rejecting the Quote Request.
-                Examples include "Invalid instrument requested", "Unknown
-                instrument", "Unsupported request type", etc.
-            text:
-              type: string
-              title: >-
-                A human-readable description of the reason for rejecting the
-                Quote Request
-            trailer:
-              type: object
-              properties:
-                checkSum:
-                  type: string
-                  format: int64
-            creator:
-              type: string
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+              bodyLength:
+                type: string
+                format: int64
+              msgType:
+                type: string
+              senderCompID:
+                type: string
+              targetCompID:
+                type: string
+              msgSeqNum:
+                type: string
+                format: int64
+              sendingTime:
+                type: string
+          quoteReqID:
+            type: string
+            title: >-
+              The ID of the original Quote Request message that is being
+              rejected
+          quoteRequestRejectReason:
+            type: string
+            description: >-
+              A code indicating the reason for rejecting the Quote Request.
+              Examples include "Invalid instrument requested", "Unknown
+              instrument", "Unsupported request type", etc.
+          text:
+            type: string
+            title: >-
+              A human-readable description of the reason for rejecting the Quote
+              Request
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+          creator:
+            type: string
   jim380.re.fix.QuoteAcknowledgement:
     type: object
     properties:
