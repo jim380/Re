@@ -116,6 +116,37 @@ func (msg *MsgQuoteAcknowledgement) ValidateBasic() error {
 	return nil
 }
 
+func NewQuoteAcknowledgement(quoteReqID string, quoteID string, quoteStatus string, quoteType string, securityID string, securityIDSource string, symbol string, side string, orderQty string, lastQty string, lastPx string, bidPx string, offerPx string, currency string, settlDate string, validUntilTime string, expireTime string, text string, noQuoteQualifiers string, quoteQualifier string, noLegs string, legSymbol string, legSecurityID string, legSecurityIDSource string, legRatioQty string, creator string) *QuoteAcknowledgement {
+	return &QuoteAcknowledgement{
+		QuoteReqID:          quoteReqID,
+		QuoteID:             quoteID,
+		QuoteStatus:         quoteStatus,
+		QuoteType:           quoteType,
+		SecurityID:          securityID,
+		SecurityIDSource:    securityIDSource,
+		Symbol:              symbol,
+		Side:                side,
+		OrderQty:            orderQty,
+		LastQty:             lastQty,
+		LastPx:              lastPx,
+		BidPx:               bidPx,
+		OfferPx:             offerPx,
+		Currency:            currency,
+		SettlDate:           settlDate,
+		ValidUntilTime:      validUntilTime,
+		ExpireTime:          expireTime,
+		Text:                text,
+		NoQuoteQualifiers:   noQuoteQualifiers,
+		QuoteQualifier:      quoteQualifier,
+		NoLegs:              noLegs,
+		LegSymbol:           legSymbol,
+		LegSecurityID:       legSecurityID,
+		LegSecurityIDSource: legSecurityIDSource,
+		LegRatioQty:         legRatioQty,
+		Creator:             creator,
+	}
+}
+
 func NewMsgQuoteRequestReject(creator string, sessionID string, quoteRequestReject *QuoteRequestReject) *MsgQuoteRequestReject {
 	return &MsgQuoteRequestReject{
 		Creator:            creator,

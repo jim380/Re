@@ -65,7 +65,7 @@ message QuoteAcknowledgement {
   string legSecurityIDSource = 25; //Specifies the source of the identifier for each leg of the security
   string legRatioQty = 26; // Ratio of one leg to the other in a multi-legged security
   Trailer trailer = 27; //standard Trailer
-  string creator = 28;
+  string  creator = 28;
 }
 
 message QuoteRequestReject {
