@@ -70,9 +70,9 @@ func CmdQuoteRequest() *cobra.Command {
 // CmdQuoteAcknowledgement is the command line tool for creating Quote Acknowledgement
 func CmdQuoteAcknowledgement() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-acknowledgement [session-id]",
+		Use:   "quote-acknowledgement [session-id] [quoteReqID] [quoteStatus] [quoteType] [securityID] [securityIDSource] [symbol] [side] [orderQty] [lastQty] [lastPx] [bidPx] [offerPx] [currency] [settlDate] [validUntilTime] [expireTime] [text] [noQuoteQualifiers] [quoteQualifier] [noLegs] [legSymbol] [legSecurityID] [legSecurityIDSource] [legRatioQty]",
 		Short: "Broadcast message quote-acknowledgement",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(25),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -81,13 +81,40 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 			}
 
 			argSessionID := args[0]
+			argQuoteReqID := args[1]
+			argQuoteStatus := args[2]
+			argQuoteType := args[3]
+			argSecurityID := args[4]
+			argSecurityIDSource := args[5]
+			argSymbol := args[6]
+			argSide := args[7]
+			argOrderQty := args[8]
+			argLastQty := args[9]
+			argLastPx := args[10]
+			argBidPx := args[11]
+			argOfferPx := args[12]
+			argCurrency := args[13]
+			argSettlDate := args[14]
+			argValidUntilTime := args[15]
+			argExpireTime := args[16]
+			argText := args[17]
+			argNoQuoteQualifiers := args[18]
+			argQuoteQualifier := args[19]
+			argNoLegs := args[20]
+			argLegSymbol := args[21]
+			argLegSecurityID := args[22]
+			argLegSecurityIDSource := args[23]
+			argLegRatioQty := args[24]
 
-			ack := types.QuoteAcknowledgement{}
+			//auto generate QuoteID using GenerateRandomString function
+			quoteID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
+
+			quoteAcknowledgement := types.NewQuoteAcknowledgement(argQuoteReqID, quoteID, argQuoteStatus, argQuoteType, argSecurityID, argSecurityIDSource, argSymbol, argSide, argOrderQty, argLastQty, argLastPx, argBidPx, argOfferPx, argCurrency, argSettlDate, argValidUntilTime, argExpireTime, argText, argNoQuoteQualifiers, argQuoteQualifier, argNoLegs, argLegSymbol, argLegSecurityID, argLegSecurityIDSource, argLegRatioQty, clientCtx.GetFromAddress().String())
 
 			msg := types.NewMsgQuoteAcknowledgement(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
-				&ack,
+				quoteAcknowledgement,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

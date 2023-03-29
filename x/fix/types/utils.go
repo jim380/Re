@@ -9,6 +9,7 @@ const (
 	NameChars         = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	SessionNameLength = 10
 	QuoteReqIDLength  = 15
+	QuoteID           = 15
 )
 
 // randomly generate unique string
