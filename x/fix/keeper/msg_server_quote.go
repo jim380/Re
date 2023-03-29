@@ -23,6 +23,11 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
 	}
 
+	//check that the parties involved in a session are the ones using the sessionID
+	if session.InitiatorAddress != msg.QuoteRequest.Creator || session.AcceptorAddress != msg.QuoteRequest.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.QuoteRequest.Creator)
+	}
+
 	//check that mandatory Quote Request fields are not empty
 	if msg.QuoteRequest.QuoteReqID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsEmpty, "QuoteReqID: %s", msg.QuoteRequest.QuoteReqID)
@@ -50,7 +55,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	//check that the address creating the Quote Request is same addresss used to register the MIC on the mic module
-	if mic.MIC != msg.QuoteRequest.Creator {
+	if mic.Creator != msg.QuoteRequest.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
 	}
 
@@ -91,7 +96,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	//checksum in the trailer can be recalculated using CalculateChecksum function
 	newQuoteRequest.QuoteRequest.Trailer = trailer
 
-	//set Quote to store
+	//set Quote Request to store
 	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)
 
 	return &types.MsgQuoteRequestResponse{}, nil
@@ -101,8 +106,77 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuoteAcknowledgement) (*types.MsgQuoteAcknowledgementResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	//check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	//check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != "loggedIn" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
+	}
+
+	//get Quote Request
+	quoteRequest, found := k.GetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Quote: %s", &quoteRequest)
+	}
+
+	//check that the user to acknowledge the Quote Request is the recipeint of the Quote Request
+	if session.InitiatorAddress != msg.QuoteAcknowledgement.Creator || session.AcceptorAddress != msg.QuoteAcknowledgement.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteAcknowledgement.Creator)
+	}
+
+	//check that mandatory Quote Request fields are not empty
+	if msg.QuoteAcknowledgement.QuoteReqID == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsEmpty, "QuoteReqID: %s", msg.QuoteAcknowledgement.QuoteReqID)
+	}
+	if msg.QuoteAcknowledgement.Symbol == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteSymbolIsEmpty, "Symbol: %s", msg.QuoteAcknowledgement.Symbol)
+	}
+	if msg.QuoteAcknowledgement.Side == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteSideIsEmpty, "Side: %s", msg.QuoteAcknowledgement.Side)
+	}
+	if msg.QuoteAcknowledgement.BidPx == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteBidPxIsEmpty, "BidPx: %s", msg.QuoteAcknowledgement.BidPx)
+	}
+	if msg.QuoteAcknowledgement.Currency == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteCurrencyIsEmpty, "Currency: %s", msg.QuoteAcknowledgement.Currency)
+	}
+	if msg.QuoteAcknowledgement.QuoteType == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteTypeIsEmpty, "QuoteType: %s", msg.QuoteAcknowledgement.QuoteType)
+	}
+
+	quoteAcknowledgement := types.NewQuoteAcknowledgement(msg.QuoteAcknowledgement.QuoteReqID, msg.QuoteAcknowledgement.QuoteID, msg.QuoteAcknowledgement.QuoteStatus, msg.QuoteAcknowledgement.QuoteType, msg.QuoteAcknowledgement.SecurityID, msg.QuoteAcknowledgement.SecurityIDSource, msg.QuoteAcknowledgement.Symbol, msg.QuoteAcknowledgement.Side, msg.QuoteAcknowledgement.OrderQty, msg.QuoteAcknowledgement.LastQty, msg.QuoteAcknowledgement.LastPx, msg.QuoteAcknowledgement.BidPx, msg.QuoteAcknowledgement.OfferPx, msg.QuoteAcknowledgement.Currency, msg.QuoteAcknowledgement.SettlDate, msg.QuoteAcknowledgement.ValidUntilTime, msg.QuoteAcknowledgement.ExpireTime, msg.QuoteAcknowledgement.Text, msg.QuoteAcknowledgement.NoQuoteQualifiers, msg.QuoteAcknowledgement.QuoteQualifier, msg.QuoteAcknowledgement.NoLegs, msg.QuoteAcknowledgement.LegSymbol, msg.QuoteAcknowledgement.LegSecurityID, msg.QuoteAcknowledgement.LegSecurityIDSource, msg.QuoteAcknowledgement.LegRatioQty, msg.QuoteAcknowledgement.Creator)
+
+	newQuoteAcknowledgement := types.Quote{
+		SessionID:            msg.SessionID,
+		QuoteRequest:         quoteRequest.QuoteRequest,
+		QuoteAcknowledgement: quoteAcknowledgement,
+	}
+
+	//set the msgType to quote acknowledgement
+	newQuoteAcknowledgement.QuoteAcknowledgement.Header.MsgType = "b"
+
+	//set header from the existing quote request
+	newQuoteAcknowledgement.QuoteAcknowledgement.Header = quoteRequest.QuoteRequest.Header
+
+	//set senderCompID of Quote Acknowledgement to the targetCompID of Quote Request in the header
+	newQuoteAcknowledgement.QuoteAcknowledgement.Header.SenderCompID = quoteRequest.QuoteRequest.Header.TargetCompID
+
+	//set targetCompID of Quote Acknowledgement to the senderCompID of Quote Request in the header
+	newQuoteAcknowledgement.QuoteAcknowledgement.Header.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
+
+	//set Trailer from the existing Quote Request
+	newQuoteAcknowledgement.QuoteAcknowledgement.Trailer = quoteRequest.QuoteRequest.Trailer
+
+	//TODO
+	//calculate the checksum in the trailer
+	//calculate the bodyLength in the header
+
+	//set Quote Acknowledgement to store
+	k.SetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID, newQuoteAcknowledgement)
 
 	return &types.MsgQuoteAcknowledgementResponse{}, nil
 }

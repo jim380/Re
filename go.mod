@@ -31,7 +31,6 @@ require (
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
 	github.com/CosmWasm/wasmvm v1.1.1 // indirect
 	github.com/creachadair/taskgroup v0.3.2 // indirect
-	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
