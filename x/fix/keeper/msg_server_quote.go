@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -23,8 +24,8 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
 	}
 
-	///check that the parties involved in a session are the ones using the sessionID
-	if session.InitiatorAddress != msg.QuoteRequest.Creator || session.AcceptorAddress != msg.QuoteRequest.Creator {
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Quote Request
+	if session.InitiatorAddress != msg.QuoteRequest.Creator && session.AcceptorAddress != msg.QuoteRequest.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.QuoteRequest.Creator)
 	}
 
@@ -48,7 +49,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrQuoteTypeIsEmpty, "QuoteType: %s", msg.QuoteRequest.QuoteType)
 	}
 
-	//mget market identification code from MIC module
+	//get market identification code from MIC module
 	mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
@@ -60,7 +61,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	// call new instance of QuoteRequest
-	quoteRequests := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, msg.QuoteRequest.Mic, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
+	quoteRequests := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, mic.MIC, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
 
 	newQuoteRequest := types.Quote{
 		SessionID:    msg.SessionID,
@@ -117,21 +118,26 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
 	}
 
+	// check that the user to acknowledge the Quote Request is the recipeint of the Quote Request
+	if session.InitiatorAddress != msg.QuoteAcknowledgement.Creator && session.AcceptorAddress != msg.QuoteAcknowledgement.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteAcknowledgement.Creator)
+	}
+
 	// get the existing Quote Request
 	quoteRequest, found := k.GetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteIsEmpty, "Quote: %s", &quoteRequest)
 	}
 
+	// check that Quote Request creator address is not same address acknowledging the Quote Request
+	if quoteRequest.QuoteRequest.Creator == msg.QuoteAcknowledgement.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteAcknowledgementCreatorIsWrong, "Quote: %s", msg.QuoteAcknowledgement.Creator)
+	}
+
 	// check that this Quote Request to be acknowledged has not been rejected
 	// access QuoteRequestReject from QuoteRequest, Quote Acknoledgement should be rejected if Quote Request Reject is not nil
 	if quoteRequest.QuoteRequestReject != nil {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsRejected, "Quote: %s", quoteRequest.QuoteRequestReject)
-	}
-
-	// check that the user to acknowledge the Quote Request is the recipeint of the Quote Request
-	if session.InitiatorAddress != msg.QuoteAcknowledgement.Creator || session.AcceptorAddress != msg.QuoteAcknowledgement.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteAcknowledgement.Creator)
 	}
 
 	// check that mandatory Quote Request fields are not empty
@@ -162,24 +168,39 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		QuoteAcknowledgement: quoteAcknowledgement,
 	}
 
-	// set the msgType to quote acknowledgement
-	newQuoteAcknowledgement.QuoteAcknowledgement.Header.MsgType = "b"
-
 	// set header from the existing quote request
 	newQuoteAcknowledgement.QuoteAcknowledgement.Header = quoteRequest.QuoteRequest.Header
 
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *newQuoteAcknowledgement.QuoteAcknowledgement.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = quoteRequest.QuoteRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = quoteRequest.QuoteRequest.Header.MsgSeqNum
+
+	// set the msgType to quote acknowledgement
+	newHeader.MsgType = "b"
+
+	// switch senderCompID and targetCompID between Quote Request and Quote Acknoledgement
 	// set senderCompID of Quote Acknowledgement to the targetCompID of Quote Request in the header
-	newQuoteAcknowledgement.QuoteAcknowledgement.Header.SenderCompID = quoteRequest.QuoteRequest.Header.TargetCompID
+	newHeader.SenderCompID = quoteRequest.QuoteRequest.Header.TargetCompID
 
 	// set targetCompID of Quote Acknowledgement to the senderCompID of Quote Request in the header
-	newQuoteAcknowledgement.QuoteAcknowledgement.Header.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
+	newHeader.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	newQuoteAcknowledgement.QuoteAcknowledgement.Header = newHeader
 
 	// set Trailer from the existing Quote Request
 	newQuoteAcknowledgement.QuoteAcknowledgement.Trailer = quoteRequest.QuoteRequest.Trailer
-
-	// TODO
-	// calculate the checksum in the trailer
-	// calculate the bodyLength in the header
 
 	// set Quote Acknowledgement to store
 	k.SetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID, newQuoteAcknowledgement)

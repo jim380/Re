@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 // CmdQuoteRequest is the command line tool for creating Quote Request
 func CmdQuoteRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-request [session-id] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] text",
+		Use:   "quote-request [session-id] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] [text]",
 		Short: "Broadcast message quote-request",
 		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
