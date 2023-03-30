@@ -60,12 +60,12 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
 	}
 
-	// call new instance of QuoteRequest
-	quoteRequests := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, mic.MIC, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
+	// call new instance of NewQuoteRequest
+	quoteRequest := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, mic.MIC, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
 
 	newQuoteRequest := types.Quote{
 		SessionID:    msg.SessionID,
-		QuoteRequest: quoteRequests,
+		QuoteRequest: quoteRequest,
 	}
 
 	// fetch Header from existing session
@@ -113,9 +113,9 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != "loggedIn" {
-		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
+	// check that the sessionID provided by the creator of Quote Acknowledgement matches with the sessionID for Quote Request
+	if session.SessionID == msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user to acknowledge the Quote Request is the recipeint of the Quote Request
@@ -131,7 +131,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 
 	// check that Quote Request creator address is not same address acknowledging the Quote Request
 	if quoteRequest.QuoteRequest.Creator == msg.QuoteAcknowledgement.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrQuoteAcknowledgementCreatorIsWrong, "Quote: %s", msg.QuoteAcknowledgement.Creator)
+		return nil, sdkerrors.Wrapf(types.ErrQuoteAcknowledgementCreatorIsWrong, "Quote Acknowledgement: %s", msg.QuoteAcknowledgement.Creator)
 	}
 
 	// check that this Quote Request to be acknowledged has not been rejected
@@ -140,7 +140,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsRejected, "Quote: %s", quoteRequest.QuoteRequestReject)
 	}
 
-	// check that mandatory Quote Request fields are not empty
+	// check that mandatory Quote Acknowledgement fields are not empty
 	if msg.QuoteAcknowledgement.QuoteReqID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsEmpty, "QuoteReqID: %s", msg.QuoteAcknowledgement.QuoteReqID)
 	}
@@ -160,6 +160,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrQuoteTypeIsEmpty, "QuoteType: %s", msg.QuoteAcknowledgement.QuoteType)
 	}
 
+	// call new instance of NewQuoteAcknowledgement
 	quoteAcknowledgement := types.NewQuoteAcknowledgement(msg.QuoteAcknowledgement.QuoteReqID, msg.QuoteAcknowledgement.QuoteID, msg.QuoteAcknowledgement.QuoteStatus, msg.QuoteAcknowledgement.QuoteType, msg.QuoteAcknowledgement.SecurityID, msg.QuoteAcknowledgement.SecurityIDSource, msg.QuoteAcknowledgement.Symbol, msg.QuoteAcknowledgement.Side, msg.QuoteAcknowledgement.OrderQty, msg.QuoteAcknowledgement.LastQty, msg.QuoteAcknowledgement.LastPx, msg.QuoteAcknowledgement.BidPx, msg.QuoteAcknowledgement.OfferPx, msg.QuoteAcknowledgement.Currency, msg.QuoteAcknowledgement.SettlDate, msg.QuoteAcknowledgement.ValidUntilTime, msg.QuoteAcknowledgement.ExpireTime, msg.QuoteAcknowledgement.Text, msg.QuoteAcknowledgement.NoQuoteQualifiers, msg.QuoteAcknowledgement.QuoteQualifier, msg.QuoteAcknowledgement.NoLegs, msg.QuoteAcknowledgement.LegSymbol, msg.QuoteAcknowledgement.LegSecurityID, msg.QuoteAcknowledgement.LegSecurityIDSource, msg.QuoteAcknowledgement.LegRatioQty, msg.QuoteAcknowledgement.Creator)
 
 	newQuoteAcknowledgement := types.Quote{
@@ -208,12 +209,97 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	return &types.MsgQuoteAcknowledgementResponse{}, nil
 }
 
-// QuoteRequestReject creates Quote Request Rejection for Quote Request
+// QuoteRequestReject creates Quote Request Reject for Quote Request
 func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuoteRequestReject) (*types.MsgQuoteRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Quote Request Reject matches with the sessionID for Quote Request
+	if session.SessionID == msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user to Reject the Quote Request is the recipeint of the Quote Request
+	if session.InitiatorAddress != msg.QuoteRequestReject.Creator && session.AcceptorAddress != msg.QuoteRequestReject.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteRequestReject.Creator)
+	}
+
+	// get the existing Quote Request
+	quoteRequest, found := k.GetQuote(ctx, msg.QuoteRequestReject.QuoteReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteIsEmpty, "Quote: %s", &quoteRequest)
+	}
+
+	// check that Quote Request creator address is not same address Rejecting the Quote Request
+	if quoteRequest.QuoteRequest.Creator == msg.QuoteRequestReject.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestRejectCreatorIsWrong, "Quote Request Rejection: %s", msg.QuoteRequestReject.Creator)
+	}
+
+	// check that this Quote Request to be Rejected has not been acknowledged
+	// access QuoteAcknowledgement from the QuoteRequest, QuoteRequestRejection should be rejected if QuoteAcknowledgement is not nil
+	if quoteRequest.QuoteAcknowledgement != nil {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsAcknowledged, "Quote: %s", quoteRequest.QuoteAcknowledgement)
+	}
+
+	// check that mandatory Quote Request Reject fields are not empty
+	if msg.QuoteRequestReject.QuoteReqID == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteReqIDIsEmpty, "QuoteReqID: %s", msg.QuoteRequestReject.QuoteReqID)
+	}
+	if msg.QuoteRequestReject.QuoteRequestRejectReason == "" {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestRejectReasonIsEmpty, "QuoteRequestRejectReason: %s", msg.QuoteRequestReject.QuoteRequestRejectReason)
+	}
+
+	// call new instance of NewQuoteRequestReject
+	quoteRequestReject := types.NewQuoteRequestReject(msg.QuoteRequestReject.QuoteReqID, msg.QuoteRequestReject.QuoteRequestRejectReason, msg.QuoteRequestReject.Text, msg.QuoteRequestReject.Creator)
+
+	newQuoteRequestReject := types.Quote{
+		SessionID:            msg.SessionID,
+		QuoteRequest:         quoteRequest.QuoteRequest,
+		QuoteAcknowledgement: quoteRequest.QuoteAcknowledgement,
+		QuoteRequestReject:   quoteRequestReject,
+	}
+
+	// set header from the existing quote request
+	newQuoteRequestReject.QuoteRequestReject.Header = quoteRequest.QuoteRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *newQuoteRequestReject.QuoteRequestReject.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = quoteRequest.QuoteRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = quoteRequest.QuoteRequest.Header.MsgSeqNum
+
+	// set the msgType to Quote Request Reject
+	newHeader.MsgType = "AI"
+
+	// switch senderCompID and targetCompID between Quote Request and Quote Request Reject
+	// set senderCompID of Quote Request Reject to the targetCompID of Quote Request in the header
+	newHeader.SenderCompID = quoteRequest.QuoteRequest.Header.TargetCompID
+
+	// set targetCompID of Quote Request Reject to the senderCompID of Quote Request in the header
+	newHeader.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	newQuoteRequestReject.QuoteRequestReject.Header = newHeader
+
+	// set Trailer from the existing Quote Request
+	newQuoteRequestReject.QuoteRequestReject.Trailer = quoteRequest.QuoteRequest.Trailer
+
+	// set Quote Request Reject to store
+	k.SetQuote(ctx, msg.QuoteRequestReject.QuoteReqID, newQuoteRequestReject)
 
 	return &types.MsgQuoteRequestRejectResponse{}, nil
 }

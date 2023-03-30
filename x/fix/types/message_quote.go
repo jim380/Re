@@ -183,3 +183,12 @@ func (msg *MsgQuoteRequestReject) ValidateBasic() error {
 	}
 	return nil
 }
+
+func NewQuoteRequestReject(quoteReqID string, quoteRequestRejectReason string, text string, creator string) *QuoteRequestReject {
+	return &QuoteRequestReject{
+		QuoteReqID:               quoteReqID,
+		QuoteRequestRejectReason: quoteRequestRejectReason,
+		Text:                     text,
+		Creator:                  creator,
+	}
+}
