@@ -7,18 +7,17 @@ import (
 )
 
 // SetMarketIdentificationCode set a specific marketIdentificationCode in the store
-func (k Keeper) SetMarketIdentificationCode(ctx sdk.Context, mic string, marketIdentificationCode types.MarketIdentificationCode) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
-	key := []byte(mic)
+func (k Keeper) SetMarketIdentificationCode(ctx sdk.Context, marketIdentificationCode types.MarketIdentificationCode) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
 	b := k.cdc.MustMarshal(&marketIdentificationCode)
-	store.Set(key, b)
+	store.Set(types.GetMarketIdentificationCodeKey(marketIdentificationCode.MIC), b)
 }
 
 // GetMarketIdentificationCode returns a marketIdentificationCode from its mic
 func (k Keeper) GetMarketIdentificationCode(ctx sdk.Context, mic string) (val types.MarketIdentificationCode, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
-	key := []byte(mic)
-	b := store.Get(key)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
+
+	b := store.Get(types.GetMarketIdentificationCodeKey(mic))
 	if b == nil {
 		return val, false
 	}
@@ -28,14 +27,13 @@ func (k Keeper) GetMarketIdentificationCode(ctx sdk.Context, mic string) (val ty
 
 // RemoveMarketIdentificationCode removes a marketIdentificationCode from the store
 func (k Keeper) RemoveMarketIdentificationCode(ctx sdk.Context, mic string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
-	key := []byte(mic)
-	store.Delete(key)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
+	store.Delete(types.GetMarketIdentificationCodeKey(mic))
 }
 
 // GetAllMarketIdentificationCode returns all marketIdentificationCode
 func (k Keeper) GetAllMarketIdentificationCode(ctx sdk.Context) (list []types.MarketIdentificationCode) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketIdentificationCodeKey())
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

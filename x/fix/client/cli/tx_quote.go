@@ -131,9 +131,9 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 // CmdQuoteRequestReject is the command line for creating Quote Request Reject
 func CmdQuoteRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-request-reject [session-id]",
+		Use:   "quote-request-reject [session-id] [quoteReqID] [quoteRequestRejectReason] [text]",
 		Short: "Broadcast message quote-request-reject",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -142,13 +142,16 @@ func CmdQuoteRequestReject() *cobra.Command {
 			}
 
 			argSessionID := args[0]
+			argQuoteReqID := args[1]
+			argQuoteRequestRejectReason := args[2]
+			argText := args[3]
 
-			argQuoteRequestReject := types.QuoteRequestReject{}
+			quoteRequestReject := types.NewQuoteRequestReject(argQuoteReqID, argQuoteRequestRejectReason, argText, clientCtx.GetFromAddress().String())
 
 			msg := types.NewMsgQuoteRequestReject(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
-				&argQuoteRequestReject,
+				quoteRequestReject,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

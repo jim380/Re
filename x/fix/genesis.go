@@ -52,7 +52,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set all the quote
 	for _, elem := range genState.QuoteList {
-		k.SetQuote(ctx, elem.SessionID, elem)
+		k.SetQuote(ctx, elem.QuoteRequest.QuoteReqID, elem)
 	}
 
 	// this line is used by starport scaffolding # genesis/module/init

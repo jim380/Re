@@ -30,89 +30,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// QueryParamsRequest is request type for the Query/Params RPC method.
-type QueryParamsRequest struct {
-}
-
-func (m *QueryParamsRequest) Reset()         { *m = QueryParamsRequest{} }
-func (m *QueryParamsRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryParamsRequest) ProtoMessage()    {}
-func (*QueryParamsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{0}
-}
-func (m *QueryParamsRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryParamsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryParamsRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryParamsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryParamsRequest.Merge(m, src)
-}
-func (m *QueryParamsRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryParamsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryParamsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryParamsRequest proto.InternalMessageInfo
-
-// QueryParamsResponse is response type for the Query/Params RPC method.
-type QueryParamsResponse struct {
-	// params holds all the parameters of this module.
-	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
-}
-
-func (m *QueryParamsResponse) Reset()         { *m = QueryParamsResponse{} }
-func (m *QueryParamsResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryParamsResponse) ProtoMessage()    {}
-func (*QueryParamsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{1}
-}
-func (m *QueryParamsResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryParamsResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryParamsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryParamsResponse.Merge(m, src)
-}
-func (m *QueryParamsResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryParamsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryParamsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryParamsResponse proto.InternalMessageInfo
-
-func (m *QueryParamsResponse) GetParams() Params {
-	if m != nil {
-		return m.Params
-	}
-	return Params{}
-}
-
 type QueryGetMarketIdentificationCodeRequest struct {
 	MIC string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
 }
@@ -123,7 +40,7 @@ func (m *QueryGetMarketIdentificationCodeRequest) Reset() {
 func (m *QueryGetMarketIdentificationCodeRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetMarketIdentificationCodeRequest) ProtoMessage()    {}
 func (*QueryGetMarketIdentificationCodeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{2}
+	return fileDescriptor_442320081ffd8c93, []int{0}
 }
 func (m *QueryGetMarketIdentificationCodeRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -169,7 +86,7 @@ func (m *QueryGetMarketIdentificationCodeResponse) Reset() {
 func (m *QueryGetMarketIdentificationCodeResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetMarketIdentificationCodeResponse) ProtoMessage()    {}
 func (*QueryGetMarketIdentificationCodeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{3}
+	return fileDescriptor_442320081ffd8c93, []int{1}
 }
 func (m *QueryGetMarketIdentificationCodeResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -215,7 +132,7 @@ func (m *QueryAllMarketIdentificationCodeRequest) Reset() {
 func (m *QueryAllMarketIdentificationCodeRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllMarketIdentificationCodeRequest) ProtoMessage()    {}
 func (*QueryAllMarketIdentificationCodeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{4}
+	return fileDescriptor_442320081ffd8c93, []int{2}
 }
 func (m *QueryAllMarketIdentificationCodeRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -262,7 +179,7 @@ func (m *QueryAllMarketIdentificationCodeResponse) Reset() {
 func (m *QueryAllMarketIdentificationCodeResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllMarketIdentificationCodeResponse) ProtoMessage()    {}
 func (*QueryAllMarketIdentificationCodeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_442320081ffd8c93, []int{5}
+	return fileDescriptor_442320081ffd8c93, []int{3}
 }
 func (m *QueryAllMarketIdentificationCodeResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -306,8 +223,6 @@ func (m *QueryAllMarketIdentificationCodeResponse) GetPagination() *query.PageRe
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "jim380.re.mic.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "jim380.re.mic.QueryParamsResponse")
 	proto.RegisterType((*QueryGetMarketIdentificationCodeRequest)(nil), "jim380.re.mic.QueryGetMarketIdentificationCodeRequest")
 	proto.RegisterType((*QueryGetMarketIdentificationCodeResponse)(nil), "jim380.re.mic.QueryGetMarketIdentificationCodeResponse")
 	proto.RegisterType((*QueryAllMarketIdentificationCodeRequest)(nil), "jim380.re.mic.QueryAllMarketIdentificationCodeRequest")
@@ -317,40 +232,35 @@ func init() {
 func init() { proto.RegisterFile("re/mic/query.proto", fileDescriptor_442320081ffd8c93) }
 
 var fileDescriptor_442320081ffd8c93 = []byte{
-	// 514 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0x41, 0x6b, 0x13, 0x41,
-	0x18, 0xcd, 0xb4, 0x35, 0xe0, 0x88, 0x20, 0xd3, 0x16, 0x4b, 0xd4, 0xb5, 0xce, 0xc1, 0x54, 0x85,
-	0x19, 0xd3, 0x80, 0x15, 0x3d, 0xb5, 0x01, 0x4b, 0x84, 0x40, 0xdd, 0xa3, 0x97, 0x32, 0xd9, 0x8c,
-	0xeb, 0xe8, 0xee, 0xce, 0x66, 0x67, 0x22, 0x16, 0xf1, 0xd2, 0x5f, 0x20, 0x88, 0x3f, 0x48, 0xf0,
-	0xd0, 0x63, 0xc1, 0x8b, 0xa7, 0x22, 0x89, 0x3f, 0x44, 0x32, 0x33, 0xc1, 0x6c, 0xcc, 0x66, 0x23,
-	0x78, 0x5b, 0x66, 0xde, 0xf7, 0xbe, 0xf7, 0xbe, 0xef, 0xcd, 0x42, 0x94, 0x71, 0x1a, 0x8b, 0x80,
-	0xf6, 0x07, 0x3c, 0x3b, 0x21, 0x69, 0x26, 0xb5, 0x44, 0x57, 0xdf, 0x88, 0xb8, 0xf9, 0xf8, 0x21,
-	0xc9, 0x38, 0x89, 0x45, 0x50, 0xdb, 0x08, 0x65, 0x28, 0xcd, 0x0d, 0x1d, 0x7f, 0x59, 0x50, 0xed,
-	0x66, 0x28, 0x65, 0x18, 0x71, 0xca, 0x52, 0x41, 0x59, 0x92, 0x48, 0xcd, 0xb4, 0x90, 0x89, 0x72,
-	0xb7, 0xf7, 0x03, 0xa9, 0x62, 0xa9, 0x68, 0x97, 0x29, 0x6e, 0xb9, 0xe9, 0xbb, 0x46, 0x97, 0x6b,
-	0xd6, 0xa0, 0x29, 0x0b, 0x45, 0x62, 0xc0, 0x0e, 0xbb, 0xee, 0x24, 0xa4, 0x2c, 0x63, 0xf1, 0x84,
-	0xa0, 0xee, 0x0e, 0x63, 0x96, 0xbd, 0xe5, 0xfa, 0x58, 0xf4, 0x78, 0xa2, 0xc5, 0x2b, 0x11, 0x98,
-	0xc2, 0xe3, 0x40, 0xf6, 0xb8, 0x05, 0xe2, 0x0d, 0x88, 0x5e, 0x8c, 0xf9, 0x8f, 0x4c, 0xb5, 0xcf,
-	0xfb, 0x03, 0xae, 0x34, 0x7e, 0x0e, 0xd7, 0x73, 0xa7, 0x2a, 0x95, 0x89, 0xe2, 0xa8, 0x09, 0xab,
-	0xb6, 0xcb, 0x16, 0xd8, 0x06, 0x3b, 0x57, 0x76, 0x37, 0x49, 0xce, 0x2a, 0xb1, 0xf0, 0x83, 0xb5,
-	0xb3, 0x8b, 0xdb, 0x15, 0xdf, 0x41, 0xf1, 0x53, 0x58, 0x37, 0x5c, 0x87, 0x5c, 0x77, 0x8c, 0x9a,
-	0x76, 0x4e, 0x4c, 0x4b, 0xf6, 0xb8, 0x6b, 0x8b, 0xae, 0xc1, 0xd5, 0x4e, 0xbb, 0x65, 0xc8, 0x2f,
-	0xfb, 0xe3, 0x4f, 0xfc, 0x05, 0xc0, 0x9d, 0xf2, 0x6a, 0x27, 0x4f, 0xc0, 0xad, 0x22, 0x8c, 0x13,
-	0x5c, 0x9f, 0x11, 0x5c, 0x04, 0x77, 0x16, 0x0a, 0xe9, 0x70, 0xdf, 0x99, 0xda, 0x8f, 0xa2, 0x32,
-	0x53, 0xcf, 0x20, 0xfc, 0xb3, 0x33, 0xa7, 0xe3, 0x2e, 0xb1, 0x0b, 0x26, 0xe3, 0x05, 0x13, 0x1b,
-	0x1e, 0xb7, 0x60, 0x72, 0xc4, 0xc2, 0x49, 0xad, 0x3f, 0x55, 0x89, 0x2f, 0x26, 0xa3, 0x58, 0xd8,
-	0x73, 0xa9, 0x51, 0xac, 0xfe, 0xc7, 0x51, 0xa0, 0xc3, 0x9c, 0xbf, 0x15, 0x37, 0xe7, 0x32, 0x7f,
-	0x56, 0xe7, 0xb4, 0xc1, 0xdd, 0xd3, 0x35, 0x78, 0xc9, 0x18, 0x44, 0x09, 0xac, 0xda, 0x28, 0xa1,
-	0x3b, 0x33, 0x2a, 0xff, 0xce, 0x6a, 0x0d, 0x2f, 0x82, 0xd8, 0x36, 0xf8, 0xd6, 0xe9, 0xf7, 0x5f,
-	0x9f, 0x57, 0xae, 0xa3, 0x4d, 0x6a, 0xb1, 0xd4, 0x9f, 0x7e, 0x33, 0xe8, 0x1b, 0x28, 0x1e, 0x17,
-	0x7a, 0x34, 0x8f, 0xbf, 0x3c, 0xcc, 0xb5, 0xbd, 0x7f, 0xae, 0x73, 0x62, 0xf7, 0x8c, 0xd8, 0x06,
-	0xa2, 0x33, 0x62, 0x8b, 0xdf, 0x32, 0xfd, 0xd0, 0x69, 0xb7, 0x3e, 0xa2, 0xaf, 0x00, 0xde, 0x28,
-	0x62, 0xdf, 0x8f, 0xa2, 0xf9, 0x4e, 0xca, 0x13, 0x3c, 0xdf, 0xc9, 0x12, 0x29, 0xc4, 0x0d, 0xe3,
-	0xe4, 0x01, 0xba, 0xb7, 0xb4, 0x93, 0x83, 0x27, 0x67, 0x43, 0x0f, 0x9c, 0x0f, 0x3d, 0xf0, 0x73,
-	0xe8, 0x81, 0x4f, 0x23, 0xaf, 0x72, 0x3e, 0xf2, 0x2a, 0x3f, 0x46, 0x5e, 0xe5, 0xe5, 0x76, 0x28,
-	0xf4, 0xeb, 0x41, 0x97, 0x04, 0x32, 0x9e, 0xa2, 0x7b, 0x6f, 0x08, 0xf5, 0x49, 0xca, 0x55, 0xb7,
-	0x6a, 0x7e, 0x69, 0xcd, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x6d, 0x10, 0xfc, 0x99, 0x95, 0x05,
-	0x00, 0x00,
+	// 443 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0x41, 0xcb, 0xd3, 0x30,
+	0x1c, 0xc6, 0x9b, 0x77, 0x2a, 0x18, 0x11, 0x24, 0x78, 0x78, 0x99, 0x52, 0x5f, 0x7a, 0x70, 0xaf,
+	0x0a, 0x89, 0x7d, 0x07, 0x4e, 0xf4, 0xb4, 0x0d, 0x1c, 0x3b, 0x0c, 0xb4, 0x47, 0x2f, 0x23, 0xed,
+	0x62, 0x8d, 0xb6, 0x4d, 0xd7, 0x64, 0xe2, 0x10, 0x2f, 0x7e, 0x02, 0x51, 0xfc, 0x40, 0x82, 0x87,
+	0x1d, 0x07, 0x5e, 0x3c, 0x0d, 0xd9, 0xfc, 0x20, 0xd2, 0xa4, 0xc3, 0x4d, 0x56, 0x5b, 0xe1, 0xbd,
+	0x05, 0xf2, 0xfc, 0x9f, 0x3e, 0xbf, 0xa7, 0x7f, 0x02, 0x51, 0xc6, 0x48, 0xcc, 0x03, 0x32, 0x9d,
+	0xb1, 0x6c, 0x8e, 0xd3, 0x4c, 0x28, 0x81, 0xae, 0xbe, 0xe2, 0x71, 0xfb, 0xe1, 0x7d, 0x9c, 0x31,
+	0x1c, 0xf3, 0xa0, 0x79, 0x3d, 0x14, 0xa1, 0xd0, 0x37, 0x24, 0x3f, 0x19, 0x51, 0xf3, 0x66, 0x28,
+	0x44, 0x18, 0x31, 0x42, 0x53, 0x4e, 0x68, 0x92, 0x08, 0x45, 0x15, 0x17, 0x89, 0x2c, 0x6e, 0xef,
+	0x06, 0x42, 0xc6, 0x42, 0x12, 0x9f, 0x4a, 0x66, 0xbc, 0xc9, 0x1b, 0xd7, 0x67, 0x8a, 0xba, 0x24,
+	0xa5, 0x21, 0x4f, 0xb4, 0xb8, 0xd0, 0xb6, 0x8a, 0x08, 0x31, 0xcd, 0x5e, 0x33, 0x35, 0xe6, 0x13,
+	0x96, 0x28, 0xfe, 0x82, 0x07, 0x5a, 0x33, 0x0e, 0xc4, 0x84, 0x19, 0xa1, 0xf3, 0x18, 0xb6, 0x9e,
+	0xe5, 0x56, 0x03, 0xa6, 0x46, 0x5a, 0x3b, 0xdc, 0x93, 0xf6, 0xc5, 0x84, 0x79, 0x6c, 0x3a, 0x63,
+	0x52, 0xa1, 0x6b, 0xb0, 0x31, 0x1a, 0xf6, 0x8f, 0xc1, 0x09, 0x38, 0xbd, 0xec, 0xe5, 0x47, 0xe7,
+	0x0b, 0x80, 0xa7, 0xd5, 0xd3, 0x32, 0x15, 0x89, 0x64, 0x88, 0xc3, 0xe3, 0x32, 0x8d, 0xf6, 0xbc,
+	0x72, 0xd6, 0xc2, 0x7b, 0x25, 0xe1, 0x32, 0x79, 0xef, 0xc2, 0x62, 0x75, 0xcb, 0xf2, 0x4a, 0xed,
+	0x9c, 0x69, 0x01, 0xd5, 0x8d, 0xa2, 0x2a, 0xa8, 0x27, 0x10, 0xfe, 0x29, 0xaf, 0xc8, 0x71, 0x1b,
+	0x9b, 0xa6, 0x71, 0xde, 0x34, 0x36, 0x7f, 0xb1, 0x68, 0x1a, 0x3f, 0xa5, 0xe1, 0x76, 0xd6, 0xdb,
+	0x99, 0x74, 0x56, 0xdb, 0x2a, 0xfe, 0xf9, 0xcd, 0x5a, 0x55, 0x34, 0xce, 0xb1, 0x0a, 0x34, 0xd8,
+	0xe3, 0x3b, 0x2a, 0x7a, 0xae, 0xe2, 0x33, 0x39, 0x77, 0x01, 0xcf, 0x3e, 0x35, 0xe0, 0x45, 0x0d,
+	0x88, 0xbe, 0x81, 0xf2, 0xf8, 0xe8, 0xc1, 0x5f, 0xc1, 0x6b, 0x2e, 0x57, 0xb3, 0xf3, 0xdf, 0x73,
+	0x26, 0xa3, 0xd3, 0xf9, 0xf0, 0xfd, 0xd7, 0xe7, 0x23, 0x17, 0x11, 0x62, 0x0c, 0x88, 0x57, 0xb5,
+	0xf9, 0xe4, 0xdd, 0x68, 0xd8, 0x7f, 0x8f, 0xbe, 0x02, 0x78, 0xa3, 0xcc, 0xbd, 0x1b, 0x45, 0x87,
+	0x49, 0xaa, 0x37, 0xea, 0x30, 0x49, 0x8d, 0xad, 0x70, 0x5c, 0x4d, 0x72, 0x0f, 0xdd, 0xa9, 0x4d,
+	0xd2, 0x7b, 0xb4, 0x58, 0xdb, 0x60, 0xb9, 0xb6, 0xc1, 0xcf, 0xb5, 0x0d, 0x3e, 0x6e, 0x6c, 0x6b,
+	0xb9, 0xb1, 0xad, 0x1f, 0x1b, 0xdb, 0x7a, 0x7e, 0x12, 0x72, 0xf5, 0x72, 0xe6, 0xe3, 0x40, 0xc4,
+	0x3b, 0x76, 0x6f, 0xb5, 0xa1, 0x9a, 0xa7, 0x4c, 0xfa, 0x97, 0xf4, 0x03, 0xd0, 0xfe, 0x1d, 0x00,
+	0x00, 0xff, 0xff, 0xe6, 0xdc, 0x80, 0x41, 0xae, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -365,8 +275,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
-	// Parameters queries the parameters of the module.
-	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 	// Queries a list of MarketIdentificationCode items.
 	MarketIdentificationCode(ctx context.Context, in *QueryGetMarketIdentificationCodeRequest, opts ...grpc.CallOption) (*QueryGetMarketIdentificationCodeResponse, error)
 	MarketIdentificationCodeAll(ctx context.Context, in *QueryAllMarketIdentificationCodeRequest, opts ...grpc.CallOption) (*QueryAllMarketIdentificationCodeResponse, error)
@@ -378,15 +286,6 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
-}
-
-func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
-	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/jim380.re.mic.Query/Params", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *queryClient) MarketIdentificationCode(ctx context.Context, in *QueryGetMarketIdentificationCodeRequest, opts ...grpc.CallOption) (*QueryGetMarketIdentificationCodeResponse, error) {
@@ -409,8 +308,6 @@ func (c *queryClient) MarketIdentificationCodeAll(ctx context.Context, in *Query
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
-	// Parameters queries the parameters of the module.
-	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	// Queries a list of MarketIdentificationCode items.
 	MarketIdentificationCode(context.Context, *QueryGetMarketIdentificationCodeRequest) (*QueryGetMarketIdentificationCodeResponse, error)
 	MarketIdentificationCodeAll(context.Context, *QueryAllMarketIdentificationCodeRequest) (*QueryAllMarketIdentificationCodeResponse, error)
@@ -420,9 +317,6 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
-func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
-}
 func (*UnimplementedQueryServer) MarketIdentificationCode(ctx context.Context, req *QueryGetMarketIdentificationCodeRequest) (*QueryGetMarketIdentificationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MarketIdentificationCode not implemented")
 }
@@ -432,24 +326,6 @@ func (*UnimplementedQueryServer) MarketIdentificationCodeAll(ctx context.Context
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
-}
-
-func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryParamsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).Params(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/jim380.re.mic.Query/Params",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_MarketIdentificationCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -493,10 +369,6 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Params",
-			Handler:    _Query_Params_Handler,
-		},
-		{
 			MethodName: "MarketIdentificationCode",
 			Handler:    _Query_MarketIdentificationCode_Handler,
 		},
@@ -507,62 +379,6 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "re/mic/query.proto",
-}
-
-func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryParamsRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryParamsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryParamsResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryParamsResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	{
-		size, err := m.Params.MarshalToSizedBuffer(dAtA[:i])
-		if err != nil {
-			return 0, err
-		}
-		i -= size
-		i = encodeVarintQuery(dAtA, i, uint64(size))
-	}
-	i--
-	dAtA[i] = 0xa
-	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetMarketIdentificationCodeRequest) Marshal() (dAtA []byte, err error) {
@@ -723,26 +539,6 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *QueryParamsRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	return n
-}
-
-func (m *QueryParamsResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = m.Params.Size()
-	n += 1 + l + sovQuery(uint64(l))
-	return n
-}
-
 func (m *QueryGetMarketIdentificationCodeRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -804,139 +600,6 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
-}
-func (m *QueryParamsRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryParamsRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryParamsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryParamsResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
 }
 func (m *QueryGetMarketIdentificationCodeRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

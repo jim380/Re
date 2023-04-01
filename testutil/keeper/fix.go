@@ -45,7 +45,7 @@ func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		memStoreKey,
 		paramsSubspace,
 		*didKeeper.NewKeeper(cdc, storeKey, memStoreKey),
-		*micKeeper.NewKeeper(cdc, storeKey, memStoreKey, paramsSubspace),
+		*micKeeper.NewKeeper(cdc, storeKey, memStoreKey),
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

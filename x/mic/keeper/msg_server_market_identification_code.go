@@ -13,10 +13,10 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Checks that the element doesn't exists
-	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
-	if found {
-		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
-	}
+	val, _ := k.GetMarketIdentificationCode(ctx, msg.MIC)
+	//if found {
+	//	return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
+	//}
 
 	// Checks if the msg creator is not the same as the owner of any existing MIC
 	if msg.Creator == val.Creator {
@@ -38,7 +38,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	}
 
 	// set MIC Data to store
-	k.SetMarketIdentificationCode(ctx, msg.MIC, marketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, marketIdentificationCode)
 
 	return &types.MsgRegisterMarketIdentificationCodeResponse{}, nil
 }
@@ -73,7 +73,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	}
 
 	// set edited MIC Data to store
-	k.SetMarketIdentificationCode(ctx, msg.MIC, editedMarketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, editedMarketIdentificationCode)
 
 	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
 }

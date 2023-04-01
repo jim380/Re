@@ -551,7 +551,7 @@ func NewReApp(
 		appCodec,
 		keys[micmoduletypes.StoreKey],
 		keys[micmoduletypes.MemStoreKey],
-		app.GetSubspace(micmoduletypes.ModuleName),
+		//app.GetSubspace(micmoduletypes.ModuleName),
 	)
 	micModule := micmodule.NewAppModule(appCodec, app.MicKeeper, app.AccountKeeper, app.BankKeeper)
 

@@ -21,7 +21,7 @@ func (k Keeper) MarketIdentificationCodeAll(goCtx context.Context, req *types.Qu
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	marketIdentificationCodeStore := prefix.NewStore(store, types.GetMarketIdentificationCodeKey())
+	marketIdentificationCodeStore := prefix.NewStore(store, types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
 
 	pageRes, err := query.Paginate(marketIdentificationCodeStore, req.Pagination, func(key []byte, value []byte) error {
 		var marketIdentificationCode types.MarketIdentificationCode

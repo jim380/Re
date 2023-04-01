@@ -13,7 +13,7 @@ import (
 func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteRequest) (*types.MsgQuoteRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// check for if the provided session ID exists
+	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
@@ -50,18 +50,20 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	//get market identification code from MIC module
-	mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
-	}
+	//mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
+	//log.Println("testing", mic)
+
+	//if !found {
+	//	return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
+	//}
 
 	//check that the address creating the Quote Request is same addresss used to register the MIC on the mic module
-	if mic.Creator != msg.QuoteRequest.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
-	}
+	//if mic.Creator != msg.QuoteRequest.Creator {
+	//	return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
+	//}
 
 	// call new instance of NewQuoteRequest
-	quoteRequest := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, mic.MIC, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
+	quoteRequest := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, msg.QuoteRequest.Mic, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
 
 	newQuoteRequest := types.Quote{
 		SessionID:    msg.SessionID,
@@ -114,7 +116,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	}
 
 	// check that the sessionID provided by the creator of Quote Acknowledgement matches with the sessionID for Quote Request
-	if session.SessionID == msg.SessionID {
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
 	}
 
@@ -220,7 +222,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	}
 
 	// check that the sessionID provided by the creator of Quote Request Reject matches with the sessionID for Quote Request
-	if session.SessionID == msg.SessionID {
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
 	}
 

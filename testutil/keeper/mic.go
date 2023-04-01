@@ -8,7 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/store"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
+
+	//typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/jim380/Re/x/mic/keeper"
 	"github.com/jim380/Re/x/mic/types"
 	"github.com/stretchr/testify/require"
@@ -30,23 +31,19 @@ func MicKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		types.Amino,
-		storeKey,
-		memStoreKey,
-		"MicParams",
-	)
+	//paramsSubspace := typesparams.NewSubspace(cdc,
+	//	types.Amino,
+	//	storeKey,
+	//	memStoreKey,
+	//	"MicParams",
+	//)
 	k := keeper.NewKeeper(
 		cdc,
 		storeKey,
 		memStoreKey,
-		paramsSubspace,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
-
-	// Initialize params
-	k.SetParams(ctx, types.DefaultParams())
 
 	return k, ctx
 }
