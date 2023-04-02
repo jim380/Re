@@ -13,10 +13,10 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Checks that the element doesn't exists
-	val, _ := k.GetMarketIdentificationCode(ctx, msg.MIC)
-	//if found {
-	//	return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
-	//}
+	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
+	if found {
+		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
+	}
 
 	// Checks if the msg creator is not the same as the owner of any existing MIC
 	if msg.Creator == val.Creator {
