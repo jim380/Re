@@ -185,8 +185,8 @@ var (
 		),
 
 		did.AppModuleBasic{},
-		fixmodule.AppModuleBasic{},
 		micmodule.AppModuleBasic{},
+		fixmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -264,9 +264,9 @@ type ReApp struct {
 
 	DidKeeper didkeeper.Keeper
 
-	FixKeeper fixmodulekeeper.Keeper
-
 	MicKeeper micmodulekeeper.Keeper
+
+	FixKeeper fixmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -318,8 +318,8 @@ func NewReApp(
 		adminmodulemoduletypes.StoreKey,
 		wasm.StoreKey,
 		didtypes.StoreKey,
-		fixmoduletypes.StoreKey,
 		micmoduletypes.StoreKey,
+		fixmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -514,17 +514,6 @@ func NewReApp(
 		keys[didtypes.MemStoreKey],
 	)
 
-	app.FixKeeper = *fixmodulekeeper.NewKeeper(
-		appCodec,
-		keys[fixmoduletypes.StoreKey],
-		keys[fixmoduletypes.MemStoreKey],
-		app.GetSubspace(fixmoduletypes.ModuleName),
-
-		app.DidKeeper,
-		app.MicKeeper,
-	)
-	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
-
 	//wasmOpts = append(wasmbinding.RegisterCustomPlugins(&app.InterchainTxsKeeper, &app.InterchainQueriesKeeper, app.TransferKeeper, &app.AdminmoduleKeeper, app.FeeBurnerKeeper), wasmOpts...)
 
 	app.WasmKeeper = wasm.NewKeeper(
@@ -554,6 +543,17 @@ func NewReApp(
 		//app.GetSubspace(micmoduletypes.ModuleName),
 	)
 	micModule := micmodule.NewAppModule(appCodec, app.MicKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.FixKeeper = *fixmodulekeeper.NewKeeper(
+		appCodec,
+		keys[fixmoduletypes.StoreKey],
+		keys[fixmoduletypes.MemStoreKey],
+		app.GetSubspace(fixmoduletypes.ModuleName),
+
+		app.DidKeeper,
+		app.MicKeeper,
+	)
+	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -599,8 +599,8 @@ func NewReApp(
 		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
 
 		did.NewAppModule(appCodec, app.DidKeeper),
-		fixModule,
 		micModule,
+		fixModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -629,8 +629,8 @@ func NewReApp(
 		wasm.ModuleName,
 
 		didtypes.ModuleName,
-		fixmoduletypes.ModuleName,
 		micmoduletypes.ModuleName,
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -654,8 +654,8 @@ func NewReApp(
 		wasm.ModuleName,
 
 		didtypes.ModuleName,
-		fixmoduletypes.ModuleName,
 		micmoduletypes.ModuleName,
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -684,8 +684,8 @@ func NewReApp(
 		wasm.ModuleName,
 
 		didtypes.ModuleName,
-		fixmoduletypes.ModuleName,
 		micmoduletypes.ModuleName,
+		fixmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -713,8 +713,8 @@ func NewReApp(
 		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
 
 		//didModule,
-		fixModule,
 		micModule,
+		fixModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -935,8 +935,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(wasm.ModuleName)
 
 	paramsKeeper.Subspace(didtypes.ModuleName)
-	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
 	paramsKeeper.Subspace(micmoduletypes.ModuleName)
+	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

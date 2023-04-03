@@ -49,18 +49,17 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 		return nil, sdkerrors.Wrapf(types.ErrQuoteTypeIsEmpty, "QuoteType: %s", msg.QuoteRequest.QuoteType)
 	}
 
-	//get market identification code from MIC module
-	//mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
-	//log.Println("testing", mic)
+	// get market identification code from MIC module
+	mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
 
-	//if !found {
-	//	return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
-	//}
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
+	}
 
-	//check that the address creating the Quote Request is same addresss used to register the MIC on the mic module
-	//if mic.Creator != msg.QuoteRequest.Creator {
-	//	return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
-	//}
+	// check that the address creating the Quote Request is same addresss used to register the MIC on the mic module
+	if mic.Creator != msg.QuoteRequest.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "MIC Creator: %s", msg.QuoteRequest.Creator)
+	}
 
 	// call new instance of NewQuoteRequest
 	quoteRequest := types.NewQuoteRequest(msg.QuoteRequest.QuoteReqID, msg.QuoteRequest.Symbol, msg.QuoteRequest.SecurityID, msg.QuoteRequest.SecurityIDSource, msg.QuoteRequest.Side, msg.QuoteRequest.OrderQty, msg.QuoteRequest.FutSettDate, msg.QuoteRequest.SettlDate2, msg.QuoteRequest.Account, msg.QuoteRequest.BidPx, msg.QuoteRequest.OfferPx, msg.QuoteRequest.Currency, msg.QuoteRequest.ValidUntilTime, msg.QuoteRequest.ExpireTime, msg.QuoteRequest.QuoteType, msg.QuoteRequest.BidSize, msg.QuoteRequest.OfferSize, msg.QuoteRequest.Mic, msg.QuoteRequest.Text, msg.QuoteRequest.Creator)
@@ -84,8 +83,10 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	// calculate and include all changes to the header
 	// Message type, R is the message type for Quote Request
 	// BodyLength should be calculated using the BodyLength function
+	// set sending time to current time at creating Quote Request
 	newQuoteRequest.QuoteRequest.Header = header
 	newQuoteRequest.QuoteRequest.Header.MsgType = "R"
+	newQuoteRequest.QuoteRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer

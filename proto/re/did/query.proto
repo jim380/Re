@@ -13,7 +13,7 @@ option go_package = "github.com/jim380/Re/x/did/types";
 service Query {
 	// DID returns a DID Document with a sequence number.
 	rpc DID(QueryDIDRequest) returns (QueryDIDResponse) {
-		option (google.api.http).get = "/re/did/dids/{did_base64}";
+		option (google.api.http).get = "/jim380/Re/did/dids/{did_base64}";
 	}
 }
 
