@@ -51,7 +51,6 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 
 	// get market identification code from MIC module
 	mic, found := k.micKeeper.GetMarketIdentificationCode(ctx, msg.QuoteRequest.Mic)
-
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrMICInQuoteRquestIsNotFound, "MIC: %s", msg.QuoteRequest.Mic)
 	}

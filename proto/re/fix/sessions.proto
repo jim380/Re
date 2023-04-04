@@ -17,15 +17,15 @@ message Sessions {
 }
 
 message LogonInitiator {
-  Header header = 1;
-  int64 encryptMethod =2;
-  int64 heartBtInt = 3;
-  Trailer trailer = 4;
+  Header header = 1; // The FIX message header contains standard metadata about the message, including the sender and receiver IDs and the message type
+  int64 encryptMethod =2; // An integer value indicating the encryption method to be used for the session
+  int64 heartBtInt = 3; // An integer value indicating the number of seconds between heartbeats that will be sent during the session. This is used to monitor the connection between the two parties
+  Trailer trailer = 4; // The FIX message trailer contains standard metadata about the message, including the message checksum
 }
 
 message LogonAcceptor { 
-  Header header = 1;
-  int64 encryptMethod =2;
-  int64 heartBtInt = 3;
-  Trailer trailer = 4;
+  Header header = 1; // The FIX message header contains standard metadata about the message, including the sender and receiver IDs and the message type
+  int64 encryptMethod =2; // An integer value indicating the encryption method to be used for the session
+  int64 heartBtInt = 3; // An integer value indicating the number of seconds between heartbeats that will be sent during the session. This is used to monitor the connection between the two parties
+  Trailer trailer = 4; // The FIX message trailer contains standard metadata about the message, including the message checksum
 }

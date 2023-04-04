@@ -35,7 +35,7 @@ message MsgCreateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  int32  createdAt        = 6;
+  string  createdAt        = 6;
 }
 
 message MsgCreateAccountResponse {
@@ -48,7 +48,7 @@ message MsgUpdateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  int32  createdAt        = 6;
+  string  createdAt        = 6;
 }
 
 message MsgUpdateAccountResponse {}

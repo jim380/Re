@@ -4,15 +4,15 @@ package jim380.re.fix;
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 message Header {
-  string beginString = 1; 
-  int64 bodyLength = 2;
-  string msgType = 3;
-  string senderCompID = 4;
-  string targetCompID = 5;
-  int64 msgSeqNum = 6;
-  string sendingTime = 7;
+  string beginString = 1; // This field specifies the version of the FIX protocol being used. For example, "FIX.4.4" indicates version 4.4 of the protocol.
+  int64 bodyLength = 2; // This field specifies the length of the message body in bytes.
+  string msgType = 3; // This field identifies the type of message being sent. For example, "D" indicates a New Order Single message
+  string senderCompID = 4; // This field identifies the sender of the message. This is typically a unique identifier assigned to each party that uses the FIX protocol
+  string targetCompID = 5; // This field identifies the recipient of the message.
+  int64 msgSeqNum = 6; // Is a field in the FIX protocol message header that is used to assign a unique sequence number to each message
+  string sendingTime = 7; // This field specifies the time that the message was sent
 }
 
 message Trailer {
-    int64 checkSum = 1;
+    int64 checkSum = 1; // The checksum value is calculated by summing the ASCII values of all characters in the message (excluding the SOH (start of header) and ETX (end of text) characters), taking the sum modulo 256, and converting the result to a two-character hexadecimal string.
 }
