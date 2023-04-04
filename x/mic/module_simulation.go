@@ -46,14 +46,14 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		accs[i] = acc.Address.String()
 	}
 	micGenesis := types.GenesisState{
-		Params: types.DefaultParams(),
+		//Params: types.DefaultParams(),
 		MarketIdentificationCodeList: []types.MarketIdentificationCode{
 			{
-				MIC:      "",
+				MIC:     "",
 				Creator: sample.AccAddress(),
 			},
 			{
-				MIC:      "",
+				MIC:     "",
 				Creator: sample.AccAddress(),
 			},
 		},

@@ -14,6 +14,7 @@ import "re/fix/orders.proto";
 import "re/fix/orders_cancel_request.proto";
 import "re/fix/orders_cancel_reject.proto";
 import "re/fix/orders_execution_report.proto";
+import "re/fix/quote.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -103,6 +104,20 @@ service Query {
   }
   rpc OrdersExecutionReportAll (QueryAllOrdersExecutionReportRequest) returns (QueryAllOrdersExecutionReportResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders_execution_reports";
+  
+  }
+  
+  // Queries a list of Quote items.
+  rpc Quote    (QueryGetQuoteRequest) returns (QueryGetQuoteResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/quote/{quoteReqID}";
+  
+  } 
+  rpc QuotesBySessionID    (QuerySessionByIDQuoteRequest) returns ( QuerySessionByIDQuoteResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/quote/{sessionID}";
+  
+  }
+  rpc QuoteAll (QueryAllQuoteRequest) returns (QueryAllQuoteResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/quotes";
   
   }
 }
@@ -250,5 +265,32 @@ message QueryAllOrdersExecutionReportRequest {
 message QueryAllOrdersExecutionReportResponse {
   repeated OrdersExecutionReport                  OrdersExecutionReport = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination            = 2;
+}
+
+message QueryGetQuoteRequest {
+   string quoteReqID = 1;
+}
+
+message QueryGetQuoteResponse {
+  Quote Quote = 1 [(gogoproto.nullable) = false];
+}
+
+//get Quotes by SessionID
+message QuerySessionByIDQuoteRequest {
+   string sessionID = 1;
+}
+
+//get Quotes Response by sessionID
+message QuerySessionByIDQuoteResponse {
+  repeated Quote Quote = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllQuoteRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllQuoteResponse {
+  repeated Quote                                  Quote      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

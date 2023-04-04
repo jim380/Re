@@ -54,7 +54,7 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		CreatedAt:        int32(time.Now().Unix()),
+		CreatedAt:        time.Now().UTC().Format("20060102-15:04:05.000"),
 	}
 
 	// set new account data to store
@@ -97,7 +97,7 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		CreatedAt:        int32(time.Now().Unix()),
+		CreatedAt:        time.Now().UTC().Format("20060102-15:04:05.000"),
 	}
 
 	// set edited account data to store

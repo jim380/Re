@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package jim380.re.fix;
 
-import "re/fix/account.proto";
-
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/standard_message.proto";
 import "re/fix/session_logout.proto";
+import "re/fix/quote.proto";
 
 // Msg defines the Msg service.
 service Msg {
@@ -25,6 +25,9 @@ service Msg {
   rpc OrderCancelRequest   (MsgOrderCancelRequest  ) returns (MsgOrderCancelRequestResponse  );
   rpc OrderCancelReject    (MsgOrderCancelReject   ) returns (MsgOrderCancelRejectResponse   );
   rpc OrderExecutionReport (MsgOrderExecutionReport) returns (MsgOrderExecutionReportResponse);
+  rpc QuoteRequest         (MsgQuoteRequest        ) returns (MsgQuoteRequestResponse        );
+  rpc QuoteAcknowledgement (MsgQuoteAcknowledgement) returns (MsgQuoteAcknowledgementResponse);
+  rpc QuoteRequestReject   (MsgQuoteRequestReject  ) returns (MsgQuoteRequestRejectResponse  );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -32,7 +35,7 @@ message MsgCreateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  int32  createdAt        = 6;
+  string  createdAt        = 6;
 }
 
 message MsgCreateAccountResponse {
@@ -45,7 +48,7 @@ message MsgUpdateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  int32  createdAt        = 6;
+  string  createdAt        = 6;
 }
 
 message MsgUpdateAccountResponse {}
@@ -157,28 +160,52 @@ message MsgOrderCancelReject {
 message MsgOrderCancelRejectResponse {}
 
 message MsgOrderExecutionReport {
-  string sessionID = 1; 
-  Header header = 2;
-  string clOrdID = 3;
-  string orderID = 4;
-  string execID = 5;
-  string ordStatus = 6;
-  string execType = 7;
-  string symbol = 8;
-  int64 side = 9;
-  int64 orderQty = 10;
-  int64 price = 11;
-  int64 timeInForce = 12;
-  int64 lastPx = 13;
-  int64 lastQty = 14;
-  int64 leavesQty = 15;
-  int64 cumQty = 16;
-  int64 avgPx = 17;
-  string text = 18;
-  string transactTime = 19;
-  Trailer trailer = 20;
-  string creator = 21;
+  string  sessionID    =  1;
+  Header  header       =  2;
+  string  clOrdID      =  3;
+  string  orderID      =  4;
+  string  execID       =  5;
+  string  ordStatus    =  6;
+  string  execType     =  7;
+  string  symbol       =  8;
+  int64   side         =  9;
+  int64   orderQty     = 10;
+  int64   price        = 11;
+  int64   timeInForce  = 12;
+  int64   lastPx       = 13;
+  int64   lastQty      = 14;
+  int64   leavesQty    = 15;
+  int64   cumQty       = 16;
+  int64   avgPx        = 17;
+  string  text         = 18;
+  string  transactTime = 19;
+  Trailer trailer      = 20;
+  string  creator      = 21;
 }
 
 message MsgOrderExecutionReportResponse {}
+
+message MsgQuoteRequest {
+  string       sessionID    = 1;
+  QuoteRequest quoteRequest = 2;
+  string       creator      = 3;
+}
+
+message MsgQuoteRequestResponse {}
+
+message MsgQuoteAcknowledgement {
+  string               creator              = 1;
+  string               sessionID            = 2;
+  QuoteAcknowledgement quoteAcknowledgement = 3;
+}
+
+message MsgQuoteAcknowledgementResponse {}
+
+message MsgQuoteRequestReject {
+  string creator            = 1;
+  string sessionID          = 2;
+  QuoteRequestReject quoteRequestReject = 3;
+}
+
+message MsgQuoteRequestRejectResponse {}
 

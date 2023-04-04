@@ -2,7 +2,6 @@ package types
 
 import (
 	"fmt"
-	"strconv"
 )
 
 // DefaultIndex is the default global index
@@ -13,7 +12,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		MarketIdentificationCodeList: []MarketIdentificationCode{},
 		// this line is used by starport scaffolding # genesis/types/default
-		Params: DefaultParams(),
+		//Params: DefaultParams(),
 	}
 }
 
@@ -21,19 +20,15 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated ID in marketIdentificationCode
-	marketIdentificationCodeIdMap := make(map[string]bool)
-	marketIdentificationCodeCount := gs.GetMarketIdentificationCodeCount()
+	marketIdentificationCodeIndexMap := make(map[string]struct{})
 	for _, elem := range gs.MarketIdentificationCodeList {
-		if _, ok := marketIdentificationCodeIdMap[elem.MIC]; ok {
-			return fmt.Errorf("duplicated id for marketIdentificationCode")
+		index := string(GetMarketIdentificationCodeKey(elem.MIC))
+		if _, ok := marketIdentificationCodeIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for marketIdentificationCode")
 		}
-		mic, _ := strconv.ParseUint(elem.MIC, 10, 64)
-		if mic >= marketIdentificationCodeCount {
-			return fmt.Errorf("marketIdentificationCode id should be lower or equal than the last id")
-		}
-		marketIdentificationCodeIdMap[elem.MIC] = true
+		marketIdentificationCodeIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 
-	return gs.Params.Validate()
+	return nil
 }

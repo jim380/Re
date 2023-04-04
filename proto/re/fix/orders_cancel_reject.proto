@@ -6,14 +6,14 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message OrdersCancelReject {
-  string sessionID = 1; 
-  Header header = 2;
-  string orderID = 3;
-  string origClOrdID = 4;
-  string clOrdID = 5;
-  int64 cxlRejReason = 6;
-  int64 cxlRejResponseTo =7;
-  string TransactTime = 8;
-  Trailer trailer = 9;
+  string sessionID = 1; // A string field that specifies the FIX session ID for the message
+  Header header = 2; // A Header field that contains standard header information for the message, such as the message type, sender and receiver identification, and sequence number
+  string orderID = 3; // A string field that contains the ID of the order that was rejected
+  string origClOrdID = 4; // A string field that contains the original client order ID for the order that was cancelled
+  string clOrdID = 5; // A string field that contains the client order ID for the order that was cancelled or modified
+  int64 cxlRejReason = 6; // An integer field that specifies the reason for the order cancellation rejection, using a standard set of values defined in the FIX protocol
+  int64 cxlRejResponseTo =7; // An integer field that specifies the message sequence number of the order cancellation request to which this message is responding
+  string TransactTime = 8; // A string field that specifies the time of the transaction
+  Trailer trailer = 9; // A Trailer field that contains standard trailer information for the message, such as the message checksum
   string creator = 10;
 }

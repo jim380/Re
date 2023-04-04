@@ -76,6 +76,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgOrderExecutionReport int = 100
 
+	opWeightMsgQuoteRequest = "op_weight_msg_quote_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgQuoteRequest int = 100
+
+	opWeightMsgQuoteAcknowledgement = "op_weight_msg_quote_acknowledgement"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgQuoteAcknowledgement int = 100
+
+	opWeightMsgQuoteRequestReject = "op_weight_msg_quote_request_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgQuoteRequestReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -262,6 +274,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgOrderExecutionReport,
 		fixsimulation.SimulateMsgOrderExecutionReport(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgQuoteRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgQuoteRequest, &weightMsgQuoteRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgQuoteRequest = defaultWeightMsgQuoteRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgQuoteRequest,
+		fixsimulation.SimulateMsgQuoteRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgQuoteAcknowledgement int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgQuoteAcknowledgement, &weightMsgQuoteAcknowledgement, nil,
+		func(_ *rand.Rand) {
+			weightMsgQuoteAcknowledgement = defaultWeightMsgQuoteAcknowledgement
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgQuoteAcknowledgement,
+		fixsimulation.SimulateMsgQuoteAcknowledgement(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgQuoteRequestReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgQuoteRequestReject, &weightMsgQuoteRequestReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgQuoteRequestReject = defaultWeightMsgQuoteRequestReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgQuoteRequestReject,
+		fixsimulation.SimulateMsgQuoteRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

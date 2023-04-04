@@ -29,7 +29,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	var marketIdentificationCode = types.MarketIdentificationCode{
 		Creator:             msg.Creator,
 		MIC:                 msg.MIC,
-		Name:                msg.Name, 
+		Name:                msg.Name,
 		Location:            msg.Location,
 		AssetClass:          msg.AssetClass,
 		Currency:            msg.Currency,
@@ -38,7 +38,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	}
 
 	// set MIC Data to store
-	k.SetMarketIdentificationCode(ctx, msg.MIC, marketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, marketIdentificationCode)
 
 	return &types.MsgRegisterMarketIdentificationCodeResponse{}, nil
 }
@@ -73,7 +73,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	}
 
 	// set edited MIC Data to store
-	k.SetMarketIdentificationCode(ctx, msg.MIC, editedMarketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, editedMarketIdentificationCode)
 
 	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
 }

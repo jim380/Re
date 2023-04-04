@@ -91,7 +91,6 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	return &types.MsgOrderCancelRequestResponse{}, nil
 }
 
-
 func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrderExecutionReport) (*types.MsgOrderExecutionReportResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -135,7 +134,6 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 
 	return &types.MsgOrderExecutionReportResponse{}, nil
 }
-
 
 func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderCancelReject) (*types.MsgOrderCancelRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)

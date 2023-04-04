@@ -12,6 +12,7 @@ import "re/fix/orders.proto";
 import "re/fix/orders_cancel_request.proto";
 import "re/fix/orders_cancel_reject.proto";
 import "re/fix/orders_execution_report.proto";
+import "re/fix/quote.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -34,5 +35,7 @@ message GenesisState {
            uint64                ordersCancelRejectCount    = 15;
   repeated OrdersExecutionReport ordersExecutionReportList  = 16 [(gogoproto.nullable) = false];
            uint64                ordersExecutionReportCount = 17;
+  repeated Quote                 quoteList                  = 18 [(gogoproto.nullable) = false];
+           uint64                quoteCount                 = 19;
 }
 

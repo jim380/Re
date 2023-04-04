@@ -1,4 +1,4 @@
-package cli
+package types
 
 import (
 	"crypto/rand"
@@ -6,19 +6,21 @@ import (
 )
 
 const (
-	sessionNameChars  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	sessionNameLength = 10
+	NameChars         = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	SessionNameLength = 10
+	QuoteReqIDLength  = 15
+	QuoteID           = 15
 )
 
-// randomly generate unique session name
-func generateRandomString(length int) (string, error) {
+// randomly generate unique string
+func GenerateRandomString(length int) (string, error) {
 	b := make([]byte, length)
 	for i := range b {
-		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(sessionNameChars))))
+		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(NameChars))))
 		if err != nil {
 			return "", err
 		}
-		b[i] = sessionNameChars[n.Int64()]
+		b[i] = NameChars[n.Int64()]
 	}
 	return string(b), nil
 }
@@ -31,7 +33,7 @@ func BodyLength(msgLength string) int64 {
 }
 
 // calculates length of checkSum in standard Trailer
-func calculateChecksum(msg string) int64 {
+func CalculateChecksum(msg string) int64 {
 	var sum int
 	for _, r := range msg {
 		sum += int(r)

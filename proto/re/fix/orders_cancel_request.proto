@@ -6,10 +6,10 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message OrdersCancelRequest {
-  string sessionID = 1; 
-  Header header = 2;
-  string origClOrdID = 3;
-  string clOrdID = 4;
-  Trailer trailer = 5;
+  string sessionID = 1; // A string field that specifies the FIX session ID for the message
+  Header header = 2; // A Header field that contains standard header information for the message, such as the message type, sender and receiver identification, and sequence number
+  string origClOrdID = 3; // A string field that contains the original client order ID for the order that was cancelled
+  string clOrdID = 4; // A string field that contains the client order ID for the order that was cancelled or modified
+  Trailer trailer = 5; // A Trailer field that contains standard trailer information for the message, such as the message checksum
    string creator = 6;
 }

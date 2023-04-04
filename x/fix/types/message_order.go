@@ -53,7 +53,6 @@ func (msg *MsgNewOrderSingle) ValidateBasic() error {
 	return nil
 }
 
-
 const TypeMsgOrderCancelRequest = "order_cancel_request"
 
 var _ sdk.Msg = &MsgOrderCancelRequest{}
@@ -95,7 +94,6 @@ func (msg *MsgOrderCancelRequest) ValidateBasic() error {
 	}
 	return nil
 }
-
 
 const TypeMsgOrderExecutionReport = "order_execution_report"
 
@@ -152,7 +150,6 @@ func (msg *MsgOrderExecutionReport) ValidateBasic() error {
 	}
 	return nil
 }
-
 
 const TypeMsgOrderCancelReject = "order_cancel_reject"
 
