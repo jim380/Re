@@ -102,7 +102,10 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	//set Quote Request to store
 	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)
 
-	return &types.MsgQuoteRequestResponse{}, nil
+	// emit event
+	err := ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgQuoteRequestResponse{}, err
 }
 
 // QuoteAcknowledgement creates Quote Acknowledgement for every Quote Request
@@ -208,7 +211,10 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	// set Quote Acknowledgement to store
 	k.SetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID, newQuoteAcknowledgement)
 
-	return &types.MsgQuoteAcknowledgementResponse{}, nil
+	// emit event
+	err := ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgQuoteAcknowledgementResponse{}, err
 }
 
 // QuoteRequestReject creates Quote Request Reject for Quote Request
@@ -303,5 +309,8 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	// set Quote Request Reject to store
 	k.SetQuote(ctx, msg.QuoteRequestReject.QuoteReqID, newQuoteRequestReject)
 
-	return &types.MsgQuoteRequestRejectResponse{}, nil
+	// emit event
+	err := ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgQuoteRequestRejectResponse{}, err
 }

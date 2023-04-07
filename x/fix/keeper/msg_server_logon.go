@@ -30,7 +30,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 
 	//same DID can not be used for intiating and accepting in the same FIX session
 	if senderCompID.Did == targetCompID.Did {
-		return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID, msg.LogonInitiator.Header.SenderCompID)
+		return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
 	//check for if this session Name exists already
@@ -83,10 +83,10 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	//checks that DID provided matches with the DID in the session
 	//at logon acceptor, targetCompID becomes senderCompID and senderCompID becomes targetCompID
 	if session.LogonInitiator.Header.TargetCompID != msg.LogonAcceptor.Header.SenderCompID {
-		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
+		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID)
 	}
 	if session.LogonInitiator.Header.SenderCompID != msg.LogonAcceptor.Header.TargetCompID {
-		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID, msg.LogonAcceptor.Header.SenderCompID)
+		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID)
 	}
 
 	//get DID from GetAccount to have access to the account creator
