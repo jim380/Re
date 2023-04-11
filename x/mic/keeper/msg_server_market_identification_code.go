@@ -23,21 +23,21 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsTaken, "Creator: %s", msg.Creator)
 	}
 
-	// check these fields are not empty
-    if msg.MIC == "" {
-
+	// check that these fields are not empty
+	if msg.MIC == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
 	}
 	if msg.Name == "" {
-
+		return nil, sdkerrors.Wrapf(types.ErrNameIsEmpty, "MIC: %s", msg.Name)
 	}
 	if msg.Location == "" {
-
+		return nil, sdkerrors.Wrapf(types.ErrLocationIsEmpty, "MIC: %s", msg.Location)
 	}
 	if msg.AssetClass == "" {
-
+		return nil, sdkerrors.Wrapf(types.ErrAssetClassIsEmpty, "MIC: %s", msg.AssetClass)
 	}
-    if msg.Currency == "" {
-
+	if msg.Currency == "" {
+		return nil, sdkerrors.Wrapf(types.ErrCurrencyIsEmpty, "MIC: %s", msg.Currency)
 	}
 
 	var marketIdentificationCode = types.MarketIdentificationCode{
@@ -64,7 +64,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	// Checks that the element exists
 	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
+		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.MIC)
 	}
 
 	// Checks if the msg creator is the same as the current owner
