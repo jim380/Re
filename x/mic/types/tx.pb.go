@@ -28,14 +28,24 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MsgRegisterMarketIdentificationCode struct {
-	Creator             string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	MIC                 string `protobuf:"bytes,2,opt,name=MIC,proto3" json:"MIC,omitempty"`
-	Name                string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Location            string `protobuf:"bytes,4,opt,name=location,proto3" json:"location,omitempty"`
-	AssetClass          string `protobuf:"bytes,5,opt,name=assetClass,proto3" json:"assetClass,omitempty"`
-	Currency            string `protobuf:"bytes,6,opt,name=currency,proto3" json:"currency,omitempty"`
-	RegulatoryAuthority string `protobuf:"bytes,7,opt,name=regulatoryAuthority,proto3" json:"regulatoryAuthority,omitempty"`
-	Status              string `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
+	MIC                   string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
+	Operating_MIC         string `protobuf:"bytes,2,opt,name=operating_MIC,json=operatingMIC,proto3" json:"operating_MIC,omitempty"`
+	OPRT_SGMT             string `protobuf:"bytes,3,opt,name=OPRT_SGMT,json=OPRTSGMT,proto3" json:"OPRT_SGMT,omitempty"`
+	MarketName            string `protobuf:"bytes,4,opt,name=market_name,json=marketName,proto3" json:"market_name,omitempty"`
+	LegalEntityName       string `protobuf:"bytes,5,opt,name=legal_entity_name,json=legalEntityName,proto3" json:"legal_entity_name,omitempty"`
+	LegalEntityIdentifier string `protobuf:"bytes,6,opt,name=legal_entity_identifier,json=legalEntityIdentifier,proto3" json:"legal_entity_identifier,omitempty"`
+	MarketCategory        string `protobuf:"bytes,7,opt,name=market_category,json=marketCategory,proto3" json:"market_category,omitempty"`
+	Acronym               string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
+	ISOCountryCode        string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
+	City                  string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
+	Website               string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
+	Status                string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
+	CreationDate          string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
+	LastUpdateDate        string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
+	LastValidationDate    string `protobuf:"bytes,15,opt,name=last_validation_date,json=lastValidationDate,proto3" json:"last_validation_date,omitempty"`
+	ExpiryDate            string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	Comments              string `protobuf:"bytes,17,opt,name=comments,proto3" json:"comments,omitempty"`
+	Creator               string `protobuf:"bytes,18,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MsgRegisterMarketIdentificationCode) Reset()         { *m = MsgRegisterMarketIdentificationCode{} }
@@ -71,13 +81,6 @@ func (m *MsgRegisterMarketIdentificationCode) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgRegisterMarketIdentificationCode proto.InternalMessageInfo
 
-func (m *MsgRegisterMarketIdentificationCode) GetCreator() string {
-	if m != nil {
-		return m.Creator
-	}
-	return ""
-}
-
 func (m *MsgRegisterMarketIdentificationCode) GetMIC() string {
 	if m != nil {
 		return m.MIC
@@ -85,37 +88,72 @@ func (m *MsgRegisterMarketIdentificationCode) GetMIC() string {
 	return ""
 }
 
-func (m *MsgRegisterMarketIdentificationCode) GetName() string {
+func (m *MsgRegisterMarketIdentificationCode) GetOperating_MIC() string {
 	if m != nil {
-		return m.Name
+		return m.Operating_MIC
 	}
 	return ""
 }
 
-func (m *MsgRegisterMarketIdentificationCode) GetLocation() string {
+func (m *MsgRegisterMarketIdentificationCode) GetOPRT_SGMT() string {
 	if m != nil {
-		return m.Location
+		return m.OPRT_SGMT
 	}
 	return ""
 }
 
-func (m *MsgRegisterMarketIdentificationCode) GetAssetClass() string {
+func (m *MsgRegisterMarketIdentificationCode) GetMarketName() string {
 	if m != nil {
-		return m.AssetClass
+		return m.MarketName
 	}
 	return ""
 }
 
-func (m *MsgRegisterMarketIdentificationCode) GetCurrency() string {
+func (m *MsgRegisterMarketIdentificationCode) GetLegalEntityName() string {
 	if m != nil {
-		return m.Currency
+		return m.LegalEntityName
 	}
 	return ""
 }
 
-func (m *MsgRegisterMarketIdentificationCode) GetRegulatoryAuthority() string {
+func (m *MsgRegisterMarketIdentificationCode) GetLegalEntityIdentifier() string {
 	if m != nil {
-		return m.RegulatoryAuthority
+		return m.LegalEntityIdentifier
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetMarketCategory() string {
+	if m != nil {
+		return m.MarketCategory
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetAcronym() string {
+	if m != nil {
+		return m.Acronym
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetISOCountryCode() string {
+	if m != nil {
+		return m.ISOCountryCode
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetCity() string {
+	if m != nil {
+		return m.City
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetWebsite() string {
+	if m != nil {
+		return m.Website
 	}
 	return ""
 }
@@ -123,6 +161,48 @@ func (m *MsgRegisterMarketIdentificationCode) GetRegulatoryAuthority() string {
 func (m *MsgRegisterMarketIdentificationCode) GetStatus() string {
 	if m != nil {
 		return m.Status
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetCreationDate() string {
+	if m != nil {
+		return m.CreationDate
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetLastUpdateDate() string {
+	if m != nil {
+		return m.LastUpdateDate
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetLastValidationDate() string {
+	if m != nil {
+		return m.LastValidationDate
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetExpiryDate() string {
+	if m != nil {
+		return m.ExpiryDate
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetComments() string {
+	if m != nil {
+		return m.Comments
+	}
+	return ""
+}
+
+func (m *MsgRegisterMarketIdentificationCode) GetCreator() string {
+	if m != nil {
+		return m.Creator
 	}
 	return ""
 }
@@ -168,14 +248,24 @@ func (m *MsgRegisterMarketIdentificationCodeResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgRegisterMarketIdentificationCodeResponse proto.InternalMessageInfo
 
 type MsgUpdateMarketIdentificationCode struct {
-	Creator             string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	MIC                 string `protobuf:"bytes,2,opt,name=MIC,proto3" json:"MIC,omitempty"`
-	Name                string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Location            string `protobuf:"bytes,4,opt,name=location,proto3" json:"location,omitempty"`
-	AssetClass          string `protobuf:"bytes,5,opt,name=assetClass,proto3" json:"assetClass,omitempty"`
-	Currency            string `protobuf:"bytes,6,opt,name=currency,proto3" json:"currency,omitempty"`
-	RegulatoryAuthority string `protobuf:"bytes,7,opt,name=regulatoryAuthority,proto3" json:"regulatoryAuthority,omitempty"`
-	Status              string `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
+	MIC                   string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
+	Operating_MIC         string `protobuf:"bytes,2,opt,name=operating_MIC,json=operatingMIC,proto3" json:"operating_MIC,omitempty"`
+	OPRT_SGMT             string `protobuf:"bytes,3,opt,name=OPRT_SGMT,json=OPRTSGMT,proto3" json:"OPRT_SGMT,omitempty"`
+	MarketName            string `protobuf:"bytes,4,opt,name=market_name,json=marketName,proto3" json:"market_name,omitempty"`
+	LegalEntityName       string `protobuf:"bytes,5,opt,name=legal_entity_name,json=legalEntityName,proto3" json:"legal_entity_name,omitempty"`
+	LegalEntityIdentifier string `protobuf:"bytes,6,opt,name=legal_entity_identifier,json=legalEntityIdentifier,proto3" json:"legal_entity_identifier,omitempty"`
+	MarketCategory        string `protobuf:"bytes,7,opt,name=market_category,json=marketCategory,proto3" json:"market_category,omitempty"`
+	Acronym               string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
+	ISOCountryCode        string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
+	City                  string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
+	Website               string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
+	Status                string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
+	CreationDate          string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
+	LastUpdateDate        string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
+	LastValidationDate    string `protobuf:"bytes,15,opt,name=last_validation_date,json=lastValidationDate,proto3" json:"last_validation_date,omitempty"`
+	ExpiryDate            string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	Comments              string `protobuf:"bytes,17,opt,name=comments,proto3" json:"comments,omitempty"`
+	Creator               string `protobuf:"bytes,18,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MsgUpdateMarketIdentificationCode) Reset()         { *m = MsgUpdateMarketIdentificationCode{} }
@@ -211,13 +301,6 @@ func (m *MsgUpdateMarketIdentificationCode) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateMarketIdentificationCode proto.InternalMessageInfo
 
-func (m *MsgUpdateMarketIdentificationCode) GetCreator() string {
-	if m != nil {
-		return m.Creator
-	}
-	return ""
-}
-
 func (m *MsgUpdateMarketIdentificationCode) GetMIC() string {
 	if m != nil {
 		return m.MIC
@@ -225,37 +308,72 @@ func (m *MsgUpdateMarketIdentificationCode) GetMIC() string {
 	return ""
 }
 
-func (m *MsgUpdateMarketIdentificationCode) GetName() string {
+func (m *MsgUpdateMarketIdentificationCode) GetOperating_MIC() string {
 	if m != nil {
-		return m.Name
+		return m.Operating_MIC
 	}
 	return ""
 }
 
-func (m *MsgUpdateMarketIdentificationCode) GetLocation() string {
+func (m *MsgUpdateMarketIdentificationCode) GetOPRT_SGMT() string {
 	if m != nil {
-		return m.Location
+		return m.OPRT_SGMT
 	}
 	return ""
 }
 
-func (m *MsgUpdateMarketIdentificationCode) GetAssetClass() string {
+func (m *MsgUpdateMarketIdentificationCode) GetMarketName() string {
 	if m != nil {
-		return m.AssetClass
+		return m.MarketName
 	}
 	return ""
 }
 
-func (m *MsgUpdateMarketIdentificationCode) GetCurrency() string {
+func (m *MsgUpdateMarketIdentificationCode) GetLegalEntityName() string {
 	if m != nil {
-		return m.Currency
+		return m.LegalEntityName
 	}
 	return ""
 }
 
-func (m *MsgUpdateMarketIdentificationCode) GetRegulatoryAuthority() string {
+func (m *MsgUpdateMarketIdentificationCode) GetLegalEntityIdentifier() string {
 	if m != nil {
-		return m.RegulatoryAuthority
+		return m.LegalEntityIdentifier
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetMarketCategory() string {
+	if m != nil {
+		return m.MarketCategory
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetAcronym() string {
+	if m != nil {
+		return m.Acronym
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetISOCountryCode() string {
+	if m != nil {
+		return m.ISOCountryCode
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetCity() string {
+	if m != nil {
+		return m.City
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetWebsite() string {
+	if m != nil {
+		return m.Website
 	}
 	return ""
 }
@@ -263,6 +381,48 @@ func (m *MsgUpdateMarketIdentificationCode) GetRegulatoryAuthority() string {
 func (m *MsgUpdateMarketIdentificationCode) GetStatus() string {
 	if m != nil {
 		return m.Status
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetCreationDate() string {
+	if m != nil {
+		return m.CreationDate
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetLastUpdateDate() string {
+	if m != nil {
+		return m.LastUpdateDate
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetLastValidationDate() string {
+	if m != nil {
+		return m.LastValidationDate
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetExpiryDate() string {
+	if m != nil {
+		return m.ExpiryDate
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetComments() string {
+	if m != nil {
+		return m.Comments
+	}
+	return ""
+}
+
+func (m *MsgUpdateMarketIdentificationCode) GetCreator() string {
+	if m != nil {
+		return m.Creator
 	}
 	return ""
 }
@@ -411,34 +571,47 @@ func init() {
 func init() { proto.RegisterFile("re/mic/tx.proto", fileDescriptor_29098bfa2f3bbd64) }
 
 var fileDescriptor_29098bfa2f3bbd64 = []byte{
-	// 426 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x54, 0x4f, 0x6b, 0xd4, 0x40,
-	0x14, 0xdf, 0x6c, 0xea, 0xb6, 0x3e, 0x10, 0x65, 0x04, 0x19, 0x72, 0x18, 0xd6, 0xf5, 0xa0, 0x52,
-	0x4c, 0x96, 0xf6, 0x52, 0x7a, 0xd3, 0xf5, 0xd2, 0x43, 0x10, 0x02, 0x5e, 0xbc, 0x94, 0xe9, 0xe4,
-	0x99, 0x8e, 0x26, 0x99, 0x30, 0x33, 0x81, 0xe6, 0x03, 0x88, 0x17, 0x0f, 0xe2, 0xa7, 0xf1, 0x23,
-	0x78, 0xec, 0xd1, 0xa3, 0xec, 0x7e, 0x11, 0xd9, 0xc9, 0xa6, 0xb8, 0xb8, 0x6c, 0xb6, 0xe0, 0xcd,
-	0xdb, 0xbc, 0x3f, 0xbf, 0xdf, 0xfc, 0xf8, 0xcd, 0x9b, 0x07, 0xf7, 0x35, 0x46, 0x85, 0x14, 0x91,
-	0xbd, 0x0a, 0x2b, 0xad, 0xac, 0x22, 0xf7, 0x3e, 0xc8, 0xe2, 0xf8, 0x64, 0x1a, 0x6a, 0x0c, 0x0b,
-	0x29, 0x82, 0xa7, 0xab, 0x7a, 0xc1, 0xf5, 0x47, 0xb4, 0xe7, 0x32, 0xc5, 0xd2, 0xca, 0xf7, 0x52,
-	0x70, 0x2b, 0x55, 0x79, 0x2e, 0x54, 0x8a, 0x2d, 0x6e, 0xf2, 0x79, 0x08, 0x4f, 0x62, 0x93, 0x25,
-	0x98, 0x49, 0x63, 0x51, 0xc7, 0xae, 0xff, 0x6c, 0xad, 0x7d, 0xa6, 0x52, 0x24, 0x14, 0xf6, 0x85,
-	0x46, 0x6e, 0x95, 0xa6, 0xde, 0xd8, 0x7b, 0x76, 0x37, 0xe9, 0x42, 0xf2, 0x00, 0xfc, 0xf8, 0x6c,
-	0x46, 0x87, 0x2e, 0xbb, 0x3c, 0x12, 0x02, 0x7b, 0x25, 0x2f, 0x90, 0xfa, 0x2e, 0xe5, 0xce, 0x24,
-	0x80, 0x83, 0x5c, 0xb5, 0x7c, 0x74, 0xcf, 0xe5, 0x6f, 0x62, 0xc2, 0x00, 0xb8, 0x31, 0x68, 0x67,
-	0x39, 0x37, 0x86, 0xde, 0x71, 0xd5, 0x3f, 0x32, 0x4b, 0xac, 0xa8, 0xb5, 0xc6, 0x52, 0x34, 0x74,
-	0xd4, 0x62, 0xbb, 0x98, 0x4c, 0xe1, 0xa1, 0xc6, 0xac, 0xce, 0x97, 0x52, 0x9a, 0x97, 0xb5, 0xbd,
-	0x54, 0x5a, 0xda, 0x86, 0xee, 0xbb, 0xb6, 0x4d, 0x25, 0xf2, 0x08, 0x46, 0xc6, 0x72, 0x5b, 0x1b,
-	0x7a, 0xe0, 0x9a, 0x56, 0xd1, 0xe4, 0x05, 0x1c, 0xee, 0x60, 0x44, 0x82, 0xa6, 0x52, 0xa5, 0xc1,
-	0xc9, 0xa7, 0x21, 0x3c, 0x8e, 0x4d, 0xf6, 0xb6, 0x4a, 0xb9, 0xc5, 0xff, 0xd8, 0xb6, 0x43, 0x78,
-	0xde, 0x6b, 0xc3, 0x8d, 0x69, 0x6f, 0x9c, 0x67, 0xaf, 0x31, 0xc7, 0x7f, 0xe3, 0xd9, 0xea, 0xf6,
-	0xed, 0x84, 0xdd, 0xed, 0x47, 0xdf, 0x7d, 0xf0, 0x63, 0x93, 0x91, 0x6f, 0x1e, 0x8c, 0x7b, 0x07,
-	0xfe, 0x28, 0x5c, 0xfb, 0x51, 0xe1, 0x0e, 0xb3, 0x11, 0x9c, 0xde, 0x1e, 0xd3, 0x89, 0x23, 0x5f,
-	0x3c, 0x60, 0x3d, 0xc3, 0x34, 0xfd, 0x9b, 0x7e, 0x3b, 0x22, 0x38, 0xb9, 0x2d, 0x62, 0x4d, 0x4e,
-	0xcf, 0x3b, 0x6d, 0x90, 0xb3, 0x1d, 0xb1, 0x49, 0xce, 0x6e, 0x4f, 0xf7, 0xea, 0xf4, 0xc7, 0x9c,
-	0x79, 0xd7, 0x73, 0xe6, 0xfd, 0x9a, 0x33, 0xef, 0xeb, 0x82, 0x0d, 0xae, 0x17, 0x6c, 0xf0, 0x73,
-	0xc1, 0x06, 0xef, 0xc6, 0x99, 0xb4, 0x97, 0xf5, 0x45, 0x28, 0x54, 0x11, 0xb5, 0xec, 0x51, 0x82,
-	0xd1, 0x55, 0xbb, 0x1d, 0x9b, 0x0a, 0xcd, 0xc5, 0xc8, 0x6d, 0xba, 0xe3, 0xdf, 0x01, 0x00, 0x00,
-	0xff, 0xff, 0xe8, 0x13, 0x96, 0xb4, 0x34, 0x05, 0x00, 0x00,
+	// 625 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x56, 0xcb, 0x6e, 0x13, 0x31,
+	0x14, 0xed, 0x34, 0x7d, 0xba, 0x8f, 0xb4, 0x16, 0x0f, 0x2b, 0x48, 0xd3, 0xd2, 0x2e, 0x5a, 0xa8,
+	0x48, 0xaa, 0x56, 0x42, 0x55, 0x97, 0xa4, 0x08, 0x65, 0x11, 0x82, 0xd2, 0xc2, 0x82, 0xcd, 0xc8,
+	0x9d, 0x5c, 0x06, 0x43, 0x66, 0x3c, 0xb2, 0x1d, 0xe8, 0x7c, 0x01, 0x42, 0x62, 0x81, 0xf8, 0x1a,
+	0x3e, 0x81, 0x65, 0x97, 0x2c, 0x51, 0xfb, 0x23, 0xc8, 0xd7, 0x33, 0x51, 0x23, 0xaa, 0x24, 0x5d,
+	0xb1, 0xe9, 0x6e, 0xee, 0x39, 0xe7, 0x5e, 0x1f, 0xdb, 0x67, 0x32, 0x21, 0x65, 0x05, 0xb5, 0x58,
+	0x84, 0x35, 0x73, 0x56, 0x4d, 0x95, 0x34, 0x92, 0x2e, 0x7d, 0x10, 0xf1, 0xfe, 0xc1, 0x6e, 0x55,
+	0x41, 0x35, 0x16, 0x61, 0x65, 0x2b, 0xe7, 0x63, 0xae, 0x3e, 0x82, 0x09, 0x44, 0x07, 0x12, 0x23,
+	0xde, 0x89, 0x90, 0x1b, 0x21, 0x93, 0x20, 0x94, 0x1d, 0x70, 0x7d, 0x1b, 0x5f, 0xa7, 0xc9, 0x66,
+	0x53, 0x47, 0x6d, 0x88, 0x84, 0x36, 0xa0, 0x9a, 0xa8, 0x6f, 0x0c, 0xc8, 0xeb, 0xb2, 0x03, 0x74,
+	0x85, 0x94, 0x9a, 0x8d, 0x3a, 0xf3, 0xd6, 0xbd, 0xed, 0xf9, 0xb6, 0x7d, 0xa4, 0x9b, 0x64, 0x49,
+	0xa6, 0xa0, 0xb8, 0x11, 0x49, 0x14, 0x58, 0x6e, 0x12, 0xb9, 0xc5, 0x3e, 0x68, 0x45, 0x0f, 0xc8,
+	0x7c, 0xeb, 0x55, 0xfb, 0x24, 0x38, 0x7e, 0xd1, 0x3c, 0x61, 0x25, 0x14, 0xcc, 0x59, 0xc0, 0xd6,
+	0x74, 0x8d, 0x2c, 0xe4, 0xfe, 0x12, 0x1e, 0x03, 0x9b, 0x42, 0x9a, 0x38, 0xe8, 0x25, 0x8f, 0x81,
+	0x3e, 0x26, 0xab, 0x5d, 0x88, 0x78, 0x37, 0xb0, 0x76, 0x4c, 0xe6, 0x64, 0xd3, 0x28, 0x2b, 0x23,
+	0xf1, 0x1c, 0x71, 0xd4, 0x3e, 0x25, 0xf7, 0x07, 0xb4, 0xc5, 0x96, 0x41, 0xb1, 0x19, 0xec, 0xb8,
+	0x7b, 0xa5, 0xa3, 0xd1, 0x27, 0xe9, 0x16, 0x29, 0xe7, 0x26, 0x42, 0x6e, 0x20, 0x92, 0x2a, 0x63,
+	0xb3, 0xa8, 0x5f, 0x76, 0x70, 0x3d, 0x47, 0x29, 0x23, 0xb3, 0x3c, 0x54, 0x32, 0xc9, 0x62, 0x36,
+	0x87, 0x82, 0xa2, 0xa4, 0xdb, 0x64, 0xa5, 0x71, 0xdc, 0x0a, 0x42, 0xd9, 0x4b, 0x8c, 0xca, 0xf0,
+	0x74, 0xd9, 0xbc, 0x9b, 0xd1, 0x38, 0x6e, 0xd5, 0x1d, 0x8c, 0xa7, 0x48, 0xc9, 0x54, 0x28, 0x4c,
+	0xc6, 0x08, 0xb2, 0xf8, 0x6c, 0xe7, 0x7e, 0x86, 0x53, 0x2d, 0x0c, 0xb0, 0x05, 0x37, 0x37, 0x2f,
+	0xe9, 0x3d, 0x32, 0xa3, 0x0d, 0x37, 0x3d, 0xcd, 0x16, 0x91, 0xc8, 0x2b, 0x7b, 0xf2, 0xa1, 0x02,
+	0x77, 0x95, 0x1d, 0x6e, 0x80, 0x2d, 0xb9, 0x93, 0x2f, 0xc0, 0x23, 0x6e, 0xc0, 0x9a, 0xea, 0x72,
+	0x6d, 0x82, 0x5e, 0x6a, 0x25, 0x4e, 0xb7, 0xec, 0x4c, 0x59, 0xfc, 0x35, 0xc2, 0xa8, 0xdc, 0x25,
+	0x77, 0x50, 0xf9, 0x89, 0x77, 0x45, 0xe7, 0xca, 0xd4, 0x32, 0xaa, 0xa9, 0xe5, 0xde, 0xf4, 0x29,
+	0xec, 0x58, 0x23, 0x0b, 0x70, 0x96, 0x0a, 0x95, 0x39, 0xe1, 0x8a, 0xbb, 0x38, 0x07, 0xa1, 0xa0,
+	0x42, 0xe6, 0x42, 0x19, 0xc7, 0x90, 0x18, 0xcd, 0x56, 0xdd, 0xad, 0x17, 0xb5, 0xdd, 0x2f, 0x1a,
+	0x95, 0x8a, 0x51, 0xb7, 0xdf, 0xbc, 0xdc, 0x78, 0x42, 0x76, 0xc6, 0x88, 0x62, 0x1b, 0x74, 0x2a,
+	0x13, 0x0d, 0x1b, 0x5f, 0xa6, 0xc9, 0xc3, 0xa6, 0x8e, 0xdc, 0x4e, 0x6e, 0x83, 0x7b, 0x1b, 0xdc,
+	0xff, 0x16, 0xdc, 0x1d, 0xf2, 0x68, 0x64, 0x10, 0xfb, 0xb1, 0x6d, 0x61, 0x6a, 0x8f, 0xa0, 0x0b,
+	0x43, 0x52, 0x7b, 0x65, 0x2d, 0x6f, 0x60, 0xad, 0x22, 0xcf, 0x93, 0xfd, 0x3c, 0xe7, 0xab, 0x0f,
+	0x1f, 0x58, 0xac, 0xbe, 0xf7, 0xb3, 0x44, 0x4a, 0x4d, 0x1d, 0xd1, 0x1f, 0x1e, 0x59, 0x1f, 0xf9,
+	0xa3, 0xbf, 0x57, 0x1d, 0xf8, 0xaa, 0x54, 0xc7, 0x78, 0x3b, 0x2b, 0x87, 0x37, 0xef, 0x29, 0xcc,
+	0xd1, 0x6f, 0x1e, 0xf1, 0x47, 0xbc, 0xce, 0xbb, 0xff, 0x8e, 0x1f, 0xde, 0x51, 0x39, 0xb8, 0x69,
+	0xc7, 0x80, 0x9d, 0x11, 0xf7, 0x74, 0x8d, 0x9d, 0xe1, 0x1d, 0xd7, 0xd9, 0x19, 0xef, 0xea, 0x9e,
+	0x1d, 0xfe, 0xba, 0xf0, 0xbd, 0xf3, 0x0b, 0xdf, 0xfb, 0x73, 0xe1, 0x7b, 0xdf, 0x2f, 0xfd, 0x89,
+	0xf3, 0x4b, 0x7f, 0xe2, 0xf7, 0xa5, 0x3f, 0xf1, 0x76, 0x3d, 0x12, 0xe6, 0x7d, 0xef, 0xb4, 0x1a,
+	0xca, 0xb8, 0xe6, 0xa6, 0xd7, 0xda, 0x50, 0x3b, 0x73, 0xff, 0x10, 0xb2, 0x14, 0xf4, 0xe9, 0x0c,
+	0x7e, 0xed, 0xf7, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x42, 0x05, 0x8d, 0x08, 0x38, 0x08, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -613,59 +786,135 @@ func (m *MsgRegisterMarketIdentificationCode) MarshalToSizedBuffer(dAtA []byte) 
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.Comments) > 0 {
+		i -= len(m.Comments)
+		copy(dAtA[i:], m.Comments)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Comments)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.ExpiryDate) > 0 {
+		i -= len(m.ExpiryDate)
+		copy(dAtA[i:], m.ExpiryDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ExpiryDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.LastValidationDate) > 0 {
+		i -= len(m.LastValidationDate)
+		copy(dAtA[i:], m.LastValidationDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastValidationDate)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.LastUpdateDate) > 0 {
+		i -= len(m.LastUpdateDate)
+		copy(dAtA[i:], m.LastUpdateDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastUpdateDate)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.CreationDate) > 0 {
+		i -= len(m.CreationDate)
+		copy(dAtA[i:], m.CreationDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.CreationDate)))
+		i--
+		dAtA[i] = 0x6a
+	}
 	if len(m.Status) > 0 {
 		i -= len(m.Status)
 		copy(dAtA[i:], m.Status)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.Status)))
 		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.Website) > 0 {
+		i -= len(m.Website)
+		copy(dAtA[i:], m.Website)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Website)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.City) > 0 {
+		i -= len(m.City)
+		copy(dAtA[i:], m.City)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.City)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.ISOCountryCode) > 0 {
+		i -= len(m.ISOCountryCode)
+		copy(dAtA[i:], m.ISOCountryCode)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ISOCountryCode)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.Acronym) > 0 {
+		i -= len(m.Acronym)
+		copy(dAtA[i:], m.Acronym)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Acronym)))
+		i--
 		dAtA[i] = 0x42
 	}
-	if len(m.RegulatoryAuthority) > 0 {
-		i -= len(m.RegulatoryAuthority)
-		copy(dAtA[i:], m.RegulatoryAuthority)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.RegulatoryAuthority)))
+	if len(m.MarketCategory) > 0 {
+		i -= len(m.MarketCategory)
+		copy(dAtA[i:], m.MarketCategory)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.MarketCategory)))
 		i--
 		dAtA[i] = 0x3a
 	}
-	if len(m.Currency) > 0 {
-		i -= len(m.Currency)
-		copy(dAtA[i:], m.Currency)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Currency)))
+	if len(m.LegalEntityIdentifier) > 0 {
+		i -= len(m.LegalEntityIdentifier)
+		copy(dAtA[i:], m.LegalEntityIdentifier)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LegalEntityIdentifier)))
 		i--
 		dAtA[i] = 0x32
 	}
-	if len(m.AssetClass) > 0 {
-		i -= len(m.AssetClass)
-		copy(dAtA[i:], m.AssetClass)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.AssetClass)))
+	if len(m.LegalEntityName) > 0 {
+		i -= len(m.LegalEntityName)
+		copy(dAtA[i:], m.LegalEntityName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LegalEntityName)))
 		i--
 		dAtA[i] = 0x2a
 	}
-	if len(m.Location) > 0 {
-		i -= len(m.Location)
-		copy(dAtA[i:], m.Location)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Location)))
+	if len(m.MarketName) > 0 {
+		i -= len(m.MarketName)
+		copy(dAtA[i:], m.MarketName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.MarketName)))
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Name)))
+	if len(m.OPRT_SGMT) > 0 {
+		i -= len(m.OPRT_SGMT)
+		copy(dAtA[i:], m.OPRT_SGMT)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OPRT_SGMT)))
 		i--
 		dAtA[i] = 0x1a
+	}
+	if len(m.Operating_MIC) > 0 {
+		i -= len(m.Operating_MIC)
+		copy(dAtA[i:], m.Operating_MIC)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Operating_MIC)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.MIC) > 0 {
 		i -= len(m.MIC)
 		copy(dAtA[i:], m.MIC)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.MIC)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -715,59 +964,135 @@ func (m *MsgUpdateMarketIdentificationCode) MarshalToSizedBuffer(dAtA []byte) (i
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.Comments) > 0 {
+		i -= len(m.Comments)
+		copy(dAtA[i:], m.Comments)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Comments)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.ExpiryDate) > 0 {
+		i -= len(m.ExpiryDate)
+		copy(dAtA[i:], m.ExpiryDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ExpiryDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.LastValidationDate) > 0 {
+		i -= len(m.LastValidationDate)
+		copy(dAtA[i:], m.LastValidationDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastValidationDate)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.LastUpdateDate) > 0 {
+		i -= len(m.LastUpdateDate)
+		copy(dAtA[i:], m.LastUpdateDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastUpdateDate)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.CreationDate) > 0 {
+		i -= len(m.CreationDate)
+		copy(dAtA[i:], m.CreationDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.CreationDate)))
+		i--
+		dAtA[i] = 0x6a
+	}
 	if len(m.Status) > 0 {
 		i -= len(m.Status)
 		copy(dAtA[i:], m.Status)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.Status)))
 		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.Website) > 0 {
+		i -= len(m.Website)
+		copy(dAtA[i:], m.Website)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Website)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.City) > 0 {
+		i -= len(m.City)
+		copy(dAtA[i:], m.City)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.City)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.ISOCountryCode) > 0 {
+		i -= len(m.ISOCountryCode)
+		copy(dAtA[i:], m.ISOCountryCode)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ISOCountryCode)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.Acronym) > 0 {
+		i -= len(m.Acronym)
+		copy(dAtA[i:], m.Acronym)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Acronym)))
+		i--
 		dAtA[i] = 0x42
 	}
-	if len(m.RegulatoryAuthority) > 0 {
-		i -= len(m.RegulatoryAuthority)
-		copy(dAtA[i:], m.RegulatoryAuthority)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.RegulatoryAuthority)))
+	if len(m.MarketCategory) > 0 {
+		i -= len(m.MarketCategory)
+		copy(dAtA[i:], m.MarketCategory)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.MarketCategory)))
 		i--
 		dAtA[i] = 0x3a
 	}
-	if len(m.Currency) > 0 {
-		i -= len(m.Currency)
-		copy(dAtA[i:], m.Currency)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Currency)))
+	if len(m.LegalEntityIdentifier) > 0 {
+		i -= len(m.LegalEntityIdentifier)
+		copy(dAtA[i:], m.LegalEntityIdentifier)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LegalEntityIdentifier)))
 		i--
 		dAtA[i] = 0x32
 	}
-	if len(m.AssetClass) > 0 {
-		i -= len(m.AssetClass)
-		copy(dAtA[i:], m.AssetClass)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.AssetClass)))
+	if len(m.LegalEntityName) > 0 {
+		i -= len(m.LegalEntityName)
+		copy(dAtA[i:], m.LegalEntityName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LegalEntityName)))
 		i--
 		dAtA[i] = 0x2a
 	}
-	if len(m.Location) > 0 {
-		i -= len(m.Location)
-		copy(dAtA[i:], m.Location)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Location)))
+	if len(m.MarketName) > 0 {
+		i -= len(m.MarketName)
+		copy(dAtA[i:], m.MarketName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.MarketName)))
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Name)))
+	if len(m.OPRT_SGMT) > 0 {
+		i -= len(m.OPRT_SGMT)
+		copy(dAtA[i:], m.OPRT_SGMT)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OPRT_SGMT)))
 		i--
 		dAtA[i] = 0x1a
+	}
+	if len(m.Operating_MIC) > 0 {
+		i -= len(m.Operating_MIC)
+		copy(dAtA[i:], m.Operating_MIC)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Operating_MIC)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.MIC) > 0 {
 		i -= len(m.MIC)
 		copy(dAtA[i:], m.MIC)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.MIC)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -874,37 +1199,77 @@ func (m *MsgRegisterMarketIdentificationCode) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Creator)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
 	l = len(m.MIC)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Name)
+	l = len(m.Operating_MIC)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Location)
+	l = len(m.OPRT_SGMT)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.AssetClass)
+	l = len(m.MarketName)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Currency)
+	l = len(m.LegalEntityName)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.RegulatoryAuthority)
+	l = len(m.LegalEntityIdentifier)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.MarketCategory)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Acronym)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ISOCountryCode)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.City)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Website)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	l = len(m.Status)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.CreationDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastUpdateDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastValidationDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ExpiryDate)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.Comments)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -924,37 +1289,77 @@ func (m *MsgUpdateMarketIdentificationCode) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Creator)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
 	l = len(m.MIC)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Name)
+	l = len(m.Operating_MIC)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Location)
+	l = len(m.OPRT_SGMT)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.AssetClass)
+	l = len(m.MarketName)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Currency)
+	l = len(m.LegalEntityName)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.RegulatoryAuthority)
+	l = len(m.LegalEntityIdentifier)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.MarketCategory)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Acronym)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ISOCountryCode)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.City)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Website)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	l = len(m.Status)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.CreationDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastUpdateDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastValidationDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ExpiryDate)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.Comments)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -1031,38 +1436,6 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MIC", wireType)
 			}
 			var stringLen uint64
@@ -1093,9 +1466,9 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			}
 			m.MIC = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Operating_MIC", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1123,11 +1496,43 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.Operating_MIC = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OPRT_SGMT", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OPRT_SGMT = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Location", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketName", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1155,11 +1560,11 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Location = string(dAtA[iNdEx:postIndex])
+			m.MarketName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AssetClass", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LegalEntityName", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1187,11 +1592,11 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AssetClass = string(dAtA[iNdEx:postIndex])
+			m.LegalEntityName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LegalEntityIdentifier", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1219,11 +1624,11 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Currency = string(dAtA[iNdEx:postIndex])
+			m.LegalEntityIdentifier = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field RegulatoryAuthority", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketCategory", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1251,9 +1656,137 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.RegulatoryAuthority = string(dAtA[iNdEx:postIndex])
+			m.MarketCategory = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Acronym", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Acronym = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ISOCountryCode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ISOCountryCode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field City", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.City = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Website", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Website = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -1284,6 +1817,198 @@ func (m *MsgRegisterMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Status = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreationDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreationDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastUpdateDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastUpdateDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastValidationDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastValidationDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExpiryDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExpiryDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Comments", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Comments = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1387,38 +2112,6 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MIC", wireType)
 			}
 			var stringLen uint64
@@ -1449,9 +2142,9 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			}
 			m.MIC = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Operating_MIC", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1479,11 +2172,43 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.Operating_MIC = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OPRT_SGMT", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OPRT_SGMT = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Location", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketName", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1511,11 +2236,11 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Location = string(dAtA[iNdEx:postIndex])
+			m.MarketName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AssetClass", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LegalEntityName", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1543,11 +2268,11 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AssetClass = string(dAtA[iNdEx:postIndex])
+			m.LegalEntityName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LegalEntityIdentifier", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1575,11 +2300,11 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Currency = string(dAtA[iNdEx:postIndex])
+			m.LegalEntityIdentifier = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field RegulatoryAuthority", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketCategory", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1607,9 +2332,137 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.RegulatoryAuthority = string(dAtA[iNdEx:postIndex])
+			m.MarketCategory = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Acronym", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Acronym = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ISOCountryCode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ISOCountryCode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field City", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.City = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Website", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Website = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -1640,6 +2493,198 @@ func (m *MsgUpdateMarketIdentificationCode) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Status = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreationDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreationDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastUpdateDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastUpdateDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastValidationDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastValidationDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExpiryDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExpiryDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Comments", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Comments = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
