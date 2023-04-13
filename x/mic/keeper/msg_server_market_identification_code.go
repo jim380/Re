@@ -23,32 +23,57 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsTaken, "Creator: %s", msg.Creator)
 	}
 
-	// check that these fields are not empty
+	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
 	if msg.MIC == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
 	}
-	if msg.Name == "" {
-		return nil, sdkerrors.Wrapf(types.ErrNameIsEmpty, "MIC: %s", msg.Name)
+	if msg.Operating_MIC == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "MIC: %s", msg.Operating_MIC)
 	}
-	if msg.Location == "" {
-		return nil, sdkerrors.Wrapf(types.ErrLocationIsEmpty, "MIC: %s", msg.Location)
+	if msg.OPRT_SGMT == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "MIC: %s", msg.OPRT_SGMT)
 	}
-	if msg.AssetClass == "" {
-		return nil, sdkerrors.Wrapf(types.ErrAssetClassIsEmpty, "MIC: %s", msg.AssetClass)
+	if msg.MarketName == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MIC: %s", msg.MarketName)
 	}
-	if msg.Currency == "" {
-		return nil, sdkerrors.Wrapf(types.ErrCurrencyIsEmpty, "MIC: %s", msg.Currency)
+	if msg.MarketCategory == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MIC: %s", msg.MarketCategory)
+	}
+	if msg.ISOCountryCode == "" {
+		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "MIC: %s", msg.ISOCountryCode)
+	}
+	if msg.City == "" {
+		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "MIC: %s", msg.City)
+	}
+	if msg.Status == "" {
+		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "MIC: %s", msg.Status)
+	}
+	if msg.CreationDate == "" {
+		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "MIC: %s", msg.CreationDate)
+	}
+	if msg.LastUpdateDate == "" {
+		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "MIC: %s", msg.LastUpdateDate)
 	}
 
 	var marketIdentificationCode = types.MarketIdentificationCode{
-		Creator:             msg.Creator,
-		MIC:                 msg.MIC,
-		Name:                msg.Name,
-		Location:            msg.Location,
-		AssetClass:          msg.AssetClass,
-		Currency:            msg.Currency,
-		RegulatoryAuthority: msg.RegulatoryAuthority,
-		Status:              msg.Status,
+		Creator:               msg.Creator,
+		MIC:                   msg.MIC,
+		Operating_MIC:         msg.Operating_MIC,
+		OPRT_SGMT:             msg.OPRT_SGMT,
+		MarketName:            msg.MarketName,
+		LegalEntityName:       msg.LegalEntityName,
+		LegalEntityIdentifier: msg.LegalEntityIdentifier,
+		MarketCategory:        msg.MarketCategory,
+		Acronym:               msg.Acronym,
+		ISOCountryCode:        msg.ISOCountryCode,
+		City:                  msg.City,
+		Website:               msg.Website,
+		Status:                msg.Status,
+		CreationDate:          msg.CreationDate,
+		LastUpdateDate:        msg.LastUpdateDate,
+		LastValidationDate:    msg.LastValidationDate,
+		ExpiryDate:            msg.ExpiryDate,
+		Comments:              msg.Comments,
 	}
 
 	// set MIC Data to store
@@ -72,22 +97,64 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsWrong, "Creator: %s", msg.Creator)
 	}
 
-	// TODO
-	// Include other checks
-
-	var editedMarketIdentificationCode = types.MarketIdentificationCode{
-		Creator:             msg.Creator,
-		MIC:                 msg.MIC,
-		Name:                msg.Name,
-		Location:            msg.Location,
-		AssetClass:          msg.AssetClass,
-		Currency:            msg.Currency,
-		RegulatoryAuthority: msg.RegulatoryAuthority,
-		Status:              msg.Status,
+	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
+	if msg.MIC == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
+	}
+	if msg.Operating_MIC == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "MIC: %s", msg.Operating_MIC)
+	}
+	if msg.OPRT_SGMT == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "MIC: %s", msg.OPRT_SGMT)
+	}
+	if msg.MarketName == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MIC: %s", msg.MarketName)
+	}
+	if msg.MarketCategory == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MIC: %s", msg.MarketCategory)
+	}
+	if msg.ISOCountryCode == "" {
+		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "MIC: %s", msg.ISOCountryCode)
+	}
+	if msg.City == "" {
+		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "MIC: %s", msg.City)
+	}
+	if msg.Status == "" {
+		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "MIC: %s", msg.Status)
+	}
+	if msg.CreationDate == "" {
+		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "MIC: %s", msg.CreationDate)
+	}
+	if msg.LastUpdateDate == "" {
+		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "MIC: %s", msg.LastUpdateDate)
 	}
 
+	var editedMarketIdentificationCode = types.MarketIdentificationCode{
+		Creator:               msg.Creator,
+		MIC:                   msg.MIC,
+		Operating_MIC:         msg.Operating_MIC,
+		OPRT_SGMT:             msg.OPRT_SGMT,
+		MarketName:            msg.MarketName,
+		LegalEntityName:       msg.LegalEntityName,
+		LegalEntityIdentifier: msg.LegalEntityIdentifier,
+		MarketCategory:        msg.MarketCategory,
+		Acronym:               msg.Acronym,
+		ISOCountryCode:        msg.ISOCountryCode,
+		City:                  msg.City,
+		Website:               msg.Website,
+		Status:                msg.Status,
+		CreationDate:          msg.CreationDate,
+		LastUpdateDate:        msg.LastUpdateDate,
+		LastValidationDate:    msg.LastValidationDate,
+		ExpiryDate:            msg.ExpiryDate,
+		Comments:              msg.Comments,
+	}
+
+	// reset the existing market identification code data
+	val = editedMarketIdentificationCode
+
 	// set edited MIC Data to store
-	k.SetMarketIdentificationCode(ctx, editedMarketIdentificationCode)
+	k.SetMarketIdentificationCode(ctx, val)
 
 	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
 }
