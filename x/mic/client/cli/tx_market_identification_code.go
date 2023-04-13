@@ -10,24 +10,35 @@ import (
 
 func CmdRegisterMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "register-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
+		Use:   "register-market-identification-code [mic] [operating-mic] [OPRT-SGMT] [market-name] [legal-entity-name] [legal-entity-identifier] [market-category] [acronym] [ISO-country-code] [city] [website] [status] [creation-date] [last-update-date] [last-validation-date] [expiry-date] [comments]",
 		Short: "Registers a new marketIdentificationCode",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+
 			argMIC := args[0]
-			argName := args[1]
-			argLocation := args[2]
-			argAssetClass := args[3]
-			argCurrency := args[4]
-			argRegulatoryAuthority := args[5]
-			argStatus := args[6]
+			argOperating_MIC := args[1]
+			argOPRT_SGMT := args[2]
+			argMarketName := args[3]
+			argLegalEntityName := args[4]
+			argLegalEntityIdentifier := args[5]
+			argMarketCategory := args[6]
+			argAcronym := args[7]
+			argISOCountryCode := args[8]
+			argCity := args[9]
+			argWebsite := args[10]
+			argStatus := args[11]
+			argCreationDate := args[12]
+			argLastUpdateDate := args[13]
+			argLastValidationDate := args[14]
+			argExpiryDate := args[15]
+			argComments := args[16]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgRegisterMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
+			msg := types.NewMsgRegisterMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -42,31 +53,35 @@ func CmdRegisterMarketIdentificationCode() *cobra.Command {
 
 func CmdUpdateMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-market-identification-code [mic] [name] [location] [asset-class] [currency] [regulatory-authority] [status]",
+		Use:   "update-market-identification-code [mic] [operating-mic] [OPRT-SGMT] [market-name] [legal-entity-name] [legal-entity-identifier] [market-category] [acronym] [ISO-country-code] [city] [website] [status] [creation-date] [last-update-date] [last-validation-date] [expiry-date] [comments]",
 		Short: "Update a marketIdentificationCode",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
 			argMIC := args[0]
-
-			argName := args[1]
-
-			argLocation := args[2]
-
-			argAssetClass := args[3]
-
-			argCurrency := args[4]
-
-			argRegulatoryAuthority := args[5]
-
-			argStatus := args[6]
+			argOperating_MIC := args[1]
+			argOPRT_SGMT := args[2]
+			argMarketName := args[3]
+			argLegalEntityName := args[4]
+			argLegalEntityIdentifier := args[5]
+			argMarketCategory := args[6]
+			argAcronym := args[7]
+			argISOCountryCode := args[8]
+			argCity := args[9]
+			argWebsite := args[10]
+			argStatus := args[11]
+			argCreationDate := args[12]
+			argLastUpdateDate := args[13]
+			argLastValidationDate := args[14]
+			argExpiryDate := args[15]
+			argComments := args[16]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argName, argLocation, argAssetClass, argCurrency, argRegulatoryAuthority, argStatus)
+			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
