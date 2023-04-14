@@ -67,10 +67,11 @@ func (msg *MsgRegisterMarketIdentificationCode) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateMarketIdentificationCode{}
 
-func NewMsgUpdateMarketIdentificationCode(creator string, mic string, operating_MIC string, OPRT_SGMT string, market_name string, legal_entity_name string, legal_entity_identifier string, market_category string, acronym string, ISO_country_code string, city string, website string, status string, creation_date string, last_update_date string, last_validation_date string, expiry_date string, comments string) *MsgUpdateMarketIdentificationCode {
+func NewMsgUpdateMarketIdentificationCode(creator string, old_mic string, new_mic string, operating_MIC string, OPRT_SGMT string, market_name string, legal_entity_name string, legal_entity_identifier string, market_category string, acronym string, ISO_country_code string, city string, website string, status string, creation_date string, last_update_date string, last_validation_date string, expiry_date string, comments string) *MsgUpdateMarketIdentificationCode {
 	return &MsgUpdateMarketIdentificationCode{
 		Creator:               creator,
-		MIC:                   mic,
+		Old_MIC:               old_mic,
+		New_MIC:               new_mic,
 		Operating_MIC:         operating_MIC,
 		OPRT_SGMT:             operating_MIC,
 		MarketName:            market_name,

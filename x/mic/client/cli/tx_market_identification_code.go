@@ -53,35 +53,36 @@ func CmdRegisterMarketIdentificationCode() *cobra.Command {
 
 func CmdUpdateMarketIdentificationCode() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-market-identification-code [mic] [operating-mic] [OPRT-SGMT] [market-name] [legal-entity-name] [legal-entity-identifier] [market-category] [acronym] [ISO-country-code] [city] [website] [status] [creation-date] [last-update-date] [last-validation-date] [expiry-date] [comments]",
+		Use:   "update-market-identification-code [old-mic] [new-mic] [operating-mic] [OPRT-SGMT] [market-name] [legal-entity-name] [legal-entity-identifier] [market-category] [acronym] [ISO-country-code] [city] [website] [status] [creation-date] [last-update-date] [last-validation-date] [expiry-date] [comments]",
 		Short: "Update a marketIdentificationCode",
-		Args:  cobra.ExactArgs(17),
+		Args:  cobra.ExactArgs(18),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-			argMIC := args[0]
-			argOperating_MIC := args[1]
-			argOPRT_SGMT := args[2]
-			argMarketName := args[3]
-			argLegalEntityName := args[4]
-			argLegalEntityIdentifier := args[5]
-			argMarketCategory := args[6]
-			argAcronym := args[7]
-			argISOCountryCode := args[8]
-			argCity := args[9]
-			argWebsite := args[10]
-			argStatus := args[11]
-			argCreationDate := args[12]
-			argLastUpdateDate := args[13]
-			argLastValidationDate := args[14]
-			argExpiryDate := args[15]
-			argComments := args[16]
+			argOldMIC := args[0]
+			argNewMIC := args[1]
+			argOperating_MIC := args[2]
+			argOPRT_SGMT := args[3]
+			argMarketName := args[4]
+			argLegalEntityName := args[5]
+			argLegalEntityIdentifier := args[6]
+			argMarketCategory := args[7]
+			argAcronym := args[8]
+			argISOCountryCode := args[9]
+			argCity := args[10]
+			argWebsite := args[11]
+			argStatus := args[12]
+			argCreationDate := args[13]
+			argLastUpdateDate := args[14]
+			argLastValidationDate := args[15]
+			argExpiryDate := args[16]
+			argComments := args[17]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
+			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argOldMIC, argNewMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

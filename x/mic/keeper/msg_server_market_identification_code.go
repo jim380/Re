@@ -86,10 +86,16 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *types.MsgUpdateMarketIdentificationCode) (*types.MsgUpdateMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Checks that the element exists
-	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
+	// Check that the old MIC exists
+	val, found := k.GetMarketIdentificationCode(ctx, msg.Old_MIC)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.MIC)
+		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.Old_MIC)
+	}
+
+	// check that new MIC doesn't exist already
+	_, found = k.GetMarketIdentificationCode(ctx, msg.New_MIC)
+	if found {
+		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.New_MIC)
 	}
 
 	// Checks if the msg creator is the same as the current owner
@@ -98,8 +104,8 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	}
 
 	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
-	if msg.MIC == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
+	if msg.New_MIC == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.New_MIC)
 	}
 	if msg.Operating_MIC == "" {
 		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "MIC: %s", msg.Operating_MIC)
@@ -131,7 +137,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 
 	var editedMarketIdentificationCode = types.MarketIdentificationCode{
 		Creator:               msg.Creator,
-		MIC:                   msg.MIC,
+		MIC:                   msg.New_MIC,
 		Operating_MIC:         msg.Operating_MIC,
 		OPRT_SGMT:             msg.OPRT_SGMT,
 		MarketName:            msg.MarketName,
@@ -150,11 +156,11 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		Comments:              msg.Comments,
 	}
 
-	// reset the existing market identification code data
-	val = editedMarketIdentificationCode
+	// remove old MIC from store
+	k.RemoveMarketIdentificationCode(ctx, val.MIC)
 
 	// set edited MIC Data to store
-	k.SetMarketIdentificationCode(ctx, val)
+	k.SetMarketIdentificationCode(ctx, editedMarketIdentificationCode)
 
 	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
 }

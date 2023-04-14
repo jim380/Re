@@ -68,7 +68,7 @@ func SimulateMsgUpdateMarketIdentificationCode(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "marketIdentificationCode creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.MIC = marketIdentificationCode.MIC
+		msg.New_MIC = marketIdentificationCode.MIC
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -113,7 +113,7 @@ func SimulateMsgDeleteMarketIdentificationCode(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "marketIdentificationCode creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.MIC = marketIdentificationCode.MIC
+		msg.New_MIC = marketIdentificationCode.MIC
 
 		txCtx := simulation.OperationInput{
 			R:               r,
