@@ -13,16 +13,26 @@ const (
 
 var _ sdk.Msg = &MsgRegisterMarketIdentificationCode{}
 
-func NewMsgRegisterMarketIdentificationCode(creator string, mIC string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgRegisterMarketIdentificationCode {
+func NewMsgRegisterMarketIdentificationCode(creator string, mic string, operating_MIC string, OPRT_SGMT string, market_name string, legal_entity_name string, legal_entity_identifier string, market_category string, acronym string, ISO_country_code string, city string, website string, status string, creation_date string, last_update_date string, last_validation_date string, expiry_date string, comments string) *MsgRegisterMarketIdentificationCode {
 	return &MsgRegisterMarketIdentificationCode{
-		Creator:             creator,
-		MIC:                 mIC,
-		Name:                name,
-		Location:            location,
-		AssetClass:          assetClass,
-		Currency:            currency,
-		RegulatoryAuthority: regulatoryAuthority,
-		Status:              status,
+		Creator:               creator,
+		MIC:                   mic,
+		Operating_MIC:         operating_MIC,
+		OPRT_SGMT:             operating_MIC,
+		MarketName:            market_name,
+		LegalEntityName:       legal_entity_name,
+		LegalEntityIdentifier: legal_entity_identifier,
+		MarketCategory:        market_category,
+		Acronym:               acronym,
+		ISOCountryCode:        ISO_country_code,
+		City:                  city,
+		Website:               website,
+		Status:                status,
+		CreationDate:          creation_date,
+		LastUpdateDate:        last_update_date,
+		LastValidationDate:    last_validation_date,
+		ExpiryDate:            expiry_date,
+		Comments:              comments,
 	}
 }
 
@@ -57,16 +67,27 @@ func (msg *MsgRegisterMarketIdentificationCode) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateMarketIdentificationCode{}
 
-func NewMsgUpdateMarketIdentificationCode(creator string, mic string, name string, location string, assetClass string, currency string, regulatoryAuthority string, status string) *MsgUpdateMarketIdentificationCode {
+func NewMsgUpdateMarketIdentificationCode(creator string, old_mic string, new_mic string, operating_MIC string, OPRT_SGMT string, market_name string, legal_entity_name string, legal_entity_identifier string, market_category string, acronym string, ISO_country_code string, city string, website string, status string, creation_date string, last_update_date string, last_validation_date string, expiry_date string, comments string) *MsgUpdateMarketIdentificationCode {
 	return &MsgUpdateMarketIdentificationCode{
-		Creator:             creator,
-		MIC:                 mic,
-		Name:                name,
-		Location:            location,
-		AssetClass:          assetClass,
-		Currency:            currency,
-		RegulatoryAuthority: regulatoryAuthority,
-		Status:              status,
+		Creator:               creator,
+		Old_MIC:               old_mic,
+		New_MIC:               new_mic,
+		Operating_MIC:         operating_MIC,
+		OPRT_SGMT:             operating_MIC,
+		MarketName:            market_name,
+		LegalEntityName:       legal_entity_name,
+		LegalEntityIdentifier: legal_entity_identifier,
+		MarketCategory:        market_category,
+		Acronym:               acronym,
+		ISOCountryCode:        ISO_country_code,
+		City:                  city,
+		Website:               website,
+		Status:                status,
+		CreationDate:          creation_date,
+		LastUpdateDate:        last_update_date,
+		LastValidationDate:    last_validation_date,
+		ExpiryDate:            expiry_date,
+		Comments:              comments,
 	}
 }
 
