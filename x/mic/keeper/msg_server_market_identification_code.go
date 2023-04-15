@@ -17,15 +17,17 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// check that MIC doesn't exist already
-	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
-	if found {
-		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
-	}
+	for _, val := range k.GetAllMarketIdentificationCode(ctx) {
 
-	// check if the msg creator is not the same as the owner of any existing MIC
-	if msg.Creator == val.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsTaken, "Creator: %s", msg.Creator)
+		// check that MIC doesn't exist already
+		if msg.MIC == val.MIC {
+			return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.MIC)
+		}
+
+		// check that msg creator is not the same as the owner of any existing MIC
+		if msg.Creator == val.Creator {
+			return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsTaken, "Creator: %s", msg.Creator)
+		}
 	}
 
 	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
