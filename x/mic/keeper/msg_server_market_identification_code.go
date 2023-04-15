@@ -12,6 +12,11 @@ import (
 func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *types.MsgRegisterMarketIdentificationCode) (*types.MsgRegisterMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
 	// check that MIC doesn't exist already
 	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if found {
@@ -79,12 +84,20 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	// set MIC Data to store
 	k.SetMarketIdentificationCode(ctx, marketIdentificationCode)
 
-	return &types.MsgRegisterMarketIdentificationCodeResponse{}, nil
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgRegisterMarketIdentificationCodeResponse{}, err
 }
 
 // UpdateMarketIdentificationCode updates user's market identification code issued by ISO standard 10383 on the chain
 func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *types.MsgUpdateMarketIdentificationCode) (*types.MsgUpdateMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
 	// Check that the old MIC exists
 	val, found := k.GetMarketIdentificationCode(ctx, msg.Old_MIC)
@@ -162,12 +175,19 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	// set edited MIC Data to store
 	k.SetMarketIdentificationCode(ctx, editedMarketIdentificationCode)
 
-	return &types.MsgUpdateMarketIdentificationCodeResponse{}, nil
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgUpdateMarketIdentificationCodeResponse{}, err
 }
 
 // DeleteMarketIdentificationCode deletes user's market identification code from the store
 func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *types.MsgDeleteMarketIdentificationCode) (*types.MsgDeleteMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
 	// Checks that the element exists
 	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
@@ -183,5 +203,7 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 	//remove MIC from store
 	k.RemoveMarketIdentificationCode(ctx, msg.MIC)
 
-	return &types.MsgDeleteMarketIdentificationCodeResponse{}, nil
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgDeleteMarketIdentificationCodeResponse{}, err
 }

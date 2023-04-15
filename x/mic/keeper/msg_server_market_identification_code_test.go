@@ -80,7 +80,7 @@ func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
 			},
 		},
 		{
-			name: "MIC creator is Empty",
+			name: "MIC creator is Empty, Invalid Address",
 			args: args{
 				marketIdentificationCode: types.MarketIdentificationCode{
 					Creator:               "",
