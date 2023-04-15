@@ -108,6 +108,35 @@ func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
 				contains:   "",
 			},
 		},
+		{
+			name: "When any Required field is empty",
+			args: args{
+				marketIdentificationCode: types.MarketIdentificationCode{
+					Creator:               suite.address[0].String(),
+					MIC:                   "EXAMPLE",
+					Operating_MIC:         "",
+					OPRT_SGMT:             "",
+					MarketName:            "Example Market",
+					LegalEntityName:       "Example Legal Entity",
+					LegalEntityIdentifier: "EXAMPLE",
+					MarketCategory:        "EXAMPLE",
+					Acronym:               "EXAMPLE",
+					ISOCountryCode:        "EXAMPLE",
+					City:                  "Example City",
+					Website:               "www.example.com",
+					Status:                "Active",
+					CreationDate:          "2023-04-14",
+					LastUpdateDate:        "2023-04-14",
+					LastValidationDate:    "2023-04-14",
+					ExpiryDate:            "2023-04-14",
+					Comments:              "Example comments",
+				},
+			},
+			errArgs: errArgs{
+				shouldPass: false,
+				contains:   "",
+			},
+		},
 	}
 
 	for _, tc := range tests {
