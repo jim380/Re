@@ -28,31 +28,31 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
 	}
 	if msg.Operating_MIC == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "MIC: %s", msg.Operating_MIC)
+		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "MIC: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MIC: %s", msg.MarketName)
+		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)
 	}
 	if msg.MarketCategory == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MIC: %s", msg.MarketCategory)
+		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MarketCategory: %s", msg.MarketCategory)
 	}
 	if msg.ISOCountryCode == "" {
-		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "MIC: %s", msg.ISOCountryCode)
+		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "ISOCountryCode: %s", msg.ISOCountryCode)
 	}
 	if msg.City == "" {
-		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "MIC: %s", msg.City)
+		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "City: %s", msg.City)
 	}
 	if msg.Status == "" {
-		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "MIC: %s", msg.Status)
+		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "Status: %s", msg.Status)
 	}
 	if msg.CreationDate == "" {
-		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "MIC: %s", msg.CreationDate)
+		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "CreationDate: %s", msg.CreationDate)
 	}
 	if msg.LastUpdateDate == "" {
-		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "MIC: %s", msg.LastUpdateDate)
+		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "LastUpdateDate: %s", msg.LastUpdateDate)
 	}
 
 	var marketIdentificationCode = types.MarketIdentificationCode{
@@ -105,34 +105,34 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 
 	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
 	if msg.New_MIC == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.New_MIC)
+		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "New_MIC: %s", msg.New_MIC)
 	}
 	if msg.Operating_MIC == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "MIC: %s", msg.Operating_MIC)
+		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "MIC: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MIC: %s", msg.MarketName)
+		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)
 	}
 	if msg.MarketCategory == "" {
-		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MIC: %s", msg.MarketCategory)
+		return nil, sdkerrors.Wrapf(types.ErrMarketCategoryIsEmpty, "MarketCategory: %s", msg.MarketCategory)
 	}
 	if msg.ISOCountryCode == "" {
-		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "MIC: %s", msg.ISOCountryCode)
+		return nil, sdkerrors.Wrapf(types.ErrISOCountryCodeIsEmpty, "ISOCountryCode: %s", msg.ISOCountryCode)
 	}
 	if msg.City == "" {
-		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "MIC: %s", msg.City)
+		return nil, sdkerrors.Wrapf(types.ErrCityIsEmpty, "City: %s", msg.City)
 	}
 	if msg.Status == "" {
-		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "MIC: %s", msg.Status)
+		return nil, sdkerrors.Wrapf(types.ErrStatusIsEmpty, "Status: %s", msg.Status)
 	}
 	if msg.CreationDate == "" {
-		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "MIC: %s", msg.CreationDate)
+		return nil, sdkerrors.Wrapf(types.ErrCreationDateIsEmpty, "CreationDate: %s", msg.CreationDate)
 	}
 	if msg.LastUpdateDate == "" {
-		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "MIC: %s", msg.LastUpdateDate)
+		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "LastUpdateDate: %s", msg.LastUpdateDate)
 	}
 
 	var editedMarketIdentificationCode = types.MarketIdentificationCode{
