@@ -107,9 +107,9 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.Old_MIC)
 	}
 
-	// check that new MIC doesn't exist already
-	_, found = k.GetMarketIdentificationCode(ctx, msg.New_MIC)
-	if found {
+	// check that new MIC can be the same old MIC as long as the account address matches with the user updating the MIC details
+	newMIC, found := k.GetMarketIdentificationCode(ctx, msg.New_MIC)
+	if found && newMIC.Creator != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.New_MIC)
 	}
 

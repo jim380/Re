@@ -156,7 +156,7 @@ func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
 			// call RegisterMarketIdentificationCode method
 			_, err := suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), msg)
 
-			// get mic from mic module
+			// get mic
 			mic, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
 
 			// Assert that no error occurred
@@ -164,6 +164,115 @@ func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
 				suite.Require().NoError(err, tc.name)
 				suite.Require().True(found, tc.name)
 				suite.Require().Equal(tc.args.marketIdentificationCode, mic, tc.name)
+			} else {
+				suite.Require().Error(err, tc.name)
+				suite.Require().Contains(err.Error(), tc.errArgs.contains, tc.name)
+			}
+
+		})
+	}
+
+}
+
+func (suite *KeeperTestSuite) TestUpdateMarketIdentificationCode() {
+
+	type args struct {
+		registerMarketIdentificationCode types.MsgRegisterMarketIdentificationCode
+		updateMarketIdentificationCode   types.MsgUpdateMarketIdentificationCode
+	}
+
+	type errArgs struct {
+		shouldPass bool
+		contains   string
+	}
+
+	tests := []struct {
+		name    string
+		args    args
+		errArgs errArgs
+	}{
+		{
+			name: "Update Outdated Market Identification code",
+			args: args{
+				registerMarketIdentificationCode: types.MsgRegisterMarketIdentificationCode{
+					Creator:               suite.address[0].String(),
+					MIC:                   "EXAMPLE",
+					Operating_MIC:         "EXAMPLE",
+					OPRT_SGMT:             "EXAMPLE",
+					MarketName:            "Example Market",
+					LegalEntityName:       "Example Legal Entity",
+					LegalEntityIdentifier: "EXAMPLE",
+					MarketCategory:        "EXAMPLE",
+					Acronym:               "EXAMPLE",
+					ISOCountryCode:        "EXAMPLE",
+					City:                  "Example City",
+					Website:               "www.example.com",
+					Status:                "Active",
+					CreationDate:          "2023-04-14",
+					LastUpdateDate:        "2023-04-14",
+					LastValidationDate:    "2023-04-14",
+					ExpiryDate:            "2023-04-14",
+					Comments:              "Example comments",
+				},
+				updateMarketIdentificationCode: types.MsgUpdateMarketIdentificationCode{
+					Creator:               suite.address[0].String(),
+					Old_MIC:               "EXAMPLE",
+					New_MIC:               "EXAMPLE1",
+					Operating_MIC:         "EXAMPLE",
+					OPRT_SGMT:             "EXAMPLE",
+					MarketName:            "Example Market",
+					LegalEntityName:       "Example Legal Entity",
+					LegalEntityIdentifier: "EXAMPLE",
+					MarketCategory:        "EXAMPLE",
+					Acronym:               "EXAMPLE",
+					ISOCountryCode:        "EXAMPLE",
+					City:                  "Example City",
+					Website:               "www.example.com",
+					Status:                "Active",
+					CreationDate:          "2023-04-14",
+					LastUpdateDate:        "2023-04-14",
+					LastValidationDate:    "2023-04-14",
+					ExpiryDate:            "2023-04-14",
+					Comments:              "Example comments",
+				},
+			},
+			errArgs: errArgs{
+				shouldPass: true,
+				contains:   "",
+			},
+		},
+	}
+
+	for _, tc := range tests {
+		suite.Run(tc.name, func() {
+			suite.SetupTest()
+
+			// Check if the MIC already exists
+			_, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.registerMarketIdentificationCode.MIC)
+			if found {
+				// Skip registration if the MIC already exists
+				return
+			}
+
+			// call RegisterMarketIdentificationCode method
+			_, err := suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.registerMarketIdentificationCode)
+
+			// get old mic
+			_, found = suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.updateMarketIdentificationCode.Old_MIC)
+
+			// now that mic is registered using RegisterMarketIdentificationCode, call UpdateMarketIdentificationCode for updating
+			_, err = suite.msgServer.UpdateMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.updateMarketIdentificationCode)
+
+			// get new mic after updating
+			newMIC, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.updateMarketIdentificationCode.New_MIC)
+
+			//println("hellooo", mic.String(), newMIC.String())
+
+			// Assert that no error occurred
+			if tc.errArgs.shouldPass {
+				suite.Require().NoError(err, tc.name)
+				suite.Require().True(found, tc.name)
+				suite.Require().Equal(tc.args.updateMarketIdentificationCode.New_MIC, newMIC.MIC, tc.name)
 			} else {
 				suite.Require().Error(err, tc.name)
 				suite.Require().Contains(err.Error(), tc.errArgs.contains, tc.name)
