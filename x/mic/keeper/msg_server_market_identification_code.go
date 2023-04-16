@@ -12,6 +12,7 @@ import (
 func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *types.MsgRegisterMarketIdentificationCode) (*types.MsgRegisterMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
@@ -30,7 +31,8 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		}
 	}
 
-	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
+	// Validate all required fields are not empty
+	// Get all required fields from https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf
 	if msg.MIC == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
 	}
@@ -62,6 +64,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "LastUpdateDate: %s", msg.LastUpdateDate)
 	}
 
+	// Create a market identification code object
 	var marketIdentificationCode = types.MarketIdentificationCode{
 		Creator:               msg.Creator,
 		MIC:                   msg.MIC,
@@ -96,6 +99,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *types.MsgUpdateMarketIdentificationCode) (*types.MsgUpdateMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
@@ -113,12 +117,13 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrMICExistsAlready, "MIC: %s", msg.New_MIC)
 	}
 
-	// Checks if the msg creator is the same as the current owner
+	// Check if the msg creator is the same as the current owner
 	if msg.Creator != val.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsWrong, "Creator: %s", msg.Creator)
 	}
 
-	// check that these fields are not empty using this https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf to know the required fields
+	// Validate all required fields are not empty
+	// Get all required fields from https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.pdf
 	if msg.New_MIC == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "New_MIC: %s", msg.New_MIC)
 	}
@@ -150,6 +155,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrLastUpdateDateIsEmpty, "LastUpdateDate: %s", msg.LastUpdateDate)
 	}
 
+	// Create a new market identification code object
 	var editedMarketIdentificationCode = types.MarketIdentificationCode{
 		Creator:               msg.Creator,
 		MIC:                   msg.New_MIC,
