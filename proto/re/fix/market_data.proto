@@ -8,6 +8,9 @@ import "re/fix/standard_message.proto";
 message MarketData {
   string sessionID = 1; 
   MarketDataRequest marketDataRequest = 2;
+  MarketDataSnapShot marketDataSnapShot = 3;
+  MarketDataFullRefresh marketDataFullRefresh = 4;
+  MarketDataRequestReject marketDataRequestReject = 5;
 }
 
 message MarketDataRequest {
@@ -21,4 +24,16 @@ message MarketDataRequest {
   string mic = 8; // This is the Security Exchange (MIC) code field, indicating that the security being requested is listed on the New York Stock Exchange
   Trailer trailer = 9; //standard Trailer
   string creator = 10;
+}
+
+message MarketDataSnapShot {
+  // TODO
+}
+
+message MarketDataFullRefresh {
+  // TODO
+}
+
+message MarketDataRequestReject {
+  // TODO
 }
