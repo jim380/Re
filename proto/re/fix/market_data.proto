@@ -1,0 +1,24 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+message MarketData {
+  string sessionID = 1; 
+  MarketDataRequest marketDataRequest = 2;
+}
+
+message MarketDataRequest {
+  Header header = 1;  //standard Header
+  string mdReqID = 2; // MDReqID field provides a unique identifier for the market data request message
+  int32 subscriptionRequestType = 3; // SubscriptionRequestType is a FIX field (tag 263) used in Market Data Request messages to specify the type of subscription being requested. It indicates whether a market data subscription is being requested for the full order book or for incremental updates to the order book
+  int32 marketDepth = 4; // MarketDepth field is used to indicate the level of market data depth that is being requested. Specifically, it specifies how many levels of the order book should be included in the response to the request
+  int32 mdUpdateType = 5; // MDUpdateType provides the type of updates that the sender of the message wants to receive in response to their request for market data.
+  int32 noRelatedSym = 6; // The NoRelatedSym field in a Market Data Request message is used to indicate the number of symbols or instruments for which the market data is being requested
+  string symbol = 7; // In the context of a Market Data Request message in the FIX protocol, the Symbol field refers to the security or financial instrument for which market data is being requested
+  string mic = 8; // This is the Security Exchange (MIC) code field, indicating that the security being requested is listed on the New York Stock Exchange
+  Trailer trailer = 9; //standard Trailer
+  string creator = 10;
+}

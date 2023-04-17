@@ -20,6 +20,7 @@ func DefaultGenesis() *GenesisState {
 		OrdersCancelRejectList:    []OrdersCancelReject{},
 		OrdersExecutionReportList: []OrdersExecutionReport{},
 		QuoteList:                 []Quote{},
+		MarketDataList:            []MarketData{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -139,14 +140,27 @@ func (gs GenesisState) Validate() error {
 	quoteIdMap := make(map[string]bool)
 	quoteCount := gs.GetQuoteCount()
 	for _, elem := range gs.QuoteList {
-		if _, ok := quoteIdMap[elem.SessionID]; ok {
+		if _, ok := quoteIdMap[elem.QuoteRequest.QuoteReqID]; ok {
 			return fmt.Errorf("duplicated id for quote")
 		}
-		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
-		if sessionID >= quoteCount {
+		quoteReqID, _ := strconv.ParseUint(elem.QuoteRequest.QuoteReqID, 10, 64)
+		if quoteReqID >= quoteCount {
 			return fmt.Errorf("quote id should be lower or equal than the last id")
 		}
-		quoteIdMap[elem.SessionID] = true
+		quoteIdMap[elem.QuoteRequest.QuoteReqID] = true
+	}
+	// Check for duplicated ID in marketData
+	marketDataIdMap := make(map[string]bool)
+	marketDataCount := gs.GetMarketDataCount()
+	for _, elem := range gs.MarketDataList {
+		if _, ok := marketDataIdMap[elem.MarketDataRequest.MdReqID]; ok {
+			return fmt.Errorf("duplicated id for marketData")
+		}
+		mdReqID, _ := strconv.ParseUint(elem.MarketDataRequest.MdReqID, 10, 64)
+		if mdReqID >= marketDataCount {
+			return fmt.Errorf("marketData id should be lower or equal than the last id")
+		}
+		marketDataIdMap[elem.MarketDataRequest.MdReqID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 
