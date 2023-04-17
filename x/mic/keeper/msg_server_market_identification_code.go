@@ -192,18 +192,19 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *types.MsgDeleteMarketIdentificationCode) (*types.MsgDeleteMarketIdentificationCodeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// Checks that the element exists
+	// Check that the element exists
 	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.MIC)
 	}
 
-	// Checks if the msg creator is the same as the current owner
+	// Check if the msg creator is the same as the current owner
 	if msg.Creator != val.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsWrong, "Creator: %s", msg.Creator)
 	}
