@@ -200,7 +200,7 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 	// Checks that the element exists
 	val, found := k.GetMarketIdentificationCode(ctx, msg.MIC)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrMICIsEmpty, "MIC: %s", msg.MIC)
+		return nil, sdkerrors.Wrapf(types.ErrMICIsNotFound, "MIC: %s", msg.MIC)
 	}
 
 	// Checks if the msg creator is the same as the current owner
