@@ -8,32 +8,55 @@ import "re/fix/standard_message.proto";
 message MarketData {
   string sessionID = 1; 
   MarketDataRequest marketDataRequest = 2;
-  MarketDataSnapShot marketDataSnapShot = 3;
-  MarketDataFullRefresh marketDataFullRefresh = 4;
+  MarketDataSnapShotFullRefresh marketDataSnapShotFullRefresh = 3;
+  MarketDataIncremental marketDataIncremental = 4;
   MarketDataRequestReject marketDataRequestReject = 5;
 }
 
 message MarketDataRequest {
-  Header header = 1;  //standard Header
+  Header header = 1;  // standard Header
   string mdReqID = 2; // MDReqID field provides a unique identifier for the market data request message
-  int32 subscriptionRequestType = 3; // SubscriptionRequestType is a FIX field (tag 263) used in Market Data Request messages to specify the type of subscription being requested. It indicates whether a market data subscription is being requested for the full order book or for incremental updates to the order book
+  int32 subscriptionRequestType = 3; // subscriptionRequestType field corresponds to the FIX tag 263, and the values 0 and 1 respectively indicate snapshot and snapshot + incremental updates.
   int32 marketDepth = 4; // MarketDepth field is used to indicate the level of market data depth that is being requested. Specifically, it specifies how many levels of the order book should be included in the response to the request
-  int32 mdUpdateType = 5; // MDUpdateType provides the type of updates that the sender of the message wants to receive in response to their request for market data.
+  int32 mdUpdateType = 5; // The mdUpdateType field specifies the type of updates that the sender wants to receive in response to their request for market data. The possible values are "0" for full refresh, "1" for incremental refresh, and "2" for removing a single price level
   int32 noRelatedSym = 6; // The NoRelatedSym field in a Market Data Request message is used to indicate the number of symbols or instruments for which the market data is being requested
   string symbol = 7; // In the context of a Market Data Request message in the FIX protocol, the Symbol field refers to the security or financial instrument for which market data is being requested
-  string mic = 8; // This is the Security Exchange (MIC) code field, indicating that the security being requested is listed on the New York Stock Exchange
-  Trailer trailer = 9; //standard Trailer
-  string creator = 10;
+  Trailer trailer = 8; //standard Trailer
+  string creator = 9; // owner
 }
 
-message MarketDataSnapShot {
-  // TODO
+message MarketDataSnapShotFullRefresh {
+  Header header = 1;  // standard Header
+  string mdReqID = 2; // The identifier of an originating market data request (corresponds to the MDReqID field specified in the Market Data Request message)
+  string Symbol = 3; // The ticker symbol that is being quoted (such as BTC/USDT)
+  int32 noMDEntries = 4; // The number of market data entries (bids or offers) listed in a request
+  repeated MDEntry mdEntries = 5; // The repeated group of MDEntry fields that provide multiple entries
+  Trailer trailer = 6; //standard Trailer
+  string creator = 7; // owner
 }
 
-message MarketDataFullRefresh {
-  // TODO
+message MarketDataIncremental {
+  Header header = 1;  // standard Header
+  string mdReqID = 2; // The identifier of an originating market data request (corresponds to the MDReqID field specified in the Market Data Request message)
+  int32 NoMDEntries = 3; // The number of market data entries (bids or offers) listed in a request
+  repeated MDEntry mdEntries = 4; // The repeated group of MDEntry fields that provide the incremental updates for the market data.
+  Trailer trailer = 5; //standard Trailer
+  string creator = 6; // owner
+}
+
+// repeated group of MDEntry fields
+message MDEntry {
+  int32 mdUpdateAction = 1; // The type of update action that is being reported for the MDEntry. Possible values are "0" for new, "1" for change, and "2" for delete.
+  int32 mdEntryType = 2; // The side of a quote: 0 — bid , 1 — ask
+  string mdEntryPx = 3; // The price for a market data entry
+  string mdEntrySize = 4; // The quantity (tradeable volume) of a market data entry.
 }
 
 message MarketDataRequestReject {
-  // TODO
+  Header header = 1;  // standard Header
+  string mdReqID = 2; // The identifier of a Market Data Request that has been rejected
+  int32 mdReqRejReason = 3; // Indicates the reason why a request has been rejected
+  string text = 4; // The detailed information (if available) on why a request has been rejected
+  Trailer trailer = 5; //standard Trailer
+  string creator = 6;
 }
