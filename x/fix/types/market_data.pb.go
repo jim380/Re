@@ -23,11 +23,11 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MarketData struct {
-	SessionID               string                   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	MarketDataRequest       *MarketDataRequest       `protobuf:"bytes,2,opt,name=marketDataRequest,proto3" json:"marketDataRequest,omitempty"`
-	MarketDataSnapShot      *MarketDataSnapShot      `protobuf:"bytes,3,opt,name=marketDataSnapShot,proto3" json:"marketDataSnapShot,omitempty"`
-	MarketDataFullRefresh   *MarketDataFullRefresh   `protobuf:"bytes,4,opt,name=marketDataFullRefresh,proto3" json:"marketDataFullRefresh,omitempty"`
-	MarketDataRequestReject *MarketDataRequestReject `protobuf:"bytes,5,opt,name=marketDataRequestReject,proto3" json:"marketDataRequestReject,omitempty"`
+	SessionID                     string                         `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	MarketDataRequest             *MarketDataRequest             `protobuf:"bytes,2,opt,name=marketDataRequest,proto3" json:"marketDataRequest,omitempty"`
+	MarketDataSnapShotFullRefresh *MarketDataSnapShotFullRefresh `protobuf:"bytes,3,opt,name=marketDataSnapShotFullRefresh,proto3" json:"marketDataSnapShotFullRefresh,omitempty"`
+	MarketDataIncremental         *MarketDataIncremental         `protobuf:"bytes,4,opt,name=marketDataIncremental,proto3" json:"marketDataIncremental,omitempty"`
+	MarketDataRequestReject       *MarketDataRequestReject       `protobuf:"bytes,5,opt,name=marketDataRequestReject,proto3" json:"marketDataRequestReject,omitempty"`
 }
 
 func (m *MarketData) Reset()         { *m = MarketData{} }
@@ -77,16 +77,16 @@ func (m *MarketData) GetMarketDataRequest() *MarketDataRequest {
 	return nil
 }
 
-func (m *MarketData) GetMarketDataSnapShot() *MarketDataSnapShot {
+func (m *MarketData) GetMarketDataSnapShotFullRefresh() *MarketDataSnapShotFullRefresh {
 	if m != nil {
-		return m.MarketDataSnapShot
+		return m.MarketDataSnapShotFullRefresh
 	}
 	return nil
 }
 
-func (m *MarketData) GetMarketDataFullRefresh() *MarketDataFullRefresh {
+func (m *MarketData) GetMarketDataIncremental() *MarketDataIncremental {
 	if m != nil {
-		return m.MarketDataFullRefresh
+		return m.MarketDataIncremental
 	}
 	return nil
 }
@@ -106,9 +106,8 @@ type MarketDataRequest struct {
 	MdUpdateType            int32    `protobuf:"varint,5,opt,name=mdUpdateType,proto3" json:"mdUpdateType,omitempty"`
 	NoRelatedSym            int32    `protobuf:"varint,6,opt,name=noRelatedSym,proto3" json:"noRelatedSym,omitempty"`
 	Symbol                  string   `protobuf:"bytes,7,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Mic                     string   `protobuf:"bytes,8,opt,name=mic,proto3" json:"mic,omitempty"`
-	Trailer                 *Trailer `protobuf:"bytes,9,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator                 string   `protobuf:"bytes,10,opt,name=creator,proto3" json:"creator,omitempty"`
+	Trailer                 *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator                 string   `protobuf:"bytes,9,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataRequest) Reset()         { *m = MarketDataRequest{} }
@@ -193,13 +192,6 @@ func (m *MarketDataRequest) GetSymbol() string {
 	return ""
 }
 
-func (m *MarketDataRequest) GetMic() string {
-	if m != nil {
-		return m.Mic
-	}
-	return ""
-}
-
 func (m *MarketDataRequest) GetTrailer() *Trailer {
 	if m != nil {
 		return m.Trailer
@@ -214,21 +206,28 @@ func (m *MarketDataRequest) GetCreator() string {
 	return ""
 }
 
-type MarketDataSnapShot struct {
+type MarketDataSnapShotFullRefresh struct {
+	Header      *Header    `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	MdReqID     string     `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	Symbol      string     `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	NoMDEntries int32      `protobuf:"varint,4,opt,name=noMDEntries,proto3" json:"noMDEntries,omitempty"`
+	MdEntries   []*MDEntry `protobuf:"bytes,5,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
+	Trailer     *Trailer   `protobuf:"bytes,6,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator     string     `protobuf:"bytes,7,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
-func (m *MarketDataSnapShot) Reset()         { *m = MarketDataSnapShot{} }
-func (m *MarketDataSnapShot) String() string { return proto.CompactTextString(m) }
-func (*MarketDataSnapShot) ProtoMessage()    {}
-func (*MarketDataSnapShot) Descriptor() ([]byte, []int) {
+func (m *MarketDataSnapShotFullRefresh) Reset()         { *m = MarketDataSnapShotFullRefresh{} }
+func (m *MarketDataSnapShotFullRefresh) String() string { return proto.CompactTextString(m) }
+func (*MarketDataSnapShotFullRefresh) ProtoMessage()    {}
+func (*MarketDataSnapShotFullRefresh) Descriptor() ([]byte, []int) {
 	return fileDescriptor_774f86e03def608c, []int{2}
 }
-func (m *MarketDataSnapShot) XXX_Unmarshal(b []byte) error {
+func (m *MarketDataSnapShotFullRefresh) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MarketDataSnapShot) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MarketDataSnapShotFullRefresh) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MarketDataSnapShot.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MarketDataSnapShotFullRefresh.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -238,33 +237,88 @@ func (m *MarketDataSnapShot) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *MarketDataSnapShot) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MarketDataSnapShot.Merge(m, src)
+func (m *MarketDataSnapShotFullRefresh) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MarketDataSnapShotFullRefresh.Merge(m, src)
 }
-func (m *MarketDataSnapShot) XXX_Size() int {
+func (m *MarketDataSnapShotFullRefresh) XXX_Size() int {
 	return m.Size()
 }
-func (m *MarketDataSnapShot) XXX_DiscardUnknown() {
-	xxx_messageInfo_MarketDataSnapShot.DiscardUnknown(m)
+func (m *MarketDataSnapShotFullRefresh) XXX_DiscardUnknown() {
+	xxx_messageInfo_MarketDataSnapShotFullRefresh.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MarketDataSnapShot proto.InternalMessageInfo
+var xxx_messageInfo_MarketDataSnapShotFullRefresh proto.InternalMessageInfo
 
-type MarketDataFullRefresh struct {
+func (m *MarketDataSnapShotFullRefresh) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
 }
 
-func (m *MarketDataFullRefresh) Reset()         { *m = MarketDataFullRefresh{} }
-func (m *MarketDataFullRefresh) String() string { return proto.CompactTextString(m) }
-func (*MarketDataFullRefresh) ProtoMessage()    {}
-func (*MarketDataFullRefresh) Descriptor() ([]byte, []int) {
+func (m *MarketDataSnapShotFullRefresh) GetMdReqID() string {
+	if m != nil {
+		return m.MdReqID
+	}
+	return ""
+}
+
+func (m *MarketDataSnapShotFullRefresh) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *MarketDataSnapShotFullRefresh) GetNoMDEntries() int32 {
+	if m != nil {
+		return m.NoMDEntries
+	}
+	return 0
+}
+
+func (m *MarketDataSnapShotFullRefresh) GetMdEntries() []*MDEntry {
+	if m != nil {
+		return m.MdEntries
+	}
+	return nil
+}
+
+func (m *MarketDataSnapShotFullRefresh) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+func (m *MarketDataSnapShotFullRefresh) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+type MarketDataIncremental struct {
+	Header      *Header    `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	MdReqID     string     `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	NoMDEntries int32      `protobuf:"varint,3,opt,name=NoMDEntries,proto3" json:"NoMDEntries,omitempty"`
+	MdEntries   []*MDEntry `protobuf:"bytes,4,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
+	Trailer     *Trailer   `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator     string     `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+}
+
+func (m *MarketDataIncremental) Reset()         { *m = MarketDataIncremental{} }
+func (m *MarketDataIncremental) String() string { return proto.CompactTextString(m) }
+func (*MarketDataIncremental) ProtoMessage()    {}
+func (*MarketDataIncremental) Descriptor() ([]byte, []int) {
 	return fileDescriptor_774f86e03def608c, []int{3}
 }
-func (m *MarketDataFullRefresh) XXX_Unmarshal(b []byte) error {
+func (m *MarketDataIncremental) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MarketDataFullRefresh) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MarketDataIncremental) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MarketDataFullRefresh.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MarketDataIncremental.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -274,26 +328,143 @@ func (m *MarketDataFullRefresh) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MarketDataFullRefresh) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MarketDataFullRefresh.Merge(m, src)
+func (m *MarketDataIncremental) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MarketDataIncremental.Merge(m, src)
 }
-func (m *MarketDataFullRefresh) XXX_Size() int {
+func (m *MarketDataIncremental) XXX_Size() int {
 	return m.Size()
 }
-func (m *MarketDataFullRefresh) XXX_DiscardUnknown() {
-	xxx_messageInfo_MarketDataFullRefresh.DiscardUnknown(m)
+func (m *MarketDataIncremental) XXX_DiscardUnknown() {
+	xxx_messageInfo_MarketDataIncremental.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MarketDataFullRefresh proto.InternalMessageInfo
+var xxx_messageInfo_MarketDataIncremental proto.InternalMessageInfo
+
+func (m *MarketDataIncremental) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *MarketDataIncremental) GetMdReqID() string {
+	if m != nil {
+		return m.MdReqID
+	}
+	return ""
+}
+
+func (m *MarketDataIncremental) GetNoMDEntries() int32 {
+	if m != nil {
+		return m.NoMDEntries
+	}
+	return 0
+}
+
+func (m *MarketDataIncremental) GetMdEntries() []*MDEntry {
+	if m != nil {
+		return m.MdEntries
+	}
+	return nil
+}
+
+func (m *MarketDataIncremental) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+func (m *MarketDataIncremental) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+// repeated group of MDEntry fields
+type MDEntry struct {
+	MdUpdateAction int32  `protobuf:"varint,1,opt,name=mdUpdateAction,proto3" json:"mdUpdateAction,omitempty"`
+	MdEntryType    int32  `protobuf:"varint,2,opt,name=mdEntryType,proto3" json:"mdEntryType,omitempty"`
+	MdEntryPx      string `protobuf:"bytes,3,opt,name=mdEntryPx,proto3" json:"mdEntryPx,omitempty"`
+	MdEntrySize    string `protobuf:"bytes,4,opt,name=mdEntrySize,proto3" json:"mdEntrySize,omitempty"`
+}
+
+func (m *MDEntry) Reset()         { *m = MDEntry{} }
+func (m *MDEntry) String() string { return proto.CompactTextString(m) }
+func (*MDEntry) ProtoMessage()    {}
+func (*MDEntry) Descriptor() ([]byte, []int) {
+	return fileDescriptor_774f86e03def608c, []int{4}
+}
+func (m *MDEntry) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MDEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MDEntry.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MDEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MDEntry.Merge(m, src)
+}
+func (m *MDEntry) XXX_Size() int {
+	return m.Size()
+}
+func (m *MDEntry) XXX_DiscardUnknown() {
+	xxx_messageInfo_MDEntry.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MDEntry proto.InternalMessageInfo
+
+func (m *MDEntry) GetMdUpdateAction() int32 {
+	if m != nil {
+		return m.MdUpdateAction
+	}
+	return 0
+}
+
+func (m *MDEntry) GetMdEntryType() int32 {
+	if m != nil {
+		return m.MdEntryType
+	}
+	return 0
+}
+
+func (m *MDEntry) GetMdEntryPx() string {
+	if m != nil {
+		return m.MdEntryPx
+	}
+	return ""
+}
+
+func (m *MDEntry) GetMdEntrySize() string {
+	if m != nil {
+		return m.MdEntrySize
+	}
+	return ""
+}
 
 type MarketDataRequestReject struct {
+	Header         *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	MdReqID        string   `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	MdReqRejReason int32    `protobuf:"varint,3,opt,name=mdReqRejReason,proto3" json:"mdReqRejReason,omitempty"`
+	Text           string   `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
+	Trailer        *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator        string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataRequestReject) Reset()         { *m = MarketDataRequestReject{} }
 func (m *MarketDataRequestReject) String() string { return proto.CompactTextString(m) }
 func (*MarketDataRequestReject) ProtoMessage()    {}
 func (*MarketDataRequestReject) Descriptor() ([]byte, []int) {
-	return fileDescriptor_774f86e03def608c, []int{4}
+	return fileDescriptor_774f86e03def608c, []int{5}
 }
 func (m *MarketDataRequestReject) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -322,49 +493,102 @@ func (m *MarketDataRequestReject) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MarketDataRequestReject proto.InternalMessageInfo
 
+func (m *MarketDataRequestReject) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *MarketDataRequestReject) GetMdReqID() string {
+	if m != nil {
+		return m.MdReqID
+	}
+	return ""
+}
+
+func (m *MarketDataRequestReject) GetMdReqRejReason() int32 {
+	if m != nil {
+		return m.MdReqRejReason
+	}
+	return 0
+}
+
+func (m *MarketDataRequestReject) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *MarketDataRequestReject) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+func (m *MarketDataRequestReject) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*MarketData)(nil), "jim380.re.fix.MarketData")
 	proto.RegisterType((*MarketDataRequest)(nil), "jim380.re.fix.MarketDataRequest")
-	proto.RegisterType((*MarketDataSnapShot)(nil), "jim380.re.fix.MarketDataSnapShot")
-	proto.RegisterType((*MarketDataFullRefresh)(nil), "jim380.re.fix.MarketDataFullRefresh")
+	proto.RegisterType((*MarketDataSnapShotFullRefresh)(nil), "jim380.re.fix.MarketDataSnapShotFullRefresh")
+	proto.RegisterType((*MarketDataIncremental)(nil), "jim380.re.fix.MarketDataIncremental")
+	proto.RegisterType((*MDEntry)(nil), "jim380.re.fix.MDEntry")
 	proto.RegisterType((*MarketDataRequestReject)(nil), "jim380.re.fix.MarketDataRequestReject")
 }
 
 func init() { proto.RegisterFile("re/fix/market_data.proto", fileDescriptor_774f86e03def608c) }
 
 var fileDescriptor_774f86e03def608c = []byte{
-	// 484 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x93, 0x41, 0x6f, 0xd3, 0x30,
-	0x14, 0xc7, 0x9b, 0x95, 0xb6, 0xf4, 0x15, 0x24, 0x66, 0xd1, 0xd5, 0x20, 0x88, 0x4a, 0x84, 0xd0,
-	0x2e, 0x24, 0xd3, 0x76, 0x99, 0x38, 0xa2, 0x0a, 0xb1, 0xc3, 0x90, 0x70, 0xc7, 0x65, 0x97, 0xe1,
-	0x26, 0xaf, 0x6b, 0x46, 0x1c, 0x67, 0xb6, 0x2b, 0xb5, 0x9f, 0x81, 0x0b, 0x1f, 0x8b, 0xe3, 0x8e,
-	0x1c, 0x51, 0xfb, 0x1d, 0x38, 0xa3, 0x3a, 0x29, 0xed, 0xda, 0x46, 0xdc, 0xe2, 0xbf, 0x7f, 0xef,
-	0xef, 0x97, 0xff, 0xb3, 0x81, 0x2a, 0x0c, 0x86, 0xf1, 0x24, 0x10, 0x5c, 0x7d, 0x43, 0x73, 0x15,
-	0x71, 0xc3, 0xfd, 0x4c, 0x49, 0x23, 0xc9, 0xe3, 0x9b, 0x58, 0x9c, 0x9c, 0x1e, 0xf9, 0x0a, 0xfd,
-	0x61, 0x3c, 0x79, 0xfe, 0xb2, 0x00, 0xb5, 0xe1, 0x69, 0xc4, 0x55, 0x74, 0x25, 0x50, 0x6b, 0x7e,
-	0x8d, 0x39, 0xed, 0x7d, 0xaf, 0x02, 0x9c, 0x5b, 0x8f, 0x1e, 0x37, 0x9c, 0xbc, 0x80, 0xa6, 0x46,
-	0xad, 0x63, 0x99, 0x9e, 0xf5, 0xa8, 0xd3, 0x75, 0x0e, 0x9b, 0x6c, 0x25, 0x90, 0x4f, 0xb0, 0x2f,
-	0xfe, 0xb1, 0x0c, 0x6f, 0xc7, 0xa8, 0x0d, 0xdd, 0xeb, 0x3a, 0x87, 0xad, 0xe3, 0xae, 0x7f, 0xef,
-	0x58, 0xff, 0x7c, 0x93, 0x63, 0xdb, 0xa5, 0xe4, 0x33, 0x90, 0x95, 0xd8, 0x4f, 0x79, 0xd6, 0x1f,
-	0x49, 0x43, 0xab, 0xd6, 0xf0, 0x55, 0xa9, 0xe1, 0x12, 0x64, 0x3b, 0x8a, 0xc9, 0x25, 0xb4, 0x57,
-	0xea, 0x87, 0x71, 0x92, 0x30, 0x1c, 0x2a, 0xd4, 0x23, 0xfa, 0xc0, 0xba, 0xbe, 0x2e, 0x75, 0x5d,
-	0x63, 0xd9, 0x6e, 0x0b, 0xf2, 0x15, 0x3a, 0x5b, 0xff, 0xc0, 0xf0, 0x06, 0x43, 0x43, 0x6b, 0xd6,
-	0xfd, 0xcd, 0x7f, 0x43, 0xb0, 0x34, 0x2b, 0xb3, 0xf1, 0xfe, 0xec, 0xc1, 0xfe, 0x56, 0x11, 0x79,
-	0x0b, 0xf5, 0x11, 0xf2, 0x08, 0x95, 0x9d, 0x48, 0xeb, 0xb8, 0xbd, 0x71, 0xcc, 0x47, 0xbb, 0xc9,
-	0x0a, 0x88, 0x50, 0x68, 0x88, 0x88, 0xe1, 0xed, 0x59, 0xcf, 0xce, 0xa6, 0xc9, 0x96, 0x4b, 0x72,
-	0x0a, 0x1d, 0x3d, 0x1e, 0xe8, 0x50, 0xc5, 0x99, 0x89, 0x65, 0x5a, 0xf8, 0x5f, 0x4c, 0x33, 0xb4,
-	0xa1, 0xd7, 0x58, 0xd9, 0x36, 0xe9, 0x42, 0xab, 0xe8, 0x19, 0x33, 0x93, 0x87, 0x59, 0x63, 0xeb,
-	0x12, 0xf1, 0xe0, 0x91, 0x88, 0xbe, 0x64, 0x11, 0x37, 0x68, 0x0d, 0x6b, 0x16, 0xb9, 0xa7, 0x2d,
-	0x98, 0x54, 0x32, 0x4c, 0xb8, 0xc1, 0xa8, 0x3f, 0x15, 0xb4, 0x9e, 0x33, 0xeb, 0x1a, 0x39, 0x80,
-	0xba, 0x9e, 0x8a, 0x81, 0x4c, 0x68, 0xc3, 0x36, 0x5f, 0xac, 0xc8, 0x13, 0xa8, 0x8a, 0x38, 0xa4,
-	0x0f, 0xad, 0xb8, 0xf8, 0x24, 0x47, 0xd0, 0x30, 0x8a, 0xc7, 0x09, 0x2a, 0xda, 0xb4, 0xb9, 0x1c,
-	0x6c, 0xe4, 0x72, 0x91, 0xef, 0xb2, 0x25, 0xb6, 0x48, 0x26, 0x54, 0xc8, 0x8d, 0x54, 0x14, 0xf2,
-	0x64, 0x8a, 0xa5, 0xf7, 0x14, 0xc8, 0xf6, 0x05, 0xf3, 0x3a, 0xd0, 0xde, 0x79, 0x41, 0xbc, 0x67,
-	0xd0, 0x29, 0x99, 0xed, 0xfb, 0x77, 0x3f, 0x67, 0xae, 0x73, 0x37, 0x73, 0x9d, 0xdf, 0x33, 0xd7,
-	0xf9, 0x31, 0x77, 0x2b, 0x77, 0x73, 0xb7, 0xf2, 0x6b, 0xee, 0x56, 0x2e, 0xbb, 0xd7, 0xb1, 0x19,
-	0x8d, 0x07, 0x7e, 0x28, 0x45, 0x90, 0x37, 0x1a, 0x30, 0x0c, 0x26, 0xf6, 0x75, 0x9a, 0x69, 0x86,
-	0x7a, 0x50, 0xb7, 0x6f, 0xf2, 0xe4, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x10, 0x7c, 0x04, 0x17,
-	0xdd, 0x03, 0x00, 0x00,
+	// 652 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0xcf, 0x6e, 0xd3, 0x4e,
+	0x10, 0xae, 0x93, 0x3a, 0xf9, 0x65, 0xf2, 0x03, 0xa9, 0x2b, 0xb5, 0xb5, 0x10, 0x8d, 0xac, 0x08,
+	0x55, 0x3d, 0x80, 0x53, 0xb5, 0x1c, 0x2a, 0x6e, 0xa0, 0x80, 0xe8, 0xa1, 0x15, 0xda, 0x94, 0x4b,
+	0x2f, 0x65, 0x63, 0x4f, 0x1b, 0x17, 0xff, 0xeb, 0xee, 0x46, 0x8a, 0x39, 0xf3, 0x00, 0x48, 0xbc,
+	0x02, 0x47, 0x1e, 0x84, 0x63, 0x8f, 0x1c, 0x51, 0xcb, 0x89, 0xa7, 0x40, 0x59, 0x6f, 0xb0, 0x9d,
+	0x26, 0x45, 0x45, 0xb9, 0x79, 0xbf, 0xfd, 0xf6, 0x9b, 0x9d, 0x6f, 0x66, 0xbc, 0x60, 0x71, 0xec,
+	0x9c, 0xfa, 0xa3, 0x4e, 0xc8, 0xf8, 0x7b, 0x94, 0x27, 0x1e, 0x93, 0xcc, 0x49, 0x78, 0x2c, 0x63,
+	0x72, 0xef, 0xdc, 0x0f, 0x77, 0xf7, 0xb6, 0x1d, 0x8e, 0xce, 0xa9, 0x3f, 0x7a, 0xb0, 0xa1, 0x89,
+	0x42, 0xb2, 0xc8, 0x63, 0xdc, 0x3b, 0x09, 0x51, 0x08, 0x76, 0x86, 0x19, 0xbb, 0xfd, 0xb5, 0x0a,
+	0x70, 0xa0, 0x34, 0xba, 0x4c, 0x32, 0xf2, 0x10, 0x1a, 0x02, 0x85, 0xf0, 0xe3, 0x68, 0xbf, 0x6b,
+	0x19, 0xb6, 0xb1, 0xd5, 0xa0, 0x39, 0x40, 0x0e, 0x61, 0x25, 0xfc, 0xc3, 0xa5, 0x78, 0x31, 0x44,
+	0x21, 0xad, 0x8a, 0x6d, 0x6c, 0x35, 0x77, 0x6c, 0xa7, 0x14, 0xd6, 0x39, 0x98, 0xe6, 0xd1, 0x9b,
+	0x47, 0x09, 0x87, 0x8d, 0x1c, 0xec, 0x45, 0x2c, 0xe9, 0x0d, 0x62, 0xf9, 0x6a, 0x18, 0x04, 0x14,
+	0x4f, 0x39, 0x8a, 0x81, 0x55, 0x55, 0xda, 0x8f, 0xe7, 0x6a, 0xcf, 0x38, 0x43, 0x6f, 0x97, 0x24,
+	0xc7, 0xb0, 0x9a, 0x13, 0xf6, 0x23, 0x97, 0x63, 0x88, 0x91, 0x64, 0x81, 0xb5, 0xac, 0x62, 0x3d,
+	0x9a, 0x1b, 0xab, 0xc0, 0xa5, 0xb3, 0x25, 0xc8, 0x3b, 0x58, 0xbf, 0x91, 0x24, 0xc5, 0x73, 0x74,
+	0xa5, 0x65, 0x2a, 0xf5, 0xcd, 0xbf, 0xba, 0xa4, 0xd8, 0x74, 0x9e, 0x4c, 0xfb, 0x67, 0x05, 0x56,
+	0x6e, 0x1c, 0x22, 0x4f, 0xa0, 0x36, 0x40, 0xe6, 0x21, 0x57, 0x25, 0x6b, 0xee, 0xac, 0x4e, 0x85,
+	0x79, 0xad, 0x36, 0xa9, 0x26, 0x11, 0x0b, 0xea, 0xa1, 0x47, 0xf1, 0x62, 0xbf, 0xab, 0x8a, 0xd7,
+	0xa0, 0x93, 0x25, 0xd9, 0x83, 0x75, 0x31, 0xec, 0x0b, 0x97, 0xfb, 0x89, 0xf4, 0xe3, 0x48, 0xeb,
+	0x1f, 0xa5, 0x09, 0xaa, 0x52, 0x98, 0x74, 0xde, 0x36, 0xb1, 0xa1, 0xa9, 0xef, 0x8c, 0x89, 0x1c,
+	0x28, 0x33, 0x4d, 0x5a, 0x84, 0x48, 0x1b, 0xfe, 0x0f, 0xbd, 0xb7, 0x89, 0xc7, 0x24, 0x2a, 0x41,
+	0x53, 0x51, 0x4a, 0xd8, 0x98, 0x13, 0xc5, 0x14, 0x03, 0x26, 0xd1, 0xeb, 0xa5, 0xa1, 0x55, 0xcb,
+	0x38, 0x45, 0x8c, 0xac, 0x41, 0x4d, 0xa4, 0x61, 0x3f, 0x0e, 0xac, 0xba, 0xba, 0xbc, 0x5e, 0x91,
+	0x6d, 0xa8, 0x4b, 0xce, 0xfc, 0x00, 0xb9, 0xf5, 0x9f, 0x72, 0x61, 0x6d, 0xca, 0x85, 0xa3, 0x6c,
+	0x97, 0x4e, 0x68, 0x63, 0x1f, 0x5c, 0x8e, 0x4c, 0xc6, 0xdc, 0x6a, 0x64, 0x3e, 0xe8, 0x65, 0xfb,
+	0x4b, 0x05, 0x36, 0x6e, 0xed, 0xb2, 0xc5, 0x59, 0x9e, 0xa7, 0x53, 0x2d, 0xa5, 0x63, 0x43, 0x33,
+	0x8a, 0x0f, 0xba, 0x2f, 0x23, 0xc9, 0x7d, 0x14, 0x13, 0x43, 0x0b, 0x10, 0x79, 0x0a, 0x8d, 0xd0,
+	0x9b, 0xec, 0x9b, 0x76, 0x75, 0x46, 0xca, 0x19, 0x39, 0xa5, 0x39, 0xb1, 0x68, 0x53, 0xed, 0xce,
+	0x36, 0xd5, 0xcb, 0x36, 0x7d, 0xac, 0xc0, 0xea, 0xcc, 0x01, 0x59, 0x9c, 0x3d, 0x36, 0x34, 0x0f,
+	0x0b, 0x36, 0x64, 0x5d, 0x58, 0x84, 0xca, 0x36, 0x2c, 0xff, 0x83, 0x0d, 0xe6, 0x9d, 0x6d, 0xa8,
+	0x95, 0x6d, 0xf8, 0x6c, 0x40, 0x5d, 0x87, 0x20, 0x9b, 0x70, 0x7f, 0xd2, 0xd1, 0xcf, 0xdd, 0xf1,
+	0x90, 0x28, 0x03, 0x4c, 0x3a, 0x85, 0xaa, 0x79, 0x51, 0x97, 0x49, 0xd5, 0x30, 0x54, 0xf4, 0xbc,
+	0xe4, 0xd0, 0xf8, 0x57, 0xac, 0x97, 0x6f, 0x46, 0xba, 0x37, 0x72, 0xa0, 0x70, 0xbe, 0xe7, 0x7f,
+	0x40, 0xd5, 0x1e, 0x0d, 0x5a, 0x84, 0xda, 0xbf, 0x0c, 0x58, 0x9f, 0xf3, 0x7f, 0x59, 0x5c, 0x79,
+	0x54, 0xba, 0x14, 0x2f, 0x28, 0x9e, 0x53, 0x64, 0x22, 0x8e, 0x74, 0x85, 0xa6, 0x50, 0x42, 0x60,
+	0x59, 0xe2, 0x48, 0xea, 0x7b, 0xaa, 0xef, 0x45, 0x96, 0xe0, 0xc5, 0xb3, 0x6f, 0x57, 0x2d, 0xe3,
+	0xf2, 0xaa, 0x65, 0xfc, 0xb8, 0x6a, 0x19, 0x9f, 0xae, 0x5b, 0x4b, 0x97, 0xd7, 0xad, 0xa5, 0xef,
+	0xd7, 0xad, 0xa5, 0x63, 0xfb, 0xcc, 0x97, 0x83, 0x61, 0xdf, 0x71, 0xe3, 0xb0, 0x93, 0xc9, 0x77,
+	0x28, 0x76, 0x46, 0xea, 0x4d, 0x94, 0x69, 0x82, 0xa2, 0x5f, 0x53, 0x2f, 0xe1, 0xee, 0xef, 0x00,
+	0x00, 0x00, 0xff, 0xff, 0x86, 0x56, 0x7c, 0xf1, 0x53, 0x07, 0x00, 0x00,
 }
 
 func (m *MarketData) Marshal() (dAtA []byte, err error) {
@@ -399,9 +623,9 @@ func (m *MarketData) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x2a
 	}
-	if m.MarketDataFullRefresh != nil {
+	if m.MarketDataIncremental != nil {
 		{
-			size, err := m.MarketDataFullRefresh.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.MarketDataIncremental.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -411,9 +635,9 @@ func (m *MarketData) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if m.MarketDataSnapShot != nil {
+	if m.MarketDataSnapShotFullRefresh != nil {
 		{
-			size, err := m.MarketDataSnapShot.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.MarketDataSnapShotFullRefresh.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -470,7 +694,7 @@ func (m *MarketDataRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.Creator)
 		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Creator)))
 		i--
-		dAtA[i] = 0x52
+		dAtA[i] = 0x4a
 	}
 	if m.Trailer != nil {
 		{
@@ -481,13 +705,6 @@ func (m *MarketDataRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i -= size
 			i = encodeVarintMarketData(dAtA, i, uint64(size))
 		}
-		i--
-		dAtA[i] = 0x4a
-	}
-	if len(m.Mic) > 0 {
-		i -= len(m.Mic)
-		copy(dAtA[i:], m.Mic)
-		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Mic)))
 		i--
 		dAtA[i] = 0x42
 	}
@@ -540,7 +757,7 @@ func (m *MarketDataRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MarketDataSnapShot) Marshal() (dAtA []byte, err error) {
+func (m *MarketDataSnapShotFullRefresh) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -550,20 +767,84 @@ func (m *MarketDataSnapShot) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MarketDataSnapShot) MarshalTo(dAtA []byte) (int, error) {
+func (m *MarketDataSnapShotFullRefresh) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MarketDataSnapShot) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MarketDataSnapShotFullRefresh) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.MdEntries) > 0 {
+		for iNdEx := len(m.MdEntries) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.MdEntries[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMarketData(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x2a
+		}
+	}
+	if m.NoMDEntries != 0 {
+		i = encodeVarintMarketData(dAtA, i, uint64(m.NoMDEntries))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.MdReqID) > 0 {
+		i -= len(m.MdReqID)
+		copy(dAtA[i:], m.MdReqID)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.MdReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
-func (m *MarketDataFullRefresh) Marshal() (dAtA []byte, err error) {
+func (m *MarketDataIncremental) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -573,16 +854,120 @@ func (m *MarketDataFullRefresh) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MarketDataFullRefresh) MarshalTo(dAtA []byte) (int, error) {
+func (m *MarketDataIncremental) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MarketDataFullRefresh) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MarketDataIncremental) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.MdEntries) > 0 {
+		for iNdEx := len(m.MdEntries) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.MdEntries[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMarketData(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x22
+		}
+	}
+	if m.NoMDEntries != 0 {
+		i = encodeVarintMarketData(dAtA, i, uint64(m.NoMDEntries))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.MdReqID) > 0 {
+		i -= len(m.MdReqID)
+		copy(dAtA[i:], m.MdReqID)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.MdReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MDEntry) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MDEntry) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MDEntry) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.MdEntrySize) > 0 {
+		i -= len(m.MdEntrySize)
+		copy(dAtA[i:], m.MdEntrySize)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.MdEntrySize)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.MdEntryPx) > 0 {
+		i -= len(m.MdEntryPx)
+		copy(dAtA[i:], m.MdEntryPx)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.MdEntryPx)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.MdEntryType != 0 {
+		i = encodeVarintMarketData(dAtA, i, uint64(m.MdEntryType))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.MdUpdateAction != 0 {
+		i = encodeVarintMarketData(dAtA, i, uint64(m.MdUpdateAction))
+		i--
+		dAtA[i] = 0x8
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -606,6 +991,56 @@ func (m *MarketDataRequestReject) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.MdReqRejReason != 0 {
+		i = encodeVarintMarketData(dAtA, i, uint64(m.MdReqRejReason))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.MdReqID) > 0 {
+		i -= len(m.MdReqID)
+		copy(dAtA[i:], m.MdReqID)
+		i = encodeVarintMarketData(dAtA, i, uint64(len(m.MdReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMarketData(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -634,12 +1069,12 @@ func (m *MarketData) Size() (n int) {
 		l = m.MarketDataRequest.Size()
 		n += 1 + l + sovMarketData(uint64(l))
 	}
-	if m.MarketDataSnapShot != nil {
-		l = m.MarketDataSnapShot.Size()
+	if m.MarketDataSnapShotFullRefresh != nil {
+		l = m.MarketDataSnapShotFullRefresh.Size()
 		n += 1 + l + sovMarketData(uint64(l))
 	}
-	if m.MarketDataFullRefresh != nil {
-		l = m.MarketDataFullRefresh.Size()
+	if m.MarketDataIncremental != nil {
+		l = m.MarketDataIncremental.Size()
 		n += 1 + l + sovMarketData(uint64(l))
 	}
 	if m.MarketDataRequestReject != nil {
@@ -679,9 +1114,43 @@ func (m *MarketDataRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovMarketData(uint64(l))
 	}
-	l = len(m.Mic)
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.Creator)
 	if l > 0 {
 		n += 1 + l + sovMarketData(uint64(l))
+	}
+	return n
+}
+
+func (m *MarketDataSnapShotFullRefresh) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.MdReqID)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	if m.NoMDEntries != 0 {
+		n += 1 + sovMarketData(uint64(m.NoMDEntries))
+	}
+	if len(m.MdEntries) > 0 {
+		for _, e := range m.MdEntries {
+			l = e.Size()
+			n += 1 + l + sovMarketData(uint64(l))
+		}
 	}
 	if m.Trailer != nil {
 		l = m.Trailer.Size()
@@ -694,21 +1163,60 @@ func (m *MarketDataRequest) Size() (n int) {
 	return n
 }
 
-func (m *MarketDataSnapShot) Size() (n int) {
+func (m *MarketDataIncremental) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.MdReqID)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	if m.NoMDEntries != 0 {
+		n += 1 + sovMarketData(uint64(m.NoMDEntries))
+	}
+	if len(m.MdEntries) > 0 {
+		for _, e := range m.MdEntries {
+			l = e.Size()
+			n += 1 + l + sovMarketData(uint64(l))
+		}
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
 	return n
 }
 
-func (m *MarketDataFullRefresh) Size() (n int) {
+func (m *MDEntry) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
+	if m.MdUpdateAction != 0 {
+		n += 1 + sovMarketData(uint64(m.MdUpdateAction))
+	}
+	if m.MdEntryType != 0 {
+		n += 1 + sovMarketData(uint64(m.MdEntryType))
+	}
+	l = len(m.MdEntryPx)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.MdEntrySize)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
 	return n
 }
 
@@ -718,6 +1226,29 @@ func (m *MarketDataRequestReject) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.MdReqID)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	if m.MdReqRejReason != 0 {
+		n += 1 + sovMarketData(uint64(m.MdReqRejReason))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovMarketData(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovMarketData(uint64(l))
+	}
 	return n
 }
 
@@ -826,7 +1357,7 @@ func (m *MarketData) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MarketDataSnapShot", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketDataSnapShotFullRefresh", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -853,16 +1384,16 @@ func (m *MarketData) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.MarketDataSnapShot == nil {
-				m.MarketDataSnapShot = &MarketDataSnapShot{}
+			if m.MarketDataSnapShotFullRefresh == nil {
+				m.MarketDataSnapShotFullRefresh = &MarketDataSnapShotFullRefresh{}
 			}
-			if err := m.MarketDataSnapShot.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.MarketDataSnapShotFullRefresh.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MarketDataFullRefresh", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketDataIncremental", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -889,10 +1420,10 @@ func (m *MarketData) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.MarketDataFullRefresh == nil {
-				m.MarketDataFullRefresh = &MarketDataFullRefresh{}
+			if m.MarketDataIncremental == nil {
+				m.MarketDataIncremental = &MarketDataIncremental{}
 			}
-			if err := m.MarketDataFullRefresh.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.MarketDataIncremental.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1160,38 +1691,6 @@ func (m *MarketDataRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 8:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Mic", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMarketData
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthMarketData
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthMarketData
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Mic = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 9:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
 			}
 			var msglen int
@@ -1226,7 +1725,7 @@ func (m *MarketDataRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 10:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 			}
@@ -1279,7 +1778,7 @@ func (m *MarketDataRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MarketDataSnapShot) Unmarshal(dAtA []byte) error {
+func (m *MarketDataSnapShotFullRefresh) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1302,12 +1801,233 @@ func (m *MarketDataSnapShot) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MarketDataSnapShot: wiretype end group for non-group")
+			return fmt.Errorf("proto: MarketDataSnapShotFullRefresh: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MarketDataSnapShot: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MarketDataSnapShotFullRefresh: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoMDEntries", wireType)
+			}
+			m.NoMDEntries = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NoMDEntries |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdEntries", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdEntries = append(m.MdEntries, &MDEntry{})
+			if err := m.MdEntries[len(m.MdEntries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMarketData(dAtA[iNdEx:])
@@ -1329,7 +2049,7 @@ func (m *MarketDataSnapShot) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MarketDataFullRefresh) Unmarshal(dAtA []byte) error {
+func (m *MarketDataIncremental) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1352,12 +2072,353 @@ func (m *MarketDataFullRefresh) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MarketDataFullRefresh: wiretype end group for non-group")
+			return fmt.Errorf("proto: MarketDataIncremental: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MarketDataFullRefresh: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MarketDataIncremental: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoMDEntries", wireType)
+			}
+			m.NoMDEntries = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NoMDEntries |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdEntries", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdEntries = append(m.MdEntries, &MDEntry{})
+			if err := m.MdEntries[len(m.MdEntries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMarketData(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MDEntry) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMarketData
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MDEntry: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MDEntry: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdUpdateAction", wireType)
+			}
+			m.MdUpdateAction = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MdUpdateAction |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdEntryType", wireType)
+			}
+			m.MdEntryType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MdEntryType |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdEntryPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdEntryPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdEntrySize", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdEntrySize = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMarketData(dAtA[iNdEx:])
@@ -1408,6 +2469,193 @@ func (m *MarketDataRequestReject) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: MarketDataRequestReject: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MdReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MdReqRejReason", wireType)
+			}
+			m.MdReqRejReason = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MdReqRejReason |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMarketData
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMarketData
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMarketData(dAtA[iNdEx:])

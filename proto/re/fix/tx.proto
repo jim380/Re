@@ -12,22 +12,26 @@ import "re/fix/quote.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount        (MsgCreateAccount       ) returns (MsgCreateAccountResponse       );
-  rpc UpdateAccount        (MsgUpdateAccount       ) returns (MsgUpdateAccountResponse       );
-  rpc DeleteAccount        (MsgDeleteAccount       ) returns (MsgDeleteAccountResponse       );
-  rpc LogonInitiator       (MsgLogonInitiator      ) returns (MsgLogonInitiatorResponse      );
-  rpc LogonAcceptor        (MsgLogonAcceptor       ) returns (MsgLogonAcceptorResponse       );
-  rpc TerminateLogon       (MsgTerminateLogon      ) returns (MsgTerminateLogonResponse      );
-  rpc LogonReject          (MsgLogonReject         ) returns (MsgLogonRejectResponse         );
-  rpc LogoutInitiator      (MsgLogoutInitiator     ) returns (MsgLogoutInitiatorResponse     );
-  rpc LogoutAcceptor       (MsgLogoutAcceptor      ) returns (MsgLogoutAcceptorResponse      );
-  rpc NewOrderSingle       (MsgNewOrderSingle      ) returns (MsgNewOrderSingleResponse      );
-  rpc OrderCancelRequest   (MsgOrderCancelRequest  ) returns (MsgOrderCancelRequestResponse  );
-  rpc OrderCancelReject    (MsgOrderCancelReject   ) returns (MsgOrderCancelRejectResponse   );
-  rpc OrderExecutionReport (MsgOrderExecutionReport) returns (MsgOrderExecutionReportResponse);
-  rpc QuoteRequest         (MsgQuoteRequest        ) returns (MsgQuoteRequestResponse        );
-  rpc QuoteAcknowledgement (MsgQuoteAcknowledgement) returns (MsgQuoteAcknowledgementResponse);
-  rpc QuoteRequestReject   (MsgQuoteRequestReject  ) returns (MsgQuoteRequestRejectResponse  );
+  rpc CreateAccount                 (MsgCreateAccount                ) returns (MsgCreateAccountResponse                );
+  rpc UpdateAccount                 (MsgUpdateAccount                ) returns (MsgUpdateAccountResponse                );
+  rpc DeleteAccount                 (MsgDeleteAccount                ) returns (MsgDeleteAccountResponse                );
+  rpc LogonInitiator                (MsgLogonInitiator               ) returns (MsgLogonInitiatorResponse               );
+  rpc LogonAcceptor                 (MsgLogonAcceptor                ) returns (MsgLogonAcceptorResponse                );
+  rpc TerminateLogon                (MsgTerminateLogon               ) returns (MsgTerminateLogonResponse               );
+  rpc LogonReject                   (MsgLogonReject                  ) returns (MsgLogonRejectResponse                  );
+  rpc LogoutInitiator               (MsgLogoutInitiator              ) returns (MsgLogoutInitiatorResponse              );
+  rpc LogoutAcceptor                (MsgLogoutAcceptor               ) returns (MsgLogoutAcceptorResponse               );
+  rpc NewOrderSingle                (MsgNewOrderSingle               ) returns (MsgNewOrderSingleResponse               );
+  rpc OrderCancelRequest            (MsgOrderCancelRequest           ) returns (MsgOrderCancelRequestResponse           );
+  rpc OrderCancelReject             (MsgOrderCancelReject            ) returns (MsgOrderCancelRejectResponse            );
+  rpc OrderExecutionReport          (MsgOrderExecutionReport         ) returns (MsgOrderExecutionReportResponse         );
+  rpc QuoteRequest                  (MsgQuoteRequest                 ) returns (MsgQuoteRequestResponse                 );
+  rpc QuoteAcknowledgement          (MsgQuoteAcknowledgement         ) returns (MsgQuoteAcknowledgementResponse         );
+  rpc QuoteRequestReject            (MsgQuoteRequestReject           ) returns (MsgQuoteRequestRejectResponse           );
+  rpc MarketDataRequest             (MsgMarketDataRequest            ) returns (MsgMarketDataRequestResponse            );
+  rpc MarketDataSnapshotFullRefresh (MsgMarketDataSnapshotFullRefresh) returns (MsgMarketDataSnapshotFullRefreshResponse);
+  rpc MarketDataIncremental         (MsgMarketDataIncremental        ) returns (MsgMarketDataIncrementalResponse        );
+  rpc MarketDataRequestReject       (MsgMarketDataRequestReject      ) returns (MsgMarketDataRequestRejectResponse      );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -35,7 +39,7 @@ message MsgCreateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  string  createdAt        = 6;
+  string createdAt        = 6;
 }
 
 message MsgCreateAccountResponse {
@@ -48,7 +52,7 @@ message MsgUpdateAccount {
   string companyName      = 3;
   string website          = 4;
   string socialMediaLinks = 5;
-  string  createdAt        = 6;
+  string createdAt        = 6;
 }
 
 message MsgUpdateAccountResponse {}
@@ -202,10 +206,48 @@ message MsgQuoteAcknowledgement {
 message MsgQuoteAcknowledgementResponse {}
 
 message MsgQuoteRequestReject {
-  string creator            = 1;
-  string sessionID          = 2;
+  string             creator            = 1;
+  string             sessionID          = 2;
   QuoteRequestReject quoteRequestReject = 3;
 }
 
 message MsgQuoteRequestRejectResponse {}
+
+message MsgMarketDataRequest {
+  string creator                 = 1;
+  string mdReqID                 = 2;
+  string subscriptionRequestType = 3;
+  string marketDepth             = 4;
+  string mdUpdateType            = 5;
+  string noRelatedSym            = 6;
+  string symbol                  = 7;
+}
+
+message MsgMarketDataRequestResponse {}
+
+message MsgMarketDataSnapshotFullRefresh {
+  string creator     = 1;
+  string mdReqID     = 2;
+  string symbol      = 3;
+  string noMDEntries = 4;
+}
+
+message MsgMarketDataSnapshotFullRefreshResponse {}
+
+message MsgMarketDataIncremental {
+  string creator     = 1;
+  string mdReqID     = 2;
+  string noMDEntries = 3;
+}
+
+message MsgMarketDataIncrementalResponse {}
+
+message MsgMarketDataRequestReject {
+  string creator        = 1;
+  string mdReqID        = 2;
+  string mdReqRejReason = 3;
+  string text           = 4;
+}
+
+message MsgMarketDataRequestRejectResponse {}
 

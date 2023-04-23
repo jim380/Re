@@ -28,7 +28,7 @@ message MarketDataRequest {
 message MarketDataSnapShotFullRefresh {
   Header header = 1;  // standard Header
   string mdReqID = 2; // The identifier of an originating market data request (corresponds to the MDReqID field specified in the Market Data Request message)
-  string Symbol = 3; // The ticker symbol that is being quoted (such as BTC/USDT)
+  string symbol = 3; // The ticker symbol that is being quoted (such as BTC/USDT)
   int32 noMDEntries = 4; // The number of market data entries (bids or offers) listed in a request
   repeated MDEntry mdEntries = 5; // The repeated group of MDEntry fields that provide multiple entries
   Trailer trailer = 6; //standard Trailer

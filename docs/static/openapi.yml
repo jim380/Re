@@ -25603,13 +25603,414 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
-                    mDReqID:
-                      type: string
                     sessionID:
                       type: string
+                    marketDataRequest:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        mdReqID:
+                          type: string
+                          title: >-
+                            MDReqID field provides a unique identifier for the
+                            market data request message
+                        subscriptionRequestType:
+                          type: integer
+                          format: int32
+                          description: >-
+                            subscriptionRequestType field corresponds to the FIX
+                            tag 263, and the values 0 and 1 respectively
+                            indicate snapshot and snapshot + incremental
+                            updates.
+                        marketDepth:
+                          type: integer
+                          format: int32
+                          title: >-
+                            MarketDepth field is used to indicate the level of
+                            market data depth that is being requested.
+                            Specifically, it specifies how many levels of the
+                            order book should be included in the response to the
+                            request
+                        mdUpdateType:
+                          type: integer
+                          format: int32
+                          title: >-
+                            The mdUpdateType field specifies the type of updates
+                            that the sender wants to receive in response to
+                            their request for market data. The possible values
+                            are "0" for full refresh, "1" for incremental
+                            refresh, and "2" for removing a single price level
+                        noRelatedSym:
+                          type: integer
+                          format: int32
+                          title: >-
+                            The NoRelatedSym field in a Market Data Request
+                            message is used to indicate the number of symbols or
+                            instruments for which the market data is being
+                            requested
+                        symbol:
+                          type: string
+                          title: >-
+                            In the context of a Market Data Request message in
+                            the FIX protocol, the Symbol field refers to the
+                            security or financial instrument for which market
+                            data is being requested
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                    marketDataSnapShotFullRefresh:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        mdReqID:
+                          type: string
+                          title: >-
+                            The identifier of an originating market data request
+                            (corresponds to the MDReqID field specified in the
+                            Market Data Request message)
+                        symbol:
+                          type: string
+                          title: >-
+                            The ticker symbol that is being quoted (such as
+                            BTC/USDT)
+                        noMDEntries:
+                          type: integer
+                          format: int32
+                          title: >-
+                            The number of market data entries (bids or offers)
+                            listed in a request
+                        mdEntries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              mdUpdateAction:
+                                type: integer
+                                format: int32
+                                description: >-
+                                  The type of update action that is being
+                                  reported for the MDEntry. Possible values are
+                                  "0" for new, "1" for change, and "2" for
+                                  delete.
+                              mdEntryType:
+                                type: integer
+                                format: int32
+                                title: 'The side of a quote: 0 — bid , 1 — ask'
+                              mdEntryPx:
+                                type: string
+                                title: The price for a market data entry
+                              mdEntrySize:
+                                type: string
+                                description: >-
+                                  The quantity (tradeable volume) of a market
+                                  data entry.
+                            title: repeated group of MDEntry fields
+                          title: >-
+                            The repeated group of MDEntry fields that provide
+                            multiple entries
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                    marketDataIncremental:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        mdReqID:
+                          type: string
+                          title: >-
+                            The identifier of an originating market data request
+                            (corresponds to the MDReqID field specified in the
+                            Market Data Request message)
+                        NoMDEntries:
+                          type: integer
+                          format: int32
+                          title: >-
+                            The number of market data entries (bids or offers)
+                            listed in a request
+                        mdEntries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              mdUpdateAction:
+                                type: integer
+                                format: int32
+                                description: >-
+                                  The type of update action that is being
+                                  reported for the MDEntry. Possible values are
+                                  "0" for new, "1" for change, and "2" for
+                                  delete.
+                              mdEntryType:
+                                type: integer
+                                format: int32
+                                title: 'The side of a quote: 0 — bid , 1 — ask'
+                              mdEntryPx:
+                                type: string
+                                title: The price for a market data entry
+                              mdEntrySize:
+                                type: string
+                                description: >-
+                                  The quantity (tradeable volume) of a market
+                                  data entry.
+                            title: repeated group of MDEntry fields
+                          description: >-
+                            The repeated group of MDEntry fields that provide
+                            the incremental updates for the market data.
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                    marketDataRequestReject:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        mdReqID:
+                          type: string
+                          title: >-
+                            The identifier of a Market Data Request that has
+                            been rejected
+                        mdReqRejReason:
+                          type: integer
+                          format: int32
+                          title: Indicates the reason why a request has been rejected
+                        text:
+                          type: string
+                          title: >-
+                            The detailed information (if available) on why a
+                            request has been rejected
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                        creator:
+                          type: string
               pagination:
                 type: object
                 properties:
@@ -25714,7 +26115,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/market_data/{id}:
+  /jim380/Re/fix/market_data/{mdReqID}:
     get:
       summary: Queries a list of MarketData items.
       operationId: Jim380ReFixMarketData
@@ -25727,13 +26128,411 @@ paths:
               MarketData:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
-                  mDReqID:
-                    type: string
                   sessionID:
                     type: string
+                  marketDataRequest:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      mdReqID:
+                        type: string
+                        title: >-
+                          MDReqID field provides a unique identifier for the
+                          market data request message
+                      subscriptionRequestType:
+                        type: integer
+                        format: int32
+                        description: >-
+                          subscriptionRequestType field corresponds to the FIX
+                          tag 263, and the values 0 and 1 respectively indicate
+                          snapshot and snapshot + incremental updates.
+                      marketDepth:
+                        type: integer
+                        format: int32
+                        title: >-
+                          MarketDepth field is used to indicate the level of
+                          market data depth that is being requested.
+                          Specifically, it specifies how many levels of the
+                          order book should be included in the response to the
+                          request
+                      mdUpdateType:
+                        type: integer
+                        format: int32
+                        title: >-
+                          The mdUpdateType field specifies the type of updates
+                          that the sender wants to receive in response to their
+                          request for market data. The possible values are "0"
+                          for full refresh, "1" for incremental refresh, and "2"
+                          for removing a single price level
+                      noRelatedSym:
+                        type: integer
+                        format: int32
+                        title: >-
+                          The NoRelatedSym field in a Market Data Request
+                          message is used to indicate the number of symbols or
+                          instruments for which the market data is being
+                          requested
+                      symbol:
+                        type: string
+                        title: >-
+                          In the context of a Market Data Request message in the
+                          FIX protocol, the Symbol field refers to the security
+                          or financial instrument for which market data is being
+                          requested
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                  marketDataSnapShotFullRefresh:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      mdReqID:
+                        type: string
+                        title: >-
+                          The identifier of an originating market data request
+                          (corresponds to the MDReqID field specified in the
+                          Market Data Request message)
+                      symbol:
+                        type: string
+                        title: >-
+                          The ticker symbol that is being quoted (such as
+                          BTC/USDT)
+                      noMDEntries:
+                        type: integer
+                        format: int32
+                        title: >-
+                          The number of market data entries (bids or offers)
+                          listed in a request
+                      mdEntries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            mdUpdateAction:
+                              type: integer
+                              format: int32
+                              description: >-
+                                The type of update action that is being reported
+                                for the MDEntry. Possible values are "0" for
+                                new, "1" for change, and "2" for delete.
+                            mdEntryType:
+                              type: integer
+                              format: int32
+                              title: 'The side of a quote: 0 — bid , 1 — ask'
+                            mdEntryPx:
+                              type: string
+                              title: The price for a market data entry
+                            mdEntrySize:
+                              type: string
+                              description: >-
+                                The quantity (tradeable volume) of a market data
+                                entry.
+                          title: repeated group of MDEntry fields
+                        title: >-
+                          The repeated group of MDEntry fields that provide
+                          multiple entries
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                  marketDataIncremental:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      mdReqID:
+                        type: string
+                        title: >-
+                          The identifier of an originating market data request
+                          (corresponds to the MDReqID field specified in the
+                          Market Data Request message)
+                      NoMDEntries:
+                        type: integer
+                        format: int32
+                        title: >-
+                          The number of market data entries (bids or offers)
+                          listed in a request
+                      mdEntries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            mdUpdateAction:
+                              type: integer
+                              format: int32
+                              description: >-
+                                The type of update action that is being reported
+                                for the MDEntry. Possible values are "0" for
+                                new, "1" for change, and "2" for delete.
+                            mdEntryType:
+                              type: integer
+                              format: int32
+                              title: 'The side of a quote: 0 — bid , 1 — ask'
+                            mdEntryPx:
+                              type: string
+                              title: The price for a market data entry
+                            mdEntrySize:
+                              type: string
+                              description: >-
+                                The quantity (tradeable volume) of a market data
+                                entry.
+                          title: repeated group of MDEntry fields
+                        description: >-
+                          The repeated group of MDEntry fields that provide the
+                          incremental updates for the market data.
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                  marketDataRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      mdReqID:
+                        type: string
+                        title: >-
+                          The identifier of a Market Data Request that has been
+                          rejected
+                      mdReqRejReason:
+                        type: integer
+                        format: int32
+                        title: Indicates the reason why a request has been rejected
+                      text:
+                        type: string
+                        title: >-
+                          The detailed information (if available) on why a
+                          request has been rejected
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                      creator:
+                        type: string
         default:
           description: An unexpected error response.
           schema:
@@ -25753,11 +26552,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: mdReqID
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/orders:
@@ -51120,16 +51918,720 @@ definitions:
         title: >-
           The FIX message trailer contains standard metadata about the message,
           including the message checksum
+  jim380.re.fix.MDEntry:
+    type: object
+    properties:
+      mdUpdateAction:
+        type: integer
+        format: int32
+        description: >-
+          The type of update action that is being reported for the MDEntry.
+          Possible values are "0" for new, "1" for change, and "2" for delete.
+      mdEntryType:
+        type: integer
+        format: int32
+        title: 'The side of a quote: 0 — bid , 1 — ask'
+      mdEntryPx:
+        type: string
+        title: The price for a market data entry
+      mdEntrySize:
+        type: string
+        description: The quantity (tradeable volume) of a market data entry.
+    title: repeated group of MDEntry fields
   jim380.re.fix.MarketData:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
-      mDReqID:
-        type: string
       sessionID:
         type: string
+      marketDataRequest:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          mdReqID:
+            type: string
+            title: >-
+              MDReqID field provides a unique identifier for the market data
+              request message
+          subscriptionRequestType:
+            type: integer
+            format: int32
+            description: >-
+              subscriptionRequestType field corresponds to the FIX tag 263, and
+              the values 0 and 1 respectively indicate snapshot and snapshot +
+              incremental updates.
+          marketDepth:
+            type: integer
+            format: int32
+            title: >-
+              MarketDepth field is used to indicate the level of market data
+              depth that is being requested. Specifically, it specifies how many
+              levels of the order book should be included in the response to the
+              request
+          mdUpdateType:
+            type: integer
+            format: int32
+            title: >-
+              The mdUpdateType field specifies the type of updates that the
+              sender wants to receive in response to their request for market
+              data. The possible values are "0" for full refresh, "1" for
+              incremental refresh, and "2" for removing a single price level
+          noRelatedSym:
+            type: integer
+            format: int32
+            title: >-
+              The NoRelatedSym field in a Market Data Request message is used to
+              indicate the number of symbols or instruments for which the market
+              data is being requested
+          symbol:
+            type: string
+            title: >-
+              In the context of a Market Data Request message in the FIX
+              protocol, the Symbol field refers to the security or financial
+              instrument for which market data is being requested
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+          creator:
+            type: string
+            title: owner
+      marketDataSnapShotFullRefresh:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          mdReqID:
+            type: string
+            title: >-
+              The identifier of an originating market data request (corresponds
+              to the MDReqID field specified in the Market Data Request message)
+          symbol:
+            type: string
+            title: The ticker symbol that is being quoted (such as BTC/USDT)
+          noMDEntries:
+            type: integer
+            format: int32
+            title: >-
+              The number of market data entries (bids or offers) listed in a
+              request
+          mdEntries:
+            type: array
+            items:
+              type: object
+              properties:
+                mdUpdateAction:
+                  type: integer
+                  format: int32
+                  description: >-
+                    The type of update action that is being reported for the
+                    MDEntry. Possible values are "0" for new, "1" for change,
+                    and "2" for delete.
+                mdEntryType:
+                  type: integer
+                  format: int32
+                  title: 'The side of a quote: 0 — bid , 1 — ask'
+                mdEntryPx:
+                  type: string
+                  title: The price for a market data entry
+                mdEntrySize:
+                  type: string
+                  description: The quantity (tradeable volume) of a market data entry.
+              title: repeated group of MDEntry fields
+            title: The repeated group of MDEntry fields that provide multiple entries
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+          creator:
+            type: string
+            title: owner
+      marketDataIncremental:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          mdReqID:
+            type: string
+            title: >-
+              The identifier of an originating market data request (corresponds
+              to the MDReqID field specified in the Market Data Request message)
+          NoMDEntries:
+            type: integer
+            format: int32
+            title: >-
+              The number of market data entries (bids or offers) listed in a
+              request
+          mdEntries:
+            type: array
+            items:
+              type: object
+              properties:
+                mdUpdateAction:
+                  type: integer
+                  format: int32
+                  description: >-
+                    The type of update action that is being reported for the
+                    MDEntry. Possible values are "0" for new, "1" for change,
+                    and "2" for delete.
+                mdEntryType:
+                  type: integer
+                  format: int32
+                  title: 'The side of a quote: 0 — bid , 1 — ask'
+                mdEntryPx:
+                  type: string
+                  title: The price for a market data entry
+                mdEntrySize:
+                  type: string
+                  description: The quantity (tradeable volume) of a market data entry.
+              title: repeated group of MDEntry fields
+            description: >-
+              The repeated group of MDEntry fields that provide the incremental
+              updates for the market data.
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+          creator:
+            type: string
+            title: owner
+      marketDataRequestReject:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          mdReqID:
+            type: string
+            title: The identifier of a Market Data Request that has been rejected
+          mdReqRejReason:
+            type: integer
+            format: int32
+            title: Indicates the reason why a request has been rejected
+          text:
+            type: string
+            title: >-
+              The detailed information (if available) on why a request has been
+              rejected
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+          creator:
+            type: string
+  jim380.re.fix.MarketDataIncremental:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      mdReqID:
+        type: string
+        title: >-
+          The identifier of an originating market data request (corresponds to
+          the MDReqID field specified in the Market Data Request message)
+      NoMDEntries:
+        type: integer
+        format: int32
+        title: The number of market data entries (bids or offers) listed in a request
+      mdEntries:
+        type: array
+        items:
+          type: object
+          properties:
+            mdUpdateAction:
+              type: integer
+              format: int32
+              description: >-
+                The type of update action that is being reported for the
+                MDEntry. Possible values are "0" for new, "1" for change, and
+                "2" for delete.
+            mdEntryType:
+              type: integer
+              format: int32
+              title: 'The side of a quote: 0 — bid , 1 — ask'
+            mdEntryPx:
+              type: string
+              title: The price for a market data entry
+            mdEntrySize:
+              type: string
+              description: The quantity (tradeable volume) of a market data entry.
+          title: repeated group of MDEntry fields
+        description: >-
+          The repeated group of MDEntry fields that provide the incremental
+          updates for the market data.
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
+  jim380.re.fix.MarketDataRequest:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      mdReqID:
+        type: string
+        title: >-
+          MDReqID field provides a unique identifier for the market data request
+          message
+      subscriptionRequestType:
+        type: integer
+        format: int32
+        description: >-
+          subscriptionRequestType field corresponds to the FIX tag 263, and the
+          values 0 and 1 respectively indicate snapshot and snapshot +
+          incremental updates.
+      marketDepth:
+        type: integer
+        format: int32
+        title: >-
+          MarketDepth field is used to indicate the level of market data depth
+          that is being requested. Specifically, it specifies how many levels of
+          the order book should be included in the response to the request
+      mdUpdateType:
+        type: integer
+        format: int32
+        title: >-
+          The mdUpdateType field specifies the type of updates that the sender
+          wants to receive in response to their request for market data. The
+          possible values are "0" for full refresh, "1" for incremental refresh,
+          and "2" for removing a single price level
+      noRelatedSym:
+        type: integer
+        format: int32
+        title: >-
+          The NoRelatedSym field in a Market Data Request message is used to
+          indicate the number of symbols or instruments for which the market
+          data is being requested
+      symbol:
+        type: string
+        title: >-
+          In the context of a Market Data Request message in the FIX protocol,
+          the Symbol field refers to the security or financial instrument for
+          which market data is being requested
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
+  jim380.re.fix.MarketDataRequestReject:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      mdReqID:
+        type: string
+        title: The identifier of a Market Data Request that has been rejected
+      mdReqRejReason:
+        type: integer
+        format: int32
+        title: Indicates the reason why a request has been rejected
+      text:
+        type: string
+        title: >-
+          The detailed information (if available) on why a request has been
+          rejected
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+      creator:
+        type: string
+  jim380.re.fix.MarketDataSnapShotFullRefresh:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      mdReqID:
+        type: string
+        title: >-
+          The identifier of an originating market data request (corresponds to
+          the MDReqID field specified in the Market Data Request message)
+      symbol:
+        type: string
+        title: The ticker symbol that is being quoted (such as BTC/USDT)
+      noMDEntries:
+        type: integer
+        format: int32
+        title: The number of market data entries (bids or offers) listed in a request
+      mdEntries:
+        type: array
+        items:
+          type: object
+          properties:
+            mdUpdateAction:
+              type: integer
+              format: int32
+              description: >-
+                The type of update action that is being reported for the
+                MDEntry. Possible values are "0" for new, "1" for change, and
+                "2" for delete.
+            mdEntryType:
+              type: integer
+              format: int32
+              title: 'The side of a quote: 0 — bid , 1 — ask'
+            mdEntryPx:
+              type: string
+              title: The price for a market data entry
+            mdEntrySize:
+              type: string
+              description: The quantity (tradeable volume) of a market data entry.
+          title: repeated group of MDEntry fields
+        title: The repeated group of MDEntry fields that provide multiple entries
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
   jim380.re.fix.MsgCreateAccountResponse:
     type: object
     properties:
@@ -51146,6 +52648,14 @@ definitions:
   jim380.re.fix.MsgLogoutAcceptorResponse:
     type: object
   jim380.re.fix.MsgLogoutInitiatorResponse:
+    type: object
+  jim380.re.fix.MsgMarketDataIncrementalResponse:
+    type: object
+  jim380.re.fix.MsgMarketDataRequestRejectResponse:
+    type: object
+  jim380.re.fix.MsgMarketDataRequestResponse:
+    type: object
+  jim380.re.fix.MsgMarketDataSnapshotFullRefreshResponse:
     type: object
   jim380.re.fix.MsgNewOrderSingleResponse:
     type: object
@@ -51635,13 +53145,379 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
-            mDReqID:
-              type: string
             sessionID:
               type: string
+            marketDataRequest:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                mdReqID:
+                  type: string
+                  title: >-
+                    MDReqID field provides a unique identifier for the market
+                    data request message
+                subscriptionRequestType:
+                  type: integer
+                  format: int32
+                  description: >-
+                    subscriptionRequestType field corresponds to the FIX tag
+                    263, and the values 0 and 1 respectively indicate snapshot
+                    and snapshot + incremental updates.
+                marketDepth:
+                  type: integer
+                  format: int32
+                  title: >-
+                    MarketDepth field is used to indicate the level of market
+                    data depth that is being requested. Specifically, it
+                    specifies how many levels of the order book should be
+                    included in the response to the request
+                mdUpdateType:
+                  type: integer
+                  format: int32
+                  title: >-
+                    The mdUpdateType field specifies the type of updates that
+                    the sender wants to receive in response to their request for
+                    market data. The possible values are "0" for full refresh,
+                    "1" for incremental refresh, and "2" for removing a single
+                    price level
+                noRelatedSym:
+                  type: integer
+                  format: int32
+                  title: >-
+                    The NoRelatedSym field in a Market Data Request message is
+                    used to indicate the number of symbols or instruments for
+                    which the market data is being requested
+                symbol:
+                  type: string
+                  title: >-
+                    In the context of a Market Data Request message in the FIX
+                    protocol, the Symbol field refers to the security or
+                    financial instrument for which market data is being
+                    requested
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+            marketDataSnapShotFullRefresh:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                mdReqID:
+                  type: string
+                  title: >-
+                    The identifier of an originating market data request
+                    (corresponds to the MDReqID field specified in the Market
+                    Data Request message)
+                symbol:
+                  type: string
+                  title: The ticker symbol that is being quoted (such as BTC/USDT)
+                noMDEntries:
+                  type: integer
+                  format: int32
+                  title: >-
+                    The number of market data entries (bids or offers) listed in
+                    a request
+                mdEntries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      mdUpdateAction:
+                        type: integer
+                        format: int32
+                        description: >-
+                          The type of update action that is being reported for
+                          the MDEntry. Possible values are "0" for new, "1" for
+                          change, and "2" for delete.
+                      mdEntryType:
+                        type: integer
+                        format: int32
+                        title: 'The side of a quote: 0 — bid , 1 — ask'
+                      mdEntryPx:
+                        type: string
+                        title: The price for a market data entry
+                      mdEntrySize:
+                        type: string
+                        description: >-
+                          The quantity (tradeable volume) of a market data
+                          entry.
+                    title: repeated group of MDEntry fields
+                  title: >-
+                    The repeated group of MDEntry fields that provide multiple
+                    entries
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+            marketDataIncremental:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                mdReqID:
+                  type: string
+                  title: >-
+                    The identifier of an originating market data request
+                    (corresponds to the MDReqID field specified in the Market
+                    Data Request message)
+                NoMDEntries:
+                  type: integer
+                  format: int32
+                  title: >-
+                    The number of market data entries (bids or offers) listed in
+                    a request
+                mdEntries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      mdUpdateAction:
+                        type: integer
+                        format: int32
+                        description: >-
+                          The type of update action that is being reported for
+                          the MDEntry. Possible values are "0" for new, "1" for
+                          change, and "2" for delete.
+                      mdEntryType:
+                        type: integer
+                        format: int32
+                        title: 'The side of a quote: 0 — bid , 1 — ask'
+                      mdEntryPx:
+                        type: string
+                        title: The price for a market data entry
+                      mdEntrySize:
+                        type: string
+                        description: >-
+                          The quantity (tradeable volume) of a market data
+                          entry.
+                    title: repeated group of MDEntry fields
+                  description: >-
+                    The repeated group of MDEntry fields that provide the
+                    incremental updates for the market data.
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+            marketDataRequestReject:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                mdReqID:
+                  type: string
+                  title: >-
+                    The identifier of a Market Data Request that has been
+                    rejected
+                mdReqRejReason:
+                  type: integer
+                  format: int32
+                  title: Indicates the reason why a request has been rejected
+                text:
+                  type: string
+                  title: >-
+                    The detailed information (if available) on why a request has
+                    been rejected
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                creator:
+                  type: string
       pagination:
         type: object
         properties:
@@ -53076,13 +54952,372 @@ definitions:
       MarketData:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
-          mDReqID:
-            type: string
           sessionID:
             type: string
+          marketDataRequest:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              mdReqID:
+                type: string
+                title: >-
+                  MDReqID field provides a unique identifier for the market data
+                  request message
+              subscriptionRequestType:
+                type: integer
+                format: int32
+                description: >-
+                  subscriptionRequestType field corresponds to the FIX tag 263,
+                  and the values 0 and 1 respectively indicate snapshot and
+                  snapshot + incremental updates.
+              marketDepth:
+                type: integer
+                format: int32
+                title: >-
+                  MarketDepth field is used to indicate the level of market data
+                  depth that is being requested. Specifically, it specifies how
+                  many levels of the order book should be included in the
+                  response to the request
+              mdUpdateType:
+                type: integer
+                format: int32
+                title: >-
+                  The mdUpdateType field specifies the type of updates that the
+                  sender wants to receive in response to their request for
+                  market data. The possible values are "0" for full refresh, "1"
+                  for incremental refresh, and "2" for removing a single price
+                  level
+              noRelatedSym:
+                type: integer
+                format: int32
+                title: >-
+                  The NoRelatedSym field in a Market Data Request message is
+                  used to indicate the number of symbols or instruments for
+                  which the market data is being requested
+              symbol:
+                type: string
+                title: >-
+                  In the context of a Market Data Request message in the FIX
+                  protocol, the Symbol field refers to the security or financial
+                  instrument for which market data is being requested
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+          marketDataSnapShotFullRefresh:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              mdReqID:
+                type: string
+                title: >-
+                  The identifier of an originating market data request
+                  (corresponds to the MDReqID field specified in the Market Data
+                  Request message)
+              symbol:
+                type: string
+                title: The ticker symbol that is being quoted (such as BTC/USDT)
+              noMDEntries:
+                type: integer
+                format: int32
+                title: >-
+                  The number of market data entries (bids or offers) listed in a
+                  request
+              mdEntries:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    mdUpdateAction:
+                      type: integer
+                      format: int32
+                      description: >-
+                        The type of update action that is being reported for the
+                        MDEntry. Possible values are "0" for new, "1" for
+                        change, and "2" for delete.
+                    mdEntryType:
+                      type: integer
+                      format: int32
+                      title: 'The side of a quote: 0 — bid , 1 — ask'
+                    mdEntryPx:
+                      type: string
+                      title: The price for a market data entry
+                    mdEntrySize:
+                      type: string
+                      description: The quantity (tradeable volume) of a market data entry.
+                  title: repeated group of MDEntry fields
+                title: >-
+                  The repeated group of MDEntry fields that provide multiple
+                  entries
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+          marketDataIncremental:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              mdReqID:
+                type: string
+                title: >-
+                  The identifier of an originating market data request
+                  (corresponds to the MDReqID field specified in the Market Data
+                  Request message)
+              NoMDEntries:
+                type: integer
+                format: int32
+                title: >-
+                  The number of market data entries (bids or offers) listed in a
+                  request
+              mdEntries:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    mdUpdateAction:
+                      type: integer
+                      format: int32
+                      description: >-
+                        The type of update action that is being reported for the
+                        MDEntry. Possible values are "0" for new, "1" for
+                        change, and "2" for delete.
+                    mdEntryType:
+                      type: integer
+                      format: int32
+                      title: 'The side of a quote: 0 — bid , 1 — ask'
+                    mdEntryPx:
+                      type: string
+                      title: The price for a market data entry
+                    mdEntrySize:
+                      type: string
+                      description: The quantity (tradeable volume) of a market data entry.
+                  title: repeated group of MDEntry fields
+                description: >-
+                  The repeated group of MDEntry fields that provide the
+                  incremental updates for the market data.
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+          marketDataRequestReject:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              mdReqID:
+                type: string
+                title: The identifier of a Market Data Request that has been rejected
+              mdReqRejReason:
+                type: integer
+                format: int32
+                title: Indicates the reason why a request has been rejected
+              text:
+                type: string
+                title: >-
+                  The detailed information (if available) on why a request has
+                  been rejected
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+              creator:
+                type: string
   jim380.re.fix.QueryGetOrdersCancelRejectResponse:
     type: object
     properties:
