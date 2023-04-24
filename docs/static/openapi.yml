@@ -29748,7 +29748,418 @@ paths:
           type: string
       tags:
         - Query
-  /jim380/Re/fix/trade_capture:
+  /jim380/Re/fix/trade_capture/{tradeReportID}:
+    get:
+      summary: Queries a list of TradeCapture items.
+      operationId: Jim380ReFixTradeCapture
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TradeCapture:
+                type: object
+                properties:
+                  sessionID:
+                    type: string
+                  tradeCaptureReport:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        description: Standard FIX message header.
+                      tradeReportID:
+                        type: string
+                        description: (571) Unique identifier for the trade report.
+                      tradeReportTransType:
+                        type: string
+                        description: (487) Type of trade report (new, cancel, correction).
+                      tradeReportType:
+                        type: string
+                        description: (856) Type of trade report (real-time, end-of-day).
+                      tradeRequestID:
+                        type: string
+                        description: >-
+                          (568) Identifier for the trade request to which this
+                          message responds.
+                      trdType:
+                        type: string
+                        description: >-
+                          (828) Type of the trade (Block Trade, Exchange for
+                          Physical).
+                        title: Trade details
+                      trdSubType:
+                        type: string
+                        description: (829) Further information about the trade type.
+                      side:
+                        type: string
+                        description: (54) Buy or sell.
+                      orderQty:
+                        type: string
+                        description: (38) Quantity of the order involved in the trade.
+                      lastQty:
+                        type: string
+                        description: (32) Quantity of the last execution in the trade.
+                      lastPx:
+                        type: string
+                        description: (31) Price of the last execution in the trade.
+                      grossTradeAmt:
+                        type: string
+                        description: >-
+                          (381) Total amount of the trade, including any
+                          commissions and fees.
+                      execID:
+                        type: string
+                        description: (17) Identifier for the execution of the trade.
+                        title: Trade identifiers
+                      orderID:
+                        type: string
+                        description: >-
+                          (37) Identifier for the order associated with the
+                          trade.
+                      tradeID:
+                        type: string
+                        description: (1003) Unique identifier for the trade.
+                      origTradeID:
+                        type: string
+                        description: >-
+                          (1126) Identifier for the original trade, in the case
+                          of a trade correction.
+                      symbol:
+                        type: string
+                        description: >-
+                          (55) Symbol or code for the financial instrument
+                          traded.
+                        title: Instrument details
+                      securityID:
+                        type: string
+                        description: (48) Identifier for the security traded.
+                      securityIDSource:
+                        type: string
+                        description: (22) Source of the security identifier.
+                      tradeDate:
+                        type: string
+                        description: (75) Date of the trade.
+                        title: Trade dates and settlement
+                      transactTime:
+                        type: string
+                        description: (60) Time at which the trade occurred.
+                      settlType:
+                        type: string
+                        description: (63) Settlement type of the trade.
+                      settlDate:
+                        type: string
+                        description: (64) Settlement date of the trade.
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                        description: Standard FIX message trailer.
+                    description: Trade Capture Report with fields, tags and descriptions.
+                  tradeCaptureReportAcknowledgement:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        description: Standard FIX message header.
+                      tradeRequestID:
+                        type: string
+                        description: >-
+                          (568) Identifier for the trade request being responded
+                          to.
+                        title: Trade request details
+                      tradeRequestType:
+                        type: string
+                        description: >-
+                          (569) Type of trade request (All Trades, Unmatched
+                          Trades, etc.).
+                      tradeReportID:
+                        type: string
+                        description: >-
+                          (571) Identifier for the trade report being
+                          acknowledged.
+                        title: Trade report details
+                      tradeID:
+                        type: string
+                        description: (1003) Unique identifier for the trade.
+                      secondaryTradeID:
+                        type: string
+                        description: (1040) Alternative identifier for the trade.
+                      tradeReportType:
+                        type: string
+                        description: (856) Type of trade report (real-time, end-of-day).
+                      trdType:
+                        type: string
+                        description: >-
+                          (828) Type of the trade (Block Trade, Exchange for
+                          Physical).
+                      trdSubType:
+                        type: string
+                        description: (829) Further information about the trade type.
+                      execType:
+                        type: string
+                        description: >-
+                          (150) Status of the trade report (new, cancelled,
+                          corrected, etc.).
+                      tradeReportRefID:
+                        type: string
+                        description: >-
+                          (572) Identifier for the previous trade report being
+                          referred to.
+                      secondaryTradeReportID:
+                        type: string
+                        description: (818) Alternative identifier for the trade report.
+                      tradeReportStatus:
+                        type: string
+                        description: >-
+                          (939) Status of the trade report (accepted, rejected,
+                          etc.).
+                      tradeTransType:
+                        type: string
+                        description: >-
+                          (487) Type of trade transaction (new, cancel,
+                          correction).
+                      tradeReportRejectReason:
+                        type: string
+                        description: (751) Reason why the trade report was rejected.
+                      text:
+                        type: string
+                        description: >-
+                          (58) Additional information about the trade report or
+                          acknowledgement.
+                        title: Additional information
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Trade Capture Report Acknowledgement with fields, tags and
+                      descriptions.
+                  tradeCaptureReportRejection:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For example, "FIX.4.4"
+                              indicates version 4.4 of the protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D" indicates a New Order
+                              Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique identifier assigned to
+                              each party that uses the FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a unique sequence number to each
+                              message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        description: Standard FIX message header.
+                      tradeRequestID:
+                        type: string
+                        description: >-
+                          (568) The identifier for the trade request to which
+                          this message is responding.
+                      tradeRequestType:
+                        type: string
+                        description: >-
+                          (569) Indicates the type of trade request, such as
+                          "All Trades" or "Unmatched Trades".
+                      tradeReportID:
+                        type: string
+                        description: >-
+                          (571) The identifier for the trade report being
+                          rejected.
+                      tradeReportRejectReason:
+                        type: string
+                        description: >-
+                          (751) A code indicating why the trade report was
+                          rejected.
+                      tradeReportRejectRefID:
+                        type: string
+                        description: >-
+                          (754) The identifier of the previous message (e.g.,
+                          Trade Capture Report) to which this message refers.
+                      text:
+                        type: string
+                        description: >-
+                          (58) A description of the reason for the trade report
+                          rejection.
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all characters in the message
+                              (excluding the SOH (start of header) and ETX (end
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result to a two-character
+                              hexadecimal string.
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Trade Capture Report Rejection with fields, tags and
+                      descriptions.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: tradeReportID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /jim380/Re/fix/trade_captures:
     get:
       operationId: Jim380ReFixTradeCaptureAll
       responses:
@@ -29762,11 +30173,381 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     sessionID:
                       type: string
+                    tradeCaptureReport:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          description: Standard FIX message header.
+                        tradeReportID:
+                          type: string
+                          description: (571) Unique identifier for the trade report.
+                        tradeReportTransType:
+                          type: string
+                          description: >-
+                            (487) Type of trade report (new, cancel,
+                            correction).
+                        tradeReportType:
+                          type: string
+                          description: (856) Type of trade report (real-time, end-of-day).
+                        tradeRequestID:
+                          type: string
+                          description: >-
+                            (568) Identifier for the trade request to which this
+                            message responds.
+                        trdType:
+                          type: string
+                          description: >-
+                            (828) Type of the trade (Block Trade, Exchange for
+                            Physical).
+                          title: Trade details
+                        trdSubType:
+                          type: string
+                          description: (829) Further information about the trade type.
+                        side:
+                          type: string
+                          description: (54) Buy or sell.
+                        orderQty:
+                          type: string
+                          description: (38) Quantity of the order involved in the trade.
+                        lastQty:
+                          type: string
+                          description: (32) Quantity of the last execution in the trade.
+                        lastPx:
+                          type: string
+                          description: (31) Price of the last execution in the trade.
+                        grossTradeAmt:
+                          type: string
+                          description: >-
+                            (381) Total amount of the trade, including any
+                            commissions and fees.
+                        execID:
+                          type: string
+                          description: (17) Identifier for the execution of the trade.
+                          title: Trade identifiers
+                        orderID:
+                          type: string
+                          description: >-
+                            (37) Identifier for the order associated with the
+                            trade.
+                        tradeID:
+                          type: string
+                          description: (1003) Unique identifier for the trade.
+                        origTradeID:
+                          type: string
+                          description: >-
+                            (1126) Identifier for the original trade, in the
+                            case of a trade correction.
+                        symbol:
+                          type: string
+                          description: >-
+                            (55) Symbol or code for the financial instrument
+                            traded.
+                          title: Instrument details
+                        securityID:
+                          type: string
+                          description: (48) Identifier for the security traded.
+                        securityIDSource:
+                          type: string
+                          description: (22) Source of the security identifier.
+                        tradeDate:
+                          type: string
+                          description: (75) Date of the trade.
+                          title: Trade dates and settlement
+                        transactTime:
+                          type: string
+                          description: (60) Time at which the trade occurred.
+                        settlType:
+                          type: string
+                          description: (63) Settlement type of the trade.
+                        settlDate:
+                          type: string
+                          description: (64) Settlement date of the trade.
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                          description: Standard FIX message trailer.
+                      description: Trade Capture Report with fields, tags and descriptions.
+                    tradeCaptureReportAcknowledgement:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          description: Standard FIX message header.
+                        tradeRequestID:
+                          type: string
+                          description: >-
+                            (568) Identifier for the trade request being
+                            responded to.
+                          title: Trade request details
+                        tradeRequestType:
+                          type: string
+                          description: >-
+                            (569) Type of trade request (All Trades, Unmatched
+                            Trades, etc.).
+                        tradeReportID:
+                          type: string
+                          description: >-
+                            (571) Identifier for the trade report being
+                            acknowledged.
+                          title: Trade report details
+                        tradeID:
+                          type: string
+                          description: (1003) Unique identifier for the trade.
+                        secondaryTradeID:
+                          type: string
+                          description: (1040) Alternative identifier for the trade.
+                        tradeReportType:
+                          type: string
+                          description: (856) Type of trade report (real-time, end-of-day).
+                        trdType:
+                          type: string
+                          description: >-
+                            (828) Type of the trade (Block Trade, Exchange for
+                            Physical).
+                        trdSubType:
+                          type: string
+                          description: (829) Further information about the trade type.
+                        execType:
+                          type: string
+                          description: >-
+                            (150) Status of the trade report (new, cancelled,
+                            corrected, etc.).
+                        tradeReportRefID:
+                          type: string
+                          description: >-
+                            (572) Identifier for the previous trade report being
+                            referred to.
+                        secondaryTradeReportID:
+                          type: string
+                          description: (818) Alternative identifier for the trade report.
+                        tradeReportStatus:
+                          type: string
+                          description: >-
+                            (939) Status of the trade report (accepted,
+                            rejected, etc.).
+                        tradeTransType:
+                          type: string
+                          description: >-
+                            (487) Type of trade transaction (new, cancel,
+                            correction).
+                        tradeReportRejectReason:
+                          type: string
+                          description: (751) Reason why the trade report was rejected.
+                        text:
+                          type: string
+                          description: >-
+                            (58) Additional information about the trade report
+                            or acknowledgement.
+                          title: Additional information
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Trade Capture Report Acknowledgement with fields, tags
+                        and descriptions.
+                    tradeCaptureReportRejection:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For example, "FIX.4.4"
+                                indicates version 4.4 of the protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D" indicates a New Order
+                                Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique identifier assigned
+                                to each party that uses the FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a unique sequence number
+                                to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          description: Standard FIX message header.
+                        tradeRequestID:
+                          type: string
+                          description: >-
+                            (568) The identifier for the trade request to which
+                            this message is responding.
+                        tradeRequestType:
+                          type: string
+                          description: >-
+                            (569) Indicates the type of trade request, such as
+                            "All Trades" or "Unmatched Trades".
+                        tradeReportID:
+                          type: string
+                          description: >-
+                            (571) The identifier for the trade report being
+                            rejected.
+                        tradeReportRejectReason:
+                          type: string
+                          description: >-
+                            (751) A code indicating why the trade report was
+                            rejected.
+                        tradeReportRejectRefID:
+                          type: string
+                          description: >-
+                            (754) The identifier of the previous message (e.g.,
+                            Trade Capture Report) to which this message refers.
+                        text:
+                          type: string
+                          description: >-
+                            (58) A description of the reason for the trade
+                            report rejection.
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all characters in the message
+                                (excluding the SOH (start of header) and ETX
+                                (end of text) characters), taking the sum modulo
+                                256, and converting the result to a
+                                two-character hexadecimal string.
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Trade Capture Report Rejection with fields, tags and
+                        descriptions.
               pagination:
                 type: object
                 properties:
@@ -29869,50 +30650,6 @@ paths:
           in: query
           required: false
           type: boolean
-      tags:
-        - Query
-  /jim380/Re/fix/trade_capture/{id}:
-    get:
-      summary: Queries a list of TradeCapture items.
-      operationId: Jim380ReFixTradeCapture
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              TradeCapture:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uint64
-                  sessionID:
-                    type: string
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/mic/market_identification_code:
@@ -51149,6 +51886,12 @@ definitions:
     type: object
   jim380.re.fix.MsgTerminateLogonResponse:
     type: object
+  jim380.re.fix.MsgTradeCaptureReportAcknowledgementResponse:
+    type: object
+  jim380.re.fix.MsgTradeCaptureReportRejectionResponse:
+    type: object
+  jim380.re.fix.MsgTradeCaptureReportResponse:
+    type: object
   jim380.re.fix.MsgUpdateAccountResponse:
     type: object
   jim380.re.fix.Orders:
@@ -53006,11 +53749,342 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             sessionID:
               type: string
+            tradeCaptureReport:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  description: Standard FIX message header.
+                tradeReportID:
+                  type: string
+                  description: (571) Unique identifier for the trade report.
+                tradeReportTransType:
+                  type: string
+                  description: (487) Type of trade report (new, cancel, correction).
+                tradeReportType:
+                  type: string
+                  description: (856) Type of trade report (real-time, end-of-day).
+                tradeRequestID:
+                  type: string
+                  description: >-
+                    (568) Identifier for the trade request to which this message
+                    responds.
+                trdType:
+                  type: string
+                  description: >-
+                    (828) Type of the trade (Block Trade, Exchange for
+                    Physical).
+                  title: Trade details
+                trdSubType:
+                  type: string
+                  description: (829) Further information about the trade type.
+                side:
+                  type: string
+                  description: (54) Buy or sell.
+                orderQty:
+                  type: string
+                  description: (38) Quantity of the order involved in the trade.
+                lastQty:
+                  type: string
+                  description: (32) Quantity of the last execution in the trade.
+                lastPx:
+                  type: string
+                  description: (31) Price of the last execution in the trade.
+                grossTradeAmt:
+                  type: string
+                  description: >-
+                    (381) Total amount of the trade, including any commissions
+                    and fees.
+                execID:
+                  type: string
+                  description: (17) Identifier for the execution of the trade.
+                  title: Trade identifiers
+                orderID:
+                  type: string
+                  description: (37) Identifier for the order associated with the trade.
+                tradeID:
+                  type: string
+                  description: (1003) Unique identifier for the trade.
+                origTradeID:
+                  type: string
+                  description: >-
+                    (1126) Identifier for the original trade, in the case of a
+                    trade correction.
+                symbol:
+                  type: string
+                  description: (55) Symbol or code for the financial instrument traded.
+                  title: Instrument details
+                securityID:
+                  type: string
+                  description: (48) Identifier for the security traded.
+                securityIDSource:
+                  type: string
+                  description: (22) Source of the security identifier.
+                tradeDate:
+                  type: string
+                  description: (75) Date of the trade.
+                  title: Trade dates and settlement
+                transactTime:
+                  type: string
+                  description: (60) Time at which the trade occurred.
+                settlType:
+                  type: string
+                  description: (63) Settlement type of the trade.
+                settlDate:
+                  type: string
+                  description: (64) Settlement date of the trade.
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                  description: Standard FIX message trailer.
+              description: Trade Capture Report with fields, tags and descriptions.
+            tradeCaptureReportAcknowledgement:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  description: Standard FIX message header.
+                tradeRequestID:
+                  type: string
+                  description: (568) Identifier for the trade request being responded to.
+                  title: Trade request details
+                tradeRequestType:
+                  type: string
+                  description: >-
+                    (569) Type of trade request (All Trades, Unmatched Trades,
+                    etc.).
+                tradeReportID:
+                  type: string
+                  description: (571) Identifier for the trade report being acknowledged.
+                  title: Trade report details
+                tradeID:
+                  type: string
+                  description: (1003) Unique identifier for the trade.
+                secondaryTradeID:
+                  type: string
+                  description: (1040) Alternative identifier for the trade.
+                tradeReportType:
+                  type: string
+                  description: (856) Type of trade report (real-time, end-of-day).
+                trdType:
+                  type: string
+                  description: >-
+                    (828) Type of the trade (Block Trade, Exchange for
+                    Physical).
+                trdSubType:
+                  type: string
+                  description: (829) Further information about the trade type.
+                execType:
+                  type: string
+                  description: >-
+                    (150) Status of the trade report (new, cancelled, corrected,
+                    etc.).
+                tradeReportRefID:
+                  type: string
+                  description: >-
+                    (572) Identifier for the previous trade report being
+                    referred to.
+                secondaryTradeReportID:
+                  type: string
+                  description: (818) Alternative identifier for the trade report.
+                tradeReportStatus:
+                  type: string
+                  description: (939) Status of the trade report (accepted, rejected, etc.).
+                tradeTransType:
+                  type: string
+                  description: (487) Type of trade transaction (new, cancel, correction).
+                tradeReportRejectReason:
+                  type: string
+                  description: (751) Reason why the trade report was rejected.
+                text:
+                  type: string
+                  description: >-
+                    (58) Additional information about the trade report or
+                    acknowledgement.
+                  title: Additional information
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                  description: Standard FIX message trailer.
+              description: >-
+                Trade Capture Report Acknowledgement with fields, tags and
+                descriptions.
+            tradeCaptureReportRejection:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For example, "FIX.4.4" indicates version 4.4
+                        of the protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D" indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique identifier assigned to each party
+                        that uses the FIX protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  description: Standard FIX message header.
+                tradeRequestID:
+                  type: string
+                  description: >-
+                    (568) The identifier for the trade request to which this
+                    message is responding.
+                tradeRequestType:
+                  type: string
+                  description: >-
+                    (569) Indicates the type of trade request, such as "All
+                    Trades" or "Unmatched Trades".
+                tradeReportID:
+                  type: string
+                  description: (571) The identifier for the trade report being rejected.
+                tradeReportRejectReason:
+                  type: string
+                  description: (751) A code indicating why the trade report was rejected.
+                tradeReportRejectRefID:
+                  type: string
+                  description: >-
+                    (754) The identifier of the previous message (e.g., Trade
+                    Capture Report) to which this message refers.
+                text:
+                  type: string
+                  description: >-
+                    (58) A description of the reason for the trade report
+                    rejection.
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all characters in the message (excluding the
+                        SOH (start of header) and ETX (end of text) characters),
+                        taking the sum modulo 256, and converting the result to
+                        a two-character hexadecimal string.
+                  description: Standard FIX message trailer.
+              description: >-
+                Trade Capture Report Rejection with fields, tags and
+                descriptions.
       pagination:
         type: object
         properties:
@@ -54207,11 +55281,336 @@ definitions:
       TradeCapture:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           sessionID:
             type: string
+          tradeCaptureReport:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                description: Standard FIX message header.
+              tradeReportID:
+                type: string
+                description: (571) Unique identifier for the trade report.
+              tradeReportTransType:
+                type: string
+                description: (487) Type of trade report (new, cancel, correction).
+              tradeReportType:
+                type: string
+                description: (856) Type of trade report (real-time, end-of-day).
+              tradeRequestID:
+                type: string
+                description: >-
+                  (568) Identifier for the trade request to which this message
+                  responds.
+              trdType:
+                type: string
+                description: (828) Type of the trade (Block Trade, Exchange for Physical).
+                title: Trade details
+              trdSubType:
+                type: string
+                description: (829) Further information about the trade type.
+              side:
+                type: string
+                description: (54) Buy or sell.
+              orderQty:
+                type: string
+                description: (38) Quantity of the order involved in the trade.
+              lastQty:
+                type: string
+                description: (32) Quantity of the last execution in the trade.
+              lastPx:
+                type: string
+                description: (31) Price of the last execution in the trade.
+              grossTradeAmt:
+                type: string
+                description: >-
+                  (381) Total amount of the trade, including any commissions and
+                  fees.
+              execID:
+                type: string
+                description: (17) Identifier for the execution of the trade.
+                title: Trade identifiers
+              orderID:
+                type: string
+                description: (37) Identifier for the order associated with the trade.
+              tradeID:
+                type: string
+                description: (1003) Unique identifier for the trade.
+              origTradeID:
+                type: string
+                description: >-
+                  (1126) Identifier for the original trade, in the case of a
+                  trade correction.
+              symbol:
+                type: string
+                description: (55) Symbol or code for the financial instrument traded.
+                title: Instrument details
+              securityID:
+                type: string
+                description: (48) Identifier for the security traded.
+              securityIDSource:
+                type: string
+                description: (22) Source of the security identifier.
+              tradeDate:
+                type: string
+                description: (75) Date of the trade.
+                title: Trade dates and settlement
+              transactTime:
+                type: string
+                description: (60) Time at which the trade occurred.
+              settlType:
+                type: string
+                description: (63) Settlement type of the trade.
+              settlDate:
+                type: string
+                description: (64) Settlement date of the trade.
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+                description: Standard FIX message trailer.
+            description: Trade Capture Report with fields, tags and descriptions.
+          tradeCaptureReportAcknowledgement:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                description: Standard FIX message header.
+              tradeRequestID:
+                type: string
+                description: (568) Identifier for the trade request being responded to.
+                title: Trade request details
+              tradeRequestType:
+                type: string
+                description: >-
+                  (569) Type of trade request (All Trades, Unmatched Trades,
+                  etc.).
+              tradeReportID:
+                type: string
+                description: (571) Identifier for the trade report being acknowledged.
+                title: Trade report details
+              tradeID:
+                type: string
+                description: (1003) Unique identifier for the trade.
+              secondaryTradeID:
+                type: string
+                description: (1040) Alternative identifier for the trade.
+              tradeReportType:
+                type: string
+                description: (856) Type of trade report (real-time, end-of-day).
+              trdType:
+                type: string
+                description: (828) Type of the trade (Block Trade, Exchange for Physical).
+              trdSubType:
+                type: string
+                description: (829) Further information about the trade type.
+              execType:
+                type: string
+                description: >-
+                  (150) Status of the trade report (new, cancelled, corrected,
+                  etc.).
+              tradeReportRefID:
+                type: string
+                description: >-
+                  (572) Identifier for the previous trade report being referred
+                  to.
+              secondaryTradeReportID:
+                type: string
+                description: (818) Alternative identifier for the trade report.
+              tradeReportStatus:
+                type: string
+                description: (939) Status of the trade report (accepted, rejected, etc.).
+              tradeTransType:
+                type: string
+                description: (487) Type of trade transaction (new, cancel, correction).
+              tradeReportRejectReason:
+                type: string
+                description: (751) Reason why the trade report was rejected.
+              text:
+                type: string
+                description: >-
+                  (58) Additional information about the trade report or
+                  acknowledgement.
+                title: Additional information
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+                description: Standard FIX message trailer.
+            description: >-
+              Trade Capture Report Acknowledgement with fields, tags and
+              descriptions.
+          tradeCaptureReportRejection:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For example, "FIX.4.4" indicates version 4.4 of the
+                      protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D" indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique identifier assigned to each party that
+                      uses the FIX protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                description: Standard FIX message header.
+              tradeRequestID:
+                type: string
+                description: >-
+                  (568) The identifier for the trade request to which this
+                  message is responding.
+              tradeRequestType:
+                type: string
+                description: >-
+                  (569) Indicates the type of trade request, such as "All
+                  Trades" or "Unmatched Trades".
+              tradeReportID:
+                type: string
+                description: (571) The identifier for the trade report being rejected.
+              tradeReportRejectReason:
+                type: string
+                description: (751) A code indicating why the trade report was rejected.
+              tradeReportRejectRefID:
+                type: string
+                description: >-
+                  (754) The identifier of the previous message (e.g., Trade
+                  Capture Report) to which this message refers.
+              text:
+                type: string
+                description: >-
+                  (58) A description of the reason for the trade report
+                  rejection.
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all characters in the message (excluding the SOH
+                      (start of header) and ETX (end of text) characters),
+                      taking the sum modulo 256, and converting the result to a
+                      two-character hexadecimal string.
+                description: Standard FIX message trailer.
+            description: Trade Capture Report Rejection with fields, tags and descriptions.
   jim380.re.fix.QueryParamsResponse:
     type: object
     properties:
@@ -55661,11 +57060,624 @@ definitions:
   jim380.re.fix.TradeCapture:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       sessionID:
         type: string
+      tradeCaptureReport:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            description: Standard FIX message header.
+          tradeReportID:
+            type: string
+            description: (571) Unique identifier for the trade report.
+          tradeReportTransType:
+            type: string
+            description: (487) Type of trade report (new, cancel, correction).
+          tradeReportType:
+            type: string
+            description: (856) Type of trade report (real-time, end-of-day).
+          tradeRequestID:
+            type: string
+            description: >-
+              (568) Identifier for the trade request to which this message
+              responds.
+          trdType:
+            type: string
+            description: (828) Type of the trade (Block Trade, Exchange for Physical).
+            title: Trade details
+          trdSubType:
+            type: string
+            description: (829) Further information about the trade type.
+          side:
+            type: string
+            description: (54) Buy or sell.
+          orderQty:
+            type: string
+            description: (38) Quantity of the order involved in the trade.
+          lastQty:
+            type: string
+            description: (32) Quantity of the last execution in the trade.
+          lastPx:
+            type: string
+            description: (31) Price of the last execution in the trade.
+          grossTradeAmt:
+            type: string
+            description: >-
+              (381) Total amount of the trade, including any commissions and
+              fees.
+          execID:
+            type: string
+            description: (17) Identifier for the execution of the trade.
+            title: Trade identifiers
+          orderID:
+            type: string
+            description: (37) Identifier for the order associated with the trade.
+          tradeID:
+            type: string
+            description: (1003) Unique identifier for the trade.
+          origTradeID:
+            type: string
+            description: >-
+              (1126) Identifier for the original trade, in the case of a trade
+              correction.
+          symbol:
+            type: string
+            description: (55) Symbol or code for the financial instrument traded.
+            title: Instrument details
+          securityID:
+            type: string
+            description: (48) Identifier for the security traded.
+          securityIDSource:
+            type: string
+            description: (22) Source of the security identifier.
+          tradeDate:
+            type: string
+            description: (75) Date of the trade.
+            title: Trade dates and settlement
+          transactTime:
+            type: string
+            description: (60) Time at which the trade occurred.
+          settlType:
+            type: string
+            description: (63) Settlement type of the trade.
+          settlDate:
+            type: string
+            description: (64) Settlement date of the trade.
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+            description: Standard FIX message trailer.
+        description: Trade Capture Report with fields, tags and descriptions.
+      tradeCaptureReportAcknowledgement:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            description: Standard FIX message header.
+          tradeRequestID:
+            type: string
+            description: (568) Identifier for the trade request being responded to.
+            title: Trade request details
+          tradeRequestType:
+            type: string
+            description: (569) Type of trade request (All Trades, Unmatched Trades, etc.).
+          tradeReportID:
+            type: string
+            description: (571) Identifier for the trade report being acknowledged.
+            title: Trade report details
+          tradeID:
+            type: string
+            description: (1003) Unique identifier for the trade.
+          secondaryTradeID:
+            type: string
+            description: (1040) Alternative identifier for the trade.
+          tradeReportType:
+            type: string
+            description: (856) Type of trade report (real-time, end-of-day).
+          trdType:
+            type: string
+            description: (828) Type of the trade (Block Trade, Exchange for Physical).
+          trdSubType:
+            type: string
+            description: (829) Further information about the trade type.
+          execType:
+            type: string
+            description: >-
+              (150) Status of the trade report (new, cancelled, corrected,
+              etc.).
+          tradeReportRefID:
+            type: string
+            description: (572) Identifier for the previous trade report being referred to.
+          secondaryTradeReportID:
+            type: string
+            description: (818) Alternative identifier for the trade report.
+          tradeReportStatus:
+            type: string
+            description: (939) Status of the trade report (accepted, rejected, etc.).
+          tradeTransType:
+            type: string
+            description: (487) Type of trade transaction (new, cancel, correction).
+          tradeReportRejectReason:
+            type: string
+            description: (751) Reason why the trade report was rejected.
+          text:
+            type: string
+            description: >-
+              (58) Additional information about the trade report or
+              acknowledgement.
+            title: Additional information
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+            description: Standard FIX message trailer.
+        description: >-
+          Trade Capture Report Acknowledgement with fields, tags and
+          descriptions.
+      tradeCaptureReportRejection:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For example, "FIX.4.4" indicates version 4.4 of the
+                  protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D" indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique identifier assigned to each party that uses
+                  the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            description: Standard FIX message header.
+          tradeRequestID:
+            type: string
+            description: >-
+              (568) The identifier for the trade request to which this message
+              is responding.
+          tradeRequestType:
+            type: string
+            description: >-
+              (569) Indicates the type of trade request, such as "All Trades" or
+              "Unmatched Trades".
+          tradeReportID:
+            type: string
+            description: (571) The identifier for the trade report being rejected.
+          tradeReportRejectReason:
+            type: string
+            description: (751) A code indicating why the trade report was rejected.
+          tradeReportRejectRefID:
+            type: string
+            description: >-
+              (754) The identifier of the previous message (e.g., Trade Capture
+              Report) to which this message refers.
+          text:
+            type: string
+            description: (58) A description of the reason for the trade report rejection.
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all characters in the message (excluding the SOH (start of
+                  header) and ETX (end of text) characters), taking the sum
+                  modulo 256, and converting the result to a two-character
+                  hexadecimal string.
+            description: Standard FIX message trailer.
+        description: Trade Capture Report Rejection with fields, tags and descriptions.
+  jim380.re.fix.TradeCaptureReport:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        description: Standard FIX message header.
+      tradeReportID:
+        type: string
+        description: (571) Unique identifier for the trade report.
+      tradeReportTransType:
+        type: string
+        description: (487) Type of trade report (new, cancel, correction).
+      tradeReportType:
+        type: string
+        description: (856) Type of trade report (real-time, end-of-day).
+      tradeRequestID:
+        type: string
+        description: (568) Identifier for the trade request to which this message responds.
+      trdType:
+        type: string
+        description: (828) Type of the trade (Block Trade, Exchange for Physical).
+        title: Trade details
+      trdSubType:
+        type: string
+        description: (829) Further information about the trade type.
+      side:
+        type: string
+        description: (54) Buy or sell.
+      orderQty:
+        type: string
+        description: (38) Quantity of the order involved in the trade.
+      lastQty:
+        type: string
+        description: (32) Quantity of the last execution in the trade.
+      lastPx:
+        type: string
+        description: (31) Price of the last execution in the trade.
+      grossTradeAmt:
+        type: string
+        description: (381) Total amount of the trade, including any commissions and fees.
+      execID:
+        type: string
+        description: (17) Identifier for the execution of the trade.
+        title: Trade identifiers
+      orderID:
+        type: string
+        description: (37) Identifier for the order associated with the trade.
+      tradeID:
+        type: string
+        description: (1003) Unique identifier for the trade.
+      origTradeID:
+        type: string
+        description: >-
+          (1126) Identifier for the original trade, in the case of a trade
+          correction.
+      symbol:
+        type: string
+        description: (55) Symbol or code for the financial instrument traded.
+        title: Instrument details
+      securityID:
+        type: string
+        description: (48) Identifier for the security traded.
+      securityIDSource:
+        type: string
+        description: (22) Source of the security identifier.
+      tradeDate:
+        type: string
+        description: (75) Date of the trade.
+        title: Trade dates and settlement
+      transactTime:
+        type: string
+        description: (60) Time at which the trade occurred.
+      settlType:
+        type: string
+        description: (63) Settlement type of the trade.
+      settlDate:
+        type: string
+        description: (64) Settlement date of the trade.
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+        description: Standard FIX message trailer.
+    description: Trade Capture Report with fields, tags and descriptions.
+  jim380.re.fix.TradeCaptureReportAcknowledgement:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        description: Standard FIX message header.
+      tradeRequestID:
+        type: string
+        description: (568) Identifier for the trade request being responded to.
+        title: Trade request details
+      tradeRequestType:
+        type: string
+        description: (569) Type of trade request (All Trades, Unmatched Trades, etc.).
+      tradeReportID:
+        type: string
+        description: (571) Identifier for the trade report being acknowledged.
+        title: Trade report details
+      tradeID:
+        type: string
+        description: (1003) Unique identifier for the trade.
+      secondaryTradeID:
+        type: string
+        description: (1040) Alternative identifier for the trade.
+      tradeReportType:
+        type: string
+        description: (856) Type of trade report (real-time, end-of-day).
+      trdType:
+        type: string
+        description: (828) Type of the trade (Block Trade, Exchange for Physical).
+      trdSubType:
+        type: string
+        description: (829) Further information about the trade type.
+      execType:
+        type: string
+        description: (150) Status of the trade report (new, cancelled, corrected, etc.).
+      tradeReportRefID:
+        type: string
+        description: (572) Identifier for the previous trade report being referred to.
+      secondaryTradeReportID:
+        type: string
+        description: (818) Alternative identifier for the trade report.
+      tradeReportStatus:
+        type: string
+        description: (939) Status of the trade report (accepted, rejected, etc.).
+      tradeTransType:
+        type: string
+        description: (487) Type of trade transaction (new, cancel, correction).
+      tradeReportRejectReason:
+        type: string
+        description: (751) Reason why the trade report was rejected.
+      text:
+        type: string
+        description: (58) Additional information about the trade report or acknowledgement.
+        title: Additional information
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+        description: Standard FIX message trailer.
+    description: Trade Capture Report Acknowledgement with fields, tags and descriptions.
+  jim380.re.fix.TradeCaptureReportRejection:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D" indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique identifier assigned to each party that uses the FIX
+              protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        description: Standard FIX message header.
+      tradeRequestID:
+        type: string
+        description: >-
+          (568) The identifier for the trade request to which this message is
+          responding.
+      tradeRequestType:
+        type: string
+        description: >-
+          (569) Indicates the type of trade request, such as "All Trades" or
+          "Unmatched Trades".
+      tradeReportID:
+        type: string
+        description: (571) The identifier for the trade report being rejected.
+      tradeReportRejectReason:
+        type: string
+        description: (751) A code indicating why the trade report was rejected.
+      tradeReportRejectRefID:
+        type: string
+        description: >-
+          (754) The identifier of the previous message (e.g., Trade Capture
+          Report) to which this message refers.
+      text:
+        type: string
+        description: (58) A description of the reason for the trade report rejection.
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all characters in the message (excluding the SOH (start of header)
+              and ETX (end of text) characters), taking the sum modulo 256, and
+              converting the result to a two-character hexadecimal string.
+        description: Standard FIX message trailer.
+    description: Trade Capture Report Rejection with fields, tags and descriptions.
   jim380.re.fix.Trailer:
     type: object
     properties:

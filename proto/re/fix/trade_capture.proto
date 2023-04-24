@@ -83,7 +83,7 @@ message TradeCaptureReportRejection {
 Header header = 1; // Standard FIX message header.
 string tradeRequestID = 2; // (568) The identifier for the trade request to which this message is responding.
 string tradeRequestType = 3; // (569) Indicates the type of trade request, such as "All Trades" or "Unmatched Trades".
-string tradeReportID = 4; // (571) The identifier for the trade report being rejected.
+string tradeReportID  = 4; // (571) The identifier for the trade report being rejected.
 string tradeReportRejectReason = 5; // (751) A code indicating why the trade report was rejected.
 string tradeReportRejectRefID = 6; // (754) The identifier of the previous message (e.g., Trade Capture Report) to which this message refers.
 string text = 7; // (58) A description of the reason for the trade report rejection.
