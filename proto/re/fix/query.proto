@@ -124,11 +124,11 @@ service Query {
   
   // Queries a list of TradeCapture items.
   rpc TradeCapture    (QueryGetTradeCaptureRequest) returns (QueryGetTradeCaptureResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trade_capture/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/trade_capture/{tradeReportID}";
   
   }
   rpc TradeCaptureAll (QueryAllTradeCaptureRequest) returns (QueryAllTradeCaptureResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trade_capture";
+    option (google.api.http).get = "/jim380/Re/fix/trade_captures";
   
   }
 }
@@ -306,7 +306,7 @@ message QueryAllQuoteResponse {
 }
 
 message QueryGetTradeCaptureRequest {
-  uint64 id = 1;
+ string tradeReportID = 1;
 }
 
 message QueryGetTradeCaptureResponse {
