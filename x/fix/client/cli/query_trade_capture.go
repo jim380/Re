@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -53,13 +52,10 @@ func CmdShowTradeCapture() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argTradeReportID := args[0]
 
 			params := &types.QueryGetTradeCaptureRequest{
-				Id: id,
+				TradeReportID: argTradeReportID,
 			}
 
 			res, err := queryClient.TradeCapture(context.Background(), params)

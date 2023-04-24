@@ -57,7 +57,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set all the tradeCapture
 	for _, elem := range genState.TradeCaptureList {
-		k.SetTradeCapture(ctx, elem)
+		k.SetTradeCapture(ctx, elem.TradeCaptureReport.TradeReportID, elem)
 	}
 
 	// Set tradeCapture count

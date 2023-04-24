@@ -150,16 +150,17 @@ func (gs GenesisState) Validate() error {
 		quoteIdMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in tradeCapture
-	tradeCaptureIdMap := make(map[uint64]bool)
+	tradeCaptureIdMap := make(map[string]bool)
 	tradeCaptureCount := gs.GetTradeCaptureCount()
 	for _, elem := range gs.TradeCaptureList {
-		if _, ok := tradeCaptureIdMap[elem.Id]; ok {
+		if _, ok := tradeCaptureIdMap[elem.TradeCaptureReport.TradeReportID]; ok {
 			return fmt.Errorf("duplicated id for tradeCapture")
 		}
-		if elem.Id >= tradeCaptureCount {
+		tradeReportID, _ := strconv.ParseUint(elem.TradeCaptureReport.TradeReportID, 10, 64)
+		if tradeReportID >= tradeCaptureCount {
 			return fmt.Errorf("tradeCapture id should be lower or equal than the last id")
 		}
-		tradeCaptureIdMap[elem.Id] = true
+		tradeCaptureIdMap[elem.TradeCaptureReport.TradeReportID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

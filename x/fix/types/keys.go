@@ -44,6 +44,9 @@ var (
 	OrdersExecutionReportCountKey = []byte{0x014}
 
 	QuoteKey = []byte{0x015}
+
+	TradeCaptureKey      = []byte{0x018}
+	TradeCaptureCountKey = []byte{0x019}
 )
 
 func GetAccountKey() []byte {
@@ -114,7 +117,10 @@ func GetQuoteKey() []byte {
 	return QuoteKey
 }
 
-const (
-	TradeCaptureKey      = "TradeCapture/value/"
-	TradeCaptureCountKey = "TradeCapture/count/"
-)
+func GetTradeCaptureKey() []byte {
+	return TradeCaptureKey
+}
+
+func GetTradeCaptureCountKey() []byte {
+	return TradeCaptureCountKey
+}

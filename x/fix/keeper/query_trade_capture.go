@@ -21,7 +21,7 @@ func (k Keeper) TradeCaptureAll(goCtx context.Context, req *types.QueryAllTradeC
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	tradeCaptureStore := prefix.NewStore(store, types.KeyPrefix(types.TradeCaptureKey))
+	tradeCaptureStore := prefix.NewStore(store, types.GetTradeCaptureKey())
 
 	pageRes, err := query.Paginate(tradeCaptureStore, req.Pagination, func(key []byte, value []byte) error {
 		var tradeCapture types.TradeCapture
@@ -46,7 +46,7 @@ func (k Keeper) TradeCapture(goCtx context.Context, req *types.QueryGetTradeCapt
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	tradeCapture, found := k.GetTradeCapture(ctx, req.Id)
+	tradeCapture, found := k.GetTradeCapture(ctx, req.TradeReportID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

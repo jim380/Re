@@ -6,10 +6,10 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message TradeCapture {
-  string sessionID = 2; 
-  TradeCaptureReport tradeCaptureReport = 3;
-  TradeCaptureReportAcknowledgement tradeCaptureReportAcknowledgement = 4;
-  TradeCaptureReportRejection tradeCaptureReportRejection = 5;
+  string sessionID = 1; 
+  TradeCaptureReport tradeCaptureReport = 2;
+  TradeCaptureReportAcknowledgement tradeCaptureReportAcknowledgement = 3;
+  TradeCaptureReportRejection tradeCaptureReportRejection = 4;
 }
 
 // Trade Capture Report with fields, tags and descriptions.
