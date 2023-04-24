@@ -3,8 +3,46 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message TradeCapture {
-  uint64 id = 1;
   string sessionID = 2; 
+  TradeCaptureReport tradeCaptureReport = 3;
+}
+
+// Trade Capture Report with fields and descriptions.
+message TradeCaptureReport {
+  Header header = 1;  // Standard FIX message header.
+  string tradeReportID = 2; // (571) Unique identifier for the trade report.
+  string tradeReportTransType = 3; // (487) Type of trade report (new, cancel, correction).
+  string tradeReportType = 4; // (856) Type of trade report (real-time, end-of-day).
+  string tradeRequestID = 5; // (568) Identifier for the trade request to which this message responds.
   
+  // Trade details
+  string trdType = 6; // (828) Type of the trade (Block Trade, Exchange for Physical).
+  string trdSubType = 7; // (829) Further information about the trade type.
+  string side = 21; // (54) Buy or sell.
+  string orderQty = 22; // (38) Quantity of the order involved in the trade.
+  string lastQty = 23; // (32) Quantity of the last execution in the trade.
+  string lastPx = 24; // (31) Price of the last execution in the trade.
+  string grossTradeAmt = 25; // (381) Total amount of the trade, including any commissions and fees.
+  
+  // Trade identifiers
+  string execID = 9; // (17) Identifier for the execution of the trade.
+  string orderID = 10; // (37) Identifier for the order associated with the trade.
+  string tradeID = 12; // (1003) Unique identifier for the trade.
+  string origTradeID = 13; // (1126) Identifier for the original trade, in the case of a trade correction.
+  
+  // Instrument details
+  string symbol = 18; // (55) Symbol or code for the financial instrument traded.
+  string securityID = 19; // (48) Identifier for the security traded.
+  string securityIDSource = 20; // (22) Source of the security identifier.
+  
+  // Trade dates and settlement
+  string tradeDate = 14; // (75) Date of the trade.
+  string transactTime = 15; // (60) Time at which the trade occurred.
+  string settlType = 16; // (63) Settlement type of the trade.
+  string settlDate = 17; // (64) Settlement date of the trade.
+  
+  Trailer trailer = 26; // Standard FIX message trailer.
 }
