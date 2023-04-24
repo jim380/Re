@@ -113,3 +113,8 @@ func GetOrdersExecutionReportCountKey() []byte {
 func GetQuoteKey() []byte {
 	return QuoteKey
 }
+
+const (
+	TradeCaptureKey      = "TradeCapture/value/"
+	TradeCaptureCountKey = "TradeCapture/count/"
+)

@@ -13,6 +13,7 @@ import "re/fix/orders_cancel_request.proto";
 import "re/fix/orders_cancel_reject.proto";
 import "re/fix/orders_execution_report.proto";
 import "re/fix/quote.proto";
+import "re/fix/trade_capture.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -37,5 +38,7 @@ message GenesisState {
            uint64                ordersExecutionReportCount = 17;
   repeated Quote                 quoteList                  = 18 [(gogoproto.nullable) = false];
            uint64                quoteCount                 = 19;
+  repeated TradeCapture          tradeCaptureList           = 20 [(gogoproto.nullable) = false];
+           uint64                tradeCaptureCount          = 21;
 }
 
