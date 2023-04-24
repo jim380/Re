@@ -8,6 +8,7 @@ import "re/fix/standard_message.proto";
 message TradeCapture {
   string sessionID = 2; 
   TradeCaptureReport tradeCaptureReport = 3;
+  TradeCaptureReportAcknowledgement tradeCaptureReportAcknowledgement = 4;
 }
 
 // Trade Capture Report with fields and descriptions.
@@ -45,4 +46,32 @@ message TradeCaptureReport {
   string settlDate = 17; // (64) Settlement date of the trade.
   
   Trailer trailer = 26; // Standard FIX message trailer.
+}
+
+// Trade Capture Report Acknowledgement with fields and descriptions.
+message TradeCaptureReportAcknowledgement {
+Header header = 1; // Standard FIX message header.
+
+// Trade request details
+string tradeRequestID = 2; // (568) Identifier for the trade request being responded to.
+string tradeRequestType = 3; // (569) Type of trade request (All Trades, Unmatched Trades, etc.).
+
+// Trade report details
+string tradeReportID = 4; // (571) Identifier for the trade report being acknowledged.
+string tradeID = 5; //(1003) Unique identifier for the trade.
+string secondaryTradeID = 6; // (1040) Alternative identifier for the trade.
+string tradeReportType = 7; // (856) Type of trade report (real-time, end-of-day).
+string trdType = 8; // (828) Type of the trade (Block Trade, Exchange for Physical).
+string trdSubType = 9; // (829) Further information about the trade type.
+string execType = 10; // (150) Status of the trade report (new, cancelled, corrected, etc.).
+string tradeReportRefID = 11; //(572) Identifier for the previous trade report being referred to.
+string secondaryTradeReportID = 12; // (818) Alternative identifier for the trade report.
+string tradeReportStatus = 13; // (939) Status of the trade report (accepted, rejected, etc.).
+string tradeTransType = 14; // (487) Type of trade transaction (new, cancel, correction).
+string tradeReportRejectReason = 15; // (751) Reason why the trade report was rejected.
+
+// Additional information
+string text = 16; // (58) Additional information about the trade report or acknowledgement.
+
+Trailer trailer = 17; // Standard FIX message trailer.
 }
