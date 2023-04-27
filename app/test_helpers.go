@@ -20,7 +20,7 @@ func (ao EmptyAppOptions) Get(o string) interface{} {
 
 func Setup(isCheckTx bool) *ReApp {
 	db := dbm.NewMemDB()
-	app := NewReApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5,  MakeEncodingConfig(), GetEnabledProposals(), simapp.EmptyAppOptions{}, nil)
+	app := NewReApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, MakeEncodingConfig(), GetEnabledProposals(), simapp.EmptyAppOptions{}, nil)
 	if !isCheckTx {
 		// init chain must be called to stop deliverState from being nil
 		genesisState := NewDefaultGenesisState(MakeEncodingConfig().Marshaler)

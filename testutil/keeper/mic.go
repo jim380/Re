@@ -9,7 +9,7 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	//typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
+	// typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/jim380/Re/x/mic/keeper"
 	"github.com/jim380/Re/x/mic/types"
 	"github.com/stretchr/testify/require"

@@ -79,7 +79,7 @@ import (
 	ibcclienttypes "github.com/cosmos/ibc-go/v3/modules/core/02-client/types"
 	ibcporttypes "github.com/cosmos/ibc-go/v3/modules/core/05-port/types"
 
-	//porttypes "github.com/cosmos/ibc-go/v4/modules/core/05-port/types"
+	// porttypes "github.com/cosmos/ibc-go/v4/modules/core/05-port/types"
 	ibchost "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 	ibckeeper "github.com/cosmos/ibc-go/v3/modules/core/keeper"
 	ibctesting "github.com/cosmos/ibc-go/v3/testing"
@@ -514,7 +514,7 @@ func NewReApp(
 		keys[didtypes.MemStoreKey],
 	)
 
-	//wasmOpts = append(wasmbinding.RegisterCustomPlugins(&app.InterchainTxsKeeper, &app.InterchainQueriesKeeper, app.TransferKeeper, &app.AdminmoduleKeeper, app.FeeBurnerKeeper), wasmOpts...)
+	// wasmOpts = append(wasmbinding.RegisterCustomPlugins(&app.InterchainTxsKeeper, &app.InterchainQueriesKeeper, app.TransferKeeper, &app.AdminmoduleKeeper, app.FeeBurnerKeeper), wasmOpts...)
 
 	app.WasmKeeper = wasm.NewKeeper(
 		appCodec,
@@ -540,7 +540,7 @@ func NewReApp(
 		appCodec,
 		keys[micmoduletypes.StoreKey],
 		keys[micmoduletypes.MemStoreKey],
-		//app.GetSubspace(micmoduletypes.ModuleName),
+		// app.GetSubspace(micmoduletypes.ModuleName),
 	)
 	micModule := micmodule.NewAppModule(appCodec, app.MicKeeper, app.AccountKeeper, app.BankKeeper)
 
@@ -574,7 +574,7 @@ func NewReApp(
 
 	// NOTE: we may consider parsing `appOpts` inside module constructors. For the moment
 	// we prefer to be more strict in what arguments the modules expect.
-	var skipGenesisInvariants = cast.ToBool(appOpts.Get(crisis.FlagSkipGenesisInvariants))
+	skipGenesisInvariants := cast.ToBool(appOpts.Get(crisis.FlagSkipGenesisInvariants))
 
 	// NOTE: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.
@@ -712,7 +712,7 @@ func NewReApp(
 		transferModule,
 		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
 
-		//didModule,
+		// didModule,
 		micModule,
 		fixModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
