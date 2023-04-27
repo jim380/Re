@@ -518,13 +518,13 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
 
 			// get session
-			session, found := suite.fixKeeper.GetSessions(suite.ctx, tc.args.session.SessionID)
+			session, _ := suite.fixKeeper.GetSessions(suite.ctx, tc.args.session.SessionID)
 
 			// set mic from mic module
 			suite.micKeeper.SetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode)
 
 			// get mic from mic module
-			mic, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
+			mic, _ := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
 
 			// set QuoteRequest
 			quoteRequest := types.NewQuoteRequest(tc.args.quoteRequest.QuoteReqID, tc.args.quoteRequest.Symbol, tc.args.quoteRequest.SecurityID, tc.args.quoteRequest.SecurityIDSource, tc.args.quoteRequest.Side, tc.args.quoteRequest.OrderQty, tc.args.quoteRequest.FutSettDate, tc.args.quoteRequest.SettlDate2, tc.args.quoteRequest.Account, tc.args.quoteRequest.BidPx, tc.args.quoteRequest.OfferPx, tc.args.quoteRequest.Currency, tc.args.quoteRequest.ValidUntilTime, tc.args.quoteRequest.ExpireTime, tc.args.quoteRequest.QuoteType, tc.args.quoteRequest.BidSize, tc.args.quoteRequest.OfferSize, mic.MIC, tc.args.quoteRequest.Text, string(tc.args.creator))

@@ -455,13 +455,13 @@ func (suite *KeeperTestSuite) TestUpdateMarketIdentificationCode() {
 			}
 
 			// call RegisterMarketIdentificationCode method
-			_, err := suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.registerMarketIdentificationCode)
+			_, _ = suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.registerMarketIdentificationCode)
 
 			// get old mic
-			_, found = suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.updateMarketIdentificationCode.Old_MIC)
+			_, _ = suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.updateMarketIdentificationCode.Old_MIC)
 
 			// now that mic is registered using RegisterMarketIdentificationCode, call UpdateMarketIdentificationCode method
-			_, err = suite.msgServer.UpdateMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.updateMarketIdentificationCode)
+			_, err := suite.msgServer.UpdateMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.updateMarketIdentificationCode)
 
 			// get new mic after updating
 			newMIC, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.updateMarketIdentificationCode.New_MIC)
@@ -611,13 +611,13 @@ func (suite *KeeperTestSuite) TestDeleteMarketIdentificationCode() {
 			}
 
 			// call RegisterMarketIdentificationCode method
-			_, err := suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.registerMarketIdentificationCode)
+			_, _ = suite.msgServer.RegisterMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.registerMarketIdentificationCode)
 
 			// get mic
-			_, found = suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.registerMarketIdentificationCode.MIC)
+			_, _ = suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.registerMarketIdentificationCode.MIC)
 
 			// now that mic is registered using RegisterMarketIdentificationCode, call DeleteMarketIdentificationCode method
-			_, err = suite.msgServer.DeleteMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.deleteMarketIdentificationCode)
+			_, err := suite.msgServer.DeleteMarketIdentificationCode(sdk.WrapSDKContext(suite.ctx), &tc.args.deleteMarketIdentificationCode)
 
 			// remove MIC
 			suite.micKeeper.RemoveMarketIdentificationCode(suite.ctx, tc.args.deleteMarketIdentificationCode.MIC)

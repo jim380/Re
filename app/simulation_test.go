@@ -3,7 +3,6 @@ package app_test
 import (
 	"os"
 	"testing"
-	"time"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -14,8 +13,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/jim380/Re/app"
 	//"github.com/jim380/Re/cmd"
@@ -37,6 +34,7 @@ type SimApp interface {
 	InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain
 }
 
+/*
 var defaultConsensusParams = &abci.ConsensusParams{
 	Block: &abci.BlockParams{
 		MaxBytes: 200000,
@@ -53,6 +51,7 @@ var defaultConsensusParams = &abci.ConsensusParams{
 		},
 	},
 }
+*/
 
 // BenchmarkSimulation run the chain simulation
 // Running using starport command:
