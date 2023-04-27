@@ -65,12 +65,12 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 		return nil, sdkerrors.Wrapf(types.ErrNotTheSameDID, "DID: %s", msg.Did)
 	}
 
-	//only account owner can update DID
+	// only account owner can update DID
 	if existingDocWithSeq.Creator != editedDocWithSeq.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
-	//verification method's Public Key and Type for updating must be the same at DID creation
+	// verification method's Public Key and Type for updating must be the same at DID creation
 	for i := range existingDocWithSeq.Document.VerificationMethods {
 		if existingDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 != editedDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 && existingDocWithSeq.Document.VerificationMethods[i].Type != editedDocWithSeq.Document.VerificationMethods[i].Type {
 			return nil, sdkerrors.Wrapf(types.ErrSigVerificationFailed, "Verification Methods: %s", editedDocWithSeq.Document.VerificationMethods[i])
@@ -124,7 +124,7 @@ func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivate
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
-	//get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
+	// get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
 	activedocWithSeq := keeper.GetDIDDocument(ctx, existingDocWithSeq.Document.Id)
 
 	if !activedocWithSeq.Document.Empty() {

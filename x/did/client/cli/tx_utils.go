@@ -25,7 +25,7 @@ import (
 
 	didcrypto "github.com/jim380/Re/x/did/client/crypto"
 	"github.com/jim380/Re/x/did/types"
-	//"github.com/jim380/Re/x/did/keeper"
+	// "github.com/jim380/Re/x/did/keeper"
 )
 
 const (
