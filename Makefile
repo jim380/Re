@@ -87,9 +87,11 @@ build:
 ###                                Linting                                  ###
 ###############################################################################
 
+
 lint:
 	@echo "--> Running linter"
-	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run --timeout=10m
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
+	@golangci-lint run --timeout=10m
 
 
 
