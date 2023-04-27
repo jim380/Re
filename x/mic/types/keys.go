@@ -18,9 +18,7 @@ func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
-var (
-	MarketIdentificationCodeKeyPrefix = "MarketIdentificationCode/value/"
-)
+var MarketIdentificationCodeKeyPrefix = "MarketIdentificationCode/value/"
 
 func GetMarketIdentificationCodeKey(mic string) []byte {
 	return append([]byte(mic), []byte("/")...)

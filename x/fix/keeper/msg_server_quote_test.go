@@ -10,7 +10,6 @@ import (
 )
 
 func (suite *KeeperTestSuite) TestQuoteRequest() {
-
 	type args struct {
 		creator                  string
 		session                  types.Sessions
@@ -28,7 +27,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 		args    args
 		errArgs errArgs
 	}{
-		{"Valid SessionID in QuoteRequest",
+		{
+			"Valid SessionID in QuoteRequest",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -118,7 +118,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Check that both account addresses involved in a logon session can send a Quote Request",
+		{
+			"Check that both account addresses involved in a logon session can send a Quote Request",
 			args{
 				creator: suite.address[1].String(),
 				session: types.Sessions{
@@ -208,7 +209,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Account Address not involved in a logon session can not send a Quote Request",
+		{
+			"Account Address not involved in a logon session can not send a Quote Request",
 			args{
 				creator: suite.address[2].String(),
 				session: types.Sessions{
@@ -298,7 +300,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Valid SessionID but logon is not yet established between both parties",
+		{
+			"Valid SessionID but logon is not yet established between both parties",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -388,7 +391,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"QuoteReqID is Empty",
+		{
+			"QuoteReqID is Empty",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -478,7 +482,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Empty Session",
+		{
+			"Empty Session",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -610,7 +615,5 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
 		})
-
 	}
-
 }

@@ -65,7 +65,6 @@ func readBIP39ParamsFrom(interactive bool, reader *bufio.Reader) (string, string
 	}
 
 	return mnemonic, passphrase, nil
-
 }
 
 func keystoreBaseDir() string {

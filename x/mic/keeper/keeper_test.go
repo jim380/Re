@@ -14,9 +14,9 @@ import (
 )
 
 var (
-	acc1  = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
-	acc2  = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
-	acc3  = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
+	acc1 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
+	acc2 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
+	acc3 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
 )
 
 // shared setup

@@ -13,13 +13,13 @@ import (
 func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderSingle) (*types.MsgNewOrderSingleResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//TODO
+	// TODO
 	// get session, check if session exists and if the status is set to loggedIn
 	// check for account address
 	// include checks for all the FIX Protocol messages
 	// add more check cases
 
-	//check for if this session Name exists
+	// check for if this session Name exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
@@ -29,7 +29,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionID))
 	}
 
-	//check if order exists
+	// check if order exists
 	order, found := k.GetOrders(ctx, msg.SessionID)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
@@ -52,7 +52,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		Creator:      msg.Creator,
 	}
 
-	//set the msgType
+	// set the msgType
 	newOrder.Header.MsgType = "D"
 	newOrder.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
 	newOrder.Status = "Requested"
@@ -68,11 +68,11 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	session, _ := k.GetSessions(ctx, msg.SessionID)
 
 	// TODO: Handling the message
-	//Fetch session
+	// Fetch session
 	// check for existing origClOrdID
 	// check that account address equals the creator
 
-	//set order cancel request data
+	// set order cancel request data
 	orderCancelRequest := types.OrdersCancelRequest{
 		SessionID:   msg.SessionID,
 		Header:      session.LogonInitiator.Header,
@@ -85,7 +85,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	// msgType = F
 	orderCancelRequest.Header.MsgType = "F"
 
-	//set order cancel request to store
+	// set order cancel request to store
 	k.SetOrdersCancelRequest(ctx, msg.SessionID, orderCancelRequest)
 
 	return &types.MsgOrderCancelRequestResponse{}, nil
@@ -97,10 +97,10 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	session, _ := k.GetSessions(ctx, msg.SessionID)
 
 	// TODO: Handling the message err
-	//Fetch session
+	// Fetch session
 	// check for existing origClOrdID
 	// check that account address equals the creator
-	//checks for the fields in the FIX Protocol
+	// checks for the fields in the FIX Protocol
 
 	orderExecutionReport := types.OrdersExecutionReport{
 		SessionID:    msg.SessionID,
@@ -129,7 +129,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	orderExecutionReport.Header.MsgType = "8"
 	orderExecutionReport.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
 
-	//set order execution report to store
+	// set order execution report to store
 	k.SetOrdersExecutionReport(ctx, msg.SessionID, orderExecutionReport)
 
 	return &types.MsgOrderExecutionReportResponse{}, nil
@@ -141,10 +141,10 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	session, _ := k.GetSessions(ctx, msg.SessionID)
 
 	// TODO: Handling the message
-	//Fetch session
+	// Fetch session
 	// check for existing origClOrdID
 	// check that account address equals the creator
-	//Handle all FIX protocol message
+	// Handle all FIX protocol message
 
 	orderCancelReject := types.OrdersCancelReject{
 		SessionID:        msg.SessionID,
@@ -159,7 +159,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 		Creator:          msg.Creator,
 	}
 
-	//set msgType
+	// set msgType
 	orderCancelReject.Header.MsgType = "9"
 	orderCancelReject.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
 

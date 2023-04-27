@@ -174,7 +174,6 @@ func (msg MsgReActivateDID) Type() string { return "reactivate_did" }
 
 // VaValidateBasic runs stateless checks on the message.
 func (msg MsgReActivateDID) ValidateBasic() error {
-
 	addr, err := sdk.AccAddressFromBech32(msg.FromAddress)
 	if err != nil {
 		return err

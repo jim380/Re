@@ -18,7 +18,6 @@ func CmdLogoutInitiator() *cobra.Command {
 		Short: "Broadcast message logout-initiator",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -55,7 +54,6 @@ func CmdLogoutAcceptor() *cobra.Command {
 		Short: "Broadcast message logout-acceptor",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)

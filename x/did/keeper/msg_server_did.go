@@ -110,7 +110,6 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 	keeper.SetDeactivatedDIDDocument(ctx, msg.FromAddress, existingDocWithSeq)
 	keeper.SetDIDDocument(ctx, msg.Did, existingDocWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
-
 }
 
 // ReActivateDID reactivates DID document on RE Protocol
@@ -138,7 +137,6 @@ func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivate
 	keeper.SetDIDDocument(ctx, existingDocWithSeq.Document.Id, existingDocWithSeq)
 
 	return &types.MsgReActivateDIDResponse{}, nil
-
 }
 
 func VerifyDIDOwnership(signData *types.DIDDocument, seq uint64, doc *types.DIDDocument, verificationMethodID string, sig []byte) (uint64, error) {

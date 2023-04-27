@@ -6,7 +6,6 @@ import (
 )
 
 func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
-
 	type args struct {
 		marketIdentificationCode types.MarketIdentificationCode
 	}
@@ -168,14 +167,11 @@ func (suite *KeeperTestSuite) TestRegisterMarketIdentificationCode() {
 				suite.Require().Error(err, tc.name)
 				suite.Require().Contains(err.Error(), tc.errArgs.contains, tc.name)
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestUpdateMarketIdentificationCode() {
-
 	type args struct {
 		registerMarketIdentificationCode types.MsgRegisterMarketIdentificationCode
 		updateMarketIdentificationCode   types.MsgUpdateMarketIdentificationCode
@@ -475,14 +471,11 @@ func (suite *KeeperTestSuite) TestUpdateMarketIdentificationCode() {
 				suite.Require().Error(err, tc.name)
 				suite.Require().Contains(err.Error(), tc.errArgs.contains, tc.name)
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestDeleteMarketIdentificationCode() {
-
 	type args struct {
 		registerMarketIdentificationCode types.MsgRegisterMarketIdentificationCode
 		deleteMarketIdentificationCode   types.MsgDeleteMarketIdentificationCode
@@ -635,8 +628,6 @@ func (suite *KeeperTestSuite) TestDeleteMarketIdentificationCode() {
 				suite.Require().Empty(deletedMIC.String())
 				suite.Require().Contains(err.Error(), tc.errArgs.contains, tc.name)
 			}
-
 		})
 	}
-
 }

@@ -19,7 +19,6 @@ func CmdQuoteRequest() *cobra.Command {
 		Short: "Broadcast message quote-request",
 		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -45,7 +44,7 @@ func CmdQuoteRequest() *cobra.Command {
 			argMIC := args[17]
 			argText := args[18]
 
-			//GenerateRandomString function uniquely generates quoteReqID for every Quote Request
+			// GenerateRandomString function uniquely generates quoteReqID for every Quote Request
 			quoteReqID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
 
 			quoteRequests := types.NewQuoteRequest(quoteReqID, argSymbol, argSecurityID, argSecurityIDSource, argSide, argOrderQty, argFutSettDate, argSettlDate2, argAccount, argBidPx, argOfferPx, argCurrency, argValidUntilTime, argExpireTime, argQuoteType, argBidSize, argOfferSize, argMIC, argText, clientCtx.GetFromAddress().String())
@@ -74,7 +73,6 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 		Short: "Broadcast message quote-acknowledgement",
 		Args:  cobra.ExactArgs(25),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -106,7 +104,7 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 			argLegSecurityIDSource := args[23]
 			argLegRatioQty := args[24]
 
-			//auto generate QuoteID using GenerateRandomString function
+			// auto generate QuoteID using GenerateRandomString function
 			quoteID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
 
 			quoteAcknowledgement := types.NewQuoteAcknowledgement(argQuoteReqID, quoteID, argQuoteStatus, argQuoteType, argSecurityID, argSecurityIDSource, argSymbol, argSide, argOrderQty, argLastQty, argLastPx, argBidPx, argOfferPx, argCurrency, argSettlDate, argValidUntilTime, argExpireTime, argText, argNoQuoteQualifiers, argQuoteQualifier, argNoLegs, argLegSymbol, argLegSecurityID, argLegSecurityIDSource, argLegRatioQty, clientCtx.GetFromAddress().String())
@@ -135,7 +133,6 @@ func CmdQuoteRequestReject() *cobra.Command {
 		Short: "Broadcast message quote-request-reject",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err

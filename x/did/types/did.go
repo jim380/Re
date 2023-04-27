@@ -51,7 +51,6 @@ func ValidateDIDs(strings []string) bool {
 	}
 
 	return true
-
 }
 
 func (strings JSONStringOrStrings) protoType() *Strings {

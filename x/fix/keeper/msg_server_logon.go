@@ -28,30 +28,30 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
-	//same DID can not be used for intiating and accepting in the same FIX session
+	// same DID can not be used for intiating and accepting in the same FIX session
 	if senderCompID.Did == targetCompID.Did {
 		return nil, sdkerrors.Wrapf(types.ErrSessionSameDID, "DID: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
-	//check for if this session Name exists already
+	// check for if this session Name exists already
 	_, found := k.GetSessions(ctx, msg.SessionID)
 	if found {
 		return nil, sdkerrors.Wrapf(types.ErrSessionNameFound, "Session Name: %s", msg.SessionID)
 	}
 
-	//set the standard header
+	// set the standard header
 	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Did, targetCompID.Did, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime)
 
-	//set the FIX Version
+	// set the FIX Version
 	header.BeginString = msg.FIXVersionByInitiator()
 
-	//set the standard trailer
+	// set the standard trailer
 	trailer := types.NewTrailer(msg.LogonInitiator.Trailer.CheckSum)
 
 	// set the logon initiator message
 	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt, trailer)
 
-	var newInitiatorSession = types.Sessions{
+	newInitiatorSession := types.Sessions{
 		SessionID:        msg.SessionID,
 		LogonInitiator:   &logonInitiator,
 		Status:           "logon-request",
@@ -59,7 +59,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 		InitiatorAddress: msg.InitiatorAddress,
 	}
 
-	//set new Initiator logon session to store
+	// set new Initiator logon session to store
 	k.SetSessions(ctx, msg.SessionID, newInitiatorSession)
 
 	return &types.MsgLogonInitiatorResponse{}, nil
@@ -69,19 +69,19 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAcceptor) (*types.MsgLogonAcceptorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//check for if this session Name exists already
+	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	//checks that the provided session name matches with the existing session name in store
+	// checks that the provided session name matches with the existing session name in store
 	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongSession, "Session Name: %s", msg.SessionID)
 	}
 
-	//checks that DID provided matches with the DID in the session
-	//at logon acceptor, targetCompID becomes senderCompID and senderCompID becomes targetCompID
+	// checks that DID provided matches with the DID in the session
+	// at logon acceptor, targetCompID becomes senderCompID and senderCompID becomes targetCompID
 	if session.LogonInitiator.Header.TargetCompID != msg.LogonAcceptor.Header.SenderCompID {
 		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID)
 	}
@@ -89,7 +89,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		return nil, sdkerrors.Wrapf(types.ErrIncorrectDID, "Session Name: %s", session.LogonInitiator.Header.TargetCompID)
 	}
 
-	//get DID from GetAccount to have access to the account creator
+	// get DID from GetAccount to have access to the account creator
 	senderCompID := k.GetAccount(ctx, msg.LogonAcceptor.Header.SenderCompID)
 	if senderCompID.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.LogonAcceptor.Header.SenderCompID)
@@ -98,13 +98,13 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.AcceptorAddress)
 	}
 
-	//set the standard header
+	// set the standard header
 	header := types.NewHeader(session.LogonInitiator.Header.BodyLength, msg.LogonAcceptor.Header.MsgType, msg.LogonAcceptor.Header.SenderCompID, msg.LogonAcceptor.Header.TargetCompID, session.LogonInitiator.Header.MsgSeqNum, msg.LogonAcceptor.Header.SendingTime)
 
-	//set the FIX Version
+	// set the FIX Version
 	header.BeginString = msg.FIXVersionByAcceptor()
 
-	//set the standard trailer
+	// set the standard trailer
 	trailer := types.NewTrailer(msg.LogonAcceptor.Trailer.CheckSum)
 
 	// set the logon initiator message
@@ -116,7 +116,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	//
 	//}
 
-	var newAcceptorSession = types.Sessions{
+	newAcceptorSession := types.Sessions{
 		SessionID:        session.SessionID,
 		LogonInitiator:   session.LogonInitiator,
 		LogonAcceptor:    &LogonAcceptor,
@@ -126,7 +126,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		AcceptorAddress:  msg.AcceptorAddress,
 	}
 
-	//set new Acceptor logon session to store
+	// set new Acceptor logon session to store
 	k.SetSessions(ctx, msg.SessionID, newAcceptorSession)
 
 	return &types.MsgLogonAcceptorResponse{}, nil
@@ -136,7 +136,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject) (*types.MsgLogonRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//check for if this session Name exists already
+	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
@@ -146,7 +146,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d Logon status is not in request state", &session.Status))
 	}
 
-	//TODO
+	// TODO
 	if session.LogonInitiator.Header.TargetCompID != msg.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong SenderCompID", msg.Header.SenderCompID))
 	}
@@ -160,7 +160,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
-	var sessionReject = types.SessionReject{
+	sessionReject := types.SessionReject{
 		AcceptorAddress: msg.AcceptorAddress,
 		SessionID:       msg.SessionID,
 		Header:          msg.Header,
@@ -168,17 +168,17 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		Trailer:         msg.Trailer,
 	}
 
-	//set Header and Trailer to session Reject
+	// set Header and Trailer to session Reject
 	sessionReject.Header = session.LogonInitiator.Header
 	sessionReject.Trailer = session.LogonInitiator.Trailer
 
-	//set msgType to 3, [msgType 35 = 3] for sesssion rejection
+	// set msgType to 3, [msgType 35 = 3] for sesssion rejection
 	sessionReject.Header.MsgType = "3"
 
-	//set session status to rejected
+	// set session status to rejected
 	session.Status = "rejected"
 
-	//set rejected session to sore
+	// set rejected session to sore
 	k.SetSessions(ctx, msg.SessionID, session)
 	k.SetSessionReject(ctx, msg.SessionID, sessionReject)
 
@@ -189,7 +189,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminateLogon) (*types.MsgTerminateLogonResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//check if the session exits with the DID
+	// check if the session exits with the DID
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
@@ -199,12 +199,12 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.InitiatorAddress)
 	}
 
-	//check that session is not accepted yet
+	// check that session is not accepted yet
 	if session.Status != "logon-request" {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Account: %s", msg.SessionID)
 	}
 
-	//remove session from store
+	// remove session from store
 	k.RemoveSessions(ctx, msg.SessionID)
 
 	return &types.MsgTerminateLogonResponse{}, nil

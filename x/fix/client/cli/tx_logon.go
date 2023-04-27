@@ -20,7 +20,6 @@ func CmdLogonInitiator() *cobra.Command {
 		Short: "Broadcast message logon-initiator",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -46,9 +45,9 @@ func CmdLogonInitiator() *cobra.Command {
 
 			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
 
-			//sample of the msg
+			// sample of the msg
 			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
-			//body length of logon message
+			// body length of logon message
 			msgBody := sessionName + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
 			bodyLength := types.BodyLength(msgBody)
@@ -57,7 +56,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
 
-			//get the length of checksum excluding the checksum field
+			// get the length of checksum excluding the checksum field
 			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 			setCheckSum := types.CalculateChecksum(checkSum)
 
@@ -88,7 +87,6 @@ func CmdLogonAcceptor() *cobra.Command {
 		Short: "Broadcast message logon-acceptor",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -114,9 +112,9 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
 
-			//sample of the msg
+			// sample of the msg
 			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
-			//body length of logon message
+			// body length of logon message
 			msgBody := argSessionID + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
 			bodyLength := types.BodyLength(msgBody)
@@ -125,7 +123,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
 
-			//get the length of checksum excluding the checksum field
+			// get the length of checksum excluding the checksum field
 			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 			setCheckSum := types.CalculateChecksum(checkSum)
 
@@ -156,7 +154,6 @@ func CmdLogonReject() *cobra.Command {
 		Short: "Broadcast message logon-reject",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -195,7 +192,6 @@ func CmdTerminateLogon() *cobra.Command {
 		Short: "Broadcast message terminate-logon",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argDid := args[1]
 

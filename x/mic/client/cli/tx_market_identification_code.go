@@ -14,7 +14,6 @@ func CmdRegisterMarketIdentificationCode() *cobra.Command {
 		Short: "Registers a new marketIdentificationCode",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argMIC := args[0]
 			argOperating_MIC := args[1]
 			argOPRT_SGMT := args[2]
@@ -57,7 +56,6 @@ func CmdUpdateMarketIdentificationCode() *cobra.Command {
 		Short: "Update a marketIdentificationCode",
 		Args:  cobra.ExactArgs(18),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argOldMIC := args[0]
 			argNewMIC := args[1]
 			argOperating_MIC := args[2]

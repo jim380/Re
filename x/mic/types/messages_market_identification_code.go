@@ -128,6 +128,7 @@ func NewMsgDeleteMarketIdentificationCode(creator string, mic string) *MsgDelete
 		Creator: creator,
 	}
 }
+
 func (msg *MsgDeleteMarketIdentificationCode) Route() string {
 	return RouterKey
 }
