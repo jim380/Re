@@ -12,242 +12,248 @@ import "re/fix/quote.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount                 (MsgCreateAccount                ) returns (MsgCreateAccountResponse                );
-  rpc UpdateAccount                 (MsgUpdateAccount                ) returns (MsgUpdateAccountResponse                );
-  rpc DeleteAccount                 (MsgDeleteAccount                ) returns (MsgDeleteAccountResponse                );
-  rpc LogonInitiator                (MsgLogonInitiator               ) returns (MsgLogonInitiatorResponse               );
-  rpc LogonAcceptor                 (MsgLogonAcceptor                ) returns (MsgLogonAcceptorResponse                );
-  rpc TerminateLogon                (MsgTerminateLogon               ) returns (MsgTerminateLogonResponse               );
-  rpc LogonReject                   (MsgLogonReject                  ) returns (MsgLogonRejectResponse                  );
-  rpc LogoutInitiator               (MsgLogoutInitiator              ) returns (MsgLogoutInitiatorResponse              );
-  rpc LogoutAcceptor                (MsgLogoutAcceptor               ) returns (MsgLogoutAcceptorResponse               );
-  rpc NewOrderSingle                (MsgNewOrderSingle               ) returns (MsgNewOrderSingleResponse               );
-  rpc OrderCancelRequest            (MsgOrderCancelRequest           ) returns (MsgOrderCancelRequestResponse           );
-  rpc OrderCancelReject             (MsgOrderCancelReject            ) returns (MsgOrderCancelRejectResponse            );
-  rpc OrderExecutionReport          (MsgOrderExecutionReport         ) returns (MsgOrderExecutionReportResponse         );
-  rpc QuoteRequest                  (MsgQuoteRequest                 ) returns (MsgQuoteRequestResponse                 );
-  rpc QuoteAcknowledgement          (MsgQuoteAcknowledgement         ) returns (MsgQuoteAcknowledgementResponse         );
-  rpc QuoteRequestReject            (MsgQuoteRequestReject           ) returns (MsgQuoteRequestRejectResponse           );
-  rpc MarketDataRequest             (MsgMarketDataRequest            ) returns (MsgMarketDataRequestResponse            );
-  rpc MarketDataSnapshotFullRefresh (MsgMarketDataSnapshotFullRefresh) returns (MsgMarketDataSnapshotFullRefreshResponse);
-  rpc MarketDataIncremental         (MsgMarketDataIncremental        ) returns (MsgMarketDataIncrementalResponse        );
-  rpc MarketDataRequestReject       (MsgMarketDataRequestReject      ) returns (MsgMarketDataRequestRejectResponse      );
+  rpc CreateAccount(MsgCreateAccount) returns (MsgCreateAccountResponse);
+  rpc UpdateAccount(MsgUpdateAccount) returns (MsgUpdateAccountResponse);
+  rpc DeleteAccount(MsgDeleteAccount) returns (MsgDeleteAccountResponse);
+  rpc LogonInitiator(MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
+  rpc LogonAcceptor(MsgLogonAcceptor) returns (MsgLogonAcceptorResponse);
+  rpc TerminateLogon(MsgTerminateLogon) returns (MsgTerminateLogonResponse);
+  rpc LogonReject(MsgLogonReject) returns (MsgLogonRejectResponse);
+  rpc LogoutInitiator(MsgLogoutInitiator) returns (MsgLogoutInitiatorResponse);
+  rpc LogoutAcceptor(MsgLogoutAcceptor) returns (MsgLogoutAcceptorResponse);
+  rpc NewOrderSingle(MsgNewOrderSingle) returns (MsgNewOrderSingleResponse);
+  rpc OrderCancelRequest(MsgOrderCancelRequest)
+      returns (MsgOrderCancelRequestResponse);
+  rpc OrderCancelReject(MsgOrderCancelReject)
+      returns (MsgOrderCancelRejectResponse);
+  rpc OrderExecutionReport(MsgOrderExecutionReport)
+      returns (MsgOrderExecutionReportResponse);
+  rpc QuoteRequest(MsgQuoteRequest) returns (MsgQuoteRequestResponse);
+  rpc QuoteAcknowledgement(MsgQuoteAcknowledgement)
+      returns (MsgQuoteAcknowledgementResponse);
+  rpc QuoteRequestReject(MsgQuoteRequestReject)
+      returns (MsgQuoteRequestRejectResponse);
+  rpc MarketDataRequest(MsgMarketDataRequest)
+      returns (MsgMarketDataRequestResponse);
+  rpc MarketDataSnapshotFullRefresh(MsgMarketDataSnapshotFullRefresh)
+      returns (MsgMarketDataSnapshotFullRefreshResponse);
+  rpc MarketDataIncremental(MsgMarketDataIncremental)
+      returns (MsgMarketDataIncrementalResponse);
+  rpc MarketDataRequestReject(MsgMarketDataRequestReject)
+      returns (MsgMarketDataRequestRejectResponse);
 }
 message MsgCreateAccount {
-  string creator          = 1;
-  string did              = 2;
-  string companyName      = 3;
-  string website          = 4;
+  string creator = 1;
+  string did = 2;
+  string companyName = 3;
+  string website = 4;
   string socialMediaLinks = 5;
-  string createdAt        = 6;
+  string createdAt = 6;
 }
 
-message MsgCreateAccountResponse {
-  string did = 1;
-}
+message MsgCreateAccountResponse { string did = 1; }
 
 message MsgUpdateAccount {
-  string creator          = 1;
-  string did              = 2;
-  string companyName      = 3;
-  string website          = 4;
+  string creator = 1;
+  string did = 2;
+  string companyName = 3;
+  string website = 4;
   string socialMediaLinks = 5;
-  string createdAt        = 6;
+  string createdAt = 6;
 }
 
 message MsgUpdateAccountResponse {}
 
 message MsgDeleteAccount {
   string creator = 1;
-  string did     = 2;
+  string did = 2;
 }
 
 message MsgDeleteAccountResponse {}
 
 message MsgLogonInitiator {
-  string         sessionID        = 1;
-  LogonInitiator logonInitiator   = 2;
-  string         status           = 3;
-  bool           IsAccepted       = 4;
-  string         initiatorAddress = 5;
+  string sessionID = 1;
+  LogonInitiator logonInitiator = 2;
+  string status = 3;
+  bool IsAccepted = 4;
+  string initiatorAddress = 5;
 }
 
 message MsgLogonInitiatorResponse {}
 
 message MsgLogonAcceptor {
-  string        sessionID       = 1;
-  LogonAcceptor logonAcceptor   = 2;
-  string        status          = 3;
-  bool          IsAccepted      = 4;
-  string        acceptorAddress = 5;
+  string sessionID = 1;
+  LogonAcceptor logonAcceptor = 2;
+  string status = 3;
+  bool IsAccepted = 4;
+  string acceptorAddress = 5;
 }
 
 message MsgLogonAcceptorResponse {}
 
 message MsgTerminateLogon {
   string initiatorAddress = 1;
-  string sessionID        = 2;
-  string did              = 3;
+  string sessionID = 2;
+  string did = 3;
 }
 
 message MsgTerminateLogonResponse {}
 
 message MsgLogonReject {
-  string  acceptorAddress = 1;
-  string  sessionID       = 2;
-  Header  header          = 3;
-  string  text            = 4;
-  Trailer trailer         = 5;
+  string acceptorAddress = 1;
+  string sessionID = 2;
+  Header header = 3;
+  string text = 4;
+  Trailer trailer = 5;
 }
 
 message MsgLogonRejectResponse {}
 
 message MsgLogoutInitiator {
-  string                 initiatorAddress       = 1;
-  string                 sessionID              = 2;
+  string initiatorAddress = 1;
+  string sessionID = 2;
   SessionLogoutInitiator sessionLogoutInitiator = 3;
 }
 
 message MsgLogoutInitiatorResponse {}
 
 message MsgLogoutAcceptor {
-  string                acceptorAddress       = 1;
-  string                sessionID             = 2;
+  string acceptorAddress = 1;
+  string sessionID = 2;
   SessionLogoutAcceptor sessionLogoutAcceptor = 3;
 }
 
 message MsgLogoutAcceptorResponse {}
 
 message MsgNewOrderSingle {
-  string  creator      =  1;
-  string  sessionID    =  2;
-  Header  header       =  3;
-  string  clOrdID      =  4;
-  string  symbol       =  5;
-  int64   side         =  6;
-  string  orderQty     =  7;
-  int64   ordType      =  8;
-  string  price        =  9;
-  int64   timeInForce  = 10;
-  string  text         = 11;
-  string  transactTime = 12;
-  Trailer trailer      = 13;
-  string  status       = 14;
+  string creator = 1;
+  string sessionID = 2;
+  Header header = 3;
+  string clOrdID = 4;
+  string symbol = 5;
+  int64 side = 6;
+  string orderQty = 7;
+  int64 ordType = 8;
+  string price = 9;
+  int64 timeInForce = 10;
+  string text = 11;
+  string transactTime = 12;
+  Trailer trailer = 13;
+  string status = 14;
 }
 
 message MsgNewOrderSingleResponse {}
 
 message MsgOrderCancelRequest {
-  string  sessionID   = 1;
-  Header  header      = 2;
-  string  origClOrdID = 3;
-  string  clOrdID     = 4;
-  Trailer trailer     = 5;
-  string  creator     = 6;
+  string sessionID = 1;
+  Header header = 2;
+  string origClOrdID = 3;
+  string clOrdID = 4;
+  Trailer trailer = 5;
+  string creator = 6;
 }
 
 message MsgOrderCancelRequestResponse {}
 
 message MsgOrderCancelReject {
-  string  sessionID        =  1;
-  Header  header           =  2;
-  string  orderID          =  3;
-  string  origClOrdID      =  4;
-  string  clOrdID          =  5;
-  int64   cxlRejReason     =  6;
-  int64   cxlRejResponseTo =  7;
-  string  TransactTime     =  8;
-  Trailer trailer          =  9;
-  string  creator          = 10;
+  string sessionID = 1;
+  Header header = 2;
+  string orderID = 3;
+  string origClOrdID = 4;
+  string clOrdID = 5;
+  int64 cxlRejReason = 6;
+  int64 cxlRejResponseTo = 7;
+  string TransactTime = 8;
+  Trailer trailer = 9;
+  string creator = 10;
 }
 
 message MsgOrderCancelRejectResponse {}
 
 message MsgOrderExecutionReport {
-  string  sessionID    =  1;
-  Header  header       =  2;
-  string  clOrdID      =  3;
-  string  orderID      =  4;
-  string  execID       =  5;
-  string  ordStatus    =  6;
-  string  execType     =  7;
-  string  symbol       =  8;
-  int64   side         =  9;
-  int64   orderQty     = 10;
-  int64   price        = 11;
-  int64   timeInForce  = 12;
-  int64   lastPx       = 13;
-  int64   lastQty      = 14;
-  int64   leavesQty    = 15;
-  int64   cumQty       = 16;
-  int64   avgPx        = 17;
-  string  text         = 18;
-  string  transactTime = 19;
-  Trailer trailer      = 20;
-  string  creator      = 21;
+  string sessionID = 1;
+  Header header = 2;
+  string clOrdID = 3;
+  string orderID = 4;
+  string execID = 5;
+  string ordStatus = 6;
+  string execType = 7;
+  string symbol = 8;
+  int64 side = 9;
+  int64 orderQty = 10;
+  int64 price = 11;
+  int64 timeInForce = 12;
+  int64 lastPx = 13;
+  int64 lastQty = 14;
+  int64 leavesQty = 15;
+  int64 cumQty = 16;
+  int64 avgPx = 17;
+  string text = 18;
+  string transactTime = 19;
+  Trailer trailer = 20;
+  string creator = 21;
 }
 
 message MsgOrderExecutionReportResponse {}
 
 message MsgQuoteRequest {
-  string       sessionID    = 1;
+  string sessionID = 1;
   QuoteRequest quoteRequest = 2;
-  string       creator      = 3;
+  string creator = 3;
 }
 
 message MsgQuoteRequestResponse {}
 
 message MsgQuoteAcknowledgement {
-  string               creator              = 1;
-  string               sessionID            = 2;
+  string creator = 1;
+  string sessionID = 2;
   QuoteAcknowledgement quoteAcknowledgement = 3;
 }
 
 message MsgQuoteAcknowledgementResponse {}
 
 message MsgQuoteRequestReject {
-  string             creator            = 1;
-  string             sessionID          = 2;
+  string creator = 1;
+  string sessionID = 2;
   QuoteRequestReject quoteRequestReject = 3;
 }
 
 message MsgQuoteRequestRejectResponse {}
 
 message MsgMarketDataRequest {
-  string creator                 = 1;
-  string mdReqID                 = 2;
+  string creator = 1;
+  string mdReqID = 2;
   string subscriptionRequestType = 3;
-  string marketDepth             = 4;
-  string mdUpdateType            = 5;
-  string noRelatedSym            = 6;
-  string symbol                  = 7;
+  string marketDepth = 4;
+  string mdUpdateType = 5;
+  string noRelatedSym = 6;
+  string symbol = 7;
 }
 
 message MsgMarketDataRequestResponse {}
 
 message MsgMarketDataSnapshotFullRefresh {
-  string creator     = 1;
-  string mdReqID     = 2;
-  string symbol      = 3;
+  string creator = 1;
+  string mdReqID = 2;
+  string symbol = 3;
   string noMDEntries = 4;
 }
 
 message MsgMarketDataSnapshotFullRefreshResponse {}
 
 message MsgMarketDataIncremental {
-  string creator     = 1;
-  string mdReqID     = 2;
+  string creator = 1;
+  string mdReqID = 2;
   string noMDEntries = 3;
 }
 
 message MsgMarketDataIncrementalResponse {}
 
 message MsgMarketDataRequestReject {
-  string creator        = 1;
-  string mdReqID        = 2;
+  string creator = 1;
+  string mdReqID = 2;
   string mdReqRejReason = 3;
-  string text           = 4;
+  string text = 4;
 }
 
 message MsgMarketDataRequestRejectResponse {}
-
