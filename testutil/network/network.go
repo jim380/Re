@@ -29,7 +29,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/jim380/Re/app"
-	//"github.com/jim380/Re/cmd"
+	// "github.com/jim380/Re/cmd"
 	"github.com/jim380/Re/testutil"
 )
 

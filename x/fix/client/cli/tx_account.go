@@ -43,11 +43,6 @@ func CmdUpdateAccount() *cobra.Command {
 		Short: "Update an account",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			//id, err := strconv.ParseUint(args[0], 10, 64)
-			//if err != nil {
-			//	return err
-			//}
-
 			argDid := args[0]
 
 			argCompanyName := args[1]

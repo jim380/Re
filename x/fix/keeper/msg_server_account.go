@@ -13,13 +13,13 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//get DID Document from the DID module && check if DID is exists
+	// get DID Document from the DID module && check if DID is exists
 	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
 	if getDidDocument.Document.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 	}
 
-	//creator of DID Document should be same with creator of Account
+	// creator of DID Document should be same with creator of Account
 	if getDidDocument.Creator != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
 	}
@@ -32,7 +32,7 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 			return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
 		}
 
-		//check for if the provided company name is not taken
+		// check for if the provided company name is not taken
 		if existingAccount.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
@@ -48,7 +48,7 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		}
 	}
 
-	var newAccount = types.Account{
+	newAccount := types.Account{
 		Creator:          msg.Creator,
 		Did:              msg.Did,
 		CompanyName:      msg.CompanyName,
@@ -67,12 +67,12 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//get DID Document from the DID module && check if DID is exists
+	// get DID Document from the DID module && check if DID is exists
 	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
 	if getDidDocument.Document.Empty() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
 	}
-	//creator of DID Document should be same with creator of Account
+	// creator of DID Document should be same with creator of Account
 	if getDidDocument.Creator != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
 	}
@@ -91,7 +91,7 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		}
 	}
 
-	var editedAccount = types.Account{
+	editedAccount := types.Account{
 		Creator:          msg.Creator,
 		Did:              msg.Did,
 		CompanyName:      msg.CompanyName,

@@ -40,7 +40,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRTSGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)
@@ -65,7 +65,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	}
 
 	// Create a market identification code object
-	var marketIdentificationCode = types.MarketIdentificationCode{
+	marketIdentificationCode := types.MarketIdentificationCode{
 		Creator:               msg.Creator,
 		MIC:                   msg.MIC,
 		Operating_MIC:         msg.Operating_MIC,
@@ -131,7 +131,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRTSGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)
@@ -156,7 +156,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	}
 
 	// Create a new market identification code object
-	var editedMarketIdentificationCode = types.MarketIdentificationCode{
+	editedMarketIdentificationCode := types.MarketIdentificationCode{
 		Creator:               msg.Creator,
 		MIC:                   msg.New_MIC,
 		Operating_MIC:         msg.Operating_MIC,
@@ -209,7 +209,7 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrMICCreatorIsWrong, "Creator: %s", msg.Creator)
 	}
 
-	//remove MIC from store
+	// remove MIC from store
 	k.RemoveMarketIdentificationCode(ctx, msg.MIC)
 
 	err = ctx.EventManager().EmitTypedEvent(msg)

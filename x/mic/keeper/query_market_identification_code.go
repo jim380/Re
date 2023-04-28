@@ -32,7 +32,6 @@ func (k Keeper) MarketIdentificationCodeAll(goCtx context.Context, req *types.Qu
 		marketIdentificationCodes = append(marketIdentificationCodes, marketIdentificationCode)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

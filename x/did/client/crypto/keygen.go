@@ -25,7 +25,7 @@ func GenSecp256k1PrivKey(mnemonic, bip39Passphrase string) (secp256k1.PrivKey, e
 		if err != nil {
 			return secp256k1.PrivKey{}, err
 		}
-		mnemonic, err = bip39.NewMnemonic(entropySeed[:])
+		mnemonic, err = bip39.NewMnemonic(entropySeed)
 		if err != nil {
 			return secp256k1.PrivKey{}, err
 		}

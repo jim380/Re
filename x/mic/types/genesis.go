@@ -12,7 +12,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		MarketIdentificationCodeList: []MarketIdentificationCode{},
 		// this line is used by starport scaffolding # genesis/types/default
-		//Params: DefaultParams(),
+		// Params: DefaultParams(),
 	}
 }
 

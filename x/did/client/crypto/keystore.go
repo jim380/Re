@@ -174,7 +174,7 @@ func encryptKey(address string, key []byte, passwd string) (encryptedKey, error)
 	}
 
 	// encrypt the key using AES-128-CTR
-	cipherText, err := aesCTRXOR(derivedKey[:cipherKeySize], iv, key[:])
+	cipherText, err := aesCTRXOR(derivedKey[:cipherKeySize], iv, key)
 	if err != nil {
 		return encryptedKey{}, err
 	}
@@ -251,7 +251,7 @@ func decryptKey(key encryptedKey, passwd string) ([]byte, error) {
 		return nil, fmt.Errorf("fail to get an expected MAC: %w", err)
 	}
 	if !bytes.Equal(expectedMac, mac) {
-		return nil, fmt.Errorf("mac verification was failed. the password might be wrong.")
+		return nil, fmt.Errorf("mac verification was failed: the password might be wrong")
 	}
 
 	return aesCTRXOR(derivedKey[:cipherKeySize], iv, cipherText)

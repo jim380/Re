@@ -7,13 +7,13 @@ import (
 
 var _ sdk.Msg = &MsgCreateDID{}
 
-func NewMsgCreateDID(did string, document DIDDocument, VerificationMethodID string, Signature []byte, FromAddress string) MsgCreateDID {
+func NewMsgCreateDID(did string, document DIDDocument, verificationMethodID string, signature []byte, fromAddress string) MsgCreateDID {
 	return MsgCreateDID{
 		Did:                  did,
 		Document:             &document,
-		VerificationMethodId: VerificationMethodID,
-		Signature:            Signature,
-		FromAddress:          FromAddress,
+		VerificationMethodId: verificationMethodID,
+		Signature:            signature,
+		FromAddress:          fromAddress,
 	}
 }
 
@@ -174,7 +174,6 @@ func (msg MsgReActivateDID) Type() string { return "reactivate_did" }
 
 // VaValidateBasic runs stateless checks on the message.
 func (msg MsgReActivateDID) ValidateBasic() error {
-
 	addr, err := sdk.AccAddressFromBech32(msg.FromAddress)
 	if err != nil {
 		return err

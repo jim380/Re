@@ -32,7 +32,6 @@ func (k Keeper) OrdersAll(goCtx context.Context, req *types.QueryAllOrdersReques
 		orderss = append(orderss, orders)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -74,7 +73,6 @@ func (k Keeper) OrdersCancelRequestAll(goCtx context.Context, req *types.QueryAl
 		ordersCancelRequests = append(ordersCancelRequests, ordersCancelRequest)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -116,7 +114,6 @@ func (k Keeper) OrdersExecutionReportAll(goCtx context.Context, req *types.Query
 		ordersExecutionReports = append(ordersExecutionReports, ordersExecutionReport)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -158,7 +155,6 @@ func (k Keeper) OrdersCancelRejectAll(goCtx context.Context, req *types.QueryAll
 		ordersCancelRejects = append(ordersCancelRejects, ordersCancelReject)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
