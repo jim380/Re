@@ -114,14 +114,21 @@ func (m *Sessions) GetIsAccepted() bool {
 	return false
 }
 
+// This message is used by the initiator of a FIX session to initiate a
+// connection with the acceptor
 type LogonInitiator struct {
-	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The FIX message header contains standard metadata about the message,
 	// including the sender and receiver IDs and the message type
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// An integer value indicating the encryption method to be used for the
+	// session
 	EncryptMethod int64 `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
-	// to be used for the session
+	// An integer value indicating the number of seconds between heartbeats that
+	// will be sent during the session. This is used to monitor the connection
+	// between the two parties
 	HeartBtInt int64 `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
-	// that will be sent during the session. This is used to monitor the
-	// connection between the two parties
+	// The FIX message trailer contains standard metadata about the message,
+	// including the message checksum
 	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
@@ -186,14 +193,21 @@ func (m *LogonInitiator) GetTrailer() *Trailer {
 	return nil
 }
 
+// This message is used by the acceptor of a FIX session to acknowledge the
+// initiation of the connection by the initiator
 type LogonAcceptor struct {
-	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The FIX message header contains standard metadata about the message,
 	// including the sender and receiver IDs and the message type
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// An integer value indicating the encryption method to be used for the
+	// session
 	EncryptMethod int64 `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
-	// to be used for the session
+	// An integer value indicating the number of seconds between heartbeats that
+	// will be sent during the session. This is used to monitor the connection
+	// between the two parties
 	HeartBtInt int64 `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
-	// that will be sent during the session. This is used to monitor the
-	// connection between the two parties
+	// The FIX message trailer contains standard metadata about the message,
+	// including the message checksum
 	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 

@@ -23,16 +23,22 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type OrdersCancelRequest struct {
-	SessionID string  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header    *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	// for the message, such as the message type, sender and
-	// receiver identification, and sequence number
+	// A string field that specifies the FIX session ID for the message
+	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	// A Header field that contains standard header information for the message,
+	// such as the message type, sender and receiver identification, and sequence
+	// number
+	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// A string field that contains the original client order ID for the order
+	// that was cancelled
 	OrigClOrdID string `protobuf:"bytes,3,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
-	// order ID for the order that was cancelled
+	// A string field that contains the client order ID for the order that was
+	// cancelled or modified
 	ClOrdID string `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	// the order that was cancelled or modified
+	// A Trailer field that contains standard trailer information for the message,
+	// such as the message checksum
 	Trailer *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	// message, such as the message checksum
+	// An optional string field that identifies the creator of the message
 	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 

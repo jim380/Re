@@ -22,30 +22,43 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// This message is used to represent orders in the FIX protocol
 type Orders struct {
+	// A string used to identify the trading session for which the message is
+	// intended.
 	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	// which the message is intended.
+	// A FIX protocol header containing standard message fields such as
+	// beginString, bodyLength, msgType, etc.
 	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	// such as beginString, bodyLength, msgType, etc.
+	// A unique identifier assigned by the client to the order. It is used to
+	// identify the order in future messages related to the order
 	ClOrdID string `protobuf:"bytes,3,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	// to identify the order in future messages related to the order
+	// The symbol or instrument that the order is for.
 	Symbol string `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side   int64  `protobuf:"varint,5,opt,name=side,proto3" json:"side,omitempty"`
-	// The values are typically 1 for buy and 2 for sell
+	// An integer indicating whether the order is a buy or a sell. The values are
+	// typically 1 for buy and 2 for sell
+	Side int64 `protobuf:"varint,5,opt,name=side,proto3" json:"side,omitempty"`
+	// The quantity of the instrument that the order is for
 	OrderQty string `protobuf:"bytes,6,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	OrdType  int64  `protobuf:"varint,7,opt,name=ordType,proto3" json:"ordType,omitempty"`
+	// An integer indicating the type of order. Common values include 1 for
 	// market, 2 for limit, 3 for stop, and 4 for stop limit
+	OrdType int64 `protobuf:"varint,7,opt,name=ordType,proto3" json:"ordType,omitempty"`
+	// The price at which the order should be executed. This field is required for
+	// limit and stop limit orders
 	Price string `protobuf:"bytes,8,opt,name=price,proto3" json:"price,omitempty"`
-	// field is required for limit and stop limit orders
+	// An integer indicating how long the order should remain active. Common
+	// values include 0 for day, 1 for good till canceled, and 2 for fill or kill
 	TimeInForce int64 `protobuf:"varint,9,opt,name=timeInForce,proto3" json:"timeInForce,omitempty"`
-	// remain active. Common values include 0 for day, 1
-	// for good till canceled, and 2 for fill or kill
+	// A free-form text field that can be used to provide additional information
+	// about the order.
 	Text string `protobuf:"bytes,10,opt,name=text,proto3" json:"text,omitempty"`
-	// additional information about the order.
-	TransactTime string   `protobuf:"bytes,11,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
-	Trailer      *Trailer `protobuf:"bytes,12,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	// fields such as checkSum
-	Status  string `protobuf:"bytes,13,opt,name=status,proto3" json:"status,omitempty"`
+	// The time the message was sent, expressed in UTC timestamp format
+	TransactTime string `protobuf:"bytes,11,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
+	// A FIX protocol trailer containing standard message fields such as checkSum
+	Trailer *Trailer `protobuf:"bytes,12,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// A field used to indicate the current status of the order.
+	Status string `protobuf:"bytes,13,opt,name=status,proto3" json:"status,omitempty"`
+	// A field used to indicate the creator of the order.
 	Creator string `protobuf:"bytes,14,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
