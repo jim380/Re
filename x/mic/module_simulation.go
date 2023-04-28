@@ -46,7 +46,7 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		accs[i] = acc.Address.String()
 	}
 	micGenesis := types.GenesisState{
-		//Params: types.DefaultParams(),
+		// Params: types.DefaultParams(),
 		MarketIdentificationCodeList: []types.MarketIdentificationCode{
 			{
 				MIC:     "",
@@ -70,7 +70,6 @@ func (AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedP
 
 // RandomizedParams creates randomized  param changes for the simulator
 func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
-
 	return []simtypes.ParamChange{}
 }
 

@@ -14,10 +14,9 @@ func CmdRegisterMarketIdentificationCode() *cobra.Command {
 		Short: "Registers a new marketIdentificationCode",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argMIC := args[0]
-			argOperating_MIC := args[1]
-			argOPRT_SGMT := args[2]
+			argOperatingMIC := args[1]
+			argOPRTSGMT := args[2]
 			argMarketName := args[3]
 			argLegalEntityName := args[4]
 			argLegalEntityIdentifier := args[5]
@@ -38,7 +37,7 @@ func CmdRegisterMarketIdentificationCode() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgRegisterMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
+			msg := types.NewMsgRegisterMarketIdentificationCode(clientCtx.GetFromAddress().String(), argMIC, argOperatingMIC, argOPRTSGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -57,11 +56,10 @@ func CmdUpdateMarketIdentificationCode() *cobra.Command {
 		Short: "Update a marketIdentificationCode",
 		Args:  cobra.ExactArgs(18),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argOldMIC := args[0]
 			argNewMIC := args[1]
-			argOperating_MIC := args[2]
-			argOPRT_SGMT := args[3]
+			argOperatingMIC := args[2]
+			argOPRTSGMT := args[3]
 			argMarketName := args[4]
 			argLegalEntityName := args[5]
 			argLegalEntityIdentifier := args[6]
@@ -82,7 +80,7 @@ func CmdUpdateMarketIdentificationCode() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argOldMIC, argNewMIC, argOperating_MIC, argOPRT_SGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
+			msg := types.NewMsgUpdateMarketIdentificationCode(clientCtx.GetFromAddress().String(), argOldMIC, argNewMIC, argOperatingMIC, argOPRTSGMT, argMarketName, argLegalEntityName, argLegalEntityIdentifier, argMarketCategory, argAcronym, argISOCountryCode, argCity, argWebsite, argStatus, argCreationDate, argLastUpdateDate, argLastValidationDate, argExpiryDate, argComments)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

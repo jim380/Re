@@ -14,7 +14,6 @@ import (
 )
 
 var (
-	denom            = "stake"
 	initiatorAddress = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
 	acceptorAddress  = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
 	unusedAddress    = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())

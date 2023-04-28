@@ -30,7 +30,6 @@ func CmdGetDID() *cobra.Command {
 			}
 
 			res, err := queryClient.DID(context.Background(), params)
-
 			if err != nil {
 				return err
 			}

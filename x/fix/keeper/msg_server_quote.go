@@ -70,7 +70,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 
 	// fetch Header from existing session
 	// In the FIX Protocol, a Quote Request message can be sent by either the initiator or the acceptor of the FIX session.
-	//Determine whether we are the initiator or acceptor
+	// Determine whether we are the initiator or acceptor
 	var header *types.Header
 	if session.InitiatorAddress == msg.Creator {
 		header = session.LogonInitiator.Header
@@ -99,7 +99,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	// checksum in the trailer can be recalculated using CalculateChecksum function
 	newQuoteRequest.QuoteRequest.Trailer = trailer
 
-	//set Quote Request to store
+	// set Quote Request to store
 	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)
 
 	// emit event
