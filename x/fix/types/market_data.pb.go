@@ -98,16 +98,38 @@ func (m *MarketData) GetMarketDataRequestReject() *MarketDataRequestReject {
 	return nil
 }
 
+// Market Data Request message
 type MarketDataRequest struct {
-	Header                  *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	MdReqID                 string   `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
-	SubscriptionRequestType int32    `protobuf:"varint,3,opt,name=subscriptionRequestType,proto3" json:"subscriptionRequestType,omitempty"`
-	MarketDepth             int32    `protobuf:"varint,4,opt,name=marketDepth,proto3" json:"marketDepth,omitempty"`
-	MdUpdateType            int32    `protobuf:"varint,5,opt,name=mdUpdateType,proto3" json:"mdUpdateType,omitempty"`
-	NoRelatedSym            int32    `protobuf:"varint,6,opt,name=noRelatedSym,proto3" json:"noRelatedSym,omitempty"`
-	Symbol                  string   `protobuf:"bytes,7,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Trailer                 *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator                 string   `protobuf:"bytes,9,opt,name=creator,proto3" json:"creator,omitempty"`
+	// standard Header
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// MDReqID field provides a unique identifier for the market data request
+	// message
+	MdReqID string `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	// subscriptionRequestType field corresponds to the FIX tag 263, and the
+	// values 0 and 1 respectively indicate snapshot and snapshot + incremental
+	// updates.
+	SubscriptionRequestType int32 `protobuf:"varint,3,opt,name=subscriptionRequestType,proto3" json:"subscriptionRequestType,omitempty"`
+	// MarketDepth field is used to indicate the level of market data depth that
+	// is being requested. Specifically, it specifies how many levels of the order
+	// book should be included in the response to the request
+	MarketDepth int32 `protobuf:"varint,4,opt,name=marketDepth,proto3" json:"marketDepth,omitempty"`
+	// The mdUpdateType field specifies the type of updates that the sender wants
+	// to receive in response to their request for market data. The possible
+	// values are "0" for full refresh, "1" for incremental refresh, and "2" for
+	// removing a single price level
+	MdUpdateType int32 `protobuf:"varint,5,opt,name=mdUpdateType,proto3" json:"mdUpdateType,omitempty"`
+	// The NoRelatedSym field in a Market Data Request message is used to indicate
+	// the number of symbols or instruments for which the market data is being
+	// requested
+	NoRelatedSym int32 `protobuf:"varint,6,opt,name=noRelatedSym,proto3" json:"noRelatedSym,omitempty"`
+	// In the context of a Market Data Request message in the FIX protocol, the
+	// Symbol field refers to the security or financial instrument for which
+	// market data is being requested
+	Symbol string `protobuf:"bytes,7,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// standard Trailer
+	Trailer *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,9,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataRequest) Reset()         { *m = MarketDataRequest{} }
@@ -206,14 +228,23 @@ func (m *MarketDataRequest) GetCreator() string {
 	return ""
 }
 
+// Market Data Snapshot/Full Refresh message
 type MarketDataSnapShotFullRefresh struct {
-	Header      *Header    `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	MdReqID     string     `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
-	Symbol      string     `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	NoMDEntries int32      `protobuf:"varint,4,opt,name=noMDEntries,proto3" json:"noMDEntries,omitempty"`
-	MdEntries   []*MDEntry `protobuf:"bytes,5,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
-	Trailer     *Trailer   `protobuf:"bytes,6,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator     string     `protobuf:"bytes,7,opt,name=creator,proto3" json:"creator,omitempty"`
+	// standard Header
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The identifier of an originating market data request (corresponds to the
+	// MDReqID field specified in the Market Data Request message)
+	MdReqID string `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	// The ticker symbol that is being quoted (such as BTC/USDT)
+	Symbol string `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// The number of market data entries (bids or offers) listed in a request
+	NoMDEntries int32 `protobuf:"varint,4,opt,name=noMDEntries,proto3" json:"noMDEntries,omitempty"`
+	// The repeated group of MDEntry fields that provide multiple entries
+	MdEntries []*MDEntry `protobuf:"bytes,5,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
+	// standard Trailer
+	Trailer *Trailer `protobuf:"bytes,6,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,7,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataSnapShotFullRefresh) Reset()         { *m = MarketDataSnapShotFullRefresh{} }
@@ -298,13 +329,22 @@ func (m *MarketDataSnapShotFullRefresh) GetCreator() string {
 	return ""
 }
 
+// Market Data Incremental message
 type MarketDataIncremental struct {
-	Header      *Header    `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	MdReqID     string     `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
-	NoMDEntries int32      `protobuf:"varint,3,opt,name=NoMDEntries,proto3" json:"NoMDEntries,omitempty"`
-	MdEntries   []*MDEntry `protobuf:"bytes,4,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
-	Trailer     *Trailer   `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator     string     `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	// standard Header
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The identifier of an originating market data request (corresponds to the
+	// MDReqID field specified in the Market Data Request message)
+	MdReqID string `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	// The number of market data entries (bids or offers) listed in a request
+	NoMDEntries int32 `protobuf:"varint,3,opt,name=NoMDEntries,proto3" json:"NoMDEntries,omitempty"`
+	// The repeated group of MDEntry fields that provide the incremental updates
+	// for the market data.
+	MdEntries []*MDEntry `protobuf:"bytes,4,rep,name=mdEntries,proto3" json:"mdEntries,omitempty"`
+	// standard Trailer
+	Trailer *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataIncremental) Reset()         { *m = MarketDataIncremental{} }
@@ -382,12 +422,17 @@ func (m *MarketDataIncremental) GetCreator() string {
 	return ""
 }
 
-// repeated group of MDEntry fields
+// Market Data Entry message
 type MDEntry struct {
-	MdUpdateAction int32  `protobuf:"varint,1,opt,name=mdUpdateAction,proto3" json:"mdUpdateAction,omitempty"`
-	MdEntryType    int32  `protobuf:"varint,2,opt,name=mdEntryType,proto3" json:"mdEntryType,omitempty"`
-	MdEntryPx      string `protobuf:"bytes,3,opt,name=mdEntryPx,proto3" json:"mdEntryPx,omitempty"`
-	MdEntrySize    string `protobuf:"bytes,4,opt,name=mdEntrySize,proto3" json:"mdEntrySize,omitempty"`
+	// The type of update action that is being reported for the MDEntry.
+	// Possible values are "0" for new, "1" for change, and "2" for delete.
+	MdUpdateAction int32 `protobuf:"varint,1,opt,name=mdUpdateAction,proto3" json:"mdUpdateAction,omitempty"`
+	// The side of a quote: 0 — bid , 1 — ask
+	MdEntryType int32 `protobuf:"varint,2,opt,name=mdEntryType,proto3" json:"mdEntryType,omitempty"`
+	// The price for a market data entry
+	MdEntryPx string `protobuf:"bytes,3,opt,name=mdEntryPx,proto3" json:"mdEntryPx,omitempty"`
+	// The quantity (tradeable volume) of a market data entry.
+	MdEntrySize string `protobuf:"bytes,4,opt,name=mdEntrySize,proto3" json:"mdEntrySize,omitempty"`
 }
 
 func (m *MDEntry) Reset()         { *m = MDEntry{} }
@@ -451,13 +496,20 @@ func (m *MDEntry) GetMdEntrySize() string {
 	return ""
 }
 
+// Market Data Request Reject message
 type MarketDataRequestReject struct {
-	Header         *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	MdReqID        string   `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
-	MdReqRejReason int32    `protobuf:"varint,3,opt,name=mdReqRejReason,proto3" json:"mdReqRejReason,omitempty"`
-	Text           string   `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
-	Trailer        *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator        string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	// standard Header
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The identifier of a Market Data Request that has been rejected
+	MdReqID string `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
+	// Indicates the reason why a request has been rejected
+	MdReqRejReason int32 `protobuf:"varint,3,opt,name=mdReqRejReason,proto3" json:"mdReqRejReason,omitempty"`
+	// The detailed information (if available) on why a request has been rejected
+	Text string `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
+	// standard Trailer
+	Trailer *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketDataRequestReject) Reset()         { *m = MarketDataRequestReject{} }
