@@ -22,17 +22,26 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// This message header contains fields that identify the message being sent and
+// its sender and recipient
 type Header struct {
-	BeginString string `protobuf:"bytes,1,opt,name=beginString,proto3" json:"beginString,omitempty"`
+	// This field specifies the version of the FIX protocol being used. For
 	// example, "FIX.4.4" indicates version 4.4 of the protocol.
-	BodyLength int64  `protobuf:"varint,2,opt,name=bodyLength,proto3" json:"bodyLength,omitempty"`
-	MsgType    string `protobuf:"bytes,3,opt,name=msgType,proto3" json:"msgType,omitempty"`
-	// For example, "D" indicates a New Order Single message
+	BeginString string `protobuf:"bytes,1,opt,name=beginString,proto3" json:"beginString,omitempty"`
+	// This field specifies the length of the message body in bytes.
+	BodyLength int64 `protobuf:"varint,2,opt,name=bodyLength,proto3" json:"bodyLength,omitempty"`
+	// This field identifies the type of message being sent. For example, "D"
+	// indicates a New Order Single message
+	MsgType string `protobuf:"bytes,3,opt,name=msgType,proto3" json:"msgType,omitempty"`
+	// This field identifies the sender of the message. This is typically a unique
+	// identifier assigned to each party that uses the FIX protocol
 	SenderCompID string `protobuf:"bytes,4,opt,name=senderCompID,proto3" json:"senderCompID,omitempty"`
-	// unique identifier assigned to each party that uses the FIX protocol
+	// This field identifies the recipient of the message.
 	TargetCompID string `protobuf:"bytes,5,opt,name=targetCompID,proto3" json:"targetCompID,omitempty"`
-	MsgSeqNum    int64  `protobuf:"varint,6,opt,name=msgSeqNum,proto3" json:"msgSeqNum,omitempty"`
-	// a unique sequence number to each message
+	// Is a field in the FIX protocol message header that is used to assign a
+	// unique sequence number to each message
+	MsgSeqNum int64 `protobuf:"varint,6,opt,name=msgSeqNum,proto3" json:"msgSeqNum,omitempty"`
+	// This field specifies the time that the message was sent
 	SendingTime string `protobuf:"bytes,7,opt,name=sendingTime,proto3" json:"sendingTime,omitempty"`
 }
 
@@ -118,7 +127,13 @@ func (m *Header) GetSendingTime() string {
 	return ""
 }
 
+// This message trailer contains a checksum field that is used to ensure message
+// integrity
 type Trailer struct {
+	// The checksum value is calculated by summing the ASCII values of all
+	// characters in the message (excluding the SOH (start of header) and ETX (end
+	// of text) characters), taking the sum modulo 256, and converting the result
+	// to a two-character hexadecimal string.
 	CheckSum int64 `protobuf:"varint,1,opt,name=checkSum,proto3" json:"checkSum,omitempty"`
 }
 

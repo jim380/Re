@@ -22,16 +22,19 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// This message is used to reject a FIX session
 type SessionReject struct {
+	// A string that identifies the session to which the rejected message belongs.
 	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	// rejected message belongs.
+	// A FIX protocol header containing standard message fields such as
+	// beginString, bodyLength, msgType, etc
 	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	// such as beginString, bodyLength, msgType, etc
+	// A free-form text field that provides information about the rejection, such
+	// as the reason for the rejection or a description of the error
 	Text string `protobuf:"bytes,3,opt,name=text,proto3" json:"text,omitempty"`
-	// rejection, such as the reason for the rejection or a
-	// description of the error
+	// A FIX protocol trailer containing standard message fields such as checkSum
 	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	// fields such as checkSum
+	// The address of the user that rejects a session
 	AcceptorAddress string `protobuf:"bytes,5,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
 }
 

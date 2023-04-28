@@ -22,33 +22,50 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// Definition of MarketIdentificationCode message
 type MarketIdentificationCode struct {
+	// Market Identifier Code allocated to the market named in ‘Market
+	// Name-Institution Description’.
 	MIC string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
-	// ‘Market Name-Institution Description’.
+	// Entity operating an exchange/market/trade reporting facility in a specific
+	// market/country.
 	Operating_MIC string `protobuf:"bytes,2,opt,name=operating_MIC,json=operatingMIC,proto3" json:"operating_MIC,omitempty"`
-	// reporting facility in a specific market/country
+	// Indicates whether the MIC is an operating MIC or a market segment MIC.
 	OPRT_SGMT string `protobuf:"bytes,3,opt,name=OPRT_SGMT,json=OPRTSGMT,proto3" json:"OPRT_SGMT,omitempty"`
-	// market segment MIC
-	MarketName            string `protobuf:"bytes,4,opt,name=market_name,json=marketName,proto3" json:"market_name,omitempty"`
-	LegalEntityName       string `protobuf:"bytes,5,opt,name=legal_entity_name,json=legalEntityName,proto3" json:"legal_entity_name,omitempty"`
+	// Institution Description: name of the market.
+	MarketName string `protobuf:"bytes,4,opt,name=market_name,json=marketName,proto3" json:"market_name,omitempty"`
+	// Legal name of the entity owning the market.
+	LegalEntityName string `protobuf:"bytes,5,opt,name=legal_entity_name,json=legalEntityName,proto3" json:"legal_entity_name,omitempty"`
+	// Legal Entity Identifier (LEI) see ISO 17442-1.
 	LegalEntityIdentifier string `protobuf:"bytes,6,opt,name=legal_entity_identifier,json=legalEntityIdentifier,proto3" json:"legal_entity_identifier,omitempty"`
-	MarketCategory        string `protobuf:"bytes,7,opt,name=market_category,json=marketCategory,proto3" json:"market_category,omitempty"`
-	// (1). The list can be updated upon request to the RA, which will
-	// validate the request.
-	Acronym            string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
-	ISOCountryCode     string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
-	City               string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
-	Website            string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
-	Status             string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
-	CreationDate       string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
-	LastUpdateDate     string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
+	// Specifies the type of market. The list of market types is predefined (1).
+	// The list can be updated upon request to the RA, which will validate the
+	// request.
+	MarketCategory string `protobuf:"bytes,7,opt,name=market_category,json=marketCategory,proto3" json:"market_category,omitempty"`
+	// Known acronym of the market.
+	Acronym string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
+	// Alpha-2 code of the country where the market is registered.
+	ISOCountryCode string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
+	// City where the market is located.
+	City string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
+	// Website of the market.
+	Website string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
+	// Active, updated (since last publication), expired (= deactivated).
+	Status string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
+	// Date indicating when the MIC was originally created.
+	CreationDate string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
+	// Date indicating when the MIC was last modified.
+	LastUpdateDate string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
+	// Date indicating when the MIC was last reviewed for correctness.
 	LastValidationDate string `protobuf:"bytes,15,opt,name=last_validation_date,json=lastValidationDate,proto3" json:"last_validation_date,omitempty"`
-	ExpiryDate         string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
-	// request from the MIC owner; following market research (user
-	// request) or maintenance. The expiry date field is left blank when a
-	// MIC is created
+	// The expiry date is populated when the MIC is deactivated; upon request from
+	// the MIC owner; following market research (user request) or maintenance. The
+	// expiry date field is left blank when a MIC is created.
+	ExpiryDate string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	// Any additional information worth mentioning to help users with identifying
+	// the exchange or understanding a modification.
 	Comments string `protobuf:"bytes,17,opt,name=comments,proto3" json:"comments,omitempty"`
-	// identifying the exchange or understanding a modification.
+	// Address for MIC creator.
 	Creator string `protobuf:"bytes,18,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 

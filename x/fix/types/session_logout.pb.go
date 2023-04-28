@@ -22,12 +22,17 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+// This message is used to initiate a logout session between two parties
 type SessionLogout struct {
-	SessionID              string                  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	InitiatorAddress       string                  `protobuf:"bytes,2,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
-	AcceptorAddress        string                  `protobuf:"bytes,3,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
+	// A string that identifies the session being logged out of
+	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	// The address of the party that initiated the logout
+	InitiatorAddress string `protobuf:"bytes,2,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
+	// The address of the party that confirmed the logout
+	AcceptorAddress string `protobuf:"bytes,3,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
+	// The message sent by the party that initiates the logout
 	SessionLogoutInitiator *SessionLogoutInitiator `protobuf:"bytes,4,opt,name=sessionLogoutInitiator,proto3" json:"sessionLogoutInitiator,omitempty"`
-	// initiates the logout
+	// The message sent by the party that confirms the logout
 	SessionLogoutAcceptor *SessionLogoutAcceptor `protobuf:"bytes,5,opt,name=sessionLogoutAcceptor,proto3" json:"sessionLogoutAcceptor,omitempty"`
 }
 
@@ -99,11 +104,15 @@ func (m *SessionLogout) GetSessionLogoutAcceptor() *SessionLogoutAcceptor {
 	return nil
 }
 
+// This message is sent by the party that initiates the logout
 type SessionLogoutInitiator struct {
+	// A FIX protocol header containing standard message fields such as
+	// beginString, bodyLength, msgType, etc
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// such as beginString, bodyLength, msgType, etc
+	// A free-form text field that can be used to provide additional information
+	// about the logout
 	Text string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
-	// additional information about the logout
+	// A FIX protocol trailer containing standard message fields such as checkSum
 	Trailer *Trailer `protobuf:"bytes,3,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
@@ -161,11 +170,15 @@ func (m *SessionLogoutInitiator) GetTrailer() *Trailer {
 	return nil
 }
 
+// This message is sent by the party that confirms the logout
 type SessionLogoutAcceptor struct {
+	// A FIX protocol header containing standard message fields such as
+	// beginString, bodyLength, msgType, etc
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// such as beginString, bodyLength, msgType, etc
+	// A free-form text field that can be used to provide additional information
+	// about the logout
 	Text string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
-	// additional information about the logout.
+	// A FIX protocol trailer containing standard message fields such as checkSum
 	Trailer *Trailer `protobuf:"bytes,3,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
