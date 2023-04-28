@@ -12,267 +12,272 @@ import "re/fix/quote.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount                     (MsgCreateAccount                    ) returns (MsgCreateAccountResponse                    );
-  rpc UpdateAccount                     (MsgUpdateAccount                    ) returns (MsgUpdateAccountResponse                    );
-  rpc DeleteAccount                     (MsgDeleteAccount                    ) returns (MsgDeleteAccountResponse                    );
-  rpc LogonInitiator                    (MsgLogonInitiator                   ) returns (MsgLogonInitiatorResponse                   );
-  rpc LogonAcceptor                     (MsgLogonAcceptor                    ) returns (MsgLogonAcceptorResponse                    );
-  rpc TerminateLogon                    (MsgTerminateLogon                   ) returns (MsgTerminateLogonResponse                   );
-  rpc LogonReject                       (MsgLogonReject                      ) returns (MsgLogonRejectResponse                      );
-  rpc LogoutInitiator                   (MsgLogoutInitiator                  ) returns (MsgLogoutInitiatorResponse                  );
-  rpc LogoutAcceptor                    (MsgLogoutAcceptor                   ) returns (MsgLogoutAcceptorResponse                   );
-  rpc NewOrderSingle                    (MsgNewOrderSingle                   ) returns (MsgNewOrderSingleResponse                   );
-  rpc OrderCancelRequest                (MsgOrderCancelRequest               ) returns (MsgOrderCancelRequestResponse               );
-  rpc OrderCancelReject                 (MsgOrderCancelReject                ) returns (MsgOrderCancelRejectResponse                );
-  rpc OrderExecutionReport              (MsgOrderExecutionReport             ) returns (MsgOrderExecutionReportResponse             );
-  rpc QuoteRequest                      (MsgQuoteRequest                     ) returns (MsgQuoteRequestResponse                     );
-  rpc QuoteAcknowledgement              (MsgQuoteAcknowledgement             ) returns (MsgQuoteAcknowledgementResponse             );
-  rpc QuoteRequestReject                (MsgQuoteRequestReject               ) returns (MsgQuoteRequestRejectResponse               );
-  rpc TradeCaptureReport                (MsgTradeCaptureReport               ) returns (MsgTradeCaptureReportResponse               );
-  rpc TradeCaptureReportAcknowledgement (MsgTradeCaptureReportAcknowledgement) returns (MsgTradeCaptureReportAcknowledgementResponse);
-  rpc TradeCaptureReportRejection       (MsgTradeCaptureReportRejection      ) returns (MsgTradeCaptureReportRejectionResponse      );
+  rpc CreateAccount(MsgCreateAccount) returns (MsgCreateAccountResponse);
+  rpc UpdateAccount(MsgUpdateAccount) returns (MsgUpdateAccountResponse);
+  rpc DeleteAccount(MsgDeleteAccount) returns (MsgDeleteAccountResponse);
+  rpc LogonInitiator(MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
+  rpc LogonAcceptor(MsgLogonAcceptor) returns (MsgLogonAcceptorResponse);
+  rpc TerminateLogon(MsgTerminateLogon) returns (MsgTerminateLogonResponse);
+  rpc LogonReject(MsgLogonReject) returns (MsgLogonRejectResponse);
+  rpc LogoutInitiator(MsgLogoutInitiator) returns (MsgLogoutInitiatorResponse);
+  rpc LogoutAcceptor(MsgLogoutAcceptor) returns (MsgLogoutAcceptorResponse);
+  rpc NewOrderSingle(MsgNewOrderSingle) returns (MsgNewOrderSingleResponse);
+  rpc OrderCancelRequest(MsgOrderCancelRequest)
+      returns (MsgOrderCancelRequestResponse);
+  rpc OrderCancelReject(MsgOrderCancelReject)
+      returns (MsgOrderCancelRejectResponse);
+  rpc OrderExecutionReport(MsgOrderExecutionReport)
+      returns (MsgOrderExecutionReportResponse);
+  rpc QuoteRequest(MsgQuoteRequest) returns (MsgQuoteRequestResponse);
+  rpc QuoteAcknowledgement(MsgQuoteAcknowledgement)
+      returns (MsgQuoteAcknowledgementResponse);
+  rpc QuoteRequestReject(MsgQuoteRequestReject)
+      returns (MsgQuoteRequestRejectResponse);
+  rpc TradeCaptureReport(MsgTradeCaptureReport)
+      returns (MsgTradeCaptureReportResponse);
+  rpc TradeCaptureReportAcknowledgement(MsgTradeCaptureReportAcknowledgement)
+      returns (MsgTradeCaptureReportAcknowledgementResponse);
+  rpc TradeCaptureReportRejection(MsgTradeCaptureReportRejection)
+      returns (MsgTradeCaptureReportRejectionResponse);
 }
 message MsgCreateAccount {
-  string creator          = 1;
-  string did              = 2;
-  string companyName      = 3;
-  string website          = 4;
+  string creator = 1;
+  string did = 2;
+  string companyName = 3;
+  string website = 4;
   string socialMediaLinks = 5;
-  string createdAt        = 6;
+  string createdAt = 6;
 }
 
-message MsgCreateAccountResponse {
-  string did = 1;
-}
+message MsgCreateAccountResponse { string did = 1; }
 
 message MsgUpdateAccount {
-  string creator          = 1;
-  string did              = 2;
-  string companyName      = 3;
-  string website          = 4;
+  string creator = 1;
+  string did = 2;
+  string companyName = 3;
+  string website = 4;
   string socialMediaLinks = 5;
-  string createdAt        = 6;
+  string createdAt = 6;
 }
 
 message MsgUpdateAccountResponse {}
 
 message MsgDeleteAccount {
   string creator = 1;
-  string did     = 2;
+  string did = 2;
 }
 
 message MsgDeleteAccountResponse {}
 
 message MsgLogonInitiator {
-  string         sessionID        = 1;
-  LogonInitiator logonInitiator   = 2;
-  string         status           = 3;
-  bool           IsAccepted       = 4;
-  string         initiatorAddress = 5;
+  string sessionID = 1;
+  LogonInitiator logonInitiator = 2;
+  string status = 3;
+  bool IsAccepted = 4;
+  string initiatorAddress = 5;
 }
 
 message MsgLogonInitiatorResponse {}
 
 message MsgLogonAcceptor {
-  string        sessionID       = 1;
-  LogonAcceptor logonAcceptor   = 2;
-  string        status          = 3;
-  bool          IsAccepted      = 4;
-  string        acceptorAddress = 5;
+  string sessionID = 1;
+  LogonAcceptor logonAcceptor = 2;
+  string status = 3;
+  bool IsAccepted = 4;
+  string acceptorAddress = 5;
 }
 
 message MsgLogonAcceptorResponse {}
 
 message MsgTerminateLogon {
   string initiatorAddress = 1;
-  string sessionID        = 2;
-  string did              = 3;
+  string sessionID = 2;
+  string did = 3;
 }
 
 message MsgTerminateLogonResponse {}
 
 message MsgLogonReject {
-  string  acceptorAddress = 1;
-  string  sessionID       = 2;
-  Header  header          = 3;
-  string  text            = 4;
-  Trailer trailer         = 5;
+  string acceptorAddress = 1;
+  string sessionID = 2;
+  Header header = 3;
+  string text = 4;
+  Trailer trailer = 5;
 }
 
 message MsgLogonRejectResponse {}
 
 message MsgLogoutInitiator {
-  string                 initiatorAddress       = 1;
-  string                 sessionID              = 2;
+  string initiatorAddress = 1;
+  string sessionID = 2;
   SessionLogoutInitiator sessionLogoutInitiator = 3;
 }
 
 message MsgLogoutInitiatorResponse {}
 
 message MsgLogoutAcceptor {
-  string                acceptorAddress       = 1;
-  string                sessionID             = 2;
+  string acceptorAddress = 1;
+  string sessionID = 2;
   SessionLogoutAcceptor sessionLogoutAcceptor = 3;
 }
 
 message MsgLogoutAcceptorResponse {}
 
 message MsgNewOrderSingle {
-  string  creator      =  1;
-  string  sessionID    =  2;
-  Header  header       =  3;
-  string  clOrdID      =  4;
-  string  symbol       =  5;
-  int64   side         =  6;
-  string  orderQty     =  7;
-  int64   ordType      =  8;
-  string  price        =  9;
-  int64   timeInForce  = 10;
-  string  text         = 11;
-  string  transactTime = 12;
-  Trailer trailer      = 13;
-  string  status       = 14;
+  string creator = 1;
+  string sessionID = 2;
+  Header header = 3;
+  string clOrdID = 4;
+  string symbol = 5;
+  int64 side = 6;
+  string orderQty = 7;
+  int64 ordType = 8;
+  string price = 9;
+  int64 timeInForce = 10;
+  string text = 11;
+  string transactTime = 12;
+  Trailer trailer = 13;
+  string status = 14;
 }
 
 message MsgNewOrderSingleResponse {}
 
 message MsgOrderCancelRequest {
-  string  sessionID   = 1;
-  Header  header      = 2;
-  string  origClOrdID = 3;
-  string  clOrdID     = 4;
-  Trailer trailer     = 5;
-  string  creator     = 6;
+  string sessionID = 1;
+  Header header = 2;
+  string origClOrdID = 3;
+  string clOrdID = 4;
+  Trailer trailer = 5;
+  string creator = 6;
 }
 
 message MsgOrderCancelRequestResponse {}
 
 message MsgOrderCancelReject {
-  string  sessionID        =  1;
-  Header  header           =  2;
-  string  orderID          =  3;
-  string  origClOrdID      =  4;
-  string  clOrdID          =  5;
-  int64   cxlRejReason     =  6;
-  int64   cxlRejResponseTo =  7;
-  string  TransactTime     =  8;
-  Trailer trailer          =  9;
-  string  creator          = 10;
+  string sessionID = 1;
+  Header header = 2;
+  string orderID = 3;
+  string origClOrdID = 4;
+  string clOrdID = 5;
+  int64 cxlRejReason = 6;
+  int64 cxlRejResponseTo = 7;
+  string TransactTime = 8;
+  Trailer trailer = 9;
+  string creator = 10;
 }
 
 message MsgOrderCancelRejectResponse {}
 
 message MsgOrderExecutionReport {
-  string  sessionID    =  1;
-  Header  header       =  2;
-  string  clOrdID      =  3;
-  string  orderID      =  4;
-  string  execID       =  5;
-  string  ordStatus    =  6;
-  string  execType     =  7;
-  string  symbol       =  8;
-  int64   side         =  9;
-  int64   orderQty     = 10;
-  int64   price        = 11;
-  int64   timeInForce  = 12;
-  int64   lastPx       = 13;
-  int64   lastQty      = 14;
-  int64   leavesQty    = 15;
-  int64   cumQty       = 16;
-  int64   avgPx        = 17;
-  string  text         = 18;
-  string  transactTime = 19;
-  Trailer trailer      = 20;
-  string  creator      = 21;
+  string sessionID = 1;
+  Header header = 2;
+  string clOrdID = 3;
+  string orderID = 4;
+  string execID = 5;
+  string ordStatus = 6;
+  string execType = 7;
+  string symbol = 8;
+  int64 side = 9;
+  int64 orderQty = 10;
+  int64 price = 11;
+  int64 timeInForce = 12;
+  int64 lastPx = 13;
+  int64 lastQty = 14;
+  int64 leavesQty = 15;
+  int64 cumQty = 16;
+  int64 avgPx = 17;
+  string text = 18;
+  string transactTime = 19;
+  Trailer trailer = 20;
+  string creator = 21;
 }
 
 message MsgOrderExecutionReportResponse {}
 
 message MsgQuoteRequest {
-  string       sessionID    = 1;
+  string sessionID = 1;
   QuoteRequest quoteRequest = 2;
-  string       creator      = 3;
+  string creator = 3;
 }
 
 message MsgQuoteRequestResponse {}
 
 message MsgQuoteAcknowledgement {
-  string               creator              = 1;
-  string               sessionID            = 2;
+  string creator = 1;
+  string sessionID = 2;
   QuoteAcknowledgement quoteAcknowledgement = 3;
 }
 
 message MsgQuoteAcknowledgementResponse {}
 
 message MsgQuoteRequestReject {
-  string             creator            = 1;
-  string             sessionID          = 2;
+  string creator = 1;
+  string sessionID = 2;
   QuoteRequestReject quoteRequestReject = 3;
 }
 
 message MsgQuoteRequestRejectResponse {}
 
 message MsgTradeCaptureReport {
-  string creator              =  1;
-  string tradeReportID        =  2;
-  string tradeReportTransType =  3;
-  string tradeReportType      =  4;
-  string tradeRequestID       =  5;
-  string trdType              =  6;
-  string trdSubType           =  7;
-  string side                 =  8;
-  string orderQty             =  9;
-  string lastQty              = 10;
-  string lastPx               = 11;
-  string grossTradeAmt        = 12;
-  string execID               = 13;
-  string orderID              = 14;
-  string tradeID              = 15;
-  string origTradeID          = 16;
-  string symbol               = 17;
-  string securityID           = 18;
-  string securityIDSource     = 19;
-  string tradeDate            = 20;
-  string transactTime         = 21;
-  string settlType            = 22;
-  string settlDate            = 23;
-  string sessionID            = 24;
-
+  string creator = 1;
+  string tradeReportID = 2;
+  string tradeReportTransType = 3;
+  string tradeReportType = 4;
+  string tradeRequestID = 5;
+  string trdType = 6;
+  string trdSubType = 7;
+  string side = 8;
+  string orderQty = 9;
+  string lastQty = 10;
+  string lastPx = 11;
+  string grossTradeAmt = 12;
+  string execID = 13;
+  string orderID = 14;
+  string tradeID = 15;
+  string origTradeID = 16;
+  string symbol = 17;
+  string securityID = 18;
+  string securityIDSource = 19;
+  string tradeDate = 20;
+  string transactTime = 21;
+  string settlType = 22;
+  string settlDate = 23;
+  string sessionID = 24;
 }
 
 message MsgTradeCaptureReportResponse {}
 
 message MsgTradeCaptureReportAcknowledgement {
-  string creator                 =  1;
-  string tradeReportID           =  2;
-  string tradeRequestID          =  3;
-  string tradeRequestType        =  4;
-  string tradeID                 =  5;
-  string secondaryTradeID        =  6;
-  string tradeReportType         =  7;
-  string trdType                 =  8;
-  string trdSubType              =  9;
-  string execType                = 10;
-  string tradeReportRefID        = 11;
-  string secondaryTradeReportID  = 12;
-  string tradeReportStatus       = 13;
-  string tradeTransType          = 14;
+  string creator = 1;
+  string tradeReportID = 2;
+  string tradeRequestID = 3;
+  string tradeRequestType = 4;
+  string tradeID = 5;
+  string secondaryTradeID = 6;
+  string tradeReportType = 7;
+  string trdType = 8;
+  string trdSubType = 9;
+  string execType = 10;
+  string tradeReportRefID = 11;
+  string secondaryTradeReportID = 12;
+  string tradeReportStatus = 13;
+  string tradeTransType = 14;
   string tradeReportRejectReason = 15;
-  string text                    = 16;
-  string sessionID               = 17;
+  string text = 16;
+  string sessionID = 17;
 }
 
 message MsgTradeCaptureReportAcknowledgementResponse {}
 
 message MsgTradeCaptureReportRejection {
-  string creator                 = 1;
-  string tradeReportID           = 2;
-  string tradeRequestID          = 3;
-  string tradeRequestType        = 4;
+  string creator = 1;
+  string tradeReportID = 2;
+  string tradeRequestID = 3;
+  string tradeRequestType = 4;
   string tradeReportRejectReason = 5;
-  string tradeReportRejectRefID  = 6;
-  string text                    = 7;
-  string sessionID               = 8;
+  string tradeReportRejectRefID = 6;
+  string text = 7;
+  string sessionID = 8;
 }
 
 message MsgTradeCaptureReportRejectionResponse {}
