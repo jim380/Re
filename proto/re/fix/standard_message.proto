@@ -3,16 +3,41 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+// This message header contains fields that identify the message being sent and
+// its sender and recipient
 message Header {
-  string beginString = 1; // This field specifies the version of the FIX protocol being used. For example, "FIX.4.4" indicates version 4.4 of the protocol.
-  int64 bodyLength = 2; // This field specifies the length of the message body in bytes.
-  string msgType = 3; // This field identifies the type of message being sent. For example, "D" indicates a New Order Single message
-  string senderCompID = 4; // This field identifies the sender of the message. This is typically a unique identifier assigned to each party that uses the FIX protocol
-  string targetCompID = 5; // This field identifies the recipient of the message.
-  int64 msgSeqNum = 6; // Is a field in the FIX protocol message header that is used to assign a unique sequence number to each message
-  string sendingTime = 7; // This field specifies the time that the message was sent
+  // This field specifies the version of the FIX protocol being used. For
+  // example, "FIX.4.4" indicates version 4.4 of the protocol.
+  string beginString = 1;
+
+  // This field specifies the length of the message body in bytes.
+  int64 bodyLength = 2;
+
+  // This field identifies the type of message being sent. For example, "D"
+  // indicates a New Order Single message
+  string msgType = 3;
+
+  // This field identifies the sender of the message. This is typically a unique
+  // identifier assigned to each party that uses the FIX protocol
+  string senderCompID = 4;
+
+  // This field identifies the recipient of the message.
+  string targetCompID = 5;
+
+  // Is a field in the FIX protocol message header that is used to assign a
+  // unique sequence number to each message
+  int64 msgSeqNum = 6;
+
+  // This field specifies the time that the message was sent
+  string sendingTime = 7;
 }
 
+// This message trailer contains a checksum field that is used to ensure message
+// integrity
 message Trailer {
-    int64 checkSum = 1; // The checksum value is calculated by summing the ASCII values of all characters in the message (excluding the SOH (start of header) and ETX (end of text) characters), taking the sum modulo 256, and converting the result to a two-character hexadecimal string.
+  // The checksum value is calculated by summing the ASCII values of all
+  // characters in the message (excluding the SOH (start of header) and ETX (end
+  // of text) characters), taking the sum modulo 256, and converting the result
+  // to a two-character hexadecimal string.
+  int64 checkSum = 1;
 }

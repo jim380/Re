@@ -23,27 +23,45 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type OrdersExecutionReport struct {
-	SessionID    string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header       *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	ClOrdID      string   `protobuf:"bytes,3,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	OrderID      string   `protobuf:"bytes,4,opt,name=orderID,proto3" json:"orderID,omitempty"`
-	ExecID       string   `protobuf:"bytes,5,opt,name=execID,proto3" json:"execID,omitempty"`
-	OrdStatus    string   `protobuf:"bytes,6,opt,name=ordStatus,proto3" json:"ordStatus,omitempty"`
-	ExecType     string   `protobuf:"bytes,7,opt,name=execType,proto3" json:"execType,omitempty"`
-	Symbol       string   `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side         int64    `protobuf:"varint,9,opt,name=side,proto3" json:"side,omitempty"`
-	OrderQty     int64    `protobuf:"varint,10,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	Price        int64    `protobuf:"varint,11,opt,name=price,proto3" json:"price,omitempty"`
-	TimeInForce  int64    `protobuf:"varint,12,opt,name=timeInForce,proto3" json:"timeInForce,omitempty"`
-	LastPx       int64    `protobuf:"varint,13,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
-	LastQty      int64    `protobuf:"varint,14,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
-	LeavesQty    int64    `protobuf:"varint,15,opt,name=leavesQty,proto3" json:"leavesQty,omitempty"`
-	CumQty       int64    `protobuf:"varint,16,opt,name=cumQty,proto3" json:"cumQty,omitempty"`
-	AvgPx        int64    `protobuf:"varint,17,opt,name=avgPx,proto3" json:"avgPx,omitempty"`
-	Text         string   `protobuf:"bytes,18,opt,name=text,proto3" json:"text,omitempty"`
+	SessionID string  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	Header    *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// for the message, such as the message type, sender and
+	// receiver identification, and sequence number.
+	ClOrdID string `protobuf:"bytes,3,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
+	// the order being reported
+	OrderID string `protobuf:"bytes,4,opt,name=orderID,proto3" json:"orderID,omitempty"`
+	ExecID  string `protobuf:"bytes,5,opt,name=execID,proto3" json:"execID,omitempty"`
+	// being reported, if any
+	OrdStatus string `protobuf:"bytes,6,opt,name=ordStatus,proto3" json:"ordStatus,omitempty"`
+	// as "New", "Partially filled", "Filled", "Cancelled", "Pending
+	// Cancel", "Rejected", etc
+	ExecType string `protobuf:"bytes,7,opt,name=execType,proto3" json:"execType,omitempty"`
+	// execution being reported, such as "New", "Partial
+	// fill", "Fill", "Done for day", "Cancelled", etc.
+	Symbol      string `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side        int64  `protobuf:"varint,9,opt,name=side,proto3" json:"side,omitempty"`
+	OrderQty    int64  `protobuf:"varint,10,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	Price       int64  `protobuf:"varint,11,opt,name=price,proto3" json:"price,omitempty"`
+	TimeInForce int64  `protobuf:"varint,12,opt,name=timeInForce,proto3" json:"timeInForce,omitempty"`
+	// value for the order, such as "Day", "GTC" (Good
+	// 'Til Cancelled), "IOC" (Immediate or Cancel), etc
+	LastPx int64 `protobuf:"varint,13,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	// execution, if any
+	LastQty int64 `protobuf:"varint,14,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
+	// last execution, if any
+	LeavesQty int64 `protobuf:"varint,15,opt,name=leavesQty,proto3" json:"leavesQty,omitempty"`
+	// remains open and has not yet been filled or cancelled
+	CumQty int64 `protobuf:"varint,16,opt,name=cumQty,proto3" json:"cumQty,omitempty"`
+	// the order that has been filled.
+	AvgPx int64 `protobuf:"varint,17,opt,name=avgPx,proto3" json:"avgPx,omitempty"`
+	// executions that have occurred for the order
+	Text string `protobuf:"bytes,18,opt,name=text,proto3" json:"text,omitempty"`
+	// the order status or execution, such as an error message
+	// or reason for rejection
 	TransactTime string   `protobuf:"bytes,19,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
 	Trailer      *Trailer `protobuf:"bytes,20,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator      string   `protobuf:"bytes,21,opt,name=creator,proto3" json:"creator,omitempty"`
+	// message, such as the message checksum
+	Creator string `protobuf:"bytes,21,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *OrdersExecutionReport) Reset()         { *m = OrdersExecutionReport{} }

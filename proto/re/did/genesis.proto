@@ -7,6 +7,4 @@ option go_package = "github.com/jim380/Re/x/did/types";
 import "re/did/did.proto";
 
 // GenesisState defines the did module's genesis state.
-message GenesisState {
-  map<string, DIDDocumentWithSeq> documents = 1;
-}
+message GenesisState { map<string, DIDDocumentWithSeq> documents = 1; }

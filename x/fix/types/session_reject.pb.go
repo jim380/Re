@@ -23,11 +23,16 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type SessionReject struct {
-	SessionID       string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header          *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	Text            string   `protobuf:"bytes,3,opt,name=text,proto3" json:"text,omitempty"`
-	Trailer         *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	AcceptorAddress string   `protobuf:"bytes,5,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
+	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	// rejected message belongs.
+	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// such as beginString, bodyLength, msgType, etc
+	Text string `protobuf:"bytes,3,opt,name=text,proto3" json:"text,omitempty"`
+	// rejection, such as the reason for the rejection or a
+	// description of the error
+	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// fields such as checkSum
+	AcceptorAddress string `protobuf:"bytes,5,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
 }
 
 func (m *SessionReject) Reset()         { *m = SessionReject{} }

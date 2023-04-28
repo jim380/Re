@@ -4,10 +4,10 @@ package jim380.re.fix;
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 message Account {
-  string did = 1; 
-  string companyName = 2; 
-  string website = 3; 
-  string socialMediaLinks = 4; 
-  string createdAt = 5; 
+  string did = 1;
+  string companyName = 2;
+  string website = 3;
+  string socialMediaLinks = 4;
+  string createdAt = 5;
   string creator = 6;
 }

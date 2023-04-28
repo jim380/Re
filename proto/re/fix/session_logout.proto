@@ -5,22 +5,48 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 
 import "re/fix/standard_message.proto";
 
+// This message is used to initiate a logout session between two parties
 message SessionLogout {
-  string sessionID = 1; 
+  // A string that identifies the session being logged out of
+  string sessionID = 1;
+
+  // The address of the party that initiated the logout
   string initiatorAddress = 2;
+
+  // The address of the party that confirmed the logout
   string acceptorAddress = 3;
-  SessionLogoutInitiator sessionLogoutInitiator = 4; // The SessionLogoutInitiator message is sent by the party that initiates the logout
-  SessionLogoutAcceptor sessionLogoutAcceptor = 5; // The SessionLogoutAcceptor message is sent by the party that confirms the logout
+
+  // The message sent by the party that initiates the logout
+  SessionLogoutInitiator sessionLogoutInitiator = 4;
+
+  // The message sent by the party that confirms the logout
+  SessionLogoutAcceptor sessionLogoutAcceptor = 5;
 }
 
+// This message is sent by the party that initiates the logout
 message SessionLogoutInitiator {
-  Header header = 1; // A FIX protocol header containing standard message fields such as beginString, bodyLength, msgType, etc
-  string text = 2; // A free-form text field that can be used to provide additional information about the logout
-  Trailer trailer = 3; // A FIX protocol trailer containing standard message fields such as checkSum
+  // A FIX protocol header containing standard message fields such as
+  // beginString, bodyLength, msgType, etc
+  Header header = 1;
+
+  // A free-form text field that can be used to provide additional information
+  // about the logout
+  string text = 2;
+
+  // A FIX protocol trailer containing standard message fields such as checkSum
+  Trailer trailer = 3;
 }
 
+// This message is sent by the party that confirms the logout
 message SessionLogoutAcceptor {
-  Header header = 1; // A FIX protocol header containing standard message fields such as beginString, bodyLength, msgType, etc
-  string text = 2; // A free-form text field that can be used to provide additional information about the logout.
-  Trailer trailer = 3; // A FIX protocol trailer containing standard message fields such as checkSum
+  // A FIX protocol header containing standard message fields such as
+  // beginString, bodyLength, msgType, etc
+  Header header = 1;
+
+  // A free-form text field that can be used to provide additional information
+  // about the logout
+  string text = 2;
+
+  // A FIX protocol trailer containing standard message fields such as checkSum
+  Trailer trailer = 3;
 }
