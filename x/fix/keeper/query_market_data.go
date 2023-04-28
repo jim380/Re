@@ -32,7 +32,6 @@ func (k Keeper) MarketDataAll(goCtx context.Context, req *types.QueryAllMarketDa
 		marketDatas = append(marketDatas, marketData)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

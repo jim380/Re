@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -39,6 +40,8 @@ func (gs GenesisState) Validate() error {
 		did, err := strconv.ParseUint(elem.Did, 10, 64)
 		if err != nil {
 			// Handle the error if the conversion fails
+			log.Printf("Error occurred: %v", err)
+			return err
 		}
 		if did >= accountCount {
 			return fmt.Errorf("account id should be lower or equal than the last id")

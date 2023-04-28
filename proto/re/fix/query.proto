@@ -109,7 +109,7 @@ service Query {
   }
   
   // Queries a list of Quote items.
-  rpc Quote             (QueryGetQuoteRequest        ) returns (QueryGetQuoteResponse        ) {
+  rpc Quote     (QueryGetQuoteRequest) returns (QueryGetQuoteResponse) {
     option (google.api.http).get = "/jim380/Re/fix/quote/{quoteReqID}";
   
   }
@@ -117,7 +117,7 @@ service Query {
     option (google.api.http).get = "/jim380/Re/fix/quote/{sessionID}";
   
   }
-  rpc QuoteAll          (QueryAllQuoteRequest        ) returns (QueryAllQuoteResponse        ) {
+  rpc QuoteAll   (QueryAllQuoteRequest) returns (QueryAllQuoteResponse        ) {
     option (google.api.http).get = "/jim380/Re/fix/quotes";
   
   }

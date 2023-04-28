@@ -51,7 +51,6 @@ func CmdMarketDataRequest() *cobra.Command {
 	return cmd
 }
 
-
 func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "market-data-snapshot-full-refresh [md-req-id] [symbol] [no-md-entries]",
@@ -85,7 +84,6 @@ func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 	return cmd
 }
 
-
 func CmdMarketDataIncremental() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "market-data-incremental [md-req-id] [no-md-entries]",
@@ -116,7 +114,6 @@ func CmdMarketDataIncremental() *cobra.Command {
 
 	return cmd
 }
-
 
 func CmdMarketDataRequestReject() *cobra.Command {
 	cmd := &cobra.Command{

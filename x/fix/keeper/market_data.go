@@ -60,11 +60,13 @@ func (k Keeper) RemoveMarketData(ctx sdk.Context, mdReqID string) {
 }
 
 // GetAllMarketData returns all marketData
-func (k Keeper) GetAllMarketData(ctx sdk.Context) (list []types.MarketData) {
+func (k Keeper) GetAllMarketData(ctx sdk.Context) []types.MarketData {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketDataKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
+
+	list := make([]types.MarketData, 0, k.GetMarketDataCount(ctx))
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.MarketData
@@ -72,5 +74,5 @@ func (k Keeper) GetAllMarketData(ctx sdk.Context) (list []types.MarketData) {
 		list = append(list, val)
 	}
 
-	return
+	return list
 }
