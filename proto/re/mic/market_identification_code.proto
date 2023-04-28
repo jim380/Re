@@ -3,41 +3,67 @@ package jim380.re.mic;
 
 option go_package = "github.com/jim380/Re/x/mic/types";
 
+// Definition of MarketIdentificationCode message
 message MarketIdentificationCode {
-  string MIC = 1; // Market Identifier Code allocated to the market named in
-                  // ‘Market Name-Institution Description’.
-  string operating_MIC = 2; // entity operating an exchange/market/trade
-                            // reporting facility in a specific market/country
-  string OPRT_SGMT = 3;   // indicates whether the MIC is an operating MIC or a
-                          // market segment MIC
-  string market_name = 4; // Institution Description: name of the market
-  string legal_entity_name = 5; // legal name of the entity owning the market.
-  string legal_entity_identifier =
-      6; // Legal Entity Identifier (LEI) see ISO 17442-1.
-  string market_category =
-      7; // specifies the type of market. The list of market types is predefined
-         // (1). The list can be updated upon request to the RA, which will
-         // validate the request.
-  string acronym = 8; // known acronym of the market.
-  string ISO_country_code =
-      9; // alpha-2 code of the country where the market is registered.
-  string city = 10;    // city where the market is located.
-  string website = 11; // website of the market.
-  string status =
-      12; // active, updated (since last publication), expired (= deactivated)
-  string creation_date =
-      13; // date indicating when the MIC was originally created
-  string last_update_date =
-      14; // date indicating when the MIC was last modified
-  string last_validation_date =
-      15; // date indicating when the MIC was last reviewed for correctness
-  string expiry_date =
-      16; // The expiry date is populated when the MIC is deactivated; upon
-          // request from the MIC owner; following market research (user
-          // request) or maintenance. The expiry date field is left blank when a
-          // MIC is created
-  string comments =
-      17; // any additional information worth mentioning to help users with
-          // identifying the exchange or understanding a modification.
-  string creator = 18; // address for MIC creator
+
+  // Market Identifier Code allocated to the market named in ‘Market
+  // Name-Institution Description’.
+  string MIC = 1;
+
+  // Entity operating an exchange/market/trade reporting facility in a specific
+  // market/country.
+  string operating_MIC = 2;
+
+  // Indicates whether the MIC is an operating MIC or a market segment MIC.
+  string OPRT_SGMT = 3;
+
+  // Institution Description: name of the market.
+  string market_name = 4;
+
+  // Legal name of the entity owning the market.
+  string legal_entity_name = 5;
+
+  // Legal Entity Identifier (LEI) see ISO 17442-1.
+  string legal_entity_identifier = 6;
+
+  // Specifies the type of market. The list of market types is predefined (1).
+  // The list can be updated upon request to the RA, which will validate the
+  // request.
+  string market_category = 7;
+
+  // Known acronym of the market.
+  string acronym = 8;
+
+  // Alpha-2 code of the country where the market is registered.
+  string ISO_country_code = 9;
+
+  // City where the market is located.
+  string city = 10;
+
+  // Website of the market.
+  string website = 11;
+
+  // Active, updated (since last publication), expired (= deactivated).
+  string status = 12;
+
+  // Date indicating when the MIC was originally created.
+  string creation_date = 13;
+
+  // Date indicating when the MIC was last modified.
+  string last_update_date = 14;
+
+  // Date indicating when the MIC was last reviewed for correctness.
+  string last_validation_date = 15;
+
+  // The expiry date is populated when the MIC is deactivated; upon request from
+  // the MIC owner; following market research (user request) or maintenance. The
+  // expiry date field is left blank when a MIC is created.
+  string expiry_date = 16;
+
+  // Any additional information worth mentioning to help users with identifying
+  // the exchange or understanding a modification.
+  string comments = 17;
+
+  // Address for MIC creator.
+  string creator = 18;
 }

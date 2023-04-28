@@ -15,30 +15,44 @@ message Sessions {
   bool IsAccepted = 7;
 }
 
+// This message is used by the initiator of a FIX session to initiate a
+// connection with the acceptor
 message LogonInitiator {
-  Header header =
-      1; // The FIX message header contains standard metadata about the message,
-         // including the sender and receiver IDs and the message type
-  int64 encryptMethod = 2; // An integer value indicating the encryption method
-                           // to be used for the session
-  int64 heartBtInt =
-      3; // An integer value indicating the number of seconds between heartbeats
-         // that will be sent during the session. This is used to monitor the
-         // connection between the two parties
-  Trailer trailer = 4; // The FIX message trailer contains standard metadata
-                       // about the message, including the message checksum
+  // The FIX message header contains standard metadata about the message,
+  // including the sender and receiver IDs and the message type
+  Header header = 1;
+
+  // An integer value indicating the encryption method to be used for the
+  // session
+  int64 encryptMethod = 2;
+
+  // An integer value indicating the number of seconds between heartbeats that
+  // will be sent during the session. This is used to monitor the connection
+  // between the two parties
+  int64 heartBtInt = 3;
+
+  // The FIX message trailer contains standard metadata about the message,
+  // including the message checksum
+  Trailer trailer = 4;
 }
 
+// This message is used by the acceptor of a FIX session to acknowledge the
+// initiation of the connection by the initiator
 message LogonAcceptor {
-  Header header =
-      1; // The FIX message header contains standard metadata about the message,
-         // including the sender and receiver IDs and the message type
-  int64 encryptMethod = 2; // An integer value indicating the encryption method
-                           // to be used for the session
-  int64 heartBtInt =
-      3; // An integer value indicating the number of seconds between heartbeats
-         // that will be sent during the session. This is used to monitor the
-         // connection between the two parties
-  Trailer trailer = 4; // The FIX message trailer contains standard metadata
-                       // about the message, including the message checksum
+  // The FIX message header contains standard metadata about the message,
+  // including the sender and receiver IDs and the message type
+  Header header = 1;
+
+  // An integer value indicating the encryption method to be used for the
+  // session
+  int64 encryptMethod = 2;
+
+  // An integer value indicating the number of seconds between heartbeats that
+  // will be sent during the session. This is used to monitor the connection
+  // between the two parties
+  int64 heartBtInt = 3;
+
+  // The FIX message trailer contains standard metadata about the message,
+  // including the message checksum
+  Trailer trailer = 4;
 }

@@ -6,51 +6,79 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message OrdersExecutionReport {
-  string sessionID =
-      1; // A string field that specifies the FIX session ID for the message.
-  Header header = 2; // A Header field that contains standard header information
-                     // for the message, such as the message type, sender and
-                     // receiver identification, and sequence number.
-  string clOrdID = 3; // A string field that contains the client order ID for
-                      // the order being reported
-  string orderID =
-      4; // A string field that contains the ID of the order being reported
-  string execID = 5; // A string field that contains the ID of the execution
-                     // being reported, if any
-  string ordStatus =
-      6; // A string field that indicates the current status of the order, such
-         // as "New", "Partially filled", "Filled", "Cancelled", "Pending
-         // Cancel", "Rejected", etc
-  string execType = 7; // A string field that indicates the type of the
-                       // execution being reported, such as "New", "Partial
-                       // fill", "Fill", "Done for day", "Cancelled", etc.
-  string symbol = 8; // A string field that identifies the security being traded
-  int64 side =
-      9; // An integer field that specifies the side of the order (buy or sell)
-  int64 orderQty =
-      10; // An integer field that specifies the quantity of the order.
-  int64 price = 11; // An integer field that specifies the price of the order
-  int64 timeInForce = 12; // An integer field that specifies the time-in-force
-                          // value for the order, such as "Day", "GTC" (Good
-                          // 'Til Cancelled), "IOC" (Immediate or Cancel), etc
-  int64 lastPx = 13;  // An integer field that specifies the price of the last
-                      // execution, if any
-  int64 lastQty = 14; // An integer field that specifies the quantity of the
-                      // last execution, if any
-  int64 leavesQty =
-      15; // An integer field that specifies the quantity of the order that
-          // remains open and has not yet been filled or cancelled
-  int64 cumQty = 16; // An integer field that specifies the total quantity of
-                     // the order that has been filled.
-  int64 avgPx = 17;  // An integer field that specifies the average price of all
-                     // executions that have occurred for the order
-  string text = 18; // A string field that provides additional information about
-                    // the order status or execution, such as an error message
-                    // or reason for rejection
-  string transactTime =
-      19; // A string field that specifies the time of the transaction
-  Trailer trailer =
-      20; // A Trailer field that contains standard trailer information for the
-          // message, such as the message checksum
+  // A string field that specifies the FIX session ID for the message.
+  string sessionID = 1;
+
+  // A Header field that contains standard header information for the message,
+  // such as the message type, sender and receiver identification, and sequence
+  // number.
+  Header header = 2;
+
+  // A string field that contains the client order ID for the order being
+  // reported.
+  string clOrdID = 3;
+
+  // A string field that contains the ID of the order being reported.
+  string orderID = 4;
+
+  // A string field that contains the ID of the execution being reported, if
+  // any.
+  string execID = 5;
+
+  // A string field that indicates the current status of the order, such as
+  // "New", "Partially filled", "Filled", "Cancelled", "Pending Cancel",
+  // "Rejected", etc.
+  string ordStatus = 6;
+
+  // A string field that indicates the type of the execution being reported,
+  // such as "New", "Partial fill", "Fill", "Done for day", "Cancelled", etc.
+  string execType = 7;
+
+  // A string field that identifies the security being traded.
+  string symbol = 8;
+
+  // An integer field that specifies the side of the order (buy or sell).
+  int64 side = 9;
+
+  // An integer field that specifies the quantity of the order.
+  int64 orderQty = 10;
+
+  // An integer field that specifies the price of the order.
+  int64 price = 11;
+
+  // An integer field that specifies the time-in-force value for the order, such
+  // as "Day", "GTC" (Good 'Til Cancelled), "IOC" (Immediate or Cancel), etc.
+  int64 timeInForce = 12;
+
+  // An integer field that specifies the price of the last execution, if any.
+  int64 lastPx = 13;
+
+  // An integer field that specifies the quantity of the last execution, if any.
+  int64 lastQty = 14;
+
+  // An integer field that specifies the quantity of the order that remains open
+  // and has not yet been filled or cancelled.
+  int64 leavesQty = 15;
+
+  // An integer field that specifies the total quantity of the order that has
+  // been filled.
+  int64 cumQty = 16;
+
+  // An integer field that specifies the average price of all executions that
+  // have occurred for the order.
+  int64 avgPx = 17;
+
+  // A string field that provides additional information about the order status
+  // or execution, such as an error message or reason for rejection.
+  string text = 18;
+
+  // A string field that specifies the time of the transaction.
+  string transactTime = 19;
+
+  // A Trailer field that contains standard trailer information for the message,
+  // such as the message checksum.
+  Trailer trailer = 20;
+
+  // A field that identifies the creator of the message.
   string creator = 21;
 }

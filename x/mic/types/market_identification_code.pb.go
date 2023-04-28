@@ -23,24 +23,33 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MarketIdentificationCode struct {
-	MIC                   string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
-	Operating_MIC         string `protobuf:"bytes,2,opt,name=operating_MIC,json=operatingMIC,proto3" json:"operating_MIC,omitempty"`
-	OPRT_SGMT             string `protobuf:"bytes,3,opt,name=OPRT_SGMT,json=OPRTSGMT,proto3" json:"OPRT_SGMT,omitempty"`
+	MIC string `protobuf:"bytes,1,opt,name=MIC,proto3" json:"MIC,omitempty"`
+	// ‘Market Name-Institution Description’.
+	Operating_MIC string `protobuf:"bytes,2,opt,name=operating_MIC,json=operatingMIC,proto3" json:"operating_MIC,omitempty"`
+	// reporting facility in a specific market/country
+	OPRT_SGMT string `protobuf:"bytes,3,opt,name=OPRT_SGMT,json=OPRTSGMT,proto3" json:"OPRT_SGMT,omitempty"`
+	// market segment MIC
 	MarketName            string `protobuf:"bytes,4,opt,name=market_name,json=marketName,proto3" json:"market_name,omitempty"`
 	LegalEntityName       string `protobuf:"bytes,5,opt,name=legal_entity_name,json=legalEntityName,proto3" json:"legal_entity_name,omitempty"`
 	LegalEntityIdentifier string `protobuf:"bytes,6,opt,name=legal_entity_identifier,json=legalEntityIdentifier,proto3" json:"legal_entity_identifier,omitempty"`
 	MarketCategory        string `protobuf:"bytes,7,opt,name=market_category,json=marketCategory,proto3" json:"market_category,omitempty"`
-	Acronym               string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
-	ISOCountryCode        string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
-	City                  string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
-	Website               string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
-	Status                string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
-	CreationDate          string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
-	LastUpdateDate        string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
-	LastValidationDate    string `protobuf:"bytes,15,opt,name=last_validation_date,json=lastValidationDate,proto3" json:"last_validation_date,omitempty"`
-	ExpiryDate            string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
-	Comments              string `protobuf:"bytes,17,opt,name=comments,proto3" json:"comments,omitempty"`
-	Creator               string `protobuf:"bytes,18,opt,name=creator,proto3" json:"creator,omitempty"`
+	// (1). The list can be updated upon request to the RA, which will
+	// validate the request.
+	Acronym            string `protobuf:"bytes,8,opt,name=acronym,proto3" json:"acronym,omitempty"`
+	ISOCountryCode     string `protobuf:"bytes,9,opt,name=ISO_country_code,json=ISOCountryCode,proto3" json:"ISO_country_code,omitempty"`
+	City               string `protobuf:"bytes,10,opt,name=city,proto3" json:"city,omitempty"`
+	Website            string `protobuf:"bytes,11,opt,name=website,proto3" json:"website,omitempty"`
+	Status             string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"`
+	CreationDate       string `protobuf:"bytes,13,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
+	LastUpdateDate     string `protobuf:"bytes,14,opt,name=last_update_date,json=lastUpdateDate,proto3" json:"last_update_date,omitempty"`
+	LastValidationDate string `protobuf:"bytes,15,opt,name=last_validation_date,json=lastValidationDate,proto3" json:"last_validation_date,omitempty"`
+	ExpiryDate         string `protobuf:"bytes,16,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	// request from the MIC owner; following market research (user
+	// request) or maintenance. The expiry date field is left blank when a
+	// MIC is created
+	Comments string `protobuf:"bytes,17,opt,name=comments,proto3" json:"comments,omitempty"`
+	// identifying the exchange or understanding a modification.
+	Creator string `protobuf:"bytes,18,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *MarketIdentificationCode) Reset()         { *m = MarketIdentificationCode{} }

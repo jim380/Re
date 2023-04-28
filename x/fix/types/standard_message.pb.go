@@ -23,13 +23,17 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Header struct {
-	BeginString  string `protobuf:"bytes,1,opt,name=beginString,proto3" json:"beginString,omitempty"`
-	BodyLength   int64  `protobuf:"varint,2,opt,name=bodyLength,proto3" json:"bodyLength,omitempty"`
-	MsgType      string `protobuf:"bytes,3,opt,name=msgType,proto3" json:"msgType,omitempty"`
+	BeginString string `protobuf:"bytes,1,opt,name=beginString,proto3" json:"beginString,omitempty"`
+	// example, "FIX.4.4" indicates version 4.4 of the protocol.
+	BodyLength int64  `protobuf:"varint,2,opt,name=bodyLength,proto3" json:"bodyLength,omitempty"`
+	MsgType    string `protobuf:"bytes,3,opt,name=msgType,proto3" json:"msgType,omitempty"`
+	// For example, "D" indicates a New Order Single message
 	SenderCompID string `protobuf:"bytes,4,opt,name=senderCompID,proto3" json:"senderCompID,omitempty"`
+	// unique identifier assigned to each party that uses the FIX protocol
 	TargetCompID string `protobuf:"bytes,5,opt,name=targetCompID,proto3" json:"targetCompID,omitempty"`
 	MsgSeqNum    int64  `protobuf:"varint,6,opt,name=msgSeqNum,proto3" json:"msgSeqNum,omitempty"`
-	SendingTime  string `protobuf:"bytes,7,opt,name=sendingTime,proto3" json:"sendingTime,omitempty"`
+	// a unique sequence number to each message
+	SendingTime string `protobuf:"bytes,7,opt,name=sendingTime,proto3" json:"sendingTime,omitempty"`
 }
 
 func (m *Header) Reset()         { *m = Header{} }

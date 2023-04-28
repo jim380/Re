@@ -115,10 +115,14 @@ func (m *Sessions) GetIsAccepted() bool {
 }
 
 type LogonInitiator struct {
-	Header        *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	EncryptMethod int64    `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
-	HeartBtInt    int64    `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
-	Trailer       *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// including the sender and receiver IDs and the message type
+	EncryptMethod int64 `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
+	// to be used for the session
+	HeartBtInt int64 `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
+	// that will be sent during the session. This is used to monitor the
+	// connection between the two parties
+	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
 func (m *LogonInitiator) Reset()         { *m = LogonInitiator{} }
@@ -183,10 +187,14 @@ func (m *LogonInitiator) GetTrailer() *Trailer {
 }
 
 type LogonAcceptor struct {
-	Header        *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	EncryptMethod int64    `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
-	HeartBtInt    int64    `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
-	Trailer       *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// including the sender and receiver IDs and the message type
+	EncryptMethod int64 `protobuf:"varint,2,opt,name=encryptMethod,proto3" json:"encryptMethod,omitempty"`
+	// to be used for the session
+	HeartBtInt int64 `protobuf:"varint,3,opt,name=heartBtInt,proto3" json:"heartBtInt,omitempty"`
+	// that will be sent during the session. This is used to monitor the
+	// connection between the two parties
+	Trailer *Trailer `protobuf:"bytes,4,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
 func (m *LogonAcceptor) Reset()         { *m = LogonAcceptor{} }
