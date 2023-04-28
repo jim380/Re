@@ -47,9 +47,6 @@ func (k Keeper) Account(goCtx context.Context, req *types.QueryGetAccountRequest
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	account := k.GetAccount(ctx, req.Did)
-	//if !found {
-	//	return nil, sdkerrors.ErrKeyNotFound
-	//}
 
 	return &types.QueryGetAccountResponse{Account: account}, nil
 }

@@ -95,7 +95,7 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	//"github.com/jim380/Re/cmd"
+	// "github.com/jim380/Re/cmd"
 	appparams "github.com/jim380/Re/app/params"
 
 	"github.com/jim380/Re/x/did"

@@ -110,11 +110,11 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	// set the logon initiator message
 	LogonAcceptor := types.NewLogonAcceptor(header, msg.LogonAcceptor.EncryptMethod, msg.LogonAcceptor.HeartBtInt, trailer)
 
-	//TODO
-	//prevent Txs from being sent once IsAccepted are set to true and check the status
-	//if session.status != "logon-request" || session.status != "rejected"  && session.IsAccepted == false {
+	// TODO
+	// prevent Txs from being sent once IsAccepted are set to true and check the status
+	// if session.status != "logon-request" || session.status != "rejected"  && session.IsAccepted == false {
 	//
-	//}
+	// }
 
 	newAcceptorSession := types.Sessions{
 		SessionID:        session.SessionID,

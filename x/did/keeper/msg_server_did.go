@@ -20,7 +20,7 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 		return nil, err
 	}
 
-	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
+	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, seq, msg.FromAddress)
 
 	for _, did := range keeper.ListDIDs(ctx) {
 		existingDIDDocument := keeper.GetDIDDocument(ctx, did)
@@ -148,7 +148,7 @@ func VerifyDIDOwnership(signData *types.DIDDocument, seq uint64, doc *types.DIDD
 	// TODO: Currently, only ES256K1 is supported to verify DID ownership.
 	//       It makes sense for now, since a DID is derived from a Secp256k1 public key.
 	//       But, need to support other key types (according to verificationMethod.Type).
-	if verificationMethod.Type != types.ES256K_2019 && verificationMethod.Type != types.ES256K_2018 {
+	if verificationMethod.Type != types.EcdsaSecp256k1VerificationKey2019 && verificationMethod.Type != types.Secp256k1VerificationKey2018 {
 		return 0, sdkerrors.Wrapf(types.ErrVerificationMethodKeyTypeNotImplemented, "VerificationMethod: %v", verificationMethod.Type)
 	}
 

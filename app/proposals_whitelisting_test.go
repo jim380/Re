@@ -12,7 +12,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 
 	"github.com/jim380/Re/app"
-	//"github.com/jim380/Re/cmd"
+	// "github.com/jim380/Re/cmd"
 )
 
 func TestConsumerWhitelistingKeys(t *testing.T) {

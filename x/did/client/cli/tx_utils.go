@@ -115,7 +115,7 @@ func newMsgCreateDID(fromAddress sdk.AccAddress, privKey secp256k1.PrivKey) (typ
 	pubKey := secp256k1util.PubKeyBytes(secp256k1util.DerivePubKey(privKey))
 	did := types.NewDID(pubKey)
 	verificationMethodID := types.NewVerificationMethodID(did, "key1")
-	verificationMethod := types.NewVerificationMethod(verificationMethodID, types.ES256K_2019, did, pubKey)
+	verificationMethod := types.NewVerificationMethod(verificationMethodID, types.EcdsaSecp256k1VerificationKey2019, did, pubKey)
 	verificationMethods := []*types.VerificationMethod{
 		&verificationMethod,
 	}
@@ -173,7 +173,7 @@ func getPrivKeyFromKeyStore(verificationMethodID string, reader *bufio.Reader) (
 		return secp256k1.PrivKey{}, err
 	}
 
-	privKeyBytes, err := ks.LoadByAddress(string(verificationMethodID), passwd)
+	privKeyBytes, err := ks.LoadByAddress(verificationMethodID, passwd)
 	if err != nil {
 		return secp256k1.PrivKey{}, err
 	}

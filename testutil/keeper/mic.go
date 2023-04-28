@@ -31,7 +31,7 @@ func MicKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	//paramsSubspace := typesparams.NewSubspace(cdc,
+	// paramsSubspace := typesparams.NewSubspace(cdc,
 	//	types.Amino,
 	//	storeKey,
 	//	memStoreKey,

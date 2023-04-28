@@ -15,7 +15,6 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	"github.com/jim380/Re/app"
-	appConsumer "github.com/jim380/Re/app"
 )
 
 // Executes the standard group of ccv tests against a consumer and provider app.go implementation.
@@ -31,7 +30,7 @@ func TestCCVTestSuite(t *testing.T) {
 			// Here we pass the concrete types that must implement the necessary interfaces
 			// to be ran with e2e tests.
 			coord, prov, cons := NewProviderConsumerCoordinator(t)
-			return coord, prov, cons, prov.App.(*appProvider.App), cons.App.(*appConsumer.ReApp)
+			return coord, prov, cons, prov.App.(*appProvider.App), cons.App.(*app.ReApp)
 		},
 	)
 	suite.Run(t, ccvSuite)
@@ -52,13 +51,13 @@ func NewProviderConsumerCoordinator(t *testing.T) (*ibctesting.Coordinator, *ibc
 
 func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessage) {
 	encoding := app.MakeEncodingConfig()
-	app := appConsumer.NewReApp(
+	testApp := app.NewReApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,
 		true,
 		map[int64]bool{},
-		appConsumer.DefaultNodeHome,
+		app.DefaultNodeHome,
 		0,
 		encoding,
 		app.GetEnabledProposals(),
@@ -66,5 +65,5 @@ func SetupTestingAppConsumer() (ibctesting.TestingApp, map[string]json.RawMessag
 		nil,
 	)
 
-	return app, appConsumer.NewDefaultGenesisState(encoding.Marshaler)
+	return testApp, app.NewDefaultGenesisState(testApp.AppCodec())
 }

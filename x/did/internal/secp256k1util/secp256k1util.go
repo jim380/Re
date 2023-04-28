@@ -14,7 +14,7 @@ func PrivKeyFromBytes(bz []byte) (secp256k1.PrivKey, error) {
 	if len(bz) != len(key) {
 		return key, fmt.Errorf("invalid Secp256k1 private key. len:%d, expected:%d", len(bz), len(key))
 	}
-	copy(key[:], bz)
+	copy(key, bz)
 	return key, nil
 }
 
@@ -26,7 +26,7 @@ func PubKeyFromBase58(b58 string) (secp256k1.PubKey, error) {
 	if len(decoded) != len(key) {
 		return key, fmt.Errorf("invalid Secp256k1 public key. len:%d, expected:%d", len(decoded), len(key))
 	}
-	copy(key[:], decoded)
+	copy(key, decoded)
 	return key, nil
 }
 

@@ -40,7 +40,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRTSGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)
@@ -131,7 +131,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 		return nil, sdkerrors.Wrapf(types.ErrOperatingMICIsEmpty, "Operating_MIC: %s", msg.Operating_MIC)
 	}
 	if msg.OPRT_SGMT == "" {
-		return nil, sdkerrors.Wrapf(types.ErrOPRT_SGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
+		return nil, sdkerrors.Wrapf(types.ErrOPRTSGMTIsEmpty, "OPRT_SGMT: %s", msg.OPRT_SGMT)
 	}
 	if msg.MarketName == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMarketNameIsEmpty, "MarketName: %s", msg.MarketName)

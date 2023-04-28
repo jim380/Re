@@ -15,7 +15,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 
 	"github.com/jim380/Re/app"
-	//"github.com/jim380/Re/cmd"
+	// "github.com/jim380/Re/cmd"
 )
 
 func init() {
