@@ -32,7 +32,6 @@ func (k Keeper) TradeCaptureAll(goCtx context.Context, req *types.QueryAllTradeC
 		tradeCaptures = append(tradeCaptures, tradeCapture)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
