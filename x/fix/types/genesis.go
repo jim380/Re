@@ -46,121 +46,121 @@ func (gs GenesisState) Validate() error {
 		accountDidMap[elem.Did] = true
 	}
 	// Check for duplicated ID in sessions
-	sessionsIdMap := make(map[string]bool)
+	sessionsIDMap := make(map[string]bool)
 	sessionsCount := gs.GetSessionsCount()
 	for _, elem := range gs.SessionsList {
-		if _, ok := sessionsIdMap[elem.SessionID]; ok {
+		if _, ok := sessionsIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessions")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= sessionsCount {
 			return fmt.Errorf("sessions id should be lower or equal than the last id")
 		}
-		sessionsIdMap[elem.SessionID] = true
+		sessionsIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in sessionReject
-	sessionRejectIdMap := make(map[string]bool)
+	sessionRejectIDMap := make(map[string]bool)
 	sessionRejectCount := gs.GetSessionRejectCount()
 	for _, elem := range gs.SessionRejectList {
-		if _, ok := sessionRejectIdMap[elem.SessionID]; ok {
+		if _, ok := sessionRejectIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessionReject")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= sessionRejectCount {
 			return fmt.Errorf("sessionReject id should be lower or equal than the last id")
 		}
-		sessionRejectIdMap[elem.SessionID] = true
+		sessionRejectIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated sessionName in sessionLogout
-	sessionLogoutIdMap := make(map[string]bool)
+	sessionLogoutIDMap := make(map[string]bool)
 	sessionLogoutCount := gs.GetSessionLogoutCount()
 	for _, elem := range gs.SessionLogoutList {
-		if _, ok := sessionLogoutIdMap[elem.SessionID]; ok {
+		if _, ok := sessionLogoutIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for sessionLogout")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= sessionLogoutCount {
 			return fmt.Errorf("sessionLogout id should be lower or equal than the last id")
 		}
-		sessionLogoutIdMap[elem.SessionID] = true
+		sessionLogoutIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in orders
-	ordersIdMap := make(map[string]bool)
+	ordersIDMap := make(map[string]bool)
 	ordersCount := gs.GetOrdersCount()
 	for _, elem := range gs.OrdersList {
-		if _, ok := ordersIdMap[elem.SessionID]; ok {
+		if _, ok := ordersIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for orders")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= ordersCount {
 			return fmt.Errorf("orders id should be lower or equal than the last id")
 		}
-		ordersIdMap[elem.SessionID] = true
+		ordersIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in ordersCancelRequest
-	ordersCancelRequestIdMap := make(map[string]bool)
+	ordersCancelRequestIDMap := make(map[string]bool)
 	ordersCancelRequestCount := gs.GetOrdersCancelRequestCount()
 	for _, elem := range gs.OrdersCancelRequestList {
-		if _, ok := ordersCancelRequestIdMap[elem.SessionID]; ok {
+		if _, ok := ordersCancelRequestIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for ordersCancelRequest")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= ordersCancelRequestCount {
 			return fmt.Errorf("ordersCancelRequest id should be lower or equal than the last id")
 		}
-		ordersCancelRequestIdMap[elem.SessionID] = true
+		ordersCancelRequestIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in ordersCancelReject
-	ordersCancelRejectIdMap := make(map[string]bool)
+	ordersCancelRejectIDMap := make(map[string]bool)
 	ordersCancelRejectCount := gs.GetOrdersCancelRejectCount()
 	for _, elem := range gs.OrdersCancelRejectList {
-		if _, ok := ordersCancelRejectIdMap[elem.SessionID]; ok {
+		if _, ok := ordersCancelRejectIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for ordersCancelReject")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= ordersCancelRejectCount {
 			return fmt.Errorf("ordersCancelReject id should be lower or equal than the last id")
 		}
-		ordersCancelRejectIdMap[elem.SessionID] = true
+		ordersCancelRejectIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in ordersExecutionReport
-	ordersExecutionReportIdMap := make(map[string]bool)
+	ordersExecutionReportIDMap := make(map[string]bool)
 	ordersExecutionReportCount := gs.GetOrdersExecutionReportCount()
 	for _, elem := range gs.OrdersExecutionReportList {
-		if _, ok := ordersExecutionReportIdMap[elem.SessionID]; ok {
+		if _, ok := ordersExecutionReportIDMap[elem.SessionID]; ok {
 			return fmt.Errorf("duplicated id for ordersExecutionReport")
 		}
 		sessionID, _ := strconv.ParseUint(elem.SessionID, 10, 64)
 		if sessionID >= ordersExecutionReportCount {
 			return fmt.Errorf("ordersExecutionReport id should be lower or equal than the last id")
 		}
-		ordersExecutionReportIdMap[elem.SessionID] = true
+		ordersExecutionReportIDMap[elem.SessionID] = true
 	}
 	// Check for duplicated ID in quote
-	quoteIdMap := make(map[string]bool)
+	quoteIDMap := make(map[string]bool)
 	quoteCount := gs.GetQuoteCount()
 	for _, elem := range gs.QuoteList {
-		if _, ok := quoteIdMap[elem.QuoteRequest.QuoteReqID]; ok {
+		if _, ok := quoteIDMap[elem.QuoteRequest.QuoteReqID]; ok {
 			return fmt.Errorf("duplicated id for quote")
 		}
 		quoteReqID, _ := strconv.ParseUint(elem.QuoteRequest.QuoteReqID, 10, 64)
 		if quoteReqID >= quoteCount {
 			return fmt.Errorf("quote id should be lower or equal than the last id")
 		}
-		quoteIdMap[elem.QuoteRequest.QuoteReqID] = true
+		quoteIDMap[elem.QuoteRequest.QuoteReqID] = true
 	}
 	// Check for duplicated ID in marketData
-	marketDataIdMap := make(map[string]bool)
+	marketDataIDMap := make(map[string]bool)
 	marketDataCount := gs.GetMarketDataCount()
 	for _, elem := range gs.MarketDataList {
-		if _, ok := marketDataIdMap[elem.MarketDataRequest.MdReqID]; ok {
+		if _, ok := marketDataIDMap[elem.MarketDataRequest.MdReqID]; ok {
 			return fmt.Errorf("duplicated id for marketData")
 		}
 		mdReqID, _ := strconv.ParseUint(elem.MarketDataRequest.MdReqID, 10, 64)
 		if mdReqID >= marketDataCount {
 			return fmt.Errorf("marketData id should be lower or equal than the last id")
 		}
-		marketDataIdMap[elem.MarketDataRequest.MdReqID] = true
+		marketDataIDMap[elem.MarketDataRequest.MdReqID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 
