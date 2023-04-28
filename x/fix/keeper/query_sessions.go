@@ -32,7 +32,6 @@ func (k Keeper) SessionsAll(goCtx context.Context, req *types.QueryAllSessionsRe
 		sessionss = append(sessionss, sessions)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -74,7 +73,6 @@ func (k Keeper) SessionRejectAll(goCtx context.Context, req *types.QueryAllSessi
 		sessionRejects = append(sessionRejects, sessionReject)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -116,7 +114,6 @@ func (k Keeper) SessionLogoutAll(goCtx context.Context, req *types.QueryAllSessi
 		sessionLogouts = append(sessionLogouts, sessionLogout)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

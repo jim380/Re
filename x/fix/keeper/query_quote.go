@@ -32,7 +32,6 @@ func (k Keeper) QuoteAll(goCtx context.Context, req *types.QueryAllQuoteRequest)
 		quotes = append(quotes, quote)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -62,11 +61,11 @@ func (k Keeper) QuotesBySessionID(goCtx context.Context, req *types.QuerySession
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//get all quotes and return for each sessionID
+	// get all quotes and return for each sessionID
 	var quotesBySessionID []types.Quote
 	allQuote := k.GetAllQuote(ctx)
 	for _, quotes := range allQuote {
-		//check for if the requested sessionID matches with any sessionID returned from GetAllQuote()
+		// check for if the requested sessionID matches with any sessionID returned from GetAllQuote()
 		if quotes.SessionID == req.SessionID {
 			quotesBySessionID = append(quotesBySessionID, quotes)
 		}

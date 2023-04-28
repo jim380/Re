@@ -20,7 +20,7 @@ func (m msgServer) CreateDID(goCtx context.Context, msg *types.MsgCreateDID) (*t
 		return nil, err
 	}
 
-	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, uint64(seq), msg.FromAddress)
+	newDocWithSeq := types.NewDIDDocumentWithSeq(msg.Document, seq, msg.FromAddress)
 
 	for _, did := range keeper.ListDIDs(ctx) {
 		existingDIDDocument := keeper.GetDIDDocument(ctx, did)
@@ -65,12 +65,12 @@ func (m msgServer) UpdateDID(goCtx context.Context, msg *types.MsgUpdateDID) (*t
 		return nil, sdkerrors.Wrapf(types.ErrNotTheSameDID, "DID: %s", msg.Did)
 	}
 
-	//only account owner can update DID
+	// only account owner can update DID
 	if existingDocWithSeq.Creator != editedDocWithSeq.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
-	//verification method's Public Key and Type for updating must be the same at DID creation
+	// verification method's Public Key and Type for updating must be the same at DID creation
 	for i := range existingDocWithSeq.Document.VerificationMethods {
 		if existingDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 != editedDocWithSeq.Document.VerificationMethods[i].PublicKeyBase58 && existingDocWithSeq.Document.VerificationMethods[i].Type != editedDocWithSeq.Document.VerificationMethods[i].Type {
 			return nil, sdkerrors.Wrapf(types.ErrSigVerificationFailed, "Verification Methods: %s", editedDocWithSeq.Document.VerificationMethods[i])
@@ -110,7 +110,6 @@ func (m msgServer) DeactivateDID(goCtx context.Context, msg *types.MsgDeactivate
 	keeper.SetDeactivatedDIDDocument(ctx, msg.FromAddress, existingDocWithSeq)
 	keeper.SetDIDDocument(ctx, msg.Did, existingDocWithSeq.Deactivate(newSeq, msg.FromAddress))
 	return &types.MsgDeactivateDIDResponse{}, nil
-
 }
 
 // ReActivateDID reactivates DID document on RE Protocol
@@ -124,7 +123,7 @@ func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivate
 		return nil, sdkerrors.Wrapf(types.ErrNotUserAccount, "Account Address: %s", msg.FromAddress)
 	}
 
-	//get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
+	// get the DID from the GetDeactivatedDIDDocument to prevent DID that is not deactivated
 	activedocWithSeq := keeper.GetDIDDocument(ctx, existingDocWithSeq.Document.Id)
 
 	if !activedocWithSeq.Document.Empty() {
@@ -138,7 +137,6 @@ func (m msgServer) ReactivateDID(goCtx context.Context, msg *types.MsgReActivate
 	keeper.SetDIDDocument(ctx, existingDocWithSeq.Document.Id, existingDocWithSeq)
 
 	return &types.MsgReActivateDIDResponse{}, nil
-
 }
 
 func VerifyDIDOwnership(signData *types.DIDDocument, seq uint64, doc *types.DIDDocument, verificationMethodID string, sig []byte) (uint64, error) {
@@ -150,7 +148,7 @@ func VerifyDIDOwnership(signData *types.DIDDocument, seq uint64, doc *types.DIDD
 	// TODO: Currently, only ES256K1 is supported to verify DID ownership.
 	//       It makes sense for now, since a DID is derived from a Secp256k1 public key.
 	//       But, need to support other key types (according to verificationMethod.Type).
-	if verificationMethod.Type != types.ES256K_2019 && verificationMethod.Type != types.ES256K_2018 {
+	if verificationMethod.Type != types.EcdsaSecp256k1VerificationKey2019 && verificationMethod.Type != types.Secp256k1VerificationKey2018 {
 		return 0, sdkerrors.Wrapf(types.ErrVerificationMethodKeyTypeNotImplemented, "VerificationMethod: %v", verificationMethod.Type)
 	}
 

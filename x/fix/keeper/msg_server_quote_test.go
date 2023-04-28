@@ -10,7 +10,6 @@ import (
 )
 
 func (suite *KeeperTestSuite) TestQuoteRequest() {
-
 	type args struct {
 		creator                  string
 		session                  types.Sessions
@@ -28,7 +27,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 		args    args
 		errArgs errArgs
 	}{
-		{"Valid SessionID in QuoteRequest",
+		{
+			"Valid SessionID in QuoteRequest",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -49,7 +49,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: string(suite.address[0].String()),
+					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -66,7 +66,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: string(suite.address[1].String()),
+					AcceptorAddress: suite.address[1].String(),
 					Status:          "loggedIn",
 					IsAccepted:      true,
 				},
@@ -118,7 +118,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Check that both account addresses involved in a logon session can send a Quote Request",
+		{
+			"Check that both account addresses involved in a logon session can send a Quote Request",
 			args{
 				creator: suite.address[1].String(),
 				session: types.Sessions{
@@ -139,7 +140,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: string(suite.address[1].String()),
+					InitiatorAddress: suite.address[1].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -156,7 +157,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: string(suite.address[0].String()),
+					AcceptorAddress: suite.address[0].String(),
 					Status:          "loggedIn",
 					IsAccepted:      true,
 				},
@@ -208,7 +209,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Account Address not involved in a logon session can not send a Quote Request",
+		{
+			"Account Address not involved in a logon session can not send a Quote Request",
 			args{
 				creator: suite.address[2].String(),
 				session: types.Sessions{
@@ -229,7 +231,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: string(suite.address[0].String()),
+					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -246,7 +248,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: string(suite.address[1].String()),
+					AcceptorAddress: suite.address[1].String(),
 					Status:          "loggedIn",
 					IsAccepted:      true,
 				},
@@ -298,7 +300,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Valid SessionID but logon is not yet established between both parties",
+		{
+			"Valid SessionID but logon is not yet established between both parties",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -319,7 +322,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: string(suite.address[0].String()),
+					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -336,7 +339,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: string(suite.address[1].String()),
+					AcceptorAddress: suite.address[1].String(),
 					Status:          "logon-request",
 					IsAccepted:      false,
 				},
@@ -388,7 +391,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"QuoteReqID is Empty",
+		{
+			"QuoteReqID is Empty",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -409,7 +413,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: string(suite.address[0].String()),
+					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -426,7 +430,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: string(suite.address[1].String()),
+					AcceptorAddress: suite.address[1].String(),
 					Status:          "loggedIn",
 					IsAccepted:      true,
 				},
@@ -478,7 +482,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				contains:   "",
 			},
 		},
-		{"Empty Session",
+		{
+			"Empty Session",
 			args{
 				creator: suite.address[0].String(),
 				session: types.Sessions{
@@ -578,16 +583,16 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
 
 			// get session
-			session, found := suite.fixKeeper.GetSessions(suite.ctx, tc.args.session.SessionID)
+			session, _ := suite.fixKeeper.GetSessions(suite.ctx, tc.args.session.SessionID)
 
 			// set mic from mic module
 			suite.micKeeper.SetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode)
 
 			// get mic from mic module
-			mic, found := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
+			mic, _ := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
 
 			// set QuoteRequest
-			quoteRequest := types.NewQuoteRequest(tc.args.quoteRequest.QuoteReqID, tc.args.quoteRequest.Symbol, tc.args.quoteRequest.SecurityID, tc.args.quoteRequest.SecurityIDSource, tc.args.quoteRequest.Side, tc.args.quoteRequest.OrderQty, tc.args.quoteRequest.FutSettDate, tc.args.quoteRequest.SettlDate2, tc.args.quoteRequest.Account, tc.args.quoteRequest.BidPx, tc.args.quoteRequest.OfferPx, tc.args.quoteRequest.Currency, tc.args.quoteRequest.ValidUntilTime, tc.args.quoteRequest.ExpireTime, tc.args.quoteRequest.QuoteType, tc.args.quoteRequest.BidSize, tc.args.quoteRequest.OfferSize, mic.MIC, tc.args.quoteRequest.Text, string(tc.args.creator))
+			quoteRequest := types.NewQuoteRequest(tc.args.quoteRequest.QuoteReqID, tc.args.quoteRequest.Symbol, tc.args.quoteRequest.SecurityID, tc.args.quoteRequest.SecurityIDSource, tc.args.quoteRequest.Side, tc.args.quoteRequest.OrderQty, tc.args.quoteRequest.FutSettDate, tc.args.quoteRequest.SettlDate2, tc.args.quoteRequest.Account, tc.args.quoteRequest.BidPx, tc.args.quoteRequest.OfferPx, tc.args.quoteRequest.Currency, tc.args.quoteRequest.ValidUntilTime, tc.args.quoteRequest.ExpireTime, tc.args.quoteRequest.QuoteType, tc.args.quoteRequest.BidSize, tc.args.quoteRequest.OfferSize, mic.MIC, tc.args.quoteRequest.Text, tc.args.creator)
 
 			// NewMsgQuoteRequest instance
 			msg := types.NewMsgQuoteRequest(tc.args.creator, session.SessionID, quoteRequest)
@@ -610,7 +615,5 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
 		})
-
 	}
-
 }

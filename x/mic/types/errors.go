@@ -15,7 +15,7 @@ var (
 	ErrMICIsNotFound         = sdkerrors.Register(ModuleName, 4, "MIC does not exist")
 	ErrMICIsEmpty            = sdkerrors.Register(ModuleName, 5, "MIC is empty")
 	ErrOperatingMICIsEmpty   = sdkerrors.Register(ModuleName, 6, "Operating_MIC is empty")
-	ErrOPRT_SGMTIsEmpty      = sdkerrors.Register(ModuleName, 7, "OPRT_SGMT is empty")
+	ErrOPRTSGMTIsEmpty       = sdkerrors.Register(ModuleName, 7, "OPRT_SGMT is empty")
 	ErrMarketNameIsEmpty     = sdkerrors.Register(ModuleName, 8, "MarketName is empty")
 	ErrMarketCategoryIsEmpty = sdkerrors.Register(ModuleName, 9, "MarketCategory is empty")
 	ErrISOCountryCodeIsEmpty = sdkerrors.Register(ModuleName, 10, "ISOCountryCode is empty")

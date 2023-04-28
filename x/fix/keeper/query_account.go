@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	//sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
@@ -33,7 +33,6 @@ func (k Keeper) AccountAll(goCtx context.Context, req *types.QueryAllAccountRequ
 		accounts = append(accounts, account)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -48,9 +47,6 @@ func (k Keeper) Account(goCtx context.Context, req *types.QueryGetAccountRequest
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	account := k.GetAccount(ctx, req.Did)
-	//if !found {
-	//	return nil, sdkerrors.ErrKeyNotFound
-	//}
 
 	return &types.QueryGetAccountResponse{Account: account}, nil
 }

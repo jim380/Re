@@ -101,6 +101,7 @@ func NewMsgDeleteAccount(creator string, did string) *MsgDeleteAccount {
 		Creator: creator,
 	}
 }
+
 func (msg *MsgDeleteAccount) Route() string {
 	return RouterKey
 }

@@ -38,7 +38,6 @@ func CmdCreateDID() *cobra.Command {
 			fromAddress := clientCtx.GetFromAddress()
 
 			msg, err := newMsgCreateDID(fromAddress, privKey)
-
 			if err != nil {
 				return err
 			}
