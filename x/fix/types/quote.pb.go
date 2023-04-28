@@ -91,29 +91,50 @@ func (m *Quote) GetQuoteRequestReject() *QuoteRequestReject {
 }
 
 type QuoteRequest struct {
-	Header           *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	QuoteReqID       string  `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
-	Symbol           string  `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	SecurityID       string  `protobuf:"bytes,4,opt,name=securityID,proto3" json:"securityID,omitempty"`
-	SecurityIDSource string  `protobuf:"bytes,5,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
-	Side             string  `protobuf:"bytes,6,opt,name=side,proto3" json:"side,omitempty"`
-	OrderQty         string  `protobuf:"bytes,7,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	FutSettDate      string  `protobuf:"bytes,8,opt,name=futSettDate,proto3" json:"futSettDate,omitempty"`
-	SettlDate2       string  `protobuf:"bytes,9,opt,name=settlDate2,proto3" json:"settlDate2,omitempty"`
-	Account          string  `protobuf:"bytes,10,opt,name=account,proto3" json:"account,omitempty"`
-	BidPx            string  `protobuf:"bytes,11,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
-	OfferPx          string  `protobuf:"bytes,12,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
-	Currency         string  `protobuf:"bytes,13,opt,name=currency,proto3" json:"currency,omitempty"`
-	ValidUntilTime   string  `protobuf:"bytes,14,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
-	ExpireTime       string  `protobuf:"bytes,15,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
-	QuoteType        string  `protobuf:"bytes,16,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
-	// Firm)
-	BidSize   string   `protobuf:"bytes,17,opt,name=bidSize,proto3" json:"bidSize,omitempty"`
-	OfferSize string   `protobuf:"bytes,18,opt,name=offerSize,proto3" json:"offerSize,omitempty"`
-	Mic       string   `protobuf:"bytes,19,opt,name=mic,proto3" json:"mic,omitempty"`
-	Text      string   `protobuf:"bytes,20,opt,name=text,proto3" json:"text,omitempty"`
-	Trailer   *Trailer `protobuf:"bytes,21,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator   string   `protobuf:"bytes,22,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard header for the message
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// Unique identifier for the Quote Request message
+	QuoteReqID string `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	// Ticker symbol or instrument code for the security being quoted
+	Symbol string `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// Identifier for the security being quoted
+	SecurityID string `protobuf:"bytes,4,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	// Specifies the source of the security identifier
+	SecurityIDSource string `protobuf:"bytes,5,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	// Indicates whether the quote is for a buy or sell order
+	Side string `protobuf:"bytes,6,opt,name=side,proto3" json:"side,omitempty"`
+	// Quantity of the security being quoted
+	OrderQty string `protobuf:"bytes,7,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	// Date of the future settlement
+	FutSettDate string `protobuf:"bytes,8,opt,name=futSettDate,proto3" json:"futSettDate,omitempty"`
+	// Secondary settlement date for the security
+	SettlDate2 string `protobuf:"bytes,9,opt,name=settlDate2,proto3" json:"settlDate2,omitempty"`
+	// Account number for the order
+	Account string `protobuf:"bytes,10,opt,name=account,proto3" json:"account,omitempty"`
+	// Price at which the buyer is willing to buy the security
+	BidPx string `protobuf:"bytes,11,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
+	// Price at which the seller is willing to sell the security
+	OfferPx string `protobuf:"bytes,12,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
+	// Currency of the quoted price
+	Currency string `protobuf:"bytes,13,opt,name=currency,proto3" json:"currency,omitempty"`
+	// Time after which the quote is no longer valid
+	ValidUntilTime string `protobuf:"bytes,14,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
+	// Time at which the quote will expire
+	ExpireTime string `protobuf:"bytes,15,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
+	// Type of quote being requested (e.g. Indicative, Firm)
+	QuoteType string `protobuf:"bytes,16,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
+	// Quantity of securities offered at the bid price
+	BidSize string `protobuf:"bytes,17,opt,name=bidSize,proto3" json:"bidSize,omitempty"`
+	// Quantity of securities offered at the offer price
+	OfferSize string `protobuf:"bytes,18,opt,name=offerSize,proto3" json:"offerSize,omitempty"`
+	// Market identification code
+	Mic string `protobuf:"bytes,19,opt,name=mic,proto3" json:"mic,omitempty"`
+	// Additional information or comments about the quote request.
+	Text string `protobuf:"bytes,20,opt,name=text,proto3" json:"text,omitempty"`
+	// Standard trailer for the message
+	Trailer *Trailer `protobuf:"bytes,21,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// The creator of the message
+	Creator string `protobuf:"bytes,22,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *QuoteRequest) Reset()         { *m = QuoteRequest{} }
@@ -304,35 +325,61 @@ func (m *QuoteRequest) GetCreator() string {
 }
 
 type QuoteAcknowledgement struct {
-	Header           *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	QuoteReqID       string  `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
-	QuoteID          string  `protobuf:"bytes,3,opt,name=quoteID,proto3" json:"quoteID,omitempty"`
-	QuoteStatus      string  `protobuf:"bytes,4,opt,name=quoteStatus,proto3" json:"quoteStatus,omitempty"`
-	QuoteType        string  `protobuf:"bytes,5,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
-	SecurityID       string  `protobuf:"bytes,6,opt,name=securityID,proto3" json:"securityID,omitempty"`
-	SecurityIDSource string  `protobuf:"bytes,7,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
-	// identifier
-	Symbol              string   `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side                string   `protobuf:"bytes,9,opt,name=side,proto3" json:"side,omitempty"`
-	OrderQty            string   `protobuf:"bytes,10,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	LastQty             string   `protobuf:"bytes,11,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
-	LastPx              string   `protobuf:"bytes,12,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
-	BidPx               string   `protobuf:"bytes,13,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
-	OfferPx             string   `protobuf:"bytes,14,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
-	Currency            string   `protobuf:"bytes,15,opt,name=currency,proto3" json:"currency,omitempty"`
-	SettlDate           string   `protobuf:"bytes,16,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
-	ValidUntilTime      string   `protobuf:"bytes,17,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
-	ExpireTime          string   `protobuf:"bytes,18,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
-	Text                string   `protobuf:"bytes,19,opt,name=text,proto3" json:"text,omitempty"`
-	NoQuoteQualifiers   string   `protobuf:"bytes,20,opt,name=noQuoteQualifiers,proto3" json:"noQuoteQualifiers,omitempty"`
-	QuoteQualifier      string   `protobuf:"bytes,21,opt,name=quoteQualifier,proto3" json:"quoteQualifier,omitempty"`
-	NoLegs              string   `protobuf:"bytes,22,opt,name=noLegs,proto3" json:"noLegs,omitempty"`
-	LegSymbol           string   `protobuf:"bytes,23,opt,name=legSymbol,proto3" json:"legSymbol,omitempty"`
-	LegSecurityID       string   `protobuf:"bytes,24,opt,name=legSecurityID,proto3" json:"legSecurityID,omitempty"`
-	LegSecurityIDSource string   `protobuf:"bytes,25,opt,name=legSecurityIDSource,proto3" json:"legSecurityIDSource,omitempty"`
-	LegRatioQty         string   `protobuf:"bytes,26,opt,name=legRatioQty,proto3" json:"legRatioQty,omitempty"`
-	Trailer             *Trailer `protobuf:"bytes,27,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator             string   `protobuf:"bytes,28,opt,name=creator,proto3" json:"creator,omitempty"`
+	// standard Header
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// Unique identifier for the original Quote Request message
+	QuoteReqID string `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	// Unique identifier for the Quote
+	QuoteID string `protobuf:"bytes,3,opt,name=quoteID,proto3" json:"quoteID,omitempty"`
+	// Status of the Quote (e.g. Accepted, Rejected, Expired)
+	QuoteStatus string `protobuf:"bytes,4,opt,name=quoteStatus,proto3" json:"quoteStatus,omitempty"`
+	// Type of Quote (e.g. Indicative, Firm)
+	QuoteType string `protobuf:"bytes,5,opt,name=quoteType,proto3" json:"quoteType,omitempty"`
+	// dentifier for the security being quoted
+	SecurityID string `protobuf:"bytes,6,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	// Specifies the source of the security identifier
+	SecurityIDSource string `protobuf:"bytes,7,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	// Ticker symbol or instrument code for the security being quoted
+	Symbol string `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// indicates whether the quote is for a buy or sell order
+	Side string `protobuf:"bytes,9,opt,name=side,proto3" json:"side,omitempty"`
+	// Quantity of the security being quoted
+	OrderQty string `protobuf:"bytes,10,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	// Quantity of the last trade
+	LastQty string `protobuf:"bytes,11,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
+	// Price of the last trade
+	LastPx string `protobuf:"bytes,12,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	// Price at which the buyer is willing to buy the security
+	BidPx string `protobuf:"bytes,13,opt,name=bidPx,proto3" json:"bidPx,omitempty"`
+	// Price at which the seller is willing to sell the security
+	OfferPx string `protobuf:"bytes,14,opt,name=offerPx,proto3" json:"offerPx,omitempty"`
+	// Currency of the quoted price
+	Currency string `protobuf:"bytes,15,opt,name=currency,proto3" json:"currency,omitempty"`
+	// Settlement date for the security
+	SettlDate string `protobuf:"bytes,16,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
+	// Time after which the quote is no longer valid
+	ValidUntilTime string `protobuf:"bytes,17,opt,name=validUntilTime,proto3" json:"validUntilTime,omitempty"`
+	// Time at which the quote will expire
+	ExpireTime string `protobuf:"bytes,18,opt,name=expireTime,proto3" json:"expireTime,omitempty"`
+	// Additional information or comments about the quote
+	Text string `protobuf:"bytes,19,opt,name=text,proto3" json:"text,omitempty"`
+	// Number of Quote Qualifiers
+	NoQuoteQualifiers string `protobuf:"bytes,20,opt,name=noQuoteQualifiers,proto3" json:"noQuoteQualifiers,omitempty"`
+	// Additional information about the quote (e.g. Yield, Size)
+	QuoteQualifier string `protobuf:"bytes,21,opt,name=quoteQualifier,proto3" json:"quoteQualifier,omitempty"`
+	// Number of legs in the security (for multi-legged securities)
+	NoLegs string `protobuf:"bytes,22,opt,name=noLegs,proto3" json:"noLegs,omitempty"`
+	// Ticker symbol or instrument code for each leg of the security
+	LegSymbol string `protobuf:"bytes,23,opt,name=legSymbol,proto3" json:"legSymbol,omitempty"`
+	// Identifier for each leg of the security
+	LegSecurityID string `protobuf:"bytes,24,opt,name=legSecurityID,proto3" json:"legSecurityID,omitempty"`
+	// Specifies the source of the identifier for each leg of the security
+	LegSecurityIDSource string `protobuf:"bytes,25,opt,name=legSecurityIDSource,proto3" json:"legSecurityIDSource,omitempty"`
+	// Ratio of one leg to the other in a multi-legged security
+	LegRatioQty string `protobuf:"bytes,26,opt,name=legRatioQty,proto3" json:"legRatioQty,omitempty"`
+	// standard Trailer
+	Trailer *Trailer `protobuf:"bytes,27,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Creator string   `protobuf:"bytes,28,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *QuoteAcknowledgement) Reset()         { *m = QuoteAcknowledgement{} }
@@ -565,13 +612,15 @@ func (m *QuoteAcknowledgement) GetCreator() string {
 }
 
 type QuoteRequestReject struct {
-	Header                   *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	QuoteReqID               string  `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
-	QuoteRequestRejectReason string  `protobuf:"bytes,3,opt,name=quoteRequestRejectReason,proto3" json:"quoteRequestRejectReason,omitempty"`
-	// Examples include "Invalid instrument requested", "Unknown
-	// instrument", "Unsupported request type", etc.
-	Text string `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
-	// the Quote Request
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// The ID of the original Quote Request message that is being rejected
+	QuoteReqID string `protobuf:"bytes,2,opt,name=quoteReqID,proto3" json:"quoteReqID,omitempty"`
+	// A code indicating the reason for rejecting the Quote Request, Examples
+	// include "Invalid instrument requested", "Unknown instrument", "Unsupported
+	// request type", etc.
+	QuoteRequestRejectReason string `protobuf:"bytes,3,opt,name=quoteRequestRejectReason,proto3" json:"quoteRequestRejectReason,omitempty"`
+	// A human-readable description of the reason for rejecting the Quote Request
+	Text    string   `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
 	Trailer *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
 	Creator string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
