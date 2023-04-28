@@ -27,7 +27,8 @@ type SessionLogout struct {
 	InitiatorAddress       string                  `protobuf:"bytes,2,opt,name=initiatorAddress,proto3" json:"initiatorAddress,omitempty"`
 	AcceptorAddress        string                  `protobuf:"bytes,3,opt,name=acceptorAddress,proto3" json:"acceptorAddress,omitempty"`
 	SessionLogoutInitiator *SessionLogoutInitiator `protobuf:"bytes,4,opt,name=sessionLogoutInitiator,proto3" json:"sessionLogoutInitiator,omitempty"`
-	SessionLogoutAcceptor  *SessionLogoutAcceptor  `protobuf:"bytes,5,opt,name=sessionLogoutAcceptor,proto3" json:"sessionLogoutAcceptor,omitempty"`
+	// initiates the logout
+	SessionLogoutAcceptor *SessionLogoutAcceptor `protobuf:"bytes,5,opt,name=sessionLogoutAcceptor,proto3" json:"sessionLogoutAcceptor,omitempty"`
 }
 
 func (m *SessionLogout) Reset()         { *m = SessionLogout{} }
@@ -99,8 +100,10 @@ func (m *SessionLogout) GetSessionLogoutAcceptor() *SessionLogoutAcceptor {
 }
 
 type SessionLogoutInitiator struct {
-	Header  *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Text    string   `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// such as beginString, bodyLength, msgType, etc
+	Text string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	// additional information about the logout
 	Trailer *Trailer `protobuf:"bytes,3,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
@@ -159,8 +162,10 @@ func (m *SessionLogoutInitiator) GetTrailer() *Trailer {
 }
 
 type SessionLogoutAcceptor struct {
-	Header  *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Text    string   `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// such as beginString, bodyLength, msgType, etc
+	Text string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	// additional information about the logout.
 	Trailer *Trailer `protobuf:"bytes,3,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 

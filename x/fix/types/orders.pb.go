@@ -23,20 +23,30 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Orders struct {
-	SessionID    string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header       *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	ClOrdID      string   `protobuf:"bytes,3,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	Symbol       string   `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side         int64    `protobuf:"varint,5,opt,name=side,proto3" json:"side,omitempty"`
-	OrderQty     string   `protobuf:"bytes,6,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	OrdType      int64    `protobuf:"varint,7,opt,name=ordType,proto3" json:"ordType,omitempty"`
-	Price        string   `protobuf:"bytes,8,opt,name=price,proto3" json:"price,omitempty"`
-	TimeInForce  int64    `protobuf:"varint,9,opt,name=timeInForce,proto3" json:"timeInForce,omitempty"`
-	Text         string   `protobuf:"bytes,10,opt,name=text,proto3" json:"text,omitempty"`
+	SessionID string `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	// which the message is intended.
+	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// such as beginString, bodyLength, msgType, etc.
+	ClOrdID string `protobuf:"bytes,3,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
+	// to identify the order in future messages related to the order
+	Symbol string `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side   int64  `protobuf:"varint,5,opt,name=side,proto3" json:"side,omitempty"`
+	// The values are typically 1 for buy and 2 for sell
+	OrderQty string `protobuf:"bytes,6,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	OrdType  int64  `protobuf:"varint,7,opt,name=ordType,proto3" json:"ordType,omitempty"`
+	// market, 2 for limit, 3 for stop, and 4 for stop limit
+	Price string `protobuf:"bytes,8,opt,name=price,proto3" json:"price,omitempty"`
+	// field is required for limit and stop limit orders
+	TimeInForce int64 `protobuf:"varint,9,opt,name=timeInForce,proto3" json:"timeInForce,omitempty"`
+	// remain active. Common values include 0 for day, 1
+	// for good till canceled, and 2 for fill or kill
+	Text string `protobuf:"bytes,10,opt,name=text,proto3" json:"text,omitempty"`
+	// additional information about the order.
 	TransactTime string   `protobuf:"bytes,11,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
 	Trailer      *Trailer `protobuf:"bytes,12,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Status       string   `protobuf:"bytes,13,opt,name=status,proto3" json:"status,omitempty"`
-	Creator      string   `protobuf:"bytes,14,opt,name=creator,proto3" json:"creator,omitempty"`
+	// fields such as checkSum
+	Status  string `protobuf:"bytes,13,opt,name=status,proto3" json:"status,omitempty"`
+	Creator string `protobuf:"bytes,14,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *Orders) Reset()         { *m = Orders{} }

@@ -6,14 +6,40 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message OrdersCancelReject {
-  string sessionID = 1; // A string field that specifies the FIX session ID for the message
-  Header header = 2; // A Header field that contains standard header information for the message, such as the message type, sender and receiver identification, and sequence number
-  string orderID = 3; // A string field that contains the ID of the order that was rejected
-  string origClOrdID = 4; // A string field that contains the original client order ID for the order that was cancelled
-  string clOrdID = 5; // A string field that contains the client order ID for the order that was cancelled or modified
-  int64 cxlRejReason = 6; // An integer field that specifies the reason for the order cancellation rejection, using a standard set of values defined in the FIX protocol
-  int64 cxlRejResponseTo =7; // An integer field that specifies the message sequence number of the order cancellation request to which this message is responding
-  string TransactTime = 8; // A string field that specifies the time of the transaction
-  Trailer trailer = 9; // A Trailer field that contains standard trailer information for the message, such as the message checksum
+  // A string field that specifies the FIX session ID for the message.
+  string sessionID = 1;
+
+  // A Header field that contains standard header information for the message,
+  // such as the message type, sender and receiver identification, and sequence
+  // number.
+  Header header = 2;
+
+  // A string field that contains the ID of the order that was rejected.
+  string orderID = 3;
+
+  // A string field that contains the original client order ID for the order
+  // that was cancelled.
+  string origClOrdID = 4;
+
+  // A string field that contains the client order ID for the order that was
+  // cancelled or modified.
+  string clOrdID = 5;
+
+  // An integer field that specifies the reason for the order cancellation
+  // rejection, using a standard set of values defined in the FIX protocol.
+  int64 cxlRejReason = 6;
+
+  // An integer field that specifies the message sequence number of the order
+  // cancellation request to which this message is responding.
+  int64 cxlRejResponseTo = 7;
+
+  // A string field that specifies the time of the transaction.
+  string transactTime = 8;
+
+  // A Trailer field that contains standard trailer information for the message,
+  // such as the message checksum.
+  Trailer trailer = 9;
+
+  // A string field that identifies the creator of the message.
   string creator = 10;
 }

@@ -6,7 +6,7 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 import "re/fix/standard_message.proto";
 
 message TradeCapture {
-  string sessionID = 1; 
+  string sessionID = 1;
   TradeCaptureReport tradeCaptureReport = 2;
   TradeCaptureReportAcknowledgement tradeCaptureReportAcknowledgement = 3;
   TradeCaptureReportRejection tradeCaptureReportRejection = 4;
@@ -14,78 +14,104 @@ message TradeCapture {
 
 // Trade Capture Report with fields, tags and descriptions.
 message TradeCaptureReport {
-  Header header = 1;  // Standard FIX message header.
+  Header header = 1;        // Standard FIX message header.
   string tradeReportID = 2; // (571) Unique identifier for the trade report.
-  string tradeReportTransType = 3; // (487) Type of trade report (new, cancel, correction).
-  string tradeReportType = 4; // (856) Type of trade report (real-time, end-of-day).
-  string tradeRequestID = 5; // (568) Identifier for the trade request to which this message responds.
-  
+  string tradeReportTransType =
+      3; // (487) Type of trade report (new, cancel, correction).
+  string tradeReportType =
+      4; // (856) Type of trade report (real-time, end-of-day).
+  string tradeRequestID = 5; // (568) Identifier for the trade request to which
+                             // this message responds.
+
   // Trade details
-  string trdType = 6; // (828) Type of the trade (Block Trade, Exchange for Physical).
+  string trdType =
+      6; // (828) Type of the trade (Block Trade, Exchange for Physical).
   string trdSubType = 7; // (829) Further information about the trade type.
-  string side = 21; // (54) Buy or sell.
-  string orderQty = 22; // (38) Quantity of the order involved in the trade.
-  string lastQty = 23; // (32) Quantity of the last execution in the trade.
-  string lastPx = 24; // (31) Price of the last execution in the trade.
-  string grossTradeAmt = 25; // (381) Total amount of the trade, including any commissions and fees.
-  
+  string side = 21;      // (54) Buy or sell.
+  string orderQty = 22;  // (38) Quantity of the order involved in the trade.
+  string lastQty = 23;   // (32) Quantity of the last execution in the trade.
+  string lastPx = 24;    // (31) Price of the last execution in the trade.
+  string grossTradeAmt = 25; // (381) Total amount of the trade, including any
+                             // commissions and fees.
+
   // Trade identifiers
   string execID = 9; // (17) Identifier for the execution of the trade.
-  string orderID = 10; // (37) Identifier for the order associated with the trade.
-  string tradeID = 12; // (1003) Unique identifier for the trade.
-  string origTradeID = 13; // (1126) Identifier for the original trade, in the case of a trade correction.
-  
+  string orderID =
+      10; // (37) Identifier for the order associated with the trade.
+  string tradeID = 12;     // (1003) Unique identifier for the trade.
+  string origTradeID = 13; // (1126) Identifier for the original trade, in the
+                           // case of a trade correction.
+
   // Instrument details
-  string symbol = 18; // (55) Symbol or code for the financial instrument traded.
-  string securityID = 19; // (48) Identifier for the security traded.
+  string symbol =
+      18; // (55) Symbol or code for the financial instrument traded.
+  string securityID = 19;       // (48) Identifier for the security traded.
   string securityIDSource = 20; // (22) Source of the security identifier.
-  
+
   // Trade dates and settlement
-  string tradeDate = 14; // (75) Date of the trade.
+  string tradeDate = 14;    // (75) Date of the trade.
   string transactTime = 15; // (60) Time at which the trade occurred.
-  string settlType = 16; // (63) Settlement type of the trade.
-  string settlDate = 17; // (64) Settlement date of the trade.
-  
+  string settlType = 16;    // (63) Settlement type of the trade.
+  string settlDate = 17;    // (64) Settlement date of the trade.
+
   Trailer trailer = 26; // Standard FIX message trailer.
 }
 
 // Trade Capture Report Acknowledgement with fields, tags and descriptions.
 message TradeCaptureReportAcknowledgement {
-Header header = 1; // Standard FIX message header.
+  Header header = 1; // Standard FIX message header.
 
-// Trade request details
-string tradeRequestID = 2; // (568) Identifier for the trade request being responded to.
-string tradeRequestType = 3; // (569) Type of trade request (All Trades, Unmatched Trades, etc.).
+  // Trade request details
+  string tradeRequestID =
+      2; // (568) Identifier for the trade request being responded to.
+  string tradeRequestType =
+      3; // (569) Type of trade request (All Trades, Unmatched Trades, etc.).
 
-// Trade report details
-string tradeReportID = 4; // (571) Identifier for the trade report being acknowledged.
-string tradeID = 5; //(1003) Unique identifier for the trade.
-string secondaryTradeID = 6; // (1040) Alternative identifier for the trade.
-string tradeReportType = 7; // (856) Type of trade report (real-time, end-of-day).
-string trdType = 8; // (828) Type of the trade (Block Trade, Exchange for Physical).
-string trdSubType = 9; // (829) Further information about the trade type.
-string execType = 10; // (150) Status of the trade report (new, cancelled, corrected, etc.).
-string tradeReportRefID = 11; // (572) Identifier for the previous trade report being referred to.
-string secondaryTradeReportID = 12; // (818) Alternative identifier for the trade report.
-string tradeReportStatus = 13; // (939) Status of the trade report (accepted, rejected, etc.).
-string tradeTransType = 14; // (487) Type of trade transaction (new, cancel, correction).
-string tradeReportRejectReason = 15; // (751) Reason why the trade report was rejected.
+  // Trade report details
+  string tradeReportID =
+      4; // (571) Identifier for the trade report being acknowledged.
+  string tradeID = 5;          //(1003) Unique identifier for the trade.
+  string secondaryTradeID = 6; // (1040) Alternative identifier for the trade.
+  string tradeReportType =
+      7; // (856) Type of trade report (real-time, end-of-day).
+  string trdType =
+      8; // (828) Type of the trade (Block Trade, Exchange for Physical).
+  string trdSubType = 9; // (829) Further information about the trade type.
+  string execType =
+      10; // (150) Status of the trade report (new, cancelled, corrected, etc.).
+  string tradeReportRefID =
+      11; // (572) Identifier for the previous trade report being referred to.
+  string secondaryTradeReportID =
+      12; // (818) Alternative identifier for the trade report.
+  string tradeReportStatus =
+      13; // (939) Status of the trade report (accepted, rejected, etc.).
+  string tradeTransType =
+      14; // (487) Type of trade transaction (new, cancel, correction).
+  string tradeReportRejectReason =
+      15; // (751) Reason why the trade report was rejected.
 
-// Additional information
-string text = 16; // (58) Additional information about the trade report or acknowledgement.
+  // Additional information
+  string text = 16; // (58) Additional information about the trade report or
+                    // acknowledgement.
 
-Trailer trailer = 17; // Standard FIX message trailer.
+  Trailer trailer = 17; // Standard FIX message trailer.
 }
-
 
 // Trade Capture Report Rejection with fields, tags and descriptions.
 message TradeCaptureReportRejection {
-Header header = 1; // Standard FIX message header.
-string tradeRequestID = 2; // (568) The identifier for the trade request to which this message is responding.
-string tradeRequestType = 3; // (569) Indicates the type of trade request, such as "All Trades" or "Unmatched Trades".
-string tradeReportID  = 4; // (571) The identifier for the trade report being rejected.
-string tradeReportRejectReason = 5; // (751) A code indicating why the trade report was rejected.
-string tradeReportRejectRefID = 6; // (754) The identifier of the previous message (e.g., Trade Capture Report) to which this message refers.
-string text = 7; // (58) A description of the reason for the trade report rejection.
-Trailer trailer = 8; // Standard FIX message trailer.
+  Header header = 1;           // Standard FIX message header.
+  string tradeRequestID = 2;   // (568) The identifier for the trade request to
+                               // which this message is responding.
+  string tradeRequestType = 3; // (569) Indicates the type of trade request,
+                               // such as "All Trades" or "Unmatched Trades".
+  string tradeReportID =
+      4; // (571) The identifier for the trade report being rejected.
+  string tradeReportRejectReason =
+      5; // (751) A code indicating why the trade report was rejected.
+  string tradeReportRejectRefID =
+      6; // (754) The identifier of the previous message (e.g., Trade Capture
+         // Report) to which this message refers.
+  string text =
+      7; // (58) A description of the reason for the trade report rejection.
+  Trailer trailer = 8; // Standard FIX message trailer.
 }

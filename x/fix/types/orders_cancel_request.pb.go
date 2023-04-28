@@ -23,12 +23,17 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type OrdersCancelRequest struct {
-	SessionID   string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header      *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	OrigClOrdID string   `protobuf:"bytes,3,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
-	ClOrdID     string   `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	Trailer     *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator     string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	SessionID string  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	Header    *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// for the message, such as the message type, sender and
+	// receiver identification, and sequence number
+	OrigClOrdID string `protobuf:"bytes,3,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
+	// order ID for the order that was cancelled
+	ClOrdID string `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
+	// the order that was cancelled or modified
+	Trailer *Trailer `protobuf:"bytes,5,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// message, such as the message checksum
+	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *OrdersCancelRequest) Reset()         { *m = OrdersCancelRequest{} }

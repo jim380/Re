@@ -23,16 +23,24 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type OrdersCancelReject struct {
-	SessionID        string   `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	Header           *Header  `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	OrderID          string   `protobuf:"bytes,3,opt,name=orderID,proto3" json:"orderID,omitempty"`
-	OrigClOrdID      string   `protobuf:"bytes,4,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
-	ClOrdID          string   `protobuf:"bytes,5,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
-	CxlRejReason     int64    `protobuf:"varint,6,opt,name=cxlRejReason,proto3" json:"cxlRejReason,omitempty"`
-	CxlRejResponseTo int64    `protobuf:"varint,7,opt,name=cxlRejResponseTo,proto3" json:"cxlRejResponseTo,omitempty"`
-	TransactTime     string   `protobuf:"bytes,8,opt,name=TransactTime,proto3" json:"TransactTime,omitempty"`
-	Trailer          *Trailer `protobuf:"bytes,9,opt,name=trailer,proto3" json:"trailer,omitempty"`
-	Creator          string   `protobuf:"bytes,10,opt,name=creator,proto3" json:"creator,omitempty"`
+	SessionID string  `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	Header    *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
+	// for the message, such as the message type, sender and
+	// receiver identification, and sequence number
+	OrderID     string `protobuf:"bytes,3,opt,name=orderID,proto3" json:"orderID,omitempty"`
+	OrigClOrdID string `protobuf:"bytes,4,opt,name=origClOrdID,proto3" json:"origClOrdID,omitempty"`
+	// order ID for the order that was cancelled
+	ClOrdID string `protobuf:"bytes,5,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
+	// the order that was cancelled or modified
+	CxlRejReason int64 `protobuf:"varint,6,opt,name=cxlRejReason,proto3" json:"cxlRejReason,omitempty"`
+	// order cancellation rejection, using a standard set
+	// of values defined in the FIX protocol
+	CxlRejResponseTo int64 `protobuf:"varint,7,opt,name=cxlRejResponseTo,proto3" json:"cxlRejResponseTo,omitempty"`
+	// order cancellation request to which this message is responding
+	TransactTime string   `protobuf:"bytes,8,opt,name=TransactTime,proto3" json:"TransactTime,omitempty"`
+	Trailer      *Trailer `protobuf:"bytes,9,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// message, such as the message checksum
+	Creator string `protobuf:"bytes,10,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *OrdersCancelReject) Reset()         { *m = OrdersCancelReject{} }
