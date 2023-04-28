@@ -501,14 +501,17 @@ func (m *TradeCaptureReportAcknowledgement) GetTrailer() *Trailer {
 
 // Trade Capture Report Rejection with fields, tags and descriptions.
 type TradeCaptureReportRejection struct {
-	Header                  *Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	TradeRequestID          string   `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
-	TradeRequestType        string   `protobuf:"bytes,3,opt,name=tradeRequestType,proto3" json:"tradeRequestType,omitempty"`
-	TradeReportID           string   `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
-	TradeReportRejectReason string   `protobuf:"bytes,5,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
-	TradeReportRejectRefID  string   `protobuf:"bytes,6,opt,name=tradeReportRejectRefID,proto3" json:"tradeReportRejectRefID,omitempty"`
-	Text                    string   `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
-	Trailer                 *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	Header         *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	TradeRequestID string  `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
+	// which this message is responding.
+	TradeRequestType string `protobuf:"bytes,3,opt,name=tradeRequestType,proto3" json:"tradeRequestType,omitempty"`
+	// such as "All Trades" or "Unmatched Trades".
+	TradeReportID           string `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	TradeReportRejectReason string `protobuf:"bytes,5,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
+	TradeReportRejectRefID  string `protobuf:"bytes,6,opt,name=tradeReportRejectRefID,proto3" json:"tradeReportRejectRefID,omitempty"`
+	// Report) to which this message refers.
+	Text    string   `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
+	Trailer *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
 func (m *TradeCaptureReportRejection) Reset()         { *m = TradeCaptureReportRejection{} }
