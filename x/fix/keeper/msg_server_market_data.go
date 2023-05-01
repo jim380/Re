@@ -28,10 +28,10 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "Status of Session: %s", msg.SessionID)
 	}
 
-	// check that the parties involved in a session are the ones using the sessionID and are able to create Quote Request
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Market Data Request
 	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
@@ -68,7 +68,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	}
 
 	// fetch Header from existing session
-	// In the FIX Protocol, a Quote Request message can be sent by either the initiator or the acceptor of the FIX session.
+	// In the FIX Protocol, Market Data Request message can be sent by either the initiator or the acceptor of the FIX session.
 	// Determine whether we are the initiator or acceptor
 	var header *types.Header
 	if session.InitiatorAddress == msg.Creator {
@@ -79,7 +79,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 
 	// set the header and make changes to the header
 	// calculate and include all changes to the header
-	// Message type, V is the message type for Quote Request
+	// Message type, V is the message type for Market Data Request
 	// BodyLength should be calculated using the BodyLength function
 	// set sending time to current time at creating market data request
 	marketDataRequest.MarketDataRequest.Header = header
@@ -125,7 +125,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 
 	// check that the sessionID provided by the creator of Market Data Snap shot Full Refresh matches with the sessionID for Market Data Request
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInMarketData, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user responding is the recipeint of the market data request
@@ -219,7 +219,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	// pass all the edited values to the newHeader
 	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header = newHeader
 
-	// set Trailer from the existing Quote Request
+	// set Trailer from the existing Market Data Request
 	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Trailer = marketDataRequest.MarketDataRequest.Trailer
 
 	// set new market data request to store

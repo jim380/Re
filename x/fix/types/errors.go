@@ -58,4 +58,6 @@ var (
 	ErrMdEntryTypeIsEmpty                          = sdkerrors.Register(ModuleName, 42, "MdEntryType is empty")
 	ErrMdEntryPxIsEmpty                            = sdkerrors.Register(ModuleName, 43, "MdEntryPx is empty")
 	ErrMdEntrySizeIsEmpty                          = sdkerrors.Register(ModuleName, 44, "MdEntrySize is empty")
+	ErrMarketDataSession                           = sdkerrors.Register(ModuleName, 45, "No established FIX session between parties")
+	ErrWrongSessionIDInMarketData                  = sdkerrors.Register(ModuleName, 46, "This Session ID does not tally with the Market Data Request")
 )

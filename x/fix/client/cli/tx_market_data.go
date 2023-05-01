@@ -74,24 +74,37 @@ func CmdMarketDataRequest() *cobra.Command {
 
 func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-snapshot-full-refresh [md-req-id] [symbol] [no-md-entries]",
+		Use:   "market-data-snapshot-full-refresh [session-id] [md-req-id] [symbol] [no-md-entries]",
 		Short: "Broadcast message market-data-snapshot-full-refresh",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argMdReqID := args[0]
-			argSymbol := args[1]
-			argNoMDEntries := args[2]
+
+			argSessionID := args[0]
+			argMdReqID := args[1]
+			argSymbol := args[2]
+
+			argNoMDEntries, err := strconv.ParseInt(args[3], 10, 32)
+			if err != nil {
+				panic(err)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
+			mdEntries := []*types.MDEntry{}
+			for _, md := range mdEntries {
+				// TODO
+			}
+
 			msg := types.NewMsgMarketDataSnapshotFullRefresh(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argMdReqID,
 				argSymbol,
 				argNoMDEntries,
+				mdEntries,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -112,7 +125,11 @@ func CmdMarketDataIncremental() *cobra.Command {
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argMdReqID := args[0]
-			argNoMDEntries := args[1]
+
+			argNoMDEntries, err := strconv.ParseInt(args[1], 10, 32)
+			if err != nil {
+				panic(err)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -143,7 +160,11 @@ func CmdMarketDataRequestReject() *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argMdReqID := args[0]
-			argMdReqRejReason := args[1]
+
+			argMdReqRejReason, err := strconv.ParseInt(args[1], 10, 32)
+			if err != nil {
+				panic(err)
+			}
 			argText := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)

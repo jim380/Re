@@ -55,12 +55,14 @@ const TypeMsgMarketDataSnapshotFullRefresh = "market_data_snapshot_full_refresh"
 
 var _ sdk.Msg = &MsgMarketDataSnapshotFullRefresh{}
 
-func NewMsgMarketDataSnapshotFullRefresh(creator string, mdReqID string, symbol string, noMDEntries int64) *MsgMarketDataSnapshotFullRefresh {
+func NewMsgMarketDataSnapshotFullRefresh(creator string, sessionID string, mdReqID string, symbol string, noMDEntries int64, mdEntries []*MDEntry) *MsgMarketDataSnapshotFullRefresh {
 	return &MsgMarketDataSnapshotFullRefresh{
 		Creator:     creator,
+		SessionID:   sessionID,
 		MdReqID:     mdReqID,
 		Symbol:      symbol,
 		NoMDEntries: noMDEntries,
+		MdEntries:   mdEntries,
 	}
 }
 
