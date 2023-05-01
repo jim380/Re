@@ -14,13 +14,13 @@ var _ = strconv.Itoa(0)
 
 func CmdMarketDataRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-request [session-id] [md-req-id] [subscription-request-type] [market-depth] [md-update-type] [no-related-sym] [symbol]",
+		Use:   "market-data-request [session-id] [subscription-request-type] [market-depth] [md-update-type] [no-related-sym] [symbol]",
 		Short: "Broadcast message market-data-request",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
 
-			// GenerateRandomString function uniquely generates argMdReqID for every Market Data Request
+			// GenerateRandomString function uniquely generates MdReqID for every Market Data Request
 			argMdReqID, _ := types.GenerateRandomString(types.MdReqID)
 
 			argSubscriptionRequestType, err := strconv.ParseInt(args[1], 10, 32)
