@@ -10,6 +10,9 @@ const (
 	SessionNameLength = 10
 	QuoteReqIDLength  = 15
 	QuoteID           = 15
+	MdReqID           = 15
+
+	LoggedInStatus = "loggedIn"
 )
 
 // randomly generate unique string

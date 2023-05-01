@@ -14,15 +14,35 @@ var _ = strconv.Itoa(0)
 
 func CmdMarketDataRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-request [md-req-id] [subscription-request-type] [market-depth] [md-update-type] [no-related-sym] [symbol]",
+		Use:   "market-data-request [session-id] [md-req-id] [subscription-request-type] [market-depth] [md-update-type] [no-related-sym] [symbol]",
 		Short: "Broadcast message market-data-request",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argMdReqID := args[0]
-			argSubscriptionRequestType := args[1]
-			argMarketDepth := args[2]
-			argMdUpdateType := args[3]
-			argNoRelatedSym := args[4]
+			argSessionID := args[0]
+
+			// GenerateRandomString function uniquely generates argMdReqID for every Market Data Request
+			argMdReqID, _ := types.GenerateRandomString(types.MdReqID)
+
+			argSubscriptionRequestType, err := strconv.ParseInt(args[1], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argMarketDepth, err := strconv.ParseInt(args[2], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argMdUpdateType, err := strconv.ParseInt(args[3], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argNoRelatedSym, err := strconv.ParseInt(args[4], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
 			argSymbol := args[5]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -32,6 +52,7 @@ func CmdMarketDataRequest() *cobra.Command {
 
 			msg := types.NewMsgMarketDataRequest(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argMdReqID,
 				argSubscriptionRequestType,
 				argMarketDepth,

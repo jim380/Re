@@ -25,23 +25,23 @@ message MarketDataRequest {
   // subscriptionRequestType field corresponds to the FIX tag 263, and the
   // values 0 and 1 respectively indicate snapshot and snapshot + incremental
   // updates.
-  int32 subscriptionRequestType = 3;
+  int64 subscriptionRequestType = 3;
 
   // MarketDepth field is used to indicate the level of market data depth that
   // is being requested. Specifically, it specifies how many levels of the order
   // book should be included in the response to the request
-  int32 marketDepth = 4;
+  int64 marketDepth = 4;
 
   // The mdUpdateType field specifies the type of updates that the sender wants
   // to receive in response to their request for market data. The possible
   // values are "0" for full refresh, "1" for incremental refresh, and "2" for
   // removing a single price level
-  int32 mdUpdateType = 5;
+  int64 mdUpdateType = 5;
 
   // The NoRelatedSym field in a Market Data Request message is used to indicate
   // the number of symbols or instruments for which the market data is being
   // requested
-  int32 noRelatedSym = 6;
+  int64 noRelatedSym = 6;
 
   // In the context of a Market Data Request message in the FIX protocol, the
   // Symbol field refers to the security or financial instrument for which

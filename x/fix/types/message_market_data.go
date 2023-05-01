@@ -9,9 +9,10 @@ const TypeMsgMarketDataRequest = "market_data_request"
 
 var _ sdk.Msg = &MsgMarketDataRequest{}
 
-func NewMsgMarketDataRequest(creator string, mdReqID string, subscriptionRequestType string, marketDepth string, mdUpdateType string, noRelatedSym string, symbol string) *MsgMarketDataRequest {
+func NewMsgMarketDataRequest(creator string, sessionID string, mdReqID string, subscriptionRequestType int64, marketDepth int64, mdUpdateType int64, noRelatedSym int64, symbol string) *MsgMarketDataRequest {
 	return &MsgMarketDataRequest{
 		Creator:                 creator,
+		SessionID:               sessionID,
 		MdReqID:                 mdReqID,
 		SubscriptionRequestType: subscriptionRequestType,
 		MarketDepth:             marketDepth,
