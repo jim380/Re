@@ -238,7 +238,7 @@ message MsgMarketDataSnapshotFullRefresh {
   string creator = 1;
   string mdReqID = 2;
   string symbol = 3;
-  string noMDEntries = 4;
+  int64 noMDEntries = 4;
   repeated MDEntry mdEntries = 5;
   string sessionID = 6;
 }
@@ -248,7 +248,7 @@ message MsgMarketDataSnapshotFullRefreshResponse {}
 message MsgMarketDataIncremental {
   string creator = 1;
   string mdReqID = 2;
-  string noMDEntries = 3;
+  int64 noMDEntries = 3;
   repeated MDEntry mdEntries = 4;
   string sessionID = 5;
 }
@@ -258,7 +258,7 @@ message MsgMarketDataIncrementalResponse {}
 message MsgMarketDataRequestReject {
   string creator = 1;
   string mdReqID = 2;
-  string mdReqRejReason = 3;
+  int64 mdReqRejReason = 3;
   string text = 4;
   string sessionID = 5;
 }

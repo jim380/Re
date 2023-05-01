@@ -55,7 +55,7 @@ const TypeMsgMarketDataSnapshotFullRefresh = "market_data_snapshot_full_refresh"
 
 var _ sdk.Msg = &MsgMarketDataSnapshotFullRefresh{}
 
-func NewMsgMarketDataSnapshotFullRefresh(creator string, mdReqID string, symbol string, noMDEntries string) *MsgMarketDataSnapshotFullRefresh {
+func NewMsgMarketDataSnapshotFullRefresh(creator string, mdReqID string, symbol string, noMDEntries int64) *MsgMarketDataSnapshotFullRefresh {
 	return &MsgMarketDataSnapshotFullRefresh{
 		Creator:     creator,
 		MdReqID:     mdReqID,
@@ -97,7 +97,7 @@ const TypeMsgMarketDataIncremental = "market_data_incremental"
 
 var _ sdk.Msg = &MsgMarketDataIncremental{}
 
-func NewMsgMarketDataIncremental(creator string, mdReqID string, noMDEntries string) *MsgMarketDataIncremental {
+func NewMsgMarketDataIncremental(creator string, mdReqID string, noMDEntries int64) *MsgMarketDataIncremental {
 	return &MsgMarketDataIncremental{
 		Creator:     creator,
 		MdReqID:     mdReqID,
@@ -138,7 +138,7 @@ const TypeMsgMarketDataRequestReject = "market_data_request_reject"
 
 var _ sdk.Msg = &MsgMarketDataRequestReject{}
 
-func NewMsgMarketDataRequestReject(creator string, mdReqID string, mdReqRejReason string, text string) *MsgMarketDataRequestReject {
+func NewMsgMarketDataRequestReject(creator string, mdReqID string, mdReqRejReason int64, text string) *MsgMarketDataRequestReject {
 	return &MsgMarketDataRequestReject{
 		Creator:        creator,
 		MdReqID:        mdReqID,

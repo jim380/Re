@@ -111,10 +111,124 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *types.MsgMarketDataSnapshotFullRefresh) (*types.MsgMarketDataSnapshotFullRefreshResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
-	return &types.MsgMarketDataSnapshotFullRefreshResponse{}, nil
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Market Data Snap shot Full Refresh matches with the sessionID for Market Data Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user responding is the recipeint of the market data request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Market Data Snap Shot Full Refresh Creator: %s", msg.Creator)
+	}
+
+	// get the existing Market Data Request
+	marketDataRequest, found := k.GetMarketData(ctx, msg.MdReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrMdReqIDIsNotFound, "MdReqID: %s", msg.MdReqID)
+	}
+
+	// check that Market Data Request creator address is not same responding to the Market Data Request
+	if marketDataRequest.MarketDataRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataSnapShotFullRefreshCreatorIsWrong, "Market Data Snapshot Full Refresh: %s", msg.Creator)
+	}
+
+	// check that this Market Data Request to be acknowledged has not been rejected
+	// if  MarketDataRequestReject is not nil, then market data snap shot full refresh should be rejected
+	if marketDataRequest.MarketDataRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsRejected, "Market Data Request: %s", &marketDataRequest.MarketDataRequestReject)
+	}
+
+	// check that mandatory Market Data Snap Shot Full Refresh fields are not empty
+	if msg.MdReqID == "" {
+		return nil, sdkerrors.Wrapf(types.ErrMdReqIDIsEmpty, "MdReqID: %s", msg.MdReqID)
+	}
+	if msg.Symbol == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSymbolIsEmpty, "Symbol: %s", msg.Symbol)
+	}
+	if _, err := strconv.ParseInt(fmt.Sprint(msg.NoMDEntries), 10, 64); err != nil {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDepthIsEmpty, "NoMDEntries: %v", msg.NoMDEntries)
+	}
+	for _, md := range msg.MdEntries {
+		if _, err := strconv.ParseInt(fmt.Sprint(md.MdUpdateAction), 10, 64); err != nil {
+			return nil, sdkerrors.Wrapf(types.ErrMdUpdateActionIsEmpty, "MdUpdateAction: %v", md.MdUpdateAction)
+		}
+		if _, err := strconv.ParseInt(fmt.Sprint(md.MdEntryType), 10, 64); err != nil {
+			return nil, sdkerrors.Wrapf(types.ErrMdEntryTypeIsEmpty, "MdEntryType: %v", md.MdEntryType)
+		}
+		if md.MdEntryPx == "" {
+			return nil, sdkerrors.Wrapf(types.ErrMdEntryPxIsEmpty, "MdEntryPx: %s", md.MdEntryPx)
+		}
+		if md.MdEntrySize == "" {
+			return nil, sdkerrors.Wrapf(types.ErrMdEntrySizeIsEmpty, "MdEntrySize: %s", md.MdEntrySize)
+		}
+	}
+
+	// market data snap shot full refresh
+	marketDataSnapShotFullRefresh := types.MarketData{
+		SessionID:         msg.SessionID,
+		MarketDataRequest: marketDataRequest.MarketDataRequest,
+		MarketDataSnapShotFullRefresh: &types.MarketDataSnapShotFullRefresh{
+			MdReqID:     msg.MdReqID,
+			Symbol:      msg.Symbol,
+			NoMDEntries: msg.NoMDEntries,
+			MdEntries:   msg.MdEntries,
+			Creator:     msg.Creator,
+		},
+	}
+
+	// set header from the existing Market Data Request
+	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header = marketDataRequest.MarketDataRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = marketDataRequest.MarketDataRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = marketDataRequest.MarketDataRequest.Header.MsgSeqNum
+
+	// set the msgType to Market Data Snapshot/Full Refresh
+	newHeader.MsgType = "W"
+
+	// switch senderCompID and targetCompID between Market Data Request and MArket Data Snapshot Full Refresh
+	// set senderCompID of Market Data Snapshot Full Refresh to the targetCompID of Market Data Request in the header
+	newHeader.SenderCompID = marketDataRequest.MarketDataRequest.Header.TargetCompID
+
+	// set targetCompID of Market Data Snapshot Full Refresh to the senderCompID of Market Data Request in the header
+	newHeader.TargetCompID = marketDataRequest.MarketDataRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header = newHeader
+
+	// set Trailer from the existing Quote Request
+	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Trailer = marketDataRequest.MarketDataRequest.Trailer
+
+	// set new market data request to store
+	k.SetMarketData(ctx, msg.MdReqID, marketDataSnapShotFullRefresh)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgMarketDataSnapshotFullRefreshResponse{}, err
 }
 
 func (k msgServer) MarketDataIncremental(goCtx context.Context, msg *types.MsgMarketDataIncremental) (*types.MsgMarketDataIncrementalResponse, error) {

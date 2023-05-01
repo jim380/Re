@@ -68,7 +68,7 @@ message MarketDataSnapShotFullRefresh {
   string symbol = 3;
 
   // The number of market data entries (bids or offers) listed in a request
-  int32 noMDEntries = 4;
+  int64 noMDEntries = 4;
 
   // The repeated group of MDEntry fields that provide multiple entries
   repeated MDEntry mdEntries = 5;
@@ -90,7 +90,7 @@ message MarketDataIncremental {
   string mdReqID = 2;
 
   // The number of market data entries (bids or offers) listed in a request
-  int32 NoMDEntries = 3;
+  int64 NoMDEntries = 3;
 
   // The repeated group of MDEntry fields that provide the incremental updates
   // for the market data.
@@ -107,10 +107,10 @@ message MarketDataIncremental {
 message MDEntry {
   // The type of update action that is being reported for the MDEntry.
   // Possible values are "0" for new, "1" for change, and "2" for delete.
-  int32 mdUpdateAction = 1;
+ int64 mdUpdateAction = 1;
 
   // The side of a quote: 0 — bid , 1 — ask
-  int32 mdEntryType = 2;
+  int64 mdEntryType = 2;
 
   // The price for a market data entry
   string mdEntryPx = 3;
@@ -128,7 +128,7 @@ message MarketDataRequestReject {
   string mdReqID = 2;
 
   // Indicates the reason why a request has been rejected
-  int32 mdReqRejReason = 3;
+  int64 mdReqRejReason = 3;
 
   // The detailed information (if available) on why a request has been rejected
   string text = 4;
