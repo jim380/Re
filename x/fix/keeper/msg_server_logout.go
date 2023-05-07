@@ -13,6 +13,12 @@ import (
 func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutInitiator) (*types.MsgLogoutInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.InitiatorAddress)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.InitiatorAddress)
+	}
+
 	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
@@ -44,6 +50,12 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 // LogoutAcceptor accepts to logout from the session
 func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcceptor) (*types.MsgLogoutAcceptorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+	}
 
 	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
