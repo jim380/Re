@@ -88,6 +88,22 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgQuoteRequestReject int = 100
 
+	opWeightMsgMarketDataRequest = "op_weight_msg_market_data_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMarketDataRequest int = 100
+
+	opWeightMsgMarketDataSnapshotFullRefresh = "op_weight_msg_market_data_snapshot_full_refresh"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMarketDataSnapshotFullRefresh int = 100
+
+	opWeightMsgMarketDataIncremental = "op_weight_msg_market_data_incremental"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMarketDataIncremental int = 100
+
+	opWeightMsgMarketDataRequestReject = "op_weight_msg_market_data_request_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMarketDataRequestReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -306,6 +322,50 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgQuoteRequestReject,
 		fixsimulation.SimulateMsgQuoteRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMarketDataRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMarketDataRequest, &weightMsgMarketDataRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgMarketDataRequest = defaultWeightMsgMarketDataRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMarketDataRequest,
+		fixsimulation.SimulateMsgMarketDataRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMarketDataSnapshotFullRefresh int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMarketDataSnapshotFullRefresh, &weightMsgMarketDataSnapshotFullRefresh, nil,
+		func(_ *rand.Rand) {
+			weightMsgMarketDataSnapshotFullRefresh = defaultWeightMsgMarketDataSnapshotFullRefresh
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMarketDataSnapshotFullRefresh,
+		fixsimulation.SimulateMsgMarketDataSnapshotFullRefresh(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMarketDataIncremental int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMarketDataIncremental, &weightMsgMarketDataIncremental, nil,
+		func(_ *rand.Rand) {
+			weightMsgMarketDataIncremental = defaultWeightMsgMarketDataIncremental
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMarketDataIncremental,
+		fixsimulation.SimulateMsgMarketDataIncremental(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMarketDataRequestReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMarketDataRequestReject, &weightMsgMarketDataRequestReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgMarketDataRequestReject = defaultWeightMsgMarketDataRequestReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMarketDataRequestReject,
+		fixsimulation.SimulateMsgMarketDataRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -9,6 +9,7 @@ import "re/fix/sessions.proto";
 import "re/fix/standard_message.proto";
 import "re/fix/session_logout.proto";
 import "re/fix/quote.proto";
+import "re/fix/market_data.proto";
 
 // Msg defines the Msg service.
 service Msg {
@@ -33,6 +34,14 @@ service Msg {
       returns (MsgQuoteAcknowledgementResponse);
   rpc QuoteRequestReject(MsgQuoteRequestReject)
       returns (MsgQuoteRequestRejectResponse);
+  rpc MarketDataRequest(MsgMarketDataRequest)
+      returns (MsgMarketDataRequestResponse);
+  rpc MarketDataSnapshotFullRefresh(MsgMarketDataSnapshotFullRefresh)
+      returns (MsgMarketDataSnapshotFullRefreshResponse);
+  rpc MarketDataIncremental(MsgMarketDataIncremental)
+      returns (MsgMarketDataIncrementalResponse);
+  rpc MarketDataRequestReject(MsgMarketDataRequestReject)
+      returns (MsgMarketDataRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -211,3 +220,47 @@ message MsgQuoteRequestReject {
 }
 
 message MsgQuoteRequestRejectResponse {}
+
+message MsgMarketDataRequest {
+  string creator = 1;
+  string mdReqID = 2;
+  int64 subscriptionRequestType = 3;
+  int64 marketDepth = 4;
+  int64 mdUpdateType = 5;
+  int64 noRelatedSym = 6;
+  string symbol = 7;
+  string sessionID = 8;
+}
+
+message MsgMarketDataRequestResponse {}
+
+message MsgMarketDataSnapshotFullRefresh {
+  string creator = 1;
+  string mdReqID = 2;
+  string symbol = 3;
+  int64 noMDEntries = 4;
+  repeated MDEntry mdEntries = 5;
+  string sessionID = 6;
+}
+
+message MsgMarketDataSnapshotFullRefreshResponse {}
+
+message MsgMarketDataIncremental {
+  string creator = 1;
+  string mdReqID = 2;
+  int64 noMDEntries = 3;
+  repeated MDEntry mdEntries = 4;
+  string sessionID = 5;
+}
+
+message MsgMarketDataIncrementalResponse {}
+
+message MsgMarketDataRequestReject {
+  string creator = 1;
+  string mdReqID = 2;
+  int64 mdReqRejReason = 3;
+  string text = 4;
+  string sessionID = 5;
+}
+
+message MsgMarketDataRequestRejectResponse {}

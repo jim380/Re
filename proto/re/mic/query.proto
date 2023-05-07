@@ -20,7 +20,7 @@ service Query {
   }
   rpc MarketIdentificationCodeAll(QueryAllMarketIdentificationCodeRequest)
       returns (QueryAllMarketIdentificationCodeResponse) {
-    option (google.api.http).get = "/jim380/Re/mic/market_identification_code";
+    option (google.api.http).get = "/jim380/Re/mic/market_identification_codes";
   }
 }
 
