@@ -11,6 +11,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// MarketDataRequest creates Market Data Request
 func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarketDataRequest) (*types.MsgMarketDataRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -108,6 +109,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	return &types.MsgMarketDataRequestResponse{}, err
 }
 
+// MarketDataSnapshotFullRefresh creates Market Data Snapshot Full Refresh
 func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *types.MsgMarketDataSnapshotFullRefresh) (*types.MsgMarketDataSnapshotFullRefreshResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -231,6 +233,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	return &types.MsgMarketDataSnapshotFullRefreshResponse{}, err
 }
 
+// MarketDataIncremental creates Market Data Incremental
 func (k msgServer) MarketDataIncremental(goCtx context.Context, msg *types.MsgMarketDataIncremental) (*types.MsgMarketDataIncrementalResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -240,6 +243,7 @@ func (k msgServer) MarketDataIncremental(goCtx context.Context, msg *types.MsgMa
 	return &types.MsgMarketDataIncrementalResponse{}, nil
 }
 
+// MarketDataRequestReject creates Market Data Request Reject
 func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.MsgMarketDataRequestReject) (*types.MsgMarketDataRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
