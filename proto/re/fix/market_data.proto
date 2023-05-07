@@ -107,7 +107,7 @@ message MarketDataIncremental {
 message MDEntry {
   // The type of update action that is being reported for the MDEntry.
   // Possible values are "0" for new, "1" for change, and "2" for delete.
- int64 mdUpdateAction = 1;
+  int64 mdUpdateAction = 1;
 
   // The side of a quote: 0 — bid , 1 — ask
   int64 mdEntryType = 2;

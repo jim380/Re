@@ -74,13 +74,19 @@ func CmdMarketDataRequest() *cobra.Command {
 
 func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-snapshot-full-refresh [session-id] [md-req-id] [symbol] [no-md-entries]",
+		Use:   "market-data-snapshot-full-refresh [sessionID] [mdReqID] [symbol] [noMdEntries] [mdUpdateAction] [mdEntryType] [mdEntryPx] [mdEntrySize]",
 		Short: "Broadcast message market-data-snapshot-full-refresh",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
 
 			argSessionID := args[0]
+
 			argMdReqID := args[1]
+
 			argSymbol := args[2]
 
 			argNoMDEntries, err := strconv.ParseInt(args[3], 10, 32)
@@ -88,15 +94,27 @@ func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 				panic(err)
 			}
 
-			clientCtx, err := client.GetClientTxContext(cmd)
+			mdEntries := []*types.MDEntry{}
+
+			argMdUpdateAction, err := strconv.ParseInt(args[4], 10, 32)
 			if err != nil {
-				return err
+				panic(err)
 			}
 
-			mdEntries := []*types.MDEntry{}
-			for _, md := range mdEntries {
-				// TODO
+			argMdEntryType, err := strconv.ParseInt(args[5], 10, 32)
+			if err != nil {
+				panic(err)
 			}
+
+			argMdEntryPx := args[6]
+			argMdEntrySize := args[7]
+
+			mdEntries = append(mdEntries, &types.MDEntry{
+				MdUpdateAction: argMdUpdateAction,
+				MdEntryType:    argMdEntryType,
+				MdEntryPx:      argMdEntryPx,
+				MdEntrySize:    argMdEntrySize,
+			})
 
 			msg := types.NewMsgMarketDataSnapshotFullRefresh(
 				clientCtx.GetFromAddress().String(),

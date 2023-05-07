@@ -147,7 +147,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	// check that this Market Data Request to be acknowledged has not been rejected
 	// if  MarketDataRequestReject is not nil, then market data snap shot full refresh should be rejected
 	if marketDataRequest.MarketDataRequestReject != nil {
-		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsRejected, "Market Data Request: %s", &marketDataRequest.MarketDataRequestReject)
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsRejected, "Market Data Request: %s", marketDataRequest.MarketDataRequestReject)
 	}
 
 	// check that mandatory Market Data Snap Shot Full Refresh fields are not empty
