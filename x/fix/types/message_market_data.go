@@ -140,9 +140,10 @@ const TypeMsgMarketDataRequestReject = "market_data_request_reject"
 
 var _ sdk.Msg = &MsgMarketDataRequestReject{}
 
-func NewMsgMarketDataRequestReject(creator string, mdReqID string, mdReqRejReason int64, text string) *MsgMarketDataRequestReject {
+func NewMsgMarketDataRequestReject(creator string, sessionID string, mdReqID string, mdReqRejReason int64, text string) *MsgMarketDataRequestReject {
 	return &MsgMarketDataRequestReject{
 		Creator:        creator,
+		SessionID:      sessionID,
 		MdReqID:        mdReqID,
 		MdReqRejReason: mdReqRejReason,
 		Text:           text,

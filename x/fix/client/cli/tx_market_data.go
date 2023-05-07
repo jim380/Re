@@ -173,25 +173,29 @@ func CmdMarketDataIncremental() *cobra.Command {
 
 func CmdMarketDataRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-request-reject [md-req-id] [md-req-rej-reason] [text]",
+		Use:   "market-data-request-reject [sessionID] [md-req-id] [md-req-rej-reason] [text]",
 		Short: "Broadcast message market-data-request-reject",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argMdReqID := args[0]
-
-			argMdReqRejReason, err := strconv.ParseInt(args[1], 10, 32)
-			if err != nil {
-				panic(err)
-			}
-			argText := args[2]
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
+			argSessionID := args[0]
+
+			argMdReqID := args[1]
+
+			argMdReqRejReason, err := strconv.ParseInt(args[2], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argText := args[3]
+
 			msg := types.NewMsgMarketDataRequestReject(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argMdReqID,
 				argMdReqRejReason,
 				argText,

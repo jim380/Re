@@ -60,4 +60,7 @@ var (
 	ErrMdEntrySizeIsEmpty                          = sdkerrors.Register(ModuleName, 44, "MdEntrySize is empty")
 	ErrMarketDataSession                           = sdkerrors.Register(ModuleName, 45, "No established FIX session between parties")
 	ErrWrongSessionIDInMarketData                  = sdkerrors.Register(ModuleName, 46, "This Session ID does not tally with the Market Data Request")
+	ErrMarketDataRequestRejectCreatorIsWrong       = sdkerrors.Register(ModuleName, 47, "This account address is not allowed to respond to the market data request reject")
+	ErrMarketDataRequestIsAcknowlodged             = sdkerrors.Register(ModuleName, 48, "Market Data Request has been acknowledged")
+	ErrMdReqRejReasonIsEmpty                       = sdkerrors.Register(ModuleName, 49, "MdReqRejReason is empty")
 )
