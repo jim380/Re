@@ -92,34 +92,59 @@ func (m *TradeCapture) GetTradeCaptureReportRejection() *TradeCaptureReportRejec
 
 // Trade Capture Report with fields, tags and descriptions.
 type TradeCaptureReport struct {
-	Header               *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	TradeReportID        string  `protobuf:"bytes,2,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
-	TradeReportTransType string  `protobuf:"bytes,3,opt,name=tradeReportTransType,proto3" json:"tradeReportTransType,omitempty"`
-	TradeReportType      string  `protobuf:"bytes,4,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
-	TradeRequestID       string  `protobuf:"bytes,5,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (571) Unique identifier for the trade report.
+	TradeReportID string `protobuf:"bytes,2,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	// (487) Type of trade report (new, cancel, correction).
+	TradeReportTransType string `protobuf:"bytes,3,opt,name=tradeReportTransType,proto3" json:"tradeReportTransType,omitempty"`
+	// (856) Type of trade report (real-time, end-of-day).
+	TradeReportType string `protobuf:"bytes,4,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
+	// (568) Identifier for the trade request to which this message responds.
+	TradeRequestID string `protobuf:"bytes,5,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
 	// Trade details
-	TrdType       string `protobuf:"bytes,6,opt,name=trdType,proto3" json:"trdType,omitempty"`
-	TrdSubType    string `protobuf:"bytes,7,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
-	Side          string `protobuf:"bytes,21,opt,name=side,proto3" json:"side,omitempty"`
-	OrderQty      string `protobuf:"bytes,22,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
-	LastQty       string `protobuf:"bytes,23,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
-	LastPx        string `protobuf:"bytes,24,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	// (828) Type of the trade (Block Trade, Exchange for Physical).
+	TrdType string `protobuf:"bytes,6,opt,name=trdType,proto3" json:"trdType,omitempty"`
+	// (829) Further information about the trade type.
+	TrdSubType string `protobuf:"bytes,7,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
+	// (54) Buy or sell.
+	Side string `protobuf:"bytes,21,opt,name=side,proto3" json:"side,omitempty"`
+	// (38) Quantity of the order involved in the trade.
+	OrderQty string `protobuf:"bytes,22,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	// (32) Quantity of the last execution in the trade.
+	LastQty string `protobuf:"bytes,23,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
+	// (31) Price of the last execution in the trade.
+	LastPx string `protobuf:"bytes,24,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	// (381) Total amount of the trade, including any commissions and fees.
 	GrossTradeAmt string `protobuf:"bytes,25,opt,name=grossTradeAmt,proto3" json:"grossTradeAmt,omitempty"`
 	// Trade identifiers
-	ExecID      string `protobuf:"bytes,9,opt,name=execID,proto3" json:"execID,omitempty"`
-	OrderID     string `protobuf:"bytes,10,opt,name=orderID,proto3" json:"orderID,omitempty"`
-	TradeID     string `protobuf:"bytes,12,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
+	// (17) Identifier for the execution of the trade.
+	ExecID string `protobuf:"bytes,9,opt,name=execID,proto3" json:"execID,omitempty"`
+	// (37) Identifier for the order associated with the trade.
+	OrderID string `protobuf:"bytes,10,opt,name=orderID,proto3" json:"orderID,omitempty"`
+	// (1003) Unique identifier for the trade.
+	TradeID string `protobuf:"bytes,12,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
+	// (1126) Identifier for the original trade, in the case of a trade
+	// correction.
 	OrigTradeID string `protobuf:"bytes,13,opt,name=origTradeID,proto3" json:"origTradeID,omitempty"`
 	// Instrument details
-	Symbol           string `protobuf:"bytes,18,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	SecurityID       string `protobuf:"bytes,19,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	// (55) Symbol or code for the financial instrument traded.
+	Symbol string `protobuf:"bytes,18,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// (48) Identifier for the security traded.
+	SecurityID string `protobuf:"bytes,19,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	// (22) Source of the security identifier.
 	SecurityIDSource string `protobuf:"bytes,20,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
 	// Trade dates and settlement
-	TradeDate    string   `protobuf:"bytes,14,opt,name=tradeDate,proto3" json:"tradeDate,omitempty"`
-	TransactTime string   `protobuf:"bytes,15,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
-	SettlType    string   `protobuf:"bytes,16,opt,name=settlType,proto3" json:"settlType,omitempty"`
-	SettlDate    string   `protobuf:"bytes,17,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
-	Trailer      *Trailer `protobuf:"bytes,26,opt,name=trailer,proto3" json:"trailer,omitempty"`
+	// (75) Date of the trade.
+	TradeDate string `protobuf:"bytes,14,opt,name=tradeDate,proto3" json:"tradeDate,omitempty"`
+	// (60) Time at which the trade occurred.
+	TransactTime string `protobuf:"bytes,15,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
+	// (63) Settlement type of the trade.
+	SettlType string `protobuf:"bytes,16,opt,name=settlType,proto3" json:"settlType,omitempty"`
+	// (64) Settlement date of the trade.
+	SettlDate string `protobuf:"bytes,17,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,26,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
 func (m *TradeCaptureReport) Reset()         { *m = TradeCaptureReport{} }
@@ -325,25 +350,42 @@ func (m *TradeCaptureReport) GetTrailer() *Trailer {
 
 // Trade Capture Report Acknowledgement with fields, tags and descriptions.
 type TradeCaptureReportAcknowledgement struct {
+	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// Trade request details
-	TradeRequestID   string `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
+	// (568) Identifier for the trade request being responded to.
+	TradeRequestID string `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
+	// (569) Type of trade request (All Trades, Unmatched Trades, etc.)
 	TradeRequestType string `protobuf:"bytes,3,opt,name=tradeRequestType,proto3" json:"tradeRequestType,omitempty"`
 	// Trade report details
-	TradeReportID           string `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
-	TradeID                 string `protobuf:"bytes,5,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
-	SecondaryTradeID        string `protobuf:"bytes,6,opt,name=secondaryTradeID,proto3" json:"secondaryTradeID,omitempty"`
-	TradeReportType         string `protobuf:"bytes,7,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
-	TrdType                 string `protobuf:"bytes,8,opt,name=trdType,proto3" json:"trdType,omitempty"`
-	TrdSubType              string `protobuf:"bytes,9,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
-	ExecType                string `protobuf:"bytes,10,opt,name=execType,proto3" json:"execType,omitempty"`
-	TradeReportRefID        string `protobuf:"bytes,11,opt,name=tradeReportRefID,proto3" json:"tradeReportRefID,omitempty"`
-	SecondaryTradeReportID  string `protobuf:"bytes,12,opt,name=secondaryTradeReportID,proto3" json:"secondaryTradeReportID,omitempty"`
-	TradeReportStatus       string `protobuf:"bytes,13,opt,name=tradeReportStatus,proto3" json:"tradeReportStatus,omitempty"`
-	TradeTransType          string `protobuf:"bytes,14,opt,name=tradeTransType,proto3" json:"tradeTransType,omitempty"`
+	// (571) Identifier for the trade report being acknowledged.
+	TradeReportID string `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	//(1003) Unique identifier for the trade.
+	TradeID string `protobuf:"bytes,5,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
+	// (1040) Alternative identifier for the trade.
+	SecondaryTradeID string `protobuf:"bytes,6,opt,name=secondaryTradeID,proto3" json:"secondaryTradeID,omitempty"`
+	// (856) Type of trade report (real-time, end-of-day).
+	TradeReportType string `protobuf:"bytes,7,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
+	// (828) Type of the trade (Block Trade, Exchange for Physical).
+	TrdType string `protobuf:"bytes,8,opt,name=trdType,proto3" json:"trdType,omitempty"`
+	// (829) Further information about the trade type.
+	TrdSubType string `protobuf:"bytes,9,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
+	// (150) Status of the trade report (new, cancelled, corrected, etc.).
+	ExecType string `protobuf:"bytes,10,opt,name=execType,proto3" json:"execType,omitempty"`
+	// (572) Identifier for the previous trade report being referred to.
+	TradeReportRefID string `protobuf:"bytes,11,opt,name=tradeReportRefID,proto3" json:"tradeReportRefID,omitempty"`
+	// (818) Alternative identifier for the trade report.
+	SecondaryTradeReportID string `protobuf:"bytes,12,opt,name=secondaryTradeReportID,proto3" json:"secondaryTradeReportID,omitempty"`
+	// (939) Status of the trade report (accepted, rejected, etc.).
+	TradeReportStatus string `protobuf:"bytes,13,opt,name=tradeReportStatus,proto3" json:"tradeReportStatus,omitempty"`
+	// (487) Type of trade transaction (new, cancel, correction).
+	TradeTransType string `protobuf:"bytes,14,opt,name=tradeTransType,proto3" json:"tradeTransType,omitempty"`
+	// (751) Reason why the trade report was rejected.
 	TradeReportRejectReason string `protobuf:"bytes,15,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
 	// Additional information
-	Text    string   `protobuf:"bytes,16,opt,name=text,proto3" json:"text,omitempty"`
+	// (58) Additional information about the trade report or acknowledgement.
+	Text string `protobuf:"bytes,16,opt,name=text,proto3" json:"text,omitempty"`
+	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,17,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
@@ -501,16 +543,24 @@ func (m *TradeCaptureReportAcknowledgement) GetTrailer() *Trailer {
 
 // Trade Capture Report Rejection with fields, tags and descriptions.
 type TradeCaptureReportRejection struct {
-	Header         *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	TradeRequestID string  `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
-	// which this message is responding.
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (568) The identifier for the trade request to which this message is
+	// responding.
+	TradeRequestID string `protobuf:"bytes,2,opt,name=tradeRequestID,proto3" json:"tradeRequestID,omitempty"`
+	// (569) Indicates the type of trade request, such as "All Trades" or
+	// "Unmatched Trades".
 	TradeRequestType string `protobuf:"bytes,3,opt,name=tradeRequestType,proto3" json:"tradeRequestType,omitempty"`
-	// such as "All Trades" or "Unmatched Trades".
-	TradeReportID           string `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	// (571) The identifier for the trade report being rejected.
+	TradeReportID string `protobuf:"bytes,4,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	// (751) A code indicating why the trade report was rejected.
 	TradeReportRejectReason string `protobuf:"bytes,5,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
-	TradeReportRejectRefID  string `protobuf:"bytes,6,opt,name=tradeReportRejectRefID,proto3" json:"tradeReportRejectRefID,omitempty"`
-	// Report) to which this message refers.
-	Text    string   `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
+	// (754) The identifier of the previous message (e.g., Trade Capture Report)
+	// to which this message refers.
+	TradeReportRejectRefID string `protobuf:"bytes,6,opt,name=tradeReportRejectRefID,proto3" json:"tradeReportRejectRefID,omitempty"`
+	// (58) A description of the reason for the trade report rejection.
+	Text string `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
+	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 

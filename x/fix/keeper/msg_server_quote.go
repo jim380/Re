@@ -123,7 +123,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
 	}
 
-	// check that the user to acknowledge the Quote Request is the recipeint of the Quote Request
+	// check that the user to acknowledge the Quote Request is the recipient of the Quote Request
 	if session.InitiatorAddress != msg.QuoteAcknowledgement.Creator && session.AcceptorAddress != msg.QuoteAcknowledgement.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteAcknowledgement.Creator)
 	}
@@ -232,7 +232,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
 	}
 
-	// check that the user to Reject the Quote Request is the recipeint of the Quote Request
+	// check that the user to Reject the Quote Request is the recipient of the Quote Request
 	if session.InitiatorAddress != msg.QuoteRequestReject.Creator && session.AcceptorAddress != msg.QuoteRequestReject.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.QuoteRequestReject.Creator)
 	}

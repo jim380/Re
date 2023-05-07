@@ -88,18 +88,6 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgQuoteRequestReject int = 100
 
-	opWeightMsgTradeCaptureReport = "op_weight_msg_trade_capture_report"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgTradeCaptureReport int = 100
-
-	opWeightMsgTradeCaptureReportAcknowledgement = "op_weight_msg_trade_capture_report_acknowledgement"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgTradeCaptureReportAcknowledgement int = 100
-
-	opWeightMsgTradeCaptureReportRejection = "op_weight_msg_trade_capture_report_rejection"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgTradeCaptureReportRejection int = 100
-
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -318,39 +306,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgQuoteRequestReject,
 		fixsimulation.SimulateMsgQuoteRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgTradeCaptureReport int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradeCaptureReport, &weightMsgTradeCaptureReport, nil,
-		func(_ *rand.Rand) {
-			weightMsgTradeCaptureReport = defaultWeightMsgTradeCaptureReport
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgTradeCaptureReport,
-		fixsimulation.SimulateMsgTradeCaptureReport(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgTradeCaptureReportAcknowledgement int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradeCaptureReportAcknowledgement, &weightMsgTradeCaptureReportAcknowledgement, nil,
-		func(_ *rand.Rand) {
-			weightMsgTradeCaptureReportAcknowledgement = defaultWeightMsgTradeCaptureReportAcknowledgement
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgTradeCaptureReportAcknowledgement,
-		fixsimulation.SimulateMsgTradeCaptureReportAcknowledgement(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgTradeCaptureReportRejection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradeCaptureReportRejection, &weightMsgTradeCaptureReportRejection, nil,
-		func(_ *rand.Rand) {
-			weightMsgTradeCaptureReportRejection = defaultWeightMsgTradeCaptureReportRejection
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgTradeCaptureReportRejection,
-		fixsimulation.SimulateMsgTradeCaptureReportRejection(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

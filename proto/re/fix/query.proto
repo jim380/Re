@@ -16,6 +16,7 @@ import "re/fix/orders_cancel_reject.proto";
 import "re/fix/orders_execution_report.proto";
 import "re/fix/quote.proto";
 import "re/fix/trade_capture.proto";
+import "re/fix/market_data.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -125,6 +126,16 @@ service Query {
   rpc TradeCaptureAll(QueryAllTradeCaptureRequest)
       returns (QueryAllTradeCaptureResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trade_captures";
+  }
+
+  // Queries a list of MarketData items.
+  rpc MarketData(QueryGetMarketDataRequest)
+      returns (QueryGetMarketDataResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/market_data/{mdReqID}";
+  }
+  rpc MarketDataAll(QueryAllMarketDataRequest)
+      returns (QueryAllMarketDataResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/market_data";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -296,5 +307,19 @@ message QueryAllTradeCaptureRequest {
 
 message QueryAllTradeCaptureResponse {
   repeated TradeCapture TradeCapture = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetMarketDataRequest { string mdReqID = 1; }
+
+message QueryGetMarketDataResponse {
+  MarketData MarketData = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllMarketDataRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMarketDataResponse {
+  repeated MarketData MarketData = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

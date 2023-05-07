@@ -24,9 +24,6 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgQuoteRequest{}, "fix/QuoteRequest", nil)
 	cdc.RegisterConcrete(&MsgQuoteAcknowledgement{}, "fix/QuoteAcknowledgement", nil)
 	cdc.RegisterConcrete(&MsgQuoteRequestReject{}, "fix/QuoteRequestReject", nil)
-	cdc.RegisterConcrete(&MsgTradeCaptureReport{}, "fix/TradeCaptureReport", nil)
-	cdc.RegisterConcrete(&MsgTradeCaptureReportAcknowledgement{}, "fix/TradeCaptureReportAcknowledgement", nil)
-	cdc.RegisterConcrete(&MsgTradeCaptureReportRejection{}, "fix/TradeCaptureReportRejection", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -74,15 +71,6 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgQuoteRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgTradeCaptureReport{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgTradeCaptureReportAcknowledgement{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgTradeCaptureReportRejection{},
 	)
 	// this line is used by starport scaffolding # 3
 
