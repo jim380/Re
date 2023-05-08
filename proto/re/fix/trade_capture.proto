@@ -139,7 +139,7 @@ message TradeCaptureReportAcknowledgement {
   string tradeTransType = 14;
 
   // (751) Reason why the trade report was rejected.
-  string tradeReportRejectReason = 15;
+  int64 tradeReportRejectReason = 15;
 
   // Additional information
   // (58) Additional information about the trade report or acknowledgement.
@@ -166,7 +166,7 @@ message TradeCaptureReportRejection {
   string tradeReportID = 4;
 
   // (751) A code indicating why the trade report was rejected.
-  string tradeReportRejectReason = 5;
+  int64 tradeReportRejectReason = 5;
 
   // (754) The identifier of the previous message (e.g., Trade Capture Report)
   // to which this message refers.

@@ -271,7 +271,7 @@ message MsgTradeCaptureReportAcknowledgement {
   string secondaryTradeReportID = 12;
   string tradeReportStatus = 13;
   string tradeTransType = 14;
-  string tradeReportRejectReason = 15;
+  int64 tradeReportRejectReason = 15;
   string text = 16;
   string sessionID = 17;
 }
@@ -283,7 +283,7 @@ message MsgTradeCaptureReportRejection {
   string tradeReportID = 2;
   string tradeRequestID = 3;
   string tradeRequestType = 4;
-  string tradeReportRejectReason = 5;
+  int64 tradeReportRejectReason = 5;
   string tradeReportRejectRefID = 6;
   string text = 7;
   string sessionID = 8;

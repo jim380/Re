@@ -14,32 +14,34 @@ var _ = strconv.Itoa(0)
 
 func CmdTradeCaptureReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report [trade-report-id] [trade-report-trans-type] [trade-report-type] [trade-request-id] [trd-type] [trd-sub-type] [side] [order-qty] [last-qty] [last-px] [gross-trade-amt] [exec-id] [order-id] [trade-id] [orig-trade-id] [symbol] [security-id] [security-id-source] [trade-date] [transact-time] [settl-type] [settl-date]",
+		Use:   "trade-capture-report [session-id] [trade-report-id] [trade-report-trans-type] [trade-report-type] [trade-request-id] [trd-type] [trd-sub-type] [side] [order-qty] [last-qty] [last-px] [gross-trade-amt] [exec-id] [order-id] [trade-id] [orig-trade-id] [symbol] [security-id] [security-id-source] [trade-date] [transact-time] [settl-type] [settl-date]",
 		Short: "Broadcast message trade-capture-report",
-		Args:  cobra.ExactArgs(22),
+		Args:  cobra.ExactArgs(23),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argTradeReportID := args[0]
-			argTradeReportTransType := args[1]
-			argTradeReportType := args[2]
-			argTradeRequestID := args[3]
-			argTrdType := args[4]
-			argTrdSubType := args[5]
-			argSide := args[6]
-			argOrderQty := args[7]
-			argLastQty := args[8]
-			argLastPx := args[9]
-			argGrossTradeAmt := args[10]
-			argExecID := args[11]
-			argOrderID := args[12]
-			argTradeID := args[13]
-			argOrigTradeID := args[14]
-			argSymbol := args[15]
-			argSecurityID := args[16]
-			argSecurityIDSource := args[17]
-			argTradeDate := args[18]
-			argTransactTime := args[19]
-			argSettlType := args[20]
-			argSettlDate := args[21]
+			
+			argSessionID := args[0]
+			argTradeReportID := args[1]
+			argTradeReportTransType := args[2]
+			argTradeReportType := args[3]
+			argTradeRequestID := args[4]
+			argTrdType := args[5]
+			argTrdSubType := args[6]
+			argSide := args[7]
+			argOrderQty := args[8]
+			argLastQty := args[9]
+			argLastPx := args[10]
+			argGrossTradeAmt := args[11]
+			argExecID := args[12]
+			argOrderID := args[13]
+			argTradeID := args[14]
+			argOrigTradeID := args[15]
+			argSymbol := args[16]
+			argSecurityID := args[17]
+			argSecurityIDSource := args[18]
+			argTradeDate := args[19]
+			argTransactTime := args[20]
+			argSettlType := args[21]
+			argSettlDate := args[22]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -48,6 +50,7 @@ func CmdTradeCaptureReport() *cobra.Command {
 
 			msg := types.NewMsgTradeCaptureReport(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argTradeReportID,
 				argTradeReportTransType,
 				argTradeReportType,
@@ -85,25 +88,32 @@ func CmdTradeCaptureReport() *cobra.Command {
 
 func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report-acknowledgement [trade-report-id] [trade-request-id] [trade-request-type] [trade-id] [secondary-trade-id] [trade-report-type] [trd-type] [trd-sub-type] [exec-type] [trade-report-ref-id] [secondary-trade-report-id] [trade-report-status] [trade-trans-type] [trade-report-reject-reason] [text]",
+		Use:   "trade-capture-report-acknowledgement [session-id] [trade-report-id] [trade-request-id] [trade-request-type] [trade-id] [secondary-trade-id] [trade-report-type] [trd-type] [trd-sub-type] [exec-type] [trade-report-ref-id] [secondary-trade-report-id] [trade-report-status] [trade-trans-type] [trade-report-reject-reason] [text]",
 		Short: "Broadcast message trade-capture-report-acknowledgement",
-		Args:  cobra.ExactArgs(15),
+		Args:  cobra.ExactArgs(16),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argTradeReportID := args[0]
-			argTradeRequestID := args[1]
-			argTradeRequestType := args[2]
-			argTradeID := args[3]
-			argSecondaryTradeID := args[4]
-			argTradeReportType := args[5]
-			argTrdType := args[6]
-			argTrdSubType := args[7]
-			argExecType := args[8]
-			argTradeReportRefID := args[9]
-			argSecondaryTradeReportID := args[10]
-			argTradeReportStatus := args[11]
-			argTradeTransType := args[12]
-			argTradeReportRejectReason := args[13]
-			argText := args[14]
+
+			argSessionID := args[0]
+			argTradeReportID := args[1]
+			argTradeRequestID := args[2]
+			argTradeRequestType := args[3]
+			argTradeID := args[4]
+			argSecondaryTradeID := args[5]
+			argTradeReportType := args[6]
+			argTrdType := args[7]
+			argTrdSubType := args[8]
+			argExecType := args[9]
+			argTradeReportRefID := args[10]
+			argSecondaryTradeReportID := args[11]
+			argTradeReportStatus := args[12]
+			argTradeTransType := args[13]
+
+			argTradeReportRejectReason, err := strconv.ParseInt(args[14], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argText := args[15]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -112,6 +122,7 @@ func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 
 			msg := types.NewMsgTradeCaptureReportAcknowledgement(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argTradeReportID,
 				argTradeRequestID,
 				argTradeRequestType,
@@ -142,16 +153,23 @@ func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 
 func CmdTradeCaptureReportRejection() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report-rejection [trade-report-id] [trade-request-id] [trade-request-type] [trade-report-reject-reason] [trade-report-reject-ref-id] [text]",
+		Use:   "trade-capture-report-rejection [session-id] [trade-report-id] [trade-request-id] [trade-request-type] [trade-report-reject-reason] [trade-report-reject-ref-id] [text]",
 		Short: "Broadcast message trade-capture-report-rejection",
-		Args:  cobra.ExactArgs(6),
+		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argTradeReportID := args[0]
-			argTradeRequestID := args[1]
-			argTradeRequestType := args[2]
-			argTradeReportRejectReason := args[3]
-			argTradeReportRejectRefID := args[4]
-			argText := args[5]
+
+			argSessionID := args[0]
+			argTradeReportID := args[1]
+			argTradeRequestID := args[2]
+			argTradeRequestType := args[3]
+
+			argTradeReportRejectReason, err := strconv.ParseInt(args[14], 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
+			argTradeReportRejectRefID := args[5]
+			argText := args[6]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -160,6 +178,7 @@ func CmdTradeCaptureReportRejection() *cobra.Command {
 
 			msg := types.NewMsgTradeCaptureReportRejection(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argTradeReportID,
 				argTradeRequestID,
 				argTradeRequestType,

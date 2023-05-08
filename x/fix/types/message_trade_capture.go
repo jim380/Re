@@ -9,9 +9,10 @@ const TypeMsgTradeCaptureReport = "trade_capture_report"
 
 var _ sdk.Msg = &MsgTradeCaptureReport{}
 
-func NewMsgTradeCaptureReport(creator string, tradeReportID string, tradeReportTransType string, tradeReportType string, tradeRequestID string, trdType string, trdSubType string, side string, orderQty string, lastQty string, lastPx string, grossTradeAmt string, execID string, orderID string, tradeID string, origTradeID string, symbol string, securityID string, securityIDSource string, tradeDate string, transactTime string, settlType string, settlDate string) *MsgTradeCaptureReport {
+func NewMsgTradeCaptureReport(creator string, sessionID string, tradeReportID string, tradeReportTransType string, tradeReportType string, tradeRequestID string, trdType string, trdSubType string, side string, orderQty string, lastQty string, lastPx string, grossTradeAmt string, execID string, orderID string, tradeID string, origTradeID string, symbol string, securityID string, securityIDSource string, tradeDate string, transactTime string, settlType string, settlDate string) *MsgTradeCaptureReport {
 	return &MsgTradeCaptureReport{
 		Creator:              creator,
+		SessionID:            sessionID,
 		TradeReportID:        tradeReportID,
 		TradeReportTransType: tradeReportTransType,
 		TradeReportType:      tradeReportType,
@@ -70,9 +71,10 @@ const TypeMsgTradeCaptureReportAcknowledgement = "trade_capture_report_acknowled
 
 var _ sdk.Msg = &MsgTradeCaptureReportAcknowledgement{}
 
-func NewMsgTradeCaptureReportAcknowledgement(creator string, tradeReportID string, tradeRequestID string, tradeRequestType string, tradeID string, secondaryTradeID string, tradeReportType string, trdType string, trdSubType string, execType string, tradeReportRefID string, secondaryTradeReportID string, tradeReportStatus string, tradeTransType string, tradeReportRejectReason string, text string) *MsgTradeCaptureReportAcknowledgement {
+func NewMsgTradeCaptureReportAcknowledgement(creator string, sessionID string, tradeReportID string, tradeRequestID string, tradeRequestType string, tradeID string, secondaryTradeID string, tradeReportType string, trdType string, trdSubType string, execType string, tradeReportRefID string, secondaryTradeReportID string, tradeReportStatus string, tradeTransType string, tradeReportRejectReason int64, text string) *MsgTradeCaptureReportAcknowledgement {
 	return &MsgTradeCaptureReportAcknowledgement{
 		Creator:                 creator,
+		SessionID:               sessionID,
 		TradeReportID:           tradeReportID,
 		TradeRequestID:          tradeRequestID,
 		TradeRequestType:        tradeRequestType,
@@ -124,9 +126,10 @@ const TypeMsgTradeCaptureReportRejection = "trade_capture_report_rejection"
 
 var _ sdk.Msg = &MsgTradeCaptureReportRejection{}
 
-func NewMsgTradeCaptureReportRejection(creator string, tradeReportID string, tradeRequestID string, tradeRequestType string, tradeReportRejectReason string, tradeReportRejectRefID string, text string) *MsgTradeCaptureReportRejection {
+func NewMsgTradeCaptureReportRejection(creator string, sessionID string, tradeReportID string, tradeRequestID string, tradeRequestType string, tradeReportRejectReason int64, tradeReportRejectRefID string, text string) *MsgTradeCaptureReportRejection {
 	return &MsgTradeCaptureReportRejection{
 		Creator:                 creator,
+		SessionID:               sessionID,
 		TradeReportID:           tradeReportID,
 		TradeRequestID:          tradeRequestID,
 		TradeRequestType:        tradeRequestType,
