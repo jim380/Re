@@ -18,7 +18,7 @@ func CmdTradeCaptureReport() *cobra.Command {
 		Short: "Broadcast message trade-capture-report",
 		Args:  cobra.ExactArgs(23),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			
+
 			argSessionID := args[0]
 			argTradeReportID := args[1]
 			argTradeReportTransType := args[2]
@@ -163,7 +163,7 @@ func CmdTradeCaptureReportRejection() *cobra.Command {
 			argTradeRequestID := args[2]
 			argTradeRequestType := args[3]
 
-			argTradeReportRejectReason, err := strconv.ParseInt(args[14], 10, 32)
+			argTradeReportRejectReason, err := strconv.ParseInt(args[4], 10, 32)
 			if err != nil {
 				panic(err)
 			}
