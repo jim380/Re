@@ -63,4 +63,7 @@ var (
 	ErrMarketDataRequestRejectCreatorIsWrong       = sdkerrors.Register(ModuleName, 47, "This account address is not allowed to respond to the market data request reject")
 	ErrMarketDataRequestIsAcknowlodged             = sdkerrors.Register(ModuleName, 48, "Market Data Request has been acknowledged")
 	ErrMdReqRejReasonIsEmpty                       = sdkerrors.Register(ModuleName, 49, "MdReqRejReason is empty")
+
+	// Trade Capture
+	ErrOrderIsNotFound = sdkerrors.Register(ModuleName, 50, "Order is not found")
 )
