@@ -16,32 +16,55 @@ func CmdTradeCaptureReport() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "trade-capture-report [session-id] [trade-report-id] [trade-report-trans-type] [trade-report-type] [trade-request-id] [trd-type] [trd-sub-type] [side] [order-qty] [last-qty] [last-px] [gross-trade-amt] [exec-id] [order-id] [trade-id] [orig-trade-id] [symbol] [security-id] [security-id-source] [trade-date] [transact-time] [settl-type] [settl-date]",
 		Short: "Broadcast message trade-capture-report",
-		Args:  cobra.ExactArgs(23),
+		Args:  cobra.ExactArgs(22),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
 			argSessionID := args[0]
-			argTradeReportID := args[1]
-			argTradeReportTransType := args[2]
-			argTradeReportType := args[3]
-			argTradeRequestID := args[4]
-			argTrdType := args[5]
-			argTrdSubType := args[6]
-			argSide := args[7]
-			argOrderQty := args[8]
-			argLastQty := args[9]
-			argLastPx := args[10]
-			argGrossTradeAmt := args[11]
-			argExecID := args[12]
-			argOrderID := args[13]
-			argTradeID := args[14]
-			argOrigTradeID := args[15]
-			argSymbol := args[16]
-			argSecurityID := args[17]
-			argSecurityIDSource := args[18]
-			argTradeDate := args[19]
-			argTransactTime := args[20]
-			argSettlType := args[21]
-			argSettlDate := args[22]
+
+			argTradeReportTransType := args[1]
+
+			argTradeReportType := args[2]
+
+			argTradeRequestID := args[3]
+
+			argTrdType := args[4]
+
+			argTrdSubType := args[5]
+
+			argSide := args[6]
+
+			argOrderQty := args[7]
+
+			argLastQty := args[8]
+
+			argLastPx := args[9]
+
+			argGrossTradeAmt := args[10]
+
+			argExecID := args[11]
+
+			argOrderID := args[12]
+
+			argTradeID := args[13]
+
+			argOrigTradeID := args[14]
+
+			argSymbol := args[15]
+
+			argSecurityID := args[16]
+
+			argSecurityIDSource := args[17]
+
+			argTradeDate := args[18]
+
+			argTransactTime := args[19]
+
+			argSettlType := args[20]
+
+			argSettlDate := args[21]
+
+			// GenerateRandomString function uniquely generates tradeReportID for every Trade Capture Report
+			argTradeReportID, _ := types.GenerateRandomString(types.TradeReportID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

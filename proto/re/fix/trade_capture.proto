@@ -37,59 +37,59 @@ message TradeCaptureReport {
   string trdSubType = 7;
 
   // (54) Buy or sell.
-  string side = 21;
+  string side = 8;
 
   // (38) Quantity of the order involved in the trade.
-  string orderQty = 22;
+  string orderQty = 9;
 
   // (32) Quantity of the last execution in the trade.
-  string lastQty = 23;
+  string lastQty = 10;
 
   // (31) Price of the last execution in the trade.
-  string lastPx = 24;
+  string lastPx = 11;
 
   // (381) Total amount of the trade, including any commissions and fees.
-  string grossTradeAmt = 25;
+  string grossTradeAmt = 12;
 
   // Trade identifiers
   // (17) Identifier for the execution of the trade.
-  string execID = 9;
+  string execID = 13;
 
   // (37) Identifier for the order associated with the trade.
-  string orderID = 10;
+  string orderID = 14;
 
   // (1003) Unique identifier for the trade.
-  string tradeID = 12;
+  string tradeID = 15;
 
   // (1126) Identifier for the original trade, in the case of a trade
   // correction.
-  string origTradeID = 13;
+  string origTradeID = 16;
 
   // Instrument details
   // (55) Symbol or code for the financial instrument traded.
-  string symbol = 18;
+  string symbol = 17;
 
   // (48) Identifier for the security traded.
-  string securityID = 19;
+  string securityID = 18;
 
   // (22) Source of the security identifier.
-  string securityIDSource = 20;
+  string securityIDSource = 19;
 
   // Trade dates and settlement
   // (75) Date of the trade.
-  string tradeDate = 14;
+  string tradeDate = 20;
 
   // (60) Time at which the trade occurred.
-  string transactTime = 15;
+  string transactTime = 21;
 
   // (63) Settlement type of the trade.
-  string settlType = 16;
+  string settlType = 22;
 
   // (64) Settlement date of the trade.
-  string settlDate = 17;
+  string settlDate = 23;
 
   // Standard FIX message trailer.
-  Trailer trailer = 26;
+  Trailer trailer = 24;
 }
 
 // Trade Capture Report Acknowledgement with fields, tags and descriptions.

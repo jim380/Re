@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -90,7 +91,59 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureTransactTimeIsNotFound, "TransactTime: %s", msg.TransactTime)
 	}
 
-	return &types.MsgTradeCaptureReportResponse{}, nil
+	// trade capture report
+	tradeCaptureReport := types.TradeCapture{
+		SessionID: msg.SessionID,
+		TradeCaptureReport: &types.TradeCaptureReport{
+			TradeReportID:        msg.TradeReportID,
+			TradeReportTransType: msg.TradeReportTransType,
+			TradeReportType:      msg.TradeReportType,
+			TradeRequestID:       msg.TradeRequestID,
+			TrdType:              msg.TrdType,
+			TrdSubType:           msg.TrdSubType,
+			Side:                 msg.Side,
+			OrderQty:             msg.OrderQty,
+			LastQty:              msg.LastQty,
+			LastPx:               msg.LastPx,
+			GrossTradeAmt:        msg.GrossTradeAmt,
+			ExecID:               msg.ExecID,
+			OrderID:              msg.OrderID,
+			TradeID:              msg.TradeID,
+			OrigTradeID:          msg.OrigTradeID,
+			Symbol:               msg.Symbol,
+			SecurityID:           msg.SecurityID,
+			SecurityIDSource:     msg.SecurityIDSource,
+			TradeDate:            msg.TradeDate,
+			TransactTime:         msg.TransactTime,
+			SettlType:            msg.SettlType,
+			SettlDate:            msg.SettlDate,
+		},
+	}
+
+	// set header from the existing order execution report
+	// since trade capture report is created by the same account
+	tradeCaptureReport.TradeCaptureReport.Header = ordersExecutionReport.Header
+
+	// TODO
+	// Recalculate the bodyLength, msgSeqNum in the header
+
+	// set the msgType to trade capture report
+	tradeCaptureReport.TradeCaptureReport.Header.MsgType = "AE"
+
+	// set sending time
+	tradeCaptureReport.TradeCaptureReport.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// set Trailer from the existing order execution report
+	// checksum should be recalculated
+	tradeCaptureReport.TradeCaptureReport.Trailer = ordersExecutionReport.Trailer
+
+	// set Trade Capture Report to store
+	k.SetTradeCapture(ctx, msg.TradeReportID, tradeCaptureReport)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgTradeCaptureReportResponse{}, err
 }
 
 func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg *types.MsgTradeCaptureReportAcknowledgement) (*types.MsgTradeCaptureReportAcknowledgementResponse, error) {

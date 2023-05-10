@@ -11,6 +11,7 @@ const (
 	QuoteReqIDLength  = 15
 	QuoteID           = 15
 	MdReqID           = 15
+	TradeReportID     = 15
 
 	LoggedInStatus = "loggedIn"
 )
