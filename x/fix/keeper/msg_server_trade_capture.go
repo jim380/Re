@@ -55,40 +55,40 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 
 	// check that mandatory Trade Capture Report fields are not empty
 	if msg.TradeReportID == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeReportIDIsNotFound, "TradeReportID: %s", msg.TradeReportID)
+		return nil, sdkerrors.Wrapf(types.ErrTradeReportIDIsEmpty, "TradeReportID: %s", msg.TradeReportID)
 	}
 	if msg.TradeReportTransType == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeReportTransTypeIsNotFound, "TradeReportTransType: %s", msg.TradeReportTransType)
+		return nil, sdkerrors.Wrapf(types.ErrTradeReportTransTypeIsEmpty, "TradeReportTransType: %s", msg.TradeReportTransType)
 	}
 	if msg.TrdType == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTrdTypeIsNotFound, "TrdType: %s", msg.TrdType)
+		return nil, sdkerrors.Wrapf(types.ErrTrdTypeIsEmpty, "TrdType: %s", msg.TrdType)
 	}
 	if msg.Side == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSideIsNotFound, "Side: %s", msg.Side)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSideIsEmpty, "Side: %s", msg.Side)
 	}
 	if msg.OrderQty == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureOrderQtyIsNotFound, "OrderQty: %s", msg.OrderQty)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureOrderQtyIsEmpty, "OrderQty: %s", msg.OrderQty)
 	}
 	if msg.LastQty == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureLastQtyIsNotFound, "LastQty: %s", msg.LastQty)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureLastQtyIsEmpty, "LastQty: %s", msg.LastQty)
 	}
 	if msg.LastPx == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureLastPxIsNotFound, "LastPx: %s", msg.LastPx)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureLastPxIsEmpty, "LastPx: %s", msg.LastPx)
 	}
 	if msg.GrossTradeAmt == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureGrossTradeAmtIsNotFound, "GrossTradeAmt: %s", msg.GrossTradeAmt)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureGrossTradeAmtIsEmpty, "GrossTradeAmt: %s", msg.GrossTradeAmt)
 	}
 	if msg.Symbol == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSymbolIsNotFound, "Symbol: %s", msg.Symbol)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSymbolIsEmpty, "Symbol: %s", msg.Symbol)
 	}
 	if msg.SecurityID == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSecurityIDIsNotFound, "SecurityID: %s", msg.SecurityID)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSecurityIDIsEmpty, "SecurityID: %s", msg.SecurityID)
 	}
 	if msg.TradeDate == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureTradeDateIsNotFound, "TradeDate: %s", msg.TradeDate)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureTradeDateIsEmpty, "TradeDate: %s", msg.TradeDate)
 	}
 	if msg.TransactTime == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureTransactTimeIsNotFound, "TransactTime: %s", msg.TransactTime)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureTransactTimeIsEmpty, "TransactTime: %s", msg.TransactTime)
 	}
 
 	// trade capture report
@@ -155,14 +155,64 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// TODO: Handling the message
-	_ = ctx
+	// check for if the provided session ID existss
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != types.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "Status of Session: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report Acknowledgement
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
+	}
+
+	// get Trade Capture 
+	tradeCapture, found := k.GetTradeCapture(ctx, msg.TradeReportID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
+	}
+
+	// these mandatory fields should match the values from Trade Capture Report
+	if tradeCapture.TradeCaptureReport.TradeReportID != msg.TradeReportID {
+
+	}
+    if tradeCapture.TradeCaptureReport.TradeReportType != msg.TradeReportType {
+
+	}
+	if tradeCapture.TradeCaptureReport.TrdType != msg.TrdType {
+		
+	}
+	if tradeCapture.TradeCaptureReport.TrdSubType != msg.TrdSubType {
+
+	}
+	if tradeCapture.TradeCaptureReport.TradeID != msg.TradeID {
+
+	}
+
+	// check that mandatory Trade Capture Report Acknowledgement fields are not empty
+	if msg.TradeRequestID == "" {
+
+	}
+	if msg.ExecType == "" {
+
+	}
+	if msg.TradeReportStatus == "" {
+		
+	}
+
+
+
 
 	return &types.MsgTradeCaptureReportAcknowledgementResponse{}, nil
 }
 
 func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types.MsgTradeCaptureReportRejection) (*types.MsgTradeCaptureReportRejectionResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx) 
 
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)

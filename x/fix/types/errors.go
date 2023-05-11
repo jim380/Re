@@ -71,18 +71,19 @@ const (
 	errExecIDIsNotFound
 
 	// Trade Capture
-	errTradeReportIDIsNotFound
-	errTradeReportTransTypeIsNotFound
-	errTrdTypeIsNotFound
-	errTradeCaptureSideIsNotFound
-	errTradeCaptureOrderQtyIsNotFound
-	errTradeCaptureLastQtyIsNotFound
-	errTradeCaptureLastPxIsNotFound
-	errTradeCaptureGrossTradeAmtIsNotFound
-	errTradeCaptureSymbolIsNotFound
-	errTradeCaptureSecurityIDIsNotFound
-	errTradeCaptureTradeDateIsNotFound
-	errTradeCaptureTransactTimeIsNotFound
+	errTradeReportIDIsEmpty
+	errTradeReportTransTypeIsEmpty
+	errTrdTypeIsEmpty
+	errTradeCaptureSideIsEmpty
+	errTradeCaptureOrderQtyIsEmpty
+	errTradeCaptureLastQtyIsEmpty
+	errTradeCaptureLastPxIsEmpty
+	errTradeCaptureGrossTradeAmtIsEmpty
+	errTradeCaptureSymbolIsEmpty
+	errTradeCaptureSecurityIDIsEmpty
+	errTradeCaptureTradeDateIsEmpty
+	errTradeCaptureTransactTimeIsEmpty
+	errTradeCaptureIsNotFound
 )
 
 // x/fix module sentinel errors
@@ -149,16 +150,17 @@ var (
 	ErrExecIDIsNotFound                = sdkerrors.Register(ModuleName, errExecIDIsNotFound, "ExecID is not found")
 
 	// Trade Capture
-	ErrTradeReportIDIsNotFound             = sdkerrors.Register(ModuleName, errTradeReportIDIsNotFound, "TradeReportID is not found")
-	ErrTradeReportTransTypeIsNotFound      = sdkerrors.Register(ModuleName, errTradeReportTransTypeIsNotFound, "TradeReportTransType is not found")
-	ErrTrdTypeIsNotFound                   = sdkerrors.Register(ModuleName, errTrdTypeIsNotFound, "TrdType is not found")
-	ErrTradeCaptureSideIsNotFound          = sdkerrors.Register(ModuleName, errTradeCaptureSideIsNotFound, "Trade Capture Side is not found")
-	ErrTradeCaptureOrderQtyIsNotFound      = sdkerrors.Register(ModuleName, errTradeCaptureOrderQtyIsNotFound, "Trade Capture OrderQty is not found")
-	ErrTradeCaptureLastQtyIsNotFound       = sdkerrors.Register(ModuleName, errTradeCaptureLastQtyIsNotFound, "Trade Capture LastQty is not found")
-	ErrTradeCaptureLastPxIsNotFound        = sdkerrors.Register(ModuleName, errTradeCaptureLastPxIsNotFound, "Trade Capture LastPx is not found")
-	ErrTradeCaptureGrossTradeAmtIsNotFound = sdkerrors.Register(ModuleName, errTradeCaptureGrossTradeAmtIsNotFound, "Trade Capture GrossTradeAmt is not found")
-	ErrTradeCaptureSymbolIsNotFound        = sdkerrors.Register(ModuleName, errTradeCaptureSymbolIsNotFound, "Trade Capture Symbol is not found")
-	ErrTradeCaptureSecurityIDIsNotFound    = sdkerrors.Register(ModuleName, errTradeCaptureSecurityIDIsNotFound, "Trade Capture SecurityID is not found")
-	ErrTradeCaptureTradeDateIsNotFound     = sdkerrors.Register(ModuleName, errTradeCaptureTradeDateIsNotFound, "Trade Capture TradeDate is not found")
-	ErrTradeCaptureTransactTimeIsNotFound  = sdkerrors.Register(ModuleName, errTradeCaptureTransactTimeIsNotFound, "Trade Capture TransactTime is not found")
+	ErrTradeReportIDIsEmpty             = sdkerrors.Register(ModuleName, errTradeReportIDIsEmpty, "TradeReportID is not empty")
+	ErrTradeReportTransTypeIsEmpty      = sdkerrors.Register(ModuleName, errTradeReportTransTypeIsEmpty, "TradeReportTransType is not Empty")
+	ErrTrdTypeIsEmpty                   = sdkerrors.Register(ModuleName, errTrdTypeIsEmpty, "TrdType is not Empty")
+	ErrTradeCaptureSideIsEmpty          = sdkerrors.Register(ModuleName, errTradeCaptureSideIsEmpty, "Trade Capture Side is not Empty")
+	ErrTradeCaptureOrderQtyIsEmpty      = sdkerrors.Register(ModuleName, errTradeCaptureOrderQtyIsEmpty, "Trade Capture OrderQty is not Empty")
+	ErrTradeCaptureLastQtyIsEmpty       = sdkerrors.Register(ModuleName, errTradeCaptureLastQtyIsEmpty, "Trade Capture LastQty is not Empty")
+	ErrTradeCaptureLastPxIsEmpty        = sdkerrors.Register(ModuleName, errTradeCaptureLastPxIsEmpty, "Trade Capture LastPx is not Empty")
+	ErrTradeCaptureGrossTradeAmtIsEmpty = sdkerrors.Register(ModuleName, errTradeCaptureGrossTradeAmtIsEmpty, "Trade Capture GrossTradeAmt is not Empty")
+	ErrTradeCaptureSymbolIsEmpty        = sdkerrors.Register(ModuleName, errTradeCaptureSymbolIsEmpty, "Trade Capture Symbol is not Empty")
+	ErrTradeCaptureSecurityIDIsEmpty    = sdkerrors.Register(ModuleName, errTradeCaptureSecurityIDIsEmpty, "Trade Capture SecurityID is not Empty")
+	ErrTradeCaptureTradeDateIsEmpty     = sdkerrors.Register(ModuleName, errTradeCaptureTradeDateIsEmpty, "Trade Capture TradeDate is not Empty")
+	ErrTradeCaptureTransactTimeIsEmpty  = sdkerrors.Register(ModuleName, errTradeCaptureTransactTimeIsEmpty, "Trade Capture TransactTime is not Empty")
+	ErrTradeCaptureIsNotFound  = sdkerrors.Register(ModuleName, errTradeCaptureIsNotFound, "Trade Capture Report is not found")
 )
