@@ -84,6 +84,9 @@ const (
 	errTradeCaptureTradeDateIsEmpty
 	errTradeCaptureTransactTimeIsEmpty
 	errTradeCaptureIsNotFound
+	errTradeCaptureMismatchField
+	errExecTypeIsEmpty
+	errTradeReportStatusIsEmpty
 )
 
 // x/fix module sentinel errors
@@ -162,5 +165,8 @@ var (
 	ErrTradeCaptureSecurityIDIsEmpty    = sdkerrors.Register(ModuleName, errTradeCaptureSecurityIDIsEmpty, "Trade Capture SecurityID is not Empty")
 	ErrTradeCaptureTradeDateIsEmpty     = sdkerrors.Register(ModuleName, errTradeCaptureTradeDateIsEmpty, "Trade Capture TradeDate is not Empty")
 	ErrTradeCaptureTransactTimeIsEmpty  = sdkerrors.Register(ModuleName, errTradeCaptureTransactTimeIsEmpty, "Trade Capture TransactTime is not Empty")
-	ErrTradeCaptureIsNotFound  = sdkerrors.Register(ModuleName, errTradeCaptureIsNotFound, "Trade Capture Report is not found")
+	ErrTradeCaptureIsNotFound           = sdkerrors.Register(ModuleName, errTradeCaptureIsNotFound, "Trade Capture Report is not found")
+	ErrTradeCaptureMismatchField        = sdkerrors.Register(ModuleName, errTradeCaptureMismatchField, "This value does not match the value from trade capture report")
+	ErrExecTypeIsEmpty                  = sdkerrors.Register(ModuleName, errExecTypeIsEmpty, "ExecType is empty")
+	ErrTradeReportStatusIsEmpty         = sdkerrors.Register(ModuleName, errTradeReportStatusIsEmpty, "TradeReportStatus is empty")
 )
