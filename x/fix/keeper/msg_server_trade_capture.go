@@ -26,7 +26,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report
@@ -98,7 +98,6 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 			TradeReportID:        msg.TradeReportID,
 			TradeReportTransType: msg.TradeReportTransType,
 			TradeReportType:      msg.TradeReportType,
-			TradeRequestID:       msg.TradeRequestID,
 			TrdType:              msg.TrdType,
 			TrdSubType:           msg.TrdSubType,
 			Side:                 msg.Side,
@@ -163,7 +162,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report Acknowledgement
@@ -194,6 +193,16 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureMismatchField, "TradeID: %s", msg.TradeID)
 	}
 
+	// check that the Trade Capture Report is not rejected already
+	if tradeCapture.TradeCaptureReportRejection != nil {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureReportIsRejected, "Trade Capture: %s", tradeCapture.TradeCaptureReportRejection)
+	}
+
+	// check that the Trade Capture Report is not acknowledged already
+	if tradeCapture.TradeCaptureReportAcknowledgement != nil {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureReportIsAcknowledged, "Trade Capture: %s", tradeCapture.TradeCaptureReportAcknowledgement)
+	}
+
 	// check that mandatory Trade Capture Report Acknowledgement fields are not empty
 	if msg.ExecType == "" {
 		return nil, sdkerrors.Wrapf(types.ErrExecTypeIsEmpty, "ExecType: %s", msg.ExecType)
@@ -207,8 +216,6 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		SessionID:          msg.SessionID,
 		TradeCaptureReport: tradeCapture.TradeCaptureReport,
 		TradeCaptureReportAcknowledgement: &types.TradeCaptureReportAcknowledgement{
-			TradeRequestID:          msg.TradeRequestID,
-			TradeRequestType:        msg.TradeRequestType,
 			TradeReportID:           msg.TradeReportID,
 			TradeID:                 msg.TradeID,
 			SecondaryTradeID:        msg.SecondaryTradeID,
@@ -278,8 +285,30 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// TODO: Handling the message
-	_ = ctx
+	// check for if the provided session ID existss
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != types.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report Rejection
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
+	}
+
+	// get Trade Capture
+	tradeCapture, found := k.GetTradeCapture(ctx, msg.TradeReportID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
+	}
+
+
+
 
 	return &types.MsgTradeCaptureReportRejectionResponse{}, nil
 }

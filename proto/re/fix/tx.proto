@@ -232,26 +232,25 @@ message MsgTradeCaptureReport {
   string tradeReportID = 2;
   string tradeReportTransType = 3;
   string tradeReportType = 4;
-  string tradeRequestID = 5;
-  string trdType = 6;
-  string trdSubType = 7;
-  string side = 8;
-  string orderQty = 9;
-  string lastQty = 10;
-  string lastPx = 11;
-  string grossTradeAmt = 12;
-  string execID = 13;
-  string orderID = 14;
-  string tradeID = 15;
-  string origTradeID = 16;
-  string symbol = 17;
-  string securityID = 18;
-  string securityIDSource = 19;
-  string tradeDate = 20;
-  string transactTime = 21;
-  string settlType = 22;
-  string settlDate = 23;
-  string sessionID = 24;
+  string trdType = 5;
+  string trdSubType = 6;
+  string side = 7;
+  string orderQty = 8;
+  string lastQty = 9;
+  string lastPx = 10;
+  string grossTradeAmt = 11;
+  string execID = 12;
+  string orderID = 13;
+  string tradeID = 14;
+  string origTradeID = 15;
+  string symbol = 16;
+  string securityID = 17;
+  string securityIDSource = 18;
+  string tradeDate = 19;
+  string transactTime = 20;
+  string settlType = 21;
+  string settlDate = 22;
+  string sessionID = 23;
 }
 
 message MsgTradeCaptureReportResponse {}
@@ -259,21 +258,19 @@ message MsgTradeCaptureReportResponse {}
 message MsgTradeCaptureReportAcknowledgement {
   string creator = 1;
   string tradeReportID = 2;
-  string tradeRequestID = 3;
-  string tradeRequestType = 4;
-  string tradeID = 5;
-  string secondaryTradeID = 6;
-  string tradeReportType = 7;
-  string trdType = 8;
-  string trdSubType = 9;
-  string execType = 10;
-  string tradeReportRefID = 11;
-  string secondaryTradeReportID = 12;
-  string tradeReportStatus = 13;
-  string tradeTransType = 14;
-  int64 tradeReportRejectReason = 15;
-  string text = 16;
-  string sessionID = 17;
+  string tradeID = 3;
+  string secondaryTradeID = 4;
+  string tradeReportType = 5;
+  string trdType = 6;
+  string trdSubType = 7;
+  string execType = 8;
+  string tradeReportRefID = 9;
+  string secondaryTradeReportID = 10;
+  string tradeReportStatus = 11;
+  string tradeTransType = 12;
+  int64 tradeReportRejectReason = 13;
+  string text = 14;
+  string sessionID = 15;
 }
 
 message MsgTradeCaptureReportAcknowledgementResponse {}
@@ -281,12 +278,10 @@ message MsgTradeCaptureReportAcknowledgementResponse {}
 message MsgTradeCaptureReportRejection {
   string creator = 1;
   string tradeReportID = 2;
-  string tradeRequestID = 3;
-  string tradeRequestType = 4;
-  int64 tradeReportRejectReason = 5;
-  string tradeReportRejectRefID = 6;
-  string text = 7;
-  string sessionID = 8;
+  int64 tradeReportRejectReason = 3;
+  string tradeReportRejectRefID = 4;
+  string text = 5;
+  string sessionID = 6;
 }
 
 message MsgTradeCaptureReportRejectionResponse {}

@@ -87,6 +87,9 @@ const (
 	errTradeCaptureMismatchField
 	errExecTypeIsEmpty
 	errTradeReportStatusIsEmpty
+	errTradeCaptureReportIsRejected
+	errTradeCaptureReportIsAcknowledged
+	errTradeCaptureSession
 )
 
 // x/fix module sentinel errors
@@ -169,4 +172,7 @@ var (
 	ErrTradeCaptureMismatchField        = sdkerrors.Register(ModuleName, errTradeCaptureMismatchField, "This value does not match the value from trade capture report")
 	ErrExecTypeIsEmpty                  = sdkerrors.Register(ModuleName, errExecTypeIsEmpty, "ExecType is empty")
 	ErrTradeReportStatusIsEmpty         = sdkerrors.Register(ModuleName, errTradeReportStatusIsEmpty, "TradeReportStatus is empty")
+	ErrTradeCaptureReportIsRejected     = sdkerrors.Register(ModuleName, errTradeCaptureReportIsRejected, "Trade Capture Report has been rejected")
+	ErrTradeCaptureReportIsAcknowledged = sdkerrors.Register(ModuleName, errTradeCaptureReportIsAcknowledged, "Trade Capture Report has been acknowledged")
+	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "No established session between parties in the Trade Capture")
 )
