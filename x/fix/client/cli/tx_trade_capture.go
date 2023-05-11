@@ -18,7 +18,6 @@ func CmdTradeCaptureReport() *cobra.Command {
 		Short: "Broadcast message trade-capture-report",
 		Args:  cobra.ExactArgs(21),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 
 			argTradeReportTransType := args[1]
@@ -112,7 +111,6 @@ func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 		Short: "Broadcast message trade-capture-report-acknowledgement",
 		Args:  cobra.ExactArgs(14),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argTradeReportID := args[1]
 			argTradeID := args[2]
@@ -173,7 +171,6 @@ func CmdTradeCaptureReportRejection() *cobra.Command {
 		Short: "Broadcast message trade-capture-report-rejection",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 
 			argTradeReportID := args[1]

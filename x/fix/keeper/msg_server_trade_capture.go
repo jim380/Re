@@ -383,5 +383,5 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	// emit event
 	err = ctx.EventManager().EmitTypedEvent(msg)
 
-	return &types.MsgTradeCaptureReportRejectionResponse{}, nil
+	return &types.MsgTradeCaptureReportRejectionResponse{}, err
 }
