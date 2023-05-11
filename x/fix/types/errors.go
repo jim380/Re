@@ -90,6 +90,7 @@ const (
 	errTradeCaptureReportIsRejected
 	errTradeCaptureReportIsAcknowledged
 	errTradeCaptureSession
+	errTradeReportRejectReasonIsEmpty
 )
 
 // x/fix module sentinel errors
@@ -175,4 +176,5 @@ var (
 	ErrTradeCaptureReportIsRejected     = sdkerrors.Register(ModuleName, errTradeCaptureReportIsRejected, "Trade Capture Report has been rejected")
 	ErrTradeCaptureReportIsAcknowledged = sdkerrors.Register(ModuleName, errTradeCaptureReportIsAcknowledged, "Trade Capture Report has been acknowledged")
 	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "No established session between parties in the Trade Capture")
+	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
 )

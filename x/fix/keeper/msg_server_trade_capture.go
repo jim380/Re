@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"fmt"
+	"strconv"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -176,7 +178,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
 	}
 
-	// check that mandatory fields match the values from Trade Capture Report
+	// check that the mandatory fields match the values from Trade Capture Report
 	if tradeCapture.TradeCaptureReport.TradeReportID != msg.TradeReportID {
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureMismatchField, "TradeReportID: %s", msg.TradeReportID)
 	}
@@ -203,7 +205,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureReportIsAcknowledged, "Trade Capture: %s", tradeCapture.TradeCaptureReportAcknowledgement)
 	}
 
-	// check that mandatory Trade Capture Report Acknowledgement fields are not empty
+	// check that the mandatory Trade Capture Report Acknowledgement fields are not empty
 	if msg.ExecType == "" {
 		return nil, sdkerrors.Wrapf(types.ErrExecTypeIsEmpty, "ExecType: %s", msg.ExecType)
 	}
@@ -307,8 +309,79 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
 	}
 
+	// check that the mandatory field matches the value from Trade Capture Report
+	if tradeCapture.TradeCaptureReport.TradeReportID != msg.TradeReportID {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureMismatchField, "TradeReportID: %s", msg.TradeReportID)
+	}
 
+	// check that the Trade Capture Report is not rejected already
+	if tradeCapture.TradeCaptureReportRejection != nil {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureReportIsRejected, "Trade Capture: %s", tradeCapture.TradeCaptureReportRejection)
+	}
 
+	// check that the Trade Capture Report is not acknowledged already
+	if tradeCapture.TradeCaptureReportAcknowledgement != nil {
+		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureReportIsAcknowledged, "Trade Capture: %s", tradeCapture.TradeCaptureReportAcknowledgement)
+	}
+
+	// check that the mandatory Trade Capture Report Acknowledgement fields are not empty
+	if _, err := strconv.ParseInt(fmt.Sprint(msg.TradeReportRejectReason), 10, 64); err != nil {
+		return nil, sdkerrors.Wrapf(types.ErrTradeReportRejectReasonIsEmpty, "TradeReportRejectReason: %v", msg.TradeReportRejectReason)
+	}
+
+	// trade capture report rejection
+	tradeCaptureReportRejection := types.TradeCapture{
+		SessionID:                         msg.SessionID,
+		TradeCaptureReport:                tradeCapture.TradeCaptureReport,
+		TradeCaptureReportAcknowledgement: tradeCapture.TradeCaptureReportAcknowledgement,
+		TradeCaptureReportRejection: &types.TradeCaptureReportRejection{
+			TradeReportID:           msg.TradeReportID,
+			TradeReportRejectReason: msg.TradeReportRejectReason,
+			TradeReportRejectRefID:  msg.TradeReportRejectRefID,
+			Text:                    msg.Text,
+		},
+	}
+
+	// set header from the trade capture report
+	tradeCaptureReportRejection.TradeCaptureReportRejection.Header = tradeCapture.TradeCaptureReport.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *tradeCaptureReportRejection.TradeCaptureReportRejection.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = tradeCapture.TradeCaptureReport.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = tradeCapture.TradeCaptureReport.Header.MsgSeqNum
+
+	// set the msgType to Trade Capture Report Rejection
+	newHeader.MsgType = "j"
+
+	// switch senderCompID and targetCompID between Trade Capture Report and Trade Capture Report Rejection
+	// set senderCompID of Trade Capture Report Rejection to the targetCompID of Trade Capture Report in the header
+	newHeader.SenderCompID = tradeCapture.TradeCaptureReport.Header.TargetCompID
+
+	// set targetCompID of Trade Capture Report Rejection to the senderCompID of Trade Capture Report in the header
+	newHeader.TargetCompID = tradeCapture.TradeCaptureReport.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	tradeCaptureReportRejection.TradeCaptureReportRejection.Header = newHeader
+
+	// set Trailer from the existing Trade Capture Report
+	// checksum should be recalcualted
+	tradeCaptureReportRejection.TradeCaptureReportRejection.Trailer = tradeCapture.TradeCaptureReport.Trailer
+
+	// set Trade Capture Report Acknowledgement to store
+	k.SetTradeCapture(ctx, msg.TradeReportID, tradeCaptureReportRejection)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
 
 	return &types.MsgTradeCaptureReportRejectionResponse{}, nil
 }
