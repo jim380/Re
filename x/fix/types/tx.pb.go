@@ -1971,6 +1971,580 @@ func (m *MsgQuoteRequestRejectResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgQuoteRequestRejectResponse proto.InternalMessageInfo
 
+type MsgTradeCaptureReport struct {
+	Creator              string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	TradeReportID        string `protobuf:"bytes,2,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	TradeReportTransType string `protobuf:"bytes,3,opt,name=tradeReportTransType,proto3" json:"tradeReportTransType,omitempty"`
+	TradeReportType      string `protobuf:"bytes,4,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
+	TrdType              string `protobuf:"bytes,5,opt,name=trdType,proto3" json:"trdType,omitempty"`
+	TrdSubType           string `protobuf:"bytes,6,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
+	Side                 string `protobuf:"bytes,7,opt,name=side,proto3" json:"side,omitempty"`
+	OrderQty             string `protobuf:"bytes,8,opt,name=orderQty,proto3" json:"orderQty,omitempty"`
+	LastQty              string `protobuf:"bytes,9,opt,name=lastQty,proto3" json:"lastQty,omitempty"`
+	LastPx               string `protobuf:"bytes,10,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
+	GrossTradeAmt        string `protobuf:"bytes,11,opt,name=grossTradeAmt,proto3" json:"grossTradeAmt,omitempty"`
+	ExecID               string `protobuf:"bytes,12,opt,name=execID,proto3" json:"execID,omitempty"`
+	OrderID              string `protobuf:"bytes,13,opt,name=orderID,proto3" json:"orderID,omitempty"`
+	TradeID              string `protobuf:"bytes,14,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
+	OrigTradeID          string `protobuf:"bytes,15,opt,name=origTradeID,proto3" json:"origTradeID,omitempty"`
+	Symbol               string `protobuf:"bytes,16,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	SecurityID           string `protobuf:"bytes,17,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	SecurityIDSource     string `protobuf:"bytes,18,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	TradeDate            string `protobuf:"bytes,19,opt,name=tradeDate,proto3" json:"tradeDate,omitempty"`
+	TransactTime         string `protobuf:"bytes,20,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
+	SettlType            string `protobuf:"bytes,21,opt,name=settlType,proto3" json:"settlType,omitempty"`
+	SettlDate            string `protobuf:"bytes,22,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
+	SessionID            string `protobuf:"bytes,23,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+}
+
+func (m *MsgTradeCaptureReport) Reset()         { *m = MsgTradeCaptureReport{} }
+func (m *MsgTradeCaptureReport) String() string { return proto.CompactTextString(m) }
+func (*MsgTradeCaptureReport) ProtoMessage()    {}
+func (*MsgTradeCaptureReport) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{32}
+}
+func (m *MsgTradeCaptureReport) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReport) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReport.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReport) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReport.Merge(m, src)
+}
+func (m *MsgTradeCaptureReport) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReport) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReport.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReport proto.InternalMessageInfo
+
+func (m *MsgTradeCaptureReport) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTradeReportID() string {
+	if m != nil {
+		return m.TradeReportID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTradeReportTransType() string {
+	if m != nil {
+		return m.TradeReportTransType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTradeReportType() string {
+	if m != nil {
+		return m.TradeReportType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTrdType() string {
+	if m != nil {
+		return m.TrdType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTrdSubType() string {
+	if m != nil {
+		return m.TrdSubType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSide() string {
+	if m != nil {
+		return m.Side
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetOrderQty() string {
+	if m != nil {
+		return m.OrderQty
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetLastQty() string {
+	if m != nil {
+		return m.LastQty
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetLastPx() string {
+	if m != nil {
+		return m.LastPx
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetGrossTradeAmt() string {
+	if m != nil {
+		return m.GrossTradeAmt
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetExecID() string {
+	if m != nil {
+		return m.ExecID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetOrderID() string {
+	if m != nil {
+		return m.OrderID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTradeID() string {
+	if m != nil {
+		return m.TradeID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetOrigTradeID() string {
+	if m != nil {
+		return m.OrigTradeID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSecurityID() string {
+	if m != nil {
+		return m.SecurityID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSecurityIDSource() string {
+	if m != nil {
+		return m.SecurityIDSource
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTradeDate() string {
+	if m != nil {
+		return m.TradeDate
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetTransactTime() string {
+	if m != nil {
+		return m.TransactTime
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSettlType() string {
+	if m != nil {
+		return m.SettlType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSettlDate() string {
+	if m != nil {
+		return m.SettlDate
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReport) GetSessionID() string {
+	if m != nil {
+		return m.SessionID
+	}
+	return ""
+}
+
+type MsgTradeCaptureReportResponse struct {
+}
+
+func (m *MsgTradeCaptureReportResponse) Reset()         { *m = MsgTradeCaptureReportResponse{} }
+func (m *MsgTradeCaptureReportResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgTradeCaptureReportResponse) ProtoMessage()    {}
+func (*MsgTradeCaptureReportResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{33}
+}
+func (m *MsgTradeCaptureReportResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReportResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReportResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReportResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReportResponse.Merge(m, src)
+}
+func (m *MsgTradeCaptureReportResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReportResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReportResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReportResponse proto.InternalMessageInfo
+
+type MsgTradeCaptureReportAcknowledgement struct {
+	Creator                 string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	TradeReportID           string `protobuf:"bytes,2,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	TradeID                 string `protobuf:"bytes,3,opt,name=tradeID,proto3" json:"tradeID,omitempty"`
+	SecondaryTradeID        string `protobuf:"bytes,4,opt,name=secondaryTradeID,proto3" json:"secondaryTradeID,omitempty"`
+	TradeReportType         string `protobuf:"bytes,5,opt,name=tradeReportType,proto3" json:"tradeReportType,omitempty"`
+	TrdType                 string `protobuf:"bytes,6,opt,name=trdType,proto3" json:"trdType,omitempty"`
+	TrdSubType              string `protobuf:"bytes,7,opt,name=trdSubType,proto3" json:"trdSubType,omitempty"`
+	ExecType                string `protobuf:"bytes,8,opt,name=execType,proto3" json:"execType,omitempty"`
+	TradeReportRefID        string `protobuf:"bytes,9,opt,name=tradeReportRefID,proto3" json:"tradeReportRefID,omitempty"`
+	SecondaryTradeReportID  string `protobuf:"bytes,10,opt,name=secondaryTradeReportID,proto3" json:"secondaryTradeReportID,omitempty"`
+	TradeReportStatus       string `protobuf:"bytes,11,opt,name=tradeReportStatus,proto3" json:"tradeReportStatus,omitempty"`
+	TradeTransType          string `protobuf:"bytes,12,opt,name=tradeTransType,proto3" json:"tradeTransType,omitempty"`
+	TradeReportRejectReason int64  `protobuf:"varint,13,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
+	Text                    string `protobuf:"bytes,14,opt,name=text,proto3" json:"text,omitempty"`
+	SessionID               string `protobuf:"bytes,15,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) Reset()         { *m = MsgTradeCaptureReportAcknowledgement{} }
+func (m *MsgTradeCaptureReportAcknowledgement) String() string { return proto.CompactTextString(m) }
+func (*MsgTradeCaptureReportAcknowledgement) ProtoMessage()    {}
+func (*MsgTradeCaptureReportAcknowledgement) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{34}
+}
+func (m *MsgTradeCaptureReportAcknowledgement) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReportAcknowledgement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReportAcknowledgement.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReportAcknowledgement) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReportAcknowledgement.Merge(m, src)
+}
+func (m *MsgTradeCaptureReportAcknowledgement) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReportAcknowledgement) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReportAcknowledgement.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReportAcknowledgement proto.InternalMessageInfo
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeReportID() string {
+	if m != nil {
+		return m.TradeReportID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeID() string {
+	if m != nil {
+		return m.TradeID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetSecondaryTradeID() string {
+	if m != nil {
+		return m.SecondaryTradeID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeReportType() string {
+	if m != nil {
+		return m.TradeReportType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTrdType() string {
+	if m != nil {
+		return m.TrdType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTrdSubType() string {
+	if m != nil {
+		return m.TrdSubType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetExecType() string {
+	if m != nil {
+		return m.ExecType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeReportRefID() string {
+	if m != nil {
+		return m.TradeReportRefID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetSecondaryTradeReportID() string {
+	if m != nil {
+		return m.SecondaryTradeReportID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeReportStatus() string {
+	if m != nil {
+		return m.TradeReportStatus
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeTransType() string {
+	if m != nil {
+		return m.TradeTransType
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetTradeReportRejectReason() int64 {
+	if m != nil {
+		return m.TradeReportRejectReason
+	}
+	return 0
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) GetSessionID() string {
+	if m != nil {
+		return m.SessionID
+	}
+	return ""
+}
+
+type MsgTradeCaptureReportAcknowledgementResponse struct {
+}
+
+func (m *MsgTradeCaptureReportAcknowledgementResponse) Reset() {
+	*m = MsgTradeCaptureReportAcknowledgementResponse{}
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) String() string {
+	return proto.CompactTextString(m)
+}
+func (*MsgTradeCaptureReportAcknowledgementResponse) ProtoMessage() {}
+func (*MsgTradeCaptureReportAcknowledgementResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{35}
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReportAcknowledgementResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReportAcknowledgementResponse.Merge(m, src)
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReportAcknowledgementResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReportAcknowledgementResponse proto.InternalMessageInfo
+
+type MsgTradeCaptureReportRejection struct {
+	Creator                 string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	TradeReportID           string `protobuf:"bytes,2,opt,name=tradeReportID,proto3" json:"tradeReportID,omitempty"`
+	TradeReportRejectReason int64  `protobuf:"varint,3,opt,name=tradeReportRejectReason,proto3" json:"tradeReportRejectReason,omitempty"`
+	TradeReportRejectRefID  string `protobuf:"bytes,4,opt,name=tradeReportRejectRefID,proto3" json:"tradeReportRejectRefID,omitempty"`
+	Text                    string `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
+	SessionID               string `protobuf:"bytes,6,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+}
+
+func (m *MsgTradeCaptureReportRejection) Reset()         { *m = MsgTradeCaptureReportRejection{} }
+func (m *MsgTradeCaptureReportRejection) String() string { return proto.CompactTextString(m) }
+func (*MsgTradeCaptureReportRejection) ProtoMessage()    {}
+func (*MsgTradeCaptureReportRejection) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{36}
+}
+func (m *MsgTradeCaptureReportRejection) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReportRejection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReportRejection.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReportRejection) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReportRejection.Merge(m, src)
+}
+func (m *MsgTradeCaptureReportRejection) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReportRejection) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReportRejection.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReportRejection proto.InternalMessageInfo
+
+func (m *MsgTradeCaptureReportRejection) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportRejection) GetTradeReportID() string {
+	if m != nil {
+		return m.TradeReportID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportRejection) GetTradeReportRejectReason() int64 {
+	if m != nil {
+		return m.TradeReportRejectReason
+	}
+	return 0
+}
+
+func (m *MsgTradeCaptureReportRejection) GetTradeReportRejectRefID() string {
+	if m != nil {
+		return m.TradeReportRejectRefID
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportRejection) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *MsgTradeCaptureReportRejection) GetSessionID() string {
+	if m != nil {
+		return m.SessionID
+	}
+	return ""
+}
+
+type MsgTradeCaptureReportRejectionResponse struct {
+}
+
+func (m *MsgTradeCaptureReportRejectionResponse) Reset() {
+	*m = MsgTradeCaptureReportRejectionResponse{}
+}
+func (m *MsgTradeCaptureReportRejectionResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgTradeCaptureReportRejectionResponse) ProtoMessage()    {}
+func (*MsgTradeCaptureReportRejectionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_11ceb96bb48cdb91, []int{37}
+}
+func (m *MsgTradeCaptureReportRejectionResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTradeCaptureReportRejectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTradeCaptureReportRejectionResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTradeCaptureReportRejectionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTradeCaptureReportRejectionResponse.Merge(m, src)
+}
+func (m *MsgTradeCaptureReportRejectionResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTradeCaptureReportRejectionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTradeCaptureReportRejectionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTradeCaptureReportRejectionResponse proto.InternalMessageInfo
+
 type MsgMarketDataRequest struct {
 	Creator                 string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	MdReqID                 string `protobuf:"bytes,2,opt,name=mdReqID,proto3" json:"mdReqID,omitempty"`
@@ -1986,7 +2560,7 @@ func (m *MsgMarketDataRequest) Reset()         { *m = MsgMarketDataRequest{} }
 func (m *MsgMarketDataRequest) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataRequest) ProtoMessage()    {}
 func (*MsgMarketDataRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{32}
+	return fileDescriptor_11ceb96bb48cdb91, []int{38}
 }
 func (m *MsgMarketDataRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2078,7 +2652,7 @@ func (m *MsgMarketDataRequestResponse) Reset()         { *m = MsgMarketDataReque
 func (m *MsgMarketDataRequestResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataRequestResponse) ProtoMessage()    {}
 func (*MsgMarketDataRequestResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{33}
+	return fileDescriptor_11ceb96bb48cdb91, []int{39}
 }
 func (m *MsgMarketDataRequestResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2120,7 +2694,7 @@ func (m *MsgMarketDataSnapshotFullRefresh) Reset()         { *m = MsgMarketDataS
 func (m *MsgMarketDataSnapshotFullRefresh) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataSnapshotFullRefresh) ProtoMessage()    {}
 func (*MsgMarketDataSnapshotFullRefresh) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{34}
+	return fileDescriptor_11ceb96bb48cdb91, []int{40}
 }
 func (m *MsgMarketDataSnapshotFullRefresh) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2200,7 +2774,7 @@ func (m *MsgMarketDataSnapshotFullRefreshResponse) Reset() {
 func (m *MsgMarketDataSnapshotFullRefreshResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataSnapshotFullRefreshResponse) ProtoMessage()    {}
 func (*MsgMarketDataSnapshotFullRefreshResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{35}
+	return fileDescriptor_11ceb96bb48cdb91, []int{41}
 }
 func (m *MsgMarketDataSnapshotFullRefreshResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2241,7 +2815,7 @@ func (m *MsgMarketDataIncremental) Reset()         { *m = MsgMarketDataIncrement
 func (m *MsgMarketDataIncremental) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataIncremental) ProtoMessage()    {}
 func (*MsgMarketDataIncremental) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{36}
+	return fileDescriptor_11ceb96bb48cdb91, []int{42}
 }
 func (m *MsgMarketDataIncremental) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2312,7 +2886,7 @@ func (m *MsgMarketDataIncrementalResponse) Reset()         { *m = MsgMarketDataI
 func (m *MsgMarketDataIncrementalResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataIncrementalResponse) ProtoMessage()    {}
 func (*MsgMarketDataIncrementalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{37}
+	return fileDescriptor_11ceb96bb48cdb91, []int{43}
 }
 func (m *MsgMarketDataIncrementalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2353,7 +2927,7 @@ func (m *MsgMarketDataRequestReject) Reset()         { *m = MsgMarketDataRequest
 func (m *MsgMarketDataRequestReject) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataRequestReject) ProtoMessage()    {}
 func (*MsgMarketDataRequestReject) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{38}
+	return fileDescriptor_11ceb96bb48cdb91, []int{44}
 }
 func (m *MsgMarketDataRequestReject) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2424,7 +2998,7 @@ func (m *MsgMarketDataRequestRejectResponse) Reset()         { *m = MsgMarketDat
 func (m *MsgMarketDataRequestRejectResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgMarketDataRequestRejectResponse) ProtoMessage()    {}
 func (*MsgMarketDataRequestRejectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_11ceb96bb48cdb91, []int{39}
+	return fileDescriptor_11ceb96bb48cdb91, []int{45}
 }
 func (m *MsgMarketDataRequestRejectResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2486,6 +3060,12 @@ func init() {
 	proto.RegisterType((*MsgQuoteAcknowledgementResponse)(nil), "jim380.re.fix.MsgQuoteAcknowledgementResponse")
 	proto.RegisterType((*MsgQuoteRequestReject)(nil), "jim380.re.fix.MsgQuoteRequestReject")
 	proto.RegisterType((*MsgQuoteRequestRejectResponse)(nil), "jim380.re.fix.MsgQuoteRequestRejectResponse")
+	proto.RegisterType((*MsgTradeCaptureReport)(nil), "jim380.re.fix.MsgTradeCaptureReport")
+	proto.RegisterType((*MsgTradeCaptureReportResponse)(nil), "jim380.re.fix.MsgTradeCaptureReportResponse")
+	proto.RegisterType((*MsgTradeCaptureReportAcknowledgement)(nil), "jim380.re.fix.MsgTradeCaptureReportAcknowledgement")
+	proto.RegisterType((*MsgTradeCaptureReportAcknowledgementResponse)(nil), "jim380.re.fix.MsgTradeCaptureReportAcknowledgementResponse")
+	proto.RegisterType((*MsgTradeCaptureReportRejection)(nil), "jim380.re.fix.MsgTradeCaptureReportRejection")
+	proto.RegisterType((*MsgTradeCaptureReportRejectionResponse)(nil), "jim380.re.fix.MsgTradeCaptureReportRejectionResponse")
 	proto.RegisterType((*MsgMarketDataRequest)(nil), "jim380.re.fix.MsgMarketDataRequest")
 	proto.RegisterType((*MsgMarketDataRequestResponse)(nil), "jim380.re.fix.MsgMarketDataRequestResponse")
 	proto.RegisterType((*MsgMarketDataSnapshotFullRefresh)(nil), "jim380.re.fix.MsgMarketDataSnapshotFullRefresh")
@@ -2499,123 +3079,151 @@ func init() {
 func init() { proto.RegisterFile("re/fix/tx.proto", fileDescriptor_11ceb96bb48cdb91) }
 
 var fileDescriptor_11ceb96bb48cdb91 = []byte{
-	// 1845 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x59, 0xcf, 0x6f, 0x1b, 0x4f,
-	0x15, 0xef, 0xc6, 0x89, 0x93, 0x3c, 0xe7, 0x57, 0x97, 0x24, 0xdd, 0xaf, 0x9b, 0x38, 0xae, 0x9b,
-	0xb6, 0x69, 0x29, 0x49, 0x49, 0x91, 0xa8, 0x38, 0x80, 0xd2, 0xa6, 0x15, 0x91, 0xea, 0xfe, 0xd8,
-	0x04, 0x50, 0x2b, 0x50, 0xb4, 0xd9, 0x9d, 0x3a, 0xdb, 0xee, 0x0f, 0x67, 0x67, 0xdc, 0x38, 0x7f,
-	0x02, 0x9c, 0xf8, 0x1b, 0x10, 0x27, 0x4e, 0xdc, 0x38, 0x71, 0xeb, 0x81, 0x0b, 0x52, 0x4f, 0x88,
-	0x03, 0x07, 0xd4, 0x72, 0x44, 0x48, 0x1c, 0xb9, 0xa1, 0x99, 0x9d, 0x1d, 0xcf, 0xac, 0xc7, 0x6b,
-	0x27, 0xca, 0xe5, 0x7b, 0xf3, 0xbc, 0xf7, 0x99, 0x37, 0xef, 0xf3, 0xde, 0x9b, 0x37, 0xb3, 0x63,
-	0x98, 0x4f, 0xd0, 0xd6, 0x3b, 0xbf, 0xbb, 0x45, 0xba, 0x9b, 0xed, 0x24, 0x26, 0xb1, 0x39, 0xfb,
-	0xde, 0x0f, 0x1f, 0x3e, 0x7a, 0xb0, 0x99, 0xa0, 0xcd, 0x77, 0x7e, 0xb7, 0xba, 0xc8, 0xf5, 0x8e,
-	0xeb, 0xc6, 0x9d, 0x88, 0xa4, 0xa0, 0xea, 0x12, 0x97, 0x62, 0x84, 0xb1, 0x1f, 0x47, 0x98, 0x8b,
-	0x57, 0x33, 0x31, 0x71, 0x22, 0xcf, 0x49, 0xbc, 0xc3, 0x10, 0x61, 0xec, 0xb4, 0x10, 0x57, 0x5f,
-	0x57, 0x67, 0x1d, 0x06, 0x71, 0x2b, 0xee, 0x64, 0x26, 0x4d, 0xae, 0x3c, 0xe9, 0xc4, 0x24, 0x9b,
-	0x60, 0x71, 0x59, 0xe8, 0x24, 0x1f, 0x10, 0x39, 0xf4, 0x1c, 0xe2, 0xa4, 0x9a, 0xc6, 0x27, 0x03,
-	0x16, 0x9a, 0xb8, 0xf5, 0x24, 0x41, 0x0e, 0x41, 0x3b, 0xa9, 0x6f, 0xa6, 0x05, 0x93, 0x2e, 0x15,
-	0xc4, 0x89, 0x65, 0xd4, 0x8d, 0x8d, 0x69, 0x3b, 0x1b, 0x9a, 0x0b, 0x50, 0xf2, 0x7c, 0xcf, 0x1a,
-	0x63, 0x52, 0xfa, 0xd3, 0xac, 0x43, 0xc5, 0x8d, 0xc3, 0xb6, 0x13, 0x9d, 0xbd, 0x70, 0x42, 0x64,
-	0x95, 0x98, 0x46, 0x16, 0x51, 0x6b, 0xa7, 0xe8, 0x08, 0xfb, 0x04, 0x59, 0xe3, 0xa9, 0x35, 0x3e,
-	0x34, 0xef, 0xc1, 0x02, 0x8e, 0x5d, 0xdf, 0x09, 0x9a, 0xc8, 0xf3, 0x9d, 0xe7, 0x7e, 0xf4, 0x01,
-	0x5b, 0x13, 0x0c, 0xd2, 0x27, 0x37, 0x57, 0x60, 0x9a, 0x39, 0x81, 0xbc, 0x1d, 0x62, 0x95, 0x19,
-	0xa8, 0x27, 0x68, 0xdc, 0x07, 0x2b, 0xcf, 0xc2, 0x46, 0xb8, 0x1d, 0x47, 0x18, 0x65, 0x3e, 0x1b,
-	0xc2, 0xe7, 0x8c, 0xf4, 0xcf, 0xda, 0xde, 0xb7, 0x9a, 0x74, 0x95, 0x91, 0x56, 0x58, 0x64, 0xa4,
-	0x1b, 0x3f, 0x66, 0x0c, 0x77, 0x51, 0x80, 0x2e, 0xc4, 0x90, 0xdb, 0x56, 0xe6, 0x0b, 0xdb, 0xff,
-	0x30, 0xe0, 0x6a, 0x13, 0xb7, 0x9e, 0xc7, 0xad, 0x38, 0xda, 0x8b, 0x7c, 0xe2, 0x33, 0x1b, 0x2b,
-	0x30, 0xcd, 0xeb, 0x71, 0x6f, 0x97, 0xdb, 0xef, 0x09, 0xcc, 0xa7, 0x30, 0x17, 0x28, 0x78, 0xb6,
-	0x58, 0x65, 0x7b, 0x75, 0x53, 0xd9, 0x26, 0x9b, 0xaa, 0x51, 0x3b, 0x37, 0xc9, 0x5c, 0x86, 0x32,
-	0x26, 0x0e, 0xe9, 0x60, 0x1e, 0x73, 0x3e, 0x32, 0x6b, 0x00, 0x7b, 0x78, 0xc7, 0x75, 0x51, 0x9b,
-	0x20, 0x8f, 0x45, 0x7c, 0xca, 0x96, 0x24, 0x34, 0xe8, 0x7e, 0x66, 0x64, 0xc7, 0xf3, 0x12, 0x84,
-	0x45, 0xd0, 0xf3, 0xf2, 0xc6, 0x75, 0xf8, 0xa6, 0x8f, 0x9d, 0xe0, 0xfe, 0xb7, 0xb4, 0x74, 0x98,
-	0x36, 0xb5, 0x3e, 0x94, 0xfa, 0x63, 0x98, 0x0d, 0x64, 0x38, 0x67, 0xbe, 0xa2, 0x63, 0x9e, 0x61,
-	0x6c, 0x75, 0xca, 0x85, 0x79, 0x6f, 0xc0, 0xbc, 0xc3, 0x6d, 0xa8, 0xb4, 0xf3, 0x62, 0x9e, 0x70,
-	0xd5, 0x89, 0x8c, 0x74, 0xcc, 0xf2, 0x7d, 0x80, 0x92, 0xd0, 0x8f, 0x1c, 0x82, 0x18, 0x48, 0x1b,
-	0x52, 0x43, 0x1f, 0x52, 0x35, 0x40, 0x63, 0xf9, 0x00, 0xf1, 0xea, 0x2b, 0xf5, 0xaa, 0x2f, 0x4d,
-	0x81, 0xba, 0xa0, 0xf0, 0xe6, 0xaf, 0x06, 0xcc, 0x65, 0xae, 0xda, 0xe8, 0x3d, 0x72, 0x89, 0x8e,
-	0xa6, 0xa1, 0xa5, 0x39, 0xc4, 0x93, 0xef, 0x41, 0xf9, 0x18, 0x39, 0x1e, 0x4a, 0x98, 0x33, 0x95,
-	0xed, 0xa5, 0x5c, 0x8e, 0x7e, 0xca, 0x94, 0x36, 0x07, 0x99, 0x26, 0x8c, 0x13, 0xd4, 0x25, 0x7c,
-	0x87, 0xb3, 0xdf, 0xe6, 0x03, 0x98, 0x24, 0x89, 0xe3, 0x07, 0x28, 0x61, 0x91, 0xae, 0x6c, 0x2f,
-	0xe7, 0x6c, 0x1c, 0xa4, 0x5a, 0x3b, 0x83, 0x35, 0x2c, 0x58, 0x56, 0xe9, 0x08, 0xa6, 0x7f, 0x36,
-	0xc0, 0xe4, 0xaa, 0x0e, 0xe9, 0x6d, 0x82, 0xcb, 0x8b, 0xfc, 0xaf, 0x60, 0x99, 0x0f, 0x72, 0x6b,
-	0x70, 0xfe, 0xb7, 0x72, 0xbe, 0xef, 0x6b, 0xc1, 0xf6, 0x00, 0x23, 0x8d, 0x15, 0xa8, 0xf6, 0xbb,
-	0x2f, 0xd8, 0xfd, 0xa9, 0xd7, 0x46, 0x3a, 0x44, 0x54, 0xfa, 0x65, 0xa5, 0xf2, 0x2d, 0x2c, 0x29,
-	0x5e, 0x89, 0xdd, 0x97, 0x32, 0x5b, 0x2f, 0x62, 0x26, 0x36, 0x80, 0xde, 0x84, 0xd4, 0x21, 0x24,
-	0x6c, 0x46, 0xeb, 0x8f, 0x25, 0x46, 0xeb, 0x05, 0x3a, 0x7d, 0x99, 0x78, 0x28, 0xd9, 0xf7, 0xa3,
-	0x56, 0x80, 0x0a, 0x7a, 0xef, 0xa5, 0x56, 0x24, 0x5d, 0x26, 0x78, 0x99, 0x78, 0x7b, 0xbb, 0xd9,
-	0xb1, 0xc3, 0x87, 0xac, 0x83, 0x9c, 0x85, 0x47, 0x71, 0xc0, 0x1b, 0x00, 0x1f, 0xd1, 0x1a, 0xc6,
-	0xbe, 0x87, 0xd8, 0xe9, 0x52, 0xb2, 0xd9, 0x6f, 0xb3, 0x0a, 0x53, 0x31, 0xf5, 0xfd, 0x35, 0x39,
-	0xb3, 0x26, 0x19, 0x5a, 0x8c, 0xe9, 0x0a, 0x71, 0xe2, 0x1d, 0x9c, 0xb5, 0x91, 0x35, 0xc5, 0xa6,
-	0x64, 0x43, 0x73, 0x11, 0x26, 0xda, 0x89, 0xef, 0x22, 0x6b, 0x9a, 0x4d, 0x49, 0x07, 0xf4, 0xa8,
-	0x24, 0x7e, 0x88, 0xf6, 0xa2, 0x67, 0x71, 0xe2, 0x22, 0x0b, 0xd8, 0x1c, 0x59, 0x24, 0x76, 0x51,
-	0x45, 0xda, 0x45, 0x0d, 0x98, 0x21, 0x89, 0x13, 0x61, 0xc7, 0x25, 0x07, 0x7e, 0x88, 0xac, 0x19,
-	0xa6, 0x53, 0x64, 0xf2, 0x4e, 0x9b, 0x1d, 0x69, 0xa7, 0x49, 0x5d, 0x74, 0x4e, 0xee, 0xa2, 0x3c,
-	0x9f, 0x6a, 0xc6, 0x44, 0x3e, 0xff, 0x6d, 0xc0, 0x52, 0x13, 0xb7, 0x98, 0xea, 0x89, 0x13, 0xb9,
-	0x28, 0xb0, 0xd1, 0x49, 0x07, 0x61, 0x32, 0xa4, 0xed, 0xf7, 0x32, 0x37, 0x36, 0x4a, 0xe6, 0xea,
-	0x50, 0x89, 0x13, 0xbf, 0xf5, 0x84, 0x67, 0x8f, 0x5f, 0x29, 0x24, 0x51, 0x41, 0x6e, 0xcf, 0xdd,
-	0x73, 0xe4, 0x72, 0x2c, 0x2b, 0xe5, 0xd8, 0x58, 0x83, 0x55, 0x2d, 0x5b, 0x11, 0x8f, 0xff, 0x8d,
-	0xc1, 0x62, 0x1e, 0xc1, 0x9a, 0xf0, 0xa5, 0x86, 0x23, 0x2d, 0x33, 0x94, 0x88, 0x50, 0x64, 0xc3,
-	0x7c, 0xa0, 0xc6, 0x0b, 0x03, 0x35, 0xa1, 0x06, 0xaa, 0x01, 0x33, 0x6e, 0x97, 0xfa, 0x6b, 0x23,
-	0x07, 0xc7, 0x11, 0x2f, 0x7a, 0x45, 0x46, 0xbb, 0x6b, 0x36, 0x4e, 0x19, 0x1f, 0xc4, 0x6c, 0x13,
-	0x94, 0xec, 0x3e, 0x39, 0xb5, 0x77, 0x20, 0x97, 0xe9, 0x54, 0x5a, 0xa6, 0x07, 0x03, 0xca, 0x74,
-	0xfa, 0xdc, 0xc9, 0x01, 0x35, 0x39, 0x35, 0x58, 0xd1, 0x85, 0x5e, 0xe4, 0xe6, 0x3f, 0xe3, 0x70,
-	0x2d, 0x03, 0x3c, 0xed, 0x22, 0xb7, 0x43, 0x7c, 0x7a, 0xa8, 0xb4, 0xe3, 0xe4, 0xf2, 0xd3, 0xe3,
-	0x2a, 0x95, 0x2a, 0x42, 0x2c, 0x25, 0x6e, 0x5c, 0x4d, 0xdc, 0x32, 0x94, 0x51, 0x17, 0xb9, 0x22,
-	0x2b, 0x7c, 0x44, 0x1d, 0x8b, 0x13, 0x6f, 0x3f, 0xdd, 0x98, 0xfc, 0x92, 0x2b, 0x04, 0xb4, 0x17,
-	0x51, 0x1c, 0x6b, 0x38, 0xbc, 0x17, 0x65, 0x63, 0xa9, 0xa7, 0x4d, 0x69, 0x7b, 0xda, 0xf4, 0x80,
-	0x9e, 0x96, 0x36, 0xa1, 0x5e, 0x4f, 0x13, 0x9d, 0xab, 0xc2, 0x14, 0xfa, 0xce, 0x35, 0xd3, 0xdf,
-	0xb9, 0x96, 0xa1, 0x1c, 0x38, 0x98, 0xbc, 0xea, 0xb2, 0x06, 0x54, 0xb2, 0xf9, 0x88, 0xc6, 0x80,
-	0xfe, 0xa2, 0x4b, 0xcd, 0xa5, 0x3d, 0x92, 0x0f, 0x29, 0xd7, 0x00, 0x39, 0x1f, 0x11, 0xa6, 0xba,
-	0x79, 0xa6, 0xeb, 0x09, 0xa8, 0x3d, 0xb7, 0x13, 0x52, 0xd5, 0x42, 0x6a, 0x2f, 0x1d, 0x51, 0xff,
-	0x9c, 0x8f, 0xad, 0x57, 0x5d, 0xeb, 0x6a, 0xea, 0x1f, 0x1b, 0x88, 0xbe, 0x69, 0x16, 0xf4, 0xcd,
-	0xef, 0x14, 0xf7, 0xcd, 0xc5, 0x73, 0x17, 0xe4, 0x92, 0x5a, 0x90, 0x37, 0x60, 0x6d, 0x40, 0xbd,
-	0x89, 0x9a, 0xfc, 0x8d, 0x01, 0xf3, 0x4d, 0xdc, 0x7a, 0x4d, 0x3f, 0x47, 0x47, 0xeb, 0x9c, 0x3f,
-	0x81, 0x99, 0x13, 0x09, 0xcd, 0x2b, 0xf2, 0x7a, 0xce, 0x4b, 0xd9, 0xa0, 0xad, 0x4c, 0x90, 0xfd,
-	0x2d, 0xa9, 0xfe, 0x7e, 0xc3, 0xf6, 0x87, 0x32, 0x35, 0xf3, 0xf3, 0x0f, 0x46, 0x4f, 0xb7, 0xe3,
-	0x7e, 0x88, 0xe2, 0xd3, 0x00, 0x79, 0x2d, 0x14, 0xa2, 0xc2, 0x2f, 0xa7, 0xe2, 0xd3, 0xfb, 0x17,
-	0xb0, 0x78, 0xa2, 0xb1, 0xc7, 0xcf, 0xf2, 0x9b, 0x3a, 0x46, 0x39, 0xa8, 0xad, 0x35, 0xc0, 0xe3,
-	0xae, 0x9d, 0x90, 0xf1, 0xf9, 0x5d, 0x7a, 0x6e, 0xa9, 0x5c, 0x59, 0xa3, 0xbe, 0x28, 0x9b, 0xd7,
-	0x60, 0x9e, 0xf4, 0x59, 0xe3, 0x5c, 0x6e, 0x14, 0x65, 0x27, 0x6d, 0x52, 0x9a, 0xc9, 0xfc, 0xb4,
-	0xd1, 0x80, 0x33, 0x16, 0xbf, 0x4f, 0x4f, 0x9b, 0x26, 0x7b, 0xb8, 0xd8, 0x75, 0x88, 0xa3, 0xc9,
-	0x71, 0x8e, 0x84, 0x05, 0x93, 0xa1, 0x67, 0xa3, 0x13, 0x41, 0x21, 0x1b, 0x9a, 0x8f, 0xe0, 0x1a,
-	0xee, 0x1c, 0x61, 0x37, 0xf1, 0xdb, 0x69, 0xa1, 0x32, 0x53, 0xac, 0xb5, 0x94, 0xd8, 0xce, 0x1a,
-	0xa4, 0xa6, 0xbd, 0x20, 0x7d, 0x3b, 0xd9, 0x45, 0x6d, 0x72, 0xcc, 0x3a, 0x5b, 0xc9, 0x96, 0x45,
-	0x74, 0xe7, 0x85, 0x5e, 0xfa, 0x2d, 0xce, 0x0c, 0x4e, 0xa4, 0x47, 0x8b, 0x2c, 0xa3, 0x98, 0x28,
-	0xb6, 0x51, 0x40, 0xbf, 0xdf, 0xf7, 0xcf, 0xc2, 0xec, 0xf8, 0x91, 0x65, 0x52, 0x4f, 0x9b, 0x54,
-	0x7a, 0x9a, 0x92, 0x9a, 0xa9, 0x5c, 0x6a, 0xf8, 0xc1, 0xd0, 0x17, 0x25, 0x11, 0xc6, 0x7f, 0x19,
-	0x50, 0x57, 0x00, 0xfb, 0x91, 0xd3, 0xc6, 0xc7, 0x31, 0x79, 0xd6, 0x09, 0x02, 0x1b, 0xbd, 0x4b,
-	0x10, 0x3e, 0xbe, 0x50, 0x48, 0x7b, 0xee, 0x96, 0x14, 0x77, 0xeb, 0x50, 0x89, 0xe2, 0xe6, 0xee,
-	0xd3, 0x88, 0x24, 0x3e, 0xc2, 0x59, 0xc0, 0x24, 0x91, 0xf9, 0x03, 0x98, 0x0e, 0xbd, 0x4c, 0x3f,
-	0x51, 0x2f, 0x69, 0x1a, 0x51, 0x0a, 0x3e, 0xb3, 0x7b, 0x40, 0x35, 0x0c, 0xe5, 0x7c, 0x18, 0xee,
-	0xc1, 0xc6, 0x30, 0x96, 0x22, 0x24, 0x9f, 0x0c, 0xf6, 0xc5, 0xdb, 0x03, 0xef, 0x45, 0x6e, 0xc2,
-	0xb6, 0x90, 0x13, 0x5c, 0x28, 0x14, 0x39, 0xca, 0xa5, 0x21, 0x94, 0xc7, 0x2f, 0x44, 0x79, 0x22,
-	0x4f, 0xb9, 0x91, 0x4b, 0xac, 0xc4, 0x42, 0x6e, 0x6d, 0x55, 0x7d, 0x79, 0x0c, 0xe9, 0x07, 0x83,
-	0xc9, 0xde, 0x86, 0x39, 0xf6, 0xb3, 0x77, 0x97, 0x4a, 0xf9, 0xe6, 0xa4, 0xda, 0x4f, 0xe4, 0x62,
-	0x42, 0xeb, 0xd0, 0x18, 0xec, 0x6b, 0x46, 0x69, 0xfb, 0xbf, 0xf3, 0x50, 0x6a, 0xe2, 0x96, 0xf9,
-	0x06, 0x66, 0xd5, 0xb7, 0xcb, 0xb5, 0x7c, 0x40, 0x73, 0xcf, 0x82, 0xd5, 0x3b, 0x43, 0x00, 0xe2,
-	0xdd, 0xf0, 0x0d, 0xcc, 0xaa, 0x2f, 0x84, 0x1a, 0xd3, 0x0a, 0x40, 0x67, 0x5a, 0xfb, 0x3a, 0x47,
-	0x4d, 0xab, 0x4f, 0x73, 0x1a, 0xd3, 0x0a, 0x40, 0x67, 0x5a, 0xfb, 0x38, 0x67, 0xfe, 0x12, 0xe6,
-	0x72, 0x0f, 0x73, 0xf5, 0xfe, 0xa9, 0x2a, 0xa2, 0xba, 0x31, 0x0c, 0x21, 0x3b, 0xae, 0x3e, 0x7d,
-	0xad, 0x0d, 0x98, 0x9a, 0x01, 0x74, 0x8e, 0x6b, 0x1f, 0x99, 0xa8, 0xe3, 0xb9, 0x17, 0x26, 0x8d,
-	0xe3, 0x2a, 0x42, 0xe7, 0xb8, 0xfe, 0xd1, 0xc8, 0xdc, 0x87, 0x8a, 0xfc, 0x60, 0xb4, 0x3a, 0xc0,
-	0xab, 0x54, 0x5d, 0xbd, 0x55, 0xa8, 0x16, 0x46, 0x0f, 0x61, 0x3e, 0xff, 0x36, 0x73, 0x43, 0x3f,
-	0x53, 0x82, 0x54, 0xef, 0x0e, 0x85, 0xe4, 0x93, 0x29, 0x3d, 0x8f, 0xd4, 0x07, 0x4d, 0x16, 0x01,
-	0xdf, 0x18, 0x86, 0x90, 0xad, 0xe7, 0x5e, 0x29, 0x34, 0xd6, 0x55, 0x84, 0xce, 0xba, 0xfe, 0xbb,
-	0xd9, 0x3c, 0x06, 0x53, 0xf3, 0xcd, 0xbc, 0xde, 0x3f, 0xbf, 0x1f, 0x55, 0xbd, 0x3f, 0x0a, 0x4a,
-	0xac, 0x84, 0xe0, 0x6a, 0xff, 0xd7, 0xe8, 0xcd, 0x21, 0x26, 0x58, 0x9e, 0xbf, 0x3b, 0x02, 0x48,
-	0x2c, 0x13, 0xc1, 0xa2, 0xf6, 0xc3, 0xea, 0xf6, 0x00, 0x23, 0x39, 0x5c, 0x75, 0x73, 0x34, 0x9c,
-	0x58, 0xef, 0xe7, 0x30, 0xa3, 0x5c, 0x9a, 0x6b, 0xfd, 0xf3, 0x65, 0x7d, 0xf5, 0x76, 0xb1, 0x5e,
-	0xe6, 0xa1, 0xbd, 0xe4, 0x0e, 0x9a, 0x9f, 0xc3, 0xe9, 0x78, 0x14, 0x5d, 0x44, 0x69, 0x21, 0x68,
-	0x2e, 0xa1, 0xeb, 0xc3, 0xbc, 0x65, 0x09, 0xba, 0x3f, 0x0a, 0x4a, 0x2e, 0x84, 0xfe, 0x8b, 0xa2,
-	0xa6, 0x10, 0xfa, 0x40, 0xba, 0x42, 0x18, 0x78, 0x99, 0x32, 0x7f, 0x6d, 0xc0, 0x6a, 0xf1, 0x4d,
-	0x6a, 0xab, 0xc8, 0x9c, 0x66, 0x42, 0xf5, 0x87, 0xe7, 0x9c, 0x20, 0x7c, 0x39, 0x81, 0x25, 0xfd,
-	0x0d, 0xe6, 0x4e, 0x91, 0x45, 0x09, 0x58, 0xdd, 0x1a, 0x11, 0x28, 0x96, 0x3c, 0x85, 0x6b, 0x83,
-	0x6e, 0x12, 0x77, 0x47, 0x0a, 0x23, 0xcb, 0xec, 0xf7, 0x47, 0x86, 0x66, 0x0b, 0x3f, 0xfe, 0xd1,
-	0x5f, 0xbe, 0xd4, 0x8c, 0xcf, 0x5f, 0x6a, 0xc6, 0x3f, 0xbf, 0xd4, 0x8c, 0xdf, 0x7e, 0xad, 0x5d,
-	0xf9, 0xfc, 0xb5, 0x76, 0xe5, 0xef, 0x5f, 0x6b, 0x57, 0xde, 0xd6, 0x5b, 0x3e, 0x39, 0xee, 0x1c,
-	0x6d, 0xba, 0x71, 0xb8, 0x95, 0x9a, 0xdd, 0xb2, 0xd1, 0x56, 0x37, 0xfd, 0x43, 0xf6, 0xac, 0x8d,
-	0xf0, 0x51, 0x99, 0xfd, 0xdd, 0xf9, 0xf0, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x52, 0x26, 0x16,
-	0xb5, 0xa7, 0x1d, 0x00, 0x00,
+	// 2297 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x5a, 0xbd, 0x73, 0x24, 0x47,
+	0x15, 0xbf, 0xd1, 0xea, 0xf3, 0xe9, 0xf3, 0x06, 0x49, 0xb7, 0xde, 0x93, 0xf6, 0x74, 0x6b, 0x59,
+	0x96, 0x0f, 0x59, 0x32, 0x3a, 0x30, 0x2e, 0xa8, 0x82, 0x92, 0x6f, 0xcf, 0x85, 0xaa, 0x2c, 0xdb,
+	0x37, 0x12, 0x50, 0x76, 0x41, 0x5d, 0x8d, 0x66, 0x5a, 0xab, 0xf1, 0xed, 0xce, 0xac, 0x66, 0x7a,
+	0x7d, 0xab, 0x18, 0x12, 0x88, 0x48, 0xf8, 0x07, 0x28, 0x22, 0x22, 0x32, 0x22, 0x32, 0x07, 0x24,
+	0x54, 0xb9, 0x08, 0x28, 0x02, 0x02, 0xea, 0x0e, 0x32, 0x8a, 0xfc, 0x32, 0xaa, 0x3f, 0xb7, 0xbb,
+	0xa7, 0x67, 0x76, 0x25, 0x94, 0x90, 0x6d, 0xbf, 0xf7, 0xfa, 0xf5, 0xfb, 0xfc, 0x75, 0x4f, 0xf7,
+	0xc2, 0x62, 0x8a, 0xf6, 0xce, 0xa2, 0xfe, 0x1e, 0xee, 0xef, 0x76, 0xd3, 0x04, 0x27, 0xee, 0xfc,
+	0xe7, 0x51, 0xe7, 0xe1, 0x7b, 0xef, 0xec, 0xa6, 0x68, 0xf7, 0x2c, 0xea, 0xd7, 0x96, 0x39, 0xdf,
+	0x0f, 0x82, 0xa4, 0x17, 0x63, 0x26, 0x54, 0x5b, 0xe1, 0xd4, 0x0c, 0x65, 0x59, 0x94, 0xc4, 0x19,
+	0x27, 0xaf, 0x0b, 0x32, 0xf6, 0xe3, 0xd0, 0x4f, 0xc3, 0xa7, 0x1d, 0x94, 0x65, 0x7e, 0x0b, 0x71,
+	0xf6, 0x5d, 0x7d, 0xd6, 0xd3, 0x76, 0xd2, 0x4a, 0x7a, 0x42, 0xa5, 0xcb, 0x99, 0x17, 0xbd, 0x04,
+	0x8b, 0x09, 0x55, 0x4e, 0xeb, 0xf8, 0xe9, 0x33, 0x84, 0x9f, 0x86, 0x3e, 0xf6, 0x19, 0xa7, 0xf1,
+	0xa5, 0x03, 0x4b, 0x47, 0x59, 0xeb, 0x51, 0x8a, 0x7c, 0x8c, 0x0e, 0x98, 0x6d, 0x6e, 0x15, 0xa6,
+	0x02, 0x42, 0x48, 0xd2, 0xaa, 0xb3, 0xe1, 0x6c, 0xcf, 0x78, 0x62, 0xe8, 0x2e, 0x41, 0x25, 0x8c,
+	0xc2, 0xea, 0x18, 0xa5, 0x92, 0x9f, 0xee, 0x06, 0xcc, 0x06, 0x49, 0xa7, 0xeb, 0xc7, 0x97, 0x1f,
+	0xf9, 0x1d, 0x54, 0xad, 0x50, 0x8e, 0x4a, 0x22, 0xda, 0x9e, 0xa3, 0xd3, 0x2c, 0xc2, 0xa8, 0x3a,
+	0xce, 0xb4, 0xf1, 0xa1, 0xfb, 0x00, 0x96, 0xb2, 0x24, 0x88, 0xfc, 0xf6, 0x11, 0x0a, 0x23, 0xff,
+	0xc3, 0x28, 0x7e, 0x96, 0x55, 0x27, 0xa8, 0x48, 0x8e, 0xee, 0xae, 0xc1, 0x0c, 0x35, 0x02, 0x85,
+	0x07, 0xb8, 0x3a, 0x49, 0x85, 0x06, 0x84, 0xc6, 0x0e, 0x54, 0x4d, 0x2f, 0x3c, 0x94, 0x75, 0x93,
+	0x38, 0x43, 0xc2, 0x66, 0x47, 0xda, 0x2c, 0x9c, 0xfe, 0x61, 0x37, 0xfc, 0xbf, 0x76, 0xba, 0x46,
+	0x9d, 0xd6, 0xbc, 0x10, 0x4e, 0x37, 0xbe, 0x47, 0x3d, 0x6c, 0xa2, 0x36, 0xba, 0x96, 0x87, 0x5c,
+	0xb7, 0x36, 0x5f, 0xea, 0xfe, 0xbb, 0x03, 0xb7, 0x8f, 0xb2, 0xd6, 0x87, 0x49, 0x2b, 0x89, 0x0f,
+	0xe3, 0x08, 0x47, 0x54, 0xc7, 0x1a, 0xcc, 0xf0, 0x7a, 0x3c, 0x6c, 0x72, 0xfd, 0x03, 0x82, 0xfb,
+	0x18, 0x16, 0xda, 0x9a, 0x3c, 0x5d, 0x6c, 0x76, 0x7f, 0x7d, 0x57, 0x6b, 0x93, 0x5d, 0x5d, 0xa9,
+	0x67, 0x4c, 0x72, 0x57, 0x61, 0x32, 0xc3, 0x3e, 0xee, 0x65, 0x3c, 0xe6, 0x7c, 0xe4, 0xd6, 0x01,
+	0x0e, 0xb3, 0x83, 0x20, 0x40, 0x5d, 0x8c, 0x42, 0x1a, 0xf1, 0x69, 0x4f, 0xa1, 0x90, 0xa0, 0x47,
+	0x42, 0xc9, 0x41, 0x18, 0xa6, 0x28, 0x93, 0x41, 0x37, 0xe9, 0x8d, 0xbb, 0xf0, 0x5a, 0xce, 0x3b,
+	0xe9, 0xfb, 0x5f, 0x59, 0xe9, 0x50, 0x2e, 0xd3, 0x3e, 0xd4, 0xf5, 0xf7, 0x61, 0xbe, 0xad, 0x8a,
+	0x73, 0xcf, 0xd7, 0x6c, 0x9e, 0x0b, 0x19, 0x4f, 0x9f, 0x72, 0x6d, 0xbf, 0xb7, 0x61, 0xd1, 0xe7,
+	0x3a, 0x74, 0xb7, 0x4d, 0x32, 0x4f, 0xb8, 0x6e, 0x84, 0x70, 0x3a, 0xa1, 0xf9, 0x3e, 0x41, 0x69,
+	0x27, 0x8a, 0x7d, 0x8c, 0xa8, 0x90, 0x35, 0xa4, 0x8e, 0x3d, 0xa4, 0x7a, 0x80, 0xc6, 0xcc, 0x00,
+	0xf1, 0xea, 0xab, 0x0c, 0xaa, 0x8f, 0xa5, 0x40, 0x5f, 0x50, 0x5a, 0xf3, 0x67, 0x07, 0x16, 0x84,
+	0xa9, 0x1e, 0xfa, 0x1c, 0x05, 0xd8, 0xe6, 0xa6, 0x63, 0x75, 0x73, 0x88, 0x25, 0x6f, 0xc3, 0xe4,
+	0x39, 0xf2, 0x43, 0x94, 0x52, 0x63, 0x66, 0xf7, 0x57, 0x8c, 0x1c, 0xfd, 0x80, 0x32, 0x3d, 0x2e,
+	0xe4, 0xba, 0x30, 0x8e, 0x51, 0x1f, 0xf3, 0x0e, 0xa7, 0xbf, 0xdd, 0x77, 0x60, 0x0a, 0xa7, 0x7e,
+	0xd4, 0x46, 0x29, 0x8d, 0xf4, 0xec, 0xfe, 0xaa, 0xa1, 0xe3, 0x84, 0x71, 0x3d, 0x21, 0xd6, 0xa8,
+	0xc2, 0xaa, 0xee, 0x8e, 0xf4, 0xf4, 0x8f, 0x0e, 0xb8, 0x9c, 0xd5, 0xc3, 0x83, 0x26, 0xb8, 0xb9,
+	0xc8, 0xff, 0x14, 0x56, 0xf9, 0xc0, 0x58, 0x83, 0xfb, 0xff, 0x86, 0x61, 0xfb, 0xb1, 0x55, 0xd8,
+	0x2b, 0x50, 0xd2, 0x58, 0x83, 0x5a, 0xde, 0x7c, 0xe9, 0xdd, 0x1f, 0x06, 0x30, 0xd2, 0xc3, 0xb2,
+	0xd2, 0x6f, 0x2a, 0x95, 0x9f, 0xc1, 0x8a, 0x66, 0x95, 0xec, 0x3e, 0xe6, 0xd9, 0x66, 0x99, 0x67,
+	0xb2, 0x01, 0xec, 0x2a, 0x14, 0x84, 0x50, 0x64, 0x85, 0x5b, 0xbf, 0xaf, 0x50, 0xb7, 0x3e, 0x42,
+	0xcf, 0x3f, 0x4e, 0x43, 0x94, 0x1e, 0x47, 0x71, 0xab, 0x8d, 0x4a, 0xb0, 0xf7, 0x46, 0x2b, 0x92,
+	0x2c, 0xd3, 0xfe, 0x38, 0x0d, 0x0f, 0x9b, 0x62, 0xdb, 0xe1, 0x43, 0x8a, 0x20, 0x97, 0x9d, 0xd3,
+	0xa4, 0xcd, 0x01, 0x80, 0x8f, 0x48, 0x0d, 0x67, 0x51, 0x88, 0xe8, 0xee, 0x52, 0xf1, 0xe8, 0x6f,
+	0xb7, 0x06, 0xd3, 0x09, 0xb1, 0xfd, 0x09, 0xbe, 0xac, 0x4e, 0x51, 0x69, 0x39, 0x26, 0x2b, 0x24,
+	0x69, 0x78, 0x72, 0xd9, 0x45, 0xd5, 0x69, 0x3a, 0x45, 0x0c, 0xdd, 0x65, 0x98, 0xe8, 0xa6, 0x51,
+	0x80, 0xaa, 0x33, 0x74, 0x0a, 0x1b, 0x90, 0xad, 0x12, 0x47, 0x1d, 0x74, 0x18, 0x7f, 0x90, 0xa4,
+	0x01, 0xaa, 0x02, 0x9d, 0xa3, 0x92, 0x64, 0x17, 0xcd, 0x2a, 0x5d, 0xd4, 0x80, 0x39, 0x9c, 0xfa,
+	0x71, 0xe6, 0x07, 0xf8, 0x24, 0xea, 0xa0, 0xea, 0x1c, 0xe5, 0x69, 0x34, 0xb5, 0xd3, 0xe6, 0x47,
+	0xea, 0x34, 0x05, 0x45, 0x17, 0x54, 0x14, 0xe5, 0xf9, 0xd4, 0x33, 0x26, 0xf3, 0xf9, 0x6f, 0x07,
+	0x56, 0x8e, 0xb2, 0x16, 0x65, 0x3d, 0xf2, 0xe3, 0x00, 0xb5, 0x3d, 0x74, 0xd1, 0x43, 0x19, 0x1e,
+	0x02, 0xfb, 0x83, 0xcc, 0x8d, 0x8d, 0x92, 0xb9, 0x0d, 0x98, 0x4d, 0xd2, 0xa8, 0xf5, 0x88, 0x67,
+	0x8f, 0x1f, 0x29, 0x14, 0x52, 0x49, 0x6e, 0xaf, 0x8c, 0x39, 0x6a, 0x39, 0x4e, 0x6a, 0xe5, 0xd8,
+	0xb8, 0x07, 0xeb, 0x56, 0x6f, 0x65, 0x3c, 0x5e, 0x8d, 0xc1, 0xb2, 0x29, 0x41, 0x41, 0xf8, 0x46,
+	0xc3, 0xc1, 0xca, 0x0c, 0xa5, 0x32, 0x14, 0x62, 0x68, 0x06, 0x6a, 0xbc, 0x34, 0x50, 0x13, 0x7a,
+	0xa0, 0x1a, 0x30, 0x17, 0xf4, 0x89, 0xbd, 0x1e, 0xf2, 0xb3, 0x24, 0xe6, 0x45, 0xaf, 0xd1, 0x08,
+	0xba, 0x8a, 0x31, 0xf3, 0xf8, 0x24, 0xa1, 0x4d, 0x50, 0xf1, 0x72, 0x74, 0xa2, 0xef, 0x44, 0x2d,
+	0xd3, 0x69, 0x56, 0xa6, 0x27, 0x05, 0x65, 0x3a, 0x73, 0xe5, 0xe4, 0x80, 0x9e, 0x9c, 0x3a, 0xac,
+	0xd9, 0x42, 0x2f, 0x73, 0xf3, 0x9f, 0x71, 0xb8, 0x23, 0x04, 0x1e, 0xf7, 0x51, 0xd0, 0xc3, 0x11,
+	0xd9, 0x54, 0xba, 0x49, 0x7a, 0xf3, 0xe9, 0x09, 0xb4, 0x4a, 0x95, 0x21, 0x56, 0x12, 0x37, 0xae,
+	0x27, 0x6e, 0x15, 0x26, 0x51, 0x1f, 0x05, 0x32, 0x2b, 0x7c, 0x44, 0x0c, 0x4b, 0xd2, 0xf0, 0x98,
+	0x35, 0x26, 0x3f, 0xe4, 0x4a, 0x02, 0xc1, 0x22, 0x22, 0x47, 0x01, 0x87, 0x63, 0x91, 0x18, 0x2b,
+	0x98, 0x36, 0x6d, 0xc5, 0xb4, 0x99, 0x02, 0x4c, 0x63, 0x20, 0x34, 0xc0, 0x34, 0x89, 0x5c, 0xb3,
+	0x94, 0x61, 0x47, 0xae, 0xb9, 0x3c, 0x72, 0xad, 0xc2, 0x64, 0xdb, 0xcf, 0xf0, 0x27, 0x7d, 0x0a,
+	0x40, 0x15, 0x8f, 0x8f, 0x48, 0x0c, 0xc8, 0x2f, 0xb2, 0xd4, 0x02, 0xc3, 0x48, 0x3e, 0x24, 0xbe,
+	0xb6, 0x91, 0xff, 0x05, 0xca, 0x08, 0x6f, 0x91, 0xf2, 0x06, 0x04, 0xa2, 0x2f, 0xe8, 0x75, 0x08,
+	0x6b, 0x89, 0xe9, 0x63, 0x23, 0x62, 0x9f, 0xff, 0x45, 0xeb, 0x93, 0x7e, 0xf5, 0x36, 0xb3, 0x8f,
+	0x0e, 0x24, 0x6e, 0xba, 0x25, 0xb8, 0xf9, 0xb5, 0x72, 0xdc, 0x5c, 0xbe, 0x72, 0x41, 0xae, 0xe8,
+	0x05, 0x79, 0x1f, 0xee, 0x15, 0xd4, 0x9b, 0xac, 0xc9, 0x5f, 0x3a, 0xb0, 0x78, 0x94, 0xb5, 0x9e,
+	0x90, 0xcf, 0xd1, 0xd1, 0x90, 0xf3, 0xfb, 0x30, 0x77, 0xa1, 0x48, 0xf3, 0x8a, 0xbc, 0x6b, 0x58,
+	0xa9, 0x2a, 0xf4, 0xb4, 0x09, 0xaa, 0xbd, 0x15, 0xdd, 0xde, 0xd7, 0x68, 0x7f, 0x68, 0x53, 0x85,
+	0x9d, 0xbf, 0x73, 0x06, 0xbc, 0x83, 0xe0, 0x59, 0x9c, 0x3c, 0x6f, 0xa3, 0xb0, 0x85, 0x3a, 0xa8,
+	0xf4, 0xcb, 0xa9, 0x7c, 0xf7, 0xfe, 0x31, 0x2c, 0x5f, 0x58, 0xf4, 0xf1, 0xbd, 0xfc, 0x75, 0x9b,
+	0x47, 0x86, 0xa8, 0x67, 0x55, 0xc0, 0xe3, 0x6e, 0x9d, 0x20, 0xfc, 0xf9, 0x0d, 0xdb, 0xb7, 0x74,
+	0x5f, 0x29, 0x50, 0x5f, 0xd7, 0x9b, 0x27, 0xe0, 0x5e, 0xe4, 0xb4, 0x71, 0x5f, 0xee, 0x97, 0x65,
+	0x87, 0x81, 0x94, 0x65, 0x32, 0xdf, 0x6d, 0x2c, 0xc2, 0xc2, 0x8b, 0x7f, 0x4d, 0x50, 0x2f, 0x4e,
+	0x52, 0x3f, 0x44, 0x8f, 0xfc, 0x2e, 0xee, 0xa5, 0x88, 0xe3, 0x59, 0xb1, 0x17, 0x9b, 0x30, 0x8f,
+	0x89, 0x3c, 0x13, 0x94, 0x9e, 0xe8, 0x44, 0x77, 0x1f, 0x96, 0x15, 0x02, 0x85, 0x6c, 0x0a, 0x32,
+	0xac, 0x62, 0xac, 0x3c, 0x72, 0x38, 0x55, 0xe9, 0x44, 0x9c, 0x81, 0x9c, 0x49, 0x26, 0xd6, 0x61,
+	0x7e, 0x4c, 0xe2, 0x7b, 0x10, 0x1f, 0x92, 0x4f, 0x36, 0x9c, 0x86, 0xc7, 0xbd, 0x53, 0xca, 0x64,
+	0x78, 0xa7, 0x50, 0x24, 0x78, 0x31, 0xb0, 0xcb, 0x83, 0xd7, 0x74, 0xfe, 0x40, 0x26, 0xc0, 0x86,
+	0x1d, 0xbc, 0x24, 0xd8, 0x0c, 0xe0, 0x89, 0x6d, 0x23, 0x02, 0x9e, 0x36, 0x61, 0xbe, 0x95, 0x26,
+	0x59, 0x46, 0x83, 0x7a, 0xd0, 0x11, 0x27, 0x2f, 0x9d, 0xa8, 0xc0, 0xf5, 0x9c, 0x06, 0xd7, 0x0a,
+	0xc0, 0xcf, 0xeb, 0x00, 0x4f, 0x7d, 0xf6, 0x43, 0x74, 0xd8, 0xe4, 0xe7, 0x2b, 0x31, 0x14, 0x7b,
+	0xf6, 0x09, 0xe7, 0x2e, 0x0e, 0xf6, 0x6c, 0x4e, 0x52, 0xa0, 0x7c, 0x49, 0x83, 0xf2, 0x3a, 0x40,
+	0x86, 0x82, 0x5e, 0x1a, 0xe1, 0xcb, 0xc3, 0x26, 0xc5, 0xbf, 0x19, 0x4f, 0xa1, 0xd0, 0xdb, 0x14,
+	0x39, 0x3a, 0x4e, 0x7a, 0x04, 0xa9, 0x5d, 0x7e, 0x9b, 0x62, 0xd0, 0x49, 0x75, 0x53, 0x83, 0x9a,
+	0x3e, 0x16, 0xc8, 0x38, 0x20, 0xe4, 0xa0, 0x73, 0xd9, 0x02, 0x9d, 0xb4, 0x3f, 0x30, 0x6e, 0xd3,
+	0xd4, 0xad, 0x88, 0xfe, 0xe0, 0x04, 0xc9, 0xa5, 0xfa, 0x57, 0x15, 0x2e, 0xd5, 0xaf, 0xf5, 0xd6,
+	0x1d, 0xa3, 0xb7, 0x78, 0x23, 0xe4, 0xcb, 0x5c, 0x36, 0xc2, 0x5f, 0xc6, 0x61, 0xd3, 0x2a, 0x31,
+	0x3a, 0x56, 0x8d, 0xd6, 0x17, 0x4a, 0x16, 0x2b, 0x7a, 0x16, 0x59, 0xac, 0x93, 0x38, 0xf4, 0xd3,
+	0x4b, 0x91, 0xca, 0x71, 0x19, 0x6b, 0x8d, 0x6e, 0xeb, 0x94, 0x89, 0xa1, 0x9d, 0x32, 0x59, 0xd6,
+	0x29, 0x53, 0xb9, 0x4e, 0x51, 0x8f, 0x06, 0xd3, 0xc6, 0xd1, 0xe0, 0x01, 0x2c, 0x29, 0x0b, 0x79,
+	0xe8, 0xec, 0xb0, 0xc9, 0xdb, 0x23, 0x47, 0x77, 0xdf, 0x25, 0x5f, 0xc1, 0xaa, 0xfd, 0x32, 0x40,
+	0xac, 0x6f, 0x0a, 0xb8, 0xee, 0x0e, 0xdc, 0x56, 0x74, 0xf1, 0x03, 0x0c, 0xeb, 0xa5, 0x3c, 0xc3,
+	0xdd, 0x82, 0x05, 0x4a, 0x1c, 0x20, 0x0d, 0xeb, 0x2b, 0x83, 0xea, 0xbe, 0x07, 0x77, 0x34, 0x0b,
+	0x19, 0x1c, 0xd2, 0xe3, 0x2a, 0x3b, 0x65, 0x14, 0xb1, 0xe5, 0x81, 0x60, 0x41, 0x39, 0x10, 0x68,
+	0x55, 0xb7, 0x68, 0x56, 0xdd, 0x2e, 0xec, 0x8c, 0x52, 0x53, 0xb2, 0x08, 0x7f, 0x3e, 0x06, 0xf5,
+	0x82, 0x32, 0x25, 0x76, 0x44, 0x49, 0xfc, 0x3f, 0x97, 0x5f, 0x89, 0xfb, 0x95, 0x72, 0xf7, 0xdf,
+	0x85, 0x55, 0x0b, 0xeb, 0x4c, 0x16, 0x69, 0x01, 0x57, 0x86, 0x6d, 0xa2, 0x28, 0x6c, 0x93, 0x66,
+	0xd8, 0xb6, 0x61, 0xab, 0x3c, 0x0a, 0x32, 0x60, 0xbf, 0x65, 0x1f, 0x4b, 0x47, 0xf4, 0xde, 0xbd,
+	0xe9, 0x63, 0xdf, 0x72, 0x44, 0x31, 0xc2, 0x54, 0x85, 0xa9, 0x4e, 0xe8, 0xa1, 0x0b, 0x19, 0x20,
+	0x31, 0x24, 0xa1, 0xc9, 0x7a, 0xa7, 0x59, 0x90, 0x46, 0x5d, 0xb6, 0x08, 0x55, 0x25, 0x37, 0xad,
+	0x8a, 0x57, 0xc4, 0x26, 0xf8, 0xcb, 0xae, 0xfe, 0x9b, 0xa8, 0x8b, 0xcf, 0x69, 0x3c, 0x2a, 0x9e,
+	0x4a, 0x22, 0xe8, 0xd7, 0x09, 0xd9, 0x55, 0xb2, 0x6c, 0xd6, 0x8a, 0xa7, 0xd1, 0x88, 0x4c, 0x9c,
+	0x78, 0xa8, 0xed, 0x63, 0x14, 0x1e, 0x5f, 0x76, 0xc4, 0xd7, 0x93, 0x4a, 0x53, 0x70, 0x7c, 0x4a,
+	0xc3, 0x71, 0x2d, 0xa0, 0xd3, 0x66, 0x40, 0xd9, 0x77, 0x4d, 0x2e, 0x4a, 0x32, 0x8c, 0xff, 0x74,
+	0x60, 0x43, 0x13, 0x38, 0x8e, 0xfd, 0x6e, 0x76, 0x9e, 0xe0, 0x0f, 0x7a, 0xed, 0xb6, 0x87, 0xce,
+	0x52, 0x94, 0x9d, 0x5f, 0x2b, 0xa4, 0x03, 0x73, 0x2b, 0x9a, 0xb9, 0x1b, 0x30, 0x1b, 0x27, 0x47,
+	0xcd, 0xc7, 0x31, 0x4e, 0x23, 0x94, 0x89, 0x80, 0x29, 0x24, 0xf7, 0x9b, 0x30, 0xd3, 0x09, 0x05,
+	0x7f, 0x62, 0xa3, 0x62, 0x39, 0x47, 0x33, 0xe1, 0x4b, 0x6f, 0x20, 0x38, 0xa4, 0xae, 0x1e, 0xc0,
+	0xf6, 0x30, 0x2f, 0x65, 0x48, 0xbe, 0x74, 0xe8, 0x85, 0xed, 0x40, 0xf8, 0x30, 0x0e, 0x52, 0xda,
+	0xad, 0x7e, 0xfb, 0x5a, 0xa1, 0x30, 0x5c, 0xae, 0x0c, 0x71, 0x79, 0xfc, 0x5a, 0x2e, 0x4f, 0x98,
+	0x2e, 0x37, 0x8c, 0xc4, 0x2a, 0x5e, 0xa8, 0x27, 0xf3, 0x9a, 0xbd, 0x3c, 0x86, 0x1c, 0x67, 0x8b,
+	0x9d, 0xdd, 0x82, 0x05, 0xfa, 0x73, 0x70, 0x15, 0xc0, 0xfc, 0x35, 0xa8, 0xd6, 0x1b, 0xde, 0x72,
+	0x87, 0x36, 0xa1, 0x51, 0x6c, 0xab, 0x70, 0x69, 0xff, 0x95, 0x0b, 0x95, 0xa3, 0xac, 0xe5, 0x7e,
+	0x0a, 0xf3, 0xfa, 0xd3, 0xdb, 0x3d, 0x33, 0xa0, 0xc6, 0xab, 0x56, 0xed, 0xcd, 0x21, 0x02, 0xf2,
+	0xd9, 0xeb, 0x53, 0x98, 0xd7, 0x1f, 0xb8, 0x2c, 0xaa, 0x35, 0x01, 0x9b, 0x6a, 0xeb, 0xe3, 0x12,
+	0x51, 0xad, 0xbf, 0x2c, 0x59, 0x54, 0x6b, 0x02, 0x36, 0xd5, 0xd6, 0xb7, 0x25, 0xf7, 0x27, 0xb0,
+	0x60, 0xbc, 0x2b, 0x6d, 0xe4, 0xa7, 0xea, 0x12, 0xb5, 0xed, 0x61, 0x12, 0xaa, 0xe1, 0xfa, 0xcb,
+	0xcd, 0xbd, 0x82, 0xa9, 0x42, 0xc0, 0x66, 0xb8, 0xf5, 0x8d, 0x84, 0x18, 0x6e, 0x3c, 0x90, 0x58,
+	0x0c, 0xd7, 0x25, 0x6c, 0x86, 0xdb, 0xdf, 0x3c, 0xdc, 0x63, 0x98, 0x55, 0xdf, 0x3b, 0xd6, 0x0b,
+	0xac, 0x62, 0xec, 0xda, 0x1b, 0xa5, 0x6c, 0xa9, 0xf4, 0x29, 0x2c, 0x9a, 0x4f, 0x0b, 0xf7, 0xed,
+	0x33, 0x15, 0x91, 0xda, 0x5b, 0x43, 0x45, 0xcc, 0x64, 0x2a, 0xb7, 0xfb, 0x1b, 0x45, 0x93, 0x65,
+	0xc0, 0xb7, 0x87, 0x49, 0xa8, 0xda, 0x8d, 0x4b, 0x76, 0x8b, 0x76, 0x5d, 0xc2, 0xa6, 0xdd, 0x7e,
+	0xed, 0xeb, 0x9e, 0x83, 0x6b, 0xb9, 0xf2, 0xdd, 0xcc, 0xcf, 0xcf, 0x4b, 0xd5, 0x76, 0x46, 0x91,
+	0x92, 0x2b, 0x21, 0xb8, 0x9d, 0xbf, 0x4c, 0x7d, 0x7d, 0x88, 0x0a, 0x9a, 0xe7, 0xaf, 0x8f, 0x20,
+	0x24, 0x97, 0x89, 0x61, 0xd9, 0x7a, 0x2f, 0xb8, 0x55, 0xa0, 0xc4, 0x90, 0xab, 0xed, 0x8e, 0x26,
+	0x27, 0xd7, 0xfb, 0x11, 0xcc, 0x69, 0x77, 0x3e, 0xf5, 0xfc, 0x7c, 0x95, 0x5f, 0xdb, 0x2a, 0xe7,
+	0xab, 0x7e, 0x58, 0xef, 0x68, 0x8a, 0xe6, 0x1b, 0x72, 0x36, 0x3f, 0xca, 0xee, 0x51, 0x48, 0x21,
+	0x58, 0xee, 0x50, 0x36, 0x87, 0x59, 0x4b, 0x13, 0xb4, 0x33, 0x8a, 0x94, 0xba, 0x92, 0xe5, 0x9e,
+	0xc3, 0xb2, 0x52, 0x5e, 0xca, 0xb6, 0x52, 0xf1, 0xc7, 0xa4, 0xfb, 0x6b, 0x07, 0xee, 0x0f, 0xff,
+	0x92, 0x7c, 0x38, 0x8a, 0x4e, 0x33, 0xbc, 0xdf, 0xbd, 0xc6, 0x24, 0x69, 0xd7, 0xcf, 0x1c, 0xb8,
+	0x5b, 0xf6, 0x71, 0xf1, 0xf6, 0x68, 0x5e, 0x72, 0xf1, 0xda, 0xb7, 0xae, 0x24, 0xae, 0x36, 0x64,
+	0xfe, 0xc0, 0x6e, 0x69, 0xc8, 0x9c, 0x90, 0xad, 0x21, 0x0b, 0x0f, 0xb5, 0xee, 0x2f, 0x1c, 0x58,
+	0x2f, 0x3f, 0xd1, 0xee, 0x95, 0xa9, 0xb3, 0x4c, 0xa8, 0x7d, 0xfb, 0x8a, 0x13, 0xa4, 0x2d, 0x17,
+	0xb0, 0x62, 0x3f, 0x49, 0xbe, 0x59, 0xa6, 0x51, 0x11, 0xac, 0xed, 0x8d, 0x28, 0x28, 0x97, 0x7c,
+	0x0e, 0x77, 0x8a, 0x4e, 0x74, 0x6f, 0x8d, 0x14, 0x46, 0xda, 0x61, 0xdf, 0x18, 0x59, 0x54, 0x2c,
+	0xfc, 0xfe, 0x77, 0xfe, 0xf4, 0xa2, 0xee, 0x7c, 0xf5, 0xa2, 0xee, 0xfc, 0xe3, 0x45, 0xdd, 0xf9,
+	0xd5, 0xcb, 0xfa, 0xad, 0xaf, 0x5e, 0xd6, 0x6f, 0xfd, 0xed, 0x65, 0xfd, 0xd6, 0x67, 0x1b, 0xad,
+	0x08, 0x9f, 0xf7, 0x4e, 0x77, 0x83, 0xa4, 0xb3, 0xc7, 0xd4, 0xee, 0x79, 0x68, 0xaf, 0xcf, 0xfe,
+	0xd7, 0x75, 0xd9, 0x45, 0xd9, 0xe9, 0x24, 0xfd, 0xd7, 0xd4, 0xc3, 0xff, 0x06, 0x00, 0x00, 0xff,
+	0xff, 0x52, 0x6a, 0xbb, 0xa2, 0xee, 0x25, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2646,6 +3254,9 @@ type MsgClient interface {
 	QuoteRequest(ctx context.Context, in *MsgQuoteRequest, opts ...grpc.CallOption) (*MsgQuoteRequestResponse, error)
 	QuoteAcknowledgement(ctx context.Context, in *MsgQuoteAcknowledgement, opts ...grpc.CallOption) (*MsgQuoteAcknowledgementResponse, error)
 	QuoteRequestReject(ctx context.Context, in *MsgQuoteRequestReject, opts ...grpc.CallOption) (*MsgQuoteRequestRejectResponse, error)
+	TradeCaptureReport(ctx context.Context, in *MsgTradeCaptureReport, opts ...grpc.CallOption) (*MsgTradeCaptureReportResponse, error)
+	TradeCaptureReportAcknowledgement(ctx context.Context, in *MsgTradeCaptureReportAcknowledgement, opts ...grpc.CallOption) (*MsgTradeCaptureReportAcknowledgementResponse, error)
+	TradeCaptureReportRejection(ctx context.Context, in *MsgTradeCaptureReportRejection, opts ...grpc.CallOption) (*MsgTradeCaptureReportRejectionResponse, error)
 	MarketDataRequest(ctx context.Context, in *MsgMarketDataRequest, opts ...grpc.CallOption) (*MsgMarketDataRequestResponse, error)
 	MarketDataSnapshotFullRefresh(ctx context.Context, in *MsgMarketDataSnapshotFullRefresh, opts ...grpc.CallOption) (*MsgMarketDataSnapshotFullRefreshResponse, error)
 	MarketDataIncremental(ctx context.Context, in *MsgMarketDataIncremental, opts ...grpc.CallOption) (*MsgMarketDataIncrementalResponse, error)
@@ -2804,6 +3415,33 @@ func (c *msgClient) QuoteRequestReject(ctx context.Context, in *MsgQuoteRequestR
 	return out, nil
 }
 
+func (c *msgClient) TradeCaptureReport(ctx context.Context, in *MsgTradeCaptureReport, opts ...grpc.CallOption) (*MsgTradeCaptureReportResponse, error) {
+	out := new(MsgTradeCaptureReportResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/TradeCaptureReport", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) TradeCaptureReportAcknowledgement(ctx context.Context, in *MsgTradeCaptureReportAcknowledgement, opts ...grpc.CallOption) (*MsgTradeCaptureReportAcknowledgementResponse, error) {
+	out := new(MsgTradeCaptureReportAcknowledgementResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/TradeCaptureReportAcknowledgement", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) TradeCaptureReportRejection(ctx context.Context, in *MsgTradeCaptureReportRejection, opts ...grpc.CallOption) (*MsgTradeCaptureReportRejectionResponse, error) {
+	out := new(MsgTradeCaptureReportRejectionResponse)
+	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/TradeCaptureReportRejection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) MarketDataRequest(ctx context.Context, in *MsgMarketDataRequest, opts ...grpc.CallOption) (*MsgMarketDataRequestResponse, error) {
 	out := new(MsgMarketDataRequestResponse)
 	err := c.cc.Invoke(ctx, "/jim380.re.fix.Msg/MarketDataRequest", in, out, opts...)
@@ -2858,6 +3496,9 @@ type MsgServer interface {
 	QuoteRequest(context.Context, *MsgQuoteRequest) (*MsgQuoteRequestResponse, error)
 	QuoteAcknowledgement(context.Context, *MsgQuoteAcknowledgement) (*MsgQuoteAcknowledgementResponse, error)
 	QuoteRequestReject(context.Context, *MsgQuoteRequestReject) (*MsgQuoteRequestRejectResponse, error)
+	TradeCaptureReport(context.Context, *MsgTradeCaptureReport) (*MsgTradeCaptureReportResponse, error)
+	TradeCaptureReportAcknowledgement(context.Context, *MsgTradeCaptureReportAcknowledgement) (*MsgTradeCaptureReportAcknowledgementResponse, error)
+	TradeCaptureReportRejection(context.Context, *MsgTradeCaptureReportRejection) (*MsgTradeCaptureReportRejectionResponse, error)
 	MarketDataRequest(context.Context, *MsgMarketDataRequest) (*MsgMarketDataRequestResponse, error)
 	MarketDataSnapshotFullRefresh(context.Context, *MsgMarketDataSnapshotFullRefresh) (*MsgMarketDataSnapshotFullRefreshResponse, error)
 	MarketDataIncremental(context.Context, *MsgMarketDataIncremental) (*MsgMarketDataIncrementalResponse, error)
@@ -2915,6 +3556,15 @@ func (*UnimplementedMsgServer) QuoteAcknowledgement(ctx context.Context, req *Ms
 }
 func (*UnimplementedMsgServer) QuoteRequestReject(ctx context.Context, req *MsgQuoteRequestReject) (*MsgQuoteRequestRejectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QuoteRequestReject not implemented")
+}
+func (*UnimplementedMsgServer) TradeCaptureReport(ctx context.Context, req *MsgTradeCaptureReport) (*MsgTradeCaptureReportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TradeCaptureReport not implemented")
+}
+func (*UnimplementedMsgServer) TradeCaptureReportAcknowledgement(ctx context.Context, req *MsgTradeCaptureReportAcknowledgement) (*MsgTradeCaptureReportAcknowledgementResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TradeCaptureReportAcknowledgement not implemented")
+}
+func (*UnimplementedMsgServer) TradeCaptureReportRejection(ctx context.Context, req *MsgTradeCaptureReportRejection) (*MsgTradeCaptureReportRejectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TradeCaptureReportRejection not implemented")
 }
 func (*UnimplementedMsgServer) MarketDataRequest(ctx context.Context, req *MsgMarketDataRequest) (*MsgMarketDataRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MarketDataRequest not implemented")
@@ -3221,6 +3871,60 @@ func _Msg_QuoteRequestReject_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_TradeCaptureReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTradeCaptureReport)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TradeCaptureReport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/TradeCaptureReport",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TradeCaptureReport(ctx, req.(*MsgTradeCaptureReport))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_TradeCaptureReportAcknowledgement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTradeCaptureReportAcknowledgement)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TradeCaptureReportAcknowledgement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/TradeCaptureReportAcknowledgement",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TradeCaptureReportAcknowledgement(ctx, req.(*MsgTradeCaptureReportAcknowledgement))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_TradeCaptureReportRejection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTradeCaptureReportRejection)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TradeCaptureReportRejection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jim380.re.fix.Msg/TradeCaptureReportRejection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TradeCaptureReportRejection(ctx, req.(*MsgTradeCaptureReportRejection))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_MarketDataRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgMarketDataRequest)
 	if err := dec(in); err != nil {
@@ -3360,6 +4064,18 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QuoteRequestReject",
 			Handler:    _Msg_QuoteRequestReject_Handler,
+		},
+		{
+			MethodName: "TradeCaptureReport",
+			Handler:    _Msg_TradeCaptureReport_Handler,
+		},
+		{
+			MethodName: "TradeCaptureReportAcknowledgement",
+			Handler:    _Msg_TradeCaptureReportAcknowledgement_Handler,
+		},
+		{
+			MethodName: "TradeCaptureReportRejection",
+			Handler:    _Msg_TradeCaptureReportRejection_Handler,
 		},
 		{
 			MethodName: "MarketDataRequest",
@@ -4886,6 +5602,464 @@ func (m *MsgQuoteRequestRejectResponse) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgTradeCaptureReport) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReport) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReport) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xba
+	}
+	if len(m.SettlDate) > 0 {
+		i -= len(m.SettlDate)
+		copy(dAtA[i:], m.SettlDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SettlDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
+	if len(m.SettlType) > 0 {
+		i -= len(m.SettlType)
+		copy(dAtA[i:], m.SettlType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SettlType)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
+	if len(m.TransactTime) > 0 {
+		i -= len(m.TransactTime)
+		copy(dAtA[i:], m.TransactTime)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TransactTime)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if len(m.TradeDate) > 0 {
+		i -= len(m.TradeDate)
+		copy(dAtA[i:], m.TradeDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x9a
+	}
+	if len(m.SecurityIDSource) > 0 {
+		i -= len(m.SecurityIDSource)
+		copy(dAtA[i:], m.SecurityIDSource)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SecurityIDSource)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.SecurityID) > 0 {
+		i -= len(m.SecurityID)
+		copy(dAtA[i:], m.SecurityID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SecurityID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.OrigTradeID) > 0 {
+		i -= len(m.OrigTradeID)
+		copy(dAtA[i:], m.OrigTradeID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OrigTradeID)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.TradeID) > 0 {
+		i -= len(m.TradeID)
+		copy(dAtA[i:], m.TradeID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeID)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.OrderID) > 0 {
+		i -= len(m.OrderID)
+		copy(dAtA[i:], m.OrderID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OrderID)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.ExecID) > 0 {
+		i -= len(m.ExecID)
+		copy(dAtA[i:], m.ExecID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ExecID)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.GrossTradeAmt) > 0 {
+		i -= len(m.GrossTradeAmt)
+		copy(dAtA[i:], m.GrossTradeAmt)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.GrossTradeAmt)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.LastPx) > 0 {
+		i -= len(m.LastPx)
+		copy(dAtA[i:], m.LastPx)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastPx)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.LastQty) > 0 {
+		i -= len(m.LastQty)
+		copy(dAtA[i:], m.LastQty)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LastQty)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.OrderQty) > 0 {
+		i -= len(m.OrderQty)
+		copy(dAtA[i:], m.OrderQty)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OrderQty)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.Side) > 0 {
+		i -= len(m.Side)
+		copy(dAtA[i:], m.Side)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Side)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.TrdSubType) > 0 {
+		i -= len(m.TrdSubType)
+		copy(dAtA[i:], m.TrdSubType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrdSubType)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.TrdType) > 0 {
+		i -= len(m.TrdType)
+		copy(dAtA[i:], m.TrdType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrdType)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.TradeReportType) > 0 {
+		i -= len(m.TradeReportType)
+		copy(dAtA[i:], m.TradeReportType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportType)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.TradeReportTransType) > 0 {
+		i -= len(m.TradeReportTransType)
+		copy(dAtA[i:], m.TradeReportTransType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportTransType)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradeReportID) > 0 {
+		i -= len(m.TradeReportID)
+		copy(dAtA[i:], m.TradeReportID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTradeCaptureReportResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReportResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReportResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if m.TradeReportRejectReason != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TradeReportRejectReason))
+		i--
+		dAtA[i] = 0x68
+	}
+	if len(m.TradeTransType) > 0 {
+		i -= len(m.TradeTransType)
+		copy(dAtA[i:], m.TradeTransType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeTransType)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.TradeReportStatus) > 0 {
+		i -= len(m.TradeReportStatus)
+		copy(dAtA[i:], m.TradeReportStatus)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportStatus)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.SecondaryTradeReportID) > 0 {
+		i -= len(m.SecondaryTradeReportID)
+		copy(dAtA[i:], m.SecondaryTradeReportID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SecondaryTradeReportID)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.TradeReportRefID) > 0 {
+		i -= len(m.TradeReportRefID)
+		copy(dAtA[i:], m.TradeReportRefID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportRefID)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.ExecType) > 0 {
+		i -= len(m.ExecType)
+		copy(dAtA[i:], m.ExecType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ExecType)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.TrdSubType) > 0 {
+		i -= len(m.TrdSubType)
+		copy(dAtA[i:], m.TrdSubType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrdSubType)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.TrdType) > 0 {
+		i -= len(m.TrdType)
+		copy(dAtA[i:], m.TrdType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrdType)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.TradeReportType) > 0 {
+		i -= len(m.TradeReportType)
+		copy(dAtA[i:], m.TradeReportType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportType)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.SecondaryTradeID) > 0 {
+		i -= len(m.SecondaryTradeID)
+		copy(dAtA[i:], m.SecondaryTradeID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SecondaryTradeID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.TradeID) > 0 {
+		i -= len(m.TradeID)
+		copy(dAtA[i:], m.TradeID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradeReportID) > 0 {
+		i -= len(m.TradeReportID)
+		copy(dAtA[i:], m.TradeReportID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTradeCaptureReportAcknowledgementResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReportAcknowledgementResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReportAcknowledgementResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTradeCaptureReportRejection) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReportRejection) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReportRejection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SessionID) > 0 {
+		i -= len(m.SessionID)
+		copy(dAtA[i:], m.SessionID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SessionID)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.TradeReportRejectRefID) > 0 {
+		i -= len(m.TradeReportRejectRefID)
+		copy(dAtA[i:], m.TradeReportRejectRefID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportRejectRefID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.TradeReportRejectReason != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TradeReportRejectReason))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.TradeReportID) > 0 {
+		i -= len(m.TradeReportID)
+		copy(dAtA[i:], m.TradeReportID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TradeReportID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTradeCaptureReportRejectionResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTradeCaptureReportRejectionResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTradeCaptureReportRejectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func (m *MsgMarketDataRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -5909,6 +7083,234 @@ func (m *MsgQuoteRequestReject) Size() (n int) {
 }
 
 func (m *MsgQuoteRequestRejectResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgTradeCaptureReport) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportTransType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrdType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrdSubType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Side)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OrderQty)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastQty)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.LastPx)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.GrossTradeAmt)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ExecID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OrderID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OrigTradeID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.SecurityID)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.SecurityIDSource)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeDate)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.TransactTime)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.SettlType)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.SettlDate)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionID)
+	if l > 0 {
+		n += 2 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgTradeCaptureReportResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgTradeCaptureReportAcknowledgement) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SecondaryTradeID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrdType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrdSubType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ExecType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportRefID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SecondaryTradeReportID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportStatus)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeTransType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.TradeReportRejectReason != 0 {
+		n += 1 + sovTx(uint64(m.TradeReportRejectReason))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgTradeCaptureReportAcknowledgementResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgTradeCaptureReportRejection) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TradeReportID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.TradeReportRejectReason != 0 {
+		n += 1 + sovTx(uint64(m.TradeReportRejectReason))
+	}
+	l = len(m.TradeReportRejectRefID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SessionID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgTradeCaptureReportRejectionResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10695,6 +12097,1688 @@ func (m *MsgQuoteRequestRejectResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgQuoteRequestRejectResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReport) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReport: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReport: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportTransType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportTransType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrdType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrdType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrdSubType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrdSubType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Side", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Side = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrderQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastQty", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastQty = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GrossTradeAmt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GrossTradeAmt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrderID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrigTradeID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrigTradeID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityIDSource", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityIDSource = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 19:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TransactTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TransactTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 23:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReportResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReportAcknowledgement) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportAcknowledgement: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportAcknowledgement: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondaryTradeID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondaryTradeID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrdType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrdType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrdSubType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrdSubType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportRefID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportRefID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondaryTradeReportID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondaryTradeReportID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportStatus", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportStatus = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeTransType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeTransType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportRejectReason", wireType)
+			}
+			m.TradeReportRejectReason = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TradeReportRejectReason |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReportAcknowledgementResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportAcknowledgementResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportAcknowledgementResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReportRejection) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportRejection: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportRejection: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportRejectReason", wireType)
+			}
+			m.TradeReportRejectReason = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TradeReportRejectReason |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradeReportRejectRefID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradeReportRejectRefID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTradeCaptureReportRejectionResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportRejectionResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTradeCaptureReportRejectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

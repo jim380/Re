@@ -13,6 +13,12 @@ import (
 func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInitiator) (*types.MsgLogonInitiatorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.InitiatorAddress)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.InitiatorAddress)
+	}
+
 	// DID will be used as senderCompID and targetCompID for both parties
 	// get DID from registered accounts
 	senderCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.SenderCompID)
@@ -68,6 +74,12 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 // LogonAcceptor accepts the session
 func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAcceptor) (*types.MsgLogonAcceptorResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+	}
 
 	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
@@ -135,6 +147,12 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 // LogonReject enables an Acceptor to reject the logon session
 func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject) (*types.MsgLogonRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+	}
 
 	// check for if this session Name exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)

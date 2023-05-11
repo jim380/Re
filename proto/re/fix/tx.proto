@@ -34,6 +34,12 @@ service Msg {
       returns (MsgQuoteAcknowledgementResponse);
   rpc QuoteRequestReject(MsgQuoteRequestReject)
       returns (MsgQuoteRequestRejectResponse);
+  rpc TradeCaptureReport(MsgTradeCaptureReport)
+      returns (MsgTradeCaptureReportResponse);
+  rpc TradeCaptureReportAcknowledgement(MsgTradeCaptureReportAcknowledgement)
+      returns (MsgTradeCaptureReportAcknowledgementResponse);
+  rpc TradeCaptureReportRejection(MsgTradeCaptureReportRejection)
+      returns (MsgTradeCaptureReportRejectionResponse);
   rpc MarketDataRequest(MsgMarketDataRequest)
       returns (MsgMarketDataRequestResponse);
   rpc MarketDataSnapshotFullRefresh(MsgMarketDataSnapshotFullRefresh)
@@ -221,6 +227,64 @@ message MsgQuoteRequestReject {
 
 message MsgQuoteRequestRejectResponse {}
 
+message MsgTradeCaptureReport {
+  string creator = 1;
+  string tradeReportID = 2;
+  string tradeReportTransType = 3;
+  string tradeReportType = 4;
+  string trdType = 5;
+  string trdSubType = 6;
+  string side = 7;
+  string orderQty = 8;
+  string lastQty = 9;
+  string lastPx = 10;
+  string grossTradeAmt = 11;
+  string execID = 12;
+  string orderID = 13;
+  string tradeID = 14;
+  string origTradeID = 15;
+  string symbol = 16;
+  string securityID = 17;
+  string securityIDSource = 18;
+  string tradeDate = 19;
+  string transactTime = 20;
+  string settlType = 21;
+  string settlDate = 22;
+  string sessionID = 23;
+}
+
+message MsgTradeCaptureReportResponse {}
+
+message MsgTradeCaptureReportAcknowledgement {
+  string creator = 1;
+  string tradeReportID = 2;
+  string tradeID = 3;
+  string secondaryTradeID = 4;
+  string tradeReportType = 5;
+  string trdType = 6;
+  string trdSubType = 7;
+  string execType = 8;
+  string tradeReportRefID = 9;
+  string secondaryTradeReportID = 10;
+  string tradeReportStatus = 11;
+  string tradeTransType = 12;
+  int64 tradeReportRejectReason = 13;
+  string text = 14;
+  string sessionID = 15;
+}
+
+message MsgTradeCaptureReportAcknowledgementResponse {}
+
+message MsgTradeCaptureReportRejection {
+  string creator = 1;
+  string tradeReportID = 2;
+  int64 tradeReportRejectReason = 3;
+  string tradeReportRejectRefID = 4;
+  string text = 5;
+  string sessionID = 6;
+}
+
+message MsgTradeCaptureReportRejectionResponse {}
 message MsgMarketDataRequest {
   string creator = 1;
   string mdReqID = 2;

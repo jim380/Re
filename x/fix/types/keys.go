@@ -45,8 +45,10 @@ var (
 
 	QuoteKey = []byte{0x015}
 
-	MarketDataKey      = []byte{0x016}
-	MarketDataCountKey = []byte{0x017}
+	TradeCaptureKey      = []byte{0x018}
+	TradeCaptureCountKey = []byte{0x019}
+	MarketDataKey        = []byte{0x016}
+	MarketDataCountKey   = []byte{0x017}
 )
 
 func GetAccountKey() []byte {
@@ -115,6 +117,14 @@ func GetOrdersExecutionReportCountKey() []byte {
 
 func GetQuoteKey() []byte {
 	return QuoteKey
+}
+
+func GetTradeCaptureKey() []byte {
+	return TradeCaptureKey
+}
+
+func GetTradeCaptureCountKey() []byte {
+	return TradeCaptureCountKey
 }
 
 func GetMarketDataKey() []byte {

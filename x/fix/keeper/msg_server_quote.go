@@ -13,6 +13,12 @@ import (
 func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteRequest) (*types.MsgQuoteRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
 	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
@@ -103,7 +109,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	k.SetQuote(ctx, msg.QuoteRequest.QuoteReqID, newQuoteRequest)
 
 	// emit event
-	err := ctx.EventManager().EmitTypedEvent(msg)
+	err = ctx.EventManager().EmitTypedEvent(msg)
 
 	return &types.MsgQuoteRequestResponse{}, err
 }
@@ -111,6 +117,12 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 // QuoteAcknowledgement creates Quote Acknowledgement for every Quote Request
 func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuoteAcknowledgement) (*types.MsgQuoteAcknowledgementResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
 	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
@@ -212,7 +224,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	k.SetQuote(ctx, msg.QuoteAcknowledgement.QuoteReqID, newQuoteAcknowledgement)
 
 	// emit event
-	err := ctx.EventManager().EmitTypedEvent(msg)
+	err = ctx.EventManager().EmitTypedEvent(msg)
 
 	return &types.MsgQuoteAcknowledgementResponse{}, err
 }
@@ -220,6 +232,12 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 // QuoteRequestReject creates Quote Request Reject for Quote Request
 func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuoteRequestReject) (*types.MsgQuoteRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
 	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
@@ -310,7 +328,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	k.SetQuote(ctx, msg.QuoteRequestReject.QuoteReqID, newQuoteRequestReject)
 
 	// emit event
-	err := ctx.EventManager().EmitTypedEvent(msg)
+	err = ctx.EventManager().EmitTypedEvent(msg)
 
 	return &types.MsgQuoteRequestRejectResponse{}, err
 }

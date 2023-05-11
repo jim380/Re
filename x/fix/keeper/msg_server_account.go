@@ -13,6 +13,12 @@ import (
 func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
 	// get DID Document from the DID module && check if DID is exists
 	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
 	if getDidDocument.Document.Empty() {
@@ -67,6 +73,12 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
 	// get DID Document from the DID module && check if DID is exists
 	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
 	if getDidDocument.Document.Empty() {
@@ -109,6 +121,12 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 // DeleteAccount deletes an account for users of Re Protocol
 func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAccount) (*types.MsgDeleteAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
 	// Checks if an account exists
 	existingAccount := k.GetAccount(ctx, msg.Did)
