@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package jim380.re.tokenregistry;
+
+import "gogoproto/gogo.proto";
+import "re/tokenregistry/params.proto";
+
+option go_package = "github.com/jim380/Re/x/tokenregistry/types";
+
+// GenesisState defines the tokenregistry module's genesis state.
+message GenesisState {
+  Params params  = 1 [(gogoproto.nullable) = false];
+  string port_id = 2;
+}
+

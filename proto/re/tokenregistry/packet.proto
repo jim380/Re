@@ -1,0 +1,13 @@
+syntax = "proto3";
+package jim380.re.tokenregistry;
+
+option go_package = "github.com/jim380/Re/x/tokenregistry/types";
+
+message TokenregistryPacketData {
+    oneof packet {
+        NoData noData = 1;
+    }
+}
+
+message NoData {
+}

@@ -109,6 +109,9 @@ import (
 	micmodule "github.com/jim380/Re/x/mic"
 	micmodulekeeper "github.com/jim380/Re/x/mic/keeper"
 	micmoduletypes "github.com/jim380/Re/x/mic/types"
+	tokenregistrymodule "github.com/jim380/Re/x/tokenregistry"
+	tokenregistrymodulekeeper "github.com/jim380/Re/x/tokenregistry/keeper"
+	tokenregistrymoduletypes "github.com/jim380/Re/x/tokenregistry/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -188,6 +191,7 @@ var (
 		did.AppModuleBasic{},
 		micmodule.AppModuleBasic{},
 		fixmodule.AppModuleBasic{},
+		tokenregistrymodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -267,7 +271,9 @@ type ReApp struct {
 
 	MicKeeper micmodulekeeper.Keeper
 
-	FixKeeper fixmodulekeeper.Keeper
+	FixKeeper                 fixmodulekeeper.Keeper
+	ScopedTokenregistryKeeper capabilitykeeper.ScopedKeeper
+	TokenregistryKeeper       tokenregistrymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -321,6 +327,7 @@ func NewReApp(
 		didtypes.StoreKey,
 		micmoduletypes.StoreKey,
 		fixmoduletypes.StoreKey,
+		tokenregistrymoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -556,6 +563,20 @@ func NewReApp(
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 
+	scopedTokenregistryKeeper := app.CapabilityKeeper.ScopeToModule(tokenregistrymoduletypes.ModuleName)
+	app.ScopedTokenregistryKeeper = scopedTokenregistryKeeper
+	app.TokenregistryKeeper = *tokenregistrymodulekeeper.NewKeeper(
+		appCodec,
+		keys[tokenregistrymoduletypes.StoreKey],
+		keys[tokenregistrymoduletypes.MemStoreKey],
+		app.GetSubspace(tokenregistrymoduletypes.ModuleName),
+		app.IBCKeeper.ChannelKeeper,
+		&app.IBCKeeper.PortKeeper,
+		scopedTokenregistryKeeper,
+	)
+	tokenregistryModule := tokenregistrymodule.NewAppModule(appCodec, app.TokenregistryKeeper, app.AccountKeeper, app.BankKeeper)
+
+	tokenregistryIBCModule := tokenregistrymodule.NewIBCModule(app.TokenregistryKeeper)
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -568,6 +589,7 @@ func NewReApp(
 		AddRoute(ibctransfertypes.ModuleName, transferStack).
 		AddRoute(ccvconsumertypes.ModuleName, consumerModule).
 		AddRoute(wasm.ModuleName, wasm.NewIBCHandler(app.WasmKeeper, app.IBCKeeper.ChannelKeeper, app.IBCKeeper.ChannelKeeper))
+	ibcRouter.AddRoute(tokenregistrymoduletypes.ModuleName, tokenregistryIBCModule)
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
 
@@ -602,6 +624,7 @@ func NewReApp(
 		did.NewAppModule(appCodec, app.DidKeeper),
 		micModule,
 		fixModule,
+		tokenregistryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -632,6 +655,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		tokenregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -657,6 +681,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		tokenregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -687,6 +712,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		tokenregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -716,6 +742,7 @@ func NewReApp(
 		// didModule,
 		micModule,
 		fixModule,
+		tokenregistryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -938,6 +965,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(didtypes.ModuleName)
 	paramsKeeper.Subspace(micmoduletypes.ModuleName)
 	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
+	paramsKeeper.Subspace(tokenregistrymoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
