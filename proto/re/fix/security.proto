@@ -3,9 +3,45 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message Security {
-  uint64 id = 1;
-  string sessionID = 2; 
-  string securityReqID = 3; 
+  string sessionID = 1; 
+  SecurityDefinitionRequest  securityDefinitionRequest = 2;
   
+}
+
+// Security Definition Request with fields, tags and descriptions.
+message SecurityDefinitionRequest {
+
+  // Standard FIX message header.
+  Header header = 1;
+  
+  // (Tag 320): Unique identifier assigned by the requester to the security definition request message
+  string securityReqID = 2; 
+  
+  // (Tag 321): Specifies the type of security definition being requested (e.g., requesting all securities, by symbol, by security type, etc.)
+  string securityRequestType = 3;
+
+  // (Tag 55): Unique identifier for the security being requested.
+  string symbol  = 4;
+
+  // (Tag 207): Code or identifier representing the exchange where the security is listed.
+  string securityExchange = 5;
+
+  // (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
+  string issuer = 6;
+
+  // (Tag 107): Description or name of the security
+  string securityDesc = 7;
+
+  // (Tag 167): Type of the security (e.g., stock, bond, option, future)
+  string securityType = 8;
+
+  // (Tag 15): Currency in which the security is denominated
+  string currency = 9;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 10;
+
 }

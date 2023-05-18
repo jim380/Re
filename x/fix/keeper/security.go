@@ -3,14 +3,14 @@ package keeper
 import (
 	"encoding/binary"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/jim380/Re/x/fix/types"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
 )
 
 // GetSecurityCount get the total number of security
 func (k Keeper) GetSecurityCount(ctx sdk.Context) uint64 {
-	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
 	byteKey := types.KeyPrefix(types.SecurityCountKey)
 	bz := store.Get(byteKey)
 
@@ -24,46 +24,27 @@ func (k Keeper) GetSecurityCount(ctx sdk.Context) uint64 {
 }
 
 // SetSecurityCount set the total number of security
-func (k Keeper) SetSecurityCount(ctx sdk.Context, count uint64)  {
-	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
+func (k Keeper) SetSecurityCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
 	byteKey := types.KeyPrefix(types.SecurityCountKey)
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
 }
 
-// AppendSecurity appends a security in the store with a new id and update the count
-func (k Keeper) AppendSecurity(
-    ctx sdk.Context,
-    security types.Security,
-) uint64 {
-	// Create the security
-    count := k.GetSecurityCount(ctx)
-
-    // Set the ID of the appended value
-    security.Id = count
-
-    store :=  prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
-    appendedValue := k.cdc.MustMarshal(&security)
-    store.Set(GetSecurityIDBytes(security.Id), appendedValue)
-
-    // Update security count
-    k.SetSecurityCount(ctx, count+1)
-
-    return count
-}
-
 // SetSecurity set a specific security in the store
-func (k Keeper) SetSecurity(ctx sdk.Context, security types.Security) {
-	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
+func (k Keeper) SetSecurity(ctx sdk.Context, securityReqID string, security types.Security) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
+	key := []byte(securityReqID)
 	b := k.cdc.MustMarshal(&security)
-	store.Set(GetSecurityIDBytes(security.Id), b)
+	store.Set(key, b)
 }
 
 // GetSecurity returns a security from its id
-func (k Keeper) GetSecurity(ctx sdk.Context, id uint64) (val types.Security, found bool) {
+func (k Keeper) GetSecurity(ctx sdk.Context, securityReqID string) (val types.Security, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
-	b := store.Get(GetSecurityIDBytes(id))
+	key := []byte(securityReqID)
+	b := store.Get(key)
 	if b == nil {
 		return val, false
 	}
@@ -72,14 +53,15 @@ func (k Keeper) GetSecurity(ctx sdk.Context, id uint64) (val types.Security, fou
 }
 
 // RemoveSecurity removes a security from the store
-func (k Keeper) RemoveSecurity(ctx sdk.Context, id uint64) {
+func (k Keeper) RemoveSecurity(ctx sdk.Context, securityReqID string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
-	store.Delete(GetSecurityIDBytes(id))
+	key := []byte(securityReqID)
+	store.Delete(key)
 }
 
 // GetAllSecurity returns all security
 func (k Keeper) GetAllSecurity(ctx sdk.Context) (list []types.Security) {
-    store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -87,20 +69,8 @@ func (k Keeper) GetAllSecurity(ctx sdk.Context) (list []types.Security) {
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.Security
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
-        list = append(list, val)
+		list = append(list, val)
 	}
 
-    return
-}
-
-// GetSecurityIDBytes returns the byte representation of the ID
-func GetSecurityIDBytes(id uint64) []byte {
-	bz := make([]byte, 8)
-	binary.BigEndian.PutUint64(bz, id)
-	return bz
-}
-
-// GetSecurityIDFromBytes returns ID in uint64 format from a byte array
-func GetSecurityIDFromBytes(bz []byte) uint64 {
-	return binary.BigEndian.Uint64(bz)
+	return
 }

@@ -46,7 +46,7 @@ func (k Keeper) Security(goCtx context.Context, req *types.QueryGetSecurityReque
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	security, found := k.GetSecurity(ctx, req.Id)
+	security, found := k.GetSecurity(ctx, req.)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
