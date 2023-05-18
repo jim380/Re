@@ -1,13 +1,12 @@
 package cli
 
 import (
-    "context"
-    "strconv"
+	"context"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
-    "github.com/jim380/Re/x/fix/types"
 )
 
 func CmdListSecurity() *cobra.Command {
@@ -15,63 +14,60 @@ func CmdListSecurity() *cobra.Command {
 		Use:   "list-security",
 		Short: "list all security",
 		RunE: func(cmd *cobra.Command, args []string) error {
-            clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx := client.GetClientContextFromCmd(cmd)
 
-            pageReq, err := client.ReadPageRequest(cmd.Flags())
-            if err != nil {
-                return err
-            }
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
 
-            queryClient := types.NewQueryClient(clientCtx)
+			queryClient := types.NewQueryClient(clientCtx)
 
-            params := &types.QueryAllSecurityRequest{
-                Pagination: pageReq,
-            }
+			params := &types.QueryAllSecurityRequest{
+				Pagination: pageReq,
+			}
 
-            res, err := queryClient.SecurityAll(context.Background(), params)
-            if err != nil {
-                return err
-            }
+			res, err := queryClient.SecurityAll(context.Background(), params)
+			if err != nil {
+				return err
+			}
 
-            return clientCtx.PrintProto(res)
+			return clientCtx.PrintProto(res)
 		},
 	}
 
 	flags.AddPaginationFlagsToCmd(cmd, cmd.Use)
 	flags.AddQueryFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }
 
 func CmdShowSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-security [id]",
+		Use:   "show-security [securityReqID]",
 		Short: "shows a security",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-            clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx := client.GetClientContextFromCmd(cmd)
 
-            queryClient := types.NewQueryClient(clientCtx)
+			queryClient := types.NewQueryClient(clientCtx)
 
-            id, err := strconv.ParseUint(args[0], 10, 64)
-            if err != nil {
-                return err
-            }
+			argSecurityReqID := args[0]
 
-            params := &types.QueryGetSecurityRequest{
-                Id: id,
-            }
+			params := &types.QueryGetSecurityRequest{
+				SecurityReqID: argSecurityReqID,
+			}
 
-            res, err := queryClient.Security(context.Background(), params)
-            if err != nil {
-                return err
-            }
+			res, err := queryClient.Security(context.Background(), params)
+			if err != nil {
+				return err
+			}
 
-            return clientCtx.PrintProto(res)
+			return clientCtx.PrintProto(res)
 		},
 	}
 
 	flags.AddQueryFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }

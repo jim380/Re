@@ -68,55 +68,55 @@ message SecurityDefinition {
   string securityExchange = 6;
 
    // (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
-  string issuer = 6;
+  string issuer = 7;
 
    // (Tag 107): Description or name of the security.
-  string SecurityDesc = 7;
+  string SecurityDesc = 8;
  
    // (Tag 167): Type of the security (e.g., stock, bond, option, future).
-  string SecurityType  = 8;
+  string SecurityType  = 9;
 
   // (Tag 15): Currency in which the security is denominated.
-  string currency = 9;
+  string currency = 10;
 
   // (Tag 231): Multiplier applied to the contract size to calculate the actual quantity.
-  string contractMultiplier = 10;
+  string contractMultiplier = 11;
 
   // (Tag 969): Minimum price increment for the security.
-  string minPriceIncrement = 11;
+  string minPriceIncrement = 12;
 
   // (Tag 1146): Minimum price increment expressed as a monetary amount.
-  string minPriceIncrementAmount = 12;
+  string minPriceIncrementAmount = 13;
   
    // (Tag 996): Unit of measure for the contract size.
-  string unitOfMeasure = 13;
+  string unitOfMeasure = 14;
 
    // (Tag 1191): Unit of measure for the price. 
-  string priceUnitOfMeasure = 14;
+  string priceUnitOfMeasure = 15;
   
   // (Tag 63): Type of settlement for the security.
-  string settlType = 15;
+  string settlType = 16;
   
   // (Tag 64): Date of settlement for the security.
-  string settlDate = 16;
+  string settlDate = 17;
 
   // (Tag 200): Month and year of maturity for the security.
-  string maturityMonthYear = 17;
+  string maturityMonthYear = 18;
   
   // (Tag 223): Coupon rate or interest rate for the security.
-  string couponRate = 18;
+  string couponRate = 19;
   
   // (Tag 228): Factor applied to the price to calculate the actual value.
-  string factor  = 19;
+  string factor  = 20;
 
   // (Tag 255): Credit rating assigned to the security.
-  string creditRating = 20;
+  string creditRating = 21;
 
   // (Tag 2076): Unique identifier for the security exchange.
-  string securityExchangeID = 21;
+  string securityExchangeID = 22;
 
   // Standard FIX message trailer.
-  Trailer trailer = 22;
+  Trailer trailer = 23;
 }
 
 // Security Definition Request Rejeect with fields, tags and descriptions.

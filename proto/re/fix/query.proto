@@ -146,7 +146,7 @@ service Query {
   
   // Queries a list of Security items.
   rpc Security    (QueryGetSecurityRequest) returns (QueryGetSecurityResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/security/{securityReqID}";
   
   }
   rpc SecurityAll (QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
@@ -362,7 +362,7 @@ message QueryAllMarketDataResponse {
 }
 
 message QueryGetSecurityRequest {
-  uint64 id = 1;
+  string securityReqID = 1;
 }
 
 message QueryGetSecurityResponse {

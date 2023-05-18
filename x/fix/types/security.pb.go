@@ -23,9 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Security struct {
-	Id            uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	SessionID     string `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
-	SecurityReqID string `protobuf:"bytes,3,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
+	SessionID                       string                           `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	SecurityDefinitionRequest       *SecurityDefinitionRequest       `protobuf:"bytes,2,opt,name=securityDefinitionRequest,proto3" json:"securityDefinitionRequest,omitempty"`
+	SecurityDefinition              *SecurityDefinition              `protobuf:"bytes,3,opt,name=securityDefinition,proto3" json:"securityDefinition,omitempty"`
+	SecurityDefinitionRequestReject *SecurityDefinitionRequestReject `protobuf:"bytes,4,opt,name=securityDefinitionRequestReject,proto3" json:"securityDefinitionRequestReject,omitempty"`
 }
 
 func (m *Security) Reset()         { *m = Security{} }
@@ -61,13 +62,6 @@ func (m *Security) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Security proto.InternalMessageInfo
 
-func (m *Security) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
 func (m *Security) GetSessionID() string {
 	if m != nil {
 		return m.SessionID
@@ -75,33 +69,556 @@ func (m *Security) GetSessionID() string {
 	return ""
 }
 
-func (m *Security) GetSecurityReqID() string {
+func (m *Security) GetSecurityDefinitionRequest() *SecurityDefinitionRequest {
+	if m != nil {
+		return m.SecurityDefinitionRequest
+	}
+	return nil
+}
+
+func (m *Security) GetSecurityDefinition() *SecurityDefinition {
+	if m != nil {
+		return m.SecurityDefinition
+	}
+	return nil
+}
+
+func (m *Security) GetSecurityDefinitionRequestReject() *SecurityDefinitionRequestReject {
+	if m != nil {
+		return m.SecurityDefinitionRequestReject
+	}
+	return nil
+}
+
+// Security Definition Request with fields, tags and descriptions.
+type SecurityDefinitionRequest struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (Tag 320): Unique identifier assigned by the requester to the security definition request message
+	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
+	// (Tag 321): Specifies the type of security definition being requested (e.g., requesting all securities, by symbol, by security type, etc.)
+	SecurityRequestType string `protobuf:"bytes,3,opt,name=securityRequestType,proto3" json:"securityRequestType,omitempty"`
+	// (Tag 55): Unique identifier for the security being requested.
+	Symbol string `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// (Tag 207): Code or identifier representing the exchange where the security is listed.
+	SecurityExchange string `protobuf:"bytes,5,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
+	Issuer string `protobuf:"bytes,6,opt,name=issuer,proto3" json:"issuer,omitempty"`
+	// (Tag 107): Description or name of the security
+	SecurityDesc string `protobuf:"bytes,7,opt,name=securityDesc,proto3" json:"securityDesc,omitempty"`
+	// (Tag 167): Type of the security (e.g., stock, bond, option, future)
+	SecurityType string `protobuf:"bytes,8,opt,name=securityType,proto3" json:"securityType,omitempty"`
+	// (Tag 15): Currency in which the security is denominated
+	Currency string `protobuf:"bytes,9,opt,name=currency,proto3" json:"currency,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,10,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *SecurityDefinitionRequest) Reset()         { *m = SecurityDefinitionRequest{} }
+func (m *SecurityDefinitionRequest) String() string { return proto.CompactTextString(m) }
+func (*SecurityDefinitionRequest) ProtoMessage()    {}
+func (*SecurityDefinitionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8ebf44b5774159bc, []int{1}
+}
+func (m *SecurityDefinitionRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SecurityDefinitionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SecurityDefinitionRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SecurityDefinitionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SecurityDefinitionRequest.Merge(m, src)
+}
+func (m *SecurityDefinitionRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *SecurityDefinitionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SecurityDefinitionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SecurityDefinitionRequest proto.InternalMessageInfo
+
+func (m *SecurityDefinitionRequest) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *SecurityDefinitionRequest) GetSecurityReqID() string {
 	if m != nil {
 		return m.SecurityReqID
 	}
 	return ""
 }
 
+func (m *SecurityDefinitionRequest) GetSecurityRequestType() string {
+	if m != nil {
+		return m.SecurityRequestType
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetSecurityExchange() string {
+	if m != nil {
+		return m.SecurityExchange
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetIssuer() string {
+	if m != nil {
+		return m.Issuer
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetSecurityDesc() string {
+	if m != nil {
+		return m.SecurityDesc
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetSecurityType() string {
+	if m != nil {
+		return m.SecurityType
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetCurrency() string {
+	if m != nil {
+		return m.Currency
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequest) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+// Security Definition with fields, tags and descriptions.
+type SecurityDefinition struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	//(Tag 320): Unique identifier of the original security definition request.
+	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
+	// (Tag 322): Unique identifier assigned by the responder to the security definition message
+	SecurityResponseID string `protobuf:"bytes,3,opt,name=securityResponseID,proto3" json:"securityResponseID,omitempty"`
+	// (Tag 323): Type of response to the security definition request (e.g., acceptance, rejection, etc.).
+	SecurityResponseType string `protobuf:"bytes,4,opt,name=securityResponseType,proto3" json:"securityResponseType,omitempty"`
+	// (Tag 55): Unique identifier for the security.
+	Symbol string `protobuf:"bytes,5,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// (Tag 207): Code or identifier representing the exchange where the security is listed.
+	SecurityExchange string `protobuf:"bytes,6,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
+	Issuer string `protobuf:"bytes,7,opt,name=issuer,proto3" json:"issuer,omitempty"`
+	// (Tag 107): Description or name of the security.
+	SecurityDesc string `protobuf:"bytes,8,opt,name=SecurityDesc,proto3" json:"SecurityDesc,omitempty"`
+	// (Tag 167): Type of the security (e.g., stock, bond, option, future).
+	SecurityType string `protobuf:"bytes,9,opt,name=SecurityType,proto3" json:"SecurityType,omitempty"`
+	// (Tag 15): Currency in which the security is denominated.
+	Currency string `protobuf:"bytes,10,opt,name=currency,proto3" json:"currency,omitempty"`
+	// (Tag 231): Multiplier applied to the contract size to calculate the actual quantity.
+	ContractMultiplier string `protobuf:"bytes,11,opt,name=contractMultiplier,proto3" json:"contractMultiplier,omitempty"`
+	// (Tag 969): Minimum price increment for the security.
+	MinPriceIncrement string `protobuf:"bytes,12,opt,name=minPriceIncrement,proto3" json:"minPriceIncrement,omitempty"`
+	// (Tag 1146): Minimum price increment expressed as a monetary amount.
+	MinPriceIncrementAmount string `protobuf:"bytes,13,opt,name=minPriceIncrementAmount,proto3" json:"minPriceIncrementAmount,omitempty"`
+	// (Tag 996): Unit of measure for the contract size.
+	UnitOfMeasure string `protobuf:"bytes,14,opt,name=unitOfMeasure,proto3" json:"unitOfMeasure,omitempty"`
+	// (Tag 1191): Unit of measure for the price.
+	PriceUnitOfMeasure string `protobuf:"bytes,15,opt,name=priceUnitOfMeasure,proto3" json:"priceUnitOfMeasure,omitempty"`
+	// (Tag 63): Type of settlement for the security.
+	SettlType string `protobuf:"bytes,16,opt,name=settlType,proto3" json:"settlType,omitempty"`
+	// (Tag 64): Date of settlement for the security.
+	SettlDate string `protobuf:"bytes,17,opt,name=settlDate,proto3" json:"settlDate,omitempty"`
+	// (Tag 200): Month and year of maturity for the security.
+	MaturityMonthYear string `protobuf:"bytes,18,opt,name=maturityMonthYear,proto3" json:"maturityMonthYear,omitempty"`
+	// (Tag 223): Coupon rate or interest rate for the security.
+	CouponRate string `protobuf:"bytes,19,opt,name=couponRate,proto3" json:"couponRate,omitempty"`
+	// (Tag 228): Factor applied to the price to calculate the actual value.
+	Factor string `protobuf:"bytes,20,opt,name=factor,proto3" json:"factor,omitempty"`
+	// (Tag 255): Credit rating assigned to the security.
+	CreditRating string `protobuf:"bytes,21,opt,name=creditRating,proto3" json:"creditRating,omitempty"`
+	// (Tag 2076): Unique identifier for the security exchange.
+	SecurityExchangeID string `protobuf:"bytes,22,opt,name=securityExchangeID,proto3" json:"securityExchangeID,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,23,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *SecurityDefinition) Reset()         { *m = SecurityDefinition{} }
+func (m *SecurityDefinition) String() string { return proto.CompactTextString(m) }
+func (*SecurityDefinition) ProtoMessage()    {}
+func (*SecurityDefinition) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8ebf44b5774159bc, []int{2}
+}
+func (m *SecurityDefinition) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SecurityDefinition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SecurityDefinition.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SecurityDefinition) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SecurityDefinition.Merge(m, src)
+}
+func (m *SecurityDefinition) XXX_Size() int {
+	return m.Size()
+}
+func (m *SecurityDefinition) XXX_DiscardUnknown() {
+	xxx_messageInfo_SecurityDefinition.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SecurityDefinition proto.InternalMessageInfo
+
+func (m *SecurityDefinition) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *SecurityDefinition) GetSecurityReqID() string {
+	if m != nil {
+		return m.SecurityReqID
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityResponseID() string {
+	if m != nil {
+		return m.SecurityResponseID
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityResponseType() string {
+	if m != nil {
+		return m.SecurityResponseType
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityExchange() string {
+	if m != nil {
+		return m.SecurityExchange
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetIssuer() string {
+	if m != nil {
+		return m.Issuer
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityDesc() string {
+	if m != nil {
+		return m.SecurityDesc
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityType() string {
+	if m != nil {
+		return m.SecurityType
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetCurrency() string {
+	if m != nil {
+		return m.Currency
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetContractMultiplier() string {
+	if m != nil {
+		return m.ContractMultiplier
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetMinPriceIncrement() string {
+	if m != nil {
+		return m.MinPriceIncrement
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetMinPriceIncrementAmount() string {
+	if m != nil {
+		return m.MinPriceIncrementAmount
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetUnitOfMeasure() string {
+	if m != nil {
+		return m.UnitOfMeasure
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetPriceUnitOfMeasure() string {
+	if m != nil {
+		return m.PriceUnitOfMeasure
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSettlType() string {
+	if m != nil {
+		return m.SettlType
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSettlDate() string {
+	if m != nil {
+		return m.SettlDate
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetMaturityMonthYear() string {
+	if m != nil {
+		return m.MaturityMonthYear
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetCouponRate() string {
+	if m != nil {
+		return m.CouponRate
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetFactor() string {
+	if m != nil {
+		return m.Factor
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetCreditRating() string {
+	if m != nil {
+		return m.CreditRating
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetSecurityExchangeID() string {
+	if m != nil {
+		return m.SecurityExchangeID
+	}
+	return ""
+}
+
+func (m *SecurityDefinition) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+// Security Definition Request Rejeect with fields, tags and descriptions.
+type SecurityDefinitionRequestReject struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (Tag 320): Unique identifier of the rejected security definition request
+	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
+	// (Tag 560): Result of the security definition request (e.g., successful, invalid security, etc.)
+	SecurityRequestResult string `protobuf:"bytes,3,opt,name=securityRequestResult,proto3" json:"securityRequestResult,omitempty"`
+	// (Tag 560): Description of the error or reason for rejecting the security definition request.
+	SecurityRequestError string `protobuf:"bytes,4,opt,name=securityRequestError,proto3" json:"securityRequestError,omitempty"`
+	// (Tag 560): Code indicating the specific error or reason for rejecting the request.
+	SecurityRequestErrorCode string `protobuf:"bytes,5,opt,name=securityRequestErrorCode,proto3" json:"securityRequestErrorCode,omitempty"`
+	// (Tag 58): Additional free-text description or information related to the rejection
+	Text string `protobuf:"bytes,6,opt,name=text,proto3" json:"text,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,7,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *SecurityDefinitionRequestReject) Reset()         { *m = SecurityDefinitionRequestReject{} }
+func (m *SecurityDefinitionRequestReject) String() string { return proto.CompactTextString(m) }
+func (*SecurityDefinitionRequestReject) ProtoMessage()    {}
+func (*SecurityDefinitionRequestReject) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8ebf44b5774159bc, []int{3}
+}
+func (m *SecurityDefinitionRequestReject) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SecurityDefinitionRequestReject) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SecurityDefinitionRequestReject.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SecurityDefinitionRequestReject) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SecurityDefinitionRequestReject.Merge(m, src)
+}
+func (m *SecurityDefinitionRequestReject) XXX_Size() int {
+	return m.Size()
+}
+func (m *SecurityDefinitionRequestReject) XXX_DiscardUnknown() {
+	xxx_messageInfo_SecurityDefinitionRequestReject.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SecurityDefinitionRequestReject proto.InternalMessageInfo
+
+func (m *SecurityDefinitionRequestReject) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *SecurityDefinitionRequestReject) GetSecurityReqID() string {
+	if m != nil {
+		return m.SecurityReqID
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequestReject) GetSecurityRequestResult() string {
+	if m != nil {
+		return m.SecurityRequestResult
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequestReject) GetSecurityRequestError() string {
+	if m != nil {
+		return m.SecurityRequestError
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequestReject) GetSecurityRequestErrorCode() string {
+	if m != nil {
+		return m.SecurityRequestErrorCode
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequestReject) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *SecurityDefinitionRequestReject) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Security)(nil), "jim380.re.fix.Security")
+	proto.RegisterType((*SecurityDefinitionRequest)(nil), "jim380.re.fix.SecurityDefinitionRequest")
+	proto.RegisterType((*SecurityDefinition)(nil), "jim380.re.fix.SecurityDefinition")
+	proto.RegisterType((*SecurityDefinitionRequestReject)(nil), "jim380.re.fix.SecurityDefinitionRequestReject")
 }
 
 func init() { proto.RegisterFile("re/fix/security.proto", fileDescriptor_8ebf44b5774159bc) }
 
 var fileDescriptor_8ebf44b5774159bc = []byte{
-	// 184 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2d, 0x4a, 0xd5, 0x4f,
-	0xcb, 0xac, 0xd0, 0x2f, 0x4e, 0x4d, 0x2e, 0x2d, 0xca, 0x2c, 0xa9, 0xd4, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0xe2, 0xcd, 0xca, 0xcc, 0x35, 0xb6, 0x30, 0xd0, 0x2b, 0x4a, 0xd5, 0x4b, 0xcb, 0xac,
-	0x50, 0x8a, 0xe3, 0xe2, 0x08, 0x86, 0x2a, 0x10, 0xe2, 0xe3, 0x62, 0xca, 0x4c, 0x91, 0x60, 0x54,
-	0x60, 0xd4, 0x60, 0x09, 0x62, 0xca, 0x4c, 0x11, 0x92, 0xe1, 0xe2, 0x2c, 0x4e, 0x2d, 0x2e, 0xce,
-	0xcc, 0xcf, 0xf3, 0x74, 0x91, 0x60, 0x52, 0x60, 0xd4, 0xe0, 0x0c, 0x42, 0x08, 0x08, 0xa9, 0x70,
-	0xf1, 0xc2, 0x8c, 0x0e, 0x4a, 0x2d, 0xf4, 0x74, 0x91, 0x60, 0x06, 0xab, 0x40, 0x15, 0x74, 0xb2,
-	0x3a, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96,
-	0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0x85, 0xf4, 0xcc, 0x92, 0x8c,
-	0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0x7d, 0x88, 0x9b, 0xf4, 0x83, 0x52, 0xf5, 0x2b, 0xc0, 0x6e,
-	0x2e, 0xa9, 0x2c, 0x48, 0x2d, 0x4e, 0x62, 0x03, 0xbb, 0xd8, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff,
-	0x48, 0x6b, 0x7c, 0xa6, 0xca, 0x00, 0x00, 0x00,
+	// 743 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0xcd, 0x4e, 0x1b, 0x3d,
+	0x14, 0x25, 0xfc, 0x24, 0xc4, 0xc0, 0xf7, 0x81, 0x21, 0x60, 0x50, 0x1b, 0x68, 0xd4, 0x05, 0xaa,
+	0xda, 0x09, 0x82, 0x2e, 0x10, 0xbb, 0xb6, 0x41, 0x6a, 0x16, 0xa8, 0xad, 0x43, 0x17, 0xed, 0xa6,
+	0x1a, 0x9c, 0x9b, 0xc4, 0x28, 0xb1, 0x83, 0xed, 0x91, 0x92, 0xb7, 0xe8, 0xa2, 0x6f, 0xd0, 0x97,
+	0xe9, 0x92, 0x65, 0x37, 0x95, 0xaa, 0xf0, 0x22, 0xd5, 0x78, 0x66, 0xc8, 0xfc, 0x24, 0x0a, 0x1b,
+	0x76, 0xf1, 0x39, 0xc7, 0xf7, 0x7a, 0xce, 0xf1, 0xb5, 0x82, 0x4a, 0x0a, 0xaa, 0x2d, 0x3e, 0xa8,
+	0x6a, 0x60, 0x9e, 0xe2, 0x66, 0xe8, 0xf4, 0x95, 0x34, 0x12, 0xaf, 0x5d, 0xf3, 0xde, 0xc9, 0xe9,
+	0x91, 0xa3, 0xc0, 0x69, 0xf1, 0xc1, 0xde, 0xd3, 0x48, 0x65, 0x5c, 0xd1, 0x74, 0x55, 0xf3, 0x5b,
+	0x0f, 0xb4, 0x76, 0xdb, 0x10, 0xa8, 0x2b, 0x7f, 0xe6, 0xd1, 0x72, 0x23, 0x2c, 0x80, 0x9f, 0xa0,
+	0xa2, 0x06, 0xad, 0xb9, 0x14, 0xf5, 0x1a, 0xc9, 0x1d, 0xe4, 0x0e, 0x8b, 0x74, 0x0c, 0xe0, 0x16,
+	0xda, 0x8d, 0x5a, 0xd5, 0xa0, 0xc5, 0x05, 0x37, 0x5c, 0x0a, 0x0a, 0x37, 0x1e, 0x68, 0x43, 0xe6,
+	0x0f, 0x72, 0x87, 0x2b, 0xc7, 0x87, 0x4e, 0xa2, 0xb9, 0xd3, 0x98, 0xa6, 0xa7, 0xd3, 0x4b, 0xe1,
+	0x4f, 0x08, 0x67, 0x49, 0xb2, 0x60, 0x1b, 0x3c, 0x9b, 0xdd, 0x60, 0xc2, 0x66, 0x3c, 0x40, 0xfb,
+	0x53, 0xfb, 0x51, 0xb8, 0x06, 0x66, 0xc8, 0xa2, 0xad, 0xef, 0x3c, 0xf8, 0x03, 0xec, 0x2e, 0x3a,
+	0xab, 0x6c, 0xe5, 0xc7, 0x02, 0xda, 0x9d, 0x5a, 0x04, 0xbf, 0x42, 0xf9, 0x0e, 0xb8, 0x4d, 0x50,
+	0xd6, 0xed, 0x95, 0xe3, 0x52, 0xaa, 0xfd, 0x7b, 0x4b, 0xd2, 0x50, 0x84, 0x9f, 0xa3, 0xb5, 0xa8,
+	0x1f, 0x85, 0x9b, 0x7a, 0xcd, 0xba, 0x5e, 0xa4, 0x49, 0x10, 0x1f, 0xa1, 0xcd, 0x18, 0xe0, 0xf7,
+	0xb9, 0x1c, 0xf6, 0xc1, 0x1a, 0x58, 0xa4, 0x93, 0x28, 0xbc, 0x8d, 0xf2, 0x7a, 0xd8, 0xbb, 0x92,
+	0x5d, 0xeb, 0x42, 0x91, 0x86, 0x2b, 0xfc, 0x02, 0xad, 0x47, 0xf2, 0xf3, 0x01, 0xeb, 0xb8, 0xa2,
+	0x0d, 0x64, 0xc9, 0x2a, 0x32, 0xb8, 0x5f, 0x83, 0x6b, 0xed, 0x81, 0x22, 0xf9, 0xa0, 0x46, 0xb0,
+	0xc2, 0x15, 0xb4, 0x3a, 0xf6, 0x48, 0x33, 0x52, 0xb0, 0x6c, 0x02, 0x8b, 0x6b, 0xec, 0x51, 0x97,
+	0x93, 0x1a, 0x7b, 0xc6, 0x3d, 0xb4, 0xcc, 0x3c, 0xa5, 0x40, 0xb0, 0x21, 0x29, 0x5a, 0xfe, 0x7e,
+	0x8d, 0x8f, 0x50, 0xc1, 0x28, 0x97, 0x77, 0x41, 0x11, 0x64, 0x7d, 0xdc, 0x4e, 0xf9, 0x78, 0x19,
+	0xb0, 0x34, 0x92, 0x55, 0x7e, 0x16, 0x10, 0xce, 0xc6, 0xf2, 0x38, 0x79, 0x38, 0xe3, 0xfb, 0x4c,
+	0x41, 0xf7, 0xa5, 0xd0, 0x50, 0xaf, 0x85, 0x71, 0x4c, 0x60, 0xf0, 0x31, 0xda, 0x4a, 0xa3, 0xd6,
+	0x95, 0x20, 0x9b, 0x89, 0x5c, 0x2c, 0xc1, 0xa5, 0x99, 0x09, 0xe6, 0x67, 0x26, 0x58, 0x48, 0x27,
+	0xd8, 0x88, 0x27, 0x18, 0xa6, 0xd3, 0x48, 0x25, 0xd8, 0x88, 0x27, 0x58, 0x4c, 0x6a, 0x32, 0x09,
+	0xa2, 0x54, 0x82, 0x0e, 0xc2, 0x4c, 0x0a, 0xa3, 0x5c, 0x66, 0x2e, 0xbc, 0xae, 0xe1, 0xfd, 0x2e,
+	0x07, 0x45, 0x56, 0x02, 0x8f, 0xb2, 0x0c, 0x7e, 0x89, 0x36, 0x7a, 0x5c, 0x7c, 0x54, 0x9c, 0x41,
+	0x5d, 0x30, 0x05, 0x3d, 0x10, 0x86, 0xac, 0x5a, 0x79, 0x96, 0xc0, 0xa7, 0x68, 0x27, 0x03, 0xbe,
+	0xe9, 0x49, 0x4f, 0x18, 0xb2, 0x66, 0xf7, 0x4c, 0xa3, 0xfd, 0x84, 0x3d, 0xc1, 0xcd, 0x87, 0xd6,
+	0x05, 0xb8, 0xda, 0x53, 0x40, 0xfe, 0x0b, 0x12, 0x4e, 0x80, 0xfe, 0xe9, 0xfb, 0xfe, 0xee, 0xcf,
+	0x09, 0xe9, 0xff, 0xc1, 0xe9, 0xb3, 0x4c, 0xf0, 0xce, 0x1a, 0xd3, 0xb5, 0x56, 0xad, 0x47, 0xef,
+	0x6c, 0x08, 0xdc, 0xb3, 0x35, 0xd7, 0x00, 0xd9, 0x88, 0xb1, 0x3e, 0x60, 0xbf, 0xdc, 0x35, 0xd6,
+	0xd5, 0x0b, 0x29, 0x4c, 0xe7, 0x0b, 0xb8, 0x8a, 0xe0, 0xf0, 0xcb, 0xd3, 0x04, 0x2e, 0x23, 0xc4,
+	0xa4, 0xd7, 0x97, 0x82, 0xfa, 0xc5, 0x36, 0xad, 0x2c, 0x86, 0xf8, 0x99, 0xb7, 0x5c, 0x66, 0xa4,
+	0x22, 0x5b, 0x41, 0xe6, 0xc1, 0xca, 0xcf, 0x93, 0x29, 0x68, 0x72, 0x43, 0x5d, 0xc3, 0x45, 0x9b,
+	0x94, 0x82, 0x3c, 0xe3, 0x58, 0xfc, 0x5e, 0x47, 0x77, 0xa8, 0x5e, 0x23, 0xdb, 0xc9, 0x7b, 0x3d,
+	0x66, 0xe2, 0x53, 0xba, 0xf3, 0xb0, 0x29, 0x1d, 0xcd, 0xa3, 0xfd, 0x19, 0x2f, 0xf0, 0xe3, 0x8c,
+	0xec, 0x6b, 0x54, 0x4a, 0xbd, 0x93, 0x14, 0xb4, 0xd7, 0x35, 0xe1, 0xd4, 0x4e, 0x26, 0x93, 0x83,
+	0x6b, 0x89, 0x73, 0xa5, 0xa4, 0xca, 0x0e, 0xee, 0x98, 0xc3, 0x67, 0x88, 0x4c, 0xc2, 0xdf, 0xc9,
+	0x66, 0xf4, 0xd4, 0x4e, 0xe5, 0x31, 0x46, 0x8b, 0x06, 0x06, 0x26, 0x1c, 0x68, 0xfb, 0x3b, 0x6e,
+	0x72, 0xe1, 0x41, 0x26, 0xbf, 0x3d, 0xfb, 0x35, 0x2a, 0xe7, 0x6e, 0x47, 0xe5, 0xdc, 0xdf, 0x51,
+	0x39, 0xf7, 0xfd, 0xae, 0x3c, 0x77, 0x7b, 0x57, 0x9e, 0xfb, 0x7d, 0x57, 0x9e, 0xfb, 0x7a, 0xd0,
+	0xe6, 0xa6, 0xe3, 0x5d, 0x39, 0x4c, 0xf6, 0xaa, 0x41, 0x91, 0x2a, 0x85, 0xea, 0xc0, 0xfe, 0x9d,
+	0x30, 0xc3, 0x3e, 0xe8, 0xab, 0xbc, 0xfd, 0x13, 0x71, 0xf2, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x60,
+	0xd9, 0x11, 0xdd, 0x8b, 0x08, 0x00, 0x00,
 }
 
 func (m *Security) Marshal() (dAtA []byte, err error) {
@@ -124,24 +641,443 @@ func (m *Security) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.SecurityReqID) > 0 {
-		i -= len(m.SecurityReqID)
-		copy(dAtA[i:], m.SecurityReqID)
-		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityReqID)))
+	if m.SecurityDefinitionRequestReject != nil {
+		{
+			size, err := m.SecurityDefinitionRequestReject.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.SecurityDefinition != nil {
+		{
+			size, err := m.SecurityDefinition.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
 		i--
 		dAtA[i] = 0x1a
+	}
+	if m.SecurityDefinitionRequest != nil {
+		{
+			size, err := m.SecurityDefinitionRequest.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.SessionID) > 0 {
 		i -= len(m.SessionID)
 		copy(dAtA[i:], m.SessionID)
 		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SessionID)))
 		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SecurityDefinitionRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SecurityDefinitionRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SecurityDefinitionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.Currency) > 0 {
+		i -= len(m.Currency)
+		copy(dAtA[i:], m.Currency)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Currency)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.SecurityType) > 0 {
+		i -= len(m.SecurityType)
+		copy(dAtA[i:], m.SecurityType)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityType)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.SecurityDesc) > 0 {
+		i -= len(m.SecurityDesc)
+		copy(dAtA[i:], m.SecurityDesc)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityDesc)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Issuer) > 0 {
+		i -= len(m.Issuer)
+		copy(dAtA[i:], m.Issuer)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Issuer)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.SecurityExchange) > 0 {
+		i -= len(m.SecurityExchange)
+		copy(dAtA[i:], m.SecurityExchange)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityExchange)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.SecurityRequestType) > 0 {
+		i -= len(m.SecurityRequestType)
+		copy(dAtA[i:], m.SecurityRequestType)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityRequestType)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SecurityReqID) > 0 {
+		i -= len(m.SecurityReqID)
+		copy(dAtA[i:], m.SecurityReqID)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityReqID)))
+		i--
 		dAtA[i] = 0x12
 	}
-	if m.Id != 0 {
-		i = encodeVarintSecurity(dAtA, i, uint64(m.Id))
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
 		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SecurityDefinition) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SecurityDefinition) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SecurityDefinition) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xba
+	}
+	if len(m.SecurityExchangeID) > 0 {
+		i -= len(m.SecurityExchangeID)
+		copy(dAtA[i:], m.SecurityExchangeID)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityExchangeID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
+	if len(m.CreditRating) > 0 {
+		i -= len(m.CreditRating)
+		copy(dAtA[i:], m.CreditRating)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.CreditRating)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
+	if len(m.Factor) > 0 {
+		i -= len(m.Factor)
+		copy(dAtA[i:], m.Factor)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Factor)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if len(m.CouponRate) > 0 {
+		i -= len(m.CouponRate)
+		copy(dAtA[i:], m.CouponRate)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.CouponRate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x9a
+	}
+	if len(m.MaturityMonthYear) > 0 {
+		i -= len(m.MaturityMonthYear)
+		copy(dAtA[i:], m.MaturityMonthYear)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.MaturityMonthYear)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.SettlDate) > 0 {
+		i -= len(m.SettlDate)
+		copy(dAtA[i:], m.SettlDate)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SettlDate)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.SettlType) > 0 {
+		i -= len(m.SettlType)
+		copy(dAtA[i:], m.SettlType)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SettlType)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.PriceUnitOfMeasure) > 0 {
+		i -= len(m.PriceUnitOfMeasure)
+		copy(dAtA[i:], m.PriceUnitOfMeasure)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.PriceUnitOfMeasure)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.UnitOfMeasure) > 0 {
+		i -= len(m.UnitOfMeasure)
+		copy(dAtA[i:], m.UnitOfMeasure)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.UnitOfMeasure)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.MinPriceIncrementAmount) > 0 {
+		i -= len(m.MinPriceIncrementAmount)
+		copy(dAtA[i:], m.MinPriceIncrementAmount)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.MinPriceIncrementAmount)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.MinPriceIncrement) > 0 {
+		i -= len(m.MinPriceIncrement)
+		copy(dAtA[i:], m.MinPriceIncrement)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.MinPriceIncrement)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.ContractMultiplier) > 0 {
+		i -= len(m.ContractMultiplier)
+		copy(dAtA[i:], m.ContractMultiplier)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.ContractMultiplier)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.Currency) > 0 {
+		i -= len(m.Currency)
+		copy(dAtA[i:], m.Currency)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Currency)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.SecurityType) > 0 {
+		i -= len(m.SecurityType)
+		copy(dAtA[i:], m.SecurityType)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityType)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.SecurityDesc) > 0 {
+		i -= len(m.SecurityDesc)
+		copy(dAtA[i:], m.SecurityDesc)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityDesc)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.Issuer) > 0 {
+		i -= len(m.Issuer)
+		copy(dAtA[i:], m.Issuer)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Issuer)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.SecurityExchange) > 0 {
+		i -= len(m.SecurityExchange)
+		copy(dAtA[i:], m.SecurityExchange)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityExchange)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.SecurityResponseType) > 0 {
+		i -= len(m.SecurityResponseType)
+		copy(dAtA[i:], m.SecurityResponseType)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityResponseType)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.SecurityResponseID) > 0 {
+		i -= len(m.SecurityResponseID)
+		copy(dAtA[i:], m.SecurityResponseID)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityResponseID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SecurityReqID) > 0 {
+		i -= len(m.SecurityReqID)
+		copy(dAtA[i:], m.SecurityReqID)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SecurityDefinitionRequestReject) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SecurityDefinitionRequestReject) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SecurityDefinitionRequestReject) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.SecurityRequestErrorCode) > 0 {
+		i -= len(m.SecurityRequestErrorCode)
+		copy(dAtA[i:], m.SecurityRequestErrorCode)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityRequestErrorCode)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.SecurityRequestError) > 0 {
+		i -= len(m.SecurityRequestError)
+		copy(dAtA[i:], m.SecurityRequestError)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityRequestError)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.SecurityRequestResult) > 0 {
+		i -= len(m.SecurityRequestResult)
+		copy(dAtA[i:], m.SecurityRequestResult)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityRequestResult)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.SecurityReqID) > 0 {
+		i -= len(m.SecurityReqID)
+		copy(dAtA[i:], m.SecurityReqID)
+		i = encodeVarintSecurity(dAtA, i, uint64(len(m.SecurityReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecurity(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -163,15 +1099,207 @@ func (m *Security) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.Id != 0 {
-		n += 1 + sovSecurity(uint64(m.Id))
-	}
 	l = len(m.SessionID)
 	if l > 0 {
 		n += 1 + l + sovSecurity(uint64(l))
 	}
+	if m.SecurityDefinitionRequest != nil {
+		l = m.SecurityDefinitionRequest.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	if m.SecurityDefinition != nil {
+		l = m.SecurityDefinition.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	if m.SecurityDefinitionRequestReject != nil {
+		l = m.SecurityDefinitionRequestReject.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	return n
+}
+
+func (m *SecurityDefinitionRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
 	l = len(m.SecurityReqID)
 	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityRequestType)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityExchange)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Issuer)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityDesc)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityType)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Currency)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	return n
+}
+
+func (m *SecurityDefinition) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityReqID)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityResponseID)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityResponseType)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityExchange)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Issuer)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityDesc)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityType)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Currency)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.ContractMultiplier)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.MinPriceIncrement)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.MinPriceIncrementAmount)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.UnitOfMeasure)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.PriceUnitOfMeasure)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SettlType)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SettlDate)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.MaturityMonthYear)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.CouponRate)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Factor)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.CreditRating)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityExchangeID)
+	if l > 0 {
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 2 + l + sovSecurity(uint64(l))
+	}
+	return n
+}
+
+func (m *SecurityDefinitionRequestReject) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityReqID)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityRequestResult)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityRequestError)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.SecurityRequestErrorCode)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovSecurity(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
 		n += 1 + l + sovSecurity(uint64(l))
 	}
 	return n
@@ -213,25 +1341,6 @@ func (m *Security) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecurity
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
@@ -263,7 +1372,201 @@ func (m *Security) Unmarshal(dAtA []byte) error {
 			}
 			m.SessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityDefinitionRequest", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SecurityDefinitionRequest == nil {
+				m.SecurityDefinitionRequest = &SecurityDefinitionRequest{}
+			}
+			if err := m.SecurityDefinitionRequest.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityDefinition", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SecurityDefinition == nil {
+				m.SecurityDefinition = &SecurityDefinition{}
+			}
+			if err := m.SecurityDefinition.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityDefinitionRequestReject", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SecurityDefinitionRequestReject == nil {
+				m.SecurityDefinitionRequestReject = &SecurityDefinitionRequestReject{}
+			}
+			if err := m.SecurityDefinitionRequestReject.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurity(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SecurityDefinitionRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurity
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SecurityDefinitionRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SecurityDefinitionRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SecurityReqID", wireType)
 			}
@@ -294,6 +1597,1342 @@ func (m *Security) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.SecurityReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityRequestType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityRequestType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Issuer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Issuer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityDesc", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityDesc = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Currency = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurity(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SecurityDefinition) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurity
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SecurityDefinition: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SecurityDefinition: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityResponseID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityResponseID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityResponseType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityResponseType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Issuer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Issuer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityDesc", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityDesc = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Currency", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Currency = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractMultiplier", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractMultiplier = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MinPriceIncrement", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MinPriceIncrement = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MinPriceIncrementAmount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MinPriceIncrementAmount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UnitOfMeasure", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UnitOfMeasure = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PriceUnitOfMeasure", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PriceUnitOfMeasure = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SettlDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SettlDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaturityMonthYear", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MaturityMonthYear = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 19:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CouponRate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CouponRate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Factor", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Factor = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreditRating", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreditRating = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchangeID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchangeID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 23:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurity(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SecurityDefinitionRequestReject) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurity
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SecurityDefinitionRequestReject: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SecurityDefinitionRequestReject: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityRequestResult", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityRequestResult = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityRequestError", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityRequestError = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityRequestErrorCode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityRequestErrorCode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurity
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurity
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

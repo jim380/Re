@@ -44,7 +44,7 @@ func CmdListMarketData() *cobra.Command {
 
 func CmdShowMarketData() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-market-data [id]",
+		Use:   "show-market-data [mdReqID]",
 		Short: "shows a market-data",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -52,10 +52,10 @@ func CmdShowMarketData() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id := args[0]
+			argmdReqID := args[0]
 
 			params := &types.QueryGetMarketDataRequest{
-				MdReqID: id,
+				MdReqID: argmdReqID,
 			}
 
 			res, err := queryClient.MarketData(context.Background(), params)

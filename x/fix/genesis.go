@@ -71,7 +71,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetMarketDataCount(ctx, genState.MarketDataCount)
 	// Set all the security
 for _, elem := range genState.SecurityList {
-	k.SetSecurity(ctx, elem.SecurityReqID, elem)
+	k.SetSecurity(ctx, elem.SecurityDefinitionRequest.SecurityReqID, elem)
 }
 
 // Set security count
