@@ -23,7 +23,8 @@ func DefaultGenesis() *GenesisState {
 		QuoteList:                 []Quote{},
 		TradeCaptureList:          []TradeCapture{},
 		MarketDataList:            []MarketData{},
-		// this line is used by starport scaffolding # genesis/types/default
+		SecurityList: []Security{},
+// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
 }
@@ -179,7 +180,19 @@ func (gs GenesisState) Validate() error {
 		}
 		tradeCaptureIDMap[elem.TradeCaptureReport.TradeReportID] = true
 	}
-	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in security
+securityIdMap := make(map[uint64]bool)
+securityCount := gs.GetSecurityCount()
+for _, elem := range gs.SecurityList {
+	if _, ok := securityIdMap[elem.Id]; ok {
+		return fmt.Errorf("duplicated id for security")
+	}
+	if elem.Id >= securityCount {
+		return fmt.Errorf("security id should be lower or equal than the last id")
+	}
+	securityIdMap[elem.Id] = true
+}
+// this line is used by starport scaffolding # genesis/types/validate
 
 	return gs.Params.Validate()
 }

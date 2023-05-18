@@ -134,3 +134,8 @@ func GetMarketDataKey() []byte {
 func GetMarketDataCountKey() []byte {
 	return MarketDataCountKey
 }
+
+const (
+	SecurityKey= "Security/value/"
+	SecurityCountKey= "Security/count/"
+)
