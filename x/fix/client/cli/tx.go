@@ -47,6 +47,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdMarketDataIncremental())
 	cmd.AddCommand(CmdMarketDataRequestReject())
 	cmd.AddCommand(CmdSecurityDefinitionRequest())
+	cmd.AddCommand(CmdSecurityDefinition())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

@@ -37,6 +37,7 @@ service Msg {
   rpc MarketDataIncremental             (MsgMarketDataIncremental            ) returns (MsgMarketDataIncrementalResponse            );
   rpc MarketDataRequestReject           (MsgMarketDataRequestReject          ) returns (MsgMarketDataRequestRejectResponse          );
   rpc SecurityDefinitionRequest         (MsgSecurityDefinitionRequest        ) returns (MsgSecurityDefinitionRequestResponse        );
+  rpc SecurityDefinition                (MsgSecurityDefinition               ) returns (MsgSecurityDefinitionResponse               );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -334,4 +335,31 @@ message MsgSecurityDefinitionRequest {
 }
 
 message MsgSecurityDefinitionRequestResponse {}
+
+message MsgSecurityDefinition {
+  string creator                 =  1;
+  string securityReqID           =  2;
+  string securityResponseID      =  3;
+  string securityResponseType    =  4;
+  string symbol                  =  5;
+  string securityExchange        =  6;
+  string issuer                  =  7;
+  string securityDesc            =  8;
+  string securityType            =  9;
+  string currency                = 10;
+  string contractMultiplier      = 11;
+  string minPriceIncrement       = 12;
+  string minPriceIncrementAmount = 13;
+  string unitOfMeasure           = 14;
+  string priceUnitOfMeasure      = 15;
+  string settlType               = 16;
+  string settlDate               = 17;
+  string maturityMonthYear       = 18;
+  string couponRate              = 19;
+  string factor                  = 20;
+  string creditRating            = 21;
+  string securityExchangeID      = 22;
+}
+
+message MsgSecurityDefinitionResponse {}
 
