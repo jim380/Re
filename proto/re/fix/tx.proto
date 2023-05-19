@@ -333,6 +333,7 @@ message MsgSecurityDefinitionRequest {
   string securityDesc        = 7;
   string securityType        = 8;
   string currency            = 9;
+  string  sessionID          = 10;
 }
 
 message MsgSecurityDefinitionRequestResponse {}
@@ -360,6 +361,7 @@ message MsgSecurityDefinition {
   string factor                  = 20;
   string creditRating            = 21;
   string securityExchangeID      = 22;
+  string  sessionID              = 23;
 }
 
 message MsgSecurityDefinitionResponse {}
