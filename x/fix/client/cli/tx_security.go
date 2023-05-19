@@ -16,19 +16,18 @@ func CmdSecurityDefinitionRequest() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "security-definition-request [sesssion-id] [security-req-id] [security-request-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency]",
 		Short: "Broadcast message security-definition-request",
-		Args:  cobra.ExactArgs(8),
+		Args:  cobra.ExactArgs(9),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-			// add sessionID
-
-			argSecurityReqID := args[0]
-			argSecurityRequestType := args[1]
-			argSymbol := args[2]
-			argSecurityExchange := args[3]
-			argIssuer := args[4]
-			argSecurityDesc := args[5]
-			argSecurityType := args[6]
-			argCurrency := args[7]
+			argSessionID := args[0]
+			argSecurityReqID := args[1]
+			argSecurityRequestType := args[2]
+			argSymbol := args[3]
+			argSecurityExchange := args[4]
+			argIssuer := args[5]
+			argSecurityDesc := args[6]
+			argSecurityType := args[7]
+			argCurrency := args[8]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -37,6 +36,7 @@ func CmdSecurityDefinitionRequest() *cobra.Command {
 
 			msg := types.NewMsgSecurityDefinitionRequest(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argSecurityReqID,
 				argSecurityRequestType,
 				argSymbol,
@@ -62,32 +62,31 @@ func CmdSecurityDefinition() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "security-definition [session-id] [security-req-id] [security-response-id] [security-response-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency] [contract-multiplier] [min-price-increment] [min-price-increment-amount] [unit-of-measure] [price-unit-of-measure] [settl-type] [settl-date] [maturity-month-year] [coupon-rate] [factor] [credit-rating] [security-exchange-id]",
 		Short: "Broadcast message security-definition",
-		Args:  cobra.ExactArgs(21),
+		Args:  cobra.ExactArgs(22),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-			// sessionID
-			
-			argSecurityReqID := args[0]
-			argSecurityResponseID := args[1]
-			argSecurityResponseType := args[2]
-			argSymbol := args[3]
-			argSecurityExchange := args[4]
-			argIssuer := args[5]
-			argSecurityDesc := args[6]
-			argSecurityType := args[7]
-			argCurrency := args[8]
-			argContractMultiplier := args[9]
-			argMinPriceIncrement := args[10]
-			argMinPriceIncrementAmount := args[11]
-			argUnitOfMeasure := args[12]
-			argPriceUnitOfMeasure := args[13]
-			argSettlType := args[14]
-			argSettlDate := args[15]
-			argMaturityMonthYear := args[16]
-			argCouponRate := args[17]
-			argFactor := args[18]
-			argCreditRating := args[19]
-			argSecurityExchangeID := args[20]
+			argSessionID := args[0]
+			argSecurityReqID := args[1]
+			argSecurityResponseID := args[2]
+			argSecurityResponseType := args[3]
+			argSymbol := args[4]
+			argSecurityExchange := args[5]
+			argIssuer := args[6]
+			argSecurityDesc := args[7]
+			argSecurityType := args[8]
+			argCurrency := args[9]
+			argContractMultiplier := args[10]
+			argMinPriceIncrement := args[11]
+			argMinPriceIncrementAmount := args[12]
+			argUnitOfMeasure := args[13]
+			argPriceUnitOfMeasure := args[14]
+			argSettlType := args[15]
+			argSettlDate := args[16]
+			argMaturityMonthYear := args[17]
+			argCouponRate := args[18]
+			argFactor := args[19]
+			argCreditRating := args[20]
+			argSecurityExchangeID := args[21]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -96,6 +95,7 @@ func CmdSecurityDefinition() *cobra.Command {
 
 			msg := types.NewMsgSecurityDefinition(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argSecurityReqID,
 				argSecurityResponseID,
 				argSecurityResponseType,

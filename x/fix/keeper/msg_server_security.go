@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -61,6 +62,39 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 			Currency:            msg.Currency,
 		},
 	}
+
+	// fetch Header from existing session
+	// In the FIX Protocol, Security Definition Request message can be sent by either the initiator or the acceptor of the FIX session.
+	// Determine whether it is the initiator or acceptor
+	var header *types.Header
+	if session.InitiatorAddress == msg.Creator {
+		header = session.LogonInitiator.Header
+	} else {
+		header = session.LogonAcceptor.Header
+	}
+
+	// set the header and make changes to the header
+	// calculate and include all changes to the header
+	// Message type, d is the message type for Security Definition Request
+	// BodyLength should be calculated using the BodyLength function
+	// set sending time to current time at creating Security Definition Request
+	securityDefinitionRequest.SecurityDefinitionRequest.Header = header
+	securityDefinitionRequest.SecurityDefinitionRequest.Header.MsgType = "d"
+	securityDefinitionRequest.SecurityDefinitionRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// fetch Trailer from existing session
+	// for now copy trailer from session, it should be re-calculated
+	var trailer *types.Trailer
+	if session.InitiatorAddress == msg.Creator {
+		trailer = session.LogonInitiator.Trailer
+	} else {
+		trailer = session.LogonAcceptor.Trailer
+	}
+
+	// set the Trailer and make changes to the trailer
+	// TODO
+	// checksum in the trailer can be recalculated using CalculateChecksum function
+	securityDefinitionRequest.SecurityDefinitionRequest.Trailer = trailer
 
 	// set new security definition request to store
 	k.SetSecurity(ctx, msg.SecurityReqID, securityDefinitionRequest)
