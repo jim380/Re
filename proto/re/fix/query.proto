@@ -150,7 +150,7 @@ service Query {
   
   }
   rpc SecurityAll (QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security";
+    option (google.api.http).get = "/jim380/Re/fix/securities";
   
   }
 }

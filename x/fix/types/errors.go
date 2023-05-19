@@ -91,6 +91,12 @@ const (
 	errTradeCaptureReportIsAcknowledged
 	errTradeCaptureSession
 	errTradeReportRejectReasonIsEmpty
+
+	// security
+	errSecurityReqIDIsEmpty
+	errSecurityRequestTypeIsEmpty
+	errSecuritySymbolIsEmpty
+	errSecurityExchangeIsEmpty
 )
 
 // x/fix module sentinel errors
@@ -177,4 +183,10 @@ var (
 	ErrTradeCaptureReportIsAcknowledged = sdkerrors.Register(ModuleName, errTradeCaptureReportIsAcknowledged, "Trade Capture Report has been acknowledged")
 	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "No established session between parties in the Trade Capture")
 	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
+
+	// security
+	ErrSecurityReqIDIsEmpty       = sdkerrors.Register(ModuleName, errSecurityReqIDIsEmpty, "SecurityReqID is empty")
+	ErrSecurityRequestTypeIsEmpty = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
+	ErrSecuritySymbolIsEmpty      = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
+	ErrSecurityExchangeIsEmpty    = sdkerrors.Register(ModuleName, errSecurityExchangeIsEmpty, "SecurityExchange is empty")
 )
