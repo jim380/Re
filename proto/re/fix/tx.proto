@@ -38,6 +38,7 @@ service Msg {
   rpc MarketDataRequestReject           (MsgMarketDataRequestReject          ) returns (MsgMarketDataRequestRejectResponse          );
   rpc SecurityDefinitionRequest         (MsgSecurityDefinitionRequest        ) returns (MsgSecurityDefinitionRequestResponse        );
   rpc SecurityDefinition                (MsgSecurityDefinition               ) returns (MsgSecurityDefinitionResponse               );
+  rpc SecurityDefinitionRequestReject   (MsgSecurityDefinitionRequestReject  ) returns (MsgSecurityDefinitionRequestRejectResponse  );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -362,4 +363,16 @@ message MsgSecurityDefinition {
 }
 
 message MsgSecurityDefinitionResponse {}
+
+message MsgSecurityDefinitionRequestReject {
+  string creator                  = 1;
+  string sessionID                = 2;
+  string securityReqID            = 3;
+  string securityRequestResult    = 4;
+  string securityRequestError     = 5;
+  string securityRequestErrorCode = 6;
+  string text                     = 7;
+}
+
+message MsgSecurityDefinitionRequestRejectResponse {}
 
