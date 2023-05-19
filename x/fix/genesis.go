@@ -70,13 +70,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	// Set marketData count
 	k.SetMarketDataCount(ctx, genState.MarketDataCount)
 	// Set all the security
-for _, elem := range genState.SecurityList {
-	k.SetSecurity(ctx, elem.SecurityDefinitionRequest.SecurityReqID, elem)
-}
+	for _, elem := range genState.SecurityList {
+		k.SetSecurity(ctx, elem.SecurityDefinitionRequest.SecurityReqID, elem)
+	}
 
-// Set security count
-k.SetSecurityCount(ctx, genState.SecurityCount)
-// this line is used by starport scaffolding # genesis/module/init
+	// Set security count
+	k.SetSecurityCount(ctx, genState.SecurityCount)
+	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -95,8 +95,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.MarketDataList = k.GetAllMarketData(ctx)
 	genesis.MarketDataCount = k.GetMarketDataCount(ctx)
 	genesis.SecurityList = k.GetAllSecurity(ctx)
-genesis.SecurityCount = k.GetSecurityCount(ctx)
-// this line is used by starport scaffolding # genesis/module/export
+	genesis.SecurityCount = k.GetSecurityCount(ctx)
+	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
 }

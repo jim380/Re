@@ -28824,16 +28824,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -29469,16 +29459,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -30259,16 +30239,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders/{sessionID}:
@@ -30877,16 +30847,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders_cancel_request/{sessionID}:
@@ -31234,16 +31194,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -31808,16 +31758,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -33292,16 +33232,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/security:
@@ -33318,13 +33248,415 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     sessionID:
                       type: string
-                    securityReqID:
-                      type: string
+                    securityDefinitionRequest:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          title: >-
+                            (Tag 320): Unique identifier assigned by the
+                            requester to the security definition request message
+                        securityRequestType:
+                          type: string
+                          title: >-
+                            (Tag 321): Specifies the type of security definition
+                            being requested (e.g., requesting all securities, by
+                            symbol, by security type, etc.)
+                        symbol:
+                          type: string
+                          description: >-
+                            (Tag 55): Unique identifier for the security being
+                            requested.
+                        securityExchange:
+                          type: string
+                          description: >-
+                            (Tag 207): Code or identifier representing the
+                            exchange where the security is listed.
+                        issuer:
+                          type: string
+                          description: >-
+                            (Tag 106): Identifier of the issuer or
+                            issuer-specific identifier for the security.
+                        securityDesc:
+                          type: string
+                          title: '(Tag 107): Description or name of the security'
+                        securityType:
+                          type: string
+                          title: >-
+                            (Tag 167): Type of the security (e.g., stock, bond,
+                            option, future)
+                        currency:
+                          type: string
+                          title: >-
+                            (Tag 15): Currency in which the security is
+                            denominated
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Security Definition Request with fields, tags and
+                        descriptions.
+                    securityDefinition:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          description: >-
+                            (Tag 320): Unique identifier of the original
+                            security definition request.
+                        securityResponseID:
+                          type: string
+                          title: >-
+                            (Tag 322): Unique identifier assigned by the
+                            responder to the security definition message
+                        securityResponseType:
+                          type: string
+                          description: >-
+                            (Tag 323): Type of response to the security
+                            definition request (e.g., acceptance, rejection,
+                            etc.).
+                        symbol:
+                          type: string
+                          description: '(Tag 55): Unique identifier for the security.'
+                        securityExchange:
+                          type: string
+                          description: >-
+                            (Tag 207): Code or identifier representing the
+                            exchange where the security is listed.
+                        issuer:
+                          type: string
+                          description: >-
+                            (Tag 106): Identifier of the issuer or
+                            issuer-specific identifier for the security.
+                        SecurityDesc:
+                          type: string
+                          description: '(Tag 107): Description or name of the security.'
+                        SecurityType:
+                          type: string
+                          description: >-
+                            (Tag 167): Type of the security (e.g., stock, bond,
+                            option, future).
+                        currency:
+                          type: string
+                          description: >-
+                            (Tag 15): Currency in which the security is
+                            denominated.
+                        contractMultiplier:
+                          type: string
+                          description: >-
+                            (Tag 231): Multiplier applied to the contract size
+                            to calculate the actual quantity.
+                        minPriceIncrement:
+                          type: string
+                          description: '(Tag 969): Minimum price increment for the security.'
+                        minPriceIncrementAmount:
+                          type: string
+                          description: >-
+                            (Tag 1146): Minimum price increment expressed as a
+                            monetary amount.
+                        unitOfMeasure:
+                          type: string
+                          description: '(Tag 996): Unit of measure for the contract size.'
+                        priceUnitOfMeasure:
+                          type: string
+                          description: '(Tag 1191): Unit of measure for the price.'
+                        settlType:
+                          type: string
+                          description: '(Tag 63): Type of settlement for the security.'
+                        settlDate:
+                          type: string
+                          description: '(Tag 64): Date of settlement for the security.'
+                        maturityMonthYear:
+                          type: string
+                          description: >-
+                            (Tag 200): Month and year of maturity for the
+                            security.
+                        couponRate:
+                          type: string
+                          description: >-
+                            (Tag 223): Coupon rate or interest rate for the
+                            security.
+                        factor:
+                          type: string
+                          description: >-
+                            (Tag 228): Factor applied to the price to calculate
+                            the actual value.
+                        creditRating:
+                          type: string
+                          description: '(Tag 255): Credit rating assigned to the security.'
+                        securityExchangeID:
+                          type: string
+                          description: >-
+                            (Tag 2076): Unique identifier for the security
+                            exchange.
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: Security Definition with fields, tags and descriptions.
+                    securityDefinitionRequestReject:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          title: >-
+                            (Tag 320): Unique identifier of the rejected
+                            security definition request
+                        securityRequestResult:
+                          type: string
+                          title: >-
+                            (Tag 560): Result of the security definition request
+                            (e.g., successful, invalid security, etc.)
+                        securityRequestError:
+                          type: string
+                          description: >-
+                            (Tag 560): Description of the error or reason for
+                            rejecting the security definition request.
+                        securityRequestErrorCode:
+                          type: string
+                          description: >-
+                            (Tag 560): Code indicating the specific error or
+                            reason for rejecting the request.
+                        text:
+                          type: string
+                          title: >-
+                            (Tag 58): Additional free-text description or
+                            information related to the rejection
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Security Definition Request Rejeect with fields, tags
+                        and descriptions.
               pagination:
                 type: object
                 properties:
@@ -33417,19 +33749,9 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/security/{id}:
+  /jim380/Re/fix/security/{securityReqID}:
     get:
       summary: Queries a list of Security items.
       operationId: Jim380ReFixSecurity
@@ -33442,13 +33764,414 @@ paths:
               Security:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
                   sessionID:
                     type: string
-                  securityReqID:
-                    type: string
+                  securityDefinitionRequest:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        title: >-
+                          (Tag 320): Unique identifier assigned by the requester
+                          to the security definition request message
+                      securityRequestType:
+                        type: string
+                        title: >-
+                          (Tag 321): Specifies the type of security definition
+                          being requested (e.g., requesting all securities, by
+                          symbol, by security type, etc.)
+                      symbol:
+                        type: string
+                        description: >-
+                          (Tag 55): Unique identifier for the security being
+                          requested.
+                      securityExchange:
+                        type: string
+                        description: >-
+                          (Tag 207): Code or identifier representing the
+                          exchange where the security is listed.
+                      issuer:
+                        type: string
+                        description: >-
+                          (Tag 106): Identifier of the issuer or issuer-specific
+                          identifier for the security.
+                      securityDesc:
+                        type: string
+                        title: '(Tag 107): Description or name of the security'
+                      securityType:
+                        type: string
+                        title: >-
+                          (Tag 167): Type of the security (e.g., stock, bond,
+                          option, future)
+                      currency:
+                        type: string
+                        title: >-
+                          (Tag 15): Currency in which the security is
+                          denominated
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Security Definition Request with fields, tags and
+                      descriptions.
+                  securityDefinition:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        description: >-
+                          (Tag 320): Unique identifier of the original security
+                          definition request.
+                      securityResponseID:
+                        type: string
+                        title: >-
+                          (Tag 322): Unique identifier assigned by the responder
+                          to the security definition message
+                      securityResponseType:
+                        type: string
+                        description: >-
+                          (Tag 323): Type of response to the security definition
+                          request (e.g., acceptance, rejection, etc.).
+                      symbol:
+                        type: string
+                        description: '(Tag 55): Unique identifier for the security.'
+                      securityExchange:
+                        type: string
+                        description: >-
+                          (Tag 207): Code or identifier representing the
+                          exchange where the security is listed.
+                      issuer:
+                        type: string
+                        description: >-
+                          (Tag 106): Identifier of the issuer or issuer-specific
+                          identifier for the security.
+                      SecurityDesc:
+                        type: string
+                        description: '(Tag 107): Description or name of the security.'
+                      SecurityType:
+                        type: string
+                        description: >-
+                          (Tag 167): Type of the security (e.g., stock, bond,
+                          option, future).
+                      currency:
+                        type: string
+                        description: >-
+                          (Tag 15): Currency in which the security is
+                          denominated.
+                      contractMultiplier:
+                        type: string
+                        description: >-
+                          (Tag 231): Multiplier applied to the contract size to
+                          calculate the actual quantity.
+                      minPriceIncrement:
+                        type: string
+                        description: '(Tag 969): Minimum price increment for the security.'
+                      minPriceIncrementAmount:
+                        type: string
+                        description: >-
+                          (Tag 1146): Minimum price increment expressed as a
+                          monetary amount.
+                      unitOfMeasure:
+                        type: string
+                        description: '(Tag 996): Unit of measure for the contract size.'
+                      priceUnitOfMeasure:
+                        type: string
+                        description: '(Tag 1191): Unit of measure for the price.'
+                      settlType:
+                        type: string
+                        description: '(Tag 63): Type of settlement for the security.'
+                      settlDate:
+                        type: string
+                        description: '(Tag 64): Date of settlement for the security.'
+                      maturityMonthYear:
+                        type: string
+                        description: >-
+                          (Tag 200): Month and year of maturity for the
+                          security.
+                      couponRate:
+                        type: string
+                        description: >-
+                          (Tag 223): Coupon rate or interest rate for the
+                          security.
+                      factor:
+                        type: string
+                        description: >-
+                          (Tag 228): Factor applied to the price to calculate
+                          the actual value.
+                      creditRating:
+                        type: string
+                        description: '(Tag 255): Credit rating assigned to the security.'
+                      securityExchangeID:
+                        type: string
+                        description: >-
+                          (Tag 2076): Unique identifier for the security
+                          exchange.
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: Security Definition with fields, tags and descriptions.
+                  securityDefinitionRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        title: >-
+                          (Tag 320): Unique identifier of the rejected security
+                          definition request
+                      securityRequestResult:
+                        type: string
+                        title: >-
+                          (Tag 560): Result of the security definition request
+                          (e.g., successful, invalid security, etc.)
+                      securityRequestError:
+                        type: string
+                        description: >-
+                          (Tag 560): Description of the error or reason for
+                          rejecting the security definition request.
+                      securityRequestErrorCode:
+                        type: string
+                        description: >-
+                          (Tag 560): Code indicating the specific error or
+                          reason for rejecting the request.
+                      text:
+                        type: string
+                        title: >-
+                          (Tag 58): Additional free-text description or
+                          information related to the rejection
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Security Definition Request Rejeect with fields, tags and
+                      descriptions.
         default:
           description: An unexpected error response.
           schema:
@@ -33468,11 +34191,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: securityReqID
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/session/logout/{sessionID}:
@@ -33995,16 +34717,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/session/reject/{sessionID}:
@@ -34335,16 +35047,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions:
@@ -34668,16 +35370,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -35920,16 +36612,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -58358,6 +59040,8 @@ definitions:
     type: object
   jim380.re.fix.MsgQuoteRequestResponse:
     type: object
+  jim380.re.fix.MsgSecurityDefinitionRequestResponse:
+    type: object
   jim380.re.fix.MsgTerminateLogonResponse:
     type: object
   jim380.re.fix.MsgTradeCaptureReportAcknowledgementResponse:
@@ -60574,13 +61258,390 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             sessionID:
               type: string
-            securityReqID:
-              type: string
+            securityDefinitionRequest:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  title: >-
+                    (Tag 320): Unique identifier assigned by the requester to
+                    the security definition request message
+                securityRequestType:
+                  type: string
+                  title: >-
+                    (Tag 321): Specifies the type of security definition being
+                    requested (e.g., requesting all securities, by symbol, by
+                    security type, etc.)
+                symbol:
+                  type: string
+                  description: >-
+                    (Tag 55): Unique identifier for the security being
+                    requested.
+                securityExchange:
+                  type: string
+                  description: >-
+                    (Tag 207): Code or identifier representing the exchange
+                    where the security is listed.
+                issuer:
+                  type: string
+                  description: >-
+                    (Tag 106): Identifier of the issuer or issuer-specific
+                    identifier for the security.
+                securityDesc:
+                  type: string
+                  title: '(Tag 107): Description or name of the security'
+                securityType:
+                  type: string
+                  title: >-
+                    (Tag 167): Type of the security (e.g., stock, bond, option,
+                    future)
+                currency:
+                  type: string
+                  title: '(Tag 15): Currency in which the security is denominated'
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: Security Definition Request with fields, tags and descriptions.
+            securityDefinition:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  description: >-
+                    (Tag 320): Unique identifier of the original security
+                    definition request.
+                securityResponseID:
+                  type: string
+                  title: >-
+                    (Tag 322): Unique identifier assigned by the responder to
+                    the security definition message
+                securityResponseType:
+                  type: string
+                  description: >-
+                    (Tag 323): Type of response to the security definition
+                    request (e.g., acceptance, rejection, etc.).
+                symbol:
+                  type: string
+                  description: '(Tag 55): Unique identifier for the security.'
+                securityExchange:
+                  type: string
+                  description: >-
+                    (Tag 207): Code or identifier representing the exchange
+                    where the security is listed.
+                issuer:
+                  type: string
+                  description: >-
+                    (Tag 106): Identifier of the issuer or issuer-specific
+                    identifier for the security.
+                SecurityDesc:
+                  type: string
+                  description: '(Tag 107): Description or name of the security.'
+                SecurityType:
+                  type: string
+                  description: >-
+                    (Tag 167): Type of the security (e.g., stock, bond, option,
+                    future).
+                currency:
+                  type: string
+                  description: '(Tag 15): Currency in which the security is denominated.'
+                contractMultiplier:
+                  type: string
+                  description: >-
+                    (Tag 231): Multiplier applied to the contract size to
+                    calculate the actual quantity.
+                minPriceIncrement:
+                  type: string
+                  description: '(Tag 969): Minimum price increment for the security.'
+                minPriceIncrementAmount:
+                  type: string
+                  description: >-
+                    (Tag 1146): Minimum price increment expressed as a monetary
+                    amount.
+                unitOfMeasure:
+                  type: string
+                  description: '(Tag 996): Unit of measure for the contract size.'
+                priceUnitOfMeasure:
+                  type: string
+                  description: '(Tag 1191): Unit of measure for the price.'
+                settlType:
+                  type: string
+                  description: '(Tag 63): Type of settlement for the security.'
+                settlDate:
+                  type: string
+                  description: '(Tag 64): Date of settlement for the security.'
+                maturityMonthYear:
+                  type: string
+                  description: '(Tag 200): Month and year of maturity for the security.'
+                couponRate:
+                  type: string
+                  description: '(Tag 223): Coupon rate or interest rate for the security.'
+                factor:
+                  type: string
+                  description: >-
+                    (Tag 228): Factor applied to the price to calculate the
+                    actual value.
+                creditRating:
+                  type: string
+                  description: '(Tag 255): Credit rating assigned to the security.'
+                securityExchangeID:
+                  type: string
+                  description: '(Tag 2076): Unique identifier for the security exchange.'
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: Security Definition with fields, tags and descriptions.
+            securityDefinitionRequestReject:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  title: >-
+                    (Tag 320): Unique identifier of the rejected security
+                    definition request
+                securityRequestResult:
+                  type: string
+                  title: >-
+                    (Tag 560): Result of the security definition request (e.g.,
+                    successful, invalid security, etc.)
+                securityRequestError:
+                  type: string
+                  description: >-
+                    (Tag 560): Description of the error or reason for rejecting
+                    the security definition request.
+                securityRequestErrorCode:
+                  type: string
+                  description: >-
+                    (Tag 560): Code indicating the specific error or reason for
+                    rejecting the request.
+                text:
+                  type: string
+                  title: >-
+                    (Tag 58): Additional free-text description or information
+                    related to the rejection
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: >-
+                Security Definition Request Rejeect with fields, tags and
+                descriptions.
       pagination:
         type: object
         properties:
@@ -63044,13 +64105,385 @@ definitions:
       Security:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           sessionID:
             type: string
-          securityReqID:
-            type: string
+          securityDefinitionRequest:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                title: >-
+                  (Tag 320): Unique identifier assigned by the requester to the
+                  security definition request message
+              securityRequestType:
+                type: string
+                title: >-
+                  (Tag 321): Specifies the type of security definition being
+                  requested (e.g., requesting all securities, by symbol, by
+                  security type, etc.)
+              symbol:
+                type: string
+                description: '(Tag 55): Unique identifier for the security being requested.'
+              securityExchange:
+                type: string
+                description: >-
+                  (Tag 207): Code or identifier representing the exchange where
+                  the security is listed.
+              issuer:
+                type: string
+                description: >-
+                  (Tag 106): Identifier of the issuer or issuer-specific
+                  identifier for the security.
+              securityDesc:
+                type: string
+                title: '(Tag 107): Description or name of the security'
+              securityType:
+                type: string
+                title: >-
+                  (Tag 167): Type of the security (e.g., stock, bond, option,
+                  future)
+              currency:
+                type: string
+                title: '(Tag 15): Currency in which the security is denominated'
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: Security Definition Request with fields, tags and descriptions.
+          securityDefinition:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                description: >-
+                  (Tag 320): Unique identifier of the original security
+                  definition request.
+              securityResponseID:
+                type: string
+                title: >-
+                  (Tag 322): Unique identifier assigned by the responder to the
+                  security definition message
+              securityResponseType:
+                type: string
+                description: >-
+                  (Tag 323): Type of response to the security definition request
+                  (e.g., acceptance, rejection, etc.).
+              symbol:
+                type: string
+                description: '(Tag 55): Unique identifier for the security.'
+              securityExchange:
+                type: string
+                description: >-
+                  (Tag 207): Code or identifier representing the exchange where
+                  the security is listed.
+              issuer:
+                type: string
+                description: >-
+                  (Tag 106): Identifier of the issuer or issuer-specific
+                  identifier for the security.
+              SecurityDesc:
+                type: string
+                description: '(Tag 107): Description or name of the security.'
+              SecurityType:
+                type: string
+                description: >-
+                  (Tag 167): Type of the security (e.g., stock, bond, option,
+                  future).
+              currency:
+                type: string
+                description: '(Tag 15): Currency in which the security is denominated.'
+              contractMultiplier:
+                type: string
+                description: >-
+                  (Tag 231): Multiplier applied to the contract size to
+                  calculate the actual quantity.
+              minPriceIncrement:
+                type: string
+                description: '(Tag 969): Minimum price increment for the security.'
+              minPriceIncrementAmount:
+                type: string
+                description: >-
+                  (Tag 1146): Minimum price increment expressed as a monetary
+                  amount.
+              unitOfMeasure:
+                type: string
+                description: '(Tag 996): Unit of measure for the contract size.'
+              priceUnitOfMeasure:
+                type: string
+                description: '(Tag 1191): Unit of measure for the price.'
+              settlType:
+                type: string
+                description: '(Tag 63): Type of settlement for the security.'
+              settlDate:
+                type: string
+                description: '(Tag 64): Date of settlement for the security.'
+              maturityMonthYear:
+                type: string
+                description: '(Tag 200): Month and year of maturity for the security.'
+              couponRate:
+                type: string
+                description: '(Tag 223): Coupon rate or interest rate for the security.'
+              factor:
+                type: string
+                description: >-
+                  (Tag 228): Factor applied to the price to calculate the actual
+                  value.
+              creditRating:
+                type: string
+                description: '(Tag 255): Credit rating assigned to the security.'
+              securityExchangeID:
+                type: string
+                description: '(Tag 2076): Unique identifier for the security exchange.'
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: Security Definition with fields, tags and descriptions.
+          securityDefinitionRequestReject:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                title: >-
+                  (Tag 320): Unique identifier of the rejected security
+                  definition request
+              securityRequestResult:
+                type: string
+                title: >-
+                  (Tag 560): Result of the security definition request (e.g.,
+                  successful, invalid security, etc.)
+              securityRequestError:
+                type: string
+                description: >-
+                  (Tag 560): Description of the error or reason for rejecting
+                  the security definition request.
+              securityRequestErrorCode:
+                type: string
+                description: >-
+                  (Tag 560): Code indicating the specific error or reason for
+                  rejecting the request.
+              text:
+                type: string
+                title: >-
+                  (Tag 58): Additional free-text description or information
+                  related to the rejection
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: >-
+              Security Definition Request Rejeect with fields, tags and
+              descriptions.
   jim380.re.fix.QueryGetSessionLogoutResponse:
     type: object
     properties:
@@ -65050,13 +66483,733 @@ definitions:
   jim380.re.fix.Security:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       sessionID:
         type: string
+      securityDefinitionRequest:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            title: >-
+              (Tag 320): Unique identifier assigned by the requester to the
+              security definition request message
+          securityRequestType:
+            type: string
+            title: >-
+              (Tag 321): Specifies the type of security definition being
+              requested (e.g., requesting all securities, by symbol, by security
+              type, etc.)
+          symbol:
+            type: string
+            description: '(Tag 55): Unique identifier for the security being requested.'
+          securityExchange:
+            type: string
+            description: >-
+              (Tag 207): Code or identifier representing the exchange where the
+              security is listed.
+          issuer:
+            type: string
+            description: >-
+              (Tag 106): Identifier of the issuer or issuer-specific identifier
+              for the security.
+          securityDesc:
+            type: string
+            title: '(Tag 107): Description or name of the security'
+          securityType:
+            type: string
+            title: >-
+              (Tag 167): Type of the security (e.g., stock, bond, option,
+              future)
+          currency:
+            type: string
+            title: '(Tag 15): Currency in which the security is denominated'
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: Security Definition Request with fields, tags and descriptions.
+      securityDefinition:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            description: >-
+              (Tag 320): Unique identifier of the original security definition
+              request.
+          securityResponseID:
+            type: string
+            title: >-
+              (Tag 322): Unique identifier assigned by the responder to the
+              security definition message
+          securityResponseType:
+            type: string
+            description: >-
+              (Tag 323): Type of response to the security definition request
+              (e.g., acceptance, rejection, etc.).
+          symbol:
+            type: string
+            description: '(Tag 55): Unique identifier for the security.'
+          securityExchange:
+            type: string
+            description: >-
+              (Tag 207): Code or identifier representing the exchange where the
+              security is listed.
+          issuer:
+            type: string
+            description: >-
+              (Tag 106): Identifier of the issuer or issuer-specific identifier
+              for the security.
+          SecurityDesc:
+            type: string
+            description: '(Tag 107): Description or name of the security.'
+          SecurityType:
+            type: string
+            description: >-
+              (Tag 167): Type of the security (e.g., stock, bond, option,
+              future).
+          currency:
+            type: string
+            description: '(Tag 15): Currency in which the security is denominated.'
+          contractMultiplier:
+            type: string
+            description: >-
+              (Tag 231): Multiplier applied to the contract size to calculate
+              the actual quantity.
+          minPriceIncrement:
+            type: string
+            description: '(Tag 969): Minimum price increment for the security.'
+          minPriceIncrementAmount:
+            type: string
+            description: >-
+              (Tag 1146): Minimum price increment expressed as a monetary
+              amount.
+          unitOfMeasure:
+            type: string
+            description: '(Tag 996): Unit of measure for the contract size.'
+          priceUnitOfMeasure:
+            type: string
+            description: '(Tag 1191): Unit of measure for the price.'
+          settlType:
+            type: string
+            description: '(Tag 63): Type of settlement for the security.'
+          settlDate:
+            type: string
+            description: '(Tag 64): Date of settlement for the security.'
+          maturityMonthYear:
+            type: string
+            description: '(Tag 200): Month and year of maturity for the security.'
+          couponRate:
+            type: string
+            description: '(Tag 223): Coupon rate or interest rate for the security.'
+          factor:
+            type: string
+            description: >-
+              (Tag 228): Factor applied to the price to calculate the actual
+              value.
+          creditRating:
+            type: string
+            description: '(Tag 255): Credit rating assigned to the security.'
+          securityExchangeID:
+            type: string
+            description: '(Tag 2076): Unique identifier for the security exchange.'
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: Security Definition with fields, tags and descriptions.
+      securityDefinitionRequestReject:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            title: >-
+              (Tag 320): Unique identifier of the rejected security definition
+              request
+          securityRequestResult:
+            type: string
+            title: >-
+              (Tag 560): Result of the security definition request (e.g.,
+              successful, invalid security, etc.)
+          securityRequestError:
+            type: string
+            description: >-
+              (Tag 560): Description of the error or reason for rejecting the
+              security definition request.
+          securityRequestErrorCode:
+            type: string
+            description: >-
+              (Tag 560): Code indicating the specific error or reason for
+              rejecting the request.
+          text:
+            type: string
+            title: >-
+              (Tag 58): Additional free-text description or information related
+              to the rejection
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: >-
+          Security Definition Request Rejeect with fields, tags and
+          descriptions.
+  jim380.re.fix.SecurityDefinition:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
       securityReqID:
         type: string
+        description: >-
+          (Tag 320): Unique identifier of the original security definition
+          request.
+      securityResponseID:
+        type: string
+        title: >-
+          (Tag 322): Unique identifier assigned by the responder to the security
+          definition message
+      securityResponseType:
+        type: string
+        description: >-
+          (Tag 323): Type of response to the security definition request (e.g.,
+          acceptance, rejection, etc.).
+      symbol:
+        type: string
+        description: '(Tag 55): Unique identifier for the security.'
+      securityExchange:
+        type: string
+        description: >-
+          (Tag 207): Code or identifier representing the exchange where the
+          security is listed.
+      issuer:
+        type: string
+        description: >-
+          (Tag 106): Identifier of the issuer or issuer-specific identifier for
+          the security.
+      SecurityDesc:
+        type: string
+        description: '(Tag 107): Description or name of the security.'
+      SecurityType:
+        type: string
+        description: '(Tag 167): Type of the security (e.g., stock, bond, option, future).'
+      currency:
+        type: string
+        description: '(Tag 15): Currency in which the security is denominated.'
+      contractMultiplier:
+        type: string
+        description: >-
+          (Tag 231): Multiplier applied to the contract size to calculate the
+          actual quantity.
+      minPriceIncrement:
+        type: string
+        description: '(Tag 969): Minimum price increment for the security.'
+      minPriceIncrementAmount:
+        type: string
+        description: '(Tag 1146): Minimum price increment expressed as a monetary amount.'
+      unitOfMeasure:
+        type: string
+        description: '(Tag 996): Unit of measure for the contract size.'
+      priceUnitOfMeasure:
+        type: string
+        description: '(Tag 1191): Unit of measure for the price.'
+      settlType:
+        type: string
+        description: '(Tag 63): Type of settlement for the security.'
+      settlDate:
+        type: string
+        description: '(Tag 64): Date of settlement for the security.'
+      maturityMonthYear:
+        type: string
+        description: '(Tag 200): Month and year of maturity for the security.'
+      couponRate:
+        type: string
+        description: '(Tag 223): Coupon rate or interest rate for the security.'
+      factor:
+        type: string
+        description: '(Tag 228): Factor applied to the price to calculate the actual value.'
+      creditRating:
+        type: string
+        description: '(Tag 255): Credit rating assigned to the security.'
+      securityExchangeID:
+        type: string
+        description: '(Tag 2076): Unique identifier for the security exchange.'
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Security Definition with fields, tags and descriptions.
+  jim380.re.fix.SecurityDefinitionRequest:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      securityReqID:
+        type: string
+        title: >-
+          (Tag 320): Unique identifier assigned by the requester to the security
+          definition request message
+      securityRequestType:
+        type: string
+        title: >-
+          (Tag 321): Specifies the type of security definition being requested
+          (e.g., requesting all securities, by symbol, by security type, etc.)
+      symbol:
+        type: string
+        description: '(Tag 55): Unique identifier for the security being requested.'
+      securityExchange:
+        type: string
+        description: >-
+          (Tag 207): Code or identifier representing the exchange where the
+          security is listed.
+      issuer:
+        type: string
+        description: >-
+          (Tag 106): Identifier of the issuer or issuer-specific identifier for
+          the security.
+      securityDesc:
+        type: string
+        title: '(Tag 107): Description or name of the security'
+      securityType:
+        type: string
+        title: '(Tag 167): Type of the security (e.g., stock, bond, option, future)'
+      currency:
+        type: string
+        title: '(Tag 15): Currency in which the security is denominated'
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Security Definition Request with fields, tags and descriptions.
+  jim380.re.fix.SecurityDefinitionRequestReject:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      securityReqID:
+        type: string
+        title: >-
+          (Tag 320): Unique identifier of the rejected security definition
+          request
+      securityRequestResult:
+        type: string
+        title: >-
+          (Tag 560): Result of the security definition request (e.g.,
+          successful, invalid security, etc.)
+      securityRequestError:
+        type: string
+        description: >-
+          (Tag 560): Description of the error or reason for rejecting the
+          security definition request.
+      securityRequestErrorCode:
+        type: string
+        description: >-
+          (Tag 560): Code indicating the specific error or reason for rejecting
+          the request.
+      text:
+        type: string
+        title: >-
+          (Tag 58): Additional free-text description or information related to
+          the rejection
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Security Definition Request Rejeect with fields, tags and descriptions.
   jim380.re.fix.SessionLogout:
     type: object
     properties:

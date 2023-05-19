@@ -1,4 +1,5 @@
 package network
+
 /*
 import (
 	"fmt"
