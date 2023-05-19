@@ -108,8 +108,65 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecurityDefinition) (*types.MsgSecurityDefinitionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Security Definition matches with the sessionID for Security Definition Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInSecurity, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user responding is the recipient of the Security Definition Request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Market Data Snap Shot Full Refresh Creator: %s", msg.Creator)
+	}
+
+	// get Security Definition Request
+	security, found := k.GetSecurity(ctx, msg.SecurityReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityIsNotFound, ": %s", security.SecurityDefinition)
+	}
+
+	// check that the Security Definition Request is not rejected already
+	if security.SecurityDefinitionRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityDefinitionRequestIsRejected, "Security: %s", security.SecurityDefinitionRequestReject)
+	}
+
+	// check that the Security Definition Request is not acknowledged already
+	if security.SecurityDefinition != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityDefinitionRequestIsAcknowledged, "Security: %s", security.SecurityDefinition)
+	}
+
+	// check that the mandatory fields match the values from Security Definition Request
+	if security.SecurityDefinitionRequest.SecurityReqID != msg.SecurityReqID {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityMismatchField, "SecurityReqID: %s", msg.SecurityReqID)
+	}
+
+	// check that the mandatory Security Definition fields are not empty
+	if msg.Symbol == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecuritySymbolIsEmpty, "Symbol: %s", msg.Symbol)
+	}
+	if msg.SecurityExchange == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityExchangeIsEmpty, "SecurityExchange: %s", msg.SecurityExchange)
+	}
+	if msg.SecurityType == "" {
+		// handle err
+	}
+	if msg.Currency == "" {
+		// handle err
+	}
+	if msg.MinPriceIncrement == "" {
+		// handle err
+	}
 
 	return &types.MsgSecurityDefinitionResponse{}, nil
 }

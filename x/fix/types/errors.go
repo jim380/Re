@@ -97,6 +97,11 @@ const (
 	errSecurityRequestTypeIsEmpty
 	errSecuritySymbolIsEmpty
 	errSecurityExchangeIsEmpty
+	errWrongSessionIDInSecurity
+	errSecurityIsNotFound
+	errSecurityDefinitionRequestIsRejected
+	errSecurityDefinitionRequestIsAcknowledged
+	errSecurityMismatchField
 )
 
 // x/fix module sentinel errors
@@ -185,8 +190,13 @@ var (
 	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
 
 	// security
-	ErrSecurityReqIDIsEmpty       = sdkerrors.Register(ModuleName, errSecurityReqIDIsEmpty, "SecurityReqID is empty")
-	ErrSecurityRequestTypeIsEmpty = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
-	ErrSecuritySymbolIsEmpty      = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
-	ErrSecurityExchangeIsEmpty    = sdkerrors.Register(ModuleName, errSecurityExchangeIsEmpty, "SecurityExchange is empty")
+	ErrSecurityReqIDIsEmpty                    = sdkerrors.Register(ModuleName, errSecurityReqIDIsEmpty, "SecurityReqID is empty")
+	ErrSecurityRequestTypeIsEmpty              = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
+	ErrSecuritySymbolIsEmpty                   = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
+	ErrSecurityExchangeIsEmpty                 = sdkerrors.Register(ModuleName, errSecurityExchangeIsEmpty, "SecurityExchange is empty")
+	ErrWrongSessionIDInSecurity                = sdkerrors.Register(ModuleName, errWrongSessionIDInSecurity, "This Session ID does not tally with the Security Definition Request")
+	ErrSecurityIsNotFound                      = sdkerrors.Register(ModuleName, errSecurityIsNotFound, "Security Definition Request is not found")
+	ErrSecurityDefinitionRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsRejected, "Security Definition Request has been rejected")
+	ErrSecurityDefinitionRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsAcknowledged, "Security Definition Request has been acknowledged")
+	ErrSecurityMismatchField                   = sdkerrors.Register(ModuleName, errSecurityMismatchField, "This value does not match the value from security definition request")
 )
