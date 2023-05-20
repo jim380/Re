@@ -18,7 +18,6 @@ func CmdSecurityDefinitionRequest() *cobra.Command {
 		Short: "Broadcast message security-definition-request",
 		Args:  cobra.ExactArgs(9),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argSecurityReqID := args[1]
 			argSecurityRequestType := args[2]
@@ -64,7 +63,6 @@ func CmdSecurityDefinition() *cobra.Command {
 		Short: "Broadcast message security-definition",
 		Args:  cobra.ExactArgs(22),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argSecurityReqID := args[1]
 			argSecurityResponseID := args[2]
