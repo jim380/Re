@@ -310,6 +310,42 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 		},
 	}
 
+	// set header from Security Definition Request
+	securityDefinitionRequestReject.SecurityDefinitionRequestReject.Header = security.SecurityDefinitionRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *securityDefinitionRequestReject.SecurityDefinitionRequestReject.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = security.SecurityDefinitionRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = security.SecurityDefinitionRequest.Header.MsgSeqNum
+
+	// set the msgType to Security Definition Request Reject
+	newHeader.MsgType = "j"
+
+	// switch senderCompID and targetCompID between Security Definition Request and Security Definition Request Reject
+	// set senderCompID of Security Definition Request Reject to the targetCompID of Security Definition Request in the header
+	newHeader.SenderCompID = security.SecurityDefinitionRequest.Header.TargetCompID
+
+	// set targetCompID of Security Definition Request Reject to the senderCompID of Security Definition Request in the header
+	newHeader.TargetCompID = security.SecurityDefinitionRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	securityDefinitionRequestReject.SecurityDefinitionRequestReject.Header = newHeader
+
+	// set Trailer from the existing Security Definition Request
+	// TODO
+	// checksum should be recalcualted
+	securityDefinitionRequestReject.SecurityDefinitionRequestReject.Trailer = security.SecurityDefinitionRequest.Trailer
+
 	// set Security Definition Request Reject to store
 	k.SetSecurity(ctx, msg.SecurityReqID, securityDefinitionRequestReject)
 
