@@ -44,7 +44,7 @@ func CmdListTradeCapture() *cobra.Command {
 
 func CmdShowTradeCapture() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-trade-capture [id]",
+		Use:   "show-trade-capture [tradeReportID]",
 		Short: "shows a trade-capture",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

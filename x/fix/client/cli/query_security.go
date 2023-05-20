@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListMarketData() *cobra.Command {
+func CmdListSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-market-data",
-		Short: "list all market-data",
+		Use:   "list-security",
+		Short: "list all security",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,11 +23,11 @@ func CmdListMarketData() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllMarketDataRequest{
+			params := &types.QueryAllSecurityRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.MarketDataAll(context.Background(), params)
+			res, err := queryClient.SecurityAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -42,23 +42,23 @@ func CmdListMarketData() *cobra.Command {
 	return cmd
 }
 
-func CmdShowMarketData() *cobra.Command {
+func CmdShowSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-market-data [mdReqID]",
-		Short: "shows a market-data",
+		Use:   "show-security [securityReqID]",
+		Short: "shows a security",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argmdReqID := args[0]
+			argSecurityReqID := args[0]
 
-			params := &types.QueryGetMarketDataRequest{
-				MdReqID: argmdReqID,
+			params := &types.QueryGetSecurityRequest{
+				SecurityReqID: argSecurityReqID,
 			}
 
-			res, err := queryClient.MarketData(context.Background(), params)
+			res, err := queryClient.Security(context.Background(), params)
 			if err != nil {
 				return err
 			}

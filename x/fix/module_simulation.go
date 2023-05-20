@@ -88,6 +88,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgQuoteRequestReject int = 100
 
+	opWeightMsgSecurityDefinitionRequest = "op_weight_msg_security_definition_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSecurityDefinitionRequest int = 100
+
+	opWeightMsgSecurityDefinition = "op_weight_msg_security_definition"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSecurityDefinition int = 100
+
+	opWeightMsgSecurityDefinitionRequestReject = "op_weight_msg_security_definition_request_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSecurityDefinitionRequestReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -306,6 +318,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgQuoteRequestReject,
 		fixsimulation.SimulateMsgQuoteRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSecurityDefinitionRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSecurityDefinitionRequest, &weightMsgSecurityDefinitionRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgSecurityDefinitionRequest = defaultWeightMsgSecurityDefinitionRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSecurityDefinitionRequest,
+		fixsimulation.SimulateMsgSecurityDefinitionRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSecurityDefinition int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSecurityDefinition, &weightMsgSecurityDefinition, nil,
+		func(_ *rand.Rand) {
+			weightMsgSecurityDefinition = defaultWeightMsgSecurityDefinition
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSecurityDefinition,
+		fixsimulation.SimulateMsgSecurityDefinition(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSecurityDefinitionRequestReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSecurityDefinitionRequestReject, &weightMsgSecurityDefinitionRequestReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgSecurityDefinitionRequestReject = defaultWeightMsgSecurityDefinitionRequestReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSecurityDefinitionRequestReject,
+		fixsimulation.SimulateMsgSecurityDefinitionRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -48,6 +48,12 @@ service Msg {
       returns (MsgMarketDataIncrementalResponse);
   rpc MarketDataRequestReject(MsgMarketDataRequestReject)
       returns (MsgMarketDataRequestRejectResponse);
+  rpc SecurityDefinitionRequest(MsgSecurityDefinitionRequest)
+      returns (MsgSecurityDefinitionRequestResponse);
+  rpc SecurityDefinition(MsgSecurityDefinition)
+      returns (MsgSecurityDefinitionResponse);
+  rpc SecurityDefinitionRequestReject(MsgSecurityDefinitionRequestReject)
+      returns (MsgSecurityDefinitionRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -285,6 +291,7 @@ message MsgTradeCaptureReportRejection {
 }
 
 message MsgTradeCaptureReportRejectionResponse {}
+
 message MsgMarketDataRequest {
   string creator = 1;
   string mdReqID = 2;
@@ -328,3 +335,58 @@ message MsgMarketDataRequestReject {
 }
 
 message MsgMarketDataRequestRejectResponse {}
+
+message MsgSecurityDefinitionRequest {
+  string creator = 1;
+  string securityReqID = 2;
+  string securityRequestType = 3;
+  string symbol = 4;
+  string securityExchange = 5;
+  string issuer = 6;
+  string securityDesc = 7;
+  string securityType = 8;
+  string currency = 9;
+  string sessionID = 10;
+}
+
+message MsgSecurityDefinitionRequestResponse {}
+
+message MsgSecurityDefinition {
+  string creator = 1;
+  string securityReqID = 2;
+  string securityResponseID = 3;
+  string securityResponseType = 4;
+  string symbol = 5;
+  string securityExchange = 6;
+  string issuer = 7;
+  string securityDesc = 8;
+  string securityType = 9;
+  string currency = 10;
+  string contractMultiplier = 11;
+  string minPriceIncrement = 12;
+  string minPriceIncrementAmount = 13;
+  string unitOfMeasure = 14;
+  string priceUnitOfMeasure = 15;
+  string settlType = 16;
+  string settlDate = 17;
+  string maturityMonthYear = 18;
+  string couponRate = 19;
+  string factor = 20;
+  string creditRating = 21;
+  string securityExchangeID = 22;
+  string sessionID = 23;
+}
+
+message MsgSecurityDefinitionResponse {}
+
+message MsgSecurityDefinitionRequestReject {
+  string creator = 1;
+  string sessionID = 2;
+  string securityReqID = 3;
+  string securityRequestResult = 4;
+  string securityRequestError = 5;
+  string securityRequestErrorCode = 6;
+  string text = 7;
+}
+
+message MsgSecurityDefinitionRequestRejectResponse {}

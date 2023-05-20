@@ -91,6 +91,22 @@ const (
 	errTradeCaptureReportIsAcknowledged
 	errTradeCaptureSession
 	errTradeReportRejectReasonIsEmpty
+
+	// security
+	errSecurityReqIDIsEmpty
+	errSecurityRequestTypeIsEmpty
+	errSecuritySymbolIsEmpty
+	errSecurityExchangeIsEmpty
+	errWrongSessionIDInSecurity
+	errSecurityIsNotFound
+	errSecurityDefinitionRequestIsRejected
+	errSecurityDefinitionRequestIsAcknowledged
+	errSecurityMismatchField
+	errSecurityTypeIsEmpty
+	errSecurityCurrencyIsEmpty
+	errSecurityMinPriceIncrementIsEmpty
+	errSecurityRequestResultIsEmpty
+	errSecurityRequestErrorIsEmpty
 )
 
 // x/fix module sentinel errors
@@ -177,4 +193,20 @@ var (
 	ErrTradeCaptureReportIsAcknowledged = sdkerrors.Register(ModuleName, errTradeCaptureReportIsAcknowledged, "Trade Capture Report has been acknowledged")
 	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "No established session between parties in the Trade Capture")
 	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
+
+	// security
+	ErrSecurityReqIDIsEmpty                    = sdkerrors.Register(ModuleName, errSecurityReqIDIsEmpty, "SecurityReqID is empty")
+	ErrSecurityRequestTypeIsEmpty              = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
+	ErrSecuritySymbolIsEmpty                   = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
+	ErrSecurityExchangeIsEmpty                 = sdkerrors.Register(ModuleName, errSecurityExchangeIsEmpty, "SecurityExchange is empty")
+	ErrWrongSessionIDInSecurity                = sdkerrors.Register(ModuleName, errWrongSessionIDInSecurity, "This Session ID does not tally with the Security Definition Request")
+	ErrSecurityIsNotFound                      = sdkerrors.Register(ModuleName, errSecurityIsNotFound, "Security Definition Request is not found")
+	ErrSecurityDefinitionRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsRejected, "Security Definition Request has been rejected")
+	ErrSecurityDefinitionRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsAcknowledged, "Security Definition Request has been acknowledged")
+	ErrSecurityMismatchField                   = sdkerrors.Register(ModuleName, errSecurityMismatchField, "This value does not match the value from security definition request")
+	ErrSecurityTypeIsEmpty                     = sdkerrors.Register(ModuleName, errSecurityTypeIsEmpty, "SecurityType is empty")
+	ErrSecurityCurrencyIsEmpty                 = sdkerrors.Register(ModuleName, errSecurityCurrencyIsEmpty, "Currency is empty")
+	ErrSecurityMinPriceIncrementIsEmpty        = sdkerrors.Register(ModuleName, errSecurityMinPriceIncrementIsEmpty, "MinPriceIncrement is empty")
+	ErrSecurityRequestResultIsEmpty            = sdkerrors.Register(ModuleName, errSecurityRequestResultIsEmpty, "SecurityRequestResult is empty")
+	ErrSecurityRequestErrorIsEmpty             = sdkerrors.Register(ModuleName, errSecurityRequestErrorIsEmpty, "SecurityRequestError is empty")
 )
