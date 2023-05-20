@@ -102,6 +102,11 @@ const (
 	errSecurityDefinitionRequestIsRejected
 	errSecurityDefinitionRequestIsAcknowledged
 	errSecurityMismatchField
+	errSecurityTypeIsEmpty
+	errSecurityCurrencyIsEmpty
+	errSecurityMinPriceIncrementIsEmpty
+	errSecurityRequestResultIsEmpty
+	errSecurityRequestErrorIsEmpty
 )
 
 // x/fix module sentinel errors
@@ -199,4 +204,9 @@ var (
 	ErrSecurityDefinitionRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsRejected, "Security Definition Request has been rejected")
 	ErrSecurityDefinitionRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsAcknowledged, "Security Definition Request has been acknowledged")
 	ErrSecurityMismatchField                   = sdkerrors.Register(ModuleName, errSecurityMismatchField, "This value does not match the value from security definition request")
+	ErrSecurityTypeIsEmpty                     = sdkerrors.Register(ModuleName, errSecurityTypeIsEmpty, "SecurityType is empty")
+	ErrSecurityCurrencyIsEmpty                 = sdkerrors.Register(ModuleName, errSecurityCurrencyIsEmpty, "Currency is empty")
+	ErrSecurityMinPriceIncrementIsEmpty        = sdkerrors.Register(ModuleName, errSecurityMinPriceIncrementIsEmpty, "MinPriceIncrement is empty")
+	ErrSecurityRequestResultIsEmpty            = sdkerrors.Register(ModuleName, errSecurityRequestResultIsEmpty, "SecurityRequestResult is empty")
+	ErrSecurityRequestErrorIsEmpty             = sdkerrors.Register(ModuleName, errSecurityRequestErrorIsEmpty, "SecurityRequestError is empty")
 )

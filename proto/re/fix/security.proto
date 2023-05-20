@@ -131,10 +131,10 @@ message SecurityDefinitionRequestReject {
   // (Tag 560): Result of the security definition request (e.g., successful, invalid security, etc.)
   string securityRequestResult = 3;
   
-  // (Tag 560): Description of the error or reason for rejecting the security definition request.
+  // (Tag 561): Description of the error or reason for rejecting the security definition request.
   string securityRequestError = 4;
   
-  // (Tag 560): Code indicating the specific error or reason for rejecting the request.
+  // (Tag 562): Code indicating the specific error or reason for rejecting the request.
   string securityRequestErrorCode = 5;
 
   // (Tag 58): Additional free-text description or information related to the rejection
