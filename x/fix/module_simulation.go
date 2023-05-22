@@ -100,6 +100,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityDefinitionRequestReject int = 100
 
+	opWeightMsgOrderMassStatusRequest = "op_weight_msg_order_mass_status_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgOrderMassStatusRequest int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -351,6 +355,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSecurityDefinitionRequestReject,
 		fixsimulation.SimulateMsgSecurityDefinitionRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgOrderMassStatusRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgOrderMassStatusRequest, &weightMsgOrderMassStatusRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgOrderMassStatusRequest = defaultWeightMsgOrderMassStatusRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgOrderMassStatusRequest,
+		fixsimulation.SimulateMsgOrderMassStatusRequest(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -31,7 +31,7 @@ message OrderMassStatusRequest {
   string account = 5;
 
   // (55) The symbol of the security that the orders are for.	
-  string Symbol	= 6;
+  string symbol	= 6;
 
   // (48)	The security identifier of the security that the orders are for.
   string securityID	= 7;

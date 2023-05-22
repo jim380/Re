@@ -28824,16 +28824,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -29472,16 +29462,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/market_data/{mdReqID}:
@@ -30015,11 +29995,360 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     sessionID:
                       type: string
+                    orderMassStatusRequest:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        massStatusReqID:
+                          type: string
+                          description: (586) The unique identifier for the status request.
+                        massStatusReqType:
+                          type: string
+                          description: >-
+                            (585) The type of status request. Valid values are
+                            "All" to request the status of all orders in the
+                            group, or "Partial" to request the status of a
+                            subset of orders in the group.
+                        clOrdID:
+                          type: string
+                          description: (49) The unique identifier for the group of orders.
+                        account:
+                          type: string
+                          description: (1) The account that the orders belong to.
+                        symbol:
+                          type: string
+                          description: >-
+                            (55) The symbol of the security that the orders are
+                            for.
+                        securityID:
+                          type: string
+                          description: "(48)\tThe security identifier of the security that the orders are for."
+                        tradingSessionID:
+                          type: string
+                          description: (336) The trading session that the orders are for.
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                      description: >-
+                        Order Mass Status Request with fields, tags and
+                        descriptions.
+                    orderMassStatusReport:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        clOrdID:
+                          type: string
+                          description: "(49)\tThe unique identifier for the order."
+                        massStatusReqID:
+                          type: string
+                          description: (585) The unique identifier for the status request.
+                        account:
+                          type: string
+                          description: (1) The account that the order belongs to.
+                        symbol:
+                          type: string
+                          description: >-
+                            (55) The symbol of the security that the order is
+                            for.
+                        securityID:
+                          type: string
+                          description: >-
+                            (48) The security identifier of the security that
+                            the order is for.
+                        tradingSessionID:
+                          type: string
+                          description: (336) The trading session that the order is for.
+                        ordStatus:
+                          type: string
+                          description: >-
+                            (39)  The status of the order. Valid values are
+                            "New", "Pending", "PartiallyFilled", "Filled",
+                            "Cancelled", and "Expired".
+                        execType:
+                          type: string
+                          description: >-
+                            (150) The type of execution report. Valid values are
+                            "New", "Replace", "Cancel", and "Status".
+                        ordQty:
+                          type: string
+                          description: >-
+                            (38) The quantity of the order that has been
+                            executed.
+                        lastPx:
+                          type: string
+                          description: (31) The last price at which the order was executed.
+                        cumQty:
+                          type: string
+                          description: >-
+                            (44) The total quantity of the order that has been
+                            executed.
+                        avgPx:
+                          type: string
+                          description: >-
+                            (69) The average price at which the order has been
+                            executed.
+                        leavesQty:
+                          type: string
+                          description: >-
+                            (11) The quantity of the order that remains to be
+                            executed.
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                      description: >-
+                        Order Mass Status Report with fields, tags and
+                        descriptions.
+                    OrderMassStatusRequestReject:
+                      type: object
+                      properties:
+                        header:
+                          title: standard Header
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                        refSeqID:
+                          type: string
+                          description: >-
+                            (34) The unique identifier for the rejected message.
+
+                            the RefSeqID field in the Order Mass Status Request
+                            Reject (AR) message will contain the same value as
+                            the MassStatusReqID field in the original Order Mass
+                            Status Request (AF) message.
+                        rejCode:
+                          type: string
+                          title: >-
+                            (587) The reason for the rejection. Valid values
+                            are:
+
+                            1: Invalid message type
+
+                            2: Invalid field
+
+                            3: Invalid value
+
+                            4: Unsupported feature
+
+                            5: Insufficient permissions
+
+                            6: Internal error
+
+                            7: Timeout
+
+                            8: Other
+                        text:
+                          type: string
+                          description: >-
+                            (588) A text description of the reason for the
+                            rejection.
+                        trailer:
+                          title: standard Trailer
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                        creator:
+                          type: string
+                          title: owner
+                      description: >-
+                        Order Mass Status Request Reject with fields, tags and
+                        descriptions.
               pagination:
                 type: object
                 properties:
@@ -30112,19 +30441,9 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/order_mass_status/{id}:
+  /jim380/Re/fix/order_mass_status/{massStatusReqID}:
     get:
       summary: Queries a list of OrderMassStatus items.
       operationId: Jim380ReFixOrderMassStatus
@@ -30137,11 +30456,347 @@ paths:
               OrderMassStatus:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
                   sessionID:
                     type: string
+                  orderMassStatusRequest:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      massStatusReqID:
+                        type: string
+                        description: (586) The unique identifier for the status request.
+                      massStatusReqType:
+                        type: string
+                        description: >-
+                          (585) The type of status request. Valid values are
+                          "All" to request the status of all orders in the
+                          group, or "Partial" to request the status of a subset
+                          of orders in the group.
+                      clOrdID:
+                        type: string
+                        description: (49) The unique identifier for the group of orders.
+                      account:
+                        type: string
+                        description: (1) The account that the orders belong to.
+                      symbol:
+                        type: string
+                        description: >-
+                          (55) The symbol of the security that the orders are
+                          for.
+                      securityID:
+                        type: string
+                        description: "(48)\tThe security identifier of the security that the orders are for."
+                      tradingSessionID:
+                        type: string
+                        description: (336) The trading session that the orders are for.
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                    description: >-
+                      Order Mass Status Request with fields, tags and
+                      descriptions.
+                  orderMassStatusReport:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      clOrdID:
+                        type: string
+                        description: "(49)\tThe unique identifier for the order."
+                      massStatusReqID:
+                        type: string
+                        description: (585) The unique identifier for the status request.
+                      account:
+                        type: string
+                        description: (1) The account that the order belongs to.
+                      symbol:
+                        type: string
+                        description: (55) The symbol of the security that the order is for.
+                      securityID:
+                        type: string
+                        description: >-
+                          (48) The security identifier of the security that the
+                          order is for.
+                      tradingSessionID:
+                        type: string
+                        description: (336) The trading session that the order is for.
+                      ordStatus:
+                        type: string
+                        description: >-
+                          (39)  The status of the order. Valid values are "New",
+                          "Pending", "PartiallyFilled", "Filled", "Cancelled",
+                          and "Expired".
+                      execType:
+                        type: string
+                        description: >-
+                          (150) The type of execution report. Valid values are
+                          "New", "Replace", "Cancel", and "Status".
+                      ordQty:
+                        type: string
+                        description: (38) The quantity of the order that has been executed.
+                      lastPx:
+                        type: string
+                        description: (31) The last price at which the order was executed.
+                      cumQty:
+                        type: string
+                        description: >-
+                          (44) The total quantity of the order that has been
+                          executed.
+                      avgPx:
+                        type: string
+                        description: >-
+                          (69) The average price at which the order has been
+                          executed.
+                      leavesQty:
+                        type: string
+                        description: >-
+                          (11) The quantity of the order that remains to be
+                          executed.
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                    description: >-
+                      Order Mass Status Report with fields, tags and
+                      descriptions.
+                  OrderMassStatusRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        title: standard Header
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                      refSeqID:
+                        type: string
+                        description: >-
+                          (34) The unique identifier for the rejected message.
+
+                          the RefSeqID field in the Order Mass Status Request
+                          Reject (AR) message will contain the same value as the
+                          MassStatusReqID field in the original Order Mass
+                          Status Request (AF) message.
+                      rejCode:
+                        type: string
+                        title: |-
+                          (587) The reason for the rejection. Valid values are:
+                          1: Invalid message type
+                          2: Invalid field
+                          3: Invalid value
+                          4: Unsupported feature
+                          5: Insufficient permissions
+                          6: Internal error
+                          7: Timeout
+                          8: Other
+                      text:
+                        type: string
+                        description: >-
+                          (588) A text description of the reason for the
+                          rejection.
+                      trailer:
+                        title: standard Trailer
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                      creator:
+                        type: string
+                        title: owner
+                    description: >-
+                      Order Mass Status Request Reject with fields, tags and
+                      descriptions.
         default:
           description: An unexpected error response.
           schema:
@@ -30161,11 +30816,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: massStatusReqID
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/orders:
@@ -30423,16 +31077,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -31044,16 +31688,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders_cancel_request/{sessionID}:
@@ -31401,16 +32035,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -31975,16 +32599,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -33459,16 +34073,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/securities:
@@ -34008,16 +34612,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -35015,16 +35609,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/session/reject/{sessionID}:
@@ -35355,16 +35939,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions:
@@ -35688,16 +36262,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -36940,16 +37504,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -59372,6 +59926,8 @@ definitions:
     type: object
   jim380.re.fix.MsgOrderExecutionReportResponse:
     type: object
+  jim380.re.fix.MsgOrderMassStatusRequestResponse:
+    type: object
   jim380.re.fix.MsgQuoteAcknowledgementResponse:
     type: object
   jim380.re.fix.MsgQuoteRequestRejectResponse:
@@ -59397,11 +59953,598 @@ definitions:
   jim380.re.fix.OrderMassStatus:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       sessionID:
         type: string
+      orderMassStatusRequest:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          massStatusReqID:
+            type: string
+            description: (586) The unique identifier for the status request.
+          massStatusReqType:
+            type: string
+            description: >-
+              (585) The type of status request. Valid values are "All" to
+              request the status of all orders in the group, or "Partial" to
+              request the status of a subset of orders in the group.
+          clOrdID:
+            type: string
+            description: (49) The unique identifier for the group of orders.
+          account:
+            type: string
+            description: (1) The account that the orders belong to.
+          symbol:
+            type: string
+            description: (55) The symbol of the security that the orders are for.
+          securityID:
+            type: string
+            description: "(48)\tThe security identifier of the security that the orders are for."
+          tradingSessionID:
+            type: string
+            description: (336) The trading session that the orders are for.
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+          creator:
+            type: string
+            title: owner
+        description: Order Mass Status Request with fields, tags and descriptions.
+      orderMassStatusReport:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          clOrdID:
+            type: string
+            description: "(49)\tThe unique identifier for the order."
+          massStatusReqID:
+            type: string
+            description: (585) The unique identifier for the status request.
+          account:
+            type: string
+            description: (1) The account that the order belongs to.
+          symbol:
+            type: string
+            description: (55) The symbol of the security that the order is for.
+          securityID:
+            type: string
+            description: >-
+              (48) The security identifier of the security that the order is
+              for.
+          tradingSessionID:
+            type: string
+            description: (336) The trading session that the order is for.
+          ordStatus:
+            type: string
+            description: >-
+              (39)  The status of the order. Valid values are "New", "Pending",
+              "PartiallyFilled", "Filled", "Cancelled", and "Expired".
+          execType:
+            type: string
+            description: >-
+              (150) The type of execution report. Valid values are "New",
+              "Replace", "Cancel", and "Status".
+          ordQty:
+            type: string
+            description: (38) The quantity of the order that has been executed.
+          lastPx:
+            type: string
+            description: (31) The last price at which the order was executed.
+          cumQty:
+            type: string
+            description: (44) The total quantity of the order that has been executed.
+          avgPx:
+            type: string
+            description: (69) The average price at which the order has been executed.
+          leavesQty:
+            type: string
+            description: (11) The quantity of the order that remains to be executed.
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+          creator:
+            type: string
+            title: owner
+        description: Order Mass Status Report with fields, tags and descriptions.
+      OrderMassStatusRequestReject:
+        type: object
+        properties:
+          header:
+            title: standard Header
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+          refSeqID:
+            type: string
+            description: >-
+              (34) The unique identifier for the rejected message.
+
+              the RefSeqID field in the Order Mass Status Request Reject (AR)
+              message will contain the same value as the MassStatusReqID field
+              in the original Order Mass Status Request (AF) message.
+          rejCode:
+            type: string
+            title: |-
+              (587) The reason for the rejection. Valid values are:
+              1: Invalid message type
+              2: Invalid field
+              3: Invalid value
+              4: Unsupported feature
+              5: Insufficient permissions
+              6: Internal error
+              7: Timeout
+              8: Other
+          text:
+            type: string
+            description: (588) A text description of the reason for the rejection.
+          trailer:
+            title: standard Trailer
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+          creator:
+            type: string
+            title: owner
+        description: Order Mass Status Request Reject with fields, tags and descriptions.
+  jim380.re.fix.OrderMassStatusReport:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      clOrdID:
+        type: string
+        description: "(49)\tThe unique identifier for the order."
+      massStatusReqID:
+        type: string
+        description: (585) The unique identifier for the status request.
+      account:
+        type: string
+        description: (1) The account that the order belongs to.
+      symbol:
+        type: string
+        description: (55) The symbol of the security that the order is for.
+      securityID:
+        type: string
+        description: (48) The security identifier of the security that the order is for.
+      tradingSessionID:
+        type: string
+        description: (336) The trading session that the order is for.
+      ordStatus:
+        type: string
+        description: >-
+          (39)  The status of the order. Valid values are "New", "Pending",
+          "PartiallyFilled", "Filled", "Cancelled", and "Expired".
+      execType:
+        type: string
+        description: >-
+          (150) The type of execution report. Valid values are "New", "Replace",
+          "Cancel", and "Status".
+      ordQty:
+        type: string
+        description: (38) The quantity of the order that has been executed.
+      lastPx:
+        type: string
+        description: (31) The last price at which the order was executed.
+      cumQty:
+        type: string
+        description: (44) The total quantity of the order that has been executed.
+      avgPx:
+        type: string
+        description: (69) The average price at which the order has been executed.
+      leavesQty:
+        type: string
+        description: (11) The quantity of the order that remains to be executed.
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
+    description: Order Mass Status Report with fields, tags and descriptions.
+  jim380.re.fix.OrderMassStatusRequest:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      massStatusReqID:
+        type: string
+        description: (586) The unique identifier for the status request.
+      massStatusReqType:
+        type: string
+        description: >-
+          (585) The type of status request. Valid values are "All" to request
+          the status of all orders in the group, or "Partial" to request the
+          status of a subset of orders in the group.
+      clOrdID:
+        type: string
+        description: (49) The unique identifier for the group of orders.
+      account:
+        type: string
+        description: (1) The account that the orders belong to.
+      symbol:
+        type: string
+        description: (55) The symbol of the security that the orders are for.
+      securityID:
+        type: string
+        description: "(48)\tThe security identifier of the security that the orders are for."
+      tradingSessionID:
+        type: string
+        description: (336) The trading session that the orders are for.
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
+    description: Order Mass Status Request with fields, tags and descriptions.
+  jim380.re.fix.OrderMassStatusRequestReject:
+    type: object
+    properties:
+      header:
+        title: standard Header
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+      refSeqID:
+        type: string
+        description: >-
+          (34) The unique identifier for the rejected message.
+
+          the RefSeqID field in the Order Mass Status Request Reject (AR)
+          message will contain the same value as the MassStatusReqID field in
+          the original Order Mass Status Request (AF) message.
+      rejCode:
+        type: string
+        title: |-
+          (587) The reason for the rejection. Valid values are:
+          1: Invalid message type
+          2: Invalid field
+          3: Invalid value
+          4: Unsupported feature
+          5: Insufficient permissions
+          6: Internal error
+          7: Timeout
+          8: Other
+      text:
+        type: string
+        description: (588) A text description of the reason for the rejection.
+      trailer:
+        title: standard Trailer
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+      creator:
+        type: string
+        title: owner
+    description: Order Mass Status Request Reject with fields, tags and descriptions.
   jim380.re.fix.Orders:
     type: object
     properties:
@@ -60495,11 +61638,320 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             sessionID:
               type: string
+            orderMassStatusRequest:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                massStatusReqID:
+                  type: string
+                  description: (586) The unique identifier for the status request.
+                massStatusReqType:
+                  type: string
+                  description: >-
+                    (585) The type of status request. Valid values are "All" to
+                    request the status of all orders in the group, or "Partial"
+                    to request the status of a subset of orders in the group.
+                clOrdID:
+                  type: string
+                  description: (49) The unique identifier for the group of orders.
+                account:
+                  type: string
+                  description: (1) The account that the orders belong to.
+                symbol:
+                  type: string
+                  description: (55) The symbol of the security that the orders are for.
+                securityID:
+                  type: string
+                  description: "(48)\tThe security identifier of the security that the orders are for."
+                tradingSessionID:
+                  type: string
+                  description: (336) The trading session that the orders are for.
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+              description: Order Mass Status Request with fields, tags and descriptions.
+            orderMassStatusReport:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                clOrdID:
+                  type: string
+                  description: "(49)\tThe unique identifier for the order."
+                massStatusReqID:
+                  type: string
+                  description: (585) The unique identifier for the status request.
+                account:
+                  type: string
+                  description: (1) The account that the order belongs to.
+                symbol:
+                  type: string
+                  description: (55) The symbol of the security that the order is for.
+                securityID:
+                  type: string
+                  description: >-
+                    (48) The security identifier of the security that the order
+                    is for.
+                tradingSessionID:
+                  type: string
+                  description: (336) The trading session that the order is for.
+                ordStatus:
+                  type: string
+                  description: >-
+                    (39)  The status of the order. Valid values are "New",
+                    "Pending", "PartiallyFilled", "Filled", "Cancelled", and
+                    "Expired".
+                execType:
+                  type: string
+                  description: >-
+                    (150) The type of execution report. Valid values are "New",
+                    "Replace", "Cancel", and "Status".
+                ordQty:
+                  type: string
+                  description: (38) The quantity of the order that has been executed.
+                lastPx:
+                  type: string
+                  description: (31) The last price at which the order was executed.
+                cumQty:
+                  type: string
+                  description: (44) The total quantity of the order that has been executed.
+                avgPx:
+                  type: string
+                  description: (69) The average price at which the order has been executed.
+                leavesQty:
+                  type: string
+                  description: (11) The quantity of the order that remains to be executed.
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+              description: Order Mass Status Report with fields, tags and descriptions.
+            OrderMassStatusRequestReject:
+              type: object
+              properties:
+                header:
+                  title: standard Header
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                refSeqID:
+                  type: string
+                  description: >-
+                    (34) The unique identifier for the rejected message.
+
+                    the RefSeqID field in the Order Mass Status Request Reject
+                    (AR) message will contain the same value as the
+                    MassStatusReqID field in the original Order Mass Status
+                    Request (AF) message.
+                rejCode:
+                  type: string
+                  title: |-
+                    (587) The reason for the rejection. Valid values are:
+                    1: Invalid message type
+                    2: Invalid field
+                    3: Invalid value
+                    4: Unsupported feature
+                    5: Insufficient permissions
+                    6: Internal error
+                    7: Timeout
+                    8: Other
+                text:
+                  type: string
+                  description: (588) A text description of the reason for the rejection.
+                trailer:
+                  title: standard Trailer
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                creator:
+                  type: string
+                  title: owner
+              description: >-
+                Order Mass Status Request Reject with fields, tags and
+                descriptions.
       pagination:
         type: object
         properties:
@@ -63562,11 +65014,317 @@ definitions:
       OrderMassStatus:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           sessionID:
             type: string
+          orderMassStatusRequest:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              massStatusReqID:
+                type: string
+                description: (586) The unique identifier for the status request.
+              massStatusReqType:
+                type: string
+                description: >-
+                  (585) The type of status request. Valid values are "All" to
+                  request the status of all orders in the group, or "Partial" to
+                  request the status of a subset of orders in the group.
+              clOrdID:
+                type: string
+                description: (49) The unique identifier for the group of orders.
+              account:
+                type: string
+                description: (1) The account that the orders belong to.
+              symbol:
+                type: string
+                description: (55) The symbol of the security that the orders are for.
+              securityID:
+                type: string
+                description: "(48)\tThe security identifier of the security that the orders are for."
+              tradingSessionID:
+                type: string
+                description: (336) The trading session that the orders are for.
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+            description: Order Mass Status Request with fields, tags and descriptions.
+          orderMassStatusReport:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              clOrdID:
+                type: string
+                description: "(49)\tThe unique identifier for the order."
+              massStatusReqID:
+                type: string
+                description: (585) The unique identifier for the status request.
+              account:
+                type: string
+                description: (1) The account that the order belongs to.
+              symbol:
+                type: string
+                description: (55) The symbol of the security that the order is for.
+              securityID:
+                type: string
+                description: >-
+                  (48) The security identifier of the security that the order is
+                  for.
+              tradingSessionID:
+                type: string
+                description: (336) The trading session that the order is for.
+              ordStatus:
+                type: string
+                description: >-
+                  (39)  The status of the order. Valid values are "New",
+                  "Pending", "PartiallyFilled", "Filled", "Cancelled", and
+                  "Expired".
+              execType:
+                type: string
+                description: >-
+                  (150) The type of execution report. Valid values are "New",
+                  "Replace", "Cancel", and "Status".
+              ordQty:
+                type: string
+                description: (38) The quantity of the order that has been executed.
+              lastPx:
+                type: string
+                description: (31) The last price at which the order was executed.
+              cumQty:
+                type: string
+                description: (44) The total quantity of the order that has been executed.
+              avgPx:
+                type: string
+                description: (69) The average price at which the order has been executed.
+              leavesQty:
+                type: string
+                description: (11) The quantity of the order that remains to be executed.
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+            description: Order Mass Status Report with fields, tags and descriptions.
+          OrderMassStatusRequestReject:
+            type: object
+            properties:
+              header:
+                title: standard Header
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+              refSeqID:
+                type: string
+                description: >-
+                  (34) The unique identifier for the rejected message.
+
+                  the RefSeqID field in the Order Mass Status Request Reject
+                  (AR) message will contain the same value as the
+                  MassStatusReqID field in the original Order Mass Status
+                  Request (AF) message.
+              rejCode:
+                type: string
+                title: |-
+                  (587) The reason for the rejection. Valid values are:
+                  1: Invalid message type
+                  2: Invalid field
+                  3: Invalid value
+                  4: Unsupported feature
+                  5: Insufficient permissions
+                  6: Internal error
+                  7: Timeout
+                  8: Other
+              text:
+                type: string
+                description: (588) A text description of the reason for the rejection.
+              trailer:
+                title: standard Trailer
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+              creator:
+                type: string
+                title: owner
+            description: >-
+              Order Mass Status Request Reject with fields, tags and
+              descriptions.
   jim380.re.fix.QueryGetOrdersCancelRejectResponse:
     type: object
     properties:
