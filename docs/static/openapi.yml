@@ -59926,6 +59926,8 @@ definitions:
     type: object
   jim380.re.fix.MsgOrderExecutionReportResponse:
     type: object
+  jim380.re.fix.MsgOrderMassStatusReportResponse:
+    type: object
   jim380.re.fix.MsgOrderMassStatusRequestResponse:
     type: object
   jim380.re.fix.MsgQuoteAcknowledgementResponse:
