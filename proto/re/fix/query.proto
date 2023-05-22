@@ -157,7 +157,7 @@ service Query {
   
   // Queries a list of OrderMassStatus items.
   rpc OrderMassStatus    (QueryGetOrderMassStatusRequest) returns (QueryGetOrderMassStatusResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/order_mass_status/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/order_mass_status/{massStatusReqID}";
   
   }
   rpc OrderMassStatusAll (QueryAllOrderMassStatusRequest) returns (QueryAllOrderMassStatusResponse) {
@@ -390,7 +390,7 @@ message QueryAllSecurityResponse {
 }
 
 message QueryGetOrderMassStatusRequest {
-  uint64 id = 1;
+  string massStatusReqID = 1;
 }
 
 message QueryGetOrderMassStatusResponse {
