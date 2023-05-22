@@ -41,6 +41,7 @@ service Msg {
   rpc SecurityDefinitionRequestReject   (MsgSecurityDefinitionRequestReject  ) returns (MsgSecurityDefinitionRequestRejectResponse  );
   rpc OrderMassStatusRequest            (MsgOrderMassStatusRequest           ) returns (MsgOrderMassStatusRequestResponse           );
   rpc OrderMassStatusReport             (MsgOrderMassStatusReport            ) returns (MsgOrderMassStatusReportResponse            );
+  rpc OrderMassStatusRequestReject      (MsgOrderMassStatusRequestReject     ) returns (MsgOrderMassStatusRequestRejectResponse     );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -413,4 +414,14 @@ message MsgOrderMassStatusReport {
 }
 
 message MsgOrderMassStatusReportResponse {}
+
+message MsgOrderMassStatusRequestReject {
+  string creator   = 1;
+  string sessionID = 2;
+  string refSeqID  = 3;
+  string rejCode   = 4;
+  string text      = 5;
+}
+
+message MsgOrderMassStatusRequestRejectResponse {}
 

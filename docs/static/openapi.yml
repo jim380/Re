@@ -59928,6 +59928,8 @@ definitions:
     type: object
   jim380.re.fix.MsgOrderMassStatusReportResponse:
     type: object
+  jim380.re.fix.MsgOrderMassStatusRequestRejectResponse:
+    type: object
   jim380.re.fix.MsgOrderMassStatusRequestResponse:
     type: object
   jim380.re.fix.MsgQuoteAcknowledgementResponse:
