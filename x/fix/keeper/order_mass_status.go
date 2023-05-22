@@ -11,7 +11,7 @@ import (
 // GetOrderMassStatusCount get the total number of orderMassStatus
 func (k Keeper) GetOrderMassStatusCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.OrderMassStatusCountKey)
+	byteKey := types.GetOrderMassStatusCountKey()
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -26,44 +26,25 @@ func (k Keeper) GetOrderMassStatusCount(ctx sdk.Context) uint64 {
 // SetOrderMassStatusCount set the total number of orderMassStatus
 func (k Keeper) SetOrderMassStatusCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.OrderMassStatusCountKey)
+	byteKey := types.GetOrderMassStatusCountKey()
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
 }
 
-// AppendOrderMassStatus appends a orderMassStatus in the store with a new id and update the count
-func (k Keeper) AppendOrderMassStatus(
-	ctx sdk.Context,
-	orderMassStatus types.OrderMassStatus,
-) uint64 {
-	// Create the orderMassStatus
-	count := k.GetOrderMassStatusCount(ctx)
-
-	// Set the ID of the appended value
-	orderMassStatus.Id = count
-
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrderMassStatusKey))
-	appendedValue := k.cdc.MustMarshal(&orderMassStatus)
-	store.Set(GetOrderMassStatusIDBytes(orderMassStatus.Id), appendedValue)
-
-	// Update orderMassStatus count
-	k.SetOrderMassStatusCount(ctx, count+1)
-
-	return count
-}
-
 // SetOrderMassStatus set a specific orderMassStatus in the store
-func (k Keeper) SetOrderMassStatus(ctx sdk.Context, orderMassStatus types.OrderMassStatus) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrderMassStatusKey))
+func (k Keeper) SetOrderMassStatus(ctx sdk.Context, massStatusReqID string, orderMassStatus types.OrderMassStatus) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrderMassStatusKey())
+	key := []byte(massStatusReqID)
 	b := k.cdc.MustMarshal(&orderMassStatus)
-	store.Set(GetOrderMassStatusIDBytes(orderMassStatus.Id), b)
+	store.Set(key, b)
 }
 
 // GetOrderMassStatus returns a orderMassStatus from its id
-func (k Keeper) GetOrderMassStatus(ctx sdk.Context, id uint64) (val types.OrderMassStatus, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrderMassStatusKey))
-	b := store.Get(GetOrderMassStatusIDBytes(id))
+func (k Keeper) GetOrderMassStatus(ctx sdk.Context, massStatusReqID string) (val types.OrderMassStatus, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrderMassStatusKey())
+	key := []byte(massStatusReqID)
+	b := store.Get(key)
 	if b == nil {
 		return val, false
 	}
@@ -72,14 +53,15 @@ func (k Keeper) GetOrderMassStatus(ctx sdk.Context, id uint64) (val types.OrderM
 }
 
 // RemoveOrderMassStatus removes a orderMassStatus from the store
-func (k Keeper) RemoveOrderMassStatus(ctx sdk.Context, id uint64) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrderMassStatusKey))
-	store.Delete(GetOrderMassStatusIDBytes(id))
+func (k Keeper) RemoveOrderMassStatus(ctx sdk.Context, massStatusReqID string) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrderMassStatusKey())
+	key := []byte(massStatusReqID)
+	store.Delete(key)
 }
 
 // GetAllOrderMassStatus returns all orderMassStatus
 func (k Keeper) GetAllOrderMassStatus(ctx sdk.Context) (list []types.OrderMassStatus) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OrderMassStatusKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetOrderMassStatusKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -91,16 +73,4 @@ func (k Keeper) GetAllOrderMassStatus(ctx sdk.Context) (list []types.OrderMassSt
 	}
 
 	return
-}
-
-// GetOrderMassStatusIDBytes returns the byte representation of the ID
-func GetOrderMassStatusIDBytes(id uint64) []byte {
-	bz := make([]byte, 8)
-	binary.BigEndian.PutUint64(bz, id)
-	return bz
-}
-
-// GetOrderMassStatusIDFromBytes returns ID in uint64 format from a byte array
-func GetOrderMassStatusIDFromBytes(bz []byte) uint64 {
-	return binary.BigEndian.Uint64(bz)
 }

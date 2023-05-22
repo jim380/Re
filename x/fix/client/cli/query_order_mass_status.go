@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListOrderMassStatus() *cobra.Command {
 
 func CmdShowOrderMassStatus() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-order-mass-status [id]",
+		Use:   "show-order-mass-status [massStatusReqID]",
 		Short: "shows a order-mass-status",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowOrderMassStatus() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argMassStatusReqID := args[0]
 
 			params := &types.QueryGetOrderMassStatusRequest{
-				Id: id,
+				MassStatusReqID: argMassStatusReqID,
 			}
 
 			res, err := queryClient.OrderMassStatus(context.Background(), params)

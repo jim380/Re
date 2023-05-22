@@ -21,7 +21,7 @@ func (k Keeper) OrderMassStatusAll(goCtx context.Context, req *types.QueryAllOrd
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	orderMassStatusStore := prefix.NewStore(store, types.KeyPrefix(types.OrderMassStatusKey))
+	orderMassStatusStore := prefix.NewStore(store, types.GetOrderMassStatusKey())
 
 	pageRes, err := query.Paginate(orderMassStatusStore, req.Pagination, func(key []byte, value []byte) error {
 		var orderMassStatus types.OrderMassStatus
@@ -46,7 +46,7 @@ func (k Keeper) OrderMassStatus(goCtx context.Context, req *types.QueryGetOrderM
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	orderMassStatus, found := k.GetOrderMassStatus(ctx, req.Id)
+	orderMassStatus, found := k.GetOrderMassStatus(ctx, req.MassStatusReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

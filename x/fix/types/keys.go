@@ -53,6 +53,9 @@ var (
 
 	SecurityKey      = []byte{0x020}
 	SecurityCountKey = []byte{0x021}
+
+	OrderMassStatusKey      = []byte{0x022}
+	OrderMassStatusCountKey = []byte{0x023}
 )
 
 func GetAccountKey() []byte {
@@ -147,7 +150,10 @@ func GetSecurityCountKey() []byte {
 	return SecurityCountKey
 }
 
-const (
-	OrderMassStatusKey      = "OrderMassStatus/value/"
-	OrderMassStatusCountKey = "OrderMassStatus/count/"
-)
+func GetOrderMassStatusKey() []byte {
+	return OrderMassStatusKey
+}
+
+func GetOrderMassStatusCountKey() []byte {
+	return OrderMassStatusCountKey
+}
