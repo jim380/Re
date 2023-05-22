@@ -78,7 +78,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetSecurityCount(ctx, genState.SecurityCount)
 	// Set all the orderMassStatus
 	for _, elem := range genState.OrderMassStatusList {
-		k.SetOrderMassStatus(ctx, elem)
+		k.SetOrderMassStatus(ctx, elem.OrderMassStatusRequest.MassStatusReqID, elem)
 	}
 
 	// Set orderMassStatus count
