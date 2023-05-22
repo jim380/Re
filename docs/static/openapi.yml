@@ -28824,6 +28824,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -29462,6 +29472,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/market_data/{mdReqID}:
@@ -29981,6 +30001,173 @@ paths:
           type: string
       tags:
         - Query
+  /jim380/Re/fix/order_mass_status:
+    get:
+      operationId: Jim380ReFixOrderMassStatusAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              OrderMassStatus:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sessionID:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/order_mass_status/{id}:
+    get:
+      summary: Queries a list of OrderMassStatus items.
+      operationId: Jim380ReFixOrderMassStatus
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              OrderMassStatus:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  sessionID:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /jim380/Re/fix/orders:
     get:
       operationId: Jim380ReFixOrdersAll
@@ -30236,6 +30423,16 @@ paths:
             when key
 
             is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -30847,6 +31044,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders_cancel_request/{sessionID}:
@@ -31194,6 +31401,16 @@ paths:
             when key
 
             is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -31758,6 +31975,16 @@ paths:
             when key
 
             is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -33232,9 +33459,19 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/security:
+  /jim380/Re/fix/securities:
     get:
       operationId: Jim380ReFixSecurityAll
       responses:
@@ -33313,13 +33550,17 @@ paths:
                           type: string
                           title: >-
                             (Tag 320): Unique identifier assigned by the
-                            requester to the security definition request message
+                            requester to the security
+
+                            definition request message
                         securityRequestType:
                           type: string
                           title: >-
                             (Tag 321): Specifies the type of security definition
-                            being requested (e.g., requesting all securities, by
-                            symbol, by security type, etc.)
+                            being requested (e.g.,
+
+                            requesting all securities, by symbol, by security
+                            type, etc.)
                         symbol:
                           type: string
                           description: >-
@@ -33329,12 +33570,16 @@ paths:
                           type: string
                           description: >-
                             (Tag 207): Code or identifier representing the
-                            exchange where the security is listed.
+                            exchange where the security
+
+                            is listed.
                         issuer:
                           type: string
                           description: >-
                             (Tag 106): Identifier of the issuer or
-                            issuer-specific identifier for the security.
+                            issuer-specific identifier for the
+
+                            security.
                         securityDesc:
                           type: string
                           title: '(Tag 107): Description or name of the security'
@@ -33442,13 +33687,16 @@ paths:
                           type: string
                           title: >-
                             (Tag 322): Unique identifier assigned by the
-                            responder to the security definition message
+                            responder to the security
+
+                            definition message
                         securityResponseType:
                           type: string
                           description: >-
                             (Tag 323): Type of response to the security
-                            definition request (e.g., acceptance, rejection,
-                            etc.).
+                            definition request (e.g.,
+
+                            acceptance, rejection, etc.).
                         symbol:
                           type: string
                           description: '(Tag 55): Unique identifier for the security.'
@@ -33456,12 +33704,16 @@ paths:
                           type: string
                           description: >-
                             (Tag 207): Code or identifier representing the
-                            exchange where the security is listed.
+                            exchange where the security
+
+                            is listed.
                         issuer:
                           type: string
                           description: >-
                             (Tag 106): Identifier of the issuer or
-                            issuer-specific identifier for the security.
+                            issuer-specific identifier for the
+
+                            security.
                         SecurityDesc:
                           type: string
                           description: '(Tag 107): Description or name of the security.'
@@ -33479,7 +33731,9 @@ paths:
                           type: string
                           description: >-
                             (Tag 231): Multiplier applied to the contract size
-                            to calculate the actual quantity.
+                            to calculate the actual
+
+                            quantity.
                         minPriceIncrement:
                           type: string
                           description: '(Tag 969): Minimum price increment for the security.'
@@ -33615,22 +33869,30 @@ paths:
                           type: string
                           title: >-
                             (Tag 560): Result of the security definition request
-                            (e.g., successful, invalid security, etc.)
+                            (e.g., successful,
+
+                            invalid security, etc.)
                         securityRequestError:
                           type: string
                           description: >-
-                            (Tag 560): Description of the error or reason for
-                            rejecting the security definition request.
+                            (Tag 561): Description of the error or reason for
+                            rejecting the security
+
+                            definition request.
                         securityRequestErrorCode:
                           type: string
                           description: >-
-                            (Tag 560): Code indicating the specific error or
-                            reason for rejecting the request.
+                            (Tag 562): Code indicating the specific error or
+                            reason for rejecting the
+
+                            request.
                         text:
                           type: string
                           title: >-
                             (Tag 58): Additional free-text description or
-                            information related to the rejection
+                            information related to the
+
+                            rejection
                         trailer:
                           type: object
                           properties:
@@ -33749,6 +34011,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/security/{securityReqID}:
@@ -33829,13 +34101,17 @@ paths:
                         type: string
                         title: >-
                           (Tag 320): Unique identifier assigned by the requester
-                          to the security definition request message
+                          to the security
+
+                          definition request message
                       securityRequestType:
                         type: string
                         title: >-
                           (Tag 321): Specifies the type of security definition
-                          being requested (e.g., requesting all securities, by
-                          symbol, by security type, etc.)
+                          being requested (e.g.,
+
+                          requesting all securities, by symbol, by security
+                          type, etc.)
                       symbol:
                         type: string
                         description: >-
@@ -33845,12 +34121,16 @@ paths:
                         type: string
                         description: >-
                           (Tag 207): Code or identifier representing the
-                          exchange where the security is listed.
+                          exchange where the security
+
+                          is listed.
                       issuer:
                         type: string
                         description: >-
                           (Tag 106): Identifier of the issuer or issuer-specific
-                          identifier for the security.
+                          identifier for the
+
+                          security.
                       securityDesc:
                         type: string
                         title: '(Tag 107): Description or name of the security'
@@ -33958,12 +34238,16 @@ paths:
                         type: string
                         title: >-
                           (Tag 322): Unique identifier assigned by the responder
-                          to the security definition message
+                          to the security
+
+                          definition message
                       securityResponseType:
                         type: string
                         description: >-
                           (Tag 323): Type of response to the security definition
-                          request (e.g., acceptance, rejection, etc.).
+                          request (e.g.,
+
+                          acceptance, rejection, etc.).
                       symbol:
                         type: string
                         description: '(Tag 55): Unique identifier for the security.'
@@ -33971,12 +34255,16 @@ paths:
                         type: string
                         description: >-
                           (Tag 207): Code or identifier representing the
-                          exchange where the security is listed.
+                          exchange where the security
+
+                          is listed.
                       issuer:
                         type: string
                         description: >-
                           (Tag 106): Identifier of the issuer or issuer-specific
-                          identifier for the security.
+                          identifier for the
+
+                          security.
                       SecurityDesc:
                         type: string
                         description: '(Tag 107): Description or name of the security.'
@@ -33994,7 +34282,9 @@ paths:
                         type: string
                         description: >-
                           (Tag 231): Multiplier applied to the contract size to
-                          calculate the actual quantity.
+                          calculate the actual
+
+                          quantity.
                       minPriceIncrement:
                         type: string
                         description: '(Tag 969): Minimum price increment for the security.'
@@ -34130,22 +34420,30 @@ paths:
                         type: string
                         title: >-
                           (Tag 560): Result of the security definition request
-                          (e.g., successful, invalid security, etc.)
+                          (e.g., successful,
+
+                          invalid security, etc.)
                       securityRequestError:
                         type: string
                         description: >-
-                          (Tag 560): Description of the error or reason for
-                          rejecting the security definition request.
+                          (Tag 561): Description of the error or reason for
+                          rejecting the security
+
+                          definition request.
                       securityRequestErrorCode:
                         type: string
                         description: >-
-                          (Tag 560): Code indicating the specific error or
-                          reason for rejecting the request.
+                          (Tag 562): Code indicating the specific error or
+                          reason for rejecting the
+
+                          request.
                       text:
                         type: string
                         title: >-
                           (Tag 58): Additional free-text description or
-                          information related to the rejection
+                          information related to the
+
+                          rejection
                       trailer:
                         type: object
                         properties:
@@ -34717,6 +35015,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/session/reject/{sessionID}:
@@ -35047,6 +35355,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions:
@@ -35370,6 +35688,16 @@ paths:
             when key
 
             is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -36612,6 +36940,16 @@ paths:
             when key
 
             is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -59056,6 +59394,14 @@ definitions:
     type: object
   jim380.re.fix.MsgUpdateAccountResponse:
     type: object
+  jim380.re.fix.OrderMassStatus:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      sessionID:
+        type: string
   jim380.re.fix.Orders:
     type: object
     properties:
@@ -60116,6 +60462,44 @@ definitions:
                   type: string
                   title: owner
               title: Market Data Request Reject message
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  jim380.re.fix.QueryAllOrderMassStatusResponse:
+    type: object
+    properties:
+      OrderMassStatus:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sessionID:
+              type: string
       pagination:
         type: object
         properties:
@@ -61323,13 +61707,17 @@ definitions:
                   type: string
                   title: >-
                     (Tag 320): Unique identifier assigned by the requester to
-                    the security definition request message
+                    the security
+
+                    definition request message
                 securityRequestType:
                   type: string
                   title: >-
                     (Tag 321): Specifies the type of security definition being
-                    requested (e.g., requesting all securities, by symbol, by
-                    security type, etc.)
+                    requested (e.g.,
+
+                    requesting all securities, by symbol, by security type,
+                    etc.)
                 symbol:
                   type: string
                   description: >-
@@ -61339,12 +61727,16 @@ definitions:
                   type: string
                   description: >-
                     (Tag 207): Code or identifier representing the exchange
-                    where the security is listed.
+                    where the security
+
+                    is listed.
                 issuer:
                   type: string
                   description: >-
                     (Tag 106): Identifier of the issuer or issuer-specific
-                    identifier for the security.
+                    identifier for the
+
+                    security.
                 securityDesc:
                   type: string
                   title: '(Tag 107): Description or name of the security'
@@ -61444,12 +61836,16 @@ definitions:
                   type: string
                   title: >-
                     (Tag 322): Unique identifier assigned by the responder to
-                    the security definition message
+                    the security
+
+                    definition message
                 securityResponseType:
                   type: string
                   description: >-
                     (Tag 323): Type of response to the security definition
-                    request (e.g., acceptance, rejection, etc.).
+                    request (e.g.,
+
+                    acceptance, rejection, etc.).
                 symbol:
                   type: string
                   description: '(Tag 55): Unique identifier for the security.'
@@ -61457,12 +61853,16 @@ definitions:
                   type: string
                   description: >-
                     (Tag 207): Code or identifier representing the exchange
-                    where the security is listed.
+                    where the security
+
+                    is listed.
                 issuer:
                   type: string
                   description: >-
                     (Tag 106): Identifier of the issuer or issuer-specific
-                    identifier for the security.
+                    identifier for the
+
+                    security.
                 SecurityDesc:
                   type: string
                   description: '(Tag 107): Description or name of the security.'
@@ -61478,7 +61878,9 @@ definitions:
                   type: string
                   description: >-
                     (Tag 231): Multiplier applied to the contract size to
-                    calculate the actual quantity.
+                    calculate the actual
+
+                    quantity.
                 minPriceIncrement:
                   type: string
                   description: '(Tag 969): Minimum price increment for the security.'
@@ -61604,22 +62006,30 @@ definitions:
                   type: string
                   title: >-
                     (Tag 560): Result of the security definition request (e.g.,
-                    successful, invalid security, etc.)
+                    successful,
+
+                    invalid security, etc.)
                 securityRequestError:
                   type: string
                   description: >-
-                    (Tag 560): Description of the error or reason for rejecting
-                    the security definition request.
+                    (Tag 561): Description of the error or reason for rejecting
+                    the security
+
+                    definition request.
                 securityRequestErrorCode:
                   type: string
                   description: >-
-                    (Tag 560): Code indicating the specific error or reason for
-                    rejecting the request.
+                    (Tag 562): Code indicating the specific error or reason for
+                    rejecting the
+
+                    request.
                 text:
                   type: string
                   title: >-
                     (Tag 58): Additional free-text description or information
-                    related to the rejection
+                    related to the
+
+                    rejection
                 trailer:
                   type: object
                   properties:
@@ -63146,6 +63556,17 @@ definitions:
                 type: string
                 title: owner
             title: Market Data Request Reject message
+  jim380.re.fix.QueryGetOrderMassStatusResponse:
+    type: object
+    properties:
+      OrderMassStatus:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sessionID:
+            type: string
   jim380.re.fix.QueryGetOrdersCancelRejectResponse:
     type: object
     properties:
@@ -64169,13 +64590,16 @@ definitions:
                 type: string
                 title: >-
                   (Tag 320): Unique identifier assigned by the requester to the
-                  security definition request message
+                  security
+
+                  definition request message
               securityRequestType:
                 type: string
                 title: >-
                   (Tag 321): Specifies the type of security definition being
-                  requested (e.g., requesting all securities, by symbol, by
-                  security type, etc.)
+                  requested (e.g.,
+
+                  requesting all securities, by symbol, by security type, etc.)
               symbol:
                 type: string
                 description: '(Tag 55): Unique identifier for the security being requested.'
@@ -64183,12 +64607,16 @@ definitions:
                 type: string
                 description: >-
                   (Tag 207): Code or identifier representing the exchange where
-                  the security is listed.
+                  the security
+
+                  is listed.
               issuer:
                 type: string
                 description: >-
                   (Tag 106): Identifier of the issuer or issuer-specific
-                  identifier for the security.
+                  identifier for the
+
+                  security.
               securityDesc:
                 type: string
                 title: '(Tag 107): Description or name of the security'
@@ -64287,12 +64715,16 @@ definitions:
                 type: string
                 title: >-
                   (Tag 322): Unique identifier assigned by the responder to the
-                  security definition message
+                  security
+
+                  definition message
               securityResponseType:
                 type: string
                 description: >-
                   (Tag 323): Type of response to the security definition request
-                  (e.g., acceptance, rejection, etc.).
+                  (e.g.,
+
+                  acceptance, rejection, etc.).
               symbol:
                 type: string
                 description: '(Tag 55): Unique identifier for the security.'
@@ -64300,12 +64732,16 @@ definitions:
                 type: string
                 description: >-
                   (Tag 207): Code or identifier representing the exchange where
-                  the security is listed.
+                  the security
+
+                  is listed.
               issuer:
                 type: string
                 description: >-
                   (Tag 106): Identifier of the issuer or issuer-specific
-                  identifier for the security.
+                  identifier for the
+
+                  security.
               SecurityDesc:
                 type: string
                 description: '(Tag 107): Description or name of the security.'
@@ -64321,7 +64757,9 @@ definitions:
                 type: string
                 description: >-
                   (Tag 231): Multiplier applied to the contract size to
-                  calculate the actual quantity.
+                  calculate the actual
+
+                  quantity.
               minPriceIncrement:
                 type: string
                 description: '(Tag 969): Minimum price increment for the security.'
@@ -64446,22 +64884,30 @@ definitions:
                 type: string
                 title: >-
                   (Tag 560): Result of the security definition request (e.g.,
-                  successful, invalid security, etc.)
+                  successful,
+
+                  invalid security, etc.)
               securityRequestError:
                 type: string
                 description: >-
-                  (Tag 560): Description of the error or reason for rejecting
-                  the security definition request.
+                  (Tag 561): Description of the error or reason for rejecting
+                  the security
+
+                  definition request.
               securityRequestErrorCode:
                 type: string
                 description: >-
-                  (Tag 560): Code indicating the specific error or reason for
-                  rejecting the request.
+                  (Tag 562): Code indicating the specific error or reason for
+                  rejecting the
+
+                  request.
               text:
                 type: string
                 title: >-
                   (Tag 58): Additional free-text description or information
-                  related to the rejection
+                  related to the
+
+                  rejection
               trailer:
                 type: object
                 properties:
@@ -66544,13 +66990,16 @@ definitions:
             type: string
             title: >-
               (Tag 320): Unique identifier assigned by the requester to the
-              security definition request message
+              security
+
+              definition request message
           securityRequestType:
             type: string
             title: >-
               (Tag 321): Specifies the type of security definition being
-              requested (e.g., requesting all securities, by symbol, by security
-              type, etc.)
+              requested (e.g.,
+
+              requesting all securities, by symbol, by security type, etc.)
           symbol:
             type: string
             description: '(Tag 55): Unique identifier for the security being requested.'
@@ -66558,12 +67007,16 @@ definitions:
             type: string
             description: >-
               (Tag 207): Code or identifier representing the exchange where the
-              security is listed.
+              security
+
+              is listed.
           issuer:
             type: string
             description: >-
               (Tag 106): Identifier of the issuer or issuer-specific identifier
-              for the security.
+              for the
+
+              security.
           securityDesc:
             type: string
             title: '(Tag 107): Description or name of the security'
@@ -66659,12 +67112,16 @@ definitions:
             type: string
             title: >-
               (Tag 322): Unique identifier assigned by the responder to the
-              security definition message
+              security
+
+              definition message
           securityResponseType:
             type: string
             description: >-
               (Tag 323): Type of response to the security definition request
-              (e.g., acceptance, rejection, etc.).
+              (e.g.,
+
+              acceptance, rejection, etc.).
           symbol:
             type: string
             description: '(Tag 55): Unique identifier for the security.'
@@ -66672,12 +67129,16 @@ definitions:
             type: string
             description: >-
               (Tag 207): Code or identifier representing the exchange where the
-              security is listed.
+              security
+
+              is listed.
           issuer:
             type: string
             description: >-
               (Tag 106): Identifier of the issuer or issuer-specific identifier
-              for the security.
+              for the
+
+              security.
           SecurityDesc:
             type: string
             description: '(Tag 107): Description or name of the security.'
@@ -66693,7 +67154,9 @@ definitions:
             type: string
             description: >-
               (Tag 231): Multiplier applied to the contract size to calculate
-              the actual quantity.
+              the actual
+
+              quantity.
           minPriceIncrement:
             type: string
             description: '(Tag 969): Minimum price increment for the security.'
@@ -66815,22 +67278,30 @@ definitions:
             type: string
             title: >-
               (Tag 560): Result of the security definition request (e.g.,
-              successful, invalid security, etc.)
+              successful,
+
+              invalid security, etc.)
           securityRequestError:
             type: string
             description: >-
-              (Tag 560): Description of the error or reason for rejecting the
-              security definition request.
+              (Tag 561): Description of the error or reason for rejecting the
+              security
+
+              definition request.
           securityRequestErrorCode:
             type: string
             description: >-
-              (Tag 560): Code indicating the specific error or reason for
-              rejecting the request.
+              (Tag 562): Code indicating the specific error or reason for
+              rejecting the
+
+              request.
           text:
             type: string
             title: >-
               (Tag 58): Additional free-text description or information related
-              to the rejection
+              to the
+
+              rejection
           trailer:
             type: object
             properties:
@@ -66915,12 +67386,12 @@ definitions:
           request.
       securityResponseID:
         type: string
-        title: >-
+        title: |-
           (Tag 322): Unique identifier assigned by the responder to the security
           definition message
       securityResponseType:
         type: string
-        description: >-
+        description: |-
           (Tag 323): Type of response to the security definition request (e.g.,
           acceptance, rejection, etc.).
       symbol:
@@ -66930,12 +67401,16 @@ definitions:
         type: string
         description: >-
           (Tag 207): Code or identifier representing the exchange where the
-          security is listed.
+          security
+
+          is listed.
       issuer:
         type: string
         description: >-
           (Tag 106): Identifier of the issuer or issuer-specific identifier for
-          the security.
+          the
+
+          security.
       SecurityDesc:
         type: string
         description: '(Tag 107): Description or name of the security.'
@@ -66949,7 +67424,9 @@ definitions:
         type: string
         description: >-
           (Tag 231): Multiplier applied to the contract size to calculate the
-          actual quantity.
+          actual
+
+          quantity.
       minPriceIncrement:
         type: string
         description: '(Tag 969): Minimum price increment for the security.'
@@ -67060,14 +67537,16 @@ definitions:
         description: Standard FIX message header.
       securityReqID:
         type: string
-        title: >-
+        title: |-
           (Tag 320): Unique identifier assigned by the requester to the security
           definition request message
       securityRequestType:
         type: string
         title: >-
           (Tag 321): Specifies the type of security definition being requested
-          (e.g., requesting all securities, by symbol, by security type, etc.)
+          (e.g.,
+
+          requesting all securities, by symbol, by security type, etc.)
       symbol:
         type: string
         description: '(Tag 55): Unique identifier for the security being requested.'
@@ -67075,12 +67554,16 @@ definitions:
         type: string
         description: >-
           (Tag 207): Code or identifier representing the exchange where the
-          security is listed.
+          security
+
+          is listed.
       issuer:
         type: string
         description: >-
           (Tag 106): Identifier of the issuer or issuer-specific identifier for
-          the security.
+          the
+
+          security.
       securityDesc:
         type: string
         title: '(Tag 107): Description or name of the security'
@@ -67174,22 +67657,30 @@ definitions:
         type: string
         title: >-
           (Tag 560): Result of the security definition request (e.g.,
-          successful, invalid security, etc.)
+          successful,
+
+          invalid security, etc.)
       securityRequestError:
         type: string
         description: >-
-          (Tag 560): Description of the error or reason for rejecting the
-          security definition request.
+          (Tag 561): Description of the error or reason for rejecting the
+          security
+
+          definition request.
       securityRequestErrorCode:
         type: string
         description: >-
-          (Tag 560): Code indicating the specific error or reason for rejecting
-          the request.
+          (Tag 562): Code indicating the specific error or reason for rejecting
+          the
+
+          request.
       text:
         type: string
         title: >-
           (Tag 58): Additional free-text description or information related to
-          the rejection
+          the
+
+          rejection
       trailer:
         type: object
         properties:

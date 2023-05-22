@@ -94,15 +94,19 @@ func (m *Security) GetSecurityDefinitionRequestReject() *SecurityDefinitionReque
 type SecurityDefinitionRequest struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (Tag 320): Unique identifier assigned by the requester to the security definition request message
+	// (Tag 320): Unique identifier assigned by the requester to the security
+	// definition request message
 	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
-	// (Tag 321): Specifies the type of security definition being requested (e.g., requesting all securities, by symbol, by security type, etc.)
+	// (Tag 321): Specifies the type of security definition being requested (e.g.,
+	// requesting all securities, by symbol, by security type, etc.)
 	SecurityRequestType string `protobuf:"bytes,3,opt,name=securityRequestType,proto3" json:"securityRequestType,omitempty"`
 	// (Tag 55): Unique identifier for the security being requested.
 	Symbol string `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	// (Tag 207): Code or identifier representing the exchange where the security is listed.
+	// (Tag 207): Code or identifier representing the exchange where the security
+	// is listed.
 	SecurityExchange string `protobuf:"bytes,5,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
-	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
+	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the
+	// security.
 	Issuer string `protobuf:"bytes,6,opt,name=issuer,proto3" json:"issuer,omitempty"`
 	// (Tag 107): Description or name of the security
 	SecurityDesc string `protobuf:"bytes,7,opt,name=securityDesc,proto3" json:"securityDesc,omitempty"`
@@ -223,15 +227,19 @@ type SecurityDefinition struct {
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	//(Tag 320): Unique identifier of the original security definition request.
 	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
-	// (Tag 322): Unique identifier assigned by the responder to the security definition message
+	// (Tag 322): Unique identifier assigned by the responder to the security
+	// definition message
 	SecurityResponseID string `protobuf:"bytes,3,opt,name=securityResponseID,proto3" json:"securityResponseID,omitempty"`
-	// (Tag 323): Type of response to the security definition request (e.g., acceptance, rejection, etc.).
+	// (Tag 323): Type of response to the security definition request (e.g.,
+	// acceptance, rejection, etc.).
 	SecurityResponseType string `protobuf:"bytes,4,opt,name=securityResponseType,proto3" json:"securityResponseType,omitempty"`
 	// (Tag 55): Unique identifier for the security.
 	Symbol string `protobuf:"bytes,5,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	// (Tag 207): Code or identifier representing the exchange where the security is listed.
+	// (Tag 207): Code or identifier representing the exchange where the security
+	// is listed.
 	SecurityExchange string `protobuf:"bytes,6,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
-	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the security.
+	// (Tag 106): Identifier of the issuer or issuer-specific identifier for the
+	// security.
 	Issuer string `protobuf:"bytes,7,opt,name=issuer,proto3" json:"issuer,omitempty"`
 	// (Tag 107): Description or name of the security.
 	SecurityDesc string `protobuf:"bytes,8,opt,name=SecurityDesc,proto3" json:"SecurityDesc,omitempty"`
@@ -239,7 +247,8 @@ type SecurityDefinition struct {
 	SecurityType string `protobuf:"bytes,9,opt,name=SecurityType,proto3" json:"SecurityType,omitempty"`
 	// (Tag 15): Currency in which the security is denominated.
 	Currency string `protobuf:"bytes,10,opt,name=currency,proto3" json:"currency,omitempty"`
-	// (Tag 231): Multiplier applied to the contract size to calculate the actual quantity.
+	// (Tag 231): Multiplier applied to the contract size to calculate the actual
+	// quantity.
 	ContractMultiplier string `protobuf:"bytes,11,opt,name=contractMultiplier,proto3" json:"contractMultiplier,omitempty"`
 	// (Tag 969): Minimum price increment for the security.
 	MinPriceIncrement string `protobuf:"bytes,12,opt,name=minPriceIncrement,proto3" json:"minPriceIncrement,omitempty"`
@@ -467,13 +476,17 @@ type SecurityDefinitionRequestReject struct {
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// (Tag 320): Unique identifier of the rejected security definition request
 	SecurityReqID string `protobuf:"bytes,2,opt,name=securityReqID,proto3" json:"securityReqID,omitempty"`
-	// (Tag 560): Result of the security definition request (e.g., successful, invalid security, etc.)
+	// (Tag 560): Result of the security definition request (e.g., successful,
+	// invalid security, etc.)
 	SecurityRequestResult string `protobuf:"bytes,3,opt,name=securityRequestResult,proto3" json:"securityRequestResult,omitempty"`
-	// (Tag 560): Description of the error or reason for rejecting the security definition request.
+	// (Tag 561): Description of the error or reason for rejecting the security
+	// definition request.
 	SecurityRequestError string `protobuf:"bytes,4,opt,name=securityRequestError,proto3" json:"securityRequestError,omitempty"`
-	// (Tag 560): Code indicating the specific error or reason for rejecting the request.
+	// (Tag 562): Code indicating the specific error or reason for rejecting the
+	// request.
 	SecurityRequestErrorCode string `protobuf:"bytes,5,opt,name=securityRequestErrorCode,proto3" json:"securityRequestErrorCode,omitempty"`
-	// (Tag 58): Additional free-text description or information related to the rejection
+	// (Tag 58): Additional free-text description or information related to the
+	// rejection
 	Text string `protobuf:"bytes,6,opt,name=text,proto3" json:"text,omitempty"`
 	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,7,opt,name=trailer,proto3" json:"trailer,omitempty"`
