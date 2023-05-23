@@ -9,6 +9,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// OrderMassStatusRequest Creates Order Mass Status Request
 func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgOrderMassStatusRequest) (*types.MsgOrderMassStatusRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -114,6 +115,7 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 	return &types.MsgOrderMassStatusRequestResponse{}, err
 }
 
+// OrderMassStatusReport creates Order Mass Status Report
 func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOrderMassStatusReport) (*types.MsgOrderMassStatusReportResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -267,6 +269,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 	return &types.MsgOrderMassStatusReportResponse{}, err
 }
 
+// OrderMassStatusRequestReject creates Order Mass Status Request Reject
 func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *types.MsgOrderMassStatusRequestReject) (*types.MsgOrderMassStatusRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
