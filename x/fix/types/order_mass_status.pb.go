@@ -96,7 +96,9 @@ type OrderMassStatusRequest struct {
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// (586) The unique identifier for the status request.
 	MassStatusReqID string `protobuf:"bytes,2,opt,name=massStatusReqID,proto3" json:"massStatusReqID,omitempty"`
-	// (585) The type of status request. Valid values are "All" to request the status of all orders in the group, or "Partial" to request the status of a subset of orders in the group.
+	// (585) The type of status request. Valid values are "All" to request the
+	// status of all orders in the group, or "Partial" to request the status of a
+	// subset of orders in the group.
 	MassStatusReqType string `protobuf:"bytes,3,opt,name=massStatusReqType,proto3" json:"massStatusReqType,omitempty"`
 	// (49) The unique identifier for the group of orders.
 	ClOrdID string `protobuf:"bytes,4,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
@@ -233,9 +235,11 @@ type OrderMassStatusReport struct {
 	SecurityID string `protobuf:"bytes,6,opt,name=securityID,proto3" json:"securityID,omitempty"`
 	// (336) The trading session that the order is for.
 	TradingSessionID string `protobuf:"bytes,7,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
-	// (39)  The status of the order. Valid values are "New", "Pending", "PartiallyFilled", "Filled", "Cancelled", and "Expired".
+	// (39)  The status of the order. Valid values are "New", "Pending",
+	// "PartiallyFilled", "Filled", "Cancelled", and "Expired".
 	OrdStatus string `protobuf:"bytes,8,opt,name=ordStatus,proto3" json:"ordStatus,omitempty"`
-	// (150) The type of execution report. Valid values are "New", "Replace", "Cancel", and "Status".
+	// (150) The type of execution report. Valid values are "New", "Replace",
+	// "Cancel", and "Status".
 	ExecType string `protobuf:"bytes,9,opt,name=execType,proto3" json:"execType,omitempty"`
 	// (38) The quantity of the order that has been executed.
 	OrdQty string `protobuf:"bytes,10,opt,name=ordQty,proto3" json:"ordQty,omitempty"`
@@ -403,7 +407,9 @@ type OrderMassStatusRequestReject struct {
 	// standard Header
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// (34) The unique identifier for the rejected message.
-	// the RefSeqID field in the Order Mass Status Request Reject (AR) message will contain the same value as the MassStatusReqID field in the original Order Mass Status Request (AF) message.
+	// the RefSeqID field in the Order Mass Status Request Reject (AR) message
+	// will contain the same value as the MassStatusReqID field in the original
+	// Order Mass Status Request (AF) message.
 	RefSeqID string `protobuf:"bytes,2,opt,name=refSeqID,proto3" json:"refSeqID,omitempty"`
 	// (587) The reason for the rejection. Valid values are:
 	// 1: Invalid message type

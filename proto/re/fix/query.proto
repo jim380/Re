@@ -68,7 +68,7 @@ service Query {
 
   // Queries a list of Orders items.
   rpc Orders(QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/{sessionID}";
+    option (google.api.http).get = "/jim380/Re/fix/orders/{clOrdID}";
   }
   rpc OrdersAll(QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders";
@@ -78,7 +78,7 @@ service Query {
   rpc OrdersCancelRequest(QueryGetOrdersCancelRequestRequest)
       returns (QueryGetOrdersCancelRequestResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_request/{sessionID}";
+        "/jim380/Re/fix/orders_cancel_request/{clOrdID}";
   }
   rpc OrdersCancelRequestAll(QueryAllOrdersCancelRequestRequest)
       returns (QueryAllOrdersCancelRequestResponse) {
@@ -89,7 +89,7 @@ service Query {
   rpc OrdersCancelReject(QueryGetOrdersCancelRejectRequest)
       returns (QueryGetOrdersCancelRejectResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_reject/{sessionID}";
+        "/jim380/Re/fix/orders_cancel_reject/{clOrdID}";
   }
   rpc OrdersCancelRejectAll(QueryAllOrdersCancelRejectRequest)
       returns (QueryAllOrdersCancelRejectResponse) {
@@ -100,7 +100,7 @@ service Query {
   rpc OrdersExecutionReport(QueryGetOrdersExecutionReportRequest)
       returns (QueryGetOrdersExecutionReportResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_execution_report/{sessionID}";
+        "/jim380/Re/fix/orders_execution_report/{clOrdID}";
   }
   rpc OrdersExecutionReportAll(QueryAllOrdersExecutionReportRequest)
       returns (QueryAllOrdersExecutionReportResponse) {
@@ -229,7 +229,7 @@ message QueryAllSessionLogoutResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersRequest { string sessionID = 1; }
+message QueryGetOrdersRequest { string clOrdID = 1; }
 
 message QueryGetOrdersResponse {
   Orders Orders = 1 [ (gogoproto.nullable) = false ];
@@ -244,7 +244,7 @@ message QueryAllOrdersResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersCancelRequestRequest { string sessionID = 1; }
+message QueryGetOrdersCancelRequestRequest { string clOrdID = 1; }
 
 message QueryGetOrdersCancelRequestResponse {
   OrdersCancelRequest OrdersCancelRequest = 1 [ (gogoproto.nullable) = false ];
@@ -260,7 +260,7 @@ message QueryAllOrdersCancelRequestResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersCancelRejectRequest { string sessionID = 1; }
+message QueryGetOrdersCancelRejectRequest { string clOrdID = 1; }
 
 message QueryGetOrdersCancelRejectResponse {
   OrdersCancelReject OrdersCancelReject = 1 [ (gogoproto.nullable) = false ];
@@ -276,7 +276,7 @@ message QueryAllOrdersCancelRejectResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersExecutionReportRequest { string sessionID = 1; }
+message QueryGetOrdersExecutionReportRequest { string clOrdID = 1; }
 
 message QueryGetOrdersExecutionReportResponse {
   OrdersExecutionReport OrdersExecutionReport = 1
