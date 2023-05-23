@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdOrderMassStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-mass-status-request [session-id] [mass-status-req-type] [cl-ord-id] [account] [symbol] [security-id] [trading-session-id]",
+		Use:   "order-mass-status-request [session-id] [mass-status-req-type] [clord-id] [account] [symbol] [security-id] [trading-session-id]",
 		Short: "Broadcast message order-mass-status-request",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -59,10 +59,11 @@ func CmdOrderMassStatusRequest() *cobra.Command {
 
 func CmdOrderMassStatusReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-mass-status-report [session-id] [cl-ord-id] [mass-status-req-id] [account] [symbol] [security-id] [trading-session-id] [ord-status] [exec-type] [ord-qty] [last-px] [cum-qty] [avg-px] [leaves-qty]",
+		Use:   "order-mass-status-report [session-id] [clord-id] [mass-status-req-id] [account] [symbol] [security-id] [trading-session-id] [ord-status] [exec-type] [ord-qty] [last-px] [cum-qty] [avg-px] [leaves-qty]",
 		Short: "Broadcast message order-mass-status-report",
 		Args:  cobra.ExactArgs(14),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			
 			argSessionID := args[0]
 			argClOrdID := args[1]
 			argMassStatusReqID := args[2]
