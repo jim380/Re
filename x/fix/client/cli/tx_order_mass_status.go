@@ -14,18 +14,20 @@ var _ = strconv.Itoa(0)
 
 func CmdOrderMassStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-mass-status-request [session-id] [mass-status-req-id] [mass-status-req-type] [cl-ord-id] [account] [symbol] [security-id] [trading-session-id]",
+		Use:   "order-mass-status-request [session-id] [mass-status-req-type] [cl-ord-id] [account] [symbol] [security-id] [trading-session-id]",
 		Short: "Broadcast message order-mass-status-request",
-		Args:  cobra.ExactArgs(8),
+		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argMassStatusReqID := args[1]
-			argMassStatusReqType := args[2]
-			argClOrdID := args[3]
-			argAccount := args[4]
-			argSymbol := args[5]
-			argSecurityID := args[6]
-			argTradingSessionID := args[7]
+			argMassStatusReqType := args[1]
+			argClOrdID := args[2]
+			argAccount := args[3]
+			argSymbol := args[4]
+			argSecurityID := args[5]
+			argTradingSessionID := args[6]
+
+			// GenerateRandomString function uniquely generates MassStatusReqID for every Order Mass Status Request
+			argMassStatusReqID, _ := types.GenerateRandomString(types.MassStatusReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
