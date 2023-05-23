@@ -63,7 +63,6 @@ func CmdOrderMassStatusReport() *cobra.Command {
 		Short: "Broadcast message order-mass-status-report",
 		Args:  cobra.ExactArgs(14),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argClOrdID := args[1]
 			argMassStatusReqID := args[2]
@@ -119,7 +118,6 @@ func CmdOrderMassStatusRequestReject() *cobra.Command {
 		Short: "Broadcast message order-mass-status-request-reject",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argRefSeqID := args[1]
 			argRejCode := args[2]

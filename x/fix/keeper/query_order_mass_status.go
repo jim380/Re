@@ -32,7 +32,6 @@ func (k Keeper) OrderMassStatusAll(goCtx context.Context, req *types.QueryAllOrd
 		orderMassStatuss = append(orderMassStatuss, orderMassStatus)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

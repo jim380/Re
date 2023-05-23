@@ -152,12 +152,12 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 
 	// check that Order Mass Status Request has not been responded to
 	if orderMassStatus.OrderMassStatusReport != nil {
-		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsAcknowledged, "Order mass status Report: %s", &orderMassStatus.OrderMassStatusReport)
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsAcknowledged, "Order mass status Report: %s", orderMassStatus.OrderMassStatusReport)
 	}
 
 	// check that Order Mass Status Request has not been rejected
 	if orderMassStatus.OrderMassStatusRequestReject != nil {
-		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsRejected, "Order mass status Request Reject: %s", &orderMassStatus.OrderMassStatusRequestReject)
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsRejected, "Order mass status Request Reject: %s", orderMassStatus.OrderMassStatusRequestReject)
 	}
 
 	// check that the mandatory fields match the values from Order Mass Status Request
@@ -305,12 +305,12 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 
 	// check that Order Mass Status Request has not been responded to
 	if orderMassStatus.OrderMassStatusReport != nil {
-		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsAcknowledged, "Order mass status Report: %s", &orderMassStatus.OrderMassStatusReport)
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsAcknowledged, "Order mass status Report: %s", orderMassStatus.OrderMassStatusReport)
 	}
 
 	// check that Order Mass Status Request has not been rejected
 	if orderMassStatus.OrderMassStatusRequestReject != nil {
-		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsRejected, "Order mass status Request Reject: %s", &orderMassStatus.OrderMassStatusRequestReject)
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsRejected, "Order mass status Request Reject: %s", orderMassStatus.OrderMassStatusRequestReject)
 	}
 
 	// check that any of these mandatory fields is not empty
@@ -376,5 +376,5 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 	// emit event
 	err = ctx.EventManager().EmitTypedEvent(msg)
 
-	return &types.MsgOrderMassStatusRequestRejectResponse{}, nil
+	return &types.MsgOrderMassStatusRequestRejectResponse{}, err
 }
