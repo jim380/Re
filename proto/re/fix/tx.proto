@@ -54,6 +54,12 @@ service Msg {
       returns (MsgSecurityDefinitionResponse);
   rpc SecurityDefinitionRequestReject(MsgSecurityDefinitionRequestReject)
       returns (MsgSecurityDefinitionRequestRejectResponse);
+  rpc OrderMassStatusRequest(MsgOrderMassStatusRequest)
+      returns (MsgOrderMassStatusRequestResponse);
+  rpc OrderMassStatusReport(MsgOrderMassStatusReport)
+      returns (MsgOrderMassStatusReportResponse);
+  rpc OrderMassStatusRequestReject(MsgOrderMassStatusRequestReject)
+      returns (MsgOrderMassStatusRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -390,3 +396,47 @@ message MsgSecurityDefinitionRequestReject {
 }
 
 message MsgSecurityDefinitionRequestRejectResponse {}
+
+message MsgOrderMassStatusRequest {
+  string creator = 1;
+  string sessionID = 2;
+  string massStatusReqID = 3;
+  string massStatusReqType = 4;
+  string clOrdID = 5;
+  string account = 6;
+  string symbol = 7;
+  string securityID = 8;
+  string tradingSessionID = 9;
+}
+
+message MsgOrderMassStatusRequestResponse {}
+
+message MsgOrderMassStatusReport {
+  string creator = 1;
+  string sessionID = 2;
+  string clOrdID = 3;
+  string massStatusReqID = 4;
+  string account = 5;
+  string symbol = 6;
+  string securityID = 7;
+  string tradingSessionID = 8;
+  string ordStatus = 9;
+  string execType = 10;
+  string ordQty = 11;
+  string lastPx = 12;
+  string cumQty = 13;
+  string avgPx = 14;
+  string leavesQty = 15;
+}
+
+message MsgOrderMassStatusReportResponse {}
+
+message MsgOrderMassStatusRequestReject {
+  string creator = 1;
+  string sessionID = 2;
+  string refSeqID = 3;
+  string rejCode = 4;
+  string text = 5;
+}
+
+message MsgOrderMassStatusRequestRejectResponse {}

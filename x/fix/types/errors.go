@@ -69,6 +69,8 @@ const (
 	errOrdersExecutionReportIsNotFound
 	errOrderIDIsNotFound
 	errExecIDIsNotFound
+	errOrderIsNotFound
+	errOrderIsExecutedAlready
 
 	// Trade Capture
 	errTradeReportIDIsEmpty
@@ -107,6 +109,15 @@ const (
 	errSecurityMinPriceIncrementIsEmpty
 	errSecurityRequestResultIsEmpty
 	errSecurityRequestErrorIsEmpty
+
+	// Order Mass Status
+	errOrderMassStatusSession
+	errOrderMassStatusMismatchField
+	errOrderMassStatusEmptyField
+	errOrderMassStatusIsNotFound
+	errOrderMassStatusCreatorIsWrong
+	errOrderMassStatusRequestIsAcknowledged
+	errOrderMassStatusRequestIsRejected
 )
 
 // x/fix module sentinel errors
@@ -171,6 +182,8 @@ var (
 	ErrOrdersExecutionReportIsNotFound = sdkerrors.Register(ModuleName, errOrdersExecutionReportIsNotFound, "Order Execution Report is not found")
 	ErrOrderIDIsNotFound               = sdkerrors.Register(ModuleName, errOrderIDIsNotFound, "OrderID is not found")
 	ErrExecIDIsNotFound                = sdkerrors.Register(ModuleName, errExecIDIsNotFound, "ExecID is not found")
+	ErrOrderIsNotFound                 = sdkerrors.Register(ModuleName, errOrderIsNotFound, "Order is not found")
+	ErrOrderIsExecutedAlready          = sdkerrors.Register(ModuleName, errOrderIsExecutedAlready, "Order is executed already")
 
 	// Trade Capture
 	ErrTradeReportIDIsEmpty             = sdkerrors.Register(ModuleName, errTradeReportIDIsEmpty, "TradeReportID is not empty")
@@ -209,4 +222,13 @@ var (
 	ErrSecurityMinPriceIncrementIsEmpty        = sdkerrors.Register(ModuleName, errSecurityMinPriceIncrementIsEmpty, "MinPriceIncrement is empty")
 	ErrSecurityRequestResultIsEmpty            = sdkerrors.Register(ModuleName, errSecurityRequestResultIsEmpty, "SecurityRequestResult is empty")
 	ErrSecurityRequestErrorIsEmpty             = sdkerrors.Register(ModuleName, errSecurityRequestErrorIsEmpty, "SecurityRequestError is empty")
+
+	// Order Mass Status
+	ErrOrderMassStatusSession               = sdkerrors.Register(ModuleName, errOrderMassStatusSession, "No established session between parties in the Order Mass Status")
+	ErrOrderMassStatusMismatchField         = sdkerrors.Register(ModuleName, errOrderMassStatusMismatchField, "This value does not match the value from the Order")
+	ErrOrderMassStatusEmptyField            = sdkerrors.Register(ModuleName, errOrderMassStatusEmptyField, "This field can not be left empty")
+	ErrOrderMassStatusIsNotFound            = sdkerrors.Register(ModuleName, errOrderMassStatusIsNotFound, "Order mass status is not found")
+	ErrOrderMassStatusCreatorIsWrong        = sdkerrors.Register(ModuleName, errOrderMassStatusCreatorIsWrong, "This account address can not respond to order mass status request")
+	ErrOrderMassStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsAcknowledged, "Order Mass Status Request has been responded to")
+	ErrOrderMassStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsRejected, "Order Mass Status Request has been rejected")
 )

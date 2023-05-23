@@ -76,6 +76,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set security count
 	k.SetSecurityCount(ctx, genState.SecurityCount)
+	// Set all the orderMassStatus
+	for _, elem := range genState.OrderMassStatusList {
+		k.SetOrderMassStatus(ctx, elem.OrderMassStatusRequest.MassStatusReqID, elem)
+	}
+
+	// Set orderMassStatus count
+	k.SetOrderMassStatusCount(ctx, genState.OrderMassStatusCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -96,6 +103,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.MarketDataCount = k.GetMarketDataCount(ctx)
 	genesis.SecurityList = k.GetAllSecurity(ctx)
 	genesis.SecurityCount = k.GetSecurityCount(ctx)
+	genesis.OrderMassStatusList = k.GetAllOrderMassStatus(ctx)
+	genesis.OrderMassStatusCount = k.GetOrderMassStatusCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

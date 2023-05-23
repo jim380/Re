@@ -18,6 +18,7 @@ import "re/fix/quote.proto";
 import "re/fix/trade_capture.proto";
 import "re/fix/market_data.proto";
 import "re/fix/security.proto";
+import "re/fix/order_mass_status.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -145,6 +146,17 @@ service Query {
   }
   rpc SecurityAll(QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
     option (google.api.http).get = "/jim380/Re/fix/securities";
+  }
+
+  // Queries a list of OrderMassStatus items.
+  rpc OrderMassStatus(QueryGetOrderMassStatusRequest)
+      returns (QueryGetOrderMassStatusResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/order_mass_status/{massStatusReqID}";
+  }
+  rpc OrderMassStatusAll(QueryAllOrderMassStatusRequest)
+      returns (QueryAllOrderMassStatusResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/order_mass_status";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -346,5 +358,20 @@ message QueryAllSecurityRequest {
 
 message QueryAllSecurityResponse {
   repeated Security Security = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetOrderMassStatusRequest { string massStatusReqID = 1; }
+
+message QueryGetOrderMassStatusResponse {
+  OrderMassStatus OrderMassStatus = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllOrderMassStatusRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOrderMassStatusResponse {
+  repeated OrderMassStatus OrderMassStatus = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

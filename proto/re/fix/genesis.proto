@@ -16,6 +16,7 @@ import "re/fix/quote.proto";
 import "re/fix/trade_capture.proto";
 import "re/fix/market_data.proto";
 import "re/fix/security.proto";
+import "re/fix/order_mass_status.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -49,4 +50,7 @@ message GenesisState {
   uint64 marketDataCount = 23;
   repeated Security securityList = 24 [ (gogoproto.nullable) = false ];
   uint64 securityCount = 25;
+  repeated OrderMassStatus orderMassStatusList = 26
+      [ (gogoproto.nullable) = false ];
+  uint64 orderMassStatusCount = 27;
 }

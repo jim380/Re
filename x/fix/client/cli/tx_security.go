@@ -14,19 +14,21 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityDefinitionRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-definition-request [sesssion-id] [security-req-id] [security-request-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency]",
+		Use:   "security-definition-request [sesssion-id] [security-request-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency]",
 		Short: "Broadcast message security-definition-request",
-		Args:  cobra.ExactArgs(9),
+		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argSecurityReqID := args[1]
-			argSecurityRequestType := args[2]
-			argSymbol := args[3]
-			argSecurityExchange := args[4]
-			argIssuer := args[5]
-			argSecurityDesc := args[6]
-			argSecurityType := args[7]
-			argCurrency := args[8]
+			argSecurityRequestType := args[1]
+			argSymbol := args[2]
+			argSecurityExchange := args[3]
+			argIssuer := args[4]
+			argSecurityDesc := args[5]
+			argSecurityType := args[6]
+			argCurrency := args[7]
+
+			// GenerateRandomString function uniquely generates SecurityReqID for every Security Definition Reques
+			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
