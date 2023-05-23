@@ -139,7 +139,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
-	// get Order Mass Status
+	// get Order Mass Status Request
 	orderMassStatus, found := k.GetOrderMassStatus(ctx, msg.MassStatusReqID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusIsNotFound, "Order: %s", &orderMassStatus)
@@ -270,8 +270,111 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *types.MsgOrderMassStatusRequestReject) (*types.MsgOrderMassStatusRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
+
+	// check for if the provided session ID existss
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != types.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusSession, "Status of Session: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to send Order Mass Status Request Reject
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
+	}
+
+	// get Order Mass Status Request
+	orderMassStatus, found := k.GetOrderMassStatus(ctx, msg.RefSeqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusIsNotFound, "Order: %s", &orderMassStatus)
+	}
+
+	// the account that created order mass status request is not allowed to respond to order mass status request reject
+	if orderMassStatus.OrderMassStatusRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusCreatorIsWrong, "Order Mass Status Request Reject Creator: %s", msg.Creator)
+	}
+
+	// check that Order Mass Status Request has not been responded to
+	if orderMassStatus.OrderMassStatusReport != nil {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsAcknowledged, "Order mass status Report: %s", &orderMassStatus.OrderMassStatusReport)
+	}
+
+	// check that Order Mass Status Request has not been rejected
+	if orderMassStatus.OrderMassStatusRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusRequestIsRejected, "Order mass status Request Reject: %s", &orderMassStatus.OrderMassStatusRequestReject)
+	}
+
+	// check that any of these mandatory fields is not empty
+	if msg.RejCode == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusEmptyField, "RejCode: %s", msg.RejCode)
+	}
+	if msg.Text == "" {
+		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusEmptyField, "Text: %s", msg.Text)
+	}
+
+	// order mass status request reject
+	orderMassStatusRequestReject := types.OrderMassStatus{
+		SessionID:              msg.SessionID,
+		OrderMassStatusRequest: orderMassStatus.OrderMassStatusRequest,
+		OrderMassStatusReport:  orderMassStatus.OrderMassStatusReport,
+		OrderMassStatusRequestReject: &types.OrderMassStatusRequestReject{
+			RefSeqID: msg.RefSeqID,
+			RejCode:  msg.RejCode,
+			Text:     msg.Text,
+			Creator:  msg.Creator,
+		},
+	}
+
+	// set header from order mass status request
+	orderMassStatusRequestReject.OrderMassStatusRequestReject.Header = orderMassStatus.OrderMassStatusRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *orderMassStatusRequestReject.OrderMassStatusRequestReject.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = orderMassStatus.OrderMassStatusRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = orderMassStatus.OrderMassStatusRequest.Header.MsgSeqNum
+
+	// set the msgType to Order Mass Status Request Reject (AR)
+	newHeader.MsgType = "AR"
+
+	// switch senderCompID and targetCompID between Order Mass Status Request and Order Mass Status Request Reject
+	// set senderCompID of Order Mass Status Request Reject to the targetCompID of Order Mass Status Request in the header
+	newHeader.SenderCompID = orderMassStatus.OrderMassStatusRequest.Header.TargetCompID
+
+	// set targetCompID of Order Mass Status Request Reject to the senderCompID of Order Mass Status Request in the header
+	newHeader.TargetCompID = orderMassStatus.OrderMassStatusRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	orderMassStatusRequestReject.OrderMassStatusRequestReject.Header = newHeader
+
+	// set Trailer from the existing Order Mass Status Request
+	// TODO
+	// checksum should be recalcualted
+	orderMassStatusRequestReject.OrderMassStatusRequestReject.Trailer = orderMassStatus.OrderMassStatusRequest.Trailer
+
+	// set order mass status request reject to store
+	k.SetOrderMassStatus(ctx, msg.RefSeqID, orderMassStatusRequestReject)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
 
 	return &types.MsgOrderMassStatusRequestRejectResponse{}, nil
 }
