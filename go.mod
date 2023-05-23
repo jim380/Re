@@ -48,7 +48,7 @@ require (
 	github.com/cosmos/gogoproto v1.4.6 // indirect
 	github.com/creachadair/taskgroup v0.3.2 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
-	github.com/docker/distribution v2.8.1+incompatible // indirect
+	github.com/docker/distribution v2.8.2-beta.1+incompatible // indirect
 	github.com/frankban/quicktest v1.14.4 // indirect
 	github.com/getsentry/sentry-go v0.17.0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
