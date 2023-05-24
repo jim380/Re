@@ -19,24 +19,24 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// TODO
-	// get session, check if session exists and if the status is set to loggedIn
-	// check for account address
-	// include checks for all the FIX Protocol messages
-	// add more check cases
-
-	// check for if this session Name exists
+	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	if session.Status != "loggedIn" {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s state is not logged in", msg.SessionID))
+	// check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != types.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to an Order
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
 	// check if order exists
-	order, found := k.GetOrders(ctx, msg.SessionID)
+	order, found := k.GetOrders(ctx, msg.ClOrdID)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
 	}

@@ -26,7 +26,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report
@@ -122,7 +122,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 
 	// check that the sessionID provided by the creator of Security Definition matches with the sessionID for Security Definition Request
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInSecurity, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSecuritySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user responding is the recipient of the Security Definition Request
@@ -259,7 +259,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 
 	// check that the sessionID provided by the creator of Security Definition Request Reject matches with the sessionID for Security Definition Request
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInSecurity, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSecuritySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user responding is the recipient of the Security Definition Request

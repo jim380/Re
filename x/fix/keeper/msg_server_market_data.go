@@ -29,7 +29,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Market Data Request
@@ -125,9 +125,9 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that the sessionID provided by the creator of Market Data Snap shot Full Refresh matches with the sessionID for Market Data Request
+	// check that the sessionID provided is active between both parties
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInMarketData, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user responding is the recipient of the market data request
@@ -259,9 +259,9 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that the sessionID provided by the creator of Market Data Request Reject matches with the sessionID for Market Data Request
+	// check that the sessionID provided is active between botth parties
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInMarketData, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataSession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user responding is the recipient of the market data request

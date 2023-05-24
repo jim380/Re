@@ -26,8 +26,8 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != "loggedIn" {
-		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "Status of Session: %s", msg.SessionID)
+	if session.Status != types.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Quote Request
@@ -132,7 +132,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 
 	// check that the sessionID provided by the creator of Quote Acknowledgement matches with the sessionID for Quote Request
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user to acknowledge the Quote Request is the recipient of the Quote Request
@@ -247,7 +247,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 
 	// check that the sessionID provided by the creator of Quote Request Reject matches with the sessionID for Quote Request
 	if session.SessionID != msg.SessionID {
-		return nil, sdkerrors.Wrapf(types.ErrWrongSessionIDInQuote, "SessionID: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrQuoteSession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the user to Reject the Quote Request is the recipient of the Quote Request

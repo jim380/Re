@@ -35,7 +35,7 @@ message OrderMassStatusRequest {
   // (55) The symbol of the security that the orders are for.
   string symbol = 6;
 
-  // (48)	The security identifier of the security that the orders are for.
+  // (48) The security identifier of the security that the orders are for.
   string securityID = 7;
 
   // (336) The trading session that the orders are for.
@@ -53,7 +53,7 @@ message OrderMassStatusReport {
   // standard Header
   Header header = 1;
 
-  // (49)	The unique identifier for the order.
+  // (49) The unique identifier for the order.
   string clOrdID = 2;
 
   // (585) The unique identifier for the status request.

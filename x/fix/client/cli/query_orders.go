@@ -44,7 +44,7 @@ func CmdListOrders() *cobra.Command {
 
 func CmdShowOrders() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders [sessionID]",
+		Use:   "show-orders [clOrdID]",
 		Short: "shows a orders",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -52,10 +52,10 @@ func CmdShowOrders() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionID := args[0]
+			argClOrdID := args[0]
 
 			params := &types.QueryGetOrdersRequest{
-				SessionID: argSessionID,
+				ClOrdID: argClOrdID,
 			}
 
 			res, err := queryClient.Orders(context.Background(), params)
@@ -107,7 +107,7 @@ func CmdListOrdersCancelRequest() *cobra.Command {
 
 func CmdShowOrdersCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders-cancel-request [sessionID]",
+		Use:   "show-orders-cancel-request [clOrdID]",
 		Short: "shows an ordersCancelRequest",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -115,10 +115,10 @@ func CmdShowOrdersCancelRequest() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionID := args[0]
+			argClOrdID := args[0]
 
 			params := &types.QueryGetOrdersCancelRequestRequest{
-				SessionID: argSessionID,
+				ClOrdID: argClOrdID,
 			}
 
 			res, err := queryClient.OrdersCancelRequest(context.Background(), params)
@@ -170,7 +170,7 @@ func CmdListOrdersExecutionReport() *cobra.Command {
 
 func CmdShowOrdersExecutionReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders-execution-report [sessionID]",
+		Use:   "show-orders-execution-report [clOrdID]",
 		Short: "shows an orders_execution-report",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -178,10 +178,10 @@ func CmdShowOrdersExecutionReport() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionID := args[0]
+			argClOrdID := args[0]
 
 			params := &types.QueryGetOrdersExecutionReportRequest{
-				SessionID: argSessionID,
+				ClOrdID: argClOrdID,
 			}
 
 			res, err := queryClient.OrdersExecutionReport(context.Background(), params)
@@ -233,7 +233,7 @@ func CmdListOrdersCancelReject() *cobra.Command {
 
 func CmdShowOrdersCancelReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders-cancel-reject [sessionID]",
+		Use:   "show-orders-cancel-reject [clOrdID]",
 		Short: "shows a orders-cancel-reject",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -241,10 +241,10 @@ func CmdShowOrdersCancelReject() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionID := args[0]
+			argClOrdID := args[0]
 
 			params := &types.QueryGetOrdersCancelRejectRequest{
-				SessionID: argSessionID,
+				ClOrdID: argClOrdID,
 			}
 
 			res, err := queryClient.OrdersCancelReject(context.Background(), params)
