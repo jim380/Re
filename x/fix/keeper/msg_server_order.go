@@ -153,7 +153,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	// An OrderCancelRequest can only be made if the New Single Order has not been executed or rejected
 	orderExecutionReport, found := k.GetOrdersExecutionReport(ctx, msg.OrigClOrdID)
 	if found {
-		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", orderExecutionReport)
+		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", &orderExecutionReport)
 	}
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.OrigClOrdID)
@@ -213,7 +213,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	// An OrderExecutionReport can only be made if the New Single Order has not been executed or rejected
 	orderExecutionReport, found := k.GetOrdersExecutionReport(ctx, msg.ClOrdID)
 	if found {
-		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", orderExecutionReport)
+		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", &orderExecutionReport)
 	}
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.ClOrdID)
@@ -370,7 +370,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	// An OrderCancelRequest can only be made if the New Single Order has not been executed or rejected
 	orderExecutionReport, found := k.GetOrdersExecutionReport(ctx, msg.OrigClOrdID)
 	if found {
-		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", orderExecutionReport)
+		return nil, sdkerrors.Wrapf(types.ErrOrderIsExecutedAlready, "Order Execution Report: %s", &orderExecutionReport)
 	}
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.OrigClOrdID)
