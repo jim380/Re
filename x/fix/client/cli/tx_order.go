@@ -77,15 +77,16 @@ func CmdNewOrderSingle() *cobra.Command {
 
 func CmdOrderCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-cancel-request [session-name] [OrigClOrdID] [ClOrdID]",
+		Use:   "order-cancel-request [session-name] [OrigClOrdID]",
 		Short: "Broadcast message order-cancel-request",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSession := args[0]
 
 			argOrigClOrdID := args[1]
 
-			argclOrdID := args[2]
+			// GenerateRandomString function uniquely generates ClOrdID for every Order Cancel Request
+			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -96,7 +97,7 @@ func CmdOrderCancelRequest() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argSession,
 				argOrigClOrdID,
-				argclOrdID,
+				argClOrdID,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -140,15 +141,9 @@ func CmdOrderExecutionReport() *cobra.Command {
 				return err
 			}
 
-			argOrderQty, err := cast.ToInt64E(args[8])
-			if err != nil {
-				return err
-			}
+			argOrderQty := args[8]
 
-			argPrice, err := cast.ToInt64E(args[9])
-			if err != nil {
-				return err
-			}
+			argPrice := args[9]
 
 			argTimeInForce, err := cast.ToInt64E(args[10])
 			if err != nil {
@@ -216,9 +211,9 @@ func CmdOrderExecutionReport() *cobra.Command {
 
 func CmdOrderCancelReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-cancel-reject [sessionID] [OrderID] [OrigClOrdID] [ClOrdID] [CxlRejReason] [CxlRejResponseTo]",
+		Use:   "order-cancel-reject [sessionID] [OrderID] [OrigClOrdID] [CxlRejReason] [CxlRejResponseTo]",
 		Short: "Broadcast message order-cancel-reject",
-		Args:  cobra.ExactArgs(6),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -231,17 +226,18 @@ func CmdOrderCancelReject() *cobra.Command {
 
 			argOrigClOrdID := args[2]
 
-			argClOrdID := args[3]
-
-			argCxlRejReason, err := cast.ToInt64E(args[4])
+			argCxlRejReason, err := cast.ToInt64E(args[3])
 			if err != nil {
 				return err
 			}
 
-			argCxlRejResponseTo, err := cast.ToInt64E(args[5])
+			argCxlRejResponseTo, err := cast.ToInt64E(args[4])
 			if err != nil {
 				return err
 			}
+
+			// GenerateRandomString function uniquely generates ClOrdID for every Order Cancel Reject
+			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
 
 			msg := types.NewMsgOrderCancelReject(
 				clientCtx.GetFromAddress().String(),

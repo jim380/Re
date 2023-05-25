@@ -199,8 +199,8 @@ message MsgOrderExecutionReport {
   string execType = 7;
   string symbol = 8;
   int64 side = 9;
-  int64 orderQty = 10;
-  int64 price = 11;
+  string orderQty = 10;
+  string price = 11;
   int64 timeInForce = 12;
   int64 lastPx = 13;
   int64 lastQty = 14;
