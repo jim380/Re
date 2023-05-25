@@ -25,10 +25,10 @@ const (
 	errWrongSession
 	errIncorrectDID
 	errSessionIsAccepted
+	errSessionIsNotLoggedIn
 
 	// Quote
 	errQuoteIsEmpty
-	errQuoteSession
 	errQuoteReqIDIsTaken
 	errQuoteReqIDIsEmpty
 	errQuoteSymbolIsEmpty
@@ -39,7 +39,7 @@ const (
 	errMICInQuoteRquestIsNotFound
 	errQuoteRequestIsRejected
 	errQuoteAcknowledgementCreatorIsWrong
-	errWrongSessionIDInQuote
+	errQuoteSession
 	errQuoteRequestRejectCreatorIsWrong
 	errQuoteRequestIsAcknowledged
 	errQuoteRequestRejectReasonIsEmpty
@@ -60,7 +60,6 @@ const (
 	errMdEntryPxIsEmpty
 	errMdEntrySizeIsEmpty
 	errMarketDataSession
-	errWrongSessionIDInMarketData
 	errMarketDataRequestRejectCreatorIsWrong
 	errMarketDataRequestIsAcknowlodged
 	errMdReqRejReasonIsEmpty
@@ -71,6 +70,7 @@ const (
 	errExecIDIsNotFound
 	errOrderIsNotFound
 	errOrderIsExecutedAlready
+	errOrderEmptyField
 
 	// Trade Capture
 	errTradeReportIDIsEmpty
@@ -99,7 +99,7 @@ const (
 	errSecurityRequestTypeIsEmpty
 	errSecuritySymbolIsEmpty
 	errSecurityExchangeIsEmpty
-	errWrongSessionIDInSecurity
+	errSecuritySession
 	errSecurityIsNotFound
 	errSecurityDefinitionRequestIsRejected
 	errSecurityDefinitionRequestIsAcknowledged
@@ -132,16 +132,16 @@ var (
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, errNotAccountCreator, "Incorrect Account Owner")
 
 	// Session
-	ErrSessionNameFound  = sdkerrors.Register(ModuleName, errSessionNameFound, "Session Name exists")
-	ErrSessionSameDID    = sdkerrors.Register(ModuleName, errSessionSameDID, "Session can not use same DID for senderCompID and targetCompID")
-	ErrEmptySession      = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
-	ErrWrongSession      = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
-	ErrIncorrectDID      = sdkerrors.Register(ModuleName, errIncorrectDID, "senderCompID and targetCompID does not match in session")
-	ErrSessionIsAccepted = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session accepted already")
+	ErrSessionNameFound     = sdkerrors.Register(ModuleName, errSessionNameFound, "Session Name exists")
+	ErrSessionSameDID       = sdkerrors.Register(ModuleName, errSessionSameDID, "Session can not use same DID for senderCompID and targetCompID")
+	ErrEmptySession         = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
+	ErrWrongSession         = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
+	ErrIncorrectDID         = sdkerrors.Register(ModuleName, errIncorrectDID, "senderCompID and targetCompID does not match in session")
+	ErrSessionIsAccepted    = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session accepted already")
+	ErrSessionIsNotLoggedIn = sdkerrors.Register(ModuleName, errSessionIsNotLoggedIn, "There is no active session with this sessionID")
 
 	// Quote
 	ErrQuoteIsEmpty                       = sdkerrors.Register(ModuleName, errQuoteIsEmpty, "Quote Is Empty")
-	ErrQuoteSession                       = sdkerrors.Register(ModuleName, errQuoteSession, "No established FIX session between parties")
 	ErrQuoteReqIDIsTaken                  = sdkerrors.Register(ModuleName, errQuoteReqIDIsTaken, "QuoteReqID exists already for a given Quote Request")
 	ErrQuoteReqIDIsEmpty                  = sdkerrors.Register(ModuleName, errQuoteReqIDIsEmpty, "QuoteReqID is empty")
 	ErrQuoteSymbolIsEmpty                 = sdkerrors.Register(ModuleName, errQuoteSymbolIsEmpty, "Quote Symbol is empty")
@@ -152,7 +152,7 @@ var (
 	ErrMICInQuoteRquestIsNotFound         = sdkerrors.Register(ModuleName, errMICInQuoteRquestIsNotFound, "MIC used in Quote is not registered")
 	ErrQuoteRequestIsRejected             = sdkerrors.Register(ModuleName, errQuoteRequestIsRejected, "Quote Request has been Rejected")
 	ErrQuoteAcknowledgementCreatorIsWrong = sdkerrors.Register(ModuleName, errQuoteAcknowledgementCreatorIsWrong, "This Account Address is not allowed to Acknowledge this Quote Request")
-	ErrWrongSessionIDInQuote              = sdkerrors.Register(ModuleName, errWrongSessionIDInQuote, "This Session ID does not tally with the Quote Request")
+	ErrQuoteSession                       = sdkerrors.Register(ModuleName, errQuoteSession, "The sessionID is not recognized by the Quote Request system")
 	ErrQuoteRequestRejectCreatorIsWrong   = sdkerrors.Register(ModuleName, errQuoteRequestRejectCreatorIsWrong, "This Account Address is not allowed to Reject this Quote Request")
 	ErrQuoteRequestIsAcknowledged         = sdkerrors.Register(ModuleName, errQuoteRequestIsAcknowledged, "Quote Request has been Acknowledged")
 	ErrQuoteRequestRejectReasonIsEmpty    = sdkerrors.Register(ModuleName, errQuoteRequestRejectReasonIsEmpty, "Quote Request Reject Reason is empty")
@@ -172,8 +172,7 @@ var (
 	ErrMdEntryTypeIsEmpty                          = sdkerrors.Register(ModuleName, errMdEntryTypeIsEmpty, "MdEntryType is empty")
 	ErrMdEntryPxIsEmpty                            = sdkerrors.Register(ModuleName, errMdEntryPxIsEmpty, "MdEntryPx is empty")
 	ErrMdEntrySizeIsEmpty                          = sdkerrors.Register(ModuleName, errMdEntrySizeIsEmpty, "MdEntrySize is empty")
-	ErrMarketDataSession                           = sdkerrors.Register(ModuleName, errMarketDataSession, "No established FIX session between parties")
-	ErrWrongSessionIDInMarketData                  = sdkerrors.Register(ModuleName, errWrongSessionIDInMarketData, "This Session ID does not tally with the Market Data Request")
+	ErrMarketDataSession                           = sdkerrors.Register(ModuleName, errMarketDataSession, "The sessionID is not recognized by the Market Data Request system")
 	ErrMarketDataRequestRejectCreatorIsWrong       = sdkerrors.Register(ModuleName, errMarketDataRequestRejectCreatorIsWrong, "This account address is not allowed to respond to the market data request reject")
 	ErrMarketDataRequestIsAcknowlodged             = sdkerrors.Register(ModuleName, errMarketDataRequestIsAcknowlodged, "Market Data Request has been acknowledged")
 	ErrMdReqRejReasonIsEmpty                       = sdkerrors.Register(ModuleName, errMdReqRejReasonIsEmpty, "MdReqRejReason is empty")
@@ -184,6 +183,7 @@ var (
 	ErrExecIDIsNotFound                = sdkerrors.Register(ModuleName, errExecIDIsNotFound, "ExecID is not found")
 	ErrOrderIsNotFound                 = sdkerrors.Register(ModuleName, errOrderIsNotFound, "Order is not found")
 	ErrOrderIsExecutedAlready          = sdkerrors.Register(ModuleName, errOrderIsExecutedAlready, "Order is executed already")
+	ErrOrderEmptyField                 = sdkerrors.Register(ModuleName, errOrderEmptyField, "This field can not be left empty")
 
 	// Trade Capture
 	ErrTradeReportIDIsEmpty             = sdkerrors.Register(ModuleName, errTradeReportIDIsEmpty, "TradeReportID is not empty")
@@ -204,7 +204,7 @@ var (
 	ErrTradeReportStatusIsEmpty         = sdkerrors.Register(ModuleName, errTradeReportStatusIsEmpty, "TradeReportStatus is empty")
 	ErrTradeCaptureReportIsRejected     = sdkerrors.Register(ModuleName, errTradeCaptureReportIsRejected, "Trade Capture Report has been rejected")
 	ErrTradeCaptureReportIsAcknowledged = sdkerrors.Register(ModuleName, errTradeCaptureReportIsAcknowledged, "Trade Capture Report has been acknowledged")
-	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "No established session between parties in the Trade Capture")
+	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "The sessionID is not recognized by the Trade Capture Report system")
 	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
 
 	// security
@@ -212,7 +212,7 @@ var (
 	ErrSecurityRequestTypeIsEmpty              = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
 	ErrSecuritySymbolIsEmpty                   = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
 	ErrSecurityExchangeIsEmpty                 = sdkerrors.Register(ModuleName, errSecurityExchangeIsEmpty, "SecurityExchange is empty")
-	ErrWrongSessionIDInSecurity                = sdkerrors.Register(ModuleName, errWrongSessionIDInSecurity, "This Session ID does not tally with the Security Definition Request")
+	ErrSecuritySession                         = sdkerrors.Register(ModuleName, errSecuritySession, "The sessionID is not recognized by the Security Definition Request system")
 	ErrSecurityIsNotFound                      = sdkerrors.Register(ModuleName, errSecurityIsNotFound, "Security Definition Request is not found")
 	ErrSecurityDefinitionRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsRejected, "Security Definition Request has been rejected")
 	ErrSecurityDefinitionRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityDefinitionRequestIsAcknowledged, "Security Definition Request has been acknowledged")
@@ -224,7 +224,7 @@ var (
 	ErrSecurityRequestErrorIsEmpty             = sdkerrors.Register(ModuleName, errSecurityRequestErrorIsEmpty, "SecurityRequestError is empty")
 
 	// Order Mass Status
-	ErrOrderMassStatusSession               = sdkerrors.Register(ModuleName, errOrderMassStatusSession, "No established session between parties in the Order Mass Status")
+	ErrOrderMassStatusSession               = sdkerrors.Register(ModuleName, errOrderMassStatusSession, "The sessionID is not recognized by the Order Mass Status Request system")
 	ErrOrderMassStatusMismatchField         = sdkerrors.Register(ModuleName, errOrderMassStatusMismatchField, "This value does not match the value from the Order")
 	ErrOrderMassStatusEmptyField            = sdkerrors.Register(ModuleName, errOrderMassStatusEmptyField, "This field can not be left empty")
 	ErrOrderMassStatusIsNotFound            = sdkerrors.Register(ModuleName, errOrderMassStatusIsNotFound, "Order mass status is not found")

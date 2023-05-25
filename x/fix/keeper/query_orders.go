@@ -45,7 +45,7 @@ func (k Keeper) Orders(goCtx context.Context, req *types.QueryGetOrdersRequest) 
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	orders, found := k.GetOrders(ctx, req.SessionID)
+	orders, found := k.GetOrders(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
@@ -86,7 +86,7 @@ func (k Keeper) OrdersCancelRequest(goCtx context.Context, req *types.QueryGetOr
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.SessionID)
+	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
@@ -127,7 +127,7 @@ func (k Keeper) OrdersExecutionReport(goCtx context.Context, req *types.QueryGet
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.SessionID)
+	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
@@ -168,7 +168,7 @@ func (k Keeper) OrdersCancelReject(goCtx context.Context, req *types.QueryGetOrd
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	ordersCancelReject, found := k.GetOrdersCancelReject(ctx, req.SessionID)
+	ordersCancelReject, found := k.GetOrdersCancelReject(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

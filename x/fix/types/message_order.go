@@ -99,7 +99,7 @@ const TypeMsgOrderExecutionReport = "order_execution_report"
 
 var _ sdk.Msg = &MsgOrderExecutionReport{}
 
-func NewMsgOrderExecutionReport(creator string, sessionID string, clOrdID string, orderID string, execID string, ordStatus string, execType string, symbol string, side int64, orderQty int64, price int64, timeInForce int64, lastPx int64, lastQty int64, leavesQty int64, cumQty int64, avgPx int64, text string) *MsgOrderExecutionReport {
+func NewMsgOrderExecutionReport(creator string, sessionID string, clOrdID string, orderID string, execID string, ordStatus string, execType string, symbol string, side int64, orderQty string, price string, timeInForce int64, lastPx int64, lastQty int64, leavesQty int64, cumQty int64, avgPx int64, text string) *MsgOrderExecutionReport {
 	return &MsgOrderExecutionReport{
 		Creator:     creator,
 		SessionID:   sessionID,

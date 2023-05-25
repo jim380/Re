@@ -28,7 +28,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report
@@ -162,8 +162,8 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	// check that the sessionID provided matches the trade capture report sessionID
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
 	}
 
@@ -293,8 +293,8 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	// check that the sessionID provided matches the trade capture report sessionID
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureSession, "Status of Session: %s", msg.SessionID)
 	}
 

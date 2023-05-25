@@ -27,7 +27,7 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
 	if session.Status != types.LoggedInStatus {
-		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusSession, "Status of Session: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to send Order Mass Status Request
@@ -131,8 +131,8 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	// check that the sessionID is active between both parties
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusSession, "Status of Session: %s", msg.SessionID)
 	}
 
@@ -285,8 +285,8 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	// check that the sessionID is active between both parties
+	if session.SessionID != msg.SessionID {
 		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusSession, "Status of Session: %s", msg.SessionID)
 	}
 

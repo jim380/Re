@@ -422,15 +422,15 @@ func request_Query_Orders_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := client.Orders(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -449,15 +449,15 @@ func local_request_Query_Orders_0(ctx context.Context, marshaler runtime.Marshal
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := server.Orders(ctx, &protoReq)
@@ -512,15 +512,15 @@ func request_Query_OrdersCancelRequest_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := client.OrdersCancelRequest(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -539,15 +539,15 @@ func local_request_Query_OrdersCancelRequest_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := server.OrdersCancelRequest(ctx, &protoReq)
@@ -602,15 +602,15 @@ func request_Query_OrdersCancelReject_0(ctx context.Context, marshaler runtime.M
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := client.OrdersCancelReject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -629,15 +629,15 @@ func local_request_Query_OrdersCancelReject_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := server.OrdersCancelReject(ctx, &protoReq)
@@ -692,15 +692,15 @@ func request_Query_OrdersExecutionReport_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := client.OrdersExecutionReport(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -719,15 +719,15 @@ func local_request_Query_OrdersExecutionReport_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["sessionID"]
+	val, ok = pathParams["clOrdID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sessionID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "clOrdID")
 	}
 
-	protoReq.SessionID, err = runtime.String(val)
+	protoReq.ClOrdID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sessionID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "clOrdID", err)
 	}
 
 	msg, err := server.OrdersExecutionReport(ctx, &protoReq)
@@ -2548,19 +2548,19 @@ var (
 
 	pattern_Query_SessionLogoutAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "session", "logouts"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_request", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_request", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersCancelRequestAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_cancel_requests"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_reject", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_reject", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersCancelRejectAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_cancel_rejects"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_execution_report", "sessionID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_execution_report", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersExecutionReportAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_execution_reports"}, "", runtime.AssumeColonVerbOpt(true)))
 

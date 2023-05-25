@@ -51,9 +51,6 @@ message Orders {
   // A FIX protocol trailer containing standard message fields such as checkSum
   Trailer trailer = 12;
 
-  // A field used to indicate the current status of the order.
-  string status = 13;
-
   // A field used to indicate the creator of the order.
-  string creator = 14;
+  string creator = 13;
 }
