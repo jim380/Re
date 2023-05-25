@@ -11,6 +11,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
+// NewOrderSingle creates a New Single Order in Re Protocol
 func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderSingle) (*types.MsgNewOrderSingleResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -64,7 +65,6 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 
 	newOrder := types.Orders{
 		SessionID:    session.SessionID,
-		Header:       session.LogonInitiator.Header,
 		ClOrdID:      msg.ClOrdID,
 		Symbol:       msg.Symbol,
 		Side:         msg.Side,
@@ -74,16 +74,41 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		TimeInForce:  msg.TimeInForce,
 		Text:         msg.Text,
 		TransactTime: msg.TransactTime,
-		Trailer:      session.LogonInitiator.Trailer,
 		Creator:      msg.Creator,
 	}
 
-	// set the msgType
-	newOrder.Header.MsgType = "D"
-	newOrder.TransactTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	// fetch Header from existing session
+	// In the FIX Protocol, New Single Order message can be sent by either the initiator or the acceptor in the FIX session.
+	// Determine whether it is the initiator or acceptor
+	var header *types.Header
+	if session.InitiatorAddress == msg.Creator {
+		header = session.LogonInitiator.Header
+	} else {
+		header = session.LogonAcceptor.Header
+	}
 
+	// set the header and make changes to the header
+	// calculate and include all changes to the header
+	// Message type, D is the message type for New Single Order
+	// BodyLength should be calculated using the BodyLength function
+	// set sending time to current time at creating New Single Order
+	newOrder.Header = header
+	newOrder.Header.MsgType = "D"
+	newOrder.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// fetch Trailer from existing session
+	// for now copy trailer from session
+	var trailer *types.Trailer
+	if session.InitiatorAddress == msg.Creator {
+		trailer = session.LogonInitiator.Trailer
+	} else {
+		trailer = session.LogonAcceptor.Trailer
+	}
+
+	// set the Trailer and make changes to the trailer
 	// TODO
-	// checksum in the Trailer should be recalculated
+	// checksum in the trailer can be recalculated using CalculateChecksum function
+	newOrder.Trailer = trailer
 
 	// set the new order single to store
 	k.SetOrders(ctx, msg.SessionID, newOrder)
@@ -94,6 +119,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	return &types.MsgNewOrderSingleResponse{}, err
 }
 
+// OrderCancelRequest requests for the cancellation of New Single Order
 func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrderCancelRequest) (*types.MsgOrderCancelRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -103,12 +129,11 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	session, _ := k.GetSessions(ctx, msg.SessionID)
-
-	// TODO: Handling the message
-	// Fetch session
-	// check for existing origClOrdID
-	// check that account address equals the creator
+	// check for if the provided session ID existss
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
 
 	// set order cancel request data
 	orderCancelRequest := types.OrdersCancelRequest{
