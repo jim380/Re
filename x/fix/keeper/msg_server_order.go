@@ -221,12 +221,6 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
 	}
 
-	// check that this order cancellation has not been requested already
-	orderCancelRequest, found := k.GetOrdersCancelRequest(ctx, msg.ClOrdID)
-	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s The creator has requested to cancel this order already", &orderCancelRequest))
-	}
-
 	// check that these mandatory fields are not empty
 	if msg.OrderID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrOrderEmptyField, "OrderID: %s", msg.OrderID)
