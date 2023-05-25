@@ -15,9 +15,9 @@ var _ = strconv.Itoa(0)
 
 func CmdNewOrderSingle() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "new-order-single [sessionID] [ClOrdID] [Symbol] [Side] [OrderQty] [OrdType] [Price] [TimeInForce] [Text]",
+		Use:   "new-order-single [sessionID] [Symbol] [Side] [OrderQty] [OrdType] [Price] [TimeInForce] [Text]",
 		Short: "Broadcast message new-order-single",
-		Args:  cobra.ExactArgs(9),
+		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -25,30 +25,31 @@ func CmdNewOrderSingle() *cobra.Command {
 			}
 			argSessionID := args[0]
 
-			argClOrdID := args[1]
+			argSymbol := args[1]
 
-			argSymbol := args[2]
-
-			argSide, err := cast.ToInt64E(args[3])
+			argSide, err := cast.ToInt64E(args[2])
 			if err != nil {
 				return err
 			}
 
-			argOrderQty := args[4]
+			argOrderQty := args[3]
 
-			argOrdType, err := cast.ToInt64E(args[5])
+			argOrdType, err := cast.ToInt64E(args[4])
 			if err != nil {
 				return err
 			}
 
-			argPrice := args[6]
+			argPrice := args[5]
 
-			argTimeInForce, err := cast.ToInt64E(args[7])
+			argTimeInForce, err := cast.ToInt64E(args[6])
 			if err != nil {
 				return err
 			}
 
-			argText := args[8]
+			argText := args[7]
+
+			// GenerateRandomString function uniquely generates ClOrdID for every New Order Single
+			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
 
 			msg := types.NewMsgNewOrderSingle(
 				clientCtx.GetFromAddress().String(),

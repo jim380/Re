@@ -70,6 +70,7 @@ const (
 	errExecIDIsNotFound
 	errOrderIsNotFound
 	errOrderIsExecutedAlready
+	errOrderEmptyField
 
 	// Trade Capture
 	errTradeReportIDIsEmpty
@@ -182,6 +183,7 @@ var (
 	ErrExecIDIsNotFound                = sdkerrors.Register(ModuleName, errExecIDIsNotFound, "ExecID is not found")
 	ErrOrderIsNotFound                 = sdkerrors.Register(ModuleName, errOrderIsNotFound, "Order is not found")
 	ErrOrderIsExecutedAlready          = sdkerrors.Register(ModuleName, errOrderIsExecutedAlready, "Order is executed already")
+	ErrOrderEmptyField                 = sdkerrors.Register(ModuleName, errOrderEmptyField, "This field can not be left empty")
 
 	// Trade Capture
 	ErrTradeReportIDIsEmpty             = sdkerrors.Register(ModuleName, errTradeReportIDIsEmpty, "TradeReportID is not empty")

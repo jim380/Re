@@ -106,7 +106,7 @@ type OrderMassStatusRequest struct {
 	Account string `protobuf:"bytes,5,opt,name=account,proto3" json:"account,omitempty"`
 	// (55) The symbol of the security that the orders are for.
 	Symbol string `protobuf:"bytes,6,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	// (48)	The security identifier of the security that the orders are for.
+	// (48) The security identifier of the security that the orders are for.
 	SecurityID string `protobuf:"bytes,7,opt,name=securityID,proto3" json:"securityID,omitempty"`
 	// (336) The trading session that the orders are for.
 	TradingSessionID string `protobuf:"bytes,8,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
@@ -223,7 +223,7 @@ func (m *OrderMassStatusRequest) GetCreator() string {
 type OrderMassStatusReport struct {
 	// standard Header
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (49)	The unique identifier for the order.
+	// (49) The unique identifier for the order.
 	ClOrdID string `protobuf:"bytes,2,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
 	// (585) The unique identifier for the status request.
 	MassStatusReqID string `protobuf:"bytes,3,opt,name=massStatusReqID,proto3" json:"massStatusReqID,omitempty"`
