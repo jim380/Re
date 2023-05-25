@@ -48,6 +48,9 @@ message SecurityDefinitionRequest {
 
   // Standard FIX message trailer.
   Trailer trailer = 10;
+
+   // owner
+  string creator = 11;
 }
 
 // Security Definition with fields, tags and descriptions.
@@ -126,6 +129,9 @@ message SecurityDefinition {
 
   // Standard FIX message trailer.
   Trailer trailer = 23;
+
+   // owner
+  string creator = 24;
 }
 
 // Security Definition Request Rejeect with fields, tags and descriptions.
@@ -155,4 +161,7 @@ message SecurityDefinitionRequestReject {
 
   // Standard FIX message trailer.
   Trailer trailer = 7;
+
+   // owner
+  string creator = 8;
 }
