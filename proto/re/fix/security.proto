@@ -49,7 +49,7 @@ message SecurityDefinitionRequest {
   // Standard FIX message trailer.
   Trailer trailer = 10;
 
-   // owner
+  // owner
   string creator = 11;
 }
 
@@ -130,7 +130,7 @@ message SecurityDefinition {
   // Standard FIX message trailer.
   Trailer trailer = 23;
 
-   // owner
+  // owner
   string creator = 24;
 }
 
@@ -162,6 +162,6 @@ message SecurityDefinitionRequestReject {
   // Standard FIX message trailer.
   Trailer trailer = 7;
 
-   // owner
+  // owner
   string creator = 8;
 }
