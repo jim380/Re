@@ -178,6 +178,11 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
 	}
 
+	// same account can not used for creating trade capture report and trade capture report acknowledgement with the same TradeReportID
+	if tradeCapture.TradeCaptureReport.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
+	}
+
 	// check that the mandatory fields match the values from Trade Capture Report
 	if tradeCapture.TradeCaptureReport.TradeReportID != msg.TradeReportID {
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureMismatchField, "TradeReportID: %s", msg.TradeReportID)
@@ -307,6 +312,11 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	tradeCapture, found := k.GetTradeCapture(ctx, msg.TradeReportID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrTradeCaptureIsNotFound, ": %s", tradeCapture.TradeCaptureReport.TradeReportID)
+	}
+
+	// same account can not used for creating trade capture report and trade capture report rejection with the same TradeReportID
+	if tradeCapture.TradeCaptureReport.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
 	}
 
 	// check that the mandatory field matches the value from Trade Capture Report

@@ -152,6 +152,11 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsRejected, "Market Data Request: %s", marketDataRequest.MarketDataRequestReject)
 	}
 
+	// check that this Market Data Request is not acknowledged already
+	if marketDataRequest.MarketDataSnapShotFullRefresh != nil {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsAcknowlodged, "Market Data Request: %s", marketDataRequest.MarketDataSnapShotFullRefresh)
+	}
+
 	// check that mandatory Market Data Snap Shot Full Refresh fields are not empty
 	if msg.MdReqID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrMdReqIDIsEmpty, "MdReqID: %s", msg.MdReqID)
@@ -284,6 +289,11 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 	// if market data snap shot full refresh is not nil, then it means market data request has been acknowledged, hence market data request reject cannot be executed
 	if marketDataRequest.MarketDataSnapShotFullRefresh != nil {
 		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsAcknowlodged, "Market Data Request Reject: %s", marketDataRequest.MarketDataSnapShotFullRefresh)
+	}
+
+	// check that this Market Data Request is not rejected already
+	if marketDataRequest.MarketDataRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestIsRejected, "Market Data Request: %s", marketDataRequest.MarketDataRequestReject)
 	}
 
 	// check that mandatory Market Data Request Reject field is not empty

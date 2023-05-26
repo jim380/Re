@@ -29,7 +29,12 @@ type OrdersCancelReject struct {
 	// such as the message type, sender and receiver identification, and sequence
 	// number.
 	Header *Header `protobuf:"bytes,2,opt,name=header,proto3" json:"header,omitempty"`
-	// A string field that contains the ID of the order that was rejected.
+	// A string field that contains the ID of the order that was rejected. When an
+	// order is submitted to a trading venue or OMS, it assigns a unique orderID
+	// to that order to track and identify it within its system. If the order is
+	// subsequently rejected, the trading venue or OMS would typically provide the
+	// orderID associated with the rejected order in the OrdersCancelReject
+	// message
 	OrderID string `protobuf:"bytes,3,opt,name=orderID,proto3" json:"orderID,omitempty"`
 	// A string field that contains the original client order ID for the order
 	// that was cancelled.
@@ -39,9 +44,26 @@ type OrdersCancelReject struct {
 	ClOrdID string `protobuf:"bytes,5,opt,name=clOrdID,proto3" json:"clOrdID,omitempty"`
 	// An integer field that specifies the reason for the order cancellation
 	// rejection, using a standard set of values defined in the FIX protocol.
+	// Typically, the cxlRejReason field provides a numerical code or value that
+	// represents a specific reason for the order cancellation rejection. Examples
+	// of common cxlRejReason values in the FIX protocol include:
+	//  0: Too Late to Cancel
+	//  1: Unknown Order
+	//  2: Broker/Exchange Option
+	//  3: Order Already in Pending Cancel or Pending Replace Status
+	//  4: Unable to Process Request
+	//  5: Duplicate ClOrdID
+	//  6: Unsupported Order Characteristic
+	//  7: Other
 	CxlRejReason int64 `protobuf:"varint,6,opt,name=cxlRejReason,proto3" json:"cxlRejReason,omitempty"`
 	// An integer field that specifies the message sequence number of the order
-	// cancellation request to which this message is responding.
+	// cancellation request to which this message is responding. When an order
+	// cancellation request is submitted, it is assigned a unique message sequence
+	// number by the FIX engine or the trading system. This sequence number is
+	// used to track and identify specific messages within the order flow. The
+	// cxlRejResponseTo field in the OrdersCancelReject message is populated with
+	// the sequence number of the original order cancellation request message that
+	// resulted in the rejection.
 	CxlRejResponseTo int64 `protobuf:"varint,7,opt,name=cxlRejResponseTo,proto3" json:"cxlRejResponseTo,omitempty"`
 	// A string field that specifies the time of the transaction.
 	TransactTime string `protobuf:"bytes,8,opt,name=transactTime,proto3" json:"transactTime,omitempty"`

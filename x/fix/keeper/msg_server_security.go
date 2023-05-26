@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -134,6 +135,11 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 	security, found := k.GetSecurity(ctx, msg.SecurityReqID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrSecurityIsNotFound, ": %s", security.SecurityDefinition)
+	}
+
+	// same account can not used for creating security definition request and security definition with the same SecurityReqID
+	if security.SecurityDefinitionRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", &security))
 	}
 
 	// check that the Security Definition Request is not rejected already
@@ -271,6 +277,11 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 	security, found := k.GetSecurity(ctx, msg.SecurityReqID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrSecurityIsNotFound, ": %s", security.SecurityDefinition)
+	}
+
+	// same account can not used for creating security definition request and security definition request reject with the same SecurityReqID
+	if security.SecurityDefinitionRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition request reject", &security))
 	}
 
 	// check that the Security Definition Request is not rejected already
