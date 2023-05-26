@@ -205,7 +205,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
 
-	// same account address can not used for creating New Single Order and Execution Report
+	// same account address can not used for creating New Single Order and Execution Report with the same ClOrdID
 	if msg.Creator == order.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create execution report", msg.Creator))
 	}
@@ -356,9 +356,9 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
 
-	// same account address can not used for creating New Single Order and for Rejecting the order
+	// same account can not used to create New Single Order and to Reject the order with the same ClOrdID
 	if msg.Creator == order.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account address is not the creator of the order", &order))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to Reject this order", &order))
 	}
 
 	// An OrderCancelRequest can only be made if the New Single Order has not been executed or rejected

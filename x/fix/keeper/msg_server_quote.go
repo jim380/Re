@@ -146,7 +146,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 		return nil, sdkerrors.Wrapf(types.ErrQuoteIsEmpty, "Quote: %s", &quoteRequest)
 	}
 
-	// check that Quote Request creator address is not same address acknowledging the Quote Request
+	// check that Quote Request creator address is not same address acknowledging the Quote Request with the same QuoteReqID
 	if quoteRequest.QuoteRequest.Creator == msg.QuoteAcknowledgement.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteAcknowledgementCreatorIsWrong, "Quote Acknowledgement: %s", msg.QuoteAcknowledgement.Creator)
 	}
@@ -155,6 +155,11 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	// access QuoteRequestReject from QuoteRequest, Quote Acknoledgement should be rejected if Quote Request Reject is not nil
 	if quoteRequest.QuoteRequestReject != nil {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsRejected, "Quote: %s", quoteRequest.QuoteRequestReject)
+	}
+
+	// check that this Quote Request is not acknowledged already
+	if quoteRequest.QuoteAcknowledgement != nil {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsAcknowledged, "Quote: %s", quoteRequest.QuoteAcknowledgement)
 	}
 
 	// check that mandatory Quote Acknowledgement fields are not empty
@@ -270,6 +275,11 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	// access QuoteAcknowledgement from the QuoteRequest, QuoteRequestRejection should be rejected if QuoteAcknowledgement is not nil
 	if quoteRequest.QuoteAcknowledgement != nil {
 		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsAcknowledged, "Quote: %s", quoteRequest.QuoteAcknowledgement)
+	}
+
+	// check that this Quote Request is not rejected already
+	if quoteRequest.QuoteRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrQuoteRequestIsRejected, "Quote: %s", quoteRequest.QuoteRequestReject)
 	}
 
 	// check that mandatory Quote Request Reject fields are not empty

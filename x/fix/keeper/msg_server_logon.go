@@ -164,7 +164,6 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d Logon status is not in request state", &session.Status))
 	}
 
-	// TODO
 	if session.LogonInitiator.Header.TargetCompID != msg.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong SenderCompID", msg.Header.SenderCompID))
 	}
