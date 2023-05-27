@@ -157,3 +157,8 @@ func GetOrderMassStatusKey() []byte {
 func GetOrderMassStatusCountKey() []byte {
 	return OrderMassStatusCountKey
 }
+
+const (
+	TradingSessionKey      = "TradingSession/value/"
+	TradingSessionCountKey = "TradingSession/count/"
+)
