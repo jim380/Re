@@ -23,34 +23,38 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 
 // GenesisState defines the fix module's genesis state.
 message GenesisState {
-           Params                params                     =  1 [(gogoproto.nullable) = false];
-  repeated Account               accountList                =  2 [(gogoproto.nullable) = false];
-           uint64                accountCount               =  3;
-  repeated Sessions              sessionsList               =  4 [(gogoproto.nullable) = false];
-           uint64                sessionsCount              =  5;
-  repeated SessionReject         sessionRejectList          =  6 [(gogoproto.nullable) = false];
-           uint64                sessionRejectCount         =  7;
-  repeated SessionLogout         sessionLogoutList          =  8 [(gogoproto.nullable) = false];
-           uint64                sessionLogoutCount         =  9;
-  repeated Orders                ordersList                 = 10 [(gogoproto.nullable) = false];
-           uint64                ordersCount                = 11;
-  repeated OrdersCancelRequest   ordersCancelRequestList    = 12 [(gogoproto.nullable) = false];
-           uint64                ordersCancelRequestCount   = 13;
-  repeated OrdersCancelReject    ordersCancelRejectList     = 14 [(gogoproto.nullable) = false];
-           uint64                ordersCancelRejectCount    = 15;
-  repeated OrdersExecutionReport ordersExecutionReportList  = 16 [(gogoproto.nullable) = false];
-           uint64                ordersExecutionReportCount = 17;
-  repeated Quote                 quoteList                  = 18 [(gogoproto.nullable) = false];
-           uint64                quoteCount                 = 19;
-  repeated TradeCapture          tradeCaptureList           = 20 [(gogoproto.nullable) = false];
-           uint64                tradeCaptureCount          = 21;
-  repeated MarketData            marketDataList             = 22 [(gogoproto.nullable) = false];
-           uint64                marketDataCount            = 23;
-  repeated Security              securityList               = 24 [(gogoproto.nullable) = false];
-           uint64                securityCount              = 25;
-  repeated OrderMassStatus       orderMassStatusList        = 26 [(gogoproto.nullable) = false];
-           uint64                orderMassStatusCount       = 27;
-  repeated TradingSession        tradingSessionList         = 28 [(gogoproto.nullable) = false];
-           uint64                tradingSessionCount        = 29;
+  Params params = 1 [ (gogoproto.nullable) = false ];
+  repeated Account accountList = 2 [ (gogoproto.nullable) = false ];
+  uint64 accountCount = 3;
+  repeated Sessions sessionsList = 4 [ (gogoproto.nullable) = false ];
+  uint64 sessionsCount = 5;
+  repeated SessionReject sessionRejectList = 6 [ (gogoproto.nullable) = false ];
+  uint64 sessionRejectCount = 7;
+  repeated SessionLogout sessionLogoutList = 8 [ (gogoproto.nullable) = false ];
+  uint64 sessionLogoutCount = 9;
+  repeated Orders ordersList = 10 [ (gogoproto.nullable) = false ];
+  uint64 ordersCount = 11;
+  repeated OrdersCancelRequest ordersCancelRequestList = 12
+      [ (gogoproto.nullable) = false ];
+  uint64 ordersCancelRequestCount = 13;
+  repeated OrdersCancelReject ordersCancelRejectList = 14
+      [ (gogoproto.nullable) = false ];
+  uint64 ordersCancelRejectCount = 15;
+  repeated OrdersExecutionReport ordersExecutionReportList = 16
+      [ (gogoproto.nullable) = false ];
+  uint64 ordersExecutionReportCount = 17;
+  repeated Quote quoteList = 18 [ (gogoproto.nullable) = false ];
+  uint64 quoteCount = 19;
+  repeated TradeCapture tradeCaptureList = 20 [ (gogoproto.nullable) = false ];
+  uint64 tradeCaptureCount = 21;
+  repeated MarketData marketDataList = 22 [ (gogoproto.nullable) = false ];
+  uint64 marketDataCount = 23;
+  repeated Security securityList = 24 [ (gogoproto.nullable) = false ];
+  uint64 securityCount = 25;
+  repeated OrderMassStatus orderMassStatusList = 26
+      [ (gogoproto.nullable) = false ];
+  uint64 orderMassStatusCount = 27;
+  repeated TradingSession tradingSessionList = 28
+      [ (gogoproto.nullable) = false ];
+  uint64 tradingSessionCount = 29;
 }
-
