@@ -85,7 +85,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetOrderMassStatusCount(ctx, genState.OrderMassStatusCount)
 	// Set all the tradingSession
 	for _, elem := range genState.TradingSessionList {
-		k.SetTradingSession(ctx, elem)
+		k.SetTradingSession(ctx, elem.TradingSessionStatusRequest.TradSesReqID, elem)
 	}
 
 	// Set tradingSession count
