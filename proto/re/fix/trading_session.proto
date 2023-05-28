@@ -3,6 +3,8 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message TradingSession {
   string sessionID = 1;
   TradingSessionStatusReport TradingSessionStatusReport = 2;
@@ -11,66 +13,142 @@ message TradingSession {
 // TradingSessionStatusReport with fields, tags and descriptions.
 message TradingSessionStatusReport {
 
+  // Standard FIX message header.
+  Header header = 1;
+
   // (336)	Identifies the specific trading session for which status is
   // requested
-  string tradingSessionID = 1;
+  string tradingSessionID = 2;
 
-  // (625)	Identifies a specific sub-session or sub-segment within a trading
-  // session
-  string tradingSessionSubID = 2;
+  // (625)	Identifies a specific sub-session or sub-segment within a
+  // trading session
+  string tradingSessionSubID = 3;
 
   // (335)	Unique identifier assigned by the party generating the request
-  string tradSesReqID = 3;
+  string tradSesReqID = 4;
 
   // (1301)	Identifies the market or exchange for which the trading session
   // status is requested
-  string marketID = 4;
+  string marketID = 5;
 
   // (263) Indicates whether the request is for a one-time snapshot or
   // subscription for updates
-  string subscriptionRequest = 5;
+  string subscriptionRequest = 6;
 
   // (48)	Identifier for the security being traded in the session
-  string securityID = 6;
+  string securityID = 7;
 
   // (22)	Identifies the source of the security identifier
-  string securityIDSource = 7;
+  string securityIDSource = 8;
 
   // (55)	Symbol representing the security being traded in the session
-  string symbol = 8;
+  string symbol = 9;
 
   // 207	Exchange where the security is listed
-  string securityExchange = 9;
+  string securityExchange = 10;
 
   // (1300)	Identifies the specific market segment or sector within the
   // trading session
-  string marketSegmentID = 10;
+  string marketSegmentID = 11;
 
   // (263) Type of trading session status request
-  int64 tradSesReqType = 11;
+  int64 tradSesReqType = 12;
 
   // (123)	Sub-type of trading session status request
-  int64 tradSesSubReqType = 12;
+  int64 tradSesSubReqType = 13;
 
   // (338)	Method used to determine the trading session
-  int64 tradSesMethod = 13;
+  int64 tradSesMethod = 14;
 
   // (339)	Mode of trading for the trading session
-  int64 tradSesMode = 14;
+  int64 tradSesMode = 15;
 
   // (336) Date of the trading session for which status is requested
-  string tradingSessionDate = 15;
+  string tradingSessionDate = 16;
 
   // (338)Time of the trading session for which status is requested
-  string tradingSessionTime = 16;
+  string tradingSessionTime = 17;
 
   // (1147) Time of the sub-session or sub-segment within a trading session
-  string tradingSessionSubTime = 17;
+  string tradingSessionSubTime = 18;
 
   // (432) Date and time when the trading session status request is no longer
   // valid and should be disregarded
-  string expirationDate = 18;
+  string expirationDate = 19;
 
   // owner
-  string creator = 19;
+  string creator = 20;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 21;
+}
+
+// TradingSessionStatus with fields, tags and descriptions.
+message TradingSessionStatus {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (335)	Unique identifier assigned by the party generating the request
+  string tradSesReqID = 2;
+
+  // (336) Identifies the specific trading session
+  string tradingSessionID = 3;
+
+  // (340) Indicates the current status of the trading session
+  int64 tradSesStatus = 4;
+
+  // (567) Provides a reason for rejecting or invalidating a trading session
+  // status
+  int64 tradSesStatusRejReason = 5;
+
+  // (341) Time at which the trading session is scheduled to start
+  string tradSesStartTime = 6;
+
+  // (342) Time at which the trading session opens
+  string tradSesOpenTime = 7;
+
+  // (343)	Time at which the trading session pre-closes
+  string tradSesPreCloseTime = 8;
+
+  // (344)	Time at which the trading session closes
+  string tradSesCloseTime = 9;
+
+  // (345) Time at which the trading session is scheduled to end
+  string tradSesEndTime = 10;
+
+  // (387) Total quantity of contracts or shares traded during the trading
+  // session
+  int64 totalVolumeTraded = 11;
+
+  // (1149)	Highest price traded during the trading session
+  string tradSesHighPx = 12;
+
+  // (1148)	Lowest price traded during the trading session
+  string tradSesLowPx = 13;
+
+  // (48)	Identifier for the security being traded in the session
+  string securityID = 14;
+
+  // (22)	Identifies the source of the security identifier
+  string securityIDSource = 15;
+
+  // (55) Symbol representing the security being traded in the session
+  string symbol = 16;
+
+  // (207)	Exchange where the security is listed
+  string securityExchange = 17;
+
+  // 1300	Identifies the specific market segment or sector within the trading
+  // session
+  string marketSegmentID = 18;
+
+  // 1301	Identifies the market or exchange for the trading session
+  string marketID = 19;
+
+  // owner
+  string creator = 20;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 21;
 }

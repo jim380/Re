@@ -76,44 +76,54 @@ func (m *TradingSession) GetTradingSessionStatusReport() *TradingSessionStatusRe
 
 // TradingSessionStatusReport with fields, tags and descriptions.
 type TradingSessionStatusReport struct {
-	// (336)	Identifies the specific trading session for which status is requested
-	TradingSessionID string `protobuf:"bytes,1,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
-	// (625)	Identifies a specific sub-session or sub-segment within a trading session
-	TradingSessionSubID string `protobuf:"bytes,2,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (336)	Identifies the specific trading session for which status is
+	// requested
+	TradingSessionID string `protobuf:"bytes,2,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
+	// (625)	Identifies a specific sub-session or sub-segment within a trading
+	// session
+	TradingSessionSubID string `protobuf:"bytes,3,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
 	// (335)	Unique identifier assigned by the party generating the request
-	TradSesReqID string `protobuf:"bytes,3,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
-	// (1301)	Identifies the market or exchange for which the trading session status is requested
-	MarketID string `protobuf:"bytes,4,opt,name=marketID,proto3" json:"marketID,omitempty"`
-	// (263) Indicates whether the request is for a one-time snapshot or subscription for updates
-	SubscriptionRequest string `protobuf:"bytes,5,opt,name=subscriptionRequest,proto3" json:"subscriptionRequest,omitempty"`
+	TradSesReqID string `protobuf:"bytes,4,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
+	// (1301)	Identifies the market or exchange for which the trading session
+	// status is requested
+	MarketID string `protobuf:"bytes,5,opt,name=marketID,proto3" json:"marketID,omitempty"`
+	// (263) Indicates whether the request is for a one-time snapshot or
+	// subscription for updates
+	SubscriptionRequest string `protobuf:"bytes,6,opt,name=subscriptionRequest,proto3" json:"subscriptionRequest,omitempty"`
 	// (48)	Identifier for the security being traded in the session
-	SecurityID string `protobuf:"bytes,6,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	SecurityID string `protobuf:"bytes,7,opt,name=securityID,proto3" json:"securityID,omitempty"`
 	// (22)	Identifies the source of the security identifier
-	SecurityIDSource string `protobuf:"bytes,7,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	SecurityIDSource string `protobuf:"bytes,8,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
 	// (55)	Symbol representing the security being traded in the session
-	Symbol string `protobuf:"bytes,8,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Symbol string `protobuf:"bytes,9,opt,name=symbol,proto3" json:"symbol,omitempty"`
 	// 207	Exchange where the security is listed
-	SecurityExchange string `protobuf:"bytes,9,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
-	// (1300)	Identifies the specific market segment or sector within the trading session
-	MarketSegmentID string `protobuf:"bytes,10,opt,name=marketSegmentID,proto3" json:"marketSegmentID,omitempty"`
+	SecurityExchange string `protobuf:"bytes,10,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// (1300)	Identifies the specific market segment or sector within the
+	// trading session
+	MarketSegmentID string `protobuf:"bytes,11,opt,name=marketSegmentID,proto3" json:"marketSegmentID,omitempty"`
 	// (263) Type of trading session status request
-	TradSesReqType int64 `protobuf:"varint,11,opt,name=tradSesReqType,proto3" json:"tradSesReqType,omitempty"`
+	TradSesReqType int64 `protobuf:"varint,12,opt,name=tradSesReqType,proto3" json:"tradSesReqType,omitempty"`
 	// (123)	Sub-type of trading session status request
-	TradSesSubReqType int64 `protobuf:"varint,12,opt,name=tradSesSubReqType,proto3" json:"tradSesSubReqType,omitempty"`
+	TradSesSubReqType int64 `protobuf:"varint,13,opt,name=tradSesSubReqType,proto3" json:"tradSesSubReqType,omitempty"`
 	// (338)	Method used to determine the trading session
-	TradSesMethod int64 `protobuf:"varint,13,opt,name=tradSesMethod,proto3" json:"tradSesMethod,omitempty"`
+	TradSesMethod int64 `protobuf:"varint,14,opt,name=tradSesMethod,proto3" json:"tradSesMethod,omitempty"`
 	// (339)	Mode of trading for the trading session
-	TradSesMode int64 `protobuf:"varint,14,opt,name=tradSesMode,proto3" json:"tradSesMode,omitempty"`
+	TradSesMode int64 `protobuf:"varint,15,opt,name=tradSesMode,proto3" json:"tradSesMode,omitempty"`
 	// (336) Date of the trading session for which status is requested
-	TradingSessionDate string `protobuf:"bytes,15,opt,name=tradingSessionDate,proto3" json:"tradingSessionDate,omitempty"`
+	TradingSessionDate string `protobuf:"bytes,16,opt,name=tradingSessionDate,proto3" json:"tradingSessionDate,omitempty"`
 	// (338)Time of the trading session for which status is requested
-	TradingSessionTime string `protobuf:"bytes,16,opt,name=tradingSessionTime,proto3" json:"tradingSessionTime,omitempty"`
+	TradingSessionTime string `protobuf:"bytes,17,opt,name=tradingSessionTime,proto3" json:"tradingSessionTime,omitempty"`
 	// (1147) Time of the sub-session or sub-segment within a trading session
-	TradingSessionSubTime string `protobuf:"bytes,17,opt,name=tradingSessionSubTime,proto3" json:"tradingSessionSubTime,omitempty"`
-	// (432) Date and time when the trading session status request is no longer valid and should be disregarded
-	ExpirationDate string `protobuf:"bytes,18,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
+	TradingSessionSubTime string `protobuf:"bytes,18,opt,name=tradingSessionSubTime,proto3" json:"tradingSessionSubTime,omitempty"`
+	// (432) Date and time when the trading session status request is no longer
+	// valid and should be disregarded
+	ExpirationDate string `protobuf:"bytes,19,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
 	// owner
-	Creator string `protobuf:"bytes,19,opt,name=creator,proto3" json:"creator,omitempty"`
+	Creator string `protobuf:"bytes,20,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,21,opt,name=trailer,proto3" json:"trailer,omitempty"`
 }
 
 func (m *TradingSessionStatusReport) Reset()         { *m = TradingSessionStatusReport{} }
@@ -148,6 +158,13 @@ func (m *TradingSessionStatusReport) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_TradingSessionStatusReport proto.InternalMessageInfo
+
+func (m *TradingSessionStatusReport) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
 
 func (m *TradingSessionStatusReport) GetTradingSessionID() string {
 	if m != nil {
@@ -282,46 +299,296 @@ func (m *TradingSessionStatusReport) GetCreator() string {
 	return ""
 }
 
+func (m *TradingSessionStatusReport) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+// TradingSessionStatus with fields, tags and descriptions.
+type TradingSessionStatus struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (335)	Unique identifier assigned by the party generating the request
+	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
+	// (336) Identifies the specific trading session
+	TradingSessionID string `protobuf:"bytes,3,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
+	// (340) Indicates the current status of the trading session
+	TradSesStatus int64 `protobuf:"varint,4,opt,name=tradSesStatus,proto3" json:"tradSesStatus,omitempty"`
+	// (567) Provides a reason for rejecting or invalidating a trading session status
+	TradSesStatusRejReason int64 `protobuf:"varint,5,opt,name=tradSesStatusRejReason,proto3" json:"tradSesStatusRejReason,omitempty"`
+	// (341) Time at which the trading session is scheduled to start
+	TradSesStartTime string `protobuf:"bytes,6,opt,name=tradSesStartTime,proto3" json:"tradSesStartTime,omitempty"`
+	// (342) Time at which the trading session opens
+	TradSesOpenTime string `protobuf:"bytes,7,opt,name=tradSesOpenTime,proto3" json:"tradSesOpenTime,omitempty"`
+	// (343)	Time at which the trading session pre-closes
+	TradSesPreCloseTime string `protobuf:"bytes,8,opt,name=tradSesPreCloseTime,proto3" json:"tradSesPreCloseTime,omitempty"`
+	// (344)	Time at which the trading session closes
+	TradSesCloseTime string `protobuf:"bytes,9,opt,name=tradSesCloseTime,proto3" json:"tradSesCloseTime,omitempty"`
+	// (345) Time at which the trading session is scheduled to end
+	TradSesEndTime string `protobuf:"bytes,10,opt,name=tradSesEndTime,proto3" json:"tradSesEndTime,omitempty"`
+	// (387) Total quantity of contracts or shares traded during the trading session
+	TotalVolumeTraded int64 `protobuf:"varint,11,opt,name=totalVolumeTraded,proto3" json:"totalVolumeTraded,omitempty"`
+	// (1149)	Highest price traded during the trading session
+	TradSesHighPx string `protobuf:"bytes,12,opt,name=tradSesHighPx,proto3" json:"tradSesHighPx,omitempty"`
+	// (1148)	Lowest price traded during the trading session
+	TradSesLowPx string `protobuf:"bytes,13,opt,name=tradSesLowPx,proto3" json:"tradSesLowPx,omitempty"`
+	// (48)	Identifier for the security being traded in the session
+	SecurityID string `protobuf:"bytes,14,opt,name=securityID,proto3" json:"securityID,omitempty"`
+	// (22)	Identifies the source of the security identifier
+	SecurityIDSource string `protobuf:"bytes,15,opt,name=securityIDSource,proto3" json:"securityIDSource,omitempty"`
+	// (55) Symbol representing the security being traded in the session
+	Symbol string `protobuf:"bytes,16,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// (207)	Exchange where the security is listed
+	SecurityExchange string `protobuf:"bytes,17,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// 1300	Identifies the specific market segment or sector within the trading session
+	MarketSegmentID string `protobuf:"bytes,18,opt,name=marketSegmentID,proto3" json:"marketSegmentID,omitempty"`
+	// 1301	Identifies the market or exchange for the trading session
+	MarketID string `protobuf:"bytes,19,opt,name=marketID,proto3" json:"marketID,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,20,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,21,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *TradingSessionStatus) Reset()         { *m = TradingSessionStatus{} }
+func (m *TradingSessionStatus) String() string { return proto.CompactTextString(m) }
+func (*TradingSessionStatus) ProtoMessage()    {}
+func (*TradingSessionStatus) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e0d8ceb9122a9133, []int{2}
+}
+func (m *TradingSessionStatus) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TradingSessionStatus) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TradingSessionStatus.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TradingSessionStatus) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TradingSessionStatus.Merge(m, src)
+}
+func (m *TradingSessionStatus) XXX_Size() int {
+	return m.Size()
+}
+func (m *TradingSessionStatus) XXX_DiscardUnknown() {
+	xxx_messageInfo_TradingSessionStatus.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TradingSessionStatus proto.InternalMessageInfo
+
+func (m *TradingSessionStatus) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *TradingSessionStatus) GetTradSesReqID() string {
+	if m != nil {
+		return m.TradSesReqID
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradingSessionID() string {
+	if m != nil {
+		return m.TradingSessionID
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesStatus() int64 {
+	if m != nil {
+		return m.TradSesStatus
+	}
+	return 0
+}
+
+func (m *TradingSessionStatus) GetTradSesStatusRejReason() int64 {
+	if m != nil {
+		return m.TradSesStatusRejReason
+	}
+	return 0
+}
+
+func (m *TradingSessionStatus) GetTradSesStartTime() string {
+	if m != nil {
+		return m.TradSesStartTime
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesOpenTime() string {
+	if m != nil {
+		return m.TradSesOpenTime
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesPreCloseTime() string {
+	if m != nil {
+		return m.TradSesPreCloseTime
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesCloseTime() string {
+	if m != nil {
+		return m.TradSesCloseTime
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesEndTime() string {
+	if m != nil {
+		return m.TradSesEndTime
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTotalVolumeTraded() int64 {
+	if m != nil {
+		return m.TotalVolumeTraded
+	}
+	return 0
+}
+
+func (m *TradingSessionStatus) GetTradSesHighPx() string {
+	if m != nil {
+		return m.TradSesHighPx
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTradSesLowPx() string {
+	if m != nil {
+		return m.TradSesLowPx
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetSecurityID() string {
+	if m != nil {
+		return m.SecurityID
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetSecurityIDSource() string {
+	if m != nil {
+		return m.SecurityIDSource
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetSecurityExchange() string {
+	if m != nil {
+		return m.SecurityExchange
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetMarketSegmentID() string {
+	if m != nil {
+		return m.MarketSegmentID
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetMarketID() string {
+	if m != nil {
+		return m.MarketID
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *TradingSessionStatus) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*TradingSession)(nil), "jim380.re.fix.TradingSession")
 	proto.RegisterType((*TradingSessionStatusReport)(nil), "jim380.re.fix.TradingSessionStatusReport")
+	proto.RegisterType((*TradingSessionStatus)(nil), "jim380.re.fix.TradingSessionStatus")
 }
 
 func init() { proto.RegisterFile("re/fix/trading_session.proto", fileDescriptor_e0d8ceb9122a9133) }
 
 var fileDescriptor_e0d8ceb9122a9133 = []byte{
-	// 487 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0x31, 0x6f, 0xd3, 0x40,
-	0x14, 0xc7, 0x63, 0x0a, 0x69, 0xf3, 0xd2, 0xa4, 0xed, 0x55, 0xa0, 0x53, 0x55, 0x59, 0x56, 0x84,
-	0x50, 0x40, 0xc8, 0xae, 0x28, 0x03, 0x62, 0x44, 0x66, 0xf0, 0xc0, 0x62, 0x67, 0x62, 0x41, 0xb6,
-	0xf3, 0x9a, 0x1c, 0x60, 0x9f, 0x7b, 0x77, 0x96, 0x9c, 0x6f, 0xc1, 0x8a, 0xc4, 0x07, 0x62, 0xec,
-	0xc8, 0x88, 0x92, 0x2f, 0x82, 0x7c, 0x8e, 0x9b, 0x38, 0x31, 0x1d, 0xdf, 0xef, 0xff, 0x7b, 0xf7,
-	0xee, 0x39, 0xb1, 0xe1, 0x52, 0xa0, 0x73, 0xc3, 0x0a, 0x47, 0x89, 0x70, 0xca, 0xd2, 0xd9, 0x17,
-	0x89, 0x52, 0x32, 0x9e, 0xda, 0x99, 0xe0, 0x8a, 0x93, 0xc1, 0x57, 0x96, 0x5c, 0xbf, 0xbb, 0xb2,
-	0x05, 0xda, 0x37, 0xac, 0x18, 0xfd, 0x34, 0x60, 0x38, 0xa9, 0xc4, 0xa0, 0xf2, 0xc8, 0x25, 0xf4,
-	0xd6, 0x2d, 0x9e, 0x4b, 0x0d, 0xcb, 0x18, 0xf7, 0xfc, 0x0d, 0x20, 0x0c, 0x2e, 0x9a, 0x7e, 0xa0,
-	0x42, 0x95, 0x4b, 0x1f, 0x33, 0x2e, 0x14, 0x7d, 0x64, 0x19, 0xe3, 0xfe, 0x9b, 0x97, 0x76, 0x63,
-	0x88, 0xfd, 0xff, 0x06, 0xff, 0x81, 0xc3, 0x46, 0xbf, 0xba, 0x0f, 0xcd, 0x22, 0xaf, 0xe0, 0x54,
-	0x35, 0xd2, 0xfb, 0xeb, 0xee, 0x71, 0x72, 0x05, 0xe7, 0x4d, 0x16, 0xe4, 0x91, 0xe7, 0xea, 0xeb,
-	0xf6, 0xfc, 0xb6, 0x88, 0x8c, 0xe0, 0xb8, 0xc4, 0x01, 0x4a, 0x1f, 0x6f, 0x3d, 0x97, 0x1e, 0x68,
-	0xb5, 0xc1, 0xc8, 0x05, 0x1c, 0x25, 0xa1, 0xf8, 0x86, 0xca, 0x73, 0xe9, 0x63, 0x9d, 0xdf, 0xd7,
-	0xe5, 0x44, 0x99, 0x47, 0x32, 0x16, 0x2c, 0x53, 0x8c, 0xa7, 0x3e, 0xde, 0xe6, 0x28, 0x15, 0x7d,
-	0x52, 0x4d, 0x6c, 0x89, 0x88, 0x09, 0x20, 0x31, 0xce, 0x05, 0x53, 0x0b, 0xcf, 0xa5, 0x5d, 0x2d,
-	0x6e, 0x91, 0x72, 0xdf, 0x4d, 0x15, 0xf0, 0x5c, 0xc4, 0x48, 0x0f, 0xab, 0x7d, 0x77, 0x39, 0x79,
-	0x06, 0x5d, 0xb9, 0x48, 0x22, 0xfe, 0x9d, 0x1e, 0x69, 0x63, 0x5d, 0x6d, 0x9f, 0xf1, 0xb1, 0x88,
-	0xe7, 0x61, 0x3a, 0x43, 0xda, 0x6b, 0x9e, 0x51, 0x73, 0x32, 0x86, 0x93, 0x6a, 0x9b, 0x00, 0x67,
-	0x09, 0xa6, 0xe5, 0x92, 0xa0, 0xd5, 0x5d, 0x4c, 0x5e, 0xc0, 0x70, 0xf3, 0x5c, 0x26, 0x8b, 0x0c,
-	0x69, 0xdf, 0x32, 0xc6, 0x07, 0xfe, 0x0e, 0x25, 0xaf, 0xe1, 0x6c, 0x4d, 0x82, 0x3c, 0xaa, 0xd5,
-	0x63, 0xad, 0xee, 0x07, 0xe4, 0x39, 0x0c, 0xd6, 0xf0, 0x13, 0xaa, 0x39, 0x9f, 0xd2, 0x81, 0x36,
-	0x9b, 0x90, 0x58, 0xd0, 0xaf, 0x01, 0x9f, 0x22, 0x1d, 0x6a, 0x67, 0x1b, 0x11, 0x1b, 0x48, 0xf3,
-	0x07, 0x76, 0x43, 0x85, 0xf4, 0x44, 0xaf, 0xd2, 0x92, 0xec, 0xfb, 0x13, 0x96, 0x20, 0x3d, 0x6d,
-	0xf3, 0xcb, 0x84, 0xbc, 0x85, 0xa7, 0x7b, 0x7f, 0x20, 0xdd, 0x72, 0xa6, 0x5b, 0xda, 0xc3, 0xf2,
-	0x99, 0x61, 0x91, 0x31, 0x11, 0xaa, 0xfa, 0x46, 0x44, 0xeb, 0x3b, 0x94, 0x50, 0x38, 0x8c, 0x05,
-	0x86, 0x8a, 0x0b, 0x7a, 0xae, 0x85, 0xba, 0xfc, 0xf0, 0xfe, 0xf7, 0xd2, 0x34, 0xee, 0x96, 0xa6,
-	0xf1, 0x77, 0x69, 0x1a, 0x3f, 0x56, 0x66, 0xe7, 0x6e, 0x65, 0x76, 0xfe, 0xac, 0xcc, 0xce, 0x67,
-	0x6b, 0xc6, 0xd4, 0x3c, 0x8f, 0xec, 0x98, 0x27, 0x4e, 0xf5, 0x26, 0x3a, 0x3e, 0x3a, 0x45, 0xf5,
-	0x55, 0x58, 0x64, 0x28, 0xa3, 0xae, 0xfe, 0x18, 0x5c, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x8f,
-	0x28, 0x37, 0xfd, 0x2c, 0x04, 0x00, 0x00,
+	// 743 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcd, 0x6a, 0xdb, 0x4a,
+	0x14, 0xc7, 0xa3, 0xf8, 0x5e, 0x27, 0x1e, 0x27, 0x4e, 0x32, 0xf9, 0x60, 0x08, 0xb9, 0xc6, 0x98,
+	0xcb, 0xc5, 0xb7, 0xb4, 0x76, 0x48, 0x4a, 0x29, 0x5d, 0xb6, 0x0e, 0xc4, 0xd0, 0xd2, 0x20, 0x85,
+	0x2e, 0xba, 0x09, 0xb2, 0x75, 0x62, 0x4f, 0x6a, 0x69, 0x9c, 0x99, 0x11, 0xb5, 0xdf, 0xa2, 0xdb,
+	0xbe, 0x51, 0x97, 0x59, 0x76, 0x59, 0x92, 0x55, 0x1f, 0xa2, 0x50, 0x74, 0x24, 0x55, 0x1f, 0x56,
+	0x3e, 0x0a, 0x5d, 0xce, 0xef, 0xfc, 0xe7, 0xcc, 0x99, 0x39, 0xfa, 0x1f, 0x9b, 0xec, 0x49, 0xe8,
+	0x9c, 0xf3, 0x69, 0x47, 0x4b, 0xdb, 0xe1, 0xde, 0xf0, 0x4c, 0x81, 0x52, 0x5c, 0x78, 0xed, 0x89,
+	0x14, 0x5a, 0xd0, 0xd5, 0x0b, 0xee, 0x1e, 0x3e, 0xdf, 0x6f, 0x4b, 0x68, 0x9f, 0xf3, 0xe9, 0xee,
+	0x3f, 0x91, 0x58, 0x69, 0xdb, 0x73, 0x6c, 0xe9, 0x9c, 0xb9, 0xa0, 0x94, 0x3d, 0x84, 0x50, 0xdd,
+	0xfc, 0x6c, 0x90, 0xda, 0x69, 0x98, 0xc7, 0x0a, 0xd3, 0xd0, 0x3d, 0x52, 0x89, 0x32, 0xf6, 0xba,
+	0xcc, 0x68, 0x18, 0xad, 0x8a, 0x99, 0x00, 0xca, 0xc9, 0x6e, 0x56, 0x6f, 0x69, 0x5b, 0xfb, 0xca,
+	0x84, 0x89, 0x90, 0x9a, 0x2d, 0x36, 0x8c, 0x56, 0xf5, 0xe0, 0xff, 0x76, 0xa6, 0x86, 0xf6, 0xed,
+	0x1b, 0xcc, 0x3b, 0x92, 0x35, 0x7f, 0x94, 0xef, 0x3a, 0x8b, 0x3e, 0x21, 0xe5, 0x11, 0xd8, 0x0e,
+	0x48, 0x2c, 0xb2, 0x7a, 0xb0, 0x9d, 0x3b, 0xf5, 0x18, 0x83, 0x66, 0x24, 0xa2, 0x8f, 0xc8, 0xba,
+	0xce, 0x24, 0xeb, 0x75, 0xb1, 0xdc, 0x8a, 0x39, 0xc7, 0xe9, 0x3e, 0xd9, 0xcc, 0x32, 0xcb, 0xef,
+	0xf7, 0xba, 0xac, 0x84, 0xf2, 0xa2, 0x10, 0x6d, 0x92, 0x95, 0x00, 0x5b, 0xa0, 0x4c, 0xb8, 0xec,
+	0x75, 0xd9, 0x5f, 0x28, 0xcd, 0x30, 0xba, 0x4b, 0x96, 0x5d, 0x5b, 0x7e, 0x00, 0xdd, 0xeb, 0xb2,
+	0xbf, 0x31, 0xfe, 0x6b, 0x1d, 0x9c, 0xa8, 0xfc, 0xbe, 0x1a, 0x48, 0x3e, 0xd1, 0x5c, 0x78, 0x26,
+	0x5c, 0xfa, 0xa0, 0x34, 0x2b, 0x87, 0x27, 0x16, 0x84, 0x68, 0x9d, 0x10, 0x05, 0x03, 0x5f, 0x72,
+	0x3d, 0xeb, 0x75, 0xd9, 0x12, 0x0a, 0x53, 0x24, 0xb8, 0x6f, 0xb2, 0xb2, 0x84, 0x2f, 0x07, 0xc0,
+	0x96, 0xc3, 0xfb, 0xe6, 0x39, 0xdd, 0x21, 0x65, 0x35, 0x73, 0xfb, 0x62, 0xcc, 0x2a, 0xa8, 0x88,
+	0x56, 0xe9, 0x1c, 0x47, 0xd3, 0xc1, 0xc8, 0xf6, 0x86, 0xc0, 0x48, 0x36, 0x47, 0xcc, 0x69, 0x8b,
+	0xac, 0x85, 0xb7, 0xb1, 0x60, 0xe8, 0x82, 0x17, 0x5c, 0xb2, 0x8a, 0xd2, 0x3c, 0xa6, 0xff, 0x91,
+	0x5a, 0xf2, 0x2e, 0xa7, 0xb3, 0x09, 0xb0, 0x95, 0x86, 0xd1, 0x2a, 0x99, 0x39, 0x4a, 0x1f, 0x93,
+	0x8d, 0x88, 0x58, 0x7e, 0x3f, 0x96, 0xae, 0xa2, 0x74, 0x3e, 0x40, 0xff, 0x25, 0xab, 0x11, 0x7c,
+	0x03, 0x7a, 0x24, 0x1c, 0x56, 0x43, 0x65, 0x16, 0xd2, 0x06, 0xa9, 0xc6, 0x40, 0x38, 0xc0, 0xd6,
+	0x50, 0x93, 0x46, 0xb4, 0x4d, 0x68, 0xb6, 0xc1, 0x5d, 0x5b, 0x03, 0x5b, 0xc7, 0xab, 0x14, 0x44,
+	0xe6, 0xf5, 0xa7, 0xdc, 0x05, 0xb6, 0x51, 0xa4, 0x0f, 0x22, 0xf4, 0x29, 0xd9, 0x9e, 0xfb, 0x80,
+	0x70, 0x0b, 0xc5, 0x2d, 0xc5, 0xc1, 0xe0, 0xcd, 0x60, 0x3a, 0xe1, 0xd2, 0xd6, 0x71, 0x45, 0x9b,
+	0x28, 0xcf, 0x51, 0xca, 0xc8, 0xd2, 0x40, 0x82, 0xad, 0x85, 0x64, 0x5b, 0x28, 0x88, 0x97, 0x74,
+	0x9f, 0x2c, 0x69, 0x69, 0xf3, 0x31, 0x48, 0xb6, 0x8d, 0x7e, 0xd9, 0x99, 0x77, 0x69, 0x10, 0x35,
+	0x63, 0x59, 0xf3, 0x7b, 0x99, 0x6c, 0x15, 0xf9, 0xef, 0x77, 0x9d, 0x97, 0xf7, 0xc6, 0x62, 0x81,
+	0x37, 0x8a, 0xdc, 0x59, 0xba, 0xc5, 0x9d, 0x49, 0xa7, 0xc3, 0x7a, 0xd0, 0x6c, 0x49, 0xa7, 0xa3,
+	0x22, 0x9f, 0x91, 0x9d, 0x0c, 0x30, 0xe1, 0xc2, 0x04, 0x5b, 0x09, 0x0f, 0xbd, 0x57, 0x32, 0x6f,
+	0x89, 0xc6, 0x95, 0x84, 0x11, 0xa9, 0xb1, 0x35, 0xe5, 0xa4, 0x92, 0x34, 0x0f, 0xbe, 0xf9, 0x88,
+	0xbd, 0x9d, 0x40, 0xd8, 0xf8, 0xd0, 0x88, 0x79, 0x1c, 0x4f, 0x14, 0x0b, 0xd4, 0x89, 0x84, 0x57,
+	0x63, 0xa1, 0x00, 0xd5, 0xcb, 0xc9, 0x44, 0xc9, 0x85, 0x52, 0x75, 0x24, 0xf2, 0x4a, 0xa6, 0x8e,
+	0x44, 0x9b, 0x38, 0xea, 0xc8, 0x73, 0x50, 0x19, 0xba, 0x34, 0x47, 0xd1, 0x51, 0x42, 0xdb, 0xe3,
+	0x77, 0x62, 0xec, 0xbb, 0x10, 0xf4, 0x16, 0x1c, 0x74, 0x69, 0xe0, 0xa8, 0x7c, 0x20, 0xf5, 0xce,
+	0xc7, 0x7c, 0x38, 0x3a, 0x99, 0xa2, 0x4d, 0x2b, 0x66, 0x16, 0xa6, 0xba, 0xfb, 0x5a, 0x7c, 0x3c,
+	0x99, 0xa2, 0x41, 0x93, 0xee, 0x22, 0xcb, 0xcd, 0xaa, 0xda, 0x83, 0x66, 0xd5, 0xda, 0xbd, 0xb3,
+	0x6a, 0xfd, 0xde, 0x59, 0xb5, 0xf1, 0xf0, 0x59, 0x45, 0x8b, 0x67, 0x55, 0x7a, 0x66, 0x6f, 0xe6,
+	0x66, 0xf6, 0x1f, 0xf4, 0xda, 0xcb, 0x17, 0x5f, 0xae, 0xeb, 0xc6, 0xd5, 0x75, 0xdd, 0xf8, 0x76,
+	0x5d, 0x37, 0x3e, 0xdd, 0xd4, 0x17, 0xae, 0x6e, 0xea, 0x0b, 0x5f, 0x6f, 0xea, 0x0b, 0xef, 0x1b,
+	0x43, 0xae, 0x47, 0x7e, 0xbf, 0x3d, 0x10, 0x6e, 0x27, 0x4c, 0xd2, 0x31, 0xa1, 0x33, 0x0d, 0xff,
+	0x01, 0xcc, 0x26, 0xa0, 0xfa, 0x65, 0xfc, 0x29, 0x3f, 0xfc, 0x19, 0x00, 0x00, 0xff, 0xff, 0x1d,
+	0x78, 0xfe, 0xa0, 0x18, 0x08, 0x00, 0x00,
 }
 
 func (m *TradingSession) Marshal() (dAtA []byte, err error) {
@@ -386,6 +653,20 @@ func (m *TradingSessionStatusReport) MarshalToSizedBuffer(dAtA []byte) (int, err
 	_ = i
 	var l int
 	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSession(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
 		copy(dAtA[i:], m.Creator)
@@ -393,7 +674,7 @@ func (m *TradingSessionStatusReport) MarshalToSizedBuffer(dAtA []byte) (int, err
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x9a
+		dAtA[i] = 0xa2
 	}
 	if len(m.ExpirationDate) > 0 {
 		i -= len(m.ExpirationDate)
@@ -402,7 +683,7 @@ func (m *TradingSessionStatusReport) MarshalToSizedBuffer(dAtA []byte) (int, err
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x92
+		dAtA[i] = 0x9a
 	}
 	if len(m.TradingSessionSubTime) > 0 {
 		i -= len(m.TradingSessionSubTime)
@@ -411,7 +692,7 @@ func (m *TradingSessionStatusReport) MarshalToSizedBuffer(dAtA []byte) (int, err
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x8a
+		dAtA[i] = 0x92
 	}
 	if len(m.TradingSessionTime) > 0 {
 		i -= len(m.TradingSessionTime)
@@ -420,102 +701,302 @@ func (m *TradingSessionStatusReport) MarshalToSizedBuffer(dAtA []byte) (int, err
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x82
+		dAtA[i] = 0x8a
 	}
 	if len(m.TradingSessionDate) > 0 {
 		i -= len(m.TradingSessionDate)
 		copy(dAtA[i:], m.TradingSessionDate)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradingSessionDate)))
 		i--
-		dAtA[i] = 0x7a
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
 	}
 	if m.TradSesMode != 0 {
 		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesMode))
 		i--
-		dAtA[i] = 0x70
+		dAtA[i] = 0x78
 	}
 	if m.TradSesMethod != 0 {
 		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesMethod))
 		i--
-		dAtA[i] = 0x68
+		dAtA[i] = 0x70
 	}
 	if m.TradSesSubReqType != 0 {
 		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesSubReqType))
 		i--
-		dAtA[i] = 0x60
+		dAtA[i] = 0x68
 	}
 	if m.TradSesReqType != 0 {
 		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesReqType))
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x60
 	}
 	if len(m.MarketSegmentID) > 0 {
 		i -= len(m.MarketSegmentID)
 		copy(dAtA[i:], m.MarketSegmentID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.MarketSegmentID)))
 		i--
-		dAtA[i] = 0x52
+		dAtA[i] = 0x5a
 	}
 	if len(m.SecurityExchange) > 0 {
 		i -= len(m.SecurityExchange)
 		copy(dAtA[i:], m.SecurityExchange)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityExchange)))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x52
 	}
 	if len(m.Symbol) > 0 {
 		i -= len(m.Symbol)
 		copy(dAtA[i:], m.Symbol)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.Symbol)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	if len(m.SecurityIDSource) > 0 {
 		i -= len(m.SecurityIDSource)
 		copy(dAtA[i:], m.SecurityIDSource)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityIDSource)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 	}
 	if len(m.SecurityID) > 0 {
 		i -= len(m.SecurityID)
 		copy(dAtA[i:], m.SecurityID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityID)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if len(m.SubscriptionRequest) > 0 {
 		i -= len(m.SubscriptionRequest)
 		copy(dAtA[i:], m.SubscriptionRequest)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SubscriptionRequest)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 	}
 	if len(m.MarketID) > 0 {
 		i -= len(m.MarketID)
 		copy(dAtA[i:], m.MarketID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.MarketID)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if len(m.TradSesReqID) > 0 {
 		i -= len(m.TradSesReqID)
 		copy(dAtA[i:], m.TradSesReqID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesReqID)))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 	}
 	if len(m.TradingSessionSubID) > 0 {
 		i -= len(m.TradingSessionSubID)
 		copy(dAtA[i:], m.TradingSessionSubID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradingSessionSubID)))
 		i--
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 	}
 	if len(m.TradingSessionID) > 0 {
 		i -= len(m.TradingSessionID)
 		copy(dAtA[i:], m.TradingSessionID)
 		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradingSessionID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSession(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TradingSessionStatus) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TradingSessionStatus) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TradingSessionStatus) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSession(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xaa
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if len(m.MarketID) > 0 {
+		i -= len(m.MarketID)
+		copy(dAtA[i:], m.MarketID)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.MarketID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x9a
+	}
+	if len(m.MarketSegmentID) > 0 {
+		i -= len(m.MarketSegmentID)
+		copy(dAtA[i:], m.MarketSegmentID)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.MarketSegmentID)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.SecurityExchange) > 0 {
+		i -= len(m.SecurityExchange)
+		copy(dAtA[i:], m.SecurityExchange)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityExchange)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.SecurityIDSource) > 0 {
+		i -= len(m.SecurityIDSource)
+		copy(dAtA[i:], m.SecurityIDSource)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityIDSource)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.SecurityID) > 0 {
+		i -= len(m.SecurityID)
+		copy(dAtA[i:], m.SecurityID)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.SecurityID)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.TradSesLowPx) > 0 {
+		i -= len(m.TradSesLowPx)
+		copy(dAtA[i:], m.TradSesLowPx)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesLowPx)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.TradSesHighPx) > 0 {
+		i -= len(m.TradSesHighPx)
+		copy(dAtA[i:], m.TradSesHighPx)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesHighPx)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if m.TotalVolumeTraded != 0 {
+		i = encodeVarintTradingSession(dAtA, i, uint64(m.TotalVolumeTraded))
+		i--
+		dAtA[i] = 0x58
+	}
+	if len(m.TradSesEndTime) > 0 {
+		i -= len(m.TradSesEndTime)
+		copy(dAtA[i:], m.TradSesEndTime)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesEndTime)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.TradSesCloseTime) > 0 {
+		i -= len(m.TradSesCloseTime)
+		copy(dAtA[i:], m.TradSesCloseTime)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesCloseTime)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.TradSesPreCloseTime) > 0 {
+		i -= len(m.TradSesPreCloseTime)
+		copy(dAtA[i:], m.TradSesPreCloseTime)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesPreCloseTime)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.TradSesOpenTime) > 0 {
+		i -= len(m.TradSesOpenTime)
+		copy(dAtA[i:], m.TradSesOpenTime)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesOpenTime)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.TradSesStartTime) > 0 {
+		i -= len(m.TradSesStartTime)
+		copy(dAtA[i:], m.TradSesStartTime)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesStartTime)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.TradSesStatusRejReason != 0 {
+		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesStatusRejReason))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.TradSesStatus != 0 {
+		i = encodeVarintTradingSession(dAtA, i, uint64(m.TradSesStatus))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.TradingSessionID) > 0 {
+		i -= len(m.TradingSessionID)
+		copy(dAtA[i:], m.TradingSessionID)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradingSessionID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradSesReqID) > 0 {
+		i -= len(m.TradSesReqID)
+		copy(dAtA[i:], m.TradSesReqID)
+		i = encodeVarintTradingSession(dAtA, i, uint64(len(m.TradSesReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSession(dAtA, i, uint64(size))
+		}
 		i--
 		dAtA[i] = 0xa
 	}
@@ -556,6 +1037,10 @@ func (m *TradingSessionStatusReport) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
 	l = len(m.TradingSessionID)
 	if l > 0 {
 		n += 1 + l + sovTradingSession(uint64(l))
@@ -610,7 +1095,7 @@ func (m *TradingSessionStatusReport) Size() (n int) {
 	}
 	l = len(m.TradingSessionDate)
 	if l > 0 {
-		n += 1 + l + sovTradingSession(uint64(l))
+		n += 2 + l + sovTradingSession(uint64(l))
 	}
 	l = len(m.TradingSessionTime)
 	if l > 0 {
@@ -626,6 +1111,100 @@ func (m *TradingSessionStatusReport) Size() (n int) {
 	}
 	l = len(m.Creator)
 	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	return n
+}
+
+func (m *TradingSessionStatus) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesReqID)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradingSessionID)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	if m.TradSesStatus != 0 {
+		n += 1 + sovTradingSession(uint64(m.TradSesStatus))
+	}
+	if m.TradSesStatusRejReason != 0 {
+		n += 1 + sovTradingSession(uint64(m.TradSesStatusRejReason))
+	}
+	l = len(m.TradSesStartTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesOpenTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesPreCloseTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesCloseTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesEndTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	if m.TotalVolumeTraded != 0 {
+		n += 1 + sovTradingSession(uint64(m.TotalVolumeTraded))
+	}
+	l = len(m.TradSesHighPx)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.TradSesLowPx)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.SecurityID)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.SecurityIDSource)
+	if l > 0 {
+		n += 1 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.SecurityExchange)
+	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.MarketSegmentID)
+	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.MarketID)
+	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovTradingSession(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
 		n += 2 + l + sovTradingSession(uint64(l))
 	}
 	return n
@@ -786,6 +1365,42 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionID", wireType)
 			}
 			var stringLen uint64
@@ -816,7 +1431,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradingSessionID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionSubID", wireType)
 			}
@@ -848,7 +1463,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradingSessionSubID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqID", wireType)
 			}
@@ -880,7 +1495,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradSesReqID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MarketID", wireType)
 			}
@@ -912,7 +1527,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.MarketID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 6:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SubscriptionRequest", wireType)
 			}
@@ -944,7 +1559,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.SubscriptionRequest = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SecurityID", wireType)
 			}
@@ -976,7 +1591,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.SecurityID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SecurityIDSource", wireType)
 			}
@@ -1008,7 +1623,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.SecurityIDSource = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
 			}
@@ -1040,7 +1655,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.Symbol = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
 			}
@@ -1072,7 +1687,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 10:
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MarketSegmentID", wireType)
 			}
@@ -1104,7 +1719,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.MarketSegmentID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 11:
+		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqType", wireType)
 			}
@@ -1123,7 +1738,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 12:
+		case 13:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradSesSubReqType", wireType)
 			}
@@ -1142,7 +1757,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 13:
+		case 14:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMethod", wireType)
 			}
@@ -1161,7 +1776,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 14:
+		case 15:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMode", wireType)
 			}
@@ -1180,7 +1795,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 15:
+		case 16:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionDate", wireType)
 			}
@@ -1212,7 +1827,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradingSessionDate = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 16:
+		case 17:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionTime", wireType)
 			}
@@ -1244,7 +1859,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradingSessionTime = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 17:
+		case 18:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionSubTime", wireType)
 			}
@@ -1276,7 +1891,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.TradingSessionSubTime = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 18:
+		case 19:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExpirationDate", wireType)
 			}
@@ -1308,7 +1923,7 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 			}
 			m.ExpirationDate = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 19:
+		case 20:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 			}
@@ -1339,6 +1954,733 @@ func (m *TradingSessionStatusReport) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTradingSession(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TradingSessionStatus) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTradingSession
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TradingSessionStatus: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TradingSessionStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradingSessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatus", wireType)
+			}
+			m.TradSesStatus = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TradSesStatus |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatusRejReason", wireType)
+			}
+			m.TradSesStatusRejReason = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TradSesStatusRejReason |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStartTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStartTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesOpenTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesOpenTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesPreCloseTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesPreCloseTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesCloseTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesCloseTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesEndTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesEndTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TotalVolumeTraded", wireType)
+			}
+			m.TotalVolumeTraded = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TotalVolumeTraded |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesHighPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesHighPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesLowPx", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesLowPx = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityIDSource", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityIDSource = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketSegmentID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MarketSegmentID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 19:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MarketID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MarketID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSession
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSession
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
