@@ -4,7 +4,6 @@ package jim380.re.fix;
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 message TradingSession {
-  uint64 id = 1;
-  string sessionID = 2; 
+  string sessionID = 1; 
   
 }

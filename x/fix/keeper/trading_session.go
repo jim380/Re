@@ -11,7 +11,7 @@ import (
 // GetTradingSessionCount get the total number of tradingSession
 func (k Keeper) GetTradingSessionCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.TradingSessionCountKey)
+	byteKey := types.GetTradingSessionCountKey()
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -26,44 +26,25 @@ func (k Keeper) GetTradingSessionCount(ctx sdk.Context) uint64 {
 // SetTradingSessionCount set the total number of tradingSession
 func (k Keeper) SetTradingSessionCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.TradingSessionCountKey)
+	byteKey := types.GetTradingSessionCountKey()
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
 }
 
-// AppendTradingSession appends a tradingSession in the store with a new id and update the count
-func (k Keeper) AppendTradingSession(
-	ctx sdk.Context,
-	tradingSession types.TradingSession,
-) uint64 {
-	// Create the tradingSession
-	count := k.GetTradingSessionCount(ctx)
-
-	// Set the ID of the appended value
-	tradingSession.Id = count
-
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TradingSessionKey))
-	appendedValue := k.cdc.MustMarshal(&tradingSession)
-	store.Set(GetTradingSessionIDBytes(tradingSession.Id), appendedValue)
-
-	// Update tradingSession count
-	k.SetTradingSessionCount(ctx, count+1)
-
-	return count
-}
-
 // SetTradingSession set a specific tradingSession in the store
-func (k Keeper) SetTradingSession(ctx sdk.Context, tradingSession types.TradingSession) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TradingSessionKey))
+func (k Keeper) SetTradingSession(ctx sdk.Context, tradSesReqID string, tradingSession types.TradingSession) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetTradingSessionKey())
+	key := []byte(tradSesReqID)
 	b := k.cdc.MustMarshal(&tradingSession)
-	store.Set(GetTradingSessionIDBytes(tradingSession.Id), b)
+	store.Set(key, b)
 }
 
-// GetTradingSession returns a tradingSession from its id
-func (k Keeper) GetTradingSession(ctx sdk.Context, id uint64) (val types.TradingSession, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TradingSessionKey))
-	b := store.Get(GetTradingSessionIDBytes(id))
+// GetTradingSession returns a tradingSession using tradSesReqID
+func (k Keeper) GetTradingSession(ctx sdk.Context, tradSesReqID string) (val types.TradingSession, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetTradingSessionKey())
+	key := []byte(tradSesReqID)
+	b := store.Get(key)
 	if b == nil {
 		return val, false
 	}
@@ -72,14 +53,15 @@ func (k Keeper) GetTradingSession(ctx sdk.Context, id uint64) (val types.Trading
 }
 
 // RemoveTradingSession removes a tradingSession from the store
-func (k Keeper) RemoveTradingSession(ctx sdk.Context, id uint64) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TradingSessionKey))
-	store.Delete(GetTradingSessionIDBytes(id))
+func (k Keeper) RemoveTradingSession(ctx sdk.Context, tradSesReqID string) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetTradingSessionKey())
+	key := []byte(tradSesReqID)
+	store.Delete(key)
 }
 
 // GetAllTradingSession returns all tradingSession
 func (k Keeper) GetAllTradingSession(ctx sdk.Context) (list []types.TradingSession) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TradingSessionKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetTradingSessionKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -91,16 +73,4 @@ func (k Keeper) GetAllTradingSession(ctx sdk.Context) (list []types.TradingSessi
 	}
 
 	return
-}
-
-// GetTradingSessionIDBytes returns the byte representation of the ID
-func GetTradingSessionIDBytes(id uint64) []byte {
-	bz := make([]byte, 8)
-	binary.BigEndian.PutUint64(bz, id)
-	return bz
-}
-
-// GetTradingSessionIDFromBytes returns ID in uint64 format from a byte array
-func GetTradingSessionIDFromBytes(bz []byte) uint64 {
-	return binary.BigEndian.Uint64(bz)
 }

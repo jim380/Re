@@ -168,7 +168,7 @@ service Query {
   
   // Queries a list of TradingSession items.
   rpc TradingSession    (QueryGetTradingSessionRequest) returns (QueryGetTradingSessionResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading_session/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/trading_session/{tradSesReqID}";
   
   }
   rpc TradingSessionAll (QueryAllTradingSessionRequest) returns (QueryAllTradingSessionResponse) {
@@ -418,7 +418,7 @@ message QueryAllOrderMassStatusResponse {
 }
 
 message QueryGetTradingSessionRequest {
-  uint64 id = 1;
+  string tradSesReqID = 1;
 }
 
 message QueryGetTradingSessionResponse {

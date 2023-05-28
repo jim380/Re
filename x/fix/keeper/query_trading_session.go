@@ -21,7 +21,7 @@ func (k Keeper) TradingSessionAll(goCtx context.Context, req *types.QueryAllTrad
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	tradingSessionStore := prefix.NewStore(store, types.KeyPrefix(types.TradingSessionKey))
+	tradingSessionStore := prefix.NewStore(store, types.GetTradingSessionKey())
 
 	pageRes, err := query.Paginate(tradingSessionStore, req.Pagination, func(key []byte, value []byte) error {
 		var tradingSession types.TradingSession
@@ -46,7 +46,7 @@ func (k Keeper) TradingSession(goCtx context.Context, req *types.QueryGetTrading
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	tradingSession, found := k.GetTradingSession(ctx, req.Id)
+	tradingSession, found := k.GetTradingSession(ctx, req.TradSesReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
