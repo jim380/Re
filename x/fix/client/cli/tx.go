@@ -52,6 +52,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdOrderMassStatusRequest())
 	cmd.AddCommand(CmdOrderMassStatusReport())
 	cmd.AddCommand(CmdOrderMassStatusRequestReject())
+	cmd.AddCommand(CmdTradingSessionStatusRequest())
+	cmd.AddCommand(CmdTradingSessionStatus())
+	cmd.AddCommand(CmdTradingSessionStatusRequestReject())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

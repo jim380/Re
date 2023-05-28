@@ -28824,16 +28824,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/account/{did}:
@@ -29469,16 +29459,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -30473,16 +30453,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/order_mass_status/{massStatusReqID}:
@@ -31126,16 +31096,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -31840,16 +31800,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/orders_cancel_request/{clOrdID}:
@@ -32197,16 +32147,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -32882,16 +32822,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -34366,16 +34296,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/securities:
@@ -34924,16 +34844,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -35940,16 +35850,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/session/reject/{sessionID}:
@@ -36280,16 +36180,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/sessions:
@@ -36613,16 +36503,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -37886,16 +37766,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /jim380/Re/fix/trading_session:
@@ -37912,11 +37782,426 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     sessionID:
                       type: string
+                    tradingSessionStatusRequest:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        tradingSessionID:
+                          type: string
+                          title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+                        tradingSessionSubID:
+                          type: string
+                          title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+                        tradSesReqID:
+                          type: string
+                          title: "(335)\tUnique identifier assigned by the party generating the request"
+                        marketID:
+                          type: string
+                          title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+                        subscriptionRequest:
+                          type: string
+                          title: >-
+                            (263) Indicates whether the request is for a
+                            one-time snapshot or
+
+                            subscription for updates
+                        securityID:
+                          type: string
+                          title: "(48)\tIdentifier for the security being traded in the session"
+                        securityIDSource:
+                          type: string
+                          title: "(22)\tIdentifies the source of the security identifier"
+                        symbol:
+                          type: string
+                          title: "(55)\tSymbol representing the security being traded in the session"
+                        securityExchange:
+                          type: string
+                          title: "207\tExchange where the security is listed"
+                        marketSegmentID:
+                          type: string
+                          title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+                        tradSesReqType:
+                          type: string
+                          format: int64
+                          title: (263) Type of trading session status request
+                        tradSesSubReqType:
+                          type: string
+                          format: int64
+                          title: "(123)\tSub-type of trading session status request"
+                        tradSesMethod:
+                          type: string
+                          format: int64
+                          title: "(338)\tMethod used to determine the trading session"
+                        tradingSessionDate:
+                          type: string
+                          title: >-
+                            (336) Date of the trading session for which status
+                            is requested
+                        tradingSessionTime:
+                          type: string
+                          title: >-
+                            (338)Time of the trading session for which status is
+                            requested
+                        tradingSessionSubTime:
+                          type: string
+                          title: >-
+                            (1147) Time of the sub-session or sub-segment within
+                            a trading session
+                        expirationDate:
+                          type: string
+                          title: >-
+                            (432) Date and time when the trading session status
+                            request is no longer
+
+                            valid and should be disregarded
+                        creator:
+                          type: string
+                          title: owner
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Trading Session Status Request with fields, tags and
+                        descriptions.
+                    tradingSessionStatus:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        tradSesReqID:
+                          type: string
+                          title: "(335)\tUnique identifier assigned by the party generating the request"
+                        tradingSessionID:
+                          type: string
+                          title: (336) Identifies the specific trading session
+                        tradSesStatus:
+                          type: string
+                          format: int64
+                          title: >-
+                            (340) Indicates the current status of the trading
+                            session
+                        tradSesStatusRejReason:
+                          type: string
+                          format: int64
+                          title: >-
+                            (567) Provides a reason for rejecting or
+                            invalidating a trading session
+
+                            status
+                        tradSesStartTime:
+                          type: string
+                          title: >-
+                            (341) Time at which the trading session is scheduled
+                            to start
+                        tradSesOpenTime:
+                          type: string
+                          title: (342) Time at which the trading session opens
+                        tradSesPreCloseTime:
+                          type: string
+                          title: "(343)\tTime at which the trading session pre-closes"
+                        tradSesCloseTime:
+                          type: string
+                          title: "(344)\tTime at which the trading session closes"
+                        tradSesEndTime:
+                          type: string
+                          title: >-
+                            (345) Time at which the trading session is scheduled
+                            to end
+                        totalVolumeTraded:
+                          type: string
+                          format: int64
+                          title: >-
+                            (387) Total quantity of contracts or shares traded
+                            during the trading
+
+                            session
+                        tradSesHighPx:
+                          type: string
+                          title: "(1149)\tHighest price traded during the trading session"
+                        tradSesLowPx:
+                          type: string
+                          title: "(1148)\tLowest price traded during the trading session"
+                        securityID:
+                          type: string
+                          title: "(48)\tIdentifier for the security being traded in the session"
+                        securityIDSource:
+                          type: string
+                          title: "(22)\tIdentifies the source of the security identifier"
+                        symbol:
+                          type: string
+                          title: >-
+                            (55) Symbol representing the security being traded
+                            in the session
+                        securityExchange:
+                          type: string
+                          title: "(207)\tExchange where the security is listed"
+                        marketSegmentID:
+                          type: string
+                          title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+                        marketID:
+                          type: string
+                          title: "1301\tIdentifies the market or exchange for the trading session"
+                        creator:
+                          type: string
+                          title: owner
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Trading Session Status with fields, tags and
+                        descriptions.
+                    tradingSessionStatusRequestReject:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        refSeqNum:
+                          type: string
+                          title: "(45)\tReference id of the rejected request message"
+                        refMsgType:
+                          type: string
+                          title: "(372)\tMessage type of the rejected request"
+                        sessionRejectReason:
+                          type: string
+                          format: int64
+                          title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                        text:
+                          type: string
+                          title: "58\tFree-form text providing additional information about the rejection"
+                        creator:
+                          type: string
+                          title: owner
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                      description: >-
+                        Trading Session Status Request Reject with fields, tags
+                        and descriptions.
               pagination:
                 type: object
                 properties:
@@ -38009,19 +38294,9 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
-  /jim380/Re/fix/trading_session/{id}:
+  /jim380/Re/fix/trading_session/{tradSesReqID}:
     get:
       summary: Queries a list of TradingSession items.
       operationId: Jim380ReFixTradingSession
@@ -38034,11 +38309,424 @@ paths:
               TradingSession:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
                   sessionID:
                     type: string
+                  tradingSessionStatusRequest:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      tradingSessionID:
+                        type: string
+                        title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+                      tradingSessionSubID:
+                        type: string
+                        title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+                      tradSesReqID:
+                        type: string
+                        title: "(335)\tUnique identifier assigned by the party generating the request"
+                      marketID:
+                        type: string
+                        title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+                      subscriptionRequest:
+                        type: string
+                        title: >-
+                          (263) Indicates whether the request is for a one-time
+                          snapshot or
+
+                          subscription for updates
+                      securityID:
+                        type: string
+                        title: "(48)\tIdentifier for the security being traded in the session"
+                      securityIDSource:
+                        type: string
+                        title: "(22)\tIdentifies the source of the security identifier"
+                      symbol:
+                        type: string
+                        title: "(55)\tSymbol representing the security being traded in the session"
+                      securityExchange:
+                        type: string
+                        title: "207\tExchange where the security is listed"
+                      marketSegmentID:
+                        type: string
+                        title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+                      tradSesReqType:
+                        type: string
+                        format: int64
+                        title: (263) Type of trading session status request
+                      tradSesSubReqType:
+                        type: string
+                        format: int64
+                        title: "(123)\tSub-type of trading session status request"
+                      tradSesMethod:
+                        type: string
+                        format: int64
+                        title: "(338)\tMethod used to determine the trading session"
+                      tradingSessionDate:
+                        type: string
+                        title: >-
+                          (336) Date of the trading session for which status is
+                          requested
+                      tradingSessionTime:
+                        type: string
+                        title: >-
+                          (338)Time of the trading session for which status is
+                          requested
+                      tradingSessionSubTime:
+                        type: string
+                        title: >-
+                          (1147) Time of the sub-session or sub-segment within a
+                          trading session
+                      expirationDate:
+                        type: string
+                        title: >-
+                          (432) Date and time when the trading session status
+                          request is no longer
+
+                          valid and should be disregarded
+                      creator:
+                        type: string
+                        title: owner
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Trading Session Status Request with fields, tags and
+                      descriptions.
+                  tradingSessionStatus:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      tradSesReqID:
+                        type: string
+                        title: "(335)\tUnique identifier assigned by the party generating the request"
+                      tradingSessionID:
+                        type: string
+                        title: (336) Identifies the specific trading session
+                      tradSesStatus:
+                        type: string
+                        format: int64
+                        title: >-
+                          (340) Indicates the current status of the trading
+                          session
+                      tradSesStatusRejReason:
+                        type: string
+                        format: int64
+                        title: >-
+                          (567) Provides a reason for rejecting or invalidating
+                          a trading session
+
+                          status
+                      tradSesStartTime:
+                        type: string
+                        title: >-
+                          (341) Time at which the trading session is scheduled
+                          to start
+                      tradSesOpenTime:
+                        type: string
+                        title: (342) Time at which the trading session opens
+                      tradSesPreCloseTime:
+                        type: string
+                        title: "(343)\tTime at which the trading session pre-closes"
+                      tradSesCloseTime:
+                        type: string
+                        title: "(344)\tTime at which the trading session closes"
+                      tradSesEndTime:
+                        type: string
+                        title: >-
+                          (345) Time at which the trading session is scheduled
+                          to end
+                      totalVolumeTraded:
+                        type: string
+                        format: int64
+                        title: >-
+                          (387) Total quantity of contracts or shares traded
+                          during the trading
+
+                          session
+                      tradSesHighPx:
+                        type: string
+                        title: "(1149)\tHighest price traded during the trading session"
+                      tradSesLowPx:
+                        type: string
+                        title: "(1148)\tLowest price traded during the trading session"
+                      securityID:
+                        type: string
+                        title: "(48)\tIdentifier for the security being traded in the session"
+                      securityIDSource:
+                        type: string
+                        title: "(22)\tIdentifies the source of the security identifier"
+                      symbol:
+                        type: string
+                        title: >-
+                          (55) Symbol representing the security being traded in
+                          the session
+                      securityExchange:
+                        type: string
+                        title: "(207)\tExchange where the security is listed"
+                      marketSegmentID:
+                        type: string
+                        title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+                      marketID:
+                        type: string
+                        title: "1301\tIdentifies the market or exchange for the trading session"
+                      creator:
+                        type: string
+                        title: owner
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: Trading Session Status with fields, tags and descriptions.
+                  tradingSessionStatusRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      refSeqNum:
+                        type: string
+                        title: "(45)\tReference id of the rejected request message"
+                      refMsgType:
+                        type: string
+                        title: "(372)\tMessage type of the rejected request"
+                      sessionRejectReason:
+                        type: string
+                        format: int64
+                        title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                      text:
+                        type: string
+                        title: "58\tFree-form text providing additional information about the rejection"
+                      creator:
+                        type: string
+                        title: owner
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                    description: >-
+                      Trading Session Status Request Reject with fields, tags
+                      and descriptions.
         default:
           description: An unexpected error response.
           schema:
@@ -38058,11 +38746,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: tradSesReqID
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/mic/market_identification_code/{MIC}:
@@ -60508,6 +61195,12 @@ definitions:
     type: object
   jim380.re.fix.MsgTradeCaptureReportResponse:
     type: object
+  jim380.re.fix.MsgTradingSessionStatusRequestRejectResponse:
+    type: object
+  jim380.re.fix.MsgTradingSessionStatusRequestResponse:
+    type: object
+  jim380.re.fix.MsgTradingSessionStatusResponse:
+    type: object
   jim380.re.fix.MsgUpdateAccountResponse:
     type: object
   jim380.re.fix.OrderMassStatus:
@@ -65354,11 +66047,408 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             sessionID:
               type: string
+            tradingSessionStatusRequest:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                tradingSessionID:
+                  type: string
+                  title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+                tradingSessionSubID:
+                  type: string
+                  title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+                tradSesReqID:
+                  type: string
+                  title: "(335)\tUnique identifier assigned by the party generating the request"
+                marketID:
+                  type: string
+                  title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+                subscriptionRequest:
+                  type: string
+                  title: >-
+                    (263) Indicates whether the request is for a one-time
+                    snapshot or
+
+                    subscription for updates
+                securityID:
+                  type: string
+                  title: "(48)\tIdentifier for the security being traded in the session"
+                securityIDSource:
+                  type: string
+                  title: "(22)\tIdentifies the source of the security identifier"
+                symbol:
+                  type: string
+                  title: "(55)\tSymbol representing the security being traded in the session"
+                securityExchange:
+                  type: string
+                  title: "207\tExchange where the security is listed"
+                marketSegmentID:
+                  type: string
+                  title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+                tradSesReqType:
+                  type: string
+                  format: int64
+                  title: (263) Type of trading session status request
+                tradSesSubReqType:
+                  type: string
+                  format: int64
+                  title: "(123)\tSub-type of trading session status request"
+                tradSesMethod:
+                  type: string
+                  format: int64
+                  title: "(338)\tMethod used to determine the trading session"
+                tradingSessionDate:
+                  type: string
+                  title: >-
+                    (336) Date of the trading session for which status is
+                    requested
+                tradingSessionTime:
+                  type: string
+                  title: >-
+                    (338)Time of the trading session for which status is
+                    requested
+                tradingSessionSubTime:
+                  type: string
+                  title: >-
+                    (1147) Time of the sub-session or sub-segment within a
+                    trading session
+                expirationDate:
+                  type: string
+                  title: >-
+                    (432) Date and time when the trading session status request
+                    is no longer
+
+                    valid and should be disregarded
+                creator:
+                  type: string
+                  title: owner
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: >-
+                Trading Session Status Request with fields, tags and
+                descriptions.
+            tradingSessionStatus:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                tradSesReqID:
+                  type: string
+                  title: "(335)\tUnique identifier assigned by the party generating the request"
+                tradingSessionID:
+                  type: string
+                  title: (336) Identifies the specific trading session
+                tradSesStatus:
+                  type: string
+                  format: int64
+                  title: (340) Indicates the current status of the trading session
+                tradSesStatusRejReason:
+                  type: string
+                  format: int64
+                  title: >-
+                    (567) Provides a reason for rejecting or invalidating a
+                    trading session
+
+                    status
+                tradSesStartTime:
+                  type: string
+                  title: >-
+                    (341) Time at which the trading session is scheduled to
+                    start
+                tradSesOpenTime:
+                  type: string
+                  title: (342) Time at which the trading session opens
+                tradSesPreCloseTime:
+                  type: string
+                  title: "(343)\tTime at which the trading session pre-closes"
+                tradSesCloseTime:
+                  type: string
+                  title: "(344)\tTime at which the trading session closes"
+                tradSesEndTime:
+                  type: string
+                  title: (345) Time at which the trading session is scheduled to end
+                totalVolumeTraded:
+                  type: string
+                  format: int64
+                  title: >-
+                    (387) Total quantity of contracts or shares traded during
+                    the trading
+
+                    session
+                tradSesHighPx:
+                  type: string
+                  title: "(1149)\tHighest price traded during the trading session"
+                tradSesLowPx:
+                  type: string
+                  title: "(1148)\tLowest price traded during the trading session"
+                securityID:
+                  type: string
+                  title: "(48)\tIdentifier for the security being traded in the session"
+                securityIDSource:
+                  type: string
+                  title: "(22)\tIdentifies the source of the security identifier"
+                symbol:
+                  type: string
+                  title: >-
+                    (55) Symbol representing the security being traded in the
+                    session
+                securityExchange:
+                  type: string
+                  title: "(207)\tExchange where the security is listed"
+                marketSegmentID:
+                  type: string
+                  title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+                marketID:
+                  type: string
+                  title: "1301\tIdentifies the market or exchange for the trading session"
+                creator:
+                  type: string
+                  title: owner
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: Trading Session Status with fields, tags and descriptions.
+            tradingSessionStatusRequestReject:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                refSeqNum:
+                  type: string
+                  title: "(45)\tReference id of the rejected request message"
+                refMsgType:
+                  type: string
+                  title: "(372)\tMessage type of the rejected request"
+                sessionRejectReason:
+                  type: string
+                  format: int64
+                  title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                text:
+                  type: string
+                  title: "58\tFree-form text providing additional information about the rejection"
+                creator:
+                  type: string
+                  title: owner
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+              description: >-
+                Trading Session Status Request Reject with fields, tags and
+                descriptions.
       pagination:
         type: object
         properties:
@@ -68556,11 +69646,399 @@ definitions:
       TradingSession:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           sessionID:
             type: string
+          tradingSessionStatusRequest:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              tradingSessionID:
+                type: string
+                title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+              tradingSessionSubID:
+                type: string
+                title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+              tradSesReqID:
+                type: string
+                title: "(335)\tUnique identifier assigned by the party generating the request"
+              marketID:
+                type: string
+                title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+              subscriptionRequest:
+                type: string
+                title: >-
+                  (263) Indicates whether the request is for a one-time snapshot
+                  or
+
+                  subscription for updates
+              securityID:
+                type: string
+                title: "(48)\tIdentifier for the security being traded in the session"
+              securityIDSource:
+                type: string
+                title: "(22)\tIdentifies the source of the security identifier"
+              symbol:
+                type: string
+                title: "(55)\tSymbol representing the security being traded in the session"
+              securityExchange:
+                type: string
+                title: "207\tExchange where the security is listed"
+              marketSegmentID:
+                type: string
+                title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+              tradSesReqType:
+                type: string
+                format: int64
+                title: (263) Type of trading session status request
+              tradSesSubReqType:
+                type: string
+                format: int64
+                title: "(123)\tSub-type of trading session status request"
+              tradSesMethod:
+                type: string
+                format: int64
+                title: "(338)\tMethod used to determine the trading session"
+              tradingSessionDate:
+                type: string
+                title: >-
+                  (336) Date of the trading session for which status is
+                  requested
+              tradingSessionTime:
+                type: string
+                title: (338)Time of the trading session for which status is requested
+              tradingSessionSubTime:
+                type: string
+                title: >-
+                  (1147) Time of the sub-session or sub-segment within a trading
+                  session
+              expirationDate:
+                type: string
+                title: >-
+                  (432) Date and time when the trading session status request is
+                  no longer
+
+                  valid and should be disregarded
+              creator:
+                type: string
+                title: owner
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: Trading Session Status Request with fields, tags and descriptions.
+          tradingSessionStatus:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              tradSesReqID:
+                type: string
+                title: "(335)\tUnique identifier assigned by the party generating the request"
+              tradingSessionID:
+                type: string
+                title: (336) Identifies the specific trading session
+              tradSesStatus:
+                type: string
+                format: int64
+                title: (340) Indicates the current status of the trading session
+              tradSesStatusRejReason:
+                type: string
+                format: int64
+                title: >-
+                  (567) Provides a reason for rejecting or invalidating a
+                  trading session
+
+                  status
+              tradSesStartTime:
+                type: string
+                title: (341) Time at which the trading session is scheduled to start
+              tradSesOpenTime:
+                type: string
+                title: (342) Time at which the trading session opens
+              tradSesPreCloseTime:
+                type: string
+                title: "(343)\tTime at which the trading session pre-closes"
+              tradSesCloseTime:
+                type: string
+                title: "(344)\tTime at which the trading session closes"
+              tradSesEndTime:
+                type: string
+                title: (345) Time at which the trading session is scheduled to end
+              totalVolumeTraded:
+                type: string
+                format: int64
+                title: >-
+                  (387) Total quantity of contracts or shares traded during the
+                  trading
+
+                  session
+              tradSesHighPx:
+                type: string
+                title: "(1149)\tHighest price traded during the trading session"
+              tradSesLowPx:
+                type: string
+                title: "(1148)\tLowest price traded during the trading session"
+              securityID:
+                type: string
+                title: "(48)\tIdentifier for the security being traded in the session"
+              securityIDSource:
+                type: string
+                title: "(22)\tIdentifies the source of the security identifier"
+              symbol:
+                type: string
+                title: >-
+                  (55) Symbol representing the security being traded in the
+                  session
+              securityExchange:
+                type: string
+                title: "(207)\tExchange where the security is listed"
+              marketSegmentID:
+                type: string
+                title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+              marketID:
+                type: string
+                title: "1301\tIdentifies the market or exchange for the trading session"
+              creator:
+                type: string
+                title: owner
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: Trading Session Status with fields, tags and descriptions.
+          tradingSessionStatusRequestReject:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              refSeqNum:
+                type: string
+                title: "(45)\tReference id of the rejected request message"
+              refMsgType:
+                type: string
+                title: "(372)\tMessage type of the rejected request"
+              sessionRejectReason:
+                type: string
+                format: int64
+                title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+              text:
+                type: string
+                title: "58\tFree-form text providing additional information about the rejection"
+              creator:
+                type: string
+                title: owner
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+            description: >-
+              Trading Session Status Request Reject with fields, tags and
+              descriptions.
   jim380.re.fix.QueryParamsResponse:
     type: object
     properties:
@@ -71849,11 +73327,754 @@ definitions:
   jim380.re.fix.TradingSession:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       sessionID:
         type: string
+      tradingSessionStatusRequest:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          tradingSessionID:
+            type: string
+            title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+          tradingSessionSubID:
+            type: string
+            title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+          tradSesReqID:
+            type: string
+            title: "(335)\tUnique identifier assigned by the party generating the request"
+          marketID:
+            type: string
+            title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+          subscriptionRequest:
+            type: string
+            title: |-
+              (263) Indicates whether the request is for a one-time snapshot or
+              subscription for updates
+          securityID:
+            type: string
+            title: "(48)\tIdentifier for the security being traded in the session"
+          securityIDSource:
+            type: string
+            title: "(22)\tIdentifies the source of the security identifier"
+          symbol:
+            type: string
+            title: "(55)\tSymbol representing the security being traded in the session"
+          securityExchange:
+            type: string
+            title: "207\tExchange where the security is listed"
+          marketSegmentID:
+            type: string
+            title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+          tradSesReqType:
+            type: string
+            format: int64
+            title: (263) Type of trading session status request
+          tradSesSubReqType:
+            type: string
+            format: int64
+            title: "(123)\tSub-type of trading session status request"
+          tradSesMethod:
+            type: string
+            format: int64
+            title: "(338)\tMethod used to determine the trading session"
+          tradingSessionDate:
+            type: string
+            title: (336) Date of the trading session for which status is requested
+          tradingSessionTime:
+            type: string
+            title: (338)Time of the trading session for which status is requested
+          tradingSessionSubTime:
+            type: string
+            title: >-
+              (1147) Time of the sub-session or sub-segment within a trading
+              session
+          expirationDate:
+            type: string
+            title: >-
+              (432) Date and time when the trading session status request is no
+              longer
+
+              valid and should be disregarded
+          creator:
+            type: string
+            title: owner
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: Trading Session Status Request with fields, tags and descriptions.
+      tradingSessionStatus:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          tradSesReqID:
+            type: string
+            title: "(335)\tUnique identifier assigned by the party generating the request"
+          tradingSessionID:
+            type: string
+            title: (336) Identifies the specific trading session
+          tradSesStatus:
+            type: string
+            format: int64
+            title: (340) Indicates the current status of the trading session
+          tradSesStatusRejReason:
+            type: string
+            format: int64
+            title: >-
+              (567) Provides a reason for rejecting or invalidating a trading
+              session
+
+              status
+          tradSesStartTime:
+            type: string
+            title: (341) Time at which the trading session is scheduled to start
+          tradSesOpenTime:
+            type: string
+            title: (342) Time at which the trading session opens
+          tradSesPreCloseTime:
+            type: string
+            title: "(343)\tTime at which the trading session pre-closes"
+          tradSesCloseTime:
+            type: string
+            title: "(344)\tTime at which the trading session closes"
+          tradSesEndTime:
+            type: string
+            title: (345) Time at which the trading session is scheduled to end
+          totalVolumeTraded:
+            type: string
+            format: int64
+            title: >-
+              (387) Total quantity of contracts or shares traded during the
+              trading
+
+              session
+          tradSesHighPx:
+            type: string
+            title: "(1149)\tHighest price traded during the trading session"
+          tradSesLowPx:
+            type: string
+            title: "(1148)\tLowest price traded during the trading session"
+          securityID:
+            type: string
+            title: "(48)\tIdentifier for the security being traded in the session"
+          securityIDSource:
+            type: string
+            title: "(22)\tIdentifies the source of the security identifier"
+          symbol:
+            type: string
+            title: (55) Symbol representing the security being traded in the session
+          securityExchange:
+            type: string
+            title: "(207)\tExchange where the security is listed"
+          marketSegmentID:
+            type: string
+            title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+          marketID:
+            type: string
+            title: "1301\tIdentifies the market or exchange for the trading session"
+          creator:
+            type: string
+            title: owner
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: Trading Session Status with fields, tags and descriptions.
+      tradingSessionStatusRequestReject:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          refSeqNum:
+            type: string
+            title: "(45)\tReference id of the rejected request message"
+          refMsgType:
+            type: string
+            title: "(372)\tMessage type of the rejected request"
+          sessionRejectReason:
+            type: string
+            format: int64
+            title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+          text:
+            type: string
+            title: "58\tFree-form text providing additional information about the rejection"
+          creator:
+            type: string
+            title: owner
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+        description: >-
+          Trading Session Status Request Reject with fields, tags and
+          descriptions.
+  jim380.re.fix.TradingSessionStatus:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      tradSesReqID:
+        type: string
+        title: "(335)\tUnique identifier assigned by the party generating the request"
+      tradingSessionID:
+        type: string
+        title: (336) Identifies the specific trading session
+      tradSesStatus:
+        type: string
+        format: int64
+        title: (340) Indicates the current status of the trading session
+      tradSesStatusRejReason:
+        type: string
+        format: int64
+        title: >-
+          (567) Provides a reason for rejecting or invalidating a trading
+          session
+
+          status
+      tradSesStartTime:
+        type: string
+        title: (341) Time at which the trading session is scheduled to start
+      tradSesOpenTime:
+        type: string
+        title: (342) Time at which the trading session opens
+      tradSesPreCloseTime:
+        type: string
+        title: "(343)\tTime at which the trading session pre-closes"
+      tradSesCloseTime:
+        type: string
+        title: "(344)\tTime at which the trading session closes"
+      tradSesEndTime:
+        type: string
+        title: (345) Time at which the trading session is scheduled to end
+      totalVolumeTraded:
+        type: string
+        format: int64
+        title: |-
+          (387) Total quantity of contracts or shares traded during the trading
+          session
+      tradSesHighPx:
+        type: string
+        title: "(1149)\tHighest price traded during the trading session"
+      tradSesLowPx:
+        type: string
+        title: "(1148)\tLowest price traded during the trading session"
+      securityID:
+        type: string
+        title: "(48)\tIdentifier for the security being traded in the session"
+      securityIDSource:
+        type: string
+        title: "(22)\tIdentifies the source of the security identifier"
+      symbol:
+        type: string
+        title: (55) Symbol representing the security being traded in the session
+      securityExchange:
+        type: string
+        title: "(207)\tExchange where the security is listed"
+      marketSegmentID:
+        type: string
+        title: "1300\tIdentifies the specific market segment or sector within the\ntrading session"
+      marketID:
+        type: string
+        title: "1301\tIdentifies the market or exchange for the trading session"
+      creator:
+        type: string
+        title: owner
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Trading Session Status with fields, tags and descriptions.
+  jim380.re.fix.TradingSessionStatusRequest:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      tradingSessionID:
+        type: string
+        title: "(336)\tIdentifies the specific trading session for which status is\nrequested"
+      tradingSessionSubID:
+        type: string
+        title: "(625)\tIdentifies a specific sub-session or sub-segment within a\ntrading session"
+      tradSesReqID:
+        type: string
+        title: "(335)\tUnique identifier assigned by the party generating the request"
+      marketID:
+        type: string
+        title: "(1301)\tIdentifies the market or exchange for which the trading session\nstatus is requested"
+      subscriptionRequest:
+        type: string
+        title: |-
+          (263) Indicates whether the request is for a one-time snapshot or
+          subscription for updates
+      securityID:
+        type: string
+        title: "(48)\tIdentifier for the security being traded in the session"
+      securityIDSource:
+        type: string
+        title: "(22)\tIdentifies the source of the security identifier"
+      symbol:
+        type: string
+        title: "(55)\tSymbol representing the security being traded in the session"
+      securityExchange:
+        type: string
+        title: "207\tExchange where the security is listed"
+      marketSegmentID:
+        type: string
+        title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
+      tradSesReqType:
+        type: string
+        format: int64
+        title: (263) Type of trading session status request
+      tradSesSubReqType:
+        type: string
+        format: int64
+        title: "(123)\tSub-type of trading session status request"
+      tradSesMethod:
+        type: string
+        format: int64
+        title: "(338)\tMethod used to determine the trading session"
+      tradingSessionDate:
+        type: string
+        title: (336) Date of the trading session for which status is requested
+      tradingSessionTime:
+        type: string
+        title: (338)Time of the trading session for which status is requested
+      tradingSessionSubTime:
+        type: string
+        title: (1147) Time of the sub-session or sub-segment within a trading session
+      expirationDate:
+        type: string
+        title: >-
+          (432) Date and time when the trading session status request is no
+          longer
+
+          valid and should be disregarded
+      creator:
+        type: string
+        title: owner
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Trading Session Status Request with fields, tags and descriptions.
+  jim380.re.fix.TradingSessionStatusRequestReject:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      refSeqNum:
+        type: string
+        title: "(45)\tReference id of the rejected request message"
+      refMsgType:
+        type: string
+        title: "(372)\tMessage type of the rejected request"
+      sessionRejectReason:
+        type: string
+        format: int64
+        title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+      text:
+        type: string
+        title: "58\tFree-form text providing additional information about the rejection"
+      creator:
+        type: string
+        title: owner
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+    description: Trading Session Status Request Reject with fields, tags and descriptions.
   jim380.re.fix.Trailer:
     type: object
     properties:

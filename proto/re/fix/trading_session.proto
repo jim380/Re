@@ -54,35 +54,32 @@ message TradingSessionStatusRequest {
   string marketSegmentID = 11;
 
   // (263) Type of trading session status request
-  int64 tradSesReqType = 12;
+  int32 tradSesReqType = 12;
 
   // (123)	Sub-type of trading session status request
-  int64 tradSesSubReqType = 13;
+  int32 tradSesSubReqType = 13;
 
   // (338)	Method used to determine the trading session
-  int64 tradSesMethod = 14;
-
-  // (339)	Mode of trading for the trading session
-  int64 tradSesMode = 15;
+  int32 tradSesMethod = 14;
 
   // (336) Date of the trading session for which status is requested
-  string tradingSessionDate = 16;
+  string tradingSessionDate = 15;
 
   // (338)Time of the trading session for which status is requested
-  string tradingSessionTime = 17;
+  string tradingSessionTime = 16;
 
   // (1147) Time of the sub-session or sub-segment within a trading session
-  string tradingSessionSubTime = 18;
+  string tradingSessionSubTime = 17;
 
   // (432) Date and time when the trading session status request is no longer
   // valid and should be disregarded
-  string expirationDate = 19;
+  string expirationDate = 18;
 
   // owner
-  string creator = 20;
+  string creator = 19;
 
   // Standard FIX message trailer.
-  Trailer trailer = 21;
+  Trailer trailer = 20;
 }
 
 // Trading Session Status with fields, tags and descriptions.
@@ -98,11 +95,11 @@ message TradingSessionStatus {
   string tradingSessionID = 3;
 
   // (340) Indicates the current status of the trading session
-  int64 tradSesStatus = 4;
+  int32 tradSesStatus = 4;
 
   // (567) Provides a reason for rejecting or invalidating a trading session
   // status
-  int64 tradSesStatusRejReason = 5;
+  int32 tradSesStatusRejReason = 5;
 
   // (341) Time at which the trading session is scheduled to start
   string tradSesStartTime = 6;
@@ -121,7 +118,7 @@ message TradingSessionStatus {
 
   // (387) Total quantity of contracts or shares traded during the trading
   // session
-  int64 totalVolumeTraded = 11;
+  int32 totalVolumeTraded = 11;
 
   // (1149)	Highest price traded during the trading session
   string tradSesHighPx = 12;
@@ -169,7 +166,7 @@ message TradingSessionStatusRequestReject {
 
   // (373)	Code indicating the reason for rejecting the trading session status
   // request
-  int64 sessionRejectReason = 4;
+  int32 sessionRejectReason = 4;
 
   // 58	Free-form text providing additional information about the rejection
   string text = 5;
