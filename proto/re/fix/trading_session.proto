@@ -7,11 +7,13 @@ import "re/fix/standard_message.proto";
 
 message TradingSession {
   string sessionID = 1;
-  TradingSessionStatusReport TradingSessionStatusReport = 2;
+  TradingSessionStatusRequest tradingSessionStatusRequest = 2;
+  TradingSessionStatus tradingSessionStatus = 3;
+  TradingSessionStatusRequestReject tradingSessionStatusRequestReject = 4;
 }
 
-// TradingSessionStatusReport with fields, tags and descriptions.
-message TradingSessionStatusReport {
+// Trading Session Status Request with fields, tags and descriptions.
+message TradingSessionStatusRequest {
 
   // Standard FIX message header.
   Header header = 1;
@@ -83,7 +85,7 @@ message TradingSessionStatusReport {
   Trailer trailer = 21;
 }
 
-// TradingSessionStatus with fields, tags and descriptions.
+// Trading Session Status with fields, tags and descriptions.
 message TradingSessionStatus {
 
   // Standard FIX message header.
@@ -139,8 +141,8 @@ message TradingSessionStatus {
   // (207)	Exchange where the security is listed
   string securityExchange = 17;
 
-  // 1300	Identifies the specific market segment or sector within the trading
-  // session
+  // 1300	Identifies the specific market segment or sector within the
+  // trading session
   string marketSegmentID = 18;
 
   // 1301	Identifies the market or exchange for the trading session
@@ -151,4 +153,30 @@ message TradingSessionStatus {
 
   // Standard FIX message trailer.
   Trailer trailer = 21;
+}
+
+// Trading Session Status Request Reject with fields, tags and descriptions.
+message TradingSessionStatusRequestReject {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (45)	Reference id of the rejected request message
+  string refSeqNum = 2;
+
+  // (372)	Message type of the rejected request
+  string refMsgType = 3;
+
+  // (373)	Code indicating the reason for rejecting the trading session status
+  // request
+  int64 sessionRejectReason = 4;
+
+  // 58	Free-form text providing additional information about the rejection
+  string text = 5;
+
+  // owner
+  string creator = 6;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 7;
 }
