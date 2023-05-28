@@ -447,6 +447,7 @@ message MsgTradingSessionStatusRequest {
   string tradingSessionTime    = 16;
   string tradingSessionSubTime = 17;
   string expirationDate        = 18;
+  string sessionID             = 19;
 }
 
 message MsgTradingSessionStatusRequestResponse {}
@@ -471,6 +472,8 @@ message MsgTradingSessionStatus {
   string securityExchange       = 17;
   string marketSegmentID        = 18;
   string marketID               = 19;
+  string sessionID              = 20;
+
 }
 
 message MsgTradingSessionStatusResponse {}
@@ -481,6 +484,7 @@ message MsgTradingSessionStatusRequestReject {
   string refMsgType          = 3;
   int32  sessionRejectReason = 4;
   string text                = 5;
+  string sessionID           = 6;
 }
 
 message MsgTradingSessionStatusRequestRejectResponse {}
