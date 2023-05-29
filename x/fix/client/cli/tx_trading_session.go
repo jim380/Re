@@ -15,13 +15,12 @@ var _ = strconv.Itoa(0)
 
 func CmdTradingSessionStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-status-request [trad-ses-req-id] [trading-session-id] [trading-session-sub-id] [market-id] [subscription-request] [security-id] [security-id-source] [symbol] [security-exchange] [market-segment-id] [trad-ses-req-type] [trad-ses-sub-req-type] [trad-ses-mode] [trading-session-date] [trading-session-time] [trading-session-sub-time] [expiration-date]",
+		Use:   "trading-session-status-request [session-id] [trading-session-id] [trading-session-sub-id] [market-id] [subscription-request] [security-id] [security-id-source] [symbol] [security-exchange] [market-segment-id] [trad-ses-req-type] [trad-ses-sub-req-type] [trad-ses-mode] [trading-session-date] [trading-session-time] [trading-session-sub-time] [expiration-date]",
 		Short: "Broadcast message trading-session-status-request",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			// TODO
-			// add session id
-			argTradSesReqID := args[0]
+
+			argSesssionID := args[0]
 			argTradingSessionID := args[1]
 			argTradingSessionSubID := args[2]
 			argMarketID := args[3]
@@ -48,6 +47,9 @@ func CmdTradingSessionStatusRequest() *cobra.Command {
 			argTradingSessionSubTime := args[15]
 			argExpirationDate := args[16]
 
+			// GenerateRandomString function uniquely generates TradSesReqID for every Trading Session Status Request
+			argTradSesReqID, _ := types.GenerateRandomString(types.TradSesReqID)
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -55,6 +57,7 @@ func CmdTradingSessionStatusRequest() *cobra.Command {
 
 			msg := types.NewMsgTradingSessionStatusRequest(
 				clientCtx.GetFromAddress().String(),
+				argSesssionID,
 				argTradSesReqID,
 				argTradingSessionID,
 				argTradingSessionSubID,

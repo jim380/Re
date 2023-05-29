@@ -15,6 +15,7 @@ const (
 	SecurityReqID     = 15
 	MassStatusReqID   = 15
 	ClOrdID           = 15
+	TradSesReqID      = 15
 
 	LoggedInStatus = "loggedIn"
 )

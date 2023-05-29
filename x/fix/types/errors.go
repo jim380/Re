@@ -118,6 +118,9 @@ const (
 	errOrderMassStatusCreatorIsWrong
 	errOrderMassStatusRequestIsAcknowledged
 	errOrderMassStatusRequestIsRejected
+
+	// Trading Session
+	errTradingSessionEmptyField
 )
 
 // x/fix module sentinel errors
@@ -231,4 +234,7 @@ var (
 	ErrOrderMassStatusCreatorIsWrong        = sdkerrors.Register(ModuleName, errOrderMassStatusCreatorIsWrong, "This account address can not respond to order mass status request")
 	ErrOrderMassStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsAcknowledged, "Order Mass Status Request has been responded to")
 	ErrOrderMassStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsRejected, "Order Mass Status Request has been rejected")
+
+	// Trading Session
+	ErrTradingSessionEmptyField                 = sdkerrors.Register(ModuleName, errTradingSessionEmptyField, "This field can not be left empty")
 )

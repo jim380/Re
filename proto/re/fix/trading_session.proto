@@ -60,7 +60,7 @@ message TradingSessionStatusRequest {
   int32 tradSesSubReqType = 13;
 
   // (338)	Method used to determine the trading session
-  int32 tradSesMethod = 14;
+  int32 tradSesMode = 14;
 
   // (336) Date of the trading session for which status is requested
   string tradingSessionDate = 15;
