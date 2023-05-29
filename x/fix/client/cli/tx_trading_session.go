@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdTradingSessionStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-status-request [session-id] [trading-session-id] [trading-session-sub-id] [market-id] [subscription-request] [security-id] [security-id-source] [symbol] [security-exchange] [market-segment-id] [trad-ses-req-type] [trad-ses-sub-req-type] [trad-ses-mode] [trading-session-date] [trading-session-time] [trading-session-sub-time] [expiration-date]",
+		Use:   "trading-session-status-request [sessionID] [tradingSessionID] [tradingSessionSubID] [marketID] [subscriptionRequest] [securityID] [securityIDSource] [symbol] [securityExchange] [marketSegmentID] [tradSesReqType] [tradSesSubReqType] [tradSesMode] [tradingSessionDate] [tradingSessionTime] [tradingSessionSubTime] [expirationDate]",
 		Short: "Broadcast message trading-session-status-request",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -90,39 +90,39 @@ func CmdTradingSessionStatusRequest() *cobra.Command {
 
 func CmdTradingSessionStatus() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-status [trad-ses-req-id] [trading-session-id] [trad-ses-status] [trad-ses-status-rej-reason] [trad-ses-start-time] [trad-ses-open-time] [trad-ses-pre-close-time] [trad-ses-close-time] [trad-ses-end-time] [total-volume-traded] [trad-ses-high-px] [trad-ses-low-px] [security-id] [security-id-source] [symbol] [security-exchange] [market-segment-id] [market-id]",
+		Use:   "trading-session-status [sessionID] [tradSesReqID] [tradingSessionID] [tradSesStatus] [tradSesStatusRejReason] [tradSesStartTime] [tradSesOpenTime] [tradSesPreCloseTime] [tradSesCloseTime] [tradSesEndTime] [totalVolumeTraded] [tradSesHighPx] [tradSesLowPx] [securityID] [securityIDSource] [symbol] [securityExchange] [marketSegmentID] [marketID]",
 		Short: "Broadcast message trading-session-status",
-		Args:  cobra.ExactArgs(18),
+		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			// TODO
-			// add session id
-			argTradSesReqID := args[0]
-			argTradingSessionID := args[1]
-			argTradSesStatus, err := cast.ToInt32E(args[2])
+
+			argSessionID := args[0]
+			argTradSesReqID := args[1]
+			argTradingSessionID := args[2]
+			argTradSesStatus, err := cast.ToInt32E(args[3])
 			if err != nil {
 				return err
 			}
-			argTradSesStatusRejReason, err := cast.ToInt32E(args[3])
+			argTradSesStatusRejReason, err := cast.ToInt32E(args[4])
 			if err != nil {
 				return err
 			}
-			argTradSesStartTime := args[4]
-			argTradSesOpenTime := args[5]
-			argTradSesPreCloseTime := args[6]
-			argTradSesCloseTime := args[7]
-			argTradSesEndTime := args[8]
-			argTotalVolumeTraded, err := cast.ToInt32E(args[9])
+			argTradSesStartTime := args[5]
+			argTradSesOpenTime := args[6]
+			argTradSesPreCloseTime := args[7]
+			argTradSesCloseTime := args[8]
+			argTradSesEndTime := args[9]
+			argTotalVolumeTraded, err := cast.ToInt32E(args[10])
 			if err != nil {
 				return err
 			}
-			argTradSesHighPx := args[10]
-			argTradSesLowPx := args[11]
-			argSecurityID := args[12]
-			argSecurityIDSource := args[13]
-			argSymbol := args[14]
-			argSecurityExchange := args[15]
-			argMarketSegmentID := args[16]
-			argMarketID := args[17]
+			argTradSesHighPx := args[11]
+			argTradSesLowPx := args[12]
+			argSecurityID := args[13]
+			argSecurityIDSource := args[14]
+			argSymbol := args[15]
+			argSecurityExchange := args[16]
+			argMarketSegmentID := args[17]
+			argMarketID := args[18]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -131,6 +131,7 @@ func CmdTradingSessionStatus() *cobra.Command {
 
 			msg := types.NewMsgTradingSessionStatus(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argTradSesReqID,
 				argTradingSessionID,
 				argTradSesStatus,
@@ -164,7 +165,7 @@ func CmdTradingSessionStatus() *cobra.Command {
 
 func CmdTradingSessionStatusRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-status-request-reject [ref-seq-num] [ref-msg-type] [session-reject-reason] [text]",
+		Use:   "trading-session-status-request-reject [refSeqNum] [refMsgType] [sessionRejectReason] [text]",
 		Short: "Broadcast message trading-session-status-request-reject",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
