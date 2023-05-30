@@ -60,6 +60,12 @@ service Msg {
       returns (MsgOrderMassStatusReportResponse);
   rpc OrderMassStatusRequestReject(MsgOrderMassStatusRequestReject)
       returns (MsgOrderMassStatusRequestRejectResponse);
+  rpc TradingSessionStatusRequest(MsgTradingSessionStatusRequest)
+      returns (MsgTradingSessionStatusRequestResponse);
+  rpc TradingSessionStatus(MsgTradingSessionStatus)
+      returns (MsgTradingSessionStatusResponse);
+  rpc TradingSessionStatusRequestReject(MsgTradingSessionStatusRequestReject)
+      returns (MsgTradingSessionStatusRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -440,3 +446,63 @@ message MsgOrderMassStatusRequestReject {
 }
 
 message MsgOrderMassStatusRequestRejectResponse {}
+
+message MsgTradingSessionStatusRequest {
+  string creator = 1;
+  string tradSesReqID = 2;
+  string tradingSessionID = 3;
+  string tradingSessionSubID = 4;
+  string marketID = 5;
+  string subscriptionRequest = 6;
+  string securityID = 7;
+  string securityIDSource = 8;
+  string symbol = 9;
+  string securityExchange = 10;
+  string marketSegmentID = 11;
+  int32 tradSesReqType = 12;
+  int32 tradSesSubReqType = 13;
+  int32 tradSesMode = 14;
+  string tradingSessionDate = 15;
+  string tradingSessionTime = 16;
+  string tradingSessionSubTime = 17;
+  string expirationDate = 18;
+  string sessionID = 19;
+}
+
+message MsgTradingSessionStatusRequestResponse {}
+
+message MsgTradingSessionStatus {
+  string creator = 1;
+  string tradSesReqID = 2;
+  string tradingSessionID = 3;
+  int32 tradSesStatus = 4;
+  int32 tradSesStatusRejReason = 5;
+  string tradSesStartTime = 6;
+  string tradSesOpenTime = 7;
+  string tradSesPreCloseTime = 8;
+  string tradSesCloseTime = 9;
+  string tradSesEndTime = 10;
+  int32 totalVolumeTraded = 11;
+  string tradSesHighPx = 12;
+  string tradSesLowPx = 13;
+  string securityID = 14;
+  string securityIDSource = 15;
+  string symbol = 16;
+  string securityExchange = 17;
+  string marketSegmentID = 18;
+  string marketID = 19;
+  string sessionID = 20;
+}
+
+message MsgTradingSessionStatusResponse {}
+
+message MsgTradingSessionStatusRequestReject {
+  string creator = 1;
+  string refSeqNum = 2;
+  string refMsgType = 3;
+  int32 sessionRejectReason = 4;
+  string text = 5;
+  string sessionID = 6;
+}
+
+message MsgTradingSessionStatusRequestRejectResponse {}

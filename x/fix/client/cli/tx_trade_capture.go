@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdTradeCaptureReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report [session-id] [trade-report-id] [trade-report-trans-type] [trade-report-type] [trd-type] [trd-sub-type] [side] [order-qty] [last-qty] [last-px] [gross-trade-amt] [exec-id] [order-id] [trade-id] [orig-trade-id] [symbol] [security-id] [security-id-source] [trade-date] [transact-time] [settl-type] [settl-date]",
+		Use:   "trade-capture-report [sessionID] [tradeReportID] [tradeReportTransType] [tradeReportType] [trdType] [trdSubType] [side] [orderQty] [lastQty] [lastPx] [grossTradeAmt] [execID] [orderID] [tradeID] [origTradeID] [symbol] [securityID] [securityIDSource] [tradeDate] [transactTime] [settlType] [settlDate]",
 		Short: "Broadcast message trade-capture-report",
 		Args:  cobra.ExactArgs(21),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -107,7 +107,7 @@ func CmdTradeCaptureReport() *cobra.Command {
 
 func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report-acknowledgement [session-id] [trade-report-id] [trade-id] [secondary-trade-id] [trade-report-type] [trd-type] [trd-sub-type] [exec-type] [trade-report-ref-id] [secondary-trade-report-id] [trade-report-status] [trade-trans-type] [trade-report-reject-reason] [text]",
+		Use:   "trade-capture-report-acknowledgement [sessionID] [tradeReportID] [tradeID] [secondaryTradeID] [tradeReportType] [trdType] [trdSubType] [execType] [tradeReportRefID] [secondaryTradeReportID] [tradeReportStatus] [tradeTransType] [tradeReportRejectReason] [text]",
 		Short: "Broadcast message trade-capture-report-acknowledgement",
 		Args:  cobra.ExactArgs(14),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -167,7 +167,7 @@ func CmdTradeCaptureReportAcknowledgement() *cobra.Command {
 
 func CmdTradeCaptureReportRejection() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report-rejection [session-id] [trade-report-id] [trade-report-reject-reason] [trade-report-reject-ref-id] [text]",
+		Use:   "trade-capture-report-rejection [sessionID] [tradeReportID] [tradeReportRejectReason] [tradeReportRejectRefID] [text]",
 		Short: "Broadcast message trade-capture-report-rejection",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

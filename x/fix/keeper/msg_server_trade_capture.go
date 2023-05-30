@@ -23,7 +23,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
@@ -118,6 +118,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 			TransactTime:         msg.TransactTime,
 			SettlType:            msg.SettlType,
 			SettlDate:            msg.SettlDate,
+			Creator:              msg.Creator,
 		},
 	}
 
@@ -159,7 +160,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the sessionID provided matches the trade capture report sessionID
@@ -236,6 +237,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 			TradeTransType:          msg.TradeTransType,
 			TradeReportRejectReason: msg.TradeReportRejectReason,
 			Text:                    msg.Text,
+			Creator:                 msg.Creator,
 		},
 	}
 
@@ -295,7 +297,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	// check for if the provided session ID existss
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the sessionID provided matches the trade capture report sessionID
@@ -349,6 +351,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 			TradeReportRejectReason: msg.TradeReportRejectReason,
 			TradeReportRejectRefID:  msg.TradeReportRejectRefID,
 			Text:                    msg.Text,
+			Creator:                 msg.Creator,
 		},
 	}
 

@@ -19,10 +19,10 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// check for if the provided session ID existss
+	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
@@ -61,6 +61,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 			SecurityDesc:        msg.SecurityDesc,
 			SecurityType:        msg.SecurityType,
 			Currency:            msg.Currency,
+			Creator:             msg.Creator,
 		},
 	}
 
@@ -118,7 +119,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the sessionID provided by the creator of Security Definition matches with the sessionID for Security Definition Request
@@ -139,7 +140,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 
 	// same account can not used for creating security definition request and security definition with the same SecurityReqID
 	if security.SecurityDefinitionRequest.Creator == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", &security))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", msg.Creator))
 	}
 
 	// check that the Security Definition Request is not rejected already
@@ -200,6 +201,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 			Factor:                  msg.Factor,
 			CreditRating:            msg.CreditRating,
 			SecurityExchangeID:      msg.SecurityExchangeID,
+			Creator:                 msg.Creator,
 		},
 	}
 
@@ -260,7 +262,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
 	// check that the sessionID provided by the creator of Security Definition Request Reject matches with the sessionID for Security Definition Request
@@ -318,6 +320,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 			SecurityRequestError:     msg.SecurityRequestError,
 			SecurityRequestErrorCode: msg.SecurityRequestErrorCode,
 			Text:                     msg.Text,
+			Creator:                  msg.Creator,
 		},
 	}
 

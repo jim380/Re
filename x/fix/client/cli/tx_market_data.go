@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdMarketDataRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-request [session-id] [subscription-request-type] [market-depth] [md-update-type] [no-related-sym] [symbol]",
+		Use:   "market-data-request [sessionID] [subscriptionRequestType] [marketDepth] [mdUpdateType] [noRelatedSym] [symbol]",
 		Short: "Broadcast message market-data-request",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -138,7 +138,7 @@ func CmdMarketDataSnapshotFullRefresh() *cobra.Command {
 
 func CmdMarketDataIncremental() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-incremental [md-req-id] [no-md-entries]",
+		Use:   "market-data-incremental [mdReqID] [noMdEntries]",
 		Short: "Broadcast message market-data-incremental",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -173,7 +173,7 @@ func CmdMarketDataIncremental() *cobra.Command {
 
 func CmdMarketDataRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "market-data-request-reject [sessionID] [md-req-id] [md-req-rej-reason] [text]",
+		Use:   "market-data-request-reject [sessionID] [mdReqID] [mdReqRejReason] [text]",
 		Short: "Broadcast message market-data-request-reject",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

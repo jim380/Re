@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityDefinitionRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-definition-request [sesssion-id] [security-request-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency]",
+		Use:   "security-definition-request [sesssionID] [securityRequestType] [symbol] [securityExchange] [issuer] [securityDesc] [securityType] [currency]",
 		Short: "Broadcast message security-definition-request",
 		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -61,7 +61,7 @@ func CmdSecurityDefinitionRequest() *cobra.Command {
 
 func CmdSecurityDefinition() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-definition [session-id] [security-req-id] [security-response-id] [security-response-type] [symbol] [security-exchange] [issuer] [security-desc] [security-type] [currency] [contract-multiplier] [min-price-increment] [min-price-increment-amount] [unit-of-measure] [price-unit-of-measure] [settl-type] [settl-date] [maturity-month-year] [coupon-rate] [factor] [credit-rating] [security-exchange-id]",
+		Use:   "security-definition [sessionID] [securityReqID] [securityResponseID] [securityResponseType] [symbol] [securityExchange] [issuer] [securityDesc] [securityType] [currency] [contractMultiplier] [minPriceIncrement] [minPriceIncrementAmount] [unitOfMeasure] [priceUnitOfMeasure] [settlType] [settlDate] [maturityMonthYear] [couponRate] [factor] [creditRating] [securityExchangeID]",
 		Short: "Broadcast message security-definition",
 		Args:  cobra.ExactArgs(22),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -132,7 +132,7 @@ func CmdSecurityDefinition() *cobra.Command {
 
 func CmdSecurityDefinitionRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-definition-request-reject [session-id] [security-req-id] [security-request-result] [security-request-error] [security-request-error-code] [text]",
+		Use:   "security-definition-request-reject [sessionID] [securityReqID] [securityRequestResult] [securityRequestError] [securityRequestErrorCode] [text]",
 		Short: "Broadcast message security-definition-request-reject",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

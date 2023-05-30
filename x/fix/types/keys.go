@@ -56,6 +56,9 @@ var (
 
 	OrderMassStatusKey      = []byte{0x022}
 	OrderMassStatusCountKey = []byte{0x023}
+
+	TradingSessionKey      = []byte{0x024}
+	TradingSessionCountKey = []byte{0x025}
 )
 
 func GetAccountKey() []byte {
@@ -156,4 +159,12 @@ func GetOrderMassStatusKey() []byte {
 
 func GetOrderMassStatusCountKey() []byte {
 	return OrderMassStatusCountKey
+}
+
+func GetTradingSessionKey() []byte {
+	return TradingSessionKey
+}
+
+func GetTradingSessionCountKey() []byte {
+	return TradingSessionCountKey
 }

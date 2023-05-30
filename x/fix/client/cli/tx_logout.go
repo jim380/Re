@@ -50,7 +50,7 @@ func CmdLogoutInitiator() *cobra.Command {
 
 func CmdLogoutAcceptor() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logout-acceptor [sessionID] [session-name",
+		Use:   "logout-acceptor [sessionID] [text]",
 		Short: "Broadcast message logout-acceptor",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -61,7 +61,7 @@ func CmdLogoutAcceptor() *cobra.Command {
 				return err
 			}
 
-			argText := args[0]
+			argText := args[1]
 
 			sessionLogoutInitiator := types.SessionLogoutAcceptor{
 				Text: argText,

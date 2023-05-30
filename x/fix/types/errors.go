@@ -118,6 +118,14 @@ const (
 	errOrderMassStatusCreatorIsWrong
 	errOrderMassStatusRequestIsAcknowledged
 	errOrderMassStatusRequestIsRejected
+
+	// Trading Session
+	errTradingSessionEmptyField
+	errTradingSessionSession
+	errTradingSessionIsNotFound
+	errTradingSessionStatusRequestIsRejected
+	errTradingSessionStatusRequestIsAcknowledged
+	errTradingSessionMismatchField
 )
 
 // x/fix module sentinel errors
@@ -231,4 +239,12 @@ var (
 	ErrOrderMassStatusCreatorIsWrong        = sdkerrors.Register(ModuleName, errOrderMassStatusCreatorIsWrong, "This account address can not respond to order mass status request")
 	ErrOrderMassStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsAcknowledged, "Order Mass Status Request has been responded to")
 	ErrOrderMassStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errOrderMassStatusRequestIsRejected, "Order Mass Status Request has been rejected")
+
+	// Trading Session
+	ErrTradingSessionEmptyField                  = sdkerrors.Register(ModuleName, errTradingSessionEmptyField, "This field can not be left empty")
+	ErrTradingSessionSession                     = sdkerrors.Register(ModuleName, errTradingSessionSession, "The sessionID is not recognized by the Trading Session Status Request system")
+	ErrTradingSessionIsNotFound                  = sdkerrors.Register(ModuleName, errTradingSessionIsNotFound, "Trading Session Status Request is not found")
+	ErrTradingSessionStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsRejected, "Trading Session Status Request has been rejected")
+	ErrTradingSessionStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsAcknowledged, "Trading Session Status Request has been acknowledged")
+	ErrTradingSessionMismatchField               = sdkerrors.Register(ModuleName, errTradingSessionMismatchField, "This value does not match the value from Trade Session Status Request")
 )

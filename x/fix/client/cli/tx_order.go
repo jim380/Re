@@ -77,7 +77,7 @@ func CmdNewOrderSingle() *cobra.Command {
 
 func CmdOrderCancelRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order-cancel-request [session-name] [OrigClOrdID]",
+		Use:   "order-cancel-request [sessionID] [OrigClOrdID]",
 		Short: "Broadcast message order-cancel-request",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
