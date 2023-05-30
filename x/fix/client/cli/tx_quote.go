@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 // CmdQuoteRequest is the command line tool for creating Quote Request
 func CmdQuoteRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-request [session-id] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] [text]",
+		Use:   "quote-request [sessionID] [symbol] [securityID] [securityIDSource] [side] [orderQty] [futSettDate] [settlDate2] [account] [bidPx] [offerPx] [currency] [validUntilTime] [expireTime] [quoteType] [bidSize] [offerSize] [mic] [text]",
 		Short: "Broadcast message quote-request",
 		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -69,7 +69,7 @@ func CmdQuoteRequest() *cobra.Command {
 // CmdQuoteAcknowledgement is the command line tool for creating Quote Acknowledgement
 func CmdQuoteAcknowledgement() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-acknowledgement [session-id] [quoteReqID] [quoteStatus] [quoteType] [securityID] [securityIDSource] [symbol] [side] [orderQty] [lastQty] [lastPx] [bidPx] [offerPx] [currency] [settlDate] [validUntilTime] [expireTime] [text] [noQuoteQualifiers] [quoteQualifier] [noLegs] [legSymbol] [legSecurityID] [legSecurityIDSource] [legRatioQty]",
+		Use:   "quote-acknowledgement [sessionID] [quoteReqID] [quoteStatus] [quoteType] [securityID] [securityIDSource] [symbol] [side] [orderQty] [lastQty] [lastPx] [bidPx] [offerPx] [currency] [settlDate] [validUntilTime] [expireTime] [text] [noQuoteQualifiers] [quoteQualifier] [noLegs] [legSymbol] [legSecurityID] [legSecurityIDSource] [legRatioQty]",
 		Short: "Broadcast message quote-acknowledgement",
 		Args:  cobra.ExactArgs(25),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -129,7 +129,7 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 // CmdQuoteRequestReject is the command line for creating Quote Request Reject
 func CmdQuoteRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "quote-request-reject [session-id] [quoteReqID] [quoteRequestRejectReason] [text]",
+		Use:   "quote-request-reject [sessionID] [quoteReqID] [quoteRequestRejectReason] [text]",
 		Short: "Broadcast message quote-request-reject",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

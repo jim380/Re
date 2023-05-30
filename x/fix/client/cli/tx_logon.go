@@ -16,7 +16,7 @@ var _ = strconv.Itoa(0)
 
 func CmdLogonInitiator() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-initiator [msg-type] [sender-compID] [target-compID] [encrypt-method] [heart-beat-int]",
+		Use:   "logon-initiator [msgType] [senderCompID] [targetCompID] [encryptMethod] [heartBeatInt]",
 		Short: "Broadcast message logon-initiator",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -83,7 +83,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 func CmdLogonAcceptor() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-acceptor [sessionID] [msg-type] [sender-compID] [target-compID] [encrypt-method] [heart-beat-int]",
+		Use:   "logon-acceptor [sessionID] [msgType] [senderCompID] [targetCompID] [encryptMethod] [heartBeatInt]",
 		Short: "Broadcast message logon-acceptor",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
