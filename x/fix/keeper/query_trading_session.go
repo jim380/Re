@@ -32,7 +32,6 @@ func (k Keeper) TradingSessionAll(goCtx context.Context, req *types.QueryAllTrad
 		tradingSessions = append(tradingSessions, tradingSession)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

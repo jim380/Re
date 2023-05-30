@@ -19,7 +19,6 @@ func CmdTradingSessionStatusRequest() *cobra.Command {
 		Short: "Broadcast message trading-session-status-request",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSesssionID := args[0]
 			argTradingSessionID := args[1]
 			argTradingSessionSubID := args[2]
@@ -94,7 +93,6 @@ func CmdTradingSessionStatus() *cobra.Command {
 		Short: "Broadcast message trading-session-status",
 		Args:  cobra.ExactArgs(19),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argTradSesReqID := args[1]
 			argTradingSessionID := args[2]
@@ -169,7 +167,6 @@ func CmdTradingSessionStatusRequestReject() *cobra.Command {
 		Short: "Broadcast message trading-session-status-request-reject",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argSessionID := args[0]
 			argRefSeqNum := args[1]
 			argRefMsgType := args[2]

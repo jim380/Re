@@ -164,8 +164,8 @@ message TradingSessionStatusRequestReject {
   // (372)	Message type of the rejected request
   string refMsgType = 3;
 
-  // (373)	Code indicating the reason for rejecting the trading session status
-  // request
+  // (373)	Code indicating the reason for rejecting the trading session
+  // status request
   int32 sessionRejectReason = 4;
 
   // 58	Free-form text providing additional information about the rejection

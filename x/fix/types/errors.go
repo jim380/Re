@@ -125,7 +125,7 @@ const (
 	errTradingSessionIsNotFound
 	errTradingSessionStatusRequestIsRejected
 	errTradingSessionStatusRequestIsAcknowledged
-	errTradingSessionMismatchField 
+	errTradingSessionMismatchField
 )
 
 // x/fix module sentinel errors
@@ -246,6 +246,5 @@ var (
 	ErrTradingSessionIsNotFound                  = sdkerrors.Register(ModuleName, errTradingSessionIsNotFound, "Trading Session Status Request is not found")
 	ErrTradingSessionStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsRejected, "Trading Session Status Request has been rejected")
 	ErrTradingSessionStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsAcknowledged, "Trading Session Status Request has been acknowledged")
-	ErrTradingSessionMismatchField                   = sdkerrors.Register(ModuleName, errTradingSessionMismatchField, "This value does not match the value from Trade Session Status Request")
-	
+	ErrTradingSessionMismatchField               = sdkerrors.Register(ModuleName, errTradingSessionMismatchField, "This value does not match the value from Trade Session Status Request")
 )
