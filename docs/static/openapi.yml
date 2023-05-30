@@ -37878,16 +37878,16 @@ paths:
                           type: string
                           title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
                         tradSesReqType:
-                          type: string
-                          format: int64
+                          type: integer
+                          format: int32
                           title: (263) Type of trading session status request
                         tradSesSubReqType:
-                          type: string
-                          format: int64
+                          type: integer
+                          format: int32
                           title: "(123)\tSub-type of trading session status request"
-                        tradSesMethod:
-                          type: string
-                          format: int64
+                        tradSesMode:
+                          type: integer
+                          format: int32
                           title: "(338)\tMethod used to determine the trading session"
                         tradingSessionDate:
                           type: string
@@ -38006,14 +38006,14 @@ paths:
                           type: string
                           title: (336) Identifies the specific trading session
                         tradSesStatus:
-                          type: string
-                          format: int64
+                          type: integer
+                          format: int32
                           title: >-
                             (340) Indicates the current status of the trading
                             session
                         tradSesStatusRejReason:
-                          type: string
-                          format: int64
+                          type: integer
+                          format: int32
                           title: >-
                             (567) Provides a reason for rejecting or
                             invalidating a trading session
@@ -38039,8 +38039,8 @@ paths:
                             (345) Time at which the trading session is scheduled
                             to end
                         totalVolumeTraded:
-                          type: string
-                          format: int64
+                          type: integer
+                          format: int32
                           title: >-
                             (387) Total quantity of contracts or shares traded
                             during the trading
@@ -38167,9 +38167,9 @@ paths:
                           type: string
                           title: "(372)\tMessage type of the rejected request"
                         sessionRejectReason:
-                          type: string
-                          format: int64
-                          title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                          type: integer
+                          format: int32
+                          title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
                         text:
                           type: string
                           title: "58\tFree-form text providing additional information about the rejection"
@@ -38405,16 +38405,16 @@ paths:
                         type: string
                         title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
                       tradSesReqType:
-                        type: string
-                        format: int64
+                        type: integer
+                        format: int32
                         title: (263) Type of trading session status request
                       tradSesSubReqType:
-                        type: string
-                        format: int64
+                        type: integer
+                        format: int32
                         title: "(123)\tSub-type of trading session status request"
-                      tradSesMethod:
-                        type: string
-                        format: int64
+                      tradSesMode:
+                        type: integer
+                        format: int32
                         title: "(338)\tMethod used to determine the trading session"
                       tradingSessionDate:
                         type: string
@@ -38533,14 +38533,14 @@ paths:
                         type: string
                         title: (336) Identifies the specific trading session
                       tradSesStatus:
-                        type: string
-                        format: int64
+                        type: integer
+                        format: int32
                         title: >-
                           (340) Indicates the current status of the trading
                           session
                       tradSesStatusRejReason:
-                        type: string
-                        format: int64
+                        type: integer
+                        format: int32
                         title: >-
                           (567) Provides a reason for rejecting or invalidating
                           a trading session
@@ -38566,8 +38566,8 @@ paths:
                           (345) Time at which the trading session is scheduled
                           to end
                       totalVolumeTraded:
-                        type: string
-                        format: int64
+                        type: integer
+                        format: int32
                         title: >-
                           (387) Total quantity of contracts or shares traded
                           during the trading
@@ -38692,9 +38692,9 @@ paths:
                         type: string
                         title: "(372)\tMessage type of the rejected request"
                       sessionRejectReason:
-                        type: string
-                        format: int64
-                        title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                        type: integer
+                        format: int32
+                        title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
                       text:
                         type: string
                         title: "58\tFree-form text providing additional information about the rejection"
@@ -38750,6 +38750,163 @@ paths:
           in: path
           required: true
           type: string
+      tags:
+        - Query
+  /jim380/Re/fix/trading_session_list:
+    get:
+      operationId: Jim380ReFixTradingSessionListAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TradingSessionList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sessionID:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/trading_session_list/{id}:
+    get:
+      summary: Queries a list of TradingSessionList items.
+      operationId: Jim380ReFixTradingSessionList
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TradingSessionList:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  sessionID:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
   /jim380/Re/mic/market_identification_code/{MIC}:
@@ -66039,6 +66196,44 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  jim380.re.fix.QueryAllTradingSessionListResponse:
+    type: object
+    properties:
+      TradingSessionList:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sessionID:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   jim380.re.fix.QueryAllTradingSessionResponse:
     type: object
     properties:
@@ -66139,16 +66334,16 @@ definitions:
                   type: string
                   title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
                 tradSesReqType:
-                  type: string
-                  format: int64
+                  type: integer
+                  format: int32
                   title: (263) Type of trading session status request
                 tradSesSubReqType:
-                  type: string
-                  format: int64
+                  type: integer
+                  format: int32
                   title: "(123)\tSub-type of trading session status request"
-                tradSesMethod:
-                  type: string
-                  format: int64
+                tradSesMode:
+                  type: integer
+                  format: int32
                   title: "(338)\tMethod used to determine the trading session"
                 tradingSessionDate:
                   type: string
@@ -66263,12 +66458,12 @@ definitions:
                   type: string
                   title: (336) Identifies the specific trading session
                 tradSesStatus:
-                  type: string
-                  format: int64
+                  type: integer
+                  format: int32
                   title: (340) Indicates the current status of the trading session
                 tradSesStatusRejReason:
-                  type: string
-                  format: int64
+                  type: integer
+                  format: int32
                   title: >-
                     (567) Provides a reason for rejecting or invalidating a
                     trading session
@@ -66292,8 +66487,8 @@ definitions:
                   type: string
                   title: (345) Time at which the trading session is scheduled to end
                 totalVolumeTraded:
-                  type: string
-                  format: int64
+                  type: integer
+                  format: int32
                   title: >-
                     (387) Total quantity of contracts or shares traded during
                     the trading
@@ -66414,9 +66609,9 @@ definitions:
                   type: string
                   title: "(372)\tMessage type of the rejected request"
                 sessionRejectReason:
-                  type: string
-                  format: int64
-                  title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                  type: integer
+                  format: int32
+                  title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
                 text:
                   type: string
                   title: "58\tFree-form text providing additional information about the rejection"
@@ -69640,6 +69835,17 @@ definitions:
                 type: string
                 title: owner
             description: Trade Capture Report Rejection with fields, tags and descriptions.
+  jim380.re.fix.QueryGetTradingSessionListResponse:
+    type: object
+    properties:
+      TradingSessionList:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sessionID:
+            type: string
   jim380.re.fix.QueryGetTradingSessionResponse:
     type: object
     properties:
@@ -69737,16 +69943,16 @@ definitions:
                 type: string
                 title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
               tradSesReqType:
-                type: string
-                format: int64
+                type: integer
+                format: int32
                 title: (263) Type of trading session status request
               tradSesSubReqType:
-                type: string
-                format: int64
+                type: integer
+                format: int32
                 title: "(123)\tSub-type of trading session status request"
-              tradSesMethod:
-                type: string
-                format: int64
+              tradSesMode:
+                type: integer
+                format: int32
                 title: "(338)\tMethod used to determine the trading session"
               tradingSessionDate:
                 type: string
@@ -69856,12 +70062,12 @@ definitions:
                 type: string
                 title: (336) Identifies the specific trading session
               tradSesStatus:
-                type: string
-                format: int64
+                type: integer
+                format: int32
                 title: (340) Indicates the current status of the trading session
               tradSesStatusRejReason:
-                type: string
-                format: int64
+                type: integer
+                format: int32
                 title: >-
                   (567) Provides a reason for rejecting or invalidating a
                   trading session
@@ -69883,8 +70089,8 @@ definitions:
                 type: string
                 title: (345) Time at which the trading session is scheduled to end
               totalVolumeTraded:
-                type: string
-                format: int64
+                type: integer
+                format: int32
                 title: >-
                   (387) Total quantity of contracts or shares traded during the
                   trading
@@ -70004,9 +70210,9 @@ definitions:
                 type: string
                 title: "(372)\tMessage type of the rejected request"
               sessionRejectReason:
-                type: string
-                format: int64
-                title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+                type: integer
+                format: int32
+                title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
               text:
                 type: string
                 title: "58\tFree-form text providing additional information about the rejection"
@@ -73413,16 +73619,16 @@ definitions:
             type: string
             title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
           tradSesReqType:
-            type: string
-            format: int64
+            type: integer
+            format: int32
             title: (263) Type of trading session status request
           tradSesSubReqType:
-            type: string
-            format: int64
+            type: integer
+            format: int32
             title: "(123)\tSub-type of trading session status request"
-          tradSesMethod:
-            type: string
-            format: int64
+          tradSesMode:
+            type: integer
+            format: int32
             title: "(338)\tMethod used to determine the trading session"
           tradingSessionDate:
             type: string
@@ -73527,12 +73733,12 @@ definitions:
             type: string
             title: (336) Identifies the specific trading session
           tradSesStatus:
-            type: string
-            format: int64
+            type: integer
+            format: int32
             title: (340) Indicates the current status of the trading session
           tradSesStatusRejReason:
-            type: string
-            format: int64
+            type: integer
+            format: int32
             title: >-
               (567) Provides a reason for rejecting or invalidating a trading
               session
@@ -73554,8 +73760,8 @@ definitions:
             type: string
             title: (345) Time at which the trading session is scheduled to end
           totalVolumeTraded:
-            type: string
-            format: int64
+            type: integer
+            format: int32
             title: >-
               (387) Total quantity of contracts or shares traded during the
               trading
@@ -73670,9 +73876,9 @@ definitions:
             type: string
             title: "(372)\tMessage type of the rejected request"
           sessionRejectReason:
-            type: string
-            format: int64
-            title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+            type: integer
+            format: int32
+            title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
           text:
             type: string
             title: "58\tFree-form text providing additional information about the rejection"
@@ -73705,6 +73911,14 @@ definitions:
         description: >-
           Trading Session Status Request Reject with fields, tags and
           descriptions.
+  jim380.re.fix.TradingSessionList:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      sessionID:
+        type: string
   jim380.re.fix.TradingSessionStatus:
     type: object
     properties:
@@ -73763,12 +73977,12 @@ definitions:
         type: string
         title: (336) Identifies the specific trading session
       tradSesStatus:
-        type: string
-        format: int64
+        type: integer
+        format: int32
         title: (340) Indicates the current status of the trading session
       tradSesStatusRejReason:
-        type: string
-        format: int64
+        type: integer
+        format: int32
         title: >-
           (567) Provides a reason for rejecting or invalidating a trading
           session
@@ -73790,8 +74004,8 @@ definitions:
         type: string
         title: (345) Time at which the trading session is scheduled to end
       totalVolumeTraded:
-        type: string
-        format: int64
+        type: integer
+        format: int32
         title: |-
           (387) Total quantity of contracts or shares traded during the trading
           session
@@ -73930,16 +74144,16 @@ definitions:
         type: string
         title: "(1300)\tIdentifies the specific market segment or sector within the\ntrading session"
       tradSesReqType:
-        type: string
-        format: int64
+        type: integer
+        format: int32
         title: (263) Type of trading session status request
       tradSesSubReqType:
-        type: string
-        format: int64
+        type: integer
+        format: int32
         title: "(123)\tSub-type of trading session status request"
-      tradSesMethod:
-        type: string
-        format: int64
+      tradSesMode:
+        type: integer
+        format: int32
         title: "(338)\tMethod used to determine the trading session"
       tradingSessionDate:
         type: string
@@ -74042,9 +74256,9 @@ definitions:
         type: string
         title: "(372)\tMessage type of the rejected request"
       sessionRejectReason:
-        type: string
-        format: int64
-        title: "(373)\tCode indicating the reason for rejecting the trading session status\nrequest"
+        type: integer
+        format: int32
+        title: "(373)\tCode indicating the reason for rejecting the trading session\nstatus request"
       text:
         type: string
         title: "58\tFree-form text providing additional information about the rejection"

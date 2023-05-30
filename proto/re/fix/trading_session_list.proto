@@ -1,0 +1,23 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+message TradingSessionList {
+  string sessionID = 1; 
+  TradingSessionListRequest tradingSessionListRequest = 2;
+  TradingSessionListResponse tradingSessionListResponse = 3;
+  TradingSessionListRequestReject tradingSessionListRequestReject  = 4;
+}
+
+message TradingSessionListRequest {
+  // TODO
+}
+
+message TradingSessionListResponse {
+  // TODO
+}
+
+message TradingSessionListRequestReject {
+  // TODO
+}

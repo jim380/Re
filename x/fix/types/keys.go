@@ -168,3 +168,8 @@ func GetTradingSessionKey() []byte {
 func GetTradingSessionCountKey() []byte {
 	return TradingSessionCountKey
 }
+
+const (
+	TradingSessionListKey      = "TradingSessionList/value/"
+	TradingSessionListCountKey = "TradingSessionList/count/"
+)
