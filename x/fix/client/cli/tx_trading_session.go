@@ -165,19 +165,19 @@ func CmdTradingSessionStatus() *cobra.Command {
 
 func CmdTradingSessionStatusRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-status-request-reject [refSeqNum] [refMsgType] [sessionRejectReason] [text]",
+		Use:   "trading-session-status-request-reject [sessionID] [refSeqNum] [refMsgType] [sessionRejectReason] [text]",
 		Short: "Broadcast message trading-session-status-request-reject",
-		Args:  cobra.ExactArgs(4),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			// TODO
-			// add session id
-			argRefSeqNum := args[0]
-			argRefMsgType := args[1]
-			argSessionRejectReason, err := cast.ToInt32E(args[2])
+
+			argSessionID := args[0]
+			argRefSeqNum := args[1]
+			argRefMsgType := args[2]
+			argSessionRejectReason, err := cast.ToInt32E(args[3])
 			if err != nil {
 				return err
 			}
-			argText := args[3]
+			argText := args[4]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -186,6 +186,7 @@ func CmdTradingSessionStatusRequestReject() *cobra.Command {
 
 			msg := types.NewMsgTradingSessionStatusRequestReject(
 				clientCtx.GetFromAddress().String(),
+				argSessionID,
 				argRefSeqNum,
 				argRefMsgType,
 				argSessionRejectReason,
