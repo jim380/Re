@@ -44,7 +44,7 @@ func CmdListTradingSessionList() *cobra.Command {
 
 func CmdShowTradingSessionList() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-trading-session-list [tradSesReqID ]",
+		Use:   "show-trading-session-list [tradSesReqID]",
 		Short: "shows a trading-session-list",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

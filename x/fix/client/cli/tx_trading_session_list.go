@@ -122,7 +122,7 @@ func CmdTradingSessionListResponse() *cobra.Command {
 
 func CmdTradingSessionListRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-list-request-reject [session-id] [trad-ses-req-id] [trad-ses-status] [trad-ses-status-rej-reason] [text]",
+		Use:   "trading-session-list-request-reject [sessionID] [tradSesReqID] [tradSesStatus] [tradSesStatusRejReason] [text]",
 		Short: "Broadcast message trading-session-list-request-reject",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

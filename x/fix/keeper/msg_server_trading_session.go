@@ -41,9 +41,6 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	if msg.TradSesReqID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionEmptyField, "TradSesReqID: %s", msg.TradSesReqID)
 	}
-	if msg.TradingSessionID == "" {
-		return nil, sdkerrors.Wrapf(types.ErrTradingSessionEmptyField, "TradingSessionID: %s", msg.TradingSessionID)
-	}
 	if msg.TradingSessionSubID == "" {
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionEmptyField, "TradingSessionSubID: %s", msg.TradingSessionSubID)
 	}
@@ -148,14 +145,12 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionStatusRequestIsAcknowledged, "Trading Session: %s", tradingSession.TradingSessionStatus)
 	}
 
-	// check that the mandatory field matches the value from Trading Session Status Request
-	if tradingSession.TradingSessionStatusRequest.TradingSessionID != msg.TradingSessionID {
-		return nil, sdkerrors.Wrapf(types.ErrTradingSessionMismatchField, "TradingSessionID: %s", msg.TradingSessionID)
-	}
-
 	// check that the mandatory Trading Session Status field is not empty
 	if _, err := strconv.ParseInt(fmt.Sprint(msg.TradSesStatus), 10, 64); err != nil {
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionEmptyField, "TradSesStatus: %v", msg.TradSesStatus)
+	}
+	if msg.TradingSessionID == "" {
+		return nil, sdkerrors.Wrapf(types.ErrTradingSessionEmptyField, "TradingSessionID: %s", msg.TradingSessionID)
 	}
 
 	// Trading Session Status
@@ -214,6 +209,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	return &types.MsgTradingSessionStatusResponse{}, err
 }
 
+// TradingSessionStatusRequestReject creates Trading Session Status Request Reject
 func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg *types.MsgTradingSessionStatusRequestReject) (*types.MsgTradingSessionStatusRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -236,7 +232,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 
 	// check that the user responding is the recipient of the Trading Session Status Request
 	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Creator: %s", msg.Creator)
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Request Reject Creator: %s", msg.Creator)
 	}
 
 	// get Trading Session
@@ -280,7 +276,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	}
 
 	// fetch Header from existing session
-	// In the FIX Protocol, Trading Session Status is sent by the server(trading venue) and the server is the party that accepts the logon request
+	// In the FIX Protocol, Trading Session Status Request Reject is sent by the server(trading venue) and the server is the party that accepts the logon request
 	// set the header and make changes to the header
 	// calculate and include all changes to the header
 	// MsgType (35) is set to "j" to indicate a Trading Session Status Request Reject.
