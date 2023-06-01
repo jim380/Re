@@ -55,6 +55,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdTradingSessionStatusRequest())
 	cmd.AddCommand(CmdTradingSessionStatus())
 	cmd.AddCommand(CmdTradingSessionStatusRequestReject())
+	cmd.AddCommand(CmdTradingSessionListRequest())
+	cmd.AddCommand(CmdTradingSessionListResponse())
+	cmd.AddCommand(CmdTradingSessionListRequestReject())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

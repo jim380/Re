@@ -33,6 +33,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgTradingSessionStatusRequest{}, "fix/TradingSessionStatusRequest", nil)
 	cdc.RegisterConcrete(&MsgTradingSessionStatus{}, "fix/TradingSessionStatus", nil)
 	cdc.RegisterConcrete(&MsgTradingSessionStatusRequestReject{}, "fix/TradingSessionStatusRequestReject", nil)
+	cdc.RegisterConcrete(&MsgTradingSessionListRequest{}, "fix/TradingSessionListRequest", nil)
+	cdc.RegisterConcrete(&MsgTradingSessionListResponse{}, "fix/TradingSessionListResponse", nil)
+	cdc.RegisterConcrete(&MsgTradingSessionListRequestReject{}, "fix/TradingSessionListRequestReject", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -107,6 +110,15 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionStatusRequestReject{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgTradingSessionListRequest{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgTradingSessionListResponse{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgTradingSessionListRequestReject{},
 	)
 	// this line is used by starport scaffolding # 3
 
