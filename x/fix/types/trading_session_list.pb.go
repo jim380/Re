@@ -23,8 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type TradingSessionList struct {
-	Id        uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	SessionID string `protobuf:"bytes,2,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	SessionID                       string                           `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	TradingSessionListRequest       *TradingSessionListRequest       `protobuf:"bytes,2,opt,name=tradingSessionListRequest,proto3" json:"tradingSessionListRequest,omitempty"`
+	TradingSessionListResponse      *TradingSessionListResponse      `protobuf:"bytes,3,opt,name=tradingSessionListResponse,proto3" json:"tradingSessionListResponse,omitempty"`
+	TradingSessionListRequestReject *TradingSessionListRequestReject `protobuf:"bytes,4,opt,name=tradingSessionListRequestReject,proto3" json:"tradingSessionListRequestReject,omitempty"`
 }
 
 func (m *TradingSessionList) Reset()         { *m = TradingSessionList{} }
@@ -60,13 +62,6 @@ func (m *TradingSessionList) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TradingSessionList proto.InternalMessageInfo
 
-func (m *TradingSessionList) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
 func (m *TradingSessionList) GetSessionID() string {
 	if m != nil {
 		return m.SessionID
@@ -74,26 +69,506 @@ func (m *TradingSessionList) GetSessionID() string {
 	return ""
 }
 
+func (m *TradingSessionList) GetTradingSessionListRequest() *TradingSessionListRequest {
+	if m != nil {
+		return m.TradingSessionListRequest
+	}
+	return nil
+}
+
+func (m *TradingSessionList) GetTradingSessionListResponse() *TradingSessionListResponse {
+	if m != nil {
+		return m.TradingSessionListResponse
+	}
+	return nil
+}
+
+func (m *TradingSessionList) GetTradingSessionListRequestReject() *TradingSessionListRequestReject {
+	if m != nil {
+		return m.TradingSessionListRequestReject
+	}
+	return nil
+}
+
+// Trading Session List Request with fields, tags and descriptions. MsgType = BI
+type TradingSessionListRequest struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (335)	Must be unique, or the ID of previous Trading Session Status Request (g) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Update Request (2).
+	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
+	// (336) Trading Session for which status is being requested
+	TradingSessionID string `protobuf:"bytes,3,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
+	// (625)
+	TradingSessionSubID string `protobuf:"bytes,4,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
+	// (207)
+	SecurityExchange string `protobuf:"bytes,5,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// (338) 	Method of Trading
+	TradSesMethod string `protobuf:"bytes,6,opt,name=tradSesMethod,proto3" json:"tradSesMethod,omitempty"`
+	// (339) Trading Session Mode
+	TradSesMode string `protobuf:"bytes,7,opt,name=tradSesMode,proto3" json:"tradSesMode,omitempty"`
+	// (263)
+	SubscriptionRequestType string `protobuf:"bytes,8,opt,name=subscriptionRequestType,proto3" json:"subscriptionRequestType,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,9,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,10,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *TradingSessionListRequest) Reset()         { *m = TradingSessionListRequest{} }
+func (m *TradingSessionListRequest) String() string { return proto.CompactTextString(m) }
+func (*TradingSessionListRequest) ProtoMessage()    {}
+func (*TradingSessionListRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_47d0df21bf68e616, []int{1}
+}
+func (m *TradingSessionListRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TradingSessionListRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TradingSessionListRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TradingSessionListRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TradingSessionListRequest.Merge(m, src)
+}
+func (m *TradingSessionListRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *TradingSessionListRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_TradingSessionListRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TradingSessionListRequest proto.InternalMessageInfo
+
+func (m *TradingSessionListRequest) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *TradingSessionListRequest) GetTradSesReqID() string {
+	if m != nil {
+		return m.TradSesReqID
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetTradingSessionID() string {
+	if m != nil {
+		return m.TradingSessionID
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetTradingSessionSubID() string {
+	if m != nil {
+		return m.TradingSessionSubID
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetSecurityExchange() string {
+	if m != nil {
+		return m.SecurityExchange
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetTradSesMethod() string {
+	if m != nil {
+		return m.TradSesMethod
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetTradSesMode() string {
+	if m != nil {
+		return m.TradSesMode
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetSubscriptionRequestType() string {
+	if m != nil {
+		return m.SubscriptionRequestType
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequest) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+// Trading Session List Response with fields, tags and descriptions. MsgType = BJ
+type TradingSessionListResponse struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (335)	Provided for a response to a specific Trading Session List Request (BI) message (snapshot)
+	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
+	// (386)
+	NoTradingSessions string `protobuf:"bytes,3,opt,name=noTradingSessions,proto3" json:"noTradingSessions,omitempty"`
+	// (336) Identifier for Trading Session
+	TradingSessionID string `protobuf:"bytes,4,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
+	// (625)
+	TradingSessionSubID string `protobuf:"bytes,5,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
+	// (207)
+	SecurityExchange string `protobuf:"bytes,6,opt,name=securityExchange,proto3" json:"securityExchange,omitempty"`
+	// (338) Method of Trading
+	TradSesMethod string `protobuf:"bytes,7,opt,name=tradSesMethod,proto3" json:"tradSesMethod,omitempty"`
+	// (339) 	Trading Session Mode
+	TradSesMode string `protobuf:"bytes,8,opt,name=tradSesMode,proto3" json:"tradSesMode,omitempty"`
+	// (325) "Y" if message is sent unsolicited as a result of a previous subscription request
+	UnsolicitedIndicator string `protobuf:"bytes,9,opt,name=unsolicitedIndicator,proto3" json:"unsolicitedIndicator,omitempty"`
+	// (340) State of trading session.
+	TradSesStatus string `protobuf:"bytes,10,opt,name=tradSesStatus,proto3" json:"tradSesStatus,omitempty"`
+	// (567) Used with TradSesStatus (340) = "Request Rejected".
+	TradSesStatusRejReason string `protobuf:"bytes,11,opt,name=tradSesStatusRejReason,proto3" json:"tradSesStatusRejReason,omitempty"`
+	// (341) Starting time of trading session
+	TradSesStartTime string `protobuf:"bytes,12,opt,name=tradSesStartTime,proto3" json:"tradSesStartTime,omitempty"`
+	// (342) Time of the opening of the trading session
+	TradSesOpenTime string `protobuf:"bytes,13,opt,name=tradSesOpenTime,proto3" json:"tradSesOpenTime,omitempty"`
+	// (343) Time of pre-close of trading session
+	TradSesPreCloseTime string `protobuf:"bytes,14,opt,name=tradSesPreCloseTime,proto3" json:"tradSesPreCloseTime,omitempty"`
+	// (344) Closing time of trading session
+	TradSesCloseTime string `protobuf:"bytes,15,opt,name=tradSesCloseTime,proto3" json:"tradSesCloseTime,omitempty"`
+	// (345)
+	TradSesEndTime string `protobuf:"bytes,16,opt,name=tradSesEndTime,proto3" json:"tradSesEndTime,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,17,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,18,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *TradingSessionListResponse) Reset()         { *m = TradingSessionListResponse{} }
+func (m *TradingSessionListResponse) String() string { return proto.CompactTextString(m) }
+func (*TradingSessionListResponse) ProtoMessage()    {}
+func (*TradingSessionListResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_47d0df21bf68e616, []int{2}
+}
+func (m *TradingSessionListResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TradingSessionListResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TradingSessionListResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TradingSessionListResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TradingSessionListResponse.Merge(m, src)
+}
+func (m *TradingSessionListResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *TradingSessionListResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_TradingSessionListResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TradingSessionListResponse proto.InternalMessageInfo
+
+func (m *TradingSessionListResponse) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *TradingSessionListResponse) GetTradSesReqID() string {
+	if m != nil {
+		return m.TradSesReqID
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetNoTradingSessions() string {
+	if m != nil {
+		return m.NoTradingSessions
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradingSessionID() string {
+	if m != nil {
+		return m.TradingSessionID
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradingSessionSubID() string {
+	if m != nil {
+		return m.TradingSessionSubID
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetSecurityExchange() string {
+	if m != nil {
+		return m.SecurityExchange
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesMethod() string {
+	if m != nil {
+		return m.TradSesMethod
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesMode() string {
+	if m != nil {
+		return m.TradSesMode
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetUnsolicitedIndicator() string {
+	if m != nil {
+		return m.UnsolicitedIndicator
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesStatus() string {
+	if m != nil {
+		return m.TradSesStatus
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesStatusRejReason() string {
+	if m != nil {
+		return m.TradSesStatusRejReason
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesStartTime() string {
+	if m != nil {
+		return m.TradSesStartTime
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesOpenTime() string {
+	if m != nil {
+		return m.TradSesOpenTime
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesPreCloseTime() string {
+	if m != nil {
+		return m.TradSesPreCloseTime
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesCloseTime() string {
+	if m != nil {
+		return m.TradSesCloseTime
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTradSesEndTime() string {
+	if m != nil {
+		return m.TradSesEndTime
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *TradingSessionListResponse) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
+// Trading Session List Request Reject with fields, tags and descriptions. MsgType = BK
+type TradingSessionListRequestReject struct {
+	// Standard FIX message header.
+	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// (335)	Matches the ID of the rejected Trading Session List Request (BI) message.
+	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
+	// (340)	Indicates the status of the trading session request. Set to "0" (Rejected) for a request reject message.
+	TradSesStatus string `protobuf:"bytes,3,opt,name=tradSesStatus,proto3" json:"tradSesStatus,omitempty"`
+	// (567) Reason for rejecting the trading session request.
+	TradSesStatusRejReason string `protobuf:"bytes,4,opt,name=tradSesStatusRejReason,proto3" json:"tradSesStatusRejReason,omitempty"`
+	// (58) Optional additional text providing further details about the rejection.
+	Text string `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
+	// owner
+	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	// Standard FIX message trailer.
+	Trailer *Trailer `protobuf:"bytes,7,opt,name=trailer,proto3" json:"trailer,omitempty"`
+}
+
+func (m *TradingSessionListRequestReject) Reset()         { *m = TradingSessionListRequestReject{} }
+func (m *TradingSessionListRequestReject) String() string { return proto.CompactTextString(m) }
+func (*TradingSessionListRequestReject) ProtoMessage()    {}
+func (*TradingSessionListRequestReject) Descriptor() ([]byte, []int) {
+	return fileDescriptor_47d0df21bf68e616, []int{3}
+}
+func (m *TradingSessionListRequestReject) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TradingSessionListRequestReject) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TradingSessionListRequestReject.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TradingSessionListRequestReject) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TradingSessionListRequestReject.Merge(m, src)
+}
+func (m *TradingSessionListRequestReject) XXX_Size() int {
+	return m.Size()
+}
+func (m *TradingSessionListRequestReject) XXX_DiscardUnknown() {
+	xxx_messageInfo_TradingSessionListRequestReject.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TradingSessionListRequestReject proto.InternalMessageInfo
+
+func (m *TradingSessionListRequestReject) GetHeader() *Header {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *TradingSessionListRequestReject) GetTradSesReqID() string {
+	if m != nil {
+		return m.TradSesReqID
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequestReject) GetTradSesStatus() string {
+	if m != nil {
+		return m.TradSesStatus
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequestReject) GetTradSesStatusRejReason() string {
+	if m != nil {
+		return m.TradSesStatusRejReason
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequestReject) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequestReject) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *TradingSessionListRequestReject) GetTrailer() *Trailer {
+	if m != nil {
+		return m.Trailer
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*TradingSessionList)(nil), "jim380.re.fix.TradingSessionList")
+	proto.RegisterType((*TradingSessionListRequest)(nil), "jim380.re.fix.TradingSessionListRequest")
+	proto.RegisterType((*TradingSessionListResponse)(nil), "jim380.re.fix.TradingSessionListResponse")
+	proto.RegisterType((*TradingSessionListRequestReject)(nil), "jim380.re.fix.TradingSessionListRequestReject")
 }
 
 func init() { proto.RegisterFile("re/fix/trading_session_list.proto", fileDescriptor_47d0df21bf68e616) }
 
 var fileDescriptor_47d0df21bf68e616 = []byte{
-	// 180 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2c, 0x4a, 0xd5, 0x4f,
-	0xcb, 0xac, 0xd0, 0x2f, 0x29, 0x4a, 0x4c, 0xc9, 0xcc, 0x4b, 0x8f, 0x2f, 0x4e, 0x2d, 0x2e, 0xce,
-	0xcc, 0xcf, 0x8b, 0xcf, 0xc9, 0x2c, 0x2e, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0xcd,
-	0xca, 0xcc, 0x35, 0xb6, 0x30, 0xd0, 0x2b, 0x4a, 0xd5, 0x4b, 0xcb, 0xac, 0x50, 0x72, 0xe2, 0x12,
-	0x0a, 0x81, 0x28, 0x0e, 0x86, 0xa8, 0xf5, 0xc9, 0x2c, 0x2e, 0x11, 0xe2, 0xe3, 0x62, 0xca, 0x4c,
-	0x91, 0x60, 0x54, 0x60, 0xd4, 0x60, 0x09, 0x62, 0xca, 0x4c, 0x11, 0x92, 0xe1, 0xe2, 0x84, 0x1a,
-	0xe5, 0xe9, 0x22, 0xc1, 0xa4, 0xc0, 0xa8, 0xc1, 0x19, 0x84, 0x10, 0x70, 0xb2, 0x3a, 0xf1, 0x48,
-	0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0,
-	0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0x85, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd,
-	0xe4, 0xfc, 0x5c, 0x7d, 0x88, 0xbd, 0xfa, 0x41, 0xa9, 0xfa, 0x15, 0x10, 0x37, 0x56, 0x16, 0xa4,
-	0x16, 0x27, 0xb1, 0x81, 0x5d, 0x65, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xe6, 0x93, 0x28, 0xa0,
-	0xba, 0x00, 0x00, 0x00,
+	// 661 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0x4f, 0x6f, 0x12, 0x41,
+	0x1c, 0x2d, 0x2d, 0x85, 0xf2, 0xa3, 0x7f, 0x47, 0xad, 0xd3, 0x46, 0x29, 0x12, 0x63, 0xd0, 0xe8,
+	0xd2, 0xb4, 0x89, 0x69, 0x3c, 0x2a, 0x4d, 0x24, 0xd1, 0x68, 0x06, 0x4e, 0x5e, 0x9a, 0x65, 0xf7,
+	0x57, 0x98, 0x06, 0x76, 0xe8, 0xcc, 0x6c, 0x42, 0xbf, 0x85, 0x5f, 0xc3, 0xab, 0x1f, 0xc2, 0x78,
+	0xec, 0xd1, 0xa3, 0x69, 0x3f, 0x88, 0xa6, 0xb3, 0x4b, 0xd8, 0x05, 0xb6, 0x5d, 0x0e, 0xbd, 0xc1,
+	0x7b, 0x6f, 0xde, 0xef, 0xc7, 0x7b, 0x0c, 0x2c, 0x3c, 0x93, 0x58, 0x3b, 0xe5, 0xc3, 0x9a, 0x96,
+	0xb6, 0xcb, 0xbd, 0xce, 0x89, 0x42, 0xa5, 0xb8, 0xf0, 0x4e, 0x7a, 0x5c, 0x69, 0x6b, 0x20, 0x85,
+	0x16, 0x64, 0xed, 0x8c, 0xf7, 0x0f, 0x8f, 0xf6, 0x2d, 0x89, 0xd6, 0x29, 0x1f, 0xee, 0x3e, 0x0d,
+	0x4f, 0x28, 0x6d, 0x7b, 0xae, 0x2d, 0xdd, 0x93, 0x3e, 0x2a, 0x65, 0x77, 0x30, 0x50, 0x57, 0xfe,
+	0x2d, 0x02, 0x69, 0x05, 0x66, 0xcd, 0xc0, 0xeb, 0x13, 0x57, 0x9a, 0x3c, 0x81, 0x42, 0x68, 0xdd,
+	0xa8, 0xd3, 0x4c, 0x39, 0x53, 0x2d, 0xb0, 0x31, 0x40, 0x4e, 0x61, 0x47, 0x4f, 0x9d, 0x61, 0x78,
+	0xee, 0xa3, 0xd2, 0x74, 0xb1, 0x9c, 0xa9, 0x16, 0x0f, 0xaa, 0x56, 0x6c, 0x0d, 0xab, 0x95, 0xa4,
+	0x67, 0xc9, 0x56, 0x84, 0xc3, 0xee, 0x2c, 0x52, 0x0d, 0x84, 0xa7, 0x90, 0x2e, 0x99, 0x41, 0x2f,
+	0x53, 0x0c, 0x0a, 0x0e, 0xb0, 0x5b, 0xcc, 0xc8, 0x10, 0xf6, 0x12, 0xf7, 0x60, 0x78, 0x86, 0x8e,
+	0xa6, 0x59, 0x33, 0xcf, 0x4a, 0xfd, 0xc1, 0xcc, 0x29, 0x76, 0x97, 0x6d, 0xe5, 0xd7, 0x12, 0xec,
+	0x24, 0x9a, 0x90, 0x37, 0x90, 0xeb, 0xa2, 0xed, 0xa2, 0x34, 0x2d, 0x14, 0x0f, 0x1e, 0x4d, 0x8c,
+	0xff, 0x68, 0x48, 0x16, 0x8a, 0x48, 0x05, 0x56, 0x6f, 0xe6, 0x35, 0x51, 0x31, 0x3c, 0x6f, 0xd4,
+	0x4d, 0x19, 0x05, 0x16, 0xc3, 0xc8, 0x2b, 0xd8, 0x8c, 0xef, 0xd4, 0xa8, 0x9b, 0x2c, 0x0b, 0x6c,
+	0x0a, 0x27, 0xfb, 0xf0, 0x20, 0x8e, 0x35, 0xfd, 0x76, 0xa3, 0x6e, 0xa2, 0x28, 0xb0, 0x59, 0xd4,
+	0x8d, 0xbb, 0x42, 0xc7, 0x97, 0x5c, 0x5f, 0x1c, 0x0f, 0x9d, 0xae, 0xed, 0x75, 0x90, 0x2e, 0x07,
+	0xee, 0x93, 0x38, 0x79, 0x0e, 0x6b, 0xe1, 0x66, 0x9f, 0x51, 0x77, 0x85, 0x4b, 0x73, 0x46, 0x18,
+	0x07, 0x49, 0x19, 0x8a, 0x23, 0x40, 0xb8, 0x48, 0xf3, 0x46, 0x13, 0x85, 0xc8, 0x11, 0x3c, 0x56,
+	0x7e, 0x5b, 0x39, 0x92, 0x0f, 0x34, 0x17, 0x5e, 0x98, 0x5d, 0xeb, 0x62, 0x80, 0x74, 0xc5, 0xa8,
+	0x93, 0x68, 0x42, 0x21, 0xef, 0x48, 0xb4, 0xb5, 0x90, 0xb4, 0x60, 0x94, 0xa3, 0xb7, 0x64, 0x1f,
+	0xf2, 0x5a, 0xda, 0xbc, 0x87, 0x92, 0x82, 0x49, 0x7e, 0x7b, 0xba, 0xf8, 0x1b, 0x96, 0x8d, 0x64,
+	0x95, 0x1f, 0x39, 0xd8, 0x4d, 0xfe, 0xf6, 0xdd, 0x47, 0x93, 0xaf, 0x61, 0xcb, 0x13, 0xf1, 0x91,
+	0x2a, 0xac, 0x72, 0x9a, 0x98, 0xd9, 0x7b, 0x76, 0xbe, 0xde, 0x97, 0xe7, 0xeb, 0x3d, 0x97, 0xb6,
+	0xf7, 0x7c, 0x8a, 0xde, 0x57, 0xa6, 0x7b, 0x3f, 0x80, 0x87, 0xbe, 0xa7, 0x44, 0x8f, 0x3b, 0x5c,
+	0xa3, 0xdb, 0xf0, 0x5c, 0xee, 0x44, 0xaa, 0x9c, 0xc9, 0x45, 0x66, 0x37, 0xb5, 0xad, 0x7d, 0x65,
+	0xda, 0x1d, 0xcf, 0x0e, 0x40, 0xf2, 0x16, 0xb6, 0x63, 0x00, 0xc3, 0x33, 0x86, 0xb6, 0x12, 0x1e,
+	0x2d, 0x1a, 0x79, 0x02, 0x3b, 0xca, 0x38, 0x60, 0xa4, 0x6e, 0xf1, 0x3e, 0xd2, 0xd5, 0x71, 0xc6,
+	0x51, 0x9c, 0x54, 0x61, 0x23, 0xc4, 0xbe, 0x0c, 0xd0, 0x33, 0xd2, 0x35, 0x23, 0x9d, 0x84, 0x47,
+	0x6d, 0x34, 0x51, 0x7d, 0x95, 0xf8, 0xa1, 0x27, 0x14, 0x1a, 0xf5, 0xfa, 0xb8, 0x8d, 0x09, 0x2a,
+	0xb2, 0xc7, 0x58, 0xbe, 0x11, 0xdb, 0x63, 0xac, 0x7d, 0x01, 0xeb, 0x21, 0x76, 0xec, 0xb9, 0x46,
+	0xb9, 0x69, 0x94, 0x13, 0x68, 0xf4, 0xae, 0x6c, 0x25, 0xde, 0x15, 0x92, 0xee, 0xae, 0xfc, 0x5c,
+	0x84, 0xbd, 0x3b, 0x7e, 0x39, 0xef, 0xe3, 0xc2, 0x4c, 0x95, 0xbf, 0x34, 0x5f, 0xf9, 0xd9, 0x5b,
+	0xcb, 0x27, 0x90, 0xd5, 0x38, 0xd4, 0xe1, 0x2d, 0x31, 0xaf, 0xa3, 0xa1, 0xe5, 0x12, 0x43, 0xcb,
+	0xa7, 0x0a, 0xed, 0xfd, 0xbb, 0xdf, 0x57, 0xa5, 0xcc, 0xe5, 0x55, 0x29, 0xf3, 0xf7, 0xaa, 0x94,
+	0xf9, 0x7e, 0x5d, 0x5a, 0xb8, 0xbc, 0x2e, 0x2d, 0xfc, 0xb9, 0x2e, 0x2d, 0x7c, 0x2b, 0x77, 0xb8,
+	0xee, 0xfa, 0x6d, 0xcb, 0x11, 0xfd, 0x5a, 0x60, 0x52, 0x63, 0x58, 0x1b, 0x06, 0x8f, 0x0a, 0x17,
+	0x03, 0x54, 0xed, 0x9c, 0xf9, 0xbb, 0x3f, 0xfc, 0x1f, 0x00, 0x00, 0xff, 0xff, 0xc5, 0xd6, 0x4f,
+	0x23, 0x41, 0x08, 0x00, 0x00,
 }
 
 func (m *TradingSessionList) Marshal() (dAtA []byte, err error) {
@@ -116,17 +591,398 @@ func (m *TradingSessionList) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.TradingSessionListRequestReject != nil {
+		{
+			size, err := m.TradingSessionListRequestReject.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.TradingSessionListResponse != nil {
+		{
+			size, err := m.TradingSessionListResponse.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.TradingSessionListRequest != nil {
+		{
+			size, err := m.TradingSessionListRequest.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
 	if len(m.SessionID) > 0 {
 		i -= len(m.SessionID)
 		copy(dAtA[i:], m.SessionID)
 		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.SessionID)))
 		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TradingSessionListRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TradingSessionListRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TradingSessionListRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.SubscriptionRequestType) > 0 {
+		i -= len(m.SubscriptionRequestType)
+		copy(dAtA[i:], m.SubscriptionRequestType)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.SubscriptionRequestType)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.TradSesMode) > 0 {
+		i -= len(m.TradSesMode)
+		copy(dAtA[i:], m.TradSesMode)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesMode)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.TradSesMethod) > 0 {
+		i -= len(m.TradSesMethod)
+		copy(dAtA[i:], m.TradSesMethod)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesMethod)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.SecurityExchange) > 0 {
+		i -= len(m.SecurityExchange)
+		copy(dAtA[i:], m.SecurityExchange)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.SecurityExchange)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.TradingSessionSubID) > 0 {
+		i -= len(m.TradingSessionSubID)
+		copy(dAtA[i:], m.TradingSessionSubID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradingSessionSubID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.TradingSessionID) > 0 {
+		i -= len(m.TradingSessionID)
+		copy(dAtA[i:], m.TradingSessionID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradingSessionID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradSesReqID) > 0 {
+		i -= len(m.TradSesReqID)
+		copy(dAtA[i:], m.TradSesReqID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesReqID)))
+		i--
 		dAtA[i] = 0x12
 	}
-	if m.Id != 0 {
-		i = encodeVarintTradingSessionList(dAtA, i, uint64(m.Id))
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
 		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TradingSessionListResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TradingSessionListResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TradingSessionListResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x92
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x8a
+	}
+	if len(m.TradSesEndTime) > 0 {
+		i -= len(m.TradSesEndTime)
+		copy(dAtA[i:], m.TradSesEndTime)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesEndTime)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
+	if len(m.TradSesCloseTime) > 0 {
+		i -= len(m.TradSesCloseTime)
+		copy(dAtA[i:], m.TradSesCloseTime)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesCloseTime)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if len(m.TradSesPreCloseTime) > 0 {
+		i -= len(m.TradSesPreCloseTime)
+		copy(dAtA[i:], m.TradSesPreCloseTime)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesPreCloseTime)))
+		i--
+		dAtA[i] = 0x72
+	}
+	if len(m.TradSesOpenTime) > 0 {
+		i -= len(m.TradSesOpenTime)
+		copy(dAtA[i:], m.TradSesOpenTime)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesOpenTime)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.TradSesStartTime) > 0 {
+		i -= len(m.TradSesStartTime)
+		copy(dAtA[i:], m.TradSesStartTime)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesStartTime)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.TradSesStatusRejReason) > 0 {
+		i -= len(m.TradSesStatusRejReason)
+		copy(dAtA[i:], m.TradSesStatusRejReason)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesStatusRejReason)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.TradSesStatus) > 0 {
+		i -= len(m.TradSesStatus)
+		copy(dAtA[i:], m.TradSesStatus)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesStatus)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.UnsolicitedIndicator) > 0 {
+		i -= len(m.UnsolicitedIndicator)
+		copy(dAtA[i:], m.UnsolicitedIndicator)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.UnsolicitedIndicator)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.TradSesMode) > 0 {
+		i -= len(m.TradSesMode)
+		copy(dAtA[i:], m.TradSesMode)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesMode)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.TradSesMethod) > 0 {
+		i -= len(m.TradSesMethod)
+		copy(dAtA[i:], m.TradSesMethod)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesMethod)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.SecurityExchange) > 0 {
+		i -= len(m.SecurityExchange)
+		copy(dAtA[i:], m.SecurityExchange)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.SecurityExchange)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.TradingSessionSubID) > 0 {
+		i -= len(m.TradingSessionSubID)
+		copy(dAtA[i:], m.TradingSessionSubID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradingSessionSubID)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.TradingSessionID) > 0 {
+		i -= len(m.TradingSessionID)
+		copy(dAtA[i:], m.TradingSessionID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradingSessionID)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.NoTradingSessions) > 0 {
+		i -= len(m.NoTradingSessions)
+		copy(dAtA[i:], m.NoTradingSessions)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.NoTradingSessions)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradSesReqID) > 0 {
+		i -= len(m.TradSesReqID)
+		copy(dAtA[i:], m.TradSesReqID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TradingSessionListRequestReject) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TradingSessionListRequestReject) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TradingSessionListRequestReject) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Trailer != nil {
+		{
+			size, err := m.Trailer.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.TradSesStatusRejReason) > 0 {
+		i -= len(m.TradSesStatusRejReason)
+		copy(dAtA[i:], m.TradSesStatusRejReason)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesStatusRejReason)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.TradSesStatus) > 0 {
+		i -= len(m.TradSesStatus)
+		copy(dAtA[i:], m.TradSesStatus)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesStatus)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TradSesReqID) > 0 {
+		i -= len(m.TradSesReqID)
+		copy(dAtA[i:], m.TradSesReqID)
+		i = encodeVarintTradingSessionList(dAtA, i, uint64(len(m.TradSesReqID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Header != nil {
+		{
+			size, err := m.Header.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTradingSessionList(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -148,11 +1004,187 @@ func (m *TradingSessionList) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.Id != 0 {
-		n += 1 + sovTradingSessionList(uint64(m.Id))
-	}
 	l = len(m.SessionID)
 	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.TradingSessionListRequest != nil {
+		l = m.TradingSessionListRequest.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.TradingSessionListResponse != nil {
+		l = m.TradingSessionListResponse.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.TradingSessionListRequestReject != nil {
+		l = m.TradingSessionListRequestReject.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	return n
+}
+
+func (m *TradingSessionListRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesReqID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradingSessionID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradingSessionSubID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.SecurityExchange)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesMethod)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesMode)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.SubscriptionRequestType)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	return n
+}
+
+func (m *TradingSessionListResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesReqID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.NoTradingSessions)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradingSessionID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradingSessionSubID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.SecurityExchange)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesMethod)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesMode)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.UnsolicitedIndicator)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesStatus)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesStatusRejReason)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesStartTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesOpenTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesPreCloseTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesCloseTime)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesEndTime)
+	if l > 0 {
+		n += 2 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 2 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
+		n += 2 + l + sovTradingSessionList(uint64(l))
+	}
+	return n
+}
+
+func (m *TradingSessionListRequestReject) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Header != nil {
+		l = m.Header.Size()
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesReqID)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesStatus)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.TradSesStatusRejReason)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTradingSessionList(uint64(l))
+	}
+	if m.Trailer != nil {
+		l = m.Trailer.Size()
 		n += 1 + l + sovTradingSessionList(uint64(l))
 	}
 	return n
@@ -194,25 +1226,6 @@ func (m *TradingSessionList) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTradingSessionList
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SessionID", wireType)
 			}
@@ -243,6 +1256,1408 @@ func (m *TradingSessionList) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.SessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionListRequest", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingSessionListRequest == nil {
+				m.TradingSessionListRequest = &TradingSessionListRequest{}
+			}
+			if err := m.TradingSessionListRequest.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionListResponse", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingSessionListResponse == nil {
+				m.TradingSessionListResponse = &TradingSessionListResponse{}
+			}
+			if err := m.TradingSessionListResponse.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionListRequestReject", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingSessionListRequestReject == nil {
+				m.TradingSessionListRequestReject = &TradingSessionListRequestReject{}
+			}
+			if err := m.TradingSessionListRequestReject.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTradingSessionList(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TradingSessionListRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTradingSessionList
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TradingSessionListRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TradingSessionListRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradingSessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionSubID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradingSessionSubID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMethod", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesMethod = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SubscriptionRequestType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SubscriptionRequestType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTradingSessionList(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TradingSessionListResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTradingSessionList
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TradingSessionListResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TradingSessionListResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoTradingSessions", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NoTradingSessions = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradingSessionID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingSessionSubID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradingSessionSubID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityExchange", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecurityExchange = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMethod", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesMethod = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UnsolicitedIndicator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UnsolicitedIndicator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatus", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStatus = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatusRejReason", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStatusRejReason = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStartTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStartTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesOpenTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesOpenTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesPreCloseTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesPreCloseTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesCloseTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesCloseTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesEndTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesEndTime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 18:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTradingSessionList(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TradingSessionListRequestReject) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTradingSessionList
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TradingSessionListRequestReject: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TradingSessionListRequestReject: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Header == nil {
+				m.Header = &Header{}
+			}
+			if err := m.Header.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesReqID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesReqID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatus", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStatus = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradSesStatusRejReason", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TradSesStatusRejReason = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Trailer", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTradingSessionList
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTradingSessionList
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Trailer == nil {
+				m.Trailer = &Trailer{}
+			}
+			if err := m.Trailer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
