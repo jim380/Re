@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdTradingSessionListRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-list-request [session-id] [trad-ses-req-id] [trading-session-id] [trading-session-sub-id] [security-exchange] [trad-ses-method] [trad-ses-mode] [subscription-request-type]",
+		Use:   "trading-session-list-request [sessionID] [tradSesReqID] [tradingSessionID] [tradingSessionSubID] [securityExchange] [tradSesMethod] [tradSesMode] [subscriptionRequestType]",
 		Short: "Broadcast message trading-session-list-request",
 		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -63,7 +63,7 @@ func CmdTradingSessionListRequest() *cobra.Command {
 
 func CmdTradingSessionListResponse() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-list-response [session-id] [trad-ses-req-id] [no-trading-sessions] [trading-session-id] [trading-session-sub-id] [security-exchange] [trad-ses-method] [trad-ses-mode] [unsolicited-indicator] [trad-ses-status] [trad-ses-status-rej-reason] [trad-ses-start-time] [trad-ses-open-time] [trad-ses-pre-close-time] [trad-ses-close-time] [trad-ses-end-time]",
+		Use:   "trading-session-list-response [sessionID] [tradSesReqID] [noTradingSessions] [tradingSessionID] [tradingSessionSubID] [securityExchange] [tradSesMethod] [tradSesMode] [unsolicitedIndicator] [tradSesStatus] [tradSesStatusRejReason] [tradSesStartTime] [tradSesOpenTime] [tradSesPreCloseTime] [tradSesCloseTime] [tradSesEndTime]",
 		Short: "Broadcast message trading-session-list-response",
 		Args:  cobra.ExactArgs(16),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
