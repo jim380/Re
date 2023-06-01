@@ -52,7 +52,6 @@ func (msg *MsgTradingSessionListRequest) ValidateBasic() error {
 	return nil
 }
 
-
 const TypeMsgTradingSessionListResponse = "trading_session_list_response"
 
 var _ sdk.Msg = &MsgTradingSessionListResponse{}
@@ -107,7 +106,6 @@ func (msg *MsgTradingSessionListResponse) ValidateBasic() error {
 	}
 	return nil
 }
-
 
 const TypeMsgTradingSessionListRequestReject = "trading_session_list_request_reject"
 
