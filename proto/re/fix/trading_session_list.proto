@@ -55,8 +55,8 @@ message TradingSessionListResponse {
   // Standard FIX message header.
   Header header = 1;
 
-  // (335)	Provided for a response to a specific Trading Session List Request
-  // (BI) message (snapshot)
+  // (335)	Provided for a response to a specific Trading Session List
+  // Request (BI) message (snapshot)
   string tradSesReqID = 2;
 
   // (386)

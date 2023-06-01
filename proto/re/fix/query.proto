@@ -175,7 +175,8 @@ service Query {
   // Queries a list of TradingSessionList items.
   rpc TradingSessionList(QueryGetTradingSessionListRequest)
       returns (QueryGetTradingSessionListResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
   }
   rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
       returns (QueryAllTradingSessionListResponse) {
