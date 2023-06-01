@@ -94,7 +94,9 @@ func (m *TradingSessionList) GetTradingSessionListRequestReject() *TradingSessio
 type TradingSessionListRequest struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (335)	Must be unique, or the ID of previous Trading Session Status Request (g) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Update Request (2).
+	// (335)	Must be unique, or the ID of previous Trading Session Status
+	// Request (g) to disable if SubscriptionRequestType (263) = Disable previous
+	// Snapshot + Update Request (2).
 	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
 	// (336) Trading Session for which status is being requested
 	TradingSessionID string `protobuf:"bytes,3,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
@@ -217,11 +219,13 @@ func (m *TradingSessionListRequest) GetTrailer() *Trailer {
 	return nil
 }
 
-// Trading Session List Response with fields, tags and descriptions. MsgType = BJ
+// Trading Session List Response with fields, tags and descriptions. MsgType =
+// BJ
 type TradingSessionListResponse struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (335)	Provided for a response to a specific Trading Session List Request (BI) message (snapshot)
+	// (335)	Provided for a response to a specific Trading Session List Request
+	// (BI) message (snapshot)
 	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
 	// (386)
 	NoTradingSessions string `protobuf:"bytes,3,opt,name=noTradingSessions,proto3" json:"noTradingSessions,omitempty"`
@@ -235,7 +239,8 @@ type TradingSessionListResponse struct {
 	TradSesMethod string `protobuf:"bytes,7,opt,name=tradSesMethod,proto3" json:"tradSesMethod,omitempty"`
 	// (339) 	Trading Session Mode
 	TradSesMode string `protobuf:"bytes,8,opt,name=tradSesMode,proto3" json:"tradSesMode,omitempty"`
-	// (325) "Y" if message is sent unsolicited as a result of a previous subscription request
+	// (325) "Y" if message is sent unsolicited as a result of a previous
+	// subscription request
 	UnsolicitedIndicator string `protobuf:"bytes,9,opt,name=unsolicitedIndicator,proto3" json:"unsolicitedIndicator,omitempty"`
 	// (340) State of trading session.
 	TradSesStatus string `protobuf:"bytes,10,opt,name=tradSesStatus,proto3" json:"tradSesStatus,omitempty"`
@@ -416,17 +421,21 @@ func (m *TradingSessionListResponse) GetTrailer() *Trailer {
 	return nil
 }
 
-// Trading Session List Request Reject with fields, tags and descriptions. MsgType = BK
+// Trading Session List Request Reject with fields, tags and descriptions.
+// MsgType = BK
 type TradingSessionListRequestReject struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (335)	Matches the ID of the rejected Trading Session List Request (BI) message.
+	// (335)	Matches the ID of the rejected Trading Session List Request (BI)
+	// message.
 	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
-	// (340)	Indicates the status of the trading session request. Set to "0" (Rejected) for a request reject message.
+	// (340)	Indicates the status of the trading session request. Set to "0"
+	// (Rejected) for a request reject message.
 	TradSesStatus string `protobuf:"bytes,3,opt,name=tradSesStatus,proto3" json:"tradSesStatus,omitempty"`
 	// (567) Reason for rejecting the trading session request.
 	TradSesStatusRejReason string `protobuf:"bytes,4,opt,name=tradSesStatusRejReason,proto3" json:"tradSesStatusRejReason,omitempty"`
-	// (58) Optional additional text providing further details about the rejection.
+	// (58) Optional additional text providing further details about the
+	// rejection.
 	Text string `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
 	// owner
 	Creator string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`

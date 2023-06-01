@@ -175,7 +175,7 @@ service Query {
   // Queries a list of TradingSessionList items.
   rpc TradingSessionList(QueryGetTradingSessionListRequest)
       returns (QueryGetTradingSessionListResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading_session_list/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
   }
   rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
       returns (QueryAllTradingSessionListResponse) {
@@ -414,7 +414,7 @@ message QueryAllTradingSessionResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetTradingSessionListRequest { uint64 id = 1; }
+message QueryGetTradingSessionListRequest { string tradSesReqID = 1; }
 
 message QueryGetTradingSessionListResponse {
   TradingSessionList TradingSessionList = 1 [ (gogoproto.nullable) = false ];

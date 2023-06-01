@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListTradingSessionList() *cobra.Command {
 
 func CmdShowTradingSessionList() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-trading-session-list [id]",
+		Use:   "show-trading-session-list [tradSesReqID ]",
 		Short: "shows a trading-session-list",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowTradingSessionList() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argTradSesReqID := args[0]
 
 			params := &types.QueryGetTradingSessionListRequest{
-				Id: id,
+				TradSesReqID: argTradSesReqID,
 			}
 
 			res, err := queryClient.TradingSessionList(context.Background(), params)

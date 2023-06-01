@@ -59,6 +59,9 @@ var (
 
 	TradingSessionKey      = []byte{0x024}
 	TradingSessionCountKey = []byte{0x025}
+
+	TradingSessionListKey      = []byte{0x026}
+	TradingSessionListCountKey = []byte{0x027}
 )
 
 func GetAccountKey() []byte {
@@ -169,7 +172,10 @@ func GetTradingSessionCountKey() []byte {
 	return TradingSessionCountKey
 }
 
-const (
-	TradingSessionListKey      = "TradingSessionList/value/"
-	TradingSessionListCountKey = "TradingSessionList/count/"
-)
+func GetTradingSessionListKey() []byte {
+	return TradingSessionListKey
+}
+
+func GetTradingSessionListCountKey() []byte {
+	return TradingSessionListCountKey
+}
