@@ -66,6 +66,12 @@ service Msg {
       returns (MsgTradingSessionStatusResponse);
   rpc TradingSessionStatusRequestReject(MsgTradingSessionStatusRequestReject)
       returns (MsgTradingSessionStatusRequestRejectResponse);
+  rpc TradingSessionListRequest(MsgTradingSessionListRequest)
+      returns (MsgTradingSessionListRequestResponse);
+  rpc TradingSessionListResponse(MsgTradingSessionListResponse)
+      returns (MsgTradingSessionListResponseResponse);
+  rpc TradingSessionListRequestReject(MsgTradingSessionListRequestReject)
+      returns (MsgTradingSessionListRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -506,3 +512,50 @@ message MsgTradingSessionStatusRequestReject {
 }
 
 message MsgTradingSessionStatusRequestRejectResponse {}
+
+message MsgTradingSessionListRequest {
+  string creator = 1;
+  string sessionID = 2;
+  string tradSesReqID = 3;
+  string tradingSessionID = 4;
+  string tradingSessionSubID = 5;
+  string securityExchange = 6;
+  string tradSesMethod = 7;
+  string tradSesMode = 8;
+  string subscriptionRequestType = 9;
+}
+
+message MsgTradingSessionListRequestResponse {}
+
+message MsgTradingSessionListResponse {
+  string creator = 1;
+  string sessionID = 2;
+  string tradSesReqID = 3;
+  string noTradingSessions = 4;
+  string tradingSessionID = 5;
+  string tradingSessionSubID = 6;
+  string securityExchange = 7;
+  string tradSesMethod = 8;
+  string tradSesMode = 9;
+  string unsolicitedIndicator = 10;
+  string tradSesStatus = 11;
+  string tradSesStatusRejReason = 12;
+  string tradSesStartTime = 13;
+  string tradSesOpenTime = 14;
+  string tradSesPreCloseTime = 15;
+  string tradSesCloseTime = 16;
+  string tradSesEndTime = 17;
+}
+
+message MsgTradingSessionListResponseResponse {}
+
+message MsgTradingSessionListRequestReject {
+  string creator = 1;
+  string sessionID = 2;
+  string tradSesReqID = 3;
+  string tradSesStatus = 4;
+  string tradSesStatusRejReason = 5;
+  string text = 6;
+}
+
+message MsgTradingSessionListRequestRejectResponse {}

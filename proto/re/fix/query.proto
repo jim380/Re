@@ -20,6 +20,7 @@ import "re/fix/market_data.proto";
 import "re/fix/security.proto";
 import "re/fix/order_mass_status.proto";
 import "re/fix/trading_session.proto";
+import "re/fix/trading_session_list.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -169,6 +170,17 @@ service Query {
   rpc TradingSessionAll(QueryAllTradingSessionRequest)
       returns (QueryAllTradingSessionResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trading_session";
+  }
+
+  // Queries a list of TradingSessionList items.
+  rpc TradingSessionList(QueryGetTradingSessionListRequest)
+      returns (QueryGetTradingSessionListResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
+  }
+  rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
+      returns (QueryAllTradingSessionListResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/trading_session_list";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -400,5 +412,21 @@ message QueryAllTradingSessionRequest {
 
 message QueryAllTradingSessionResponse {
   repeated TradingSession TradingSession = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetTradingSessionListRequest { string tradSesReqID = 1; }
+
+message QueryGetTradingSessionListResponse {
+  TradingSessionList TradingSessionList = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllTradingSessionListRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTradingSessionListResponse {
+  repeated TradingSessionList TradingSessionList = 1
+      [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

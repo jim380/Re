@@ -1,0 +1,139 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/standard_message.proto";
+
+message TradingSessionList {
+  string sessionID = 1;
+  TradingSessionListRequest tradingSessionListRequest = 2;
+  TradingSessionListResponse tradingSessionListResponse = 3;
+  TradingSessionListRequestReject tradingSessionListRequestReject = 4;
+}
+
+// Trading Session List Request with fields, tags and descriptions. MsgType = BI
+message TradingSessionListRequest {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (335)	Must be unique, or the ID of previous Trading Session Status
+  // Request (g) to disable if SubscriptionRequestType (263) = Disable previous
+  // Snapshot + Update Request (2).
+  string tradSesReqID = 2;
+
+  // (336) Trading Session for which status is being requested
+  string tradingSessionID = 3;
+
+  // (625)
+  string tradingSessionSubID = 4;
+
+  // (207)
+  string securityExchange = 5;
+
+  // (338) 	Method of Trading
+  string tradSesMethod = 6;
+
+  // (339) Trading Session Mode
+  string tradSesMode = 7;
+
+  // (263)
+  string subscriptionRequestType = 8;
+
+  // owner
+  string creator = 9;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 10;
+}
+
+// Trading Session List Response with fields, tags and descriptions. MsgType =
+// BJ
+message TradingSessionListResponse {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (335)	Provided for a response to a specific Trading Session List
+  // Request (BI) message (snapshot)
+  string tradSesReqID = 2;
+
+  // (386)
+  string noTradingSessions = 3;
+
+  // (336) Identifier for Trading Session
+  string tradingSessionID = 4;
+
+  // (625)
+  string tradingSessionSubID = 5;
+
+  // (207)
+  string securityExchange = 6;
+
+  // (338) Method of Trading
+  string tradSesMethod = 7;
+
+  // (339) 	Trading Session Mode
+  string tradSesMode = 8;
+
+  // (325) "Y" if message is sent unsolicited as a result of a previous
+  // subscription request
+  string unsolicitedIndicator = 9;
+
+  // (340) State of trading session.
+  string tradSesStatus = 10;
+
+  // (567) Used with TradSesStatus (340) = "Request Rejected".
+  string tradSesStatusRejReason = 11;
+
+  // (341) Starting time of trading session
+  string tradSesStartTime = 12;
+
+  // (342) Time of the opening of the trading session
+  string tradSesOpenTime = 13;
+
+  // (343) Time of pre-close of trading session
+  string tradSesPreCloseTime = 14;
+
+  // (344) Closing time of trading session
+  string tradSesCloseTime = 15;
+
+  // (345)
+  string tradSesEndTime = 16;
+
+  // owner
+  string creator = 17;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 18;
+}
+
+// Trading Session List Request Reject with fields, tags and descriptions.
+// MsgType = BK
+message TradingSessionListRequestReject {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (335)	Matches the ID of the rejected Trading Session List Request (BI)
+  // message.
+  string tradSesReqID = 2;
+
+  // (340)	Indicates the status of the trading session request. Set to "0"
+  // (Rejected) for a request reject message.
+  string tradSesStatus = 3;
+
+  // (567) Reason for rejecting the trading session request.
+  string tradSesStatusRejReason = 4;
+
+  // (58) Optional additional text providing further details about the
+  // rejection.
+  string text = 5;
+
+  // owner
+  string creator = 6;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 7;
+}

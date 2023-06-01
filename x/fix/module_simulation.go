@@ -124,6 +124,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgTradingSessionStatusRequestReject int = 100
 
+	opWeightMsgTradingSessionListRequest = "op_weight_msg_trading_session_list_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgTradingSessionListRequest int = 100
+
+	opWeightMsgTradingSessionListResponse = "op_weight_msg_trading_session_list_response"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgTradingSessionListResponse int = 100
+
+	opWeightMsgTradingSessionListRequestReject = "op_weight_msg_trading_session_list_request_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgTradingSessionListRequestReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -441,6 +453,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgTradingSessionStatusRequestReject,
 		fixsimulation.SimulateMsgTradingSessionStatusRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgTradingSessionListRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradingSessionListRequest, &weightMsgTradingSessionListRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgTradingSessionListRequest = defaultWeightMsgTradingSessionListRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgTradingSessionListRequest,
+		fixsimulation.SimulateMsgTradingSessionListRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgTradingSessionListResponse int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradingSessionListResponse, &weightMsgTradingSessionListResponse, nil,
+		func(_ *rand.Rand) {
+			weightMsgTradingSessionListResponse = defaultWeightMsgTradingSessionListResponse
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgTradingSessionListResponse,
+		fixsimulation.SimulateMsgTradingSessionListResponse(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgTradingSessionListRequestReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTradingSessionListRequestReject, &weightMsgTradingSessionListRequestReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgTradingSessionListRequestReject = defaultWeightMsgTradingSessionListRequestReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgTradingSessionListRequestReject,
+		fixsimulation.SimulateMsgTradingSessionListRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

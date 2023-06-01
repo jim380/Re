@@ -550,8 +550,8 @@ type TradingSessionStatusRequestReject struct {
 	RefSeqNum string `protobuf:"bytes,2,opt,name=refSeqNum,proto3" json:"refSeqNum,omitempty"`
 	// (372)	Message type of the rejected request
 	RefMsgType string `protobuf:"bytes,3,opt,name=refMsgType,proto3" json:"refMsgType,omitempty"`
-	// (373)	Code indicating the reason for rejecting the trading session status
-	// request
+	// (373)	Code indicating the reason for rejecting the trading session
+	// status request
 	SessionRejectReason int32 `protobuf:"varint,4,opt,name=sessionRejectReason,proto3" json:"sessionRejectReason,omitempty"`
 	// 58	Free-form text providing additional information about the rejection
 	Text string `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`

@@ -126,6 +126,13 @@ const (
 	errTradingSessionStatusRequestIsRejected
 	errTradingSessionStatusRequestIsAcknowledged
 	errTradingSessionMismatchField
+
+	// Trading Session List
+	errTradingSessionListEmptyField
+	errTradingSessionListSession
+	errTradingSessionListIsNotFound
+	errTradingSessionListRequestIsRejected
+	errTradingSessionListRequestIsAcknowledged
 )
 
 // x/fix module sentinel errors
@@ -247,4 +254,11 @@ var (
 	ErrTradingSessionStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsRejected, "Trading Session Status Request has been rejected")
 	ErrTradingSessionStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsAcknowledged, "Trading Session Status Request has been acknowledged")
 	ErrTradingSessionMismatchField               = sdkerrors.Register(ModuleName, errTradingSessionMismatchField, "This value does not match the value from Trade Session Status Request")
+
+	// Trading Session List
+	ErrTradingSessionListEmptyField            = sdkerrors.Register(ModuleName, errTradingSessionListEmptyField, "This field can not be left empty")
+	ErrTradingSessionListSession               = sdkerrors.Register(ModuleName, errTradingSessionListSession, "The sessionID is not recognized by the Trading Session List Request system")
+	ErrTradingSessionListIsNotFound            = sdkerrors.Register(ModuleName, errTradingSessionListIsNotFound, "Trading Session List Request is not found")
+	ErrTradingSessionListRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionListRequestIsRejected, "Trading Session List Request has been rejected")
+	ErrTradingSessionListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionListRequestIsAcknowledged, "Trading Session List Request has been acknowledged")
 )
