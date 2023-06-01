@@ -126,6 +126,9 @@ const (
 	errTradingSessionStatusRequestIsRejected
 	errTradingSessionStatusRequestIsAcknowledged
 	errTradingSessionMismatchField
+
+	// Trading Session List
+	errTradingSessionListEmptyField
 )
 
 // x/fix module sentinel errors
@@ -247,4 +250,7 @@ var (
 	ErrTradingSessionStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsRejected, "Trading Session Status Request has been rejected")
 	ErrTradingSessionStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionStatusRequestIsAcknowledged, "Trading Session Status Request has been acknowledged")
 	ErrTradingSessionMismatchField               = sdkerrors.Register(ModuleName, errTradingSessionMismatchField, "This value does not match the value from Trade Session Status Request")
+
+	// Trading Session List
+	ErrTradingSessionListEmptyField = sdkerrors.Register(ModuleName, errTradingSessionListEmptyField, "This field can not be left empty")
 )

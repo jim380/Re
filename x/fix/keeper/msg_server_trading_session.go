@@ -92,7 +92,7 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	// checksum in the trailer can be recalculated using CalculateChecksum function
 	tradingSessionStatusRequest.TradingSessionStatusRequest.Trailer = session.LogonInitiator.Trailer
 
-	// set Trade Capture Report to store
+	// set Trading Session Status Request to store
 	k.SetTradingSession(ctx, msg.TradSesReqID, tradingSessionStatusRequest)
 
 	// emit event
