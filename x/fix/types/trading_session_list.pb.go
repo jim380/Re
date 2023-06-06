@@ -224,8 +224,8 @@ func (m *TradingSessionListRequest) GetTrailer() *Trailer {
 type TradingSessionListResponse struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (335)	Provided for a response to a specific Trading Session List Request
-	// (BI) message (snapshot)
+	// (335)	Provided for a response to a specific Trading Session List
+	// Request (BI) message (snapshot)
 	TradSesReqID string `protobuf:"bytes,2,opt,name=tradSesReqID,proto3" json:"tradSesReqID,omitempty"`
 	// (386)
 	NoTradingSessions string `protobuf:"bytes,3,opt,name=noTradingSessions,proto3" json:"noTradingSessions,omitempty"`

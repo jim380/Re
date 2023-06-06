@@ -179,3 +179,8 @@ func GetTradingSessionListKey() []byte {
 func GetTradingSessionListCountKey() []byte {
 	return TradingSessionListCountKey
 }
+
+const (
+	SecurityListKey      = "SecurityList/value/"
+	SecurityListCountKey = "SecurityList/count/"
+)

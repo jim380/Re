@@ -97,6 +97,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set tradingSessionList count
 	k.SetTradingSessionListCount(ctx, genState.TradingSessionListCount)
+	// Set all the securityList
+	for _, elem := range genState.SecurityListList {
+		k.SetSecurityList(ctx, elem)
+	}
+
+	// Set securityList count
+	k.SetSecurityListCount(ctx, genState.SecurityListCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -123,6 +130,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.TradingSessionCount = k.GetTradingSessionCount(ctx)
 	genesis.TradingSessionListList = k.GetAllTradingSessionList(ctx)
 	genesis.TradingSessionListCount = k.GetTradingSessionListCount(ctx)
+	genesis.SecurityListList = k.GetAllSecurityList(ctx)
+	genesis.SecurityListCount = k.GetSecurityListCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
