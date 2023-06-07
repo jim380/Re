@@ -4,7 +4,23 @@ package jim380.re.fix;
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 message SecurityList {
-  uint64 id = 1;
-  string sessionID = 2; 
-  
+  string sessionID = 1; 
+   SecurityListRequest  securityListRequest = 2;
+   SecurityListResponse SecurityListResponse = 3;
+   SecurityListRequestReject securityListRequestReject = 4;
+}
+
+// Security List Request with fields, tags and descriptions.
+message SecurityListRequest {
+  // TODO
+}
+
+// Security List Response  with fields, tags and descriptions.
+message SecurityListResponse {
+  // TODO
+}
+
+// Security List Request Reject with fields, tags and descriptions.
+message SecurityListRequestReject {
+  // TODO
 }
