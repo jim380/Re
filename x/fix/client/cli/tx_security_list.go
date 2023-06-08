@@ -16,20 +16,22 @@ func CmdSecurityListRequest() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "security-list-request [sessionID] [securityReqID] [securityListRequestType] [noUnderlyings] [noLegs] [currency] [text] [encodedTextLen] [encodedText] [tradingSessionID] [tradingSessionSubID] [subscriptionRequestType]",
 		Short: "Broadcast message security-list-request",
-		Args:  cobra.ExactArgs(12),
+		Args:  cobra.ExactArgs(11),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argSecurityReqID := args[1]
-			argSecurityListRequestType := args[2]
-			argNoUnderlyings := args[3]
-			argNoLegs := args[4]
-			argCurrency := args[5]
-			argText := args[6]
-			argEncodedTextLen := args[7]
-			argEncodedText := args[8]
-			argTradingSessionID := args[9]
-			argTradingSessionSubID := args[10]
-			argSubscriptionRequestType := args[11]
+			argSecurityListRequestType := args[1]
+			argNoUnderlyings := args[2]
+			argNoLegs := args[3]
+			argCurrency := args[4]
+			argText := args[5]
+			argEncodedTextLen := args[6]
+			argEncodedText := args[7]
+			argTradingSessionID := args[8]
+			argTradingSessionSubID := args[9]
+			argSubscriptionRequestType := args[10]
+
+			// GenerateRandomString function uniquely generates SecurityReqID for every Security List Request
+			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -130,17 +132,15 @@ func CmdSecurityListRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "security-list-request-reject [sessionID] [securityReqID] [securityListRequestType] [securityRequestResult] [text] [encodedTextLen] [encodedText]",
 		Short: "Broadcast message security-list-request-reject",
-		Args:  cobra.ExactArgs(6),
+		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argSecurityListRequestType := args[1]
-			argSecurityRequestResult := args[2]
-			argText := args[3]
-			argEncodedTextLen := args[4]
-			argEncodedText := args[5]
-
-			// GenerateRandomString function uniquely generates SecurityReqID for every Security List Request
-			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
+			argSecurityReqID := args[1]
+			argSecurityListRequestType := args[2]
+			argSecurityRequestResult := args[3]
+			argText := args[4]
+			argEncodedTextLen := args[5]
+			argEncodedText := args[6]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
