@@ -49,6 +49,7 @@ service Msg {
   rpc TradingSessionListResponse        (MsgTradingSessionListResponse       ) returns (MsgTradingSessionListResponseResponse       );
   rpc TradingSessionListRequestReject   (MsgTradingSessionListRequestReject  ) returns (MsgTradingSessionListRequestRejectResponse  );
   rpc SecurityListRequest               (MsgSecurityListRequest              ) returns (MsgSecurityListRequestResponse              );
+  rpc SecurityListResponse              (MsgSecurityListResponse             ) returns (MsgSecurityListResponseResponse             );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -556,4 +557,28 @@ message MsgSecurityListRequest {
 }
 
 message MsgSecurityListRequestResponse {}
+
+message MsgSecurityListResponse {
+  string creator               =  1;
+  string sessionID             =  2;
+  string securityReqID         =  3;
+  string securityResponseID    =  4;
+  string securityRequestResult =  5;
+  string totNoRelatedSym       =  6;
+  string lastFragment          =  7;
+  string noRelatedSym          =  8;
+  string noUnderlyings         =  9;
+  string currency              = 10;
+  string noLegs                = 11;
+  string roundLot              = 12;
+  string minTradeVol           = 13;
+  string tradingSessionID      = 14;
+  string tradingSessionSubID   = 15;
+  string expirationCycle       = 16;
+  string text                  = 17;
+  string encodedTextLen        = 18;
+  string encodedText           = 19;
+}
+
+message MsgSecurityListResponseResponse {}
 

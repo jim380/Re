@@ -63181,6 +63181,8 @@ definitions:
     type: object
   jim380.re.fix.MsgSecurityListRequestResponse:
     type: object
+  jim380.re.fix.MsgSecurityListResponseResponse:
+    type: object
   jim380.re.fix.MsgTerminateLogonResponse:
     type: object
   jim380.re.fix.MsgTradeCaptureReportAcknowledgementResponse:
