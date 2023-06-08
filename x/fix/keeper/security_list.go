@@ -11,7 +11,7 @@ import (
 // GetSecurityListCount get the total number of securityList
 func (k Keeper) GetSecurityListCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SecurityListCountKey)
+	byteKey := types.GetSecurityListCountKey()
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -26,7 +26,7 @@ func (k Keeper) GetSecurityListCount(ctx sdk.Context) uint64 {
 // SetSecurityListCount set the total number of securityList
 func (k Keeper) SetSecurityListCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SecurityListCountKey)
+	byteKey := types.GetSecurityListCountKey()
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
@@ -34,7 +34,7 @@ func (k Keeper) SetSecurityListCount(ctx sdk.Context, count uint64) {
 
 // SetSecurityList set a specific securityList in the store
 func (k Keeper) SetSecurityList(ctx sdk.Context, securityReqID string, securityList types.SecurityList) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityListKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityListKey())
 	key := []byte(securityReqID)
 	b := k.cdc.MustMarshal(&securityList)
 	store.Set(key, b)
@@ -42,7 +42,7 @@ func (k Keeper) SetSecurityList(ctx sdk.Context, securityReqID string, securityL
 
 // GetSecurityList returns a securityList from its id
 func (k Keeper) GetSecurityList(ctx sdk.Context, securityReqID string) (val types.SecurityList, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityListKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityListKey())
 	key := []byte(securityReqID)
 	b := store.Get(key)
 	if b == nil {
@@ -54,14 +54,14 @@ func (k Keeper) GetSecurityList(ctx sdk.Context, securityReqID string) (val type
 
 // RemoveSecurityList removes a securityList from the store
 func (k Keeper) RemoveSecurityList(ctx sdk.Context, securityReqID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityListKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityListKey())
 	key := []byte(securityReqID)
 	store.Delete(key)
 }
 
 // GetAllSecurityList returns all securityList
 func (k Keeper) GetAllSecurityList(ctx sdk.Context) (list []types.SecurityList) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityListKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityListKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
