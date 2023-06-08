@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -70,11 +71,11 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 
 	// set the header and make changes to the header
 	// calculate and include all changes to the header
-	// Message type, y is the message type for Security List Requesst
+	// Message type, x is the message type for Security List Requesst
 	// BodyLength should be calculated using the BodyLength function
 	// set sending time to current time at creating Security List Request
 	securityListRequest.SecurityListRequest.Header = header
-	securityListRequest.SecurityListRequest.Header.MsgType = "y"
+	securityListRequest.SecurityListRequest.Header.MsgType = "x"
 	securityListRequest.SecurityListRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
 
 	// fetch Trailer from existing session
@@ -98,13 +99,126 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 	return &types.MsgSecurityListRequestResponse{}, err
 }
 
+// SecurityListResponse creates Security List Response
 func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSecurityListResponse) (*types.MsgSecurityListResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
-	return &types.MsgSecurityListResponseResponse{}, nil
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Security List Response matches with the sessionID for Security List Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListSession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user to acknowledge the Security List Request is the recipient of the Security List Request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security List Response Creator: %s", msg.Creator)
+	}
+
+	// get the existing Security List Request
+	securityList, found := k.GetSecurityList(ctx, msg.SecurityReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListIsNotFound, "Security List: %s", &securityList)
+	}
+
+	// check that Security List Request creator address is not same address acknowledging the Security List Response with the same SecurityReqID
+	if securityList.SecurityListRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Response", msg.Creator))
+	}
+
+	// check that this Security List Request to be acknowledged has not been rejected
+	if securityList.SecurityListRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListRequestIsRejected, "Seurity List: %s", securityList.SecurityListRequestReject)
+	}
+
+	// check that this Security List is not acknowledged already
+	if securityList.SecurityListResponse != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListRequestIsAcknowledged, "Security List: %s", securityList.SecurityListResponse)
+	}
+
+	// check that the mandatory Security list Response field is not empty
+	if msg.SecurityResponseID == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListEmptyField, "SecurityResponseID: %s", msg.SecurityResponseID)
+	}
+	if msg.SecurityRequestResult == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityListEmptyField, "SecurityRequestResult: %s", msg.SecurityRequestResult)
+	}
+
+	securityListResponse := types.SecurityList{
+		SessionID:           msg.SessionID,
+		SecurityListRequest: securityList.SecurityListRequest,
+		SecurityListResponse: &types.SecurityListResponse{
+			SecurityReqID:         msg.SecurityReqID,
+			SecurityResponseID:    msg.SecurityResponseID,
+			SecurityRequestResult: msg.SecurityRequestResult,
+			TotNoRelatedSym:       msg.TotNoRelatedSym,
+			LastFragment:          msg.LastFragment,
+			NoRelatedSym:          msg.NoRelatedSym,
+			NoUnderlyings:         msg.NoUnderlyings,
+			Currency:              msg.Currency,
+			NoLegs:                msg.NoLegs,
+			RoundLot:              msg.RoundLot,
+			MinTradeVol:           msg.MinTradeVol,
+			TradingSessionID:      msg.TradingSessionID,
+			TradingSessionSubID:   msg.TradingSessionSubID,
+			ExpirationCycle:       msg.ExpirationCycle,
+			Text:                  msg.Text,
+			EncodedTextLen:        msg.EncodedTextLen,
+			EncodedText:           msg.EncodedText,
+		},
+	}
+
+	// set header from the existing security list request
+	securityListResponse.SecurityListResponse.Header = securityList.SecurityListRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *securityListResponse.SecurityListResponse.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = securityList.SecurityListRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = securityList.SecurityListRequest.Header.MsgSeqNum
+
+	// set the msgType to Security List Response
+	newHeader.MsgType = "y"
+
+	// switch senderCompID and targetCompID between Security List Request and Security List Response
+	// set senderCompID of Security List Response to the targetCompID of Security List Request in the header
+	newHeader.SenderCompID = securityList.SecurityListRequest.Header.TargetCompID
+
+	// set targetCompID of Security List Response to the senderCompID of Security List Request in the header
+	newHeader.TargetCompID = securityList.SecurityListRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	securityListResponse.SecurityListResponse.Header = newHeader
+
+	// set Trailer from the existing Security List Request
+	securityListResponse.SecurityListResponse.Trailer = securityList.SecurityListRequest.Trailer
+
+	// set Security List Response to store
+	k.SetSecurityList(ctx, msg.SecurityReqID, securityListResponse)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgSecurityListResponseResponse{}, err
 }
 
 func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.MsgSecurityListRequestReject) (*types.MsgSecurityListRequestRejectResponse, error) {

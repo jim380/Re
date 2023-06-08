@@ -130,15 +130,17 @@ func CmdSecurityListRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "security-list-request-reject [sessionID] [securityReqID] [securityListRequestType] [securityRequestResult] [text] [encodedTextLen] [encodedText]",
 		Short: "Broadcast message security-list-request-reject",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argSecurityReqID := args[1]
-			argSecurityListRequestType := args[2]
-			argSecurityRequestResult := args[3]
-			argText := args[4]
-			argEncodedTextLen := args[5]
-			argEncodedText := args[6]
+			argSecurityListRequestType := args[1]
+			argSecurityRequestResult := args[2]
+			argText := args[3]
+			argEncodedTextLen := args[4]
+			argEncodedText := args[5]
+
+			// GenerateRandomString function uniquely generates SecurityReqID for every Security List Request
+			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

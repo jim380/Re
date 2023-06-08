@@ -27,7 +27,7 @@ func CmdSecurityDefinitionRequest() *cobra.Command {
 			argSecurityType := args[6]
 			argCurrency := args[7]
 
-			// GenerateRandomString function uniquely generates SecurityReqID for every Security Definition Reques
+			// GenerateRandomString function uniquely generates SecurityReqID for every Security Definition Request
 			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)

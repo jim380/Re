@@ -136,6 +136,10 @@ const (
 
 	// Security List
 	errSecurityListEmptyField
+	errSecurityListSession
+	errSecurityListIsNotFound
+	errSecurityListRequestIsRejected
+	errSecurityListRequestIsAcknowledged 
 )
 
 // x/fix module sentinel errors
@@ -266,5 +270,9 @@ var (
 	ErrTradingSessionListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionListRequestIsAcknowledged, "Trading Session List Request has been acknowledged")
 
 	// Security List
-	ErrSecurityListEmptyField = sdkerrors.Register(ModuleName, errSecurityListEmptyField, "This field can not be left empty")
+	ErrSecurityListEmptyField            = sdkerrors.Register(ModuleName, errSecurityListEmptyField, "This field can not be left empty")
+	ErrSecurityListSession               = sdkerrors.Register(ModuleName, errSecurityListSession, "The sessionID is not recognized by the Security List Request system")
+	ErrSecurityListIsNotFound            = sdkerrors.Register(ModuleName, errSecurityListIsNotFound, "Security List Request is not found")
+	ErrSecurityListRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityListRequestIsRejected, "Security List Request has been rejected")
+	ErrSecurityListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityListRequestIsAcknowledged, "Security List Request has been acknowledged")
 )
