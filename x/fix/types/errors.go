@@ -94,7 +94,7 @@ const (
 	errTradeCaptureSession
 	errTradeReportRejectReasonIsEmpty
 
-	// security
+	// security Definition
 	errSecurityReqIDIsEmpty
 	errSecurityRequestTypeIsEmpty
 	errSecuritySymbolIsEmpty
@@ -133,6 +133,9 @@ const (
 	errTradingSessionListIsNotFound
 	errTradingSessionListRequestIsRejected
 	errTradingSessionListRequestIsAcknowledged
+
+	// Security List
+	errSecurityListEmptyField
 )
 
 // x/fix module sentinel errors
@@ -222,7 +225,7 @@ var (
 	ErrTradeCaptureSession              = sdkerrors.Register(ModuleName, errTradeCaptureSession, "The sessionID is not recognized by the Trade Capture Report system")
 	ErrTradeReportRejectReasonIsEmpty   = sdkerrors.Register(ModuleName, errTradeReportRejectReasonIsEmpty, "TradeReportRejectReason is empty")
 
-	// security
+	// security Definition
 	ErrSecurityReqIDIsEmpty                    = sdkerrors.Register(ModuleName, errSecurityReqIDIsEmpty, "SecurityReqID is empty")
 	ErrSecurityRequestTypeIsEmpty              = sdkerrors.Register(ModuleName, errSecurityRequestTypeIsEmpty, "SecurityRequestType is empty")
 	ErrSecuritySymbolIsEmpty                   = sdkerrors.Register(ModuleName, errSecuritySymbolIsEmpty, "Symbol is empty")
@@ -261,4 +264,7 @@ var (
 	ErrTradingSessionListIsNotFound            = sdkerrors.Register(ModuleName, errTradingSessionListIsNotFound, "Trading Session List Request is not found")
 	ErrTradingSessionListRequestIsRejected     = sdkerrors.Register(ModuleName, errTradingSessionListRequestIsRejected, "Trading Session List Request has been rejected")
 	ErrTradingSessionListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errTradingSessionListRequestIsAcknowledged, "Trading Session List Request has been acknowledged")
+
+	// Security List
+	ErrSecurityListEmptyField = sdkerrors.Register(ModuleName, errSecurityListEmptyField, "This field can not be left empty")
 )
