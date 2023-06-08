@@ -32,7 +32,6 @@ func (k Keeper) SecurityListAll(goCtx context.Context, req *types.QueryAllSecuri
 		securityLists = append(securityLists, securityList)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

@@ -139,7 +139,7 @@ const (
 	errSecurityListSession
 	errSecurityListIsNotFound
 	errSecurityListRequestIsRejected
-	errSecurityListRequestIsAcknowledged 
+	errSecurityListRequestIsAcknowledged
 )
 
 // x/fix module sentinel errors
