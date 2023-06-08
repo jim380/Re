@@ -61,24 +61,71 @@ message SecurityListRequest {
 
 // Security List Response  with fields, tags and descriptions and MsgType = y
 message SecurityListResponse {
-   // Standard FIX message header.
+  // Standard FIX message header.
   Header header = 1;
 
   // (Tag 320): Unique identifier assigned by the requester to the security
   // List Request message
   string securityReqID = 2;
-
+  
+  // (322) Identifier for the Security List (y) message	
+  string securityResponseID = 3;
       
+  // (560) Result of the Security Request identified by the SecurityReqID (320)	
+  string securityRequestResult = 4;
+  
+  // (393) Used to indicate if the total number of securities being returned for this request. Used in the event that message fragmentation is required.	
+  string totNoRelatedSym = 5;
+
+  //string (893) Indicates if this message in a fragmented response	
+  string lastFragment = 6;
+
+  // (146) Specifies the number of repeating symbols (instruments) specified	
+  string noRelatedSym = 7;
+  
+  // (711) Number of underlyings	
+  string noUnderlyings = 8;
+
+  // (15)
+  string currency = 9;
+
+  // (555) Number of legs that make up the Security	
+  string noLegs = 10;
+
+  // (561)	
+  string roundLot = 11;
+ 
+  // (562)	
+  string minTradeVol = 12;
+
+  // (336)	
+  string tradingSessionID = 13;
+
+  // (625)	
+  string tradingSessionSubID = 14;
+
+  // (827)	
+  string expirationCycle = 15;
+
+  // (58) Comment, instructions, or other identifying information.	
+  string text = 16;
+
+  // (354) Must be set if EncodedText (355) field is specified and must immediately precede it.	
+  string encodedTextLen = 17;
+  
+  // (355) Encoded (non-ASCII characters) representation of the Text (58) field in the encoded format specified via the MessageEncoding (347) field	
+  string encodedText = 18;
+
   // Standard FIX message trailer.
-  Trailer trailer = 13;
+  Trailer trailer = 19;
 
   // owner
-  string creator = 14;
+  string creator = 20;
 }
 
 // Security List Request Reject with fields, tags and descriptions and MsgType = y
 message SecurityListRequestReject {
-   // Standard FIX message header.
+  // Standard FIX message header.
   Header header = 1;
 
   // (Tag 320): Unique identifier assigned by the requester to the security
