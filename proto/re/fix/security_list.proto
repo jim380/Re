@@ -3,6 +3,8 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message SecurityList {
   string sessionID = 1; 
    SecurityListRequest  securityListRequest = 2;
@@ -12,7 +14,48 @@ message SecurityList {
 
 // Security List Request with fields, tags and descriptions.
 message SecurityListRequest {
-  // TODO
+     // Standard FIX message header.
+  Header header = 1;
+
+  // (Tag 320): Unique identifier assigned by the requester to the security
+  // List Request message
+  string securityReqID = 2;
+
+  // (559) Type of Security List Request (x) being made
+  string securityListRequestType = 3;
+
+  // (711) Undly	N	Number of underlyings
+  string noUnderlyings = 4;
+  	
+  // (555) Number of legs that make up the Security
+  string noLegs = 5;
+
+  // (15)
+  string currency = 6;
+
+  // (58)	Comment, instructions, or other identifying information.
+  string text = 7;
+
+  // (354) Must be set if EncodedText (355) field is specified and must immediately precede it.	
+  string encodedTextLen = 8;
+  
+  // (355) Encoded (non-ASCII characters) representation of the Text (58) field in the encoded format specified via the MessageEncoding (347) field.	
+  string encodedText = 9;
+
+  // (336) Optional Trading Session Identifier to specify a particular trading session for which you want to obtain a list of securities that are tradeable. 	
+  string tradingSessionID = 10;
+    
+  // (625)	
+  string tradingSessionSubID = 11;
+
+  // (263) Subscribe or unsubscribe for security status to security specified in request.	
+  string subscriptionRequestType = 12;
+      
+  // Standard FIX message trailer.
+  Trailer trailer = 13;
+
+  // owner
+  string creator = 14;
 }
 
 // Security List Response  with fields, tags and descriptions.
