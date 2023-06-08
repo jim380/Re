@@ -50,6 +50,7 @@ service Msg {
   rpc TradingSessionListRequestReject   (MsgTradingSessionListRequestReject  ) returns (MsgTradingSessionListRequestRejectResponse  );
   rpc SecurityListRequest               (MsgSecurityListRequest              ) returns (MsgSecurityListRequestResponse              );
   rpc SecurityListResponse              (MsgSecurityListResponse             ) returns (MsgSecurityListResponseResponse             );
+  rpc SecurityListRequestReject         (MsgSecurityListRequestReject        ) returns (MsgSecurityListRequestRejectResponse        );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -581,4 +582,17 @@ message MsgSecurityListResponse {
 }
 
 message MsgSecurityListResponseResponse {}
+
+message MsgSecurityListRequestReject {
+  string creator                 = 1;
+  string sessionID               = 2;
+  string securityReqID           = 3;
+  string securityListRequestType = 4;
+  string securityRequestResult   = 5;
+  string text                    = 6;
+  string encodedTextLen          = 7;
+  string encodedText             = 8;
+}
+
+message MsgSecurityListRequestRejectResponse {}
 
