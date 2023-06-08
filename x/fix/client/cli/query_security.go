@@ -11,8 +11,8 @@ import (
 
 func CmdListSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-security",
-		Short: "list all security",
+		Use:   "list-security-definition",
+		Short: "list all security definition",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -44,8 +44,8 @@ func CmdListSecurity() *cobra.Command {
 
 func CmdShowSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-security [securityReqID]",
-		Short: "shows a security",
+		Use:   "show-security-definition [securityReqID]",
+		Short: "shows a security definition",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)

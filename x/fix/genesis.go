@@ -99,7 +99,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetTradingSessionListCount(ctx, genState.TradingSessionListCount)
 	// Set all the securityList
 	for _, elem := range genState.SecurityListList {
-		k.SetSecurityList(ctx, elem)
+		k.SetSecurityList(ctx, elem.SecurityListRequest.SecurityReqID, elem)
 	}
 
 	// Set securityList count
