@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityListRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-list-request [session-id] [security-req-id] [security-list-request-type] [no-underlyings] [no-legs] [currency] [text] [encoded-text-len] [encoded-text] [trading-session-id] [trading-session-sub-id] [subscription-request-type]",
+		Use:   "security-list-request [sessionID] [securityReqID] [securityListRequestType] [noUnderlyings] [noLegs] [currency] [text] [encodedTextLen] [encodedText] [tradingSessionID] [tradingSessionSubID] [subscriptionRequestType]",
 		Short: "Broadcast message security-list-request",
 		Args:  cobra.ExactArgs(12),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -65,7 +65,7 @@ func CmdSecurityListRequest() *cobra.Command {
 
 func CmdSecurityListResponse() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-list-response [session-id] [security-req-id] [security-response-id] [security-request-result] [tot-no-related-sym] [last-fragment] [no-related-sym] [no-underlyings] [currency] [no-legs] [round-lot] [min-trade-vol] [trading-session-id] [trading-session-sub-id] [expiration-cycle] [text] [encoded-text-len] [encoded-text]",
+		Use:   "security-list-response [sessionID] [securityReqID] [securityResponseID] [securityRequestResult] [totNoRelatedSym] [lastFragment] [noRelatedSym] [noUnderlyings] [currency] [noLegs] [roundLot] [minTradeVol] [tradingSessionID] [tradingSessionSubID] [expirationCycle] [text] [encodedTextLen] [encodedText]",
 		Short: "Broadcast message security-list-response",
 		Args:  cobra.ExactArgs(18),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -128,7 +128,7 @@ func CmdSecurityListResponse() *cobra.Command {
 
 func CmdSecurityListRequestReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-list-request-reject [session-id] [security-req-id] [security-list-request-type] [security-request-result] [text] [encoded-text-len] [encoded-text]",
+		Use:   "security-list-request-reject [sessionID] [securityReqID] [securityListRequestType] [securityRequestResult] [text] [encodedTextLen] [encodedText]",
 		Short: "Broadcast message security-list-request-reject",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
