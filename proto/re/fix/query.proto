@@ -22,177 +22,191 @@ import "re/fix/order_mass_status.proto";
 import "re/fix/trading_session.proto";
 import "re/fix/trading_session_list.proto";
 import "re/fix/security_list.proto";
+import "re/fix/security_status.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
 // Query defines the gRPC querier service.
 service Query {
-
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/params";
+  
   }
-
+  
   // Queries a list of Account items.
-  rpc Account(QueryGetAccountRequest) returns (QueryGetAccountResponse) {
+  rpc Account    (QueryGetAccountRequest) returns (QueryGetAccountResponse) {
     option (google.api.http).get = "/jim380/Re/fix/account/{did}";
+  
   }
-  rpc AccountAll(QueryAllAccountRequest) returns (QueryAllAccountResponse) {
+  rpc AccountAll (QueryAllAccountRequest) returns (QueryAllAccountResponse) {
     option (google.api.http).get = "/jim380/Re/fix/account";
+  
   }
-
+  
   // Queries a list of Sessions items.
-  rpc Sessions(QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
+  rpc Sessions    (QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/sessions/{sessionID}";
+  
   }
-  rpc SessionsAll(QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
+  rpc SessionsAll (QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/sessions";
+  
   }
-
+  
   // Queries a list of SessionReject items.
-  rpc SessionReject(QueryGetSessionRejectRequest)
-      returns (QueryGetSessionRejectResponse) {
+  rpc SessionReject    (QueryGetSessionRejectRequest) returns (QueryGetSessionRejectResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/reject/{sessionID}";
+  
   }
-  rpc SessionRejectAll(QueryAllSessionRejectRequest)
-      returns (QueryAllSessionRejectResponse) {
+  rpc SessionRejectAll (QueryAllSessionRejectRequest) returns (QueryAllSessionRejectResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/rejects";
+  
   }
-
+  
   // Queries a list of SessionLogout items.
-  rpc SessionLogout(QueryGetSessionLogoutRequest)
-      returns (QueryGetSessionLogoutResponse) {
+  rpc SessionLogout    (QueryGetSessionLogoutRequest) returns (QueryGetSessionLogoutResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/logout/{sessionID}";
+  
   }
-  rpc SessionLogoutAll(QueryAllSessionLogoutRequest)
-      returns (QueryAllSessionLogoutResponse) {
+  rpc SessionLogoutAll (QueryAllSessionLogoutRequest) returns (QueryAllSessionLogoutResponse) {
     option (google.api.http).get = "/jim380/Re/fix/session/logouts";
+  
   }
-
+  
   // Queries a list of Orders items.
-  rpc Orders(QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
+  rpc Orders    (QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders/{clOrdID}";
+  
   }
-  rpc OrdersAll(QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
+  rpc OrdersAll (QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders";
+  
   }
-
+  
   // Queries a list of OrdersCancelRequest items.
-  rpc OrdersCancelRequest(QueryGetOrdersCancelRequestRequest)
-      returns (QueryGetOrdersCancelRequestResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_request/{clOrdID}";
+  rpc OrdersCancelRequest    (QueryGetOrdersCancelRequestRequest) returns (QueryGetOrdersCancelRequestResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_request/{clOrdID}";
+  
   }
-  rpc OrdersCancelRequestAll(QueryAllOrdersCancelRequestRequest)
-      returns (QueryAllOrdersCancelRequestResponse) {
+  rpc OrdersCancelRequestAll (QueryAllOrdersCancelRequestRequest) returns (QueryAllOrdersCancelRequestResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders_cancel_requests";
+  
   }
-
+  
   // Queries a list of OrdersCancelReject items.
-  rpc OrdersCancelReject(QueryGetOrdersCancelRejectRequest)
-      returns (QueryGetOrdersCancelRejectResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_reject/{clOrdID}";
+  rpc OrdersCancelReject    (QueryGetOrdersCancelRejectRequest) returns (QueryGetOrdersCancelRejectResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_reject/{clOrdID}";
+  
   }
-  rpc OrdersCancelRejectAll(QueryAllOrdersCancelRejectRequest)
-      returns (QueryAllOrdersCancelRejectResponse) {
+  rpc OrdersCancelRejectAll (QueryAllOrdersCancelRejectRequest) returns (QueryAllOrdersCancelRejectResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders_cancel_rejects";
+  
   }
-
+  
   // Queries a list of OrdersExecutionReport items.
-  rpc OrdersExecutionReport(QueryGetOrdersExecutionReportRequest)
-      returns (QueryGetOrdersExecutionReportResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/orders_execution_report/{clOrdID}";
+  rpc OrdersExecutionReport    (QueryGetOrdersExecutionReportRequest) returns (QueryGetOrdersExecutionReportResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/orders_execution_report/{clOrdID}";
+  
   }
-  rpc OrdersExecutionReportAll(QueryAllOrdersExecutionReportRequest)
-      returns (QueryAllOrdersExecutionReportResponse) {
+  rpc OrdersExecutionReportAll (QueryAllOrdersExecutionReportRequest) returns (QueryAllOrdersExecutionReportResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders_execution_reports";
+  
   }
-
+  
   // Queries a list of Quote items.
-  rpc Quote(QueryGetQuoteRequest) returns (QueryGetQuoteResponse) {
+  rpc Quote             (QueryGetQuoteRequest        ) returns (QueryGetQuoteResponse        ) {
     option (google.api.http).get = "/jim380/Re/fix/quote/{quoteReqID}";
+  
   }
-  rpc QuotesBySessionID(QuerySessionByIDQuoteRequest)
-      returns (QuerySessionByIDQuoteResponse) {
+  rpc QuotesBySessionID (QuerySessionByIDQuoteRequest) returns (QuerySessionByIDQuoteResponse) {
     option (google.api.http).get = "/jim380/Re/fix/quote/{sessionID}";
+  
   }
-  rpc QuoteAll(QueryAllQuoteRequest) returns (QueryAllQuoteResponse) {
+  rpc QuoteAll          (QueryAllQuoteRequest        ) returns (QueryAllQuoteResponse        ) {
     option (google.api.http).get = "/jim380/Re/fix/quotes";
+  
   }
-
+  
   // Queries a list of TradeCapture items.
-  rpc TradeCapture(QueryGetTradeCaptureRequest)
-      returns (QueryGetTradeCaptureResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/trade_capture/{tradeReportID}";
+  rpc TradeCapture    (QueryGetTradeCaptureRequest) returns (QueryGetTradeCaptureResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/trade_capture/{tradeReportID}";
+  
   }
-  rpc TradeCaptureAll(QueryAllTradeCaptureRequest)
-      returns (QueryAllTradeCaptureResponse) {
+  rpc TradeCaptureAll (QueryAllTradeCaptureRequest) returns (QueryAllTradeCaptureResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trade_captures";
+  
   }
-
+  
   // Queries a list of MarketData items.
-  rpc MarketData(QueryGetMarketDataRequest)
-      returns (QueryGetMarketDataResponse) {
+  rpc MarketData    (QueryGetMarketDataRequest) returns (QueryGetMarketDataResponse) {
     option (google.api.http).get = "/jim380/Re/fix/market_data/{mdReqID}";
+  
   }
-  rpc MarketDataAll(QueryAllMarketDataRequest)
-      returns (QueryAllMarketDataResponse) {
+  rpc MarketDataAll (QueryAllMarketDataRequest) returns (QueryAllMarketDataResponse) {
     option (google.api.http).get = "/jim380/Re/fix/market_data";
+  
   }
-
+  
   // Queries a list of Security items.
-  rpc Security(QueryGetSecurityRequest) returns (QueryGetSecurityResponse) {
+  rpc Security    (QueryGetSecurityRequest) returns (QueryGetSecurityResponse) {
     option (google.api.http).get = "/jim380/Re/fix/security/{securityReqID}";
+  
   }
-  rpc SecurityAll(QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
+  rpc SecurityAll (QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
     option (google.api.http).get = "/jim380/Re/fix/securities";
+  
   }
-
+  
   // Queries a list of OrderMassStatus items.
-  rpc OrderMassStatus(QueryGetOrderMassStatusRequest)
-      returns (QueryGetOrderMassStatusResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/order_mass_status/{massStatusReqID}";
+  rpc OrderMassStatus    (QueryGetOrderMassStatusRequest) returns (QueryGetOrderMassStatusResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/order_mass_status/{massStatusReqID}";
+  
   }
-  rpc OrderMassStatusAll(QueryAllOrderMassStatusRequest)
-      returns (QueryAllOrderMassStatusResponse) {
+  rpc OrderMassStatusAll (QueryAllOrderMassStatusRequest) returns (QueryAllOrderMassStatusResponse) {
     option (google.api.http).get = "/jim380/Re/fix/order_mass_status";
+  
   }
-
+  
   // Queries a list of TradingSession items.
-  rpc TradingSession(QueryGetTradingSessionRequest)
-      returns (QueryGetTradingSessionResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/trading_session/{tradSesReqID}";
+  rpc TradingSession    (QueryGetTradingSessionRequest) returns (QueryGetTradingSessionResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/trading_session/{tradSesReqID}";
+  
   }
-  rpc TradingSessionAll(QueryAllTradingSessionRequest)
-      returns (QueryAllTradingSessionResponse) {
+  rpc TradingSessionAll (QueryAllTradingSessionRequest) returns (QueryAllTradingSessionResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trading_session";
+  
   }
-
+  
   // Queries a list of TradingSessionList items.
-  rpc TradingSessionList(QueryGetTradingSessionListRequest)
-      returns (QueryGetTradingSessionListResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
+  rpc TradingSessionList    (QueryGetTradingSessionListRequest) returns (QueryGetTradingSessionListResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
+  
   }
-  rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
-      returns (QueryAllTradingSessionListResponse) {
+  rpc TradingSessionListAll (QueryAllTradingSessionListRequest) returns (QueryAllTradingSessionListResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trading_session_list";
+  
   }
-
+  
   // Queries a list of SecurityList items.
-  rpc SecurityList(QueryGetSecurityListRequest)
-      returns (QueryGetSecurityListResponse) {
-    option (google.api.http).get =
-        "/jim380/Re/fix/security_list/{securityReqID}";
+  rpc SecurityList    (QueryGetSecurityListRequest) returns (QueryGetSecurityListResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security_list/{securityReqID}";
+  
   }
-  rpc SecurityListAll(QueryAllSecurityListRequest)
-      returns (QueryAllSecurityListResponse) {
+  rpc SecurityListAll (QueryAllSecurityListRequest) returns (QueryAllSecurityListResponse) {
     option (google.api.http).get = "/jim380/Re/fix/security_list";
+  
+  }
+  
+  // Queries a list of SecurityStatus items.
+  rpc SecurityStatus    (QueryGetSecurityStatusRequest) returns (QueryGetSecurityStatusResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security_status/{id}";
+  
+  }
+  rpc SecurityStatusAll (QueryAllSecurityStatusRequest) returns (QueryAllSecurityStatusResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security_status";
+  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -200,15 +214,17 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-
+  
   // params holds all the parameters of this module.
-  Params params = 1 [ (gogoproto.nullable) = false ];
+  Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryGetAccountRequest { string did = 1; }
+message QueryGetAccountRequest {
+  string did = 1;
+}
 
 message QueryGetAccountResponse {
-  Account Account = 1 [ (gogoproto.nullable) = false ];
+  Account Account = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllAccountRequest {
@@ -216,14 +232,16 @@ message QueryAllAccountRequest {
 }
 
 message QueryAllAccountResponse {
-  repeated Account Account = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated Account                                Account    = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSessionsRequest { string sessionID = 1; }
+message QueryGetSessionsRequest {
+  string sessionID = 1;
+}
 
 message QueryGetSessionsResponse {
-  Sessions Sessions = 1 [ (gogoproto.nullable) = false ];
+  Sessions Sessions = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSessionsRequest {
@@ -231,14 +249,16 @@ message QueryAllSessionsRequest {
 }
 
 message QueryAllSessionsResponse {
-  repeated Sessions Sessions = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated Sessions                               Sessions   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSessionRejectRequest { string sessionID = 1; }
+message QueryGetSessionRejectRequest {
+  string sessionID = 1;
+}
 
 message QueryGetSessionRejectResponse {
-  SessionReject SessionReject = 1 [ (gogoproto.nullable) = false ];
+  SessionReject SessionReject = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSessionRejectRequest {
@@ -246,14 +266,16 @@ message QueryAllSessionRejectRequest {
 }
 
 message QueryAllSessionRejectResponse {
-  repeated SessionReject SessionReject = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated SessionReject                          SessionReject = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
 }
 
-message QueryGetSessionLogoutRequest { string sessionID = 1; }
+message QueryGetSessionLogoutRequest {
+  string sessionID = 1;
+}
 
 message QueryGetSessionLogoutResponse {
-  SessionLogout SessionLogout = 1 [ (gogoproto.nullable) = false ];
+  SessionLogout SessionLogout = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSessionLogoutRequest {
@@ -261,14 +283,16 @@ message QueryAllSessionLogoutRequest {
 }
 
 message QueryAllSessionLogoutResponse {
-  repeated SessionLogout SessionLogout = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated SessionLogout                          SessionLogout = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
 }
 
-message QueryGetOrdersRequest { string clOrdID = 1; }
+message QueryGetOrdersRequest {
+  string clOrdID = 1;
+}
 
 message QueryGetOrdersResponse {
-  Orders Orders = 1 [ (gogoproto.nullable) = false ];
+  Orders Orders = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllOrdersRequest {
@@ -276,14 +300,16 @@ message QueryAllOrdersRequest {
 }
 
 message QueryAllOrdersResponse {
-  repeated Orders Orders = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated Orders                                 Orders     = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersCancelRequestRequest { string clOrdID = 1; }
+message QueryGetOrdersCancelRequestRequest {
+  string clOrdID = 1;
+}
 
 message QueryGetOrdersCancelRequestResponse {
-  OrdersCancelRequest OrdersCancelRequest = 1 [ (gogoproto.nullable) = false ];
+  OrdersCancelRequest OrdersCancelRequest = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllOrdersCancelRequestRequest {
@@ -291,15 +317,16 @@ message QueryAllOrdersCancelRequestRequest {
 }
 
 message QueryAllOrdersCancelRequestResponse {
-  repeated OrdersCancelRequest OrdersCancelRequest = 1
-      [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated OrdersCancelRequest                    OrdersCancelRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination          = 2;
 }
 
-message QueryGetOrdersCancelRejectRequest { string clOrdID = 1; }
+message QueryGetOrdersCancelRejectRequest {
+  string clOrdID = 1;
+}
 
 message QueryGetOrdersCancelRejectResponse {
-  OrdersCancelReject OrdersCancelReject = 1 [ (gogoproto.nullable) = false ];
+  OrdersCancelReject OrdersCancelReject = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllOrdersCancelRejectRequest {
@@ -307,16 +334,16 @@ message QueryAllOrdersCancelRejectRequest {
 }
 
 message QueryAllOrdersCancelRejectResponse {
-  repeated OrdersCancelReject OrdersCancelReject = 1
-      [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated OrdersCancelReject                     OrdersCancelReject = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
 }
 
-message QueryGetOrdersExecutionReportRequest { string clOrdID = 1; }
+message QueryGetOrdersExecutionReportRequest {
+  string clOrdID = 1;
+}
 
 message QueryGetOrdersExecutionReportResponse {
-  OrdersExecutionReport OrdersExecutionReport = 1
-      [ (gogoproto.nullable) = false ];
+  OrdersExecutionReport OrdersExecutionReport = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllOrdersExecutionReportRequest {
@@ -324,23 +351,26 @@ message QueryAllOrdersExecutionReportRequest {
 }
 
 message QueryAllOrdersExecutionReportResponse {
-  repeated OrdersExecutionReport OrdersExecutionReport = 1
-      [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated OrdersExecutionReport                  OrdersExecutionReport = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination            = 2;
 }
 
-message QueryGetQuoteRequest { string quoteReqID = 1; }
+message QueryGetQuoteRequest {
+  string quoteReqID = 1;
+}
 
 message QueryGetQuoteResponse {
-  Quote Quote = 1 [ (gogoproto.nullable) = false ];
+  Quote Quote = 1 [(gogoproto.nullable) = false];
 }
 
 // get Quotes by SessionID
-message QuerySessionByIDQuoteRequest { string sessionID = 1; }
+message QuerySessionByIDQuoteRequest {
+  string sessionID = 1;
+}
 
 // get Quotes Response by sessionID
 message QuerySessionByIDQuoteResponse {
-  repeated Quote Quote = 1 [ (gogoproto.nullable) = false ];
+  repeated Quote Quote = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllQuoteRequest {
@@ -348,14 +378,16 @@ message QueryAllQuoteRequest {
 }
 
 message QueryAllQuoteResponse {
-  repeated Quote Quote = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated Quote                                  Quote      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetTradeCaptureRequest { string tradeReportID = 1; }
+message QueryGetTradeCaptureRequest {
+  string tradeReportID = 1;
+}
 
 message QueryGetTradeCaptureResponse {
-  TradeCapture TradeCapture = 1 [ (gogoproto.nullable) = false ];
+  TradeCapture TradeCapture = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllTradeCaptureRequest {
@@ -363,14 +395,16 @@ message QueryAllTradeCaptureRequest {
 }
 
 message QueryAllTradeCaptureResponse {
-  repeated TradeCapture TradeCapture = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated TradeCapture                           TradeCapture = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination   = 2;
 }
 
-message QueryGetMarketDataRequest { string mdReqID = 1; }
+message QueryGetMarketDataRequest {
+  string mdReqID = 1;
+}
 
 message QueryGetMarketDataResponse {
-  MarketData MarketData = 1 [ (gogoproto.nullable) = false ];
+  MarketData MarketData = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllMarketDataRequest {
@@ -378,14 +412,16 @@ message QueryAllMarketDataRequest {
 }
 
 message QueryAllMarketDataResponse {
-  repeated MarketData MarketData = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated MarketData                             MarketData = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSecurityRequest { string securityReqID = 1; }
+message QueryGetSecurityRequest {
+  string securityReqID = 1;
+}
 
 message QueryGetSecurityResponse {
-  Security Security = 1 [ (gogoproto.nullable) = false ];
+  Security Security = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSecurityRequest {
@@ -393,14 +429,16 @@ message QueryAllSecurityRequest {
 }
 
 message QueryAllSecurityResponse {
-  repeated Security Security = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated Security                               Security   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrderMassStatusRequest { string massStatusReqID = 1; }
+message QueryGetOrderMassStatusRequest {
+  string massStatusReqID = 1;
+}
 
 message QueryGetOrderMassStatusResponse {
-  OrderMassStatus OrderMassStatus = 1 [ (gogoproto.nullable) = false ];
+  OrderMassStatus OrderMassStatus = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllOrderMassStatusRequest {
@@ -408,14 +446,16 @@ message QueryAllOrderMassStatusRequest {
 }
 
 message QueryAllOrderMassStatusResponse {
-  repeated OrderMassStatus OrderMassStatus = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated OrderMassStatus                        OrderMassStatus = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination      = 2;
 }
 
-message QueryGetTradingSessionRequest { string tradSesReqID = 1; }
+message QueryGetTradingSessionRequest {
+  string tradSesReqID = 1;
+}
 
 message QueryGetTradingSessionResponse {
-  TradingSession TradingSession = 1 [ (gogoproto.nullable) = false ];
+  TradingSession TradingSession = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllTradingSessionRequest {
@@ -423,14 +463,16 @@ message QueryAllTradingSessionRequest {
 }
 
 message QueryAllTradingSessionResponse {
-  repeated TradingSession TradingSession = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated TradingSession                         TradingSession = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
 }
 
-message QueryGetTradingSessionListRequest { string tradSesReqID = 1; }
+message QueryGetTradingSessionListRequest {
+  string tradSesReqID = 1;
+}
 
 message QueryGetTradingSessionListResponse {
-  TradingSessionList TradingSessionList = 1 [ (gogoproto.nullable) = false ];
+  TradingSessionList TradingSessionList = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllTradingSessionListRequest {
@@ -438,15 +480,16 @@ message QueryAllTradingSessionListRequest {
 }
 
 message QueryAllTradingSessionListResponse {
-  repeated TradingSessionList TradingSessionList = 1
-      [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated TradingSessionList                     TradingSessionList = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
 }
 
-message QueryGetSecurityListRequest { string securityReqID = 1; }
+message QueryGetSecurityListRequest {
+  string securityReqID = 1;
+}
 
 message QueryGetSecurityListResponse {
-  SecurityList SecurityList = 1 [ (gogoproto.nullable) = false ];
+  SecurityList SecurityList = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSecurityListRequest {
@@ -454,6 +497,24 @@ message QueryAllSecurityListRequest {
 }
 
 message QueryAllSecurityListResponse {
-  repeated SecurityList SecurityList = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated SecurityList                           SecurityList = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination   = 2;
 }
+
+message QueryGetSecurityStatusRequest {
+  uint64 id = 1;
+}
+
+message QueryGetSecurityStatusResponse {
+  SecurityStatus SecurityStatus = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSecurityStatusRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSecurityStatusResponse {
+  repeated SecurityStatus                         SecurityStatus = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+

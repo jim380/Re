@@ -35521,19 +35521,27 @@ paths:
                           type: string
                           description: >-
                             (354) Must be set if EncodedText (355) field is
-                            specified and must immediately precede it.
+                            specified and must
+
+                            immediately precede it.
                         encodedText:
                           type: string
                           description: >-
                             (355) Encoded (non-ASCII characters) representation
-                            of the Text (58) field in the encoded format
-                            specified via the MessageEncoding (347) field.
+                            of the Text (58) field
+
+                            in the encoded format specified via the
+                            MessageEncoding (347) field.
                         tradingSessionID:
                           type: string
                           description: >-
                             (336) Optional Trading Session Identifier to specify
-                            a particular trading session for which you want to
-                            obtain a list of securities that are tradeable.
+                            a particular trading
+
+                            session for which you want to obtain a list of
+                            securities that are
+
+                            tradeable.
                         tradingSessionSubID:
                           type: string
                           title: (625)
@@ -35541,7 +35549,9 @@ paths:
                           type: string
                           description: >-
                             (263) Subscribe or unsubscribe for security status
-                            to security specified in request.
+                            to security specified in
+
+                            request.
                         trailer:
                           type: object
                           properties:
@@ -35649,8 +35659,10 @@ paths:
                           type: string
                           description: >-
                             (393) Used to indicate if the total number of
-                            securities being returned for this request. Used in
-                            the event that message fragmentation is required.
+                            securities being returned for
+
+                            this request. Used in the event that message
+                            fragmentation is required.
                         lastFragment:
                           type: string
                           title: >-
@@ -35694,13 +35706,17 @@ paths:
                           type: string
                           description: >-
                             (354) Must be set if EncodedText (355) field is
-                            specified and must immediately precede it.
+                            specified and must
+
+                            immediately precede it.
                         encodedText:
                           type: string
                           title: >-
                             (355) Encoded (non-ASCII characters) representation
-                            of the Text (58) field in the encoded format
-                            specified via the MessageEncoding (347) field
+                            of the Text (58) field
+
+                            in the encoded format specified via the
+                            MessageEncoding (347) field
                         trailer:
                           type: object
                           properties:
@@ -35809,10 +35825,12 @@ paths:
                           type: string
                           title: >-
                             (354)  Must be set if EncodedText (355) field is
-                            specified and must immediately precede it
+                            specified and must
+
+                            immediately precede it
                         encodedText:
                           type: string
-                          title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                          title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
                         trailer:
                           type: object
                           properties:
@@ -35841,7 +35859,9 @@ paths:
                           title: owner
                       title: >-
                         Security List Request Reject with fields, tags and
-                        descriptions and MsgType = y
+                        descriptions and MsgType =
+
+                        y
               pagination:
                 type: object
                 properties:
@@ -36046,19 +36066,27 @@ paths:
                         type: string
                         description: >-
                           (354) Must be set if EncodedText (355) field is
-                          specified and must immediately precede it.
+                          specified and must
+
+                          immediately precede it.
                       encodedText:
                         type: string
                         description: >-
                           (355) Encoded (non-ASCII characters) representation of
-                          the Text (58) field in the encoded format specified
-                          via the MessageEncoding (347) field.
+                          the Text (58) field
+
+                          in the encoded format specified via the
+                          MessageEncoding (347) field.
                       tradingSessionID:
                         type: string
                         description: >-
                           (336) Optional Trading Session Identifier to specify a
-                          particular trading session for which you want to
-                          obtain a list of securities that are tradeable.
+                          particular trading
+
+                          session for which you want to obtain a list of
+                          securities that are
+
+                          tradeable.
                       tradingSessionSubID:
                         type: string
                         title: (625)
@@ -36066,7 +36094,9 @@ paths:
                         type: string
                         description: >-
                           (263) Subscribe or unsubscribe for security status to
-                          security specified in request.
+                          security specified in
+
+                          request.
                       trailer:
                         type: object
                         properties:
@@ -36174,8 +36204,10 @@ paths:
                         type: string
                         description: >-
                           (393) Used to indicate if the total number of
-                          securities being returned for this request. Used in
-                          the event that message fragmentation is required.
+                          securities being returned for
+
+                          this request. Used in the event that message
+                          fragmentation is required.
                       lastFragment:
                         type: string
                         title: >-
@@ -36219,13 +36251,17 @@ paths:
                         type: string
                         description: >-
                           (354) Must be set if EncodedText (355) field is
-                          specified and must immediately precede it.
+                          specified and must
+
+                          immediately precede it.
                       encodedText:
                         type: string
                         title: >-
                           (355) Encoded (non-ASCII characters) representation of
-                          the Text (58) field in the encoded format specified
-                          via the MessageEncoding (347) field
+                          the Text (58) field
+
+                          in the encoded format specified via the
+                          MessageEncoding (347) field
                       trailer:
                         type: object
                         properties:
@@ -36334,10 +36370,12 @@ paths:
                         type: string
                         title: >-
                           (354)  Must be set if EncodedText (355) field is
-                          specified and must immediately precede it
+                          specified and must
+
+                          immediately precede it
                       encodedText:
                         type: string
-                        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
                       trailer:
                         type: object
                         properties:
@@ -36366,7 +36404,9 @@ paths:
                         title: owner
                     title: >-
                       Security List Request Reject with fields, tags and
-                      descriptions and MsgType = y
+                      descriptions and MsgType =
+
+                      y
         default:
           description: An unexpected error response.
           schema:
@@ -36390,6 +36430,173 @@ paths:
           in: path
           required: true
           type: string
+      tags:
+        - Query
+  /jim380/Re/fix/security_status:
+    get:
+      operationId: Jim380ReFixSecurityStatusAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityStatus:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sessionID:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/security_status/{id}:
+    get:
+      summary: Queries a list of SecurityStatus items.
+      operationId: Jim380ReFixSecurityStatus
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityStatus:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  sessionID:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
   /jim380/Re/fix/session/logout/{sessionID}:
@@ -66671,19 +66878,27 @@ definitions:
                   type: string
                   description: >-
                     (354) Must be set if EncodedText (355) field is specified
-                    and must immediately precede it.
+                    and must
+
+                    immediately precede it.
                 encodedText:
                   type: string
                   description: >-
                     (355) Encoded (non-ASCII characters) representation of the
-                    Text (58) field in the encoded format specified via the
-                    MessageEncoding (347) field.
+                    Text (58) field
+
+                    in the encoded format specified via the MessageEncoding
+                    (347) field.
                 tradingSessionID:
                   type: string
                   description: >-
                     (336) Optional Trading Session Identifier to specify a
-                    particular trading session for which you want to obtain a
-                    list of securities that are tradeable.
+                    particular trading
+
+                    session for which you want to obtain a list of securities
+                    that are
+
+                    tradeable.
                 tradingSessionSubID:
                   type: string
                   title: (625)
@@ -66691,7 +66906,9 @@ definitions:
                   type: string
                   description: >-
                     (263) Subscribe or unsubscribe for security status to
-                    security specified in request.
+                    security specified in
+
+                    request.
                 trailer:
                   type: object
                   properties:
@@ -66795,8 +67012,10 @@ definitions:
                   type: string
                   description: >-
                     (393) Used to indicate if the total number of securities
-                    being returned for this request. Used in the event that
-                    message fragmentation is required.
+                    being returned for
+
+                    this request. Used in the event that message fragmentation
+                    is required.
                 lastFragment:
                   type: string
                   title: >-
@@ -66840,13 +67059,17 @@ definitions:
                   type: string
                   description: >-
                     (354) Must be set if EncodedText (355) field is specified
-                    and must immediately precede it.
+                    and must
+
+                    immediately precede it.
                 encodedText:
                   type: string
                   title: >-
                     (355) Encoded (non-ASCII characters) representation of the
-                    Text (58) field in the encoded format specified via the
-                    MessageEncoding (347) field
+                    Text (58) field
+
+                    in the encoded format specified via the MessageEncoding
+                    (347) field
                 trailer:
                   type: object
                   properties:
@@ -66951,10 +67174,12 @@ definitions:
                   type: string
                   title: >-
                     (354)  Must be set if EncodedText (355) field is specified
-                    and must immediately precede it
+                    and must
+
+                    immediately precede it
                 encodedText:
                   type: string
-                  title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                  title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
                 trailer:
                   type: object
                   properties:
@@ -66983,7 +67208,9 @@ definitions:
                   title: owner
               title: >-
                 Security List Request Reject with fields, tags and descriptions
-                and MsgType = y
+                and MsgType =
+
+                y
       pagination:
         type: object
         properties:
@@ -67436,6 +67663,44 @@ definitions:
               description: >-
                 Security Definition Request Rejeect with fields, tags and
                 descriptions.
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  jim380.re.fix.QueryAllSecurityStatusResponse:
+    type: object
+    properties:
+      SecurityStatus:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sessionID:
+              type: string
       pagination:
         type: object
         properties:
@@ -71233,19 +71498,27 @@ definitions:
                 type: string
                 description: >-
                   (354) Must be set if EncodedText (355) field is specified and
-                  must immediately precede it.
+                  must
+
+                  immediately precede it.
               encodedText:
                 type: string
                 description: >-
                   (355) Encoded (non-ASCII characters) representation of the
-                  Text (58) field in the encoded format specified via the
-                  MessageEncoding (347) field.
+                  Text (58) field
+
+                  in the encoded format specified via the MessageEncoding (347)
+                  field.
               tradingSessionID:
                 type: string
                 description: >-
                   (336) Optional Trading Session Identifier to specify a
-                  particular trading session for which you want to obtain a list
-                  of securities that are tradeable.
+                  particular trading
+
+                  session for which you want to obtain a list of securities that
+                  are
+
+                  tradeable.
               tradingSessionSubID:
                 type: string
                 title: (625)
@@ -71253,7 +71526,9 @@ definitions:
                 type: string
                 description: >-
                   (263) Subscribe or unsubscribe for security status to security
-                  specified in request.
+                  specified in
+
+                  request.
               trailer:
                 type: object
                 properties:
@@ -71356,8 +71631,10 @@ definitions:
                 type: string
                 description: >-
                   (393) Used to indicate if the total number of securities being
-                  returned for this request. Used in the event that message
-                  fragmentation is required.
+                  returned for
+
+                  this request. Used in the event that message fragmentation is
+                  required.
               lastFragment:
                 type: string
                 title: >-
@@ -71399,13 +71676,17 @@ definitions:
                 type: string
                 description: >-
                   (354) Must be set if EncodedText (355) field is specified and
-                  must immediately precede it.
+                  must
+
+                  immediately precede it.
               encodedText:
                 type: string
                 title: >-
                   (355) Encoded (non-ASCII characters) representation of the
-                  Text (58) field in the encoded format specified via the
-                  MessageEncoding (347) field
+                  Text (58) field
+
+                  in the encoded format specified via the MessageEncoding (347)
+                  field
               trailer:
                 type: object
                 properties:
@@ -71509,10 +71790,12 @@ definitions:
                 type: string
                 title: >-
                   (354)  Must be set if EncodedText (355) field is specified and
-                  must immediately precede it
+                  must
+
+                  immediately precede it
               encodedText:
                 type: string
-                title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
               trailer:
                 type: object
                 properties:
@@ -71541,7 +71824,9 @@ definitions:
                 title: owner
             title: >-
               Security List Request Reject with fields, tags and descriptions
-              and MsgType = y
+              and MsgType =
+
+              y
   jim380.re.fix.QueryGetSecurityResponse:
     type: object
     properties:
@@ -71961,6 +72246,17 @@ definitions:
             description: >-
               Security Definition Request Rejeect with fields, tags and
               descriptions.
+  jim380.re.fix.QueryGetSecurityStatusResponse:
+    type: object
+    properties:
+      SecurityStatus:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sessionID:
+            type: string
   jim380.re.fix.QueryGetSessionLogoutResponse:
     type: object
     properties:
@@ -75585,21 +75881,26 @@ definitions:
             description: "(58)\tComment, instructions, or other identifying information."
           encodedTextLen:
             type: string
-            description: >-
+            description: |-
               (354) Must be set if EncodedText (355) field is specified and must
               immediately precede it.
           encodedText:
             type: string
             description: >-
               (355) Encoded (non-ASCII characters) representation of the Text
-              (58) field in the encoded format specified via the MessageEncoding
-              (347) field.
+              (58) field
+
+              in the encoded format specified via the MessageEncoding (347)
+              field.
           tradingSessionID:
             type: string
             description: >-
               (336) Optional Trading Session Identifier to specify a particular
-              trading session for which you want to obtain a list of securities
-              that are tradeable.
+              trading
+
+              session for which you want to obtain a list of securities that are
+
+              tradeable.
           tradingSessionSubID:
             type: string
             title: (625)
@@ -75607,7 +75908,9 @@ definitions:
             type: string
             description: >-
               (263) Subscribe or unsubscribe for security status to security
-              specified in request.
+              specified in
+
+              request.
           trailer:
             type: object
             properties:
@@ -75707,8 +76010,10 @@ definitions:
             type: string
             description: >-
               (393) Used to indicate if the total number of securities being
-              returned for this request. Used in the event that message
-              fragmentation is required.
+              returned for
+
+              this request. Used in the event that message fragmentation is
+              required.
           lastFragment:
             type: string
             title: string (893) Indicates if this message in a fragmented response
@@ -75746,15 +76051,17 @@ definitions:
             description: (58) Comment, instructions, or other identifying information.
           encodedTextLen:
             type: string
-            description: >-
+            description: |-
               (354) Must be set if EncodedText (355) field is specified and must
               immediately precede it.
           encodedText:
             type: string
             title: >-
               (355) Encoded (non-ASCII characters) representation of the Text
-              (58) field in the encoded format specified via the MessageEncoding
-              (347) field
+              (58) field
+
+              in the encoded format specified via the MessageEncoding (347)
+              field
           trailer:
             type: object
             properties:
@@ -75855,10 +76162,12 @@ definitions:
             type: string
             title: >-
               (354)  Must be set if EncodedText (355) field is specified and
-              must immediately precede it
+              must
+
+              immediately precede it
           encodedText:
             type: string
-            title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+            title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
           trailer:
             type: object
             properties:
@@ -75887,7 +76196,9 @@ definitions:
             title: owner
         title: >-
           Security List Request Reject with fields, tags and descriptions and
-          MsgType = y
+          MsgType =
+
+          y
   jim380.re.fix.SecurityListRequest:
     type: object
     properties:
@@ -75961,21 +76272,25 @@ definitions:
         description: "(58)\tComment, instructions, or other identifying information."
       encodedTextLen:
         type: string
-        description: >-
+        description: |-
           (354) Must be set if EncodedText (355) field is specified and must
           immediately precede it.
       encodedText:
         type: string
         description: >-
           (355) Encoded (non-ASCII characters) representation of the Text (58)
-          field in the encoded format specified via the MessageEncoding (347)
-          field.
+          field
+
+          in the encoded format specified via the MessageEncoding (347) field.
       tradingSessionID:
         type: string
         description: >-
           (336) Optional Trading Session Identifier to specify a particular
-          trading session for which you want to obtain a list of securities that
-          are tradeable.
+          trading
+
+          session for which you want to obtain a list of securities that are
+
+          tradeable.
       tradingSessionSubID:
         type: string
         title: (625)
@@ -75983,7 +76298,9 @@ definitions:
         type: string
         description: >-
           (263) Subscribe or unsubscribe for security status to security
-          specified in request.
+          specified in
+
+          request.
       trailer:
         type: object
         properties:
@@ -76078,12 +76395,12 @@ definitions:
         title: "(58)\tComment, instructions, or other identifying information"
       encodedTextLen:
         type: string
-        title: >-
+        title: |-
           (354)  Must be set if EncodedText (355) field is specified and must
           immediately precede it
       encodedText:
         type: string
-        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58)\nfield"
       trailer:
         type: object
         properties:
@@ -76112,7 +76429,9 @@ definitions:
         title: owner
     title: >-
       Security List Request Reject with fields, tags and descriptions and
-      MsgType = y
+      MsgType =
+
+      y
   jim380.re.fix.SecurityListResponse:
     type: object
     properties:
@@ -76181,8 +76500,10 @@ definitions:
         type: string
         description: >-
           (393) Used to indicate if the total number of securities being
-          returned for this request. Used in the event that message
-          fragmentation is required.
+          returned for
+
+          this request. Used in the event that message fragmentation is
+          required.
       lastFragment:
         type: string
         title: string (893) Indicates if this message in a fragmented response
@@ -76220,15 +76541,16 @@ definitions:
         description: (58) Comment, instructions, or other identifying information.
       encodedTextLen:
         type: string
-        description: >-
+        description: |-
           (354) Must be set if EncodedText (355) field is specified and must
           immediately precede it.
       encodedText:
         type: string
         title: >-
           (355) Encoded (non-ASCII characters) representation of the Text (58)
-          field in the encoded format specified via the MessageEncoding (347)
           field
+
+          in the encoded format specified via the MessageEncoding (347) field
       trailer:
         type: object
         properties:
@@ -76256,6 +76578,14 @@ definitions:
         type: string
         title: owner
     title: Security List Response  with fields, tags and descriptions and MsgType = y
+  jim380.re.fix.SecurityStatus:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      sessionID:
+        type: string
   jim380.re.fix.SessionLogout:
     type: object
     properties:

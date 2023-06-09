@@ -107,15 +107,20 @@ type SecurityListRequest struct {
 	Currency string `protobuf:"bytes,6,opt,name=currency,proto3" json:"currency,omitempty"`
 	// (58)	Comment, instructions, or other identifying information.
 	Text string `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
-	// (354) Must be set if EncodedText (355) field is specified and must immediately precede it.
+	// (354) Must be set if EncodedText (355) field is specified and must
+	// immediately precede it.
 	EncodedTextLen string `protobuf:"bytes,8,opt,name=encodedTextLen,proto3" json:"encodedTextLen,omitempty"`
-	// (355) Encoded (non-ASCII characters) representation of the Text (58) field in the encoded format specified via the MessageEncoding (347) field.
+	// (355) Encoded (non-ASCII characters) representation of the Text (58) field
+	// in the encoded format specified via the MessageEncoding (347) field.
 	EncodedText string `protobuf:"bytes,9,opt,name=encodedText,proto3" json:"encodedText,omitempty"`
-	// (336) Optional Trading Session Identifier to specify a particular trading session for which you want to obtain a list of securities that are tradeable.
+	// (336) Optional Trading Session Identifier to specify a particular trading
+	// session for which you want to obtain a list of securities that are
+	// tradeable.
 	TradingSessionID string `protobuf:"bytes,10,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
 	// (625)
 	TradingSessionSubID string `protobuf:"bytes,11,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
-	// (263) Subscribe or unsubscribe for security status to security specified in request.
+	// (263) Subscribe or unsubscribe for security status to security specified in
+	// request.
 	SubscriptionRequestType string `protobuf:"bytes,12,opt,name=subscriptionRequestType,proto3" json:"subscriptionRequestType,omitempty"`
 	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,13,opt,name=trailer,proto3" json:"trailer,omitempty"`
@@ -265,9 +270,10 @@ type SecurityListResponse struct {
 	SecurityResponseID string `protobuf:"bytes,3,opt,name=securityResponseID,proto3" json:"securityResponseID,omitempty"`
 	// (560) Result of the Security Request identified by the SecurityReqID (320)
 	SecurityRequestResult string `protobuf:"bytes,4,opt,name=securityRequestResult,proto3" json:"securityRequestResult,omitempty"`
-	// (393) Used to indicate if the total number of securities being returned for this request. Used in the event that message fragmentation is required.
+	// (393) Used to indicate if the total number of securities being returned for
+	// this request. Used in the event that message fragmentation is required.
 	TotNoRelatedSym string `protobuf:"bytes,5,opt,name=totNoRelatedSym,proto3" json:"totNoRelatedSym,omitempty"`
-	//string (893) Indicates if this message in a fragmented response
+	// string (893) Indicates if this message in a fragmented response
 	LastFragment string `protobuf:"bytes,6,opt,name=lastFragment,proto3" json:"lastFragment,omitempty"`
 	// (146) Specifies the number of repeating symbols (instruments) specified
 	NoRelatedSym string `protobuf:"bytes,7,opt,name=noRelatedSym,proto3" json:"noRelatedSym,omitempty"`
@@ -289,9 +295,11 @@ type SecurityListResponse struct {
 	ExpirationCycle string `protobuf:"bytes,15,opt,name=expirationCycle,proto3" json:"expirationCycle,omitempty"`
 	// (58) Comment, instructions, or other identifying information.
 	Text string `protobuf:"bytes,16,opt,name=text,proto3" json:"text,omitempty"`
-	// (354) Must be set if EncodedText (355) field is specified and must immediately precede it.
+	// (354) Must be set if EncodedText (355) field is specified and must
+	// immediately precede it.
 	EncodedTextLen string `protobuf:"bytes,17,opt,name=encodedTextLen,proto3" json:"encodedTextLen,omitempty"`
-	// (355) Encoded (non-ASCII characters) representation of the Text (58) field in the encoded format specified via the MessageEncoding (347) field
+	// (355) Encoded (non-ASCII characters) representation of the Text (58) field
+	// in the encoded format specified via the MessageEncoding (347) field
 	EncodedText string `protobuf:"bytes,18,opt,name=encodedText,proto3" json:"encodedText,omitempty"`
 	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,19,opt,name=trailer,proto3" json:"trailer,omitempty"`
@@ -472,7 +480,8 @@ func (m *SecurityListResponse) GetCreator() string {
 	return ""
 }
 
-// Security List Request Reject with fields, tags and descriptions and MsgType = y
+// Security List Request Reject with fields, tags and descriptions and MsgType =
+// y
 type SecurityListRequestReject struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
@@ -485,9 +494,11 @@ type SecurityListRequestReject struct {
 	SecurityRequestResult string `protobuf:"bytes,4,opt,name=securityRequestResult,proto3" json:"securityRequestResult,omitempty"`
 	// (58)	Comment, instructions, or other identifying information
 	Text string `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
-	// (354)  Must be set if EncodedText (355) field is specified and must immediately precede it
+	// (354)  Must be set if EncodedText (355) field is specified and must
+	// immediately precede it
 	EncodedTextLen string `protobuf:"bytes,6,opt,name=encodedTextLen,proto3" json:"encodedTextLen,omitempty"`
-	// (355)	Encoded (non-ASCII characters) representation of the Text (58) field
+	// (355)	Encoded (non-ASCII characters) representation of the Text (58)
+	// field
 	EncodedText string `protobuf:"bytes,7,opt,name=encodedText,proto3" json:"encodedText,omitempty"`
 	// Standard FIX message trailer.
 	Trailer *Trailer `protobuf:"bytes,8,opt,name=trailer,proto3" json:"trailer,omitempty"`

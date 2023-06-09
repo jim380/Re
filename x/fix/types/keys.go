@@ -190,3 +190,8 @@ func GetSecurityListKey() []byte {
 func GetSecurityListCountKey() []byte {
 	return SecurityListCountKey
 }
+
+const (
+	SecurityStatusKey      = "SecurityStatus/value/"
+	SecurityStatusCountKey = "SecurityStatus/count/"
+)
