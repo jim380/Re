@@ -62,6 +62,9 @@ var (
 
 	TradingSessionListKey      = []byte{0x026}
 	TradingSessionListCountKey = []byte{0x027}
+
+	SecurityListKey      = []byte{0x028}
+	SecurityListCountKey = []byte{0x029}
 )
 
 func GetAccountKey() []byte {
@@ -178,4 +181,12 @@ func GetTradingSessionListKey() []byte {
 
 func GetTradingSessionListCountKey() []byte {
 	return TradingSessionListCountKey
+}
+
+func GetSecurityListKey() []byte {
+	return SecurityListKey
+}
+
+func GetSecurityListCountKey() []byte {
+	return SecurityListCountKey
 }

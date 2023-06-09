@@ -35420,6 +35420,978 @@ paths:
           type: string
       tags:
         - Query
+  /jim380/Re/fix/security_list:
+    get:
+      operationId: Jim380ReFixSecurityListAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sessionID:
+                      type: string
+                    securityListRequest:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          title: >-
+                            (Tag 320): Unique identifier assigned by the
+                            requester to the security
+
+                            List Request message
+                        securityListRequestType:
+                          type: string
+                          title: (559) Type of Security List Request (x) being made
+                        noUnderlyings:
+                          type: string
+                          title: "(711) Undly\tN\tNumber of underlyings"
+                        noLegs:
+                          type: string
+                          title: (555) Number of legs that make up the Security
+                        currency:
+                          type: string
+                          title: (15)
+                        text:
+                          type: string
+                          description: "(58)\tComment, instructions, or other identifying information."
+                        encodedTextLen:
+                          type: string
+                          description: >-
+                            (354) Must be set if EncodedText (355) field is
+                            specified and must immediately precede it.
+                        encodedText:
+                          type: string
+                          description: >-
+                            (355) Encoded (non-ASCII characters) representation
+                            of the Text (58) field in the encoded format
+                            specified via the MessageEncoding (347) field.
+                        tradingSessionID:
+                          type: string
+                          description: >-
+                            (336) Optional Trading Session Identifier to specify
+                            a particular trading session for which you want to
+                            obtain a list of securities that are tradeable.
+                        tradingSessionSubID:
+                          type: string
+                          title: (625)
+                        subscriptionRequestType:
+                          type: string
+                          description: >-
+                            (263) Subscribe or unsubscribe for security status
+                            to security specified in request.
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                        creator:
+                          type: string
+                          title: owner
+                      title: >-
+                        Security List Request with fields, tags and descriptions
+                        and MsgType = x
+                    SecurityListResponse:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          title: >-
+                            (Tag 320): Unique identifier assigned by the
+                            requester to the security
+
+                            List Request message
+                        securityResponseID:
+                          type: string
+                          title: (322) Identifier for the Security List (y) message
+                        securityRequestResult:
+                          type: string
+                          title: >-
+                            (560) Result of the Security Request identified by
+                            the SecurityReqID (320)
+                        totNoRelatedSym:
+                          type: string
+                          description: >-
+                            (393) Used to indicate if the total number of
+                            securities being returned for this request. Used in
+                            the event that message fragmentation is required.
+                        lastFragment:
+                          type: string
+                          title: >-
+                            string (893) Indicates if this message in a
+                            fragmented response
+                        noRelatedSym:
+                          type: string
+                          title: >-
+                            (146) Specifies the number of repeating symbols
+                            (instruments) specified
+                        noUnderlyings:
+                          type: string
+                          title: (711) Number of underlyings
+                        currency:
+                          type: string
+                          title: (15)
+                        noLegs:
+                          type: string
+                          title: (555) Number of legs that make up the Security
+                        roundLot:
+                          type: string
+                          title: (561)
+                        minTradeVol:
+                          type: string
+                          title: (562)
+                        tradingSessionID:
+                          type: string
+                          title: (336)
+                        tradingSessionSubID:
+                          type: string
+                          title: (625)
+                        expirationCycle:
+                          type: string
+                          title: (827)
+                        text:
+                          type: string
+                          description: >-
+                            (58) Comment, instructions, or other identifying
+                            information.
+                        encodedTextLen:
+                          type: string
+                          description: >-
+                            (354) Must be set if EncodedText (355) field is
+                            specified and must immediately precede it.
+                        encodedText:
+                          type: string
+                          title: >-
+                            (355) Encoded (non-ASCII characters) representation
+                            of the Text (58) field in the encoded format
+                            specified via the MessageEncoding (347) field
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                        creator:
+                          type: string
+                          title: owner
+                      title: >-
+                        Security List Response  with fields, tags and
+                        descriptions and MsgType = y
+                    securityListRequestReject:
+                      type: object
+                      properties:
+                        header:
+                          type: object
+                          properties:
+                            beginString:
+                              type: string
+                              description: >-
+                                This field specifies the version of the FIX
+                                protocol being used. For
+
+                                example, "FIX.4.4" indicates version 4.4 of the
+                                protocol.
+                            bodyLength:
+                              type: string
+                              format: int64
+                              description: >-
+                                This field specifies the length of the message
+                                body in bytes.
+                            msgType:
+                              type: string
+                              title: >-
+                                This field identifies the type of message being
+                                sent. For example, "D"
+
+                                indicates a New Order Single message
+                            senderCompID:
+                              type: string
+                              title: >-
+                                This field identifies the sender of the message.
+                                This is typically a unique
+
+                                identifier assigned to each party that uses the
+                                FIX protocol
+                            targetCompID:
+                              type: string
+                              description: >-
+                                This field identifies the recipient of the
+                                message.
+                            msgSeqNum:
+                              type: string
+                              format: int64
+                              title: >-
+                                Is a field in the FIX protocol message header
+                                that is used to assign a
+
+                                unique sequence number to each message
+                            sendingTime:
+                              type: string
+                              title: >-
+                                This field specifies the time that the message
+                                was sent
+                          title: >-
+                            This message header contains fields that identify
+                            the message being sent and
+
+                            its sender and recipient
+                          description: Standard FIX message header.
+                        securityReqID:
+                          type: string
+                          title: >-
+                            (Tag 320): Unique identifier assigned by the
+                            requester to the security
+
+                            List Request message
+                        securityListRequestType:
+                          type: string
+                          title: (559) Type of security list request being made
+                        securityRequestResult:
+                          type: string
+                          title: "(560)\tResult of the security list request"
+                        text:
+                          type: string
+                          title: "(58)\tComment, instructions, or other identifying information"
+                        encodedTextLen:
+                          type: string
+                          title: >-
+                            (354)  Must be set if EncodedText (355) field is
+                            specified and must immediately precede it
+                        encodedText:
+                          type: string
+                          title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                        trailer:
+                          type: object
+                          properties:
+                            checkSum:
+                              type: string
+                              format: int64
+                              description: >-
+                                The checksum value is calculated by summing the
+                                ASCII values of all
+
+                                characters in the message (excluding the SOH
+                                (start of header) and ETX (end
+
+                                of text) characters), taking the sum modulo 256,
+                                and converting the result
+
+                                to a two-character hexadecimal string.
+                          title: >-
+                            This message trailer contains a checksum field that
+                            is used to ensure message
+
+                            integrity
+                          description: Standard FIX message trailer.
+                        creator:
+                          type: string
+                          title: owner
+                      title: >-
+                        Security List Request Reject with fields, tags and
+                        descriptions and MsgType = y
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/security_list/{securityReqID}:
+    get:
+      summary: Queries a list of SecurityList items.
+      operationId: Jim380ReFixSecurityList
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityList:
+                type: object
+                properties:
+                  sessionID:
+                    type: string
+                  securityListRequest:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        title: >-
+                          (Tag 320): Unique identifier assigned by the requester
+                          to the security
+
+                          List Request message
+                      securityListRequestType:
+                        type: string
+                        title: (559) Type of Security List Request (x) being made
+                      noUnderlyings:
+                        type: string
+                        title: "(711) Undly\tN\tNumber of underlyings"
+                      noLegs:
+                        type: string
+                        title: (555) Number of legs that make up the Security
+                      currency:
+                        type: string
+                        title: (15)
+                      text:
+                        type: string
+                        description: "(58)\tComment, instructions, or other identifying information."
+                      encodedTextLen:
+                        type: string
+                        description: >-
+                          (354) Must be set if EncodedText (355) field is
+                          specified and must immediately precede it.
+                      encodedText:
+                        type: string
+                        description: >-
+                          (355) Encoded (non-ASCII characters) representation of
+                          the Text (58) field in the encoded format specified
+                          via the MessageEncoding (347) field.
+                      tradingSessionID:
+                        type: string
+                        description: >-
+                          (336) Optional Trading Session Identifier to specify a
+                          particular trading session for which you want to
+                          obtain a list of securities that are tradeable.
+                      tradingSessionSubID:
+                        type: string
+                        title: (625)
+                      subscriptionRequestType:
+                        type: string
+                        description: >-
+                          (263) Subscribe or unsubscribe for security status to
+                          security specified in request.
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                      creator:
+                        type: string
+                        title: owner
+                    title: >-
+                      Security List Request with fields, tags and descriptions
+                      and MsgType = x
+                  SecurityListResponse:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        title: >-
+                          (Tag 320): Unique identifier assigned by the requester
+                          to the security
+
+                          List Request message
+                      securityResponseID:
+                        type: string
+                        title: (322) Identifier for the Security List (y) message
+                      securityRequestResult:
+                        type: string
+                        title: >-
+                          (560) Result of the Security Request identified by the
+                          SecurityReqID (320)
+                      totNoRelatedSym:
+                        type: string
+                        description: >-
+                          (393) Used to indicate if the total number of
+                          securities being returned for this request. Used in
+                          the event that message fragmentation is required.
+                      lastFragment:
+                        type: string
+                        title: >-
+                          string (893) Indicates if this message in a fragmented
+                          response
+                      noRelatedSym:
+                        type: string
+                        title: >-
+                          (146) Specifies the number of repeating symbols
+                          (instruments) specified
+                      noUnderlyings:
+                        type: string
+                        title: (711) Number of underlyings
+                      currency:
+                        type: string
+                        title: (15)
+                      noLegs:
+                        type: string
+                        title: (555) Number of legs that make up the Security
+                      roundLot:
+                        type: string
+                        title: (561)
+                      minTradeVol:
+                        type: string
+                        title: (562)
+                      tradingSessionID:
+                        type: string
+                        title: (336)
+                      tradingSessionSubID:
+                        type: string
+                        title: (625)
+                      expirationCycle:
+                        type: string
+                        title: (827)
+                      text:
+                        type: string
+                        description: >-
+                          (58) Comment, instructions, or other identifying
+                          information.
+                      encodedTextLen:
+                        type: string
+                        description: >-
+                          (354) Must be set if EncodedText (355) field is
+                          specified and must immediately precede it.
+                      encodedText:
+                        type: string
+                        title: >-
+                          (355) Encoded (non-ASCII characters) representation of
+                          the Text (58) field in the encoded format specified
+                          via the MessageEncoding (347) field
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                      creator:
+                        type: string
+                        title: owner
+                    title: >-
+                      Security List Response  with fields, tags and descriptions
+                      and MsgType = y
+                  securityListRequestReject:
+                    type: object
+                    properties:
+                      header:
+                        type: object
+                        properties:
+                          beginString:
+                            type: string
+                            description: >-
+                              This field specifies the version of the FIX
+                              protocol being used. For
+
+                              example, "FIX.4.4" indicates version 4.4 of the
+                              protocol.
+                          bodyLength:
+                            type: string
+                            format: int64
+                            description: >-
+                              This field specifies the length of the message
+                              body in bytes.
+                          msgType:
+                            type: string
+                            title: >-
+                              This field identifies the type of message being
+                              sent. For example, "D"
+
+                              indicates a New Order Single message
+                          senderCompID:
+                            type: string
+                            title: >-
+                              This field identifies the sender of the message.
+                              This is typically a unique
+
+                              identifier assigned to each party that uses the
+                              FIX protocol
+                          targetCompID:
+                            type: string
+                            description: >-
+                              This field identifies the recipient of the
+                              message.
+                          msgSeqNum:
+                            type: string
+                            format: int64
+                            title: >-
+                              Is a field in the FIX protocol message header that
+                              is used to assign a
+
+                              unique sequence number to each message
+                          sendingTime:
+                            type: string
+                            title: >-
+                              This field specifies the time that the message was
+                              sent
+                        title: >-
+                          This message header contains fields that identify the
+                          message being sent and
+
+                          its sender and recipient
+                        description: Standard FIX message header.
+                      securityReqID:
+                        type: string
+                        title: >-
+                          (Tag 320): Unique identifier assigned by the requester
+                          to the security
+
+                          List Request message
+                      securityListRequestType:
+                        type: string
+                        title: (559) Type of security list request being made
+                      securityRequestResult:
+                        type: string
+                        title: "(560)\tResult of the security list request"
+                      text:
+                        type: string
+                        title: "(58)\tComment, instructions, or other identifying information"
+                      encodedTextLen:
+                        type: string
+                        title: >-
+                          (354)  Must be set if EncodedText (355) field is
+                          specified and must immediately precede it
+                      encodedText:
+                        type: string
+                        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                      trailer:
+                        type: object
+                        properties:
+                          checkSum:
+                            type: string
+                            format: int64
+                            description: >-
+                              The checksum value is calculated by summing the
+                              ASCII values of all
+
+                              characters in the message (excluding the SOH
+                              (start of header) and ETX (end
+
+                              of text) characters), taking the sum modulo 256,
+                              and converting the result
+
+                              to a two-character hexadecimal string.
+                        title: >-
+                          This message trailer contains a checksum field that is
+                          used to ensure message
+
+                          integrity
+                        description: Standard FIX message trailer.
+                      creator:
+                        type: string
+                        title: owner
+                    title: >-
+                      Security List Request Reject with fields, tags and
+                      descriptions and MsgType = y
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: securityReqID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /jim380/Re/fix/session/logout/{sessionID}:
     get:
       summary: Queries a list of SessionLogout items.
@@ -39080,7 +40052,7 @@ paths:
                           description: Standard FIX message header.
                         tradSesReqID:
                           type: string
-                          title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+                          title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
                         noTradingSessions:
                           type: string
                           title: (386)
@@ -39559,7 +40531,7 @@ paths:
                         description: Standard FIX message header.
                       tradSesReqID:
                         type: string
-                        title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+                        title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
                       noTradingSessions:
                         type: string
                         title: (386)
@@ -62207,6 +63179,12 @@ definitions:
     type: object
   jim380.re.fix.MsgSecurityDefinitionResponse:
     type: object
+  jim380.re.fix.MsgSecurityListRequestRejectResponse:
+    type: object
+  jim380.re.fix.MsgSecurityListRequestResponse:
+    type: object
+  jim380.re.fix.MsgSecurityListResponseResponse:
+    type: object
   jim380.re.fix.MsgTerminateLogonResponse:
     type: object
   jim380.re.fix.MsgTradeCaptureReportAcknowledgementResponse:
@@ -65602,6 +66580,435 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  jim380.re.fix.QueryAllSecurityListResponse:
+    type: object
+    properties:
+      SecurityList:
+        type: array
+        items:
+          type: object
+          properties:
+            sessionID:
+              type: string
+            securityListRequest:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  title: >-
+                    (Tag 320): Unique identifier assigned by the requester to
+                    the security
+
+                    List Request message
+                securityListRequestType:
+                  type: string
+                  title: (559) Type of Security List Request (x) being made
+                noUnderlyings:
+                  type: string
+                  title: "(711) Undly\tN\tNumber of underlyings"
+                noLegs:
+                  type: string
+                  title: (555) Number of legs that make up the Security
+                currency:
+                  type: string
+                  title: (15)
+                text:
+                  type: string
+                  description: "(58)\tComment, instructions, or other identifying information."
+                encodedTextLen:
+                  type: string
+                  description: >-
+                    (354) Must be set if EncodedText (355) field is specified
+                    and must immediately precede it.
+                encodedText:
+                  type: string
+                  description: >-
+                    (355) Encoded (non-ASCII characters) representation of the
+                    Text (58) field in the encoded format specified via the
+                    MessageEncoding (347) field.
+                tradingSessionID:
+                  type: string
+                  description: >-
+                    (336) Optional Trading Session Identifier to specify a
+                    particular trading session for which you want to obtain a
+                    list of securities that are tradeable.
+                tradingSessionSubID:
+                  type: string
+                  title: (625)
+                subscriptionRequestType:
+                  type: string
+                  description: >-
+                    (263) Subscribe or unsubscribe for security status to
+                    security specified in request.
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+                creator:
+                  type: string
+                  title: owner
+              title: >-
+                Security List Request with fields, tags and descriptions and
+                MsgType = x
+            SecurityListResponse:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  title: >-
+                    (Tag 320): Unique identifier assigned by the requester to
+                    the security
+
+                    List Request message
+                securityResponseID:
+                  type: string
+                  title: (322) Identifier for the Security List (y) message
+                securityRequestResult:
+                  type: string
+                  title: >-
+                    (560) Result of the Security Request identified by the
+                    SecurityReqID (320)
+                totNoRelatedSym:
+                  type: string
+                  description: >-
+                    (393) Used to indicate if the total number of securities
+                    being returned for this request. Used in the event that
+                    message fragmentation is required.
+                lastFragment:
+                  type: string
+                  title: >-
+                    string (893) Indicates if this message in a fragmented
+                    response
+                noRelatedSym:
+                  type: string
+                  title: >-
+                    (146) Specifies the number of repeating symbols
+                    (instruments) specified
+                noUnderlyings:
+                  type: string
+                  title: (711) Number of underlyings
+                currency:
+                  type: string
+                  title: (15)
+                noLegs:
+                  type: string
+                  title: (555) Number of legs that make up the Security
+                roundLot:
+                  type: string
+                  title: (561)
+                minTradeVol:
+                  type: string
+                  title: (562)
+                tradingSessionID:
+                  type: string
+                  title: (336)
+                tradingSessionSubID:
+                  type: string
+                  title: (625)
+                expirationCycle:
+                  type: string
+                  title: (827)
+                text:
+                  type: string
+                  description: >-
+                    (58) Comment, instructions, or other identifying
+                    information.
+                encodedTextLen:
+                  type: string
+                  description: >-
+                    (354) Must be set if EncodedText (355) field is specified
+                    and must immediately precede it.
+                encodedText:
+                  type: string
+                  title: >-
+                    (355) Encoded (non-ASCII characters) representation of the
+                    Text (58) field in the encoded format specified via the
+                    MessageEncoding (347) field
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+                creator:
+                  type: string
+                  title: owner
+              title: >-
+                Security List Response  with fields, tags and descriptions and
+                MsgType = y
+            securityListRequestReject:
+              type: object
+              properties:
+                header:
+                  type: object
+                  properties:
+                    beginString:
+                      type: string
+                      description: >-
+                        This field specifies the version of the FIX protocol
+                        being used. For
+
+                        example, "FIX.4.4" indicates version 4.4 of the
+                        protocol.
+                    bodyLength:
+                      type: string
+                      format: int64
+                      description: >-
+                        This field specifies the length of the message body in
+                        bytes.
+                    msgType:
+                      type: string
+                      title: >-
+                        This field identifies the type of message being sent.
+                        For example, "D"
+
+                        indicates a New Order Single message
+                    senderCompID:
+                      type: string
+                      title: >-
+                        This field identifies the sender of the message. This is
+                        typically a unique
+
+                        identifier assigned to each party that uses the FIX
+                        protocol
+                    targetCompID:
+                      type: string
+                      description: This field identifies the recipient of the message.
+                    msgSeqNum:
+                      type: string
+                      format: int64
+                      title: >-
+                        Is a field in the FIX protocol message header that is
+                        used to assign a
+
+                        unique sequence number to each message
+                    sendingTime:
+                      type: string
+                      title: This field specifies the time that the message was sent
+                  title: >-
+                    This message header contains fields that identify the
+                    message being sent and
+
+                    its sender and recipient
+                  description: Standard FIX message header.
+                securityReqID:
+                  type: string
+                  title: >-
+                    (Tag 320): Unique identifier assigned by the requester to
+                    the security
+
+                    List Request message
+                securityListRequestType:
+                  type: string
+                  title: (559) Type of security list request being made
+                securityRequestResult:
+                  type: string
+                  title: "(560)\tResult of the security list request"
+                text:
+                  type: string
+                  title: "(58)\tComment, instructions, or other identifying information"
+                encodedTextLen:
+                  type: string
+                  title: >-
+                    (354)  Must be set if EncodedText (355) field is specified
+                    and must immediately precede it
+                encodedText:
+                  type: string
+                  title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+                trailer:
+                  type: object
+                  properties:
+                    checkSum:
+                      type: string
+                      format: int64
+                      description: >-
+                        The checksum value is calculated by summing the ASCII
+                        values of all
+
+                        characters in the message (excluding the SOH (start of
+                        header) and ETX (end
+
+                        of text) characters), taking the sum modulo 256, and
+                        converting the result
+
+                        to a two-character hexadecimal string.
+                  title: >-
+                    This message trailer contains a checksum field that is used
+                    to ensure message
+
+                    integrity
+                  description: Standard FIX message trailer.
+                creator:
+                  type: string
+                  title: owner
+              title: >-
+                Security List Request Reject with fields, tags and descriptions
+                and MsgType = y
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   jim380.re.fix.QueryAllSecurityResponse:
     type: object
     properties:
@@ -67237,7 +68644,7 @@ definitions:
                   description: Standard FIX message header.
                 tradSesReqID:
                   type: string
-                  title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+                  title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
                 noTradingSessions:
                   type: string
                   title: (386)
@@ -69738,6 +71145,403 @@ definitions:
                   integrity
               creator:
                 type: string
+  jim380.re.fix.QueryGetSecurityListResponse:
+    type: object
+    properties:
+      SecurityList:
+        type: object
+        properties:
+          sessionID:
+            type: string
+          securityListRequest:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                title: >-
+                  (Tag 320): Unique identifier assigned by the requester to the
+                  security
+
+                  List Request message
+              securityListRequestType:
+                type: string
+                title: (559) Type of Security List Request (x) being made
+              noUnderlyings:
+                type: string
+                title: "(711) Undly\tN\tNumber of underlyings"
+              noLegs:
+                type: string
+                title: (555) Number of legs that make up the Security
+              currency:
+                type: string
+                title: (15)
+              text:
+                type: string
+                description: "(58)\tComment, instructions, or other identifying information."
+              encodedTextLen:
+                type: string
+                description: >-
+                  (354) Must be set if EncodedText (355) field is specified and
+                  must immediately precede it.
+              encodedText:
+                type: string
+                description: >-
+                  (355) Encoded (non-ASCII characters) representation of the
+                  Text (58) field in the encoded format specified via the
+                  MessageEncoding (347) field.
+              tradingSessionID:
+                type: string
+                description: >-
+                  (336) Optional Trading Session Identifier to specify a
+                  particular trading session for which you want to obtain a list
+                  of securities that are tradeable.
+              tradingSessionSubID:
+                type: string
+                title: (625)
+              subscriptionRequestType:
+                type: string
+                description: >-
+                  (263) Subscribe or unsubscribe for security status to security
+                  specified in request.
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+              creator:
+                type: string
+                title: owner
+            title: >-
+              Security List Request with fields, tags and descriptions and
+              MsgType = x
+          SecurityListResponse:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                title: >-
+                  (Tag 320): Unique identifier assigned by the requester to the
+                  security
+
+                  List Request message
+              securityResponseID:
+                type: string
+                title: (322) Identifier for the Security List (y) message
+              securityRequestResult:
+                type: string
+                title: >-
+                  (560) Result of the Security Request identified by the
+                  SecurityReqID (320)
+              totNoRelatedSym:
+                type: string
+                description: >-
+                  (393) Used to indicate if the total number of securities being
+                  returned for this request. Used in the event that message
+                  fragmentation is required.
+              lastFragment:
+                type: string
+                title: >-
+                  string (893) Indicates if this message in a fragmented
+                  response
+              noRelatedSym:
+                type: string
+                title: >-
+                  (146) Specifies the number of repeating symbols (instruments)
+                  specified
+              noUnderlyings:
+                type: string
+                title: (711) Number of underlyings
+              currency:
+                type: string
+                title: (15)
+              noLegs:
+                type: string
+                title: (555) Number of legs that make up the Security
+              roundLot:
+                type: string
+                title: (561)
+              minTradeVol:
+                type: string
+                title: (562)
+              tradingSessionID:
+                type: string
+                title: (336)
+              tradingSessionSubID:
+                type: string
+                title: (625)
+              expirationCycle:
+                type: string
+                title: (827)
+              text:
+                type: string
+                description: (58) Comment, instructions, or other identifying information.
+              encodedTextLen:
+                type: string
+                description: >-
+                  (354) Must be set if EncodedText (355) field is specified and
+                  must immediately precede it.
+              encodedText:
+                type: string
+                title: >-
+                  (355) Encoded (non-ASCII characters) representation of the
+                  Text (58) field in the encoded format specified via the
+                  MessageEncoding (347) field
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+              creator:
+                type: string
+                title: owner
+            title: >-
+              Security List Response  with fields, tags and descriptions and
+              MsgType = y
+          securityListRequestReject:
+            type: object
+            properties:
+              header:
+                type: object
+                properties:
+                  beginString:
+                    type: string
+                    description: >-
+                      This field specifies the version of the FIX protocol being
+                      used. For
+
+                      example, "FIX.4.4" indicates version 4.4 of the protocol.
+                  bodyLength:
+                    type: string
+                    format: int64
+                    description: >-
+                      This field specifies the length of the message body in
+                      bytes.
+                  msgType:
+                    type: string
+                    title: >-
+                      This field identifies the type of message being sent. For
+                      example, "D"
+
+                      indicates a New Order Single message
+                  senderCompID:
+                    type: string
+                    title: >-
+                      This field identifies the sender of the message. This is
+                      typically a unique
+
+                      identifier assigned to each party that uses the FIX
+                      protocol
+                  targetCompID:
+                    type: string
+                    description: This field identifies the recipient of the message.
+                  msgSeqNum:
+                    type: string
+                    format: int64
+                    title: >-
+                      Is a field in the FIX protocol message header that is used
+                      to assign a
+
+                      unique sequence number to each message
+                  sendingTime:
+                    type: string
+                    title: This field specifies the time that the message was sent
+                title: >-
+                  This message header contains fields that identify the message
+                  being sent and
+
+                  its sender and recipient
+                description: Standard FIX message header.
+              securityReqID:
+                type: string
+                title: >-
+                  (Tag 320): Unique identifier assigned by the requester to the
+                  security
+
+                  List Request message
+              securityListRequestType:
+                type: string
+                title: (559) Type of security list request being made
+              securityRequestResult:
+                type: string
+                title: "(560)\tResult of the security list request"
+              text:
+                type: string
+                title: "(58)\tComment, instructions, or other identifying information"
+              encodedTextLen:
+                type: string
+                title: >-
+                  (354)  Must be set if EncodedText (355) field is specified and
+                  must immediately precede it
+              encodedText:
+                type: string
+                title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+              trailer:
+                type: object
+                properties:
+                  checkSum:
+                    type: string
+                    format: int64
+                    description: >-
+                      The checksum value is calculated by summing the ASCII
+                      values of all
+
+                      characters in the message (excluding the SOH (start of
+                      header) and ETX (end
+
+                      of text) characters), taking the sum modulo 256, and
+                      converting the result
+
+                      to a two-character hexadecimal string.
+                title: >-
+                  This message trailer contains a checksum field that is used to
+                  ensure message
+
+                  integrity
+                description: Standard FIX message trailer.
+              creator:
+                type: string
+                title: owner
+            title: >-
+              Security List Request Reject with fields, tags and descriptions
+              and MsgType = y
   jim380.re.fix.QueryGetSecurityResponse:
     type: object
     properties:
@@ -71211,7 +73015,7 @@ definitions:
                 description: Standard FIX message header.
               tradSesReqID:
                 type: string
-                title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+                title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
               noTradingSessions:
                 type: string
                 title: (386)
@@ -73701,6 +75505,757 @@ definitions:
         type: string
         title: owner
     description: Security Definition Request Rejeect with fields, tags and descriptions.
+  jim380.re.fix.SecurityList:
+    type: object
+    properties:
+      sessionID:
+        type: string
+      securityListRequest:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            title: >-
+              (Tag 320): Unique identifier assigned by the requester to the
+              security
+
+              List Request message
+          securityListRequestType:
+            type: string
+            title: (559) Type of Security List Request (x) being made
+          noUnderlyings:
+            type: string
+            title: "(711) Undly\tN\tNumber of underlyings"
+          noLegs:
+            type: string
+            title: (555) Number of legs that make up the Security
+          currency:
+            type: string
+            title: (15)
+          text:
+            type: string
+            description: "(58)\tComment, instructions, or other identifying information."
+          encodedTextLen:
+            type: string
+            description: >-
+              (354) Must be set if EncodedText (355) field is specified and must
+              immediately precede it.
+          encodedText:
+            type: string
+            description: >-
+              (355) Encoded (non-ASCII characters) representation of the Text
+              (58) field in the encoded format specified via the MessageEncoding
+              (347) field.
+          tradingSessionID:
+            type: string
+            description: >-
+              (336) Optional Trading Session Identifier to specify a particular
+              trading session for which you want to obtain a list of securities
+              that are tradeable.
+          tradingSessionSubID:
+            type: string
+            title: (625)
+          subscriptionRequestType:
+            type: string
+            description: >-
+              (263) Subscribe or unsubscribe for security status to security
+              specified in request.
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+          creator:
+            type: string
+            title: owner
+        title: >-
+          Security List Request with fields, tags and descriptions and MsgType =
+          x
+      SecurityListResponse:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            title: >-
+              (Tag 320): Unique identifier assigned by the requester to the
+              security
+
+              List Request message
+          securityResponseID:
+            type: string
+            title: (322) Identifier for the Security List (y) message
+          securityRequestResult:
+            type: string
+            title: >-
+              (560) Result of the Security Request identified by the
+              SecurityReqID (320)
+          totNoRelatedSym:
+            type: string
+            description: >-
+              (393) Used to indicate if the total number of securities being
+              returned for this request. Used in the event that message
+              fragmentation is required.
+          lastFragment:
+            type: string
+            title: string (893) Indicates if this message in a fragmented response
+          noRelatedSym:
+            type: string
+            title: >-
+              (146) Specifies the number of repeating symbols (instruments)
+              specified
+          noUnderlyings:
+            type: string
+            title: (711) Number of underlyings
+          currency:
+            type: string
+            title: (15)
+          noLegs:
+            type: string
+            title: (555) Number of legs that make up the Security
+          roundLot:
+            type: string
+            title: (561)
+          minTradeVol:
+            type: string
+            title: (562)
+          tradingSessionID:
+            type: string
+            title: (336)
+          tradingSessionSubID:
+            type: string
+            title: (625)
+          expirationCycle:
+            type: string
+            title: (827)
+          text:
+            type: string
+            description: (58) Comment, instructions, or other identifying information.
+          encodedTextLen:
+            type: string
+            description: >-
+              (354) Must be set if EncodedText (355) field is specified and must
+              immediately precede it.
+          encodedText:
+            type: string
+            title: >-
+              (355) Encoded (non-ASCII characters) representation of the Text
+              (58) field in the encoded format specified via the MessageEncoding
+              (347) field
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+          creator:
+            type: string
+            title: owner
+        title: >-
+          Security List Response  with fields, tags and descriptions and MsgType
+          = y
+      securityListRequestReject:
+        type: object
+        properties:
+          header:
+            type: object
+            properties:
+              beginString:
+                type: string
+                description: >-
+                  This field specifies the version of the FIX protocol being
+                  used. For
+
+                  example, "FIX.4.4" indicates version 4.4 of the protocol.
+              bodyLength:
+                type: string
+                format: int64
+                description: This field specifies the length of the message body in bytes.
+              msgType:
+                type: string
+                title: >-
+                  This field identifies the type of message being sent. For
+                  example, "D"
+
+                  indicates a New Order Single message
+              senderCompID:
+                type: string
+                title: >-
+                  This field identifies the sender of the message. This is
+                  typically a unique
+
+                  identifier assigned to each party that uses the FIX protocol
+              targetCompID:
+                type: string
+                description: This field identifies the recipient of the message.
+              msgSeqNum:
+                type: string
+                format: int64
+                title: >-
+                  Is a field in the FIX protocol message header that is used to
+                  assign a
+
+                  unique sequence number to each message
+              sendingTime:
+                type: string
+                title: This field specifies the time that the message was sent
+            title: >-
+              This message header contains fields that identify the message
+              being sent and
+
+              its sender and recipient
+            description: Standard FIX message header.
+          securityReqID:
+            type: string
+            title: >-
+              (Tag 320): Unique identifier assigned by the requester to the
+              security
+
+              List Request message
+          securityListRequestType:
+            type: string
+            title: (559) Type of security list request being made
+          securityRequestResult:
+            type: string
+            title: "(560)\tResult of the security list request"
+          text:
+            type: string
+            title: "(58)\tComment, instructions, or other identifying information"
+          encodedTextLen:
+            type: string
+            title: >-
+              (354)  Must be set if EncodedText (355) field is specified and
+              must immediately precede it
+          encodedText:
+            type: string
+            title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+          trailer:
+            type: object
+            properties:
+              checkSum:
+                type: string
+                format: int64
+                description: >-
+                  The checksum value is calculated by summing the ASCII values
+                  of all
+
+                  characters in the message (excluding the SOH (start of header)
+                  and ETX (end
+
+                  of text) characters), taking the sum modulo 256, and
+                  converting the result
+
+                  to a two-character hexadecimal string.
+            title: >-
+              This message trailer contains a checksum field that is used to
+              ensure message
+
+              integrity
+            description: Standard FIX message trailer.
+          creator:
+            type: string
+            title: owner
+        title: >-
+          Security List Request Reject with fields, tags and descriptions and
+          MsgType = y
+  jim380.re.fix.SecurityListRequest:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      securityReqID:
+        type: string
+        title: |-
+          (Tag 320): Unique identifier assigned by the requester to the security
+          List Request message
+      securityListRequestType:
+        type: string
+        title: (559) Type of Security List Request (x) being made
+      noUnderlyings:
+        type: string
+        title: "(711) Undly\tN\tNumber of underlyings"
+      noLegs:
+        type: string
+        title: (555) Number of legs that make up the Security
+      currency:
+        type: string
+        title: (15)
+      text:
+        type: string
+        description: "(58)\tComment, instructions, or other identifying information."
+      encodedTextLen:
+        type: string
+        description: >-
+          (354) Must be set if EncodedText (355) field is specified and must
+          immediately precede it.
+      encodedText:
+        type: string
+        description: >-
+          (355) Encoded (non-ASCII characters) representation of the Text (58)
+          field in the encoded format specified via the MessageEncoding (347)
+          field.
+      tradingSessionID:
+        type: string
+        description: >-
+          (336) Optional Trading Session Identifier to specify a particular
+          trading session for which you want to obtain a list of securities that
+          are tradeable.
+      tradingSessionSubID:
+        type: string
+        title: (625)
+      subscriptionRequestType:
+        type: string
+        description: >-
+          (263) Subscribe or unsubscribe for security status to security
+          specified in request.
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+      creator:
+        type: string
+        title: owner
+    title: Security List Request with fields, tags and descriptions and MsgType = x
+  jim380.re.fix.SecurityListRequestReject:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      securityReqID:
+        type: string
+        title: |-
+          (Tag 320): Unique identifier assigned by the requester to the security
+          List Request message
+      securityListRequestType:
+        type: string
+        title: (559) Type of security list request being made
+      securityRequestResult:
+        type: string
+        title: "(560)\tResult of the security list request"
+      text:
+        type: string
+        title: "(58)\tComment, instructions, or other identifying information"
+      encodedTextLen:
+        type: string
+        title: >-
+          (354)  Must be set if EncodedText (355) field is specified and must
+          immediately precede it
+      encodedText:
+        type: string
+        title: "(355)\tEncoded (non-ASCII characters) representation of the Text (58) field"
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+      creator:
+        type: string
+        title: owner
+    title: >-
+      Security List Request Reject with fields, tags and descriptions and
+      MsgType = y
+  jim380.re.fix.SecurityListResponse:
+    type: object
+    properties:
+      header:
+        type: object
+        properties:
+          beginString:
+            type: string
+            description: >-
+              This field specifies the version of the FIX protocol being used.
+              For
+
+              example, "FIX.4.4" indicates version 4.4 of the protocol.
+          bodyLength:
+            type: string
+            format: int64
+            description: This field specifies the length of the message body in bytes.
+          msgType:
+            type: string
+            title: >-
+              This field identifies the type of message being sent. For example,
+              "D"
+
+              indicates a New Order Single message
+          senderCompID:
+            type: string
+            title: >-
+              This field identifies the sender of the message. This is typically
+              a unique
+
+              identifier assigned to each party that uses the FIX protocol
+          targetCompID:
+            type: string
+            description: This field identifies the recipient of the message.
+          msgSeqNum:
+            type: string
+            format: int64
+            title: >-
+              Is a field in the FIX protocol message header that is used to
+              assign a
+
+              unique sequence number to each message
+          sendingTime:
+            type: string
+            title: This field specifies the time that the message was sent
+        title: >-
+          This message header contains fields that identify the message being
+          sent and
+
+          its sender and recipient
+        description: Standard FIX message header.
+      securityReqID:
+        type: string
+        title: |-
+          (Tag 320): Unique identifier assigned by the requester to the security
+          List Request message
+      securityResponseID:
+        type: string
+        title: (322) Identifier for the Security List (y) message
+      securityRequestResult:
+        type: string
+        title: >-
+          (560) Result of the Security Request identified by the SecurityReqID
+          (320)
+      totNoRelatedSym:
+        type: string
+        description: >-
+          (393) Used to indicate if the total number of securities being
+          returned for this request. Used in the event that message
+          fragmentation is required.
+      lastFragment:
+        type: string
+        title: string (893) Indicates if this message in a fragmented response
+      noRelatedSym:
+        type: string
+        title: >-
+          (146) Specifies the number of repeating symbols (instruments)
+          specified
+      noUnderlyings:
+        type: string
+        title: (711) Number of underlyings
+      currency:
+        type: string
+        title: (15)
+      noLegs:
+        type: string
+        title: (555) Number of legs that make up the Security
+      roundLot:
+        type: string
+        title: (561)
+      minTradeVol:
+        type: string
+        title: (562)
+      tradingSessionID:
+        type: string
+        title: (336)
+      tradingSessionSubID:
+        type: string
+        title: (625)
+      expirationCycle:
+        type: string
+        title: (827)
+      text:
+        type: string
+        description: (58) Comment, instructions, or other identifying information.
+      encodedTextLen:
+        type: string
+        description: >-
+          (354) Must be set if EncodedText (355) field is specified and must
+          immediately precede it.
+      encodedText:
+        type: string
+        title: >-
+          (355) Encoded (non-ASCII characters) representation of the Text (58)
+          field in the encoded format specified via the MessageEncoding (347)
+          field
+      trailer:
+        type: object
+        properties:
+          checkSum:
+            type: string
+            format: int64
+            description: >-
+              The checksum value is calculated by summing the ASCII values of
+              all
+
+              characters in the message (excluding the SOH (start of header) and
+              ETX (end
+
+              of text) characters), taking the sum modulo 256, and converting
+              the result
+
+              to a two-character hexadecimal string.
+        title: >-
+          This message trailer contains a checksum field that is used to ensure
+          message
+
+          integrity
+        description: Standard FIX message trailer.
+      creator:
+        type: string
+        title: owner
+    title: Security List Response  with fields, tags and descriptions and MsgType = y
   jim380.re.fix.SessionLogout:
     type: object
     properties:
@@ -75614,7 +78169,7 @@ definitions:
             description: Standard FIX message header.
           tradSesReqID:
             type: string
-            title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+            title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
           noTradingSessions:
             type: string
             title: (386)
@@ -76034,7 +78589,7 @@ definitions:
         description: Standard FIX message header.
       tradSesReqID:
         type: string
-        title: "(335)\tProvided for a response to a specific Trading Session List Request\n(BI) message (snapshot)"
+        title: "(335)\tProvided for a response to a specific Trading Session List\nRequest (BI) message (snapshot)"
       noTradingSessions:
         type: string
         title: (386)

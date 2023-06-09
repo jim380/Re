@@ -21,6 +21,7 @@ import "re/fix/security.proto";
 import "re/fix/order_mass_status.proto";
 import "re/fix/trading_session.proto";
 import "re/fix/trading_session_list.proto";
+import "re/fix/security_list.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -181,6 +182,17 @@ service Query {
   rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
       returns (QueryAllTradingSessionListResponse) {
     option (google.api.http).get = "/jim380/Re/fix/trading_session_list";
+  }
+
+  // Queries a list of SecurityList items.
+  rpc SecurityList(QueryGetSecurityListRequest)
+      returns (QueryGetSecurityListResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/security_list/{securityReqID}";
+  }
+  rpc SecurityListAll(QueryAllSecurityListRequest)
+      returns (QueryAllSecurityListResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security_list";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -428,5 +440,20 @@ message QueryAllTradingSessionListRequest {
 message QueryAllTradingSessionListResponse {
   repeated TradingSessionList TradingSessionList = 1
       [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSecurityListRequest { string securityReqID = 1; }
+
+message QueryGetSecurityListResponse {
+  SecurityList SecurityList = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllSecurityListRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSecurityListResponse {
+  repeated SecurityList SecurityList = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
