@@ -3,8 +3,54 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
+import "re/fix/standard_message.proto";
+
 message SecurityStatus {
-  uint64 id = 1;
-  string sessionID = 2; 
-  
+  string sessionID = 1;
+  SecurityStatusRequest securityStatusRequest = 2;
+  SecurityStatusResponse securityStatusResponse = 3;
+  SecurityStatusRequestReject securityStatusRequestReject = 4;
 }
+
+// Security Status Request with fields, tags and descriptions and MsgType = e
+message SecurityStatusRequest {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+
+  // Standard FIX message trailer.
+  Trailer trailer = 13;
+
+  // owner
+  string creator = 14;
+}
+
+// Security Status Response with fields, tags and descriptions and MsgType = f
+message SecurityStatusResponse {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+
+  // Standard FIX message trailer.
+  Trailer trailer = 13;
+
+  // owner
+  string creator = 14;
+}
+
+// Security Status Request Reject with fields, tags and descriptions and MsgType = j
+message SecurityStatusRequestReject {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+
+  // Standard FIX message trailer.
+  Trailer trailer = 13;
+
+  // owner
+  string creator = 14;
+}
+
