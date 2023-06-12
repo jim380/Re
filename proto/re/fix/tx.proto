@@ -52,6 +52,7 @@ service Msg {
   rpc SecurityListResponse              (MsgSecurityListResponse             ) returns (MsgSecurityListResponseResponse             );
   rpc SecurityListRequestReject         (MsgSecurityListRequestReject        ) returns (MsgSecurityListRequestRejectResponse        );
   rpc SecurityStatusRequest             (MsgSecurityStatusRequest            ) returns (MsgSecurityStatusRequestResponse            );
+  rpc SecurityStatusResponse            (MsgSecurityStatusResponse           ) returns (MsgSecurityStatusResponseResponse           );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -613,4 +614,34 @@ message MsgSecurityStatusRequest {
 }
 
 message MsgSecurityStatusRequestResponse {}
+
+message MsgSecurityStatusResponse {
+  string creator               =  1;
+  string sessionID             =  2;
+  string securityStatusReqID   =  3;
+  string noUnderlyings         =  4;
+  string underlyingInstrument  =  5;
+  string noLegs                =  6;
+  string instrumentLeg         =  7;
+  string currency              =  8;
+  string tradingSessionID      =  9;
+  string tradingSessionSubID   = 10;
+  string unsolicitedIndicator  = 11;
+  string securityTradingStatus = 12;
+  string financialStatus       = 13;
+  string corporateAction       = 14;
+  string haltReason            = 15;
+  string inViewOfCommon        = 16;
+  string dueToRelated          = 17;
+  string buyVolume             = 18;
+  string sellVolume            = 19;
+  string highPx                = 20;
+  string lowPx                 = 21;
+  string lastPx                = 22;
+  string transactTime          = 23;
+  string adjustment            = 24;
+  string text                  = 25;
+}
+
+message MsgSecurityStatusResponseResponse {}
 

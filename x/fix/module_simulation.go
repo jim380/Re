@@ -152,6 +152,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityStatusRequest int = 100
 
+	opWeightMsgApproveLoan = "op_weight_msg_approve_loan"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgApproveLoan int = 100
+
+	opWeightMsgSecurityStatusResponse = "op_weight_msg_security_status_response"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSecurityStatusResponse int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -546,6 +554,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSecurityStatusRequest,
 		fixsimulation.SimulateMsgSecurityStatusRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSecurityStatusResponse int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSecurityStatusResponse, &weightMsgSecurityStatusResponse, nil,
+		func(_ *rand.Rand) {
+			weightMsgSecurityStatusResponse = defaultWeightMsgSecurityStatusResponse
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSecurityStatusResponse,
+		fixsimulation.SimulateMsgSecurityStatusResponse(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

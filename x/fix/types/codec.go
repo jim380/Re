@@ -40,6 +40,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSecurityListResponse{}, "fix/SecurityListResponse", nil)
 	cdc.RegisterConcrete(&MsgSecurityListRequestReject{}, "fix/SecurityListRequestReject", nil)
 	cdc.RegisterConcrete(&MsgSecurityStatusRequest{}, "fix/SecurityStatusRequest", nil)
+	cdc.RegisterConcrete(&MsgSecurityStatusResponse{}, "fix/SecurityStatusResponse", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -135,6 +136,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityStatusRequest{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSecurityStatusResponse{},
 	)
 	// this line is used by starport scaffolding # 3
 
