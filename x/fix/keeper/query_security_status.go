@@ -21,7 +21,7 @@ func (k Keeper) SecurityStatusAll(goCtx context.Context, req *types.QueryAllSecu
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	securityStatusStore := prefix.NewStore(store, types.KeyPrefix(types.SecurityStatusKey))
+	securityStatusStore := prefix.NewStore(store, types.GetSecurityStatusKey())
 
 	pageRes, err := query.Paginate(securityStatusStore, req.Pagination, func(key []byte, value []byte) error {
 		var securityStatus types.SecurityStatus
@@ -46,7 +46,7 @@ func (k Keeper) SecurityStatus(goCtx context.Context, req *types.QueryGetSecurit
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	securityStatus, found := k.GetSecurityStatus(ctx, req.Id)
+	securityStatus, found := k.GetSecurityStatus(ctx, req.SecurityStatusReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

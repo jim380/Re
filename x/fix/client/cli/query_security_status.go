@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListSecurityStatus() *cobra.Command {
 
 func CmdShowSecurityStatus() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-security-status [id]",
+		Use:   "show-security-status [securityStatusReqID]",
 		Short: "shows a security-status",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowSecurityStatus() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argSecurityStatusReqID := args[0]
 
 			params := &types.QueryGetSecurityStatusRequest{
-				Id: id,
+				SecurityStatusReqID: argSecurityStatusReqID,
 			}
 
 			res, err := queryClient.SecurityStatus(context.Background(), params)

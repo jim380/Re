@@ -251,16 +251,17 @@ func (gs GenesisState) Validate() error {
 		securityListIDMap[elem.SecurityListRequest.SecurityReqID] = true
 	}
 	// Check for duplicated ID in securityStatus
-	securityStatusIdMap := make(map[uint64]bool)
+	securityStatusIdMap := make(map[string]bool)
 	securityStatusCount := gs.GetSecurityStatusCount()
 	for _, elem := range gs.SecurityStatusList {
-		if _, ok := securityStatusIdMap[elem.Id]; ok {
+		if _, ok := securityStatusIdMap[elem.SecurityStatusRequest.SecurityStatusReqID]; ok {
 			return fmt.Errorf("duplicated id for securityStatus")
 		}
-		if elem.Id >= securityStatusCount {
+		securityStatusReqID, _ := strconv.ParseUint(elem.SecurityStatusRequest.SecurityStatusReqID, 10, 64)
+		if securityStatusReqID >= securityStatusCount {
 			return fmt.Errorf("securityStatus id should be lower or equal than the last id")
 		}
-		securityStatusIdMap[elem.Id] = true
+		securityStatusIdMap[elem.SecurityStatusRequest.SecurityStatusReqID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

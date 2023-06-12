@@ -1556,15 +1556,15 @@ func request_Query_SecurityStatus_0(ctx context.Context, marshaler runtime.Marsh
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["securityStatusReqID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "securityStatusReqID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SecurityStatusReqID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "securityStatusReqID", err)
 	}
 
 	msg, err := client.SecurityStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1583,15 +1583,15 @@ func local_request_Query_SecurityStatus_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["securityStatusReqID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "securityStatusReqID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SecurityStatusReqID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "securityStatusReqID", err)
 	}
 
 	msg, err := server.SecurityStatus(ctx, &protoReq)
@@ -3256,17 +3256,17 @@ var (
 
 	pattern_Query_OrdersAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_request", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelRequest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "fix", "orders", "cancel", "request", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelRequestAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_cancel_requests"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelRequestAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"jim380", "Re", "fix", "orders", "cancel", "requests"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_cancel_reject", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelReject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "fix", "orders", "cancel", "reject", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersCancelRejectAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_cancel_rejects"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersCancelRejectAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"jim380", "Re", "fix", "orders", "cancel", "rejects"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders_execution_report", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersExecutionReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "fix", "orders", "execution", "report", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrdersExecutionReportAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "orders_execution_reports"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrdersExecutionReportAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"jim380", "Re", "fix", "orders", "execution", "reports"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_Quote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "quote", "quoteReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
@@ -3274,37 +3274,37 @@ var (
 
 	pattern_Query_QuoteAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "quotes"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradeCapture_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "trade_capture", "tradeReportID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradeCapture_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "trade", "capture", "tradeReportID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradeCaptureAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "trade_captures"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradeCaptureAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "trade", "captures"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MarketData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "market_data", "mdReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MarketData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "market", "data", "mdReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MarketDataAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "market_data"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MarketDataAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "market", "data"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Security_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "security", "securityReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Security_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "security", "definition", "securityReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "securities"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "security", "definition"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrderMassStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "order_mass_status", "massStatusReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrderMassStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "fix", "order", "mass", "status", "massStatusReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_OrderMassStatusAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "order_mass_status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_OrderMassStatusAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"jim380", "Re", "fix", "order", "mass", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradingSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "trading_session", "tradSesReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradingSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "trading", "session", "tradSesReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradingSessionAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "trading_session"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradingSessionAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "trading", "session"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradingSessionList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "trading_session_list", "tradSesReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradingSessionList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "fix", "trading", "session", "list", "tradSesReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TradingSessionListAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "trading_session_list"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TradingSessionListAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"jim380", "Re", "fix", "trading", "session", "list"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "security_list", "securityReqID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "security", "list", "securityReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityListAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "security_list"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityListAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "security", "list"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "security_status", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "security", "status", "securityStatusReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityStatusAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "security_status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityStatusAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "security", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

@@ -106,7 +106,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetSecurityListCount(ctx, genState.SecurityListCount)
 	// Set all the securityStatus
 	for _, elem := range genState.SecurityStatusList {
-		k.SetSecurityStatus(ctx, elem)
+		k.SetSecurityStatus(ctx, elem.SecurityStatusRequest.SecurityStatusReqID, elem)
 	}
 
 	// Set securityStatus count
