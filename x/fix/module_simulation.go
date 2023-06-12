@@ -160,6 +160,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityStatusResponse int = 100
 
+	opWeightMsgSecurityStatusRequestReject = "op_weight_msg_security_status_request_reject"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSecurityStatusRequestReject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -565,6 +569,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSecurityStatusResponse,
 		fixsimulation.SimulateMsgSecurityStatusResponse(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSecurityStatusRequestReject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSecurityStatusRequestReject, &weightMsgSecurityStatusRequestReject, nil,
+		func(_ *rand.Rand) {
+			weightMsgSecurityStatusRequestReject = defaultWeightMsgSecurityStatusRequestReject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSecurityStatusRequestReject,
+		fixsimulation.SimulateMsgSecurityStatusRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
