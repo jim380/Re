@@ -30,8 +30,11 @@ func CmdSecurityStatusRequest() *cobra.Command {
 			argTradingSessionID := args[9]
 			argTradingSessionSubID := args[10]
 
-			// TODO
-			// securityStatusReqID should be auto generated
+			// GenerateRandomString function uniquely generates SecurityStatusReqID for every Security Status Request
+			// Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2)
+			if argSecurityStatusReqID == "" {
+				argSecurityStatusReqID, _ = types.GenerateRandomString(types.SecurityStatusReqID)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

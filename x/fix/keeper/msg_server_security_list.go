@@ -72,7 +72,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 
 	// set the header and make changes to the header
 	// calculate and include all changes to the header
-	// Message type, x is the message type for Security List Requesst
+	// Message type, x is the message type for Security List Request
 	// BodyLength should be calculated using the BodyLength function
 	// set sending time to current time at creating Security List Request
 	securityListRequest.SecurityListRequest.Header = header

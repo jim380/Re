@@ -140,6 +140,10 @@ const (
 	errSecurityListIsNotFound
 	errSecurityListRequestIsRejected
 	errSecurityListRequestIsAcknowledged
+
+	// Security Status
+	errSecurityStatusEmptyField
+	errSecurityStatusIsNotFound 
 )
 
 // x/fix module sentinel errors
@@ -275,4 +279,8 @@ var (
 	ErrSecurityListIsNotFound            = sdkerrors.Register(ModuleName, errSecurityListIsNotFound, "Security List Request is not found")
 	ErrSecurityListRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityListRequestIsRejected, "Security List Request has been rejected")
 	ErrSecurityListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityListRequestIsAcknowledged, "Security List Request has been acknowledged")
+
+	// Status Status
+	ErrSecurityStatusEmptyField = sdkerrors.Register(ModuleName, errSecurityStatusEmptyField, "This field can not be left empty")
+	ErrSecurityStatusIsNotFound = sdkerrors.Register(ModuleName, errSecurityStatusIsNotFound, "Security Status Request is not found")
 )
