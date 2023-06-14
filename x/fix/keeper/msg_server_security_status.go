@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -104,13 +105,124 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 	return &types.MsgSecurityStatusRequestResponse{}, err
 }
 
+// SecurityStatusResponse creates Security Status Response
 func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgSecurityStatusResponse) (*types.MsgSecurityStatusResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
-	return &types.MsgSecurityStatusResponseResponse{}, nil
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Security Status Response matches with the sessionID for Security Status Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusSession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user responding is the recipient of the Trading Session List Request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session List Response Creator: %s", msg.Creator)
+	}
+
+	// get security status
+	securityStatus, found := k.GetSecurityStatus(ctx, msg.SecurityStatusReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusIsNotFound, ": %s", securityStatus.SecurityStatusRequest)
+	}
+
+	// same account can not used for creating Security Status Request and Security Status Response with the same SecurityStatusReqID
+	if securityStatus.SecurityStatusRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Status Response", msg.Creator))
+	}
+
+	// check that the Security Status Request is not rejected already
+	if securityStatus.SecurityStatusRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsRejected, "Security Status: %s", securityStatus.SecurityStatusRequestReject)
+	}
+
+	// check that the Security Status Request is not acknowledged already
+	if securityStatus.SecurityStatusResponse != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsAcknowledged, "Trading Session List: %s", securityStatus.SecurityStatusResponse)
+	}
+
+	securityStatusResponse := types.SecurityStatus{
+		SessionID:             msg.SessionID,
+		SecurityStatusRequest: securityStatus.SecurityStatusRequest,
+		SecurityStatusResponse: &types.SecurityStatusResponse{
+			SecurityStatusReqID:   msg.SecurityStatusReqID,
+			NoUnderlyings:         msg.NoUnderlyings,
+			UnderlyingInstrument:  msg.UnderlyingInstrument,
+			NoLegs:                msg.NoLegs,
+			InstrumentLeg:         msg.InstrumentLeg,
+			Currency:              msg.Currency,
+			TradingSessionID:      msg.TradingSessionID,
+			TradingSessionSubID:   msg.TradingSessionSubID,
+			UnsolicitedIndicator:  msg.UnsolicitedIndicator,
+			SecurityTradingStatus: msg.SecurityTradingStatus,
+			FinancialStatus:       msg.FinancialStatus,
+			CorporateAction:       msg.CorporateAction,
+			HaltReason:            msg.HaltReason,
+			InViewOfCommon:        msg.InViewOfCommon,
+			DueToRelated:          msg.DueToRelated,
+			BuyVolume:             msg.BuyVolume,
+			SellVolume:            msg.SellVolume,
+			HighPx:                msg.HighPx,
+			LowPx:                 msg.LowPx,
+			LastPx:                msg.LastPx,
+			TransactTime:          msg.TransactTime,
+			Adjustment:            msg.Adjustment,
+			Text:                  msg.Text,
+		},
+	}
+
+	// set header from the existing security status request
+	securityStatusResponse.SecurityStatusResponse.Header = securityStatus.SecurityStatusRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *securityStatusResponse.SecurityStatusResponse.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = securityStatus.SecurityStatusRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = securityStatus.SecurityStatusRequest.Header.MsgSeqNum
+
+	// set the msgType to Security Status Response
+	newHeader.MsgType = "f"
+
+	// switch senderCompID and targetCompID between Security Status Request and Security Status Response
+	// set senderCompID of Security Status Response to the targetCompID of Security Status Request in the header
+	newHeader.SenderCompID = securityStatus.SecurityStatusRequest.Header.TargetCompID
+
+	// set targetCompID of Security Status Response to the senderCompID of Security Status Request in the header
+	newHeader.TargetCompID = securityStatus.SecurityStatusRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	securityStatusResponse.SecurityStatusResponse.Header = newHeader
+
+	// set Trailer from the existing Security Status Request
+	securityStatusResponse.SecurityStatusResponse.Trailer = securityStatus.SecurityStatusRequest.Trailer
+
+	// set Security Status Response to store
+	k.SetSecurityStatus(ctx, msg.SecurityStatusReqID, securityStatusResponse)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgSecurityStatusResponseResponse{}, err
 }
 
 func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types.MsgSecurityStatusRequestReject) (*types.MsgSecurityStatusRequestRejectResponse, error) {
