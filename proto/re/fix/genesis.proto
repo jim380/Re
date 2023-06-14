@@ -20,6 +20,7 @@ import "re/fix/order_mass_status.proto";
 import "re/fix/trading_session.proto";
 import "re/fix/trading_session_list.proto";
 import "re/fix/security_list.proto";
+import "re/fix/security_status.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -64,4 +65,7 @@ message GenesisState {
   uint64 tradingSessionListCount = 31;
   repeated SecurityList securityListList = 32 [ (gogoproto.nullable) = false ];
   uint64 securityListCount = 33;
+  repeated SecurityStatus securityStatusList = 34
+      [ (gogoproto.nullable) = false ];
+  uint64 securityStatusCount = 35;
 }

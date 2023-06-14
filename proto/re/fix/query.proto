@@ -22,6 +22,7 @@ import "re/fix/order_mass_status.proto";
 import "re/fix/trading_session.proto";
 import "re/fix/trading_session_list.proto";
 import "re/fix/security_list.proto";
+import "re/fix/security_status.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -81,33 +82,33 @@ service Query {
   rpc OrdersCancelRequest(QueryGetOrdersCancelRequestRequest)
       returns (QueryGetOrdersCancelRequestResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_request/{clOrdID}";
+        "/jim380/Re/fix/orders/cancel/request/{clOrdID}";
   }
   rpc OrdersCancelRequestAll(QueryAllOrdersCancelRequestRequest)
       returns (QueryAllOrdersCancelRequestResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_requests";
+    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/requests";
   }
 
   // Queries a list of OrdersCancelReject items.
   rpc OrdersCancelReject(QueryGetOrdersCancelRejectRequest)
       returns (QueryGetOrdersCancelRejectResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_cancel_reject/{clOrdID}";
+        "/jim380/Re/fix/orders/cancel/reject/{clOrdID}";
   }
   rpc OrdersCancelRejectAll(QueryAllOrdersCancelRejectRequest)
       returns (QueryAllOrdersCancelRejectResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders_cancel_rejects";
+    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/rejects";
   }
 
   // Queries a list of OrdersExecutionReport items.
   rpc OrdersExecutionReport(QueryGetOrdersExecutionReportRequest)
       returns (QueryGetOrdersExecutionReportResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/orders_execution_report/{clOrdID}";
+        "/jim380/Re/fix/orders/execution/report/{clOrdID}";
   }
   rpc OrdersExecutionReportAll(QueryAllOrdersExecutionReportRequest)
       returns (QueryAllOrdersExecutionReportResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders_execution_reports";
+    option (google.api.http).get = "/jim380/Re/fix/orders/execution/reports";
   }
 
   // Queries a list of Quote items.
@@ -126,73 +127,85 @@ service Query {
   rpc TradeCapture(QueryGetTradeCaptureRequest)
       returns (QueryGetTradeCaptureResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/trade_capture/{tradeReportID}";
+        "/jim380/Re/fix/trade/capture/{tradeReportID}";
   }
   rpc TradeCaptureAll(QueryAllTradeCaptureRequest)
       returns (QueryAllTradeCaptureResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trade_captures";
+    option (google.api.http).get = "/jim380/Re/fix/trade/captures";
   }
 
   // Queries a list of MarketData items.
   rpc MarketData(QueryGetMarketDataRequest)
       returns (QueryGetMarketDataResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/market_data/{mdReqID}";
+    option (google.api.http).get = "/jim380/Re/fix/market/data/{mdReqID}";
   }
   rpc MarketDataAll(QueryAllMarketDataRequest)
       returns (QueryAllMarketDataResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/market_data";
+    option (google.api.http).get = "/jim380/Re/fix/market/data";
   }
 
   // Queries a list of Security items.
   rpc Security(QueryGetSecurityRequest) returns (QueryGetSecurityResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security/{securityReqID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/security/definition/{securityReqID}";
   }
   rpc SecurityAll(QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/securities";
+    option (google.api.http).get = "/jim380/Re/fix/security/definition";
   }
 
   // Queries a list of OrderMassStatus items.
   rpc OrderMassStatus(QueryGetOrderMassStatusRequest)
       returns (QueryGetOrderMassStatusResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/order_mass_status/{massStatusReqID}";
+        "/jim380/Re/fix/order/mass/status/{massStatusReqID}";
   }
   rpc OrderMassStatusAll(QueryAllOrderMassStatusRequest)
       returns (QueryAllOrderMassStatusResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/order_mass_status";
+    option (google.api.http).get = "/jim380/Re/fix/order/mass/status";
   }
 
   // Queries a list of TradingSession items.
   rpc TradingSession(QueryGetTradingSessionRequest)
       returns (QueryGetTradingSessionResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/trading_session/{tradSesReqID}";
+        "/jim380/Re/fix/trading/session/{tradSesReqID}";
   }
   rpc TradingSessionAll(QueryAllTradingSessionRequest)
       returns (QueryAllTradingSessionResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading_session";
+    option (google.api.http).get = "/jim380/Re/fix/trading/session";
   }
 
   // Queries a list of TradingSessionList items.
   rpc TradingSessionList(QueryGetTradingSessionListRequest)
       returns (QueryGetTradingSessionListResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/trading_session_list/{tradSesReqID}";
+        "/jim380/Re/fix/trading/session/list/{tradSesReqID}";
   }
   rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
       returns (QueryAllTradingSessionListResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading_session_list";
+    option (google.api.http).get = "/jim380/Re/fix/trading/session/list";
   }
 
   // Queries a list of SecurityList items.
   rpc SecurityList(QueryGetSecurityListRequest)
       returns (QueryGetSecurityListResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/security_list/{securityReqID}";
+        "/jim380/Re/fix/security/list/{securityReqID}";
   }
   rpc SecurityListAll(QueryAllSecurityListRequest)
       returns (QueryAllSecurityListResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security_list";
+    option (google.api.http).get = "/jim380/Re/fix/security/list";
+  }
+
+  // Queries a list of SecurityStatus items.
+  rpc SecurityStatus(QueryGetSecurityStatusRequest)
+      returns (QueryGetSecurityStatusResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/security/status/{securityStatusReqID}";
+  }
+  rpc SecurityStatusAll(QueryAllSecurityStatusRequest)
+      returns (QueryAllSecurityStatusResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security/status";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -455,5 +468,20 @@ message QueryAllSecurityListRequest {
 
 message QueryAllSecurityListResponse {
   repeated SecurityList SecurityList = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSecurityStatusRequest { string securityStatusReqID = 1; }
+
+message QueryGetSecurityStatusResponse {
+  SecurityStatus SecurityStatus = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllSecurityStatusRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSecurityStatusResponse {
+  repeated SecurityStatus SecurityStatus = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

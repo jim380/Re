@@ -65,6 +65,9 @@ var (
 
 	SecurityListKey      = []byte{0x028}
 	SecurityListCountKey = []byte{0x029}
+
+	SecurityStatusKey      = []byte{0x030}
+	SecurityStatusCountKey = []byte{0x031}
 )
 
 func GetAccountKey() []byte {
@@ -189,4 +192,12 @@ func GetSecurityListKey() []byte {
 
 func GetSecurityListCountKey() []byte {
 	return SecurityListCountKey
+}
+
+func GetSecurityStatusKey() []byte {
+	return SecurityStatusKey
+}
+
+func GetSecurityStatusCountKey() []byte {
+	return SecurityStatusCountKey
 }

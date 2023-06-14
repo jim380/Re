@@ -140,6 +140,13 @@ const (
 	errSecurityListIsNotFound
 	errSecurityListRequestIsRejected
 	errSecurityListRequestIsAcknowledged
+
+	// Security Status
+	errSecurityStatusEmptyField
+	errSecurityStatusIsNotFound
+	errSecurityStatusSession
+	errSecurityStatusRequestIsRejected
+	errSecurityStatusRequestIsAcknowledged
 )
 
 // x/fix module sentinel errors
@@ -275,4 +282,11 @@ var (
 	ErrSecurityListIsNotFound            = sdkerrors.Register(ModuleName, errSecurityListIsNotFound, "Security List Request is not found")
 	ErrSecurityListRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityListRequestIsRejected, "Security List Request has been rejected")
 	ErrSecurityListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityListRequestIsAcknowledged, "Security List Request has been acknowledged")
+
+	// Status Status
+	ErrSecurityStatusEmptyField            = sdkerrors.Register(ModuleName, errSecurityStatusEmptyField, "This field can not be left empty")
+	ErrSecurityStatusIsNotFound            = sdkerrors.Register(ModuleName, errSecurityStatusIsNotFound, "Security Status Request is not found")
+	ErrSecurityStatusSession               = sdkerrors.Register(ModuleName, errSecurityStatusSession, "The sessionID is not recognized by the Security Status Request system")
+	ErrSecurityStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityStatusRequestIsRejected, "Security Status Request has been rejected")
+	ErrSecurityStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityStatusRequestIsAcknowledged, "Security Status Request has been acknowledged")
 )

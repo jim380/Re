@@ -72,7 +72,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 
 	// set the header and make changes to the header
 	// calculate and include all changes to the header
-	// Message type, x is the message type for Security List Requesst
+	// Message type, x is the message type for Security List Request
 	// BodyLength should be calculated using the BodyLength function
 	// set sending time to current time at creating Security List Request
 	securityListRequest.SecurityListRequest.Header = header
@@ -270,7 +270,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 		return nil, sdkerrors.Wrapf(types.ErrSecurityListRequestIsAcknowledged, "Security List: %s", securityList.SecurityListResponse)
 	}
 
-	// check that the mandatory Security list Request field is not empty
+	// check that the mandatory Security list Request Reject fields are not empty
 	if msg.SecurityListRequestType == "" {
 		return nil, sdkerrors.Wrapf(types.ErrSecurityListEmptyField, "SecurityListRequestType: %s", msg.SecurityListRequestType)
 	}
