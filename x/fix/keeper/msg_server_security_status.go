@@ -226,6 +226,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 	return &types.MsgSecurityStatusResponseResponse{}, err
 }
 
+// SecurityStatusRequestReject creates Security Status Request Reject
 func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types.MsgSecurityStatusRequestReject) (*types.MsgSecurityStatusRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

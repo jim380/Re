@@ -18,33 +18,38 @@ message SecurityStatusRequest {
   // Standard FIX message header.
   Header header = 1;
 
-  // (324) Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2).	
-  string SecurityStatusReqID	= 2;
+  // (324) Must be unique, or the ID of previous Security Status Request (e) to
+  // disable if SubscriptionRequestType (263) = Disable previous Snapshot +
+  // Updates Request (2).
+  string SecurityStatusReqID = 2;
 
   string instrument = 3;
 
   // (711) Number of underlyings
-  string noUnderlyings	= 4;
-  
+  string noUnderlyings = 4;
+
   // Must be provided if Number of underlyings > 0
   string underlyingInstrument = 5;
-  
-  // (555) Number of legs that make up the Security	
-  string noLegs = 6; 
-  
+
+  // (555) Number of legs that make up the Security
+  string noLegs = 6;
+
   // Required if NoLegs (555) > 0
   string instrumentLeg = 7;
 
   // (15)
   string currency = 8;
 
-  // (263) SubscriptionRequestType indicates to the other party what type of response is expected. A snapshot request only asks for current information. A subscribe request asks for updates as the status changes. Unsubscribe will cancel any future update messages from the counter party.)	
+  // (263) SubscriptionRequestType indicates to the other party what type of
+  // response is expected. A snapshot request only asks for current information.
+  // A subscribe request asks for updates as the status changes. Unsubscribe
+  // will cancel any future update messages from the counter party.)
   string subscriptionRequestType = 9;
 
   // (336)
   string tradingSessionID = 10;
-  // (625)	
-  string tradingSessionSubID	= 11;
+  // (625)
+  string tradingSessionSubID = 11;
 
   // Standard FIX message trailer.
   Trailer trailer = 12;
@@ -59,74 +64,75 @@ message SecurityStatusResponse {
   // Standard FIX message header.
   Header header = 1;
 
-  // (324)	
-  string securityStatusReqID	= 2;
-	
-  // (711) Number of underlyings	
+  // (324)
+  string securityStatusReqID = 2;
+
+  // (711) Number of underlyings
   string noUnderlyings = 3;
 
   // Must be provided if Number of underlyings > 0
   string underlyingInstrument = 4;
 
-
-  // (555) Required for multileg quotes	
+  // (555) Required for multileg quotes
   string noLegs = 5;
-  
+
   // Required if NoLegs (555) > 0
   string instrumentLeg = 6;
 
-  // (15)	
+  // (15)
   string currency = 7;
 
   // (336)
   string tradingSessionID = 8;
 
-  // (625)	
+  // (625)
   string tradingSessionSubID = 9;
 
-  // (325) Set to 'Y' if message is sent as a result of a subscription request not a snapshot request	
+  // (325) Set to 'Y' if message is sent as a result of a subscription request
+  // not a snapshot request
   string unsolicitedIndicator = 10;
 
-  // (326) Identifies the trading status applicable to the transaction.	
+  // (326) Identifies the trading status applicable to the transaction.
   string securityTradingStatus = 11;
 
-  // (291)	
+  // (291)
   string financialStatus = 12;
 
-  // (292)	
-  string corporateAction	= 13;
+  // (292)
+  string corporateAction = 13;
 
-  // (327) Denotes the reason for the Opening Delay or Trading Halt.	
+  // (327) Denotes the reason for the Opening Delay or Trading Halt.
   string haltReason = 14;
 
-  // (328) 	
+  // (328)
   string inViewOfCommon = 15;
-  
-  // (329)	
+
+  // (329)
   string dueToRelated = 16;
 
-  // (330)	
-  string buyVolume = 17; 
+  // (330)
+  string buyVolume = 17;
 
-  // (331)	
+  // (331)
   string sellVolume = 18;
 
-  // (332)	
+  // (332)
   string highPx = 19;
 
-  // (333)	
+  // (333)
   string lowPx = 20;
 
-  // (31) Represents the last price for that security either on a Consolidated or an individual participant basis at the time it is disseminated.	
+  // (31) Represents the last price for that security either on a Consolidated
+  // or an individual participant basis at the time it is disseminated.
   string lastPx = 21;
 
-  // (60) Trade Dissemination Time	
+  // (60) Trade Dissemination Time
   string transactTime = 22;
 
-  // (334)	
+  // (334)
   string adjustment = 23;
 
-  // (58) Comment, instructions, or other identifying information.	
+  // (58) Comment, instructions, or other identifying information.
   string text = 24;
 
   // Standard FIX message trailer.
@@ -136,18 +142,22 @@ message SecurityStatusResponse {
   string creator = 26;
 }
 
-// Security Status Request Reject with fields, tags and descriptions and MsgType = AJ
+// Security Status Request Reject with fields, tags and descriptions and MsgType
+// = AJ
 message SecurityStatusRequestReject {
 
   // Standard FIX message header.
   Header header = 1;
 
-  // (324)	
-  string securityStatusReqID	= 2;
-  
-  // (560) Reason for rejecting the Security Status Request, The SecurityRejectReason field (Tag 560) in the Security Status Request Reject message (MsgType = AJ) indicates the reason for rejecting the Security Status Request. The values for the SecurityRejectReason field can vary depending on the implementation and version of the FIX protocol. Here are some common values that may be used:
-  // 0: Unknown symbol
-  // 1: Exchange closed
+  // (324)
+  string securityStatusReqID = 2;
+
+  // (560) Reason for rejecting the Security Status Request, The
+  // SecurityRejectReason field (Tag 560) in the Security Status Request Reject
+  // message (MsgType = AJ) indicates the reason for rejecting the Security
+  // Status Request. The values for the SecurityRejectReason field can vary
+  // depending on the implementation and version of the FIX protocol. Here are
+  // some common values that may be used: 0: Unknown symbol 1: Exchange closed
   // 2: Order exceeded limit
   // 3: Invalid request
   // 4: Unsupported request
@@ -167,4 +177,3 @@ message SecurityStatusRequestReject {
   // owner
   string creator = 6;
 }
-
