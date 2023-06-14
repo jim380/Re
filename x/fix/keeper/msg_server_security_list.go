@@ -270,7 +270,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 		return nil, sdkerrors.Wrapf(types.ErrSecurityListRequestIsAcknowledged, "Security List: %s", securityList.SecurityListResponse)
 	}
 
-	// check that the mandatory Security list Request field is not empty
+	// check that the mandatory Security list Request Reject fields are not empty
 	if msg.SecurityListRequestType == "" {
 		return nil, sdkerrors.Wrapf(types.ErrSecurityListEmptyField, "SecurityListRequestType: %s", msg.SecurityListRequestType)
 	}

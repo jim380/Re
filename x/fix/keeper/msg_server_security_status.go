@@ -126,9 +126,9 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusSession, "SessionID: %s", msg.SessionID)
 	}
 
-	// check that the user responding is the recipient of the Trading Session List Request
+	// check that the user responding is the recipient of the Security Status Request
 	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session List Response Creator: %s", msg.Creator)
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Status Response Creator: %s", msg.Creator)
 	}
 
 	// get security status
@@ -149,7 +149,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 
 	// check that the Security Status Request is not acknowledged already
 	if securityStatus.SecurityStatusResponse != nil {
-		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsAcknowledged, "Trading Session List: %s", securityStatus.SecurityStatusResponse)
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsAcknowledged, "Security Status: %s", securityStatus.SecurityStatusResponse)
 	}
 
 	securityStatusResponse := types.SecurityStatus{
@@ -179,6 +179,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 			TransactTime:          msg.TransactTime,
 			Adjustment:            msg.Adjustment,
 			Text:                  msg.Text,
+			Creator:               msg.Creator,
 		},
 	}
 
@@ -228,8 +229,105 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types.MsgSecurityStatusRequestReject) (*types.MsgSecurityStatusRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
-	return &types.MsgSecurityStatusRequestRejectResponse{}, nil
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Security Status Request Reject matches with the sessionID for Security Status Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusSession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user responding is the recipient of the Security Status Request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Status Response Creator: %s", msg.Creator)
+	}
+
+	// get security status
+	securityStatus, found := k.GetSecurityStatus(ctx, msg.SecurityStatusReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusIsNotFound, ": %s", securityStatus.SecurityStatusRequest)
+	}
+
+	// same account can not used for creating Security Status Request and Security Status Request Reject with the same SecurityStatusReqID
+	if securityStatus.SecurityStatusRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Status Response Reject", msg.Creator))
+	}
+
+	// check that the Security Status Request is not rejected already
+	if securityStatus.SecurityStatusRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsRejected, "Security Status: %s", securityStatus.SecurityStatusRequestReject)
+	}
+
+	// check that the Security Status Request is not acknowledged already
+	if securityStatus.SecurityStatusResponse != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusRequestIsAcknowledged, "Security Status: %s", securityStatus.SecurityStatusResponse)
+	}
+
+	// check that the mandatory Security Status Request Reject field is not empty
+	if msg.SecurityRejectReason == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityStatusEmptyField, "SecurityRejectReason: %s", msg.SecurityRejectReason)
+	}
+
+	securityStatusRequestReject := types.SecurityStatus{
+		SessionID:              msg.SessionID,
+		SecurityStatusRequest:  securityStatus.SecurityStatusRequest,
+		SecurityStatusResponse: securityStatus.SecurityStatusResponse,
+		SecurityStatusRequestReject: &types.SecurityStatusRequestReject{
+			SecurityStatusReqID:  msg.SecurityStatusReqID,
+			SecurityRejectReason: msg.SecurityRejectReason,
+			Text:                 msg.Text,
+			Creator:              msg.Creator,
+		},
+	}
+
+	// set header from the existing security status request
+	securityStatusRequestReject.SecurityStatusRequestReject.Header = securityStatus.SecurityStatusRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *securityStatusRequestReject.SecurityStatusRequestReject.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = securityStatus.SecurityStatusRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = securityStatus.SecurityStatusRequest.Header.MsgSeqNum
+
+	// set the msgType to Security Status Request Reject
+	newHeader.MsgType = "j"
+
+	// switch senderCompID and targetCompID between Security Status Request and Security Status Request Reject
+	// set senderCompID of Security Status Request Reject to the targetCompID of Security Status Request in the header
+	newHeader.SenderCompID = securityStatus.SecurityStatusRequest.Header.TargetCompID
+
+	// set targetCompID of Security Status Request Reject to the senderCompID of Security Status Request in the header
+	newHeader.TargetCompID = securityStatus.SecurityStatusRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	securityStatusRequestReject.SecurityStatusRequestReject.Header = newHeader
+
+	// set Trailer from the existing Security Status Request
+	securityStatusRequestReject.SecurityStatusRequestReject.Trailer = securityStatus.SecurityStatusRequest.Trailer
+
+	// set Security Status Request Reject to store
+	k.SetSecurityStatus(ctx, msg.SecurityStatusReqID, securityStatusRequestReject)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgSecurityStatusRequestRejectResponse{}, err
 }

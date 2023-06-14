@@ -247,7 +247,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionListRequestIsAcknowledged, "Trading Session List: %s", tradingSessionList.TradingSessionListResponse)
 	}
 
-	// check that the mandatory Trading Session list Response field are not empty
+	// check that the mandatory Trading Session Request Reject fields are not empty
 	if msg.TradSesStatus == "" {
 		return nil, sdkerrors.Wrapf(types.ErrTradingSessionListEmptyField, "TradSesStatus: %s", msg.TradSesStatus)
 	}
