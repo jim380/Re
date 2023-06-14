@@ -29,6 +29,7 @@ func DefaultGenesis() *GenesisState {
 		TradingSessionListList:    []TradingSessionList{},
 		SecurityListList:          []SecurityList{},
 		SecurityStatusList:        []SecurityStatus{},
+		SecurityTypesList:         []SecurityTypes{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -262,6 +263,18 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("securityStatus id should be lower or equal than the last id")
 		}
 		securityStatusIDMap[elem.SecurityStatusRequest.SecurityStatusReqID] = true
+	}
+	// Check for duplicated ID in securityTypes
+	securityTypesIdMap := make(map[uint64]bool)
+	securityTypesCount := gs.GetSecurityTypesCount()
+	for _, elem := range gs.SecurityTypesList {
+		if _, ok := securityTypesIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for securityTypes")
+		}
+		if elem.Id >= securityTypesCount {
+			return fmt.Errorf("securityTypes id should be lower or equal than the last id")
+		}
+		securityTypesIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

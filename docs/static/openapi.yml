@@ -36511,9 +36511,12 @@ paths:
                           type: string
                           description: >-
                             (324) Must be unique, or the ID of previous Security
-                            Status Request (e) to disable if
-                            SubscriptionRequestType (263) = Disable previous
-                            Snapshot + Updates Request (2).
+                            Status Request (e) to
+
+                            disable if SubscriptionRequestType (263) = Disable
+                            previous Snapshot +
+
+                            Updates Request (2).
                         instrument:
                           type: string
                         noUnderlyings:
@@ -36535,11 +36538,16 @@ paths:
                           type: string
                           title: >-
                             (263) SubscriptionRequestType indicates to the other
-                            party what type of response is expected. A snapshot
-                            request only asks for current information. A
-                            subscribe request asks for updates as the status
-                            changes. Unsubscribe will cancel any future update
-                            messages from the counter party.)
+                            party what type of
+
+                            response is expected. A snapshot request only asks
+                            for current information.
+
+                            A subscribe request asks for updates as the status
+                            changes. Unsubscribe
+
+                            will cancel any future update messages from the
+                            counter party.)
                         tradingSessionID:
                           type: string
                           title: (336)
@@ -36662,7 +36670,9 @@ paths:
                           type: string
                           title: >-
                             (325) Set to 'Y' if message is sent as a result of a
-                            subscription request not a snapshot request
+                            subscription request
+
+                            not a snapshot request
                         securityTradingStatus:
                           type: string
                           description: >-
@@ -36701,8 +36711,10 @@ paths:
                           type: string
                           description: >-
                             (31) Represents the last price for that security
-                            either on a Consolidated or an individual
-                            participant basis at the time it is disseminated.
+                            either on a Consolidated
+
+                            or an individual participant basis at the time it is
+                            disseminated.
                         transactTime:
                           type: string
                           title: (60) Trade Dissemination Time
@@ -36809,17 +36821,22 @@ paths:
                           type: string
                           title: >-
                             (560) Reason for rejecting the Security Status
-                            Request, The SecurityRejectReason field (Tag 560) in
-                            the Security Status Request Reject message (MsgType
-                            = AJ) indicates the reason for rejecting the
-                            Security Status Request. The values for the
-                            SecurityRejectReason field can vary depending on the
-                            implementation and version of the FIX protocol. Here
-                            are some common values that may be used:
+                            Request, The
 
-                            0: Unknown symbol
+                            SecurityRejectReason field (Tag 560) in the Security
+                            Status Request Reject
 
-                            1: Exchange closed
+                            message (MsgType = AJ) indicates the reason for
+                            rejecting the Security
+
+                            Status Request. The values for the
+                            SecurityRejectReason field can vary
+
+                            depending on the implementation and version of the
+                            FIX protocol. Here are
+
+                            some common values that may be used: 0: Unknown
+                            symbol 1: Exchange closed
 
                             2: Order exceeded limit
 
@@ -36869,7 +36886,9 @@ paths:
                           title: owner
                       title: >-
                         Security Status Request Reject with fields, tags and
-                        descriptions and MsgType = AJ
+                        descriptions and MsgType
+
+                        = AJ
               pagination:
                 type: object
                 properties:
@@ -37052,9 +37071,12 @@ paths:
                         type: string
                         description: >-
                           (324) Must be unique, or the ID of previous Security
-                          Status Request (e) to disable if
-                          SubscriptionRequestType (263) = Disable previous
-                          Snapshot + Updates Request (2).
+                          Status Request (e) to
+
+                          disable if SubscriptionRequestType (263) = Disable
+                          previous Snapshot +
+
+                          Updates Request (2).
                       instrument:
                         type: string
                       noUnderlyings:
@@ -37076,11 +37098,16 @@ paths:
                         type: string
                         title: >-
                           (263) SubscriptionRequestType indicates to the other
-                          party what type of response is expected. A snapshot
-                          request only asks for current information. A subscribe
-                          request asks for updates as the status changes.
-                          Unsubscribe will cancel any future update messages
-                          from the counter party.)
+                          party what type of
+
+                          response is expected. A snapshot request only asks for
+                          current information.
+
+                          A subscribe request asks for updates as the status
+                          changes. Unsubscribe
+
+                          will cancel any future update messages from the
+                          counter party.)
                       tradingSessionID:
                         type: string
                         title: (336)
@@ -37203,7 +37230,9 @@ paths:
                         type: string
                         title: >-
                           (325) Set to 'Y' if message is sent as a result of a
-                          subscription request not a snapshot request
+                          subscription request
+
+                          not a snapshot request
                       securityTradingStatus:
                         type: string
                         description: >-
@@ -37242,8 +37271,10 @@ paths:
                         type: string
                         description: >-
                           (31) Represents the last price for that security
-                          either on a Consolidated or an individual participant
-                          basis at the time it is disseminated.
+                          either on a Consolidated
+
+                          or an individual participant basis at the time it is
+                          disseminated.
                       transactTime:
                         type: string
                         title: (60) Trade Dissemination Time
@@ -37350,16 +37381,21 @@ paths:
                         type: string
                         title: >-
                           (560) Reason for rejecting the Security Status
-                          Request, The SecurityRejectReason field (Tag 560) in
-                          the Security Status Request Reject message (MsgType =
-                          AJ) indicates the reason for rejecting the Security
+                          Request, The
+
+                          SecurityRejectReason field (Tag 560) in the Security
+                          Status Request Reject
+
+                          message (MsgType = AJ) indicates the reason for
+                          rejecting the Security
+
                           Status Request. The values for the
-                          SecurityRejectReason field can vary depending on the
-                          implementation and version of the FIX protocol. Here
-                          are some common values that may be used:
+                          SecurityRejectReason field can vary
 
-                          0: Unknown symbol
+                          depending on the implementation and version of the FIX
+                          protocol. Here are
 
+                          some common values that may be used: 0: Unknown symbol
                           1: Exchange closed
 
                           2: Order exceeded limit
@@ -37410,7 +37446,9 @@ paths:
                         title: owner
                     title: >-
                       Security Status Request Reject with fields, tags and
-                      descriptions and MsgType = AJ
+                      descriptions and MsgType
+
+                      = AJ
         default:
           description: An unexpected error response.
           schema:
@@ -37434,6 +37472,173 @@ paths:
           in: path
           required: true
           type: string
+      tags:
+        - Query
+  /jim380/Re/fix/security_types:
+    get:
+      operationId: Jim380ReFixSecurityTypesAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityTypes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sessionID:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/security_types/{id}:
+    get:
+      summary: Queries a list of SecurityTypes items.
+      operationId: Jim380ReFixSecurityTypes
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SecurityTypes:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  sessionID:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
   /jim380/Re/fix/session/logout/{sessionID}:
@@ -68600,8 +68805,12 @@ definitions:
                   type: string
                   description: >-
                     (324) Must be unique, or the ID of previous Security Status
-                    Request (e) to disable if SubscriptionRequestType (263) =
-                    Disable previous Snapshot + Updates Request (2).
+                    Request (e) to
+
+                    disable if SubscriptionRequestType (263) = Disable previous
+                    Snapshot +
+
+                    Updates Request (2).
                 instrument:
                   type: string
                 noUnderlyings:
@@ -68623,10 +68832,16 @@ definitions:
                   type: string
                   title: >-
                     (263) SubscriptionRequestType indicates to the other party
-                    what type of response is expected. A snapshot request only
-                    asks for current information. A subscribe request asks for
-                    updates as the status changes. Unsubscribe will cancel any
-                    future update messages from the counter party.)
+                    what type of
+
+                    response is expected. A snapshot request only asks for
+                    current information.
+
+                    A subscribe request asks for updates as the status changes.
+                    Unsubscribe
+
+                    will cancel any future update messages from the counter
+                    party.)
                 tradingSessionID:
                   type: string
                   title: (336)
@@ -68745,7 +68960,9 @@ definitions:
                   type: string
                   title: >-
                     (325) Set to 'Y' if message is sent as a result of a
-                    subscription request not a snapshot request
+                    subscription request
+
+                    not a snapshot request
                 securityTradingStatus:
                   type: string
                   description: >-
@@ -68784,8 +69001,10 @@ definitions:
                   type: string
                   description: >-
                     (31) Represents the last price for that security either on a
-                    Consolidated or an individual participant basis at the time
-                    it is disseminated.
+                    Consolidated
+
+                    or an individual participant basis at the time it is
+                    disseminated.
                 transactTime:
                   type: string
                   title: (60) Trade Dissemination Time
@@ -68888,16 +69107,21 @@ definitions:
                   type: string
                   title: >-
                     (560) Reason for rejecting the Security Status Request, The
+
                     SecurityRejectReason field (Tag 560) in the Security Status
-                    Request Reject message (MsgType = AJ) indicates the reason
-                    for rejecting the Security Status Request. The values for
-                    the SecurityRejectReason field can vary depending on the
-                    implementation and version of the FIX protocol. Here are
-                    some common values that may be used:
+                    Request Reject
 
-                    0: Unknown symbol
+                    message (MsgType = AJ) indicates the reason for rejecting
+                    the Security
 
-                    1: Exchange closed
+                    Status Request. The values for the SecurityRejectReason
+                    field can vary
+
+                    depending on the implementation and version of the FIX
+                    protocol. Here are
+
+                    some common values that may be used: 0: Unknown symbol 1:
+                    Exchange closed
 
                     2: Order exceeded limit
 
@@ -68945,7 +69169,47 @@ definitions:
                   title: owner
               title: >-
                 Security Status Request Reject with fields, tags and
-                descriptions and MsgType = AJ
+                descriptions and MsgType
+
+                = AJ
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  jim380.re.fix.QueryAllSecurityTypesResponse:
+    type: object
+    properties:
+      SecurityTypes:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sessionID:
+              type: string
       pagination:
         type: object
         properties:
@@ -73557,8 +73821,12 @@ definitions:
                 type: string
                 description: >-
                   (324) Must be unique, or the ID of previous Security Status
-                  Request (e) to disable if SubscriptionRequestType (263) =
-                  Disable previous Snapshot + Updates Request (2).
+                  Request (e) to
+
+                  disable if SubscriptionRequestType (263) = Disable previous
+                  Snapshot +
+
+                  Updates Request (2).
               instrument:
                 type: string
               noUnderlyings:
@@ -73580,10 +73848,16 @@ definitions:
                 type: string
                 title: >-
                   (263) SubscriptionRequestType indicates to the other party
-                  what type of response is expected. A snapshot request only
-                  asks for current information. A subscribe request asks for
-                  updates as the status changes. Unsubscribe will cancel any
-                  future update messages from the counter party.)
+                  what type of
+
+                  response is expected. A snapshot request only asks for current
+                  information.
+
+                  A subscribe request asks for updates as the status changes.
+                  Unsubscribe
+
+                  will cancel any future update messages from the counter
+                  party.)
               tradingSessionID:
                 type: string
                 title: (336)
@@ -73701,7 +73975,9 @@ definitions:
                 type: string
                 title: >-
                   (325) Set to 'Y' if message is sent as a result of a
-                  subscription request not a snapshot request
+                  subscription request
+
+                  not a snapshot request
               securityTradingStatus:
                 type: string
                 description: >-
@@ -73740,8 +74016,10 @@ definitions:
                 type: string
                 description: >-
                   (31) Represents the last price for that security either on a
-                  Consolidated or an individual participant basis at the time it
-                  is disseminated.
+                  Consolidated
+
+                  or an individual participant basis at the time it is
+                  disseminated.
               transactTime:
                 type: string
                 title: (60) Trade Dissemination Time
@@ -73841,16 +74119,21 @@ definitions:
                 type: string
                 title: >-
                   (560) Reason for rejecting the Security Status Request, The
+
                   SecurityRejectReason field (Tag 560) in the Security Status
-                  Request Reject message (MsgType = AJ) indicates the reason for
-                  rejecting the Security Status Request. The values for the
-                  SecurityRejectReason field can vary depending on the
-                  implementation and version of the FIX protocol. Here are some
-                  common values that may be used:
+                  Request Reject
 
-                  0: Unknown symbol
+                  message (MsgType = AJ) indicates the reason for rejecting the
+                  Security
 
-                  1: Exchange closed
+                  Status Request. The values for the SecurityRejectReason field
+                  can vary
+
+                  depending on the implementation and version of the FIX
+                  protocol. Here are
+
+                  some common values that may be used: 0: Unknown symbol 1:
+                  Exchange closed
 
                   2: Order exceeded limit
 
@@ -73898,7 +74181,20 @@ definitions:
                 title: owner
             title: >-
               Security Status Request Reject with fields, tags and descriptions
-              and MsgType = AJ
+              and MsgType
+
+              = AJ
+  jim380.re.fix.QueryGetSecurityTypesResponse:
+    type: object
+    properties:
+      SecurityTypes:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sessionID:
+            type: string
   jim380.re.fix.QueryGetSessionLogoutResponse:
     type: object
     properties:
@@ -78280,8 +78576,12 @@ definitions:
             type: string
             description: >-
               (324) Must be unique, or the ID of previous Security Status
-              Request (e) to disable if SubscriptionRequestType (263) = Disable
-              previous Snapshot + Updates Request (2).
+              Request (e) to
+
+              disable if SubscriptionRequestType (263) = Disable previous
+              Snapshot +
+
+              Updates Request (2).
           instrument:
             type: string
           noUnderlyings:
@@ -78303,10 +78603,15 @@ definitions:
             type: string
             title: >-
               (263) SubscriptionRequestType indicates to the other party what
-              type of response is expected. A snapshot request only asks for
-              current information. A subscribe request asks for updates as the
-              status changes. Unsubscribe will cancel any future update messages
-              from the counter party.)
+              type of
+
+              response is expected. A snapshot request only asks for current
+              information.
+
+              A subscribe request asks for updates as the status changes.
+              Unsubscribe
+
+              will cancel any future update messages from the counter party.)
           tradingSessionID:
             type: string
             title: (336)
@@ -78421,7 +78726,9 @@ definitions:
             type: string
             title: >-
               (325) Set to 'Y' if message is sent as a result of a subscription
-              request not a snapshot request
+              request
+
+              not a snapshot request
           securityTradingStatus:
             type: string
             description: (326) Identifies the trading status applicable to the transaction.
@@ -78456,8 +78763,9 @@ definitions:
             type: string
             description: >-
               (31) Represents the last price for that security either on a
-              Consolidated or an individual participant basis at the time it is
-              disseminated.
+              Consolidated
+
+              or an individual participant basis at the time it is disseminated.
           transactTime:
             type: string
             title: (60) Trade Dissemination Time
@@ -78554,16 +78862,21 @@ definitions:
             type: string
             title: >-
               (560) Reason for rejecting the Security Status Request, The
+
               SecurityRejectReason field (Tag 560) in the Security Status
-              Request Reject message (MsgType = AJ) indicates the reason for
-              rejecting the Security Status Request. The values for the
-              SecurityRejectReason field can vary depending on the
-              implementation and version of the FIX protocol. Here are some
-              common values that may be used:
+              Request Reject
 
-              0: Unknown symbol
+              message (MsgType = AJ) indicates the reason for rejecting the
+              Security
 
-              1: Exchange closed
+              Status Request. The values for the SecurityRejectReason field can
+              vary
+
+              depending on the implementation and version of the FIX protocol.
+              Here are
+
+              some common values that may be used: 0: Unknown symbol 1: Exchange
+              closed
 
               2: Order exceeded limit
 
@@ -78611,7 +78924,9 @@ definitions:
             title: owner
         title: >-
           Security Status Request Reject with fields, tags and descriptions and
-          MsgType = AJ
+          MsgType
+
+          = AJ
   jim380.re.fix.SecurityStatusRequest:
     type: object
     properties:
@@ -78667,8 +78982,11 @@ definitions:
         type: string
         description: >-
           (324) Must be unique, or the ID of previous Security Status Request
-          (e) to disable if SubscriptionRequestType (263) = Disable previous
-          Snapshot + Updates Request (2).
+          (e) to
+
+          disable if SubscriptionRequestType (263) = Disable previous Snapshot +
+
+          Updates Request (2).
       instrument:
         type: string
       noUnderlyings:
@@ -78690,10 +79008,15 @@ definitions:
         type: string
         title: >-
           (263) SubscriptionRequestType indicates to the other party what type
-          of response is expected. A snapshot request only asks for current
-          information. A subscribe request asks for updates as the status
-          changes. Unsubscribe will cancel any future update messages from the
-          counter party.)
+          of
+
+          response is expected. A snapshot request only asks for current
+          information.
+
+          A subscribe request asks for updates as the status changes.
+          Unsubscribe
+
+          will cancel any future update messages from the counter party.)
       tradingSessionID:
         type: string
         title: (336)
@@ -78785,15 +79108,19 @@ definitions:
         type: string
         title: >-
           (560) Reason for rejecting the Security Status Request, The
+
           SecurityRejectReason field (Tag 560) in the Security Status Request
-          Reject message (MsgType = AJ) indicates the reason for rejecting the
-          Security Status Request. The values for the SecurityRejectReason field
-          can vary depending on the implementation and version of the FIX
-          protocol. Here are some common values that may be used:
+          Reject
 
-          0: Unknown symbol
+          message (MsgType = AJ) indicates the reason for rejecting the Security
 
-          1: Exchange closed
+          Status Request. The values for the SecurityRejectReason field can vary
+
+          depending on the implementation and version of the FIX protocol. Here
+          are
+
+          some common values that may be used: 0: Unknown symbol 1: Exchange
+          closed
 
           2: Order exceeded limit
 
@@ -78841,7 +79168,9 @@ definitions:
         title: owner
     title: >-
       Security Status Request Reject with fields, tags and descriptions and
-      MsgType = AJ
+      MsgType
+
+      = AJ
   jim380.re.fix.SecurityStatusResponse:
     type: object
     properties:
@@ -78921,7 +79250,9 @@ definitions:
         type: string
         title: >-
           (325) Set to 'Y' if message is sent as a result of a subscription
-          request not a snapshot request
+          request
+
+          not a snapshot request
       securityTradingStatus:
         type: string
         description: (326) Identifies the trading status applicable to the transaction.
@@ -78956,8 +79287,9 @@ definitions:
         type: string
         description: >-
           (31) Represents the last price for that security either on a
-          Consolidated or an individual participant basis at the time it is
-          disseminated.
+          Consolidated
+
+          or an individual participant basis at the time it is disseminated.
       transactTime:
         type: string
         title: (60) Trade Dissemination Time
@@ -78996,6 +79328,14 @@ definitions:
     title: >-
       Security Status Response with fields, tags and descriptions and MsgType =
       f
+  jim380.re.fix.SecurityTypes:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      sessionID:
+        type: string
   jim380.re.fix.SessionLogout:
     type: object
     properties:
