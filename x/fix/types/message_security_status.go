@@ -160,4 +160,3 @@ func (msg *MsgSecurityStatusRequestReject) ValidateBasic() error {
 	}
 	return nil
 }
-

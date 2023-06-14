@@ -152,10 +152,6 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityStatusRequest int = 100
 
-	opWeightMsgApproveLoan = "op_weight_msg_approve_loan"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgApproveLoan int = 100
-
 	opWeightMsgSecurityStatusResponse = "op_weight_msg_security_status_response"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityStatusResponse int = 100
