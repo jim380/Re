@@ -21,7 +21,7 @@ func (k Keeper) SecurityTypesAll(goCtx context.Context, req *types.QueryAllSecur
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	securityTypesStore := prefix.NewStore(store, types.KeyPrefix(types.SecurityTypesKey))
+	securityTypesStore := prefix.NewStore(store, types.GetSecurityTypesKey())
 
 	pageRes, err := query.Paginate(securityTypesStore, req.Pagination, func(key []byte, value []byte) error {
 		var securityTypes types.SecurityTypes

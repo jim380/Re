@@ -11,7 +11,7 @@ import (
 // GetSecurityTypesCount get the total number of securityTypes
 func (k Keeper) GetSecurityTypesCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SecurityTypesCountKey)
+	byteKey := types.GetSecurityTypesCountKey()
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -26,7 +26,7 @@ func (k Keeper) GetSecurityTypesCount(ctx sdk.Context) uint64 {
 // SetSecurityTypesCount set the total number of securityTypes
 func (k Keeper) SetSecurityTypesCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.SecurityTypesCountKey)
+	byteKey := types.GetSecurityTypesCountKey()
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, count)
 	store.Set(byteKey, bz)
@@ -34,7 +34,7 @@ func (k Keeper) SetSecurityTypesCount(ctx sdk.Context, count uint64) {
 
 // SetSecurityTypes set a specific securityTypes in the store
 func (k Keeper) SetSecurityTypes(ctx sdk.Context, securityReqID string, securityTypes types.SecurityTypes) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityTypesKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityTypesKey())
 	key := []byte(securityReqID)
 	b := k.cdc.MustMarshal(&securityTypes)
 	store.Set(key, b)
@@ -42,7 +42,7 @@ func (k Keeper) SetSecurityTypes(ctx sdk.Context, securityReqID string, security
 
 // GetSecurityTypes returns a securityTypes using securityReqID
 func (k Keeper) GetSecurityTypes(ctx sdk.Context, securityReqID string) (val types.SecurityTypes, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityTypesKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityTypesKey())
 	key := []byte(securityReqID)
 	b := store.Get(key)
 	if b == nil {
@@ -54,13 +54,13 @@ func (k Keeper) GetSecurityTypes(ctx sdk.Context, securityReqID string) (val typ
 
 // RemoveSecurityTypes removes a securityTypes from the store
 func (k Keeper) RemoveSecurityTypes(ctx sdk.Context, securityReqID string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityTypesKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityTypesKey())
 	store.Delete([]byte(securityReqID))
 }
 
 // GetAllSecurityTypes returns all securityTypes
 func (k Keeper) GetAllSecurityTypes(ctx sdk.Context) (list []types.SecurityTypes) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecurityTypesKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityTypesKey())
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

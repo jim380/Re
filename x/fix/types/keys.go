@@ -68,6 +68,9 @@ var (
 
 	SecurityStatusKey      = []byte{0x030}
 	SecurityStatusCountKey = []byte{0x031}
+
+	SecurityTypesKey      = []byte{0x032}
+	SecurityTypesCountKey = []byte{0x033}
 )
 
 func GetAccountKey() []byte {
@@ -202,7 +205,10 @@ func GetSecurityStatusCountKey() []byte {
 	return SecurityStatusCountKey
 }
 
-const (
-	SecurityTypesKey      = "SecurityTypes/value/"
-	SecurityTypesCountKey = "SecurityTypes/count/"
-)
+func GetSecurityTypesKey() []byte {
+	return SecurityTypesKey
+}
+
+func GetSecurityTypesCountKey() []byte {
+	return SecurityTypesCountKey
+}
