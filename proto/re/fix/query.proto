@@ -212,11 +212,11 @@ service Query {
   
   // Queries a list of SecurityTypes items.
   rpc SecurityTypes    (QueryGetSecurityTypesRequest) returns (QueryGetSecurityTypesResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security_types/{id}";
+    option (google.api.http).get = "/jim380/Re/fix/security/types/{securityReqID}";
   
   }
   rpc SecurityTypesAll (QueryAllSecurityTypesRequest) returns (QueryAllSecurityTypesResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security_types";
+    option (google.api.http).get = "/jim380/Re/fix/security/types";
   
   }
 }
@@ -530,7 +530,7 @@ message QueryAllSecurityStatusResponse {
 }
 
 message QueryGetSecurityTypesRequest {
-  uint64 id = 1;
+  string securityReqID = 1;
 }
 
 message QueryGetSecurityTypesResponse {

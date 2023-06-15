@@ -1646,15 +1646,15 @@ func request_Query_SecurityTypes_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["securityReqID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "securityReqID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SecurityReqID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "securityReqID", err)
 	}
 
 	msg, err := client.SecurityTypes(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1673,15 +1673,15 @@ func local_request_Query_SecurityTypes_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["securityReqID"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "securityReqID")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.SecurityReqID, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "securityReqID", err)
 	}
 
 	msg, err := server.SecurityTypes(ctx, &protoReq)
@@ -3482,9 +3482,9 @@ var (
 
 	pattern_Query_SecurityStatusAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "security", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityTypes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "security_types", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityTypes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"jim380", "Re", "fix", "security", "types", "securityReqID"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SecurityTypesAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "fix", "security_types"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SecurityTypesAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "security", "types"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

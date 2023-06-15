@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListSecurityTypes() *cobra.Command {
 
 func CmdShowSecurityTypes() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-security-types [id]",
+		Use:   "show-security-types [SecurityReqID]",
 		Short: "shows a security-types",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowSecurityTypes() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argSecurityReqID := args[0]
 
 			params := &types.QueryGetSecurityTypesRequest{
-				Id: id,
+				SecurityReqID: argSecurityReqID,
 			}
 
 			res, err := queryClient.SecurityTypes(context.Background(), params)

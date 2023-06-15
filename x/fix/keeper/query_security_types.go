@@ -46,7 +46,7 @@ func (k Keeper) SecurityTypes(goCtx context.Context, req *types.QueryGetSecurity
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	securityTypes, found := k.GetSecurityTypes(ctx, req.Id)
+	securityTypes, found := k.GetSecurityTypes(ctx, req.SecurityReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
