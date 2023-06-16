@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-status-request [sessionID] [securityStatusReqID] [instrument] [noUnderlyings] [underlyingInstrument] [noLegs] [instrumentLeg] [currency] [subscriptionRequestType] [tradingSessionID] [tradingSessionSubID]",
+		Use:   "security-status-request [sessionID] [instrument] [noUnderlyings] [underlyingInstrument] [noLegs] [instrumentLeg] [currency] [subscriptionRequestType] [tradingSessionID] [tradingSessionSubID]",
 		Short: "Broadcast message security-status-request",
 		Args:  cobra.ExactArgs(11),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

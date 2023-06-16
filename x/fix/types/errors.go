@@ -147,6 +147,13 @@ const (
 	errSecurityStatusSession
 	errSecurityStatusRequestIsRejected
 	errSecurityStatusRequestIsAcknowledged
+
+	// Security Types
+	errSecurityTypesEmptyField
+	errSecurityTypesIsNotFound
+	errSecurityTypesSession
+	errSecurityTypesRequestIsRejected
+	errSecurityTypesRequestIsAcknowledged
 )
 
 // x/fix module sentinel errors
@@ -283,10 +290,17 @@ var (
 	ErrSecurityListRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityListRequestIsRejected, "Security List Request has been rejected")
 	ErrSecurityListRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityListRequestIsAcknowledged, "Security List Request has been acknowledged")
 
-	// Status Status
+	// Security Status
 	ErrSecurityStatusEmptyField            = sdkerrors.Register(ModuleName, errSecurityStatusEmptyField, "This field can not be left empty")
 	ErrSecurityStatusIsNotFound            = sdkerrors.Register(ModuleName, errSecurityStatusIsNotFound, "Security Status Request is not found")
 	ErrSecurityStatusSession               = sdkerrors.Register(ModuleName, errSecurityStatusSession, "The sessionID is not recognized by the Security Status Request system")
 	ErrSecurityStatusRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityStatusRequestIsRejected, "Security Status Request has been rejected")
 	ErrSecurityStatusRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityStatusRequestIsAcknowledged, "Security Status Request has been acknowledged")
+
+	// Security Types
+	ErrSecurityTypesEmptyField            = sdkerrors.Register(ModuleName, errSecurityTypesEmptyField, "This field can not be left empty")
+	ErrSecurityTypesIsNotFound            = sdkerrors.Register(ModuleName, errSecurityTypesIsNotFound, "Security Types Request is not found")
+	ErrSecurityTypesSession               = sdkerrors.Register(ModuleName, errSecurityTypesSession, "The sessionID is not recognized by the Security Types Request system")
+	ErrSecurityTypesRequestIsRejected     = sdkerrors.Register(ModuleName, errSecurityTypesRequestIsRejected, "Security Types Request has been rejected")
+	ErrSecurityTypesRequestIsAcknowledged = sdkerrors.Register(ModuleName, errSecurityTypesRequestIsAcknowledged, "Security Types Request has been acknowledged")
 )

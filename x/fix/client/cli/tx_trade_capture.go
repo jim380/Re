@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdTradeCaptureReport() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trade-capture-report [sessionID] [tradeReportID] [tradeReportTransType] [tradeReportType] [trdType] [trdSubType] [side] [orderQty] [lastQty] [lastPx] [grossTradeAmt] [execID] [orderID] [tradeID] [origTradeID] [symbol] [securityID] [securityIDSource] [tradeDate] [transactTime] [settlType] [settlDate]",
+		Use:   "trade-capture-report [sessionID] [tradeReportTransType] [tradeReportType] [trdType] [trdSubType] [side] [orderQty] [lastQty] [lastPx] [grossTradeAmt] [execID] [orderID] [tradeID] [origTradeID] [symbol] [securityID] [securityIDSource] [tradeDate] [transactTime] [settlType] [settlDate]",
 		Short: "Broadcast message trade-capture-report",
 		Args:  cobra.ExactArgs(21),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
