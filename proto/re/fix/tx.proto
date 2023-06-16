@@ -56,6 +56,7 @@ service Msg {
   rpc SecurityStatusRequestReject       (MsgSecurityStatusRequestReject      ) returns (MsgSecurityStatusRequestRejectResponse      );
   rpc SecurityTypesRequest              (MsgSecurityTypesRequest             ) returns (MsgSecurityTypesRequestResponse             );
   rpc SecurityTypesResponse             (MsgSecurityTypesResponse            ) returns (MsgSecurityTypesResponseResponse            );
+  rpc SecurityTypesRequestReject        (MsgSecurityTypesRequestReject       ) returns (MsgSecurityTypesRequestRejectResponse       );
 }
 message MsgCreateAccount {
   string creator          = 1;
@@ -692,4 +693,14 @@ message MsgSecurityTypesResponse {
 }
 
 message MsgSecurityTypesResponseResponse {}
+
+message MsgSecurityTypesRequestReject {
+  string creator       = 1;
+  string sessionID     = 2;
+  string securityReqID = 3;
+  string rejectReason  = 4;
+  string text          = 5;
+}
+
+message MsgSecurityTypesRequestRejectResponse {}
 
