@@ -205,8 +205,105 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.MsgSecurityTypesRequestReject) (*types.MsgSecurityTypesRequestRejectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	// Validate the message creator
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+	}
 
-	return &types.MsgSecurityTypesRequestRejectResponse{}, nil
+	// check for if the provided session ID exists
+	session, found := k.GetSessions(ctx, msg.SessionID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the sessionID provided by the creator of Security Types Request Reject matches with the sessionID for Security Types Request
+	if session.SessionID != msg.SessionID {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityTypesSession, "SessionID: %s", msg.SessionID)
+	}
+
+	// check that the user responding is the recipient of the Security Types Request
+	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Types Request Reject Creator: %s", msg.Creator)
+	}
+
+	// get security Types
+	securityTypes, found := k.GetSecurityTypes(ctx, msg.SecurityReqID)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityTypesIsNotFound, ": %s", securityTypes.SecurityTypesRequest)
+	}
+
+	// same account can not used for creating Security Types Request and Security Types Request Reject with the same SecurityReqID
+	if securityTypes.SecurityTypesRequest.Creator == msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Request Reject", msg.Creator))
+	}
+
+	// check that the Security Types Request is not rejected already
+	if securityTypes.SecurityTypesRequestReject != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityTypesRequestIsRejected, "Security Types: %s", securityTypes.SecurityTypesRequestReject)
+	}
+
+	// check that the Security Types Request is not acknowledged already
+	if securityTypes.SecurityTypesResponse != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityTypesRequestIsAcknowledged, "Security Types: %s", securityTypes.SecurityTypesResponse)
+	}
+
+	// check that the mandatory Security Types Request Reject field is not empty
+	if msg.RejectReason == "" {
+		return nil, sdkerrors.Wrapf(types.ErrSecurityTypesEmptyField, "RejectReason: %s", msg.RejectReason)
+	}
+
+	securityTypesRequestReject := types.SecurityTypes{
+		SessionID:             msg.SessionID,
+		SecurityTypesRequest:  securityTypes.SecurityTypesRequest,
+		SecurityTypesResponse: securityTypes.SecurityTypesResponse,
+		SecurityTypesRequestReject: &types.SecurityTypesRequestReject{
+			SecurityReqID: msg.SecurityReqID,
+			RejectReason:  msg.RejectReason,
+			Text:          msg.Text,
+			Creator:       msg.Creator,
+		},
+	}
+
+	// set header from the existing security types request
+	securityTypesRequestReject.SecurityTypesRequestReject.Header = securityTypes.SecurityTypesRequest.Header
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *securityTypesRequestReject.SecurityTypesRequestReject.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = securityTypes.SecurityTypesRequest.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = securityTypes.SecurityTypesRequest.Header.MsgSeqNum
+
+	// set the msgType to Security Types Request Reject
+	newHeader.MsgType = "y"
+
+	// switch senderCompID and targetCompID between Security Types Request and Security Types Request Reject
+	// set senderCompID of Security Types Request Reject to the targetCompID of Security Types Request in the header
+	newHeader.SenderCompID = securityTypes.SecurityTypesRequest.Header.TargetCompID
+
+	// set targetCompID of Security Types Request Reject to the senderCompID of Security Types Request in the header
+	newHeader.TargetCompID = securityTypes.SecurityTypesRequest.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+
+	// pass all the edited values to the newHeader
+	securityTypesRequestReject.SecurityTypesRequestReject.Header = newHeader
+
+	// set Trailer from the existing Security Types Request
+	securityTypesRequestReject.SecurityTypesRequestReject.Trailer = securityTypes.SecurityTypesRequest.Trailer
+
+	// set Security Types Request to store
+	k.SetSecurityTypes(ctx, msg.SecurityReqID, securityTypesRequestReject)
+
+	// emit event
+	err = ctx.EventManager().EmitTypedEvent(msg)
+
+	return &types.MsgSecurityTypesRequestRejectResponse{}, err
 }

@@ -78,7 +78,7 @@ func CmdSecurityTypesResponse() *cobra.Command {
 			argTradingSessionSubID := args[12]
 			argSubscriptionRequestType := args[13]
 
-			// GenerateRandomString function uniquely generates SecurityResponseID for every Security Types Request
+			// GenerateRandomString function uniquely generates SecurityResponseID for every Security Types Response
 			argSecurityResponseID, _ := types.GenerateRandomString(types.SecurityResponseID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
