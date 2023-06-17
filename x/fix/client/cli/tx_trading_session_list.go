@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdTradingSessionListRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "trading-session-list-request [sessionID] [tradSesReqID] [tradingSessionID] [tradingSessionSubID] [securityExchange] [tradSesMethod] [tradSesMode] [subscriptionRequestType]",
+		Use:   "trading-session-list-request [sessionID] [tradingSessionID] [tradingSessionSubID] [securityExchange] [tradSesMethod] [tradSesMode] [subscriptionRequestType]",
 		Short: "Broadcast message trading-session-list-request",
 		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityListRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-list-request [sessionID] [securityReqID] [securityListRequestType] [noUnderlyings] [noLegs] [currency] [text] [encodedTextLen] [encodedText] [tradingSessionID] [tradingSessionSubID] [subscriptionRequestType]",
+		Use:   "security-list-request [sessionID] [securityListRequestType] [noUnderlyings] [noLegs] [currency] [text] [encodedTextLen] [encodedText] [tradingSessionID] [tradingSessionSubID] [subscriptionRequestType]",
 		Short: "Broadcast message security-list-request",
 		Args:  cobra.ExactArgs(11),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

@@ -84,6 +84,12 @@ service Msg {
       returns (MsgSecurityStatusResponseResponse);
   rpc SecurityStatusRequestReject(MsgSecurityStatusRequestReject)
       returns (MsgSecurityStatusRequestRejectResponse);
+  rpc SecurityTypesRequest(MsgSecurityTypesRequest)
+      returns (MsgSecurityTypesRequestResponse);
+  rpc SecurityTypesResponse(MsgSecurityTypesResponse)
+      returns (MsgSecurityTypesResponseResponse);
+  rpc SecurityTypesRequestReject(MsgSecurityTypesRequestReject)
+      returns (MsgSecurityTypesRequestRejectResponse);
 }
 message MsgCreateAccount {
   string creator = 1;
@@ -683,3 +689,48 @@ message MsgSecurityStatusRequestReject {
 }
 
 message MsgSecurityStatusRequestRejectResponse {}
+
+message MsgSecurityTypesRequest {
+  string creator = 1;
+  string sessionID = 2;
+  string securityReqID = 3;
+  string text = 4;
+  string tradingSessionID = 5;
+  string tradingSessionSubID = 6;
+  string product = 7;
+  string securityType = 8;
+  string securitySubType = 9;
+}
+
+message MsgSecurityTypesRequestResponse {}
+
+message MsgSecurityTypesResponse {
+  string creator = 1;
+  string sessionID = 2;
+  string securityReqID = 3;
+  string securityResponseID = 4;
+  string securityResponseType = 5;
+  string totNoSecurityTypes = 6;
+  string lastFragment = 7;
+  string noSecurityTypes = 8;
+  string securityType = 9;
+  string securitySubType = 10;
+  string product = 11;
+  string cFICode = 12;
+  string text = 13;
+  string tradingSessionID = 14;
+  string tradingSessionSubID = 15;
+  string subscriptionRequestType = 16;
+}
+
+message MsgSecurityTypesResponseResponse {}
+
+message MsgSecurityTypesRequestReject {
+  string creator = 1;
+  string sessionID = 2;
+  string securityReqID = 3;
+  string rejectReason = 4;
+  string text = 5;
+}
+
+message MsgSecurityTypesRequestRejectResponse {}

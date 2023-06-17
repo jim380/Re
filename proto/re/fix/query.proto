@@ -23,6 +23,7 @@ import "re/fix/trading_session.proto";
 import "re/fix/trading_session_list.proto";
 import "re/fix/security_list.proto";
 import "re/fix/security_status.proto";
+import "re/fix/security_types.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -206,6 +207,17 @@ service Query {
   rpc SecurityStatusAll(QueryAllSecurityStatusRequest)
       returns (QueryAllSecurityStatusResponse) {
     option (google.api.http).get = "/jim380/Re/fix/security/status";
+  }
+
+  // Queries a list of SecurityTypes items.
+  rpc SecurityTypes(QueryGetSecurityTypesRequest)
+      returns (QueryGetSecurityTypesResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/security/types/{securityReqID}";
+  }
+  rpc SecurityTypesAll(QueryAllSecurityTypesRequest)
+      returns (QueryAllSecurityTypesResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/security/types";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -483,5 +495,20 @@ message QueryAllSecurityStatusRequest {
 
 message QueryAllSecurityStatusResponse {
   repeated SecurityStatus SecurityStatus = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSecurityTypesRequest { string securityReqID = 1; }
+
+message QueryGetSecurityTypesResponse {
+  SecurityTypes SecurityTypes = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllSecurityTypesRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSecurityTypesResponse {
+  repeated SecurityTypes SecurityTypes = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

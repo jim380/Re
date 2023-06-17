@@ -94,7 +94,9 @@ func (m *SecurityStatus) GetSecurityStatusRequestReject() *SecurityStatusRequest
 type SecurityStatusRequest struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// (324) Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2).
+	// (324) Must be unique, or the ID of previous Security Status Request (e) to
+	// disable if SubscriptionRequestType (263) = Disable previous Snapshot +
+	// Updates Request (2).
 	SecurityStatusReqID string `protobuf:"bytes,2,opt,name=SecurityStatusReqID,proto3" json:"SecurityStatusReqID,omitempty"`
 	Instrument          string `protobuf:"bytes,3,opt,name=instrument,proto3" json:"instrument,omitempty"`
 	// (711) Number of underlyings
@@ -107,7 +109,10 @@ type SecurityStatusRequest struct {
 	InstrumentLeg string `protobuf:"bytes,7,opt,name=instrumentLeg,proto3" json:"instrumentLeg,omitempty"`
 	// (15)
 	Currency string `protobuf:"bytes,8,opt,name=currency,proto3" json:"currency,omitempty"`
-	// (263) SubscriptionRequestType indicates to the other party what type of response is expected. A snapshot request only asks for current information. A subscribe request asks for updates as the status changes. Unsubscribe will cancel any future update messages from the counter party.)
+	// (263) SubscriptionRequestType indicates to the other party what type of
+	// response is expected. A snapshot request only asks for current information.
+	// A subscribe request asks for updates as the status changes. Unsubscribe
+	// will cancel any future update messages from the counter party.)
 	SubscriptionRequestType string `protobuf:"bytes,9,opt,name=subscriptionRequestType,proto3" json:"subscriptionRequestType,omitempty"`
 	// (336)
 	TradingSessionID string `protobuf:"bytes,10,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
@@ -263,7 +268,8 @@ type SecurityStatusResponse struct {
 	TradingSessionID string `protobuf:"bytes,8,opt,name=tradingSessionID,proto3" json:"tradingSessionID,omitempty"`
 	// (625)
 	TradingSessionSubID string `protobuf:"bytes,9,opt,name=tradingSessionSubID,proto3" json:"tradingSessionSubID,omitempty"`
-	// (325) Set to 'Y' if message is sent as a result of a subscription request not a snapshot request
+	// (325) Set to 'Y' if message is sent as a result of a subscription request
+	// not a snapshot request
 	UnsolicitedIndicator string `protobuf:"bytes,10,opt,name=unsolicitedIndicator,proto3" json:"unsolicitedIndicator,omitempty"`
 	// (326) Identifies the trading status applicable to the transaction.
 	SecurityTradingStatus string `protobuf:"bytes,11,opt,name=securityTradingStatus,proto3" json:"securityTradingStatus,omitempty"`
@@ -285,7 +291,8 @@ type SecurityStatusResponse struct {
 	HighPx string `protobuf:"bytes,19,opt,name=highPx,proto3" json:"highPx,omitempty"`
 	// (333)
 	LowPx string `protobuf:"bytes,20,opt,name=lowPx,proto3" json:"lowPx,omitempty"`
-	// (31) Represents the last price for that security either on a Consolidated or an individual participant basis at the time it is disseminated.
+	// (31) Represents the last price for that security either on a Consolidated
+	// or an individual participant basis at the time it is disseminated.
 	LastPx string `protobuf:"bytes,21,opt,name=lastPx,proto3" json:"lastPx,omitempty"`
 	// (60) Trade Dissemination Time
 	TransactTime string `protobuf:"bytes,22,opt,name=transactTime,proto3" json:"transactTime,omitempty"`
@@ -514,15 +521,19 @@ func (m *SecurityStatusResponse) GetCreator() string {
 	return ""
 }
 
-// Security Status Request Reject with fields, tags and descriptions and MsgType = AJ
+// Security Status Request Reject with fields, tags and descriptions and MsgType
+// = AJ
 type SecurityStatusRequestReject struct {
 	// Standard FIX message header.
 	Header *Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// (324)
 	SecurityStatusReqID string `protobuf:"bytes,2,opt,name=securityStatusReqID,proto3" json:"securityStatusReqID,omitempty"`
-	// (560) Reason for rejecting the Security Status Request, The SecurityRejectReason field (Tag 560) in the Security Status Request Reject message (MsgType = AJ) indicates the reason for rejecting the Security Status Request. The values for the SecurityRejectReason field can vary depending on the implementation and version of the FIX protocol. Here are some common values that may be used:
-	// 0: Unknown symbol
-	// 1: Exchange closed
+	// (560) Reason for rejecting the Security Status Request, The
+	// SecurityRejectReason field (Tag 560) in the Security Status Request Reject
+	// message (MsgType = AJ) indicates the reason for rejecting the Security
+	// Status Request. The values for the SecurityRejectReason field can vary
+	// depending on the implementation and version of the FIX protocol. Here are
+	// some common values that may be used: 0: Unknown symbol 1: Exchange closed
 	// 2: Order exceeded limit
 	// 3: Invalid request
 	// 4: Unsupported request
