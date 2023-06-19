@@ -53,9 +53,6 @@ message SecurityStatusRequest {
 
   // Standard FIX message trailer.
   Trailer trailer = 12;
-
-  // owner
-  string creator = 13;
 }
 
 // Security Status Response with fields, tags and descriptions and MsgType = f
@@ -137,9 +134,6 @@ message SecurityStatusResponse {
 
   // Standard FIX message trailer.
   Trailer trailer = 25;
-
-  // owner
-  string creator = 26;
 }
 
 // Security Status Request Reject with fields, tags and descriptions and MsgType
@@ -173,7 +167,4 @@ message SecurityStatusRequestReject {
 
   // Standard FIX message trailer.
   Trailer trailer = 5;
-
-  // owner
-  string creator = 6;
 }

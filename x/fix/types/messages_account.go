@@ -13,10 +13,10 @@ const (
 
 var _ sdk.Msg = &MsgCreateAccount{}
 
-func NewMsgCreateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgCreateAccount {
+func NewMsgCreateAccount(creator string, address string, companyName string, website string, socialMediaLinks string) *MsgCreateAccount {
 	return &MsgCreateAccount{
 		Creator:          creator,
-		Did:              did,
+		Address:          address,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
@@ -54,10 +54,10 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, address string, companyName string, website string, socialMediaLinks string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
 		Creator:          creator,
-		Did:              did,
+		Address:          address,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
@@ -95,9 +95,9 @@ func (msg *MsgUpdateAccount) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeleteAccount{}
 
-func NewMsgDeleteAccount(creator string, did string) *MsgDeleteAccount {
+func NewMsgDeleteAccount(creator string, address string) *MsgDeleteAccount {
 	return &MsgDeleteAccount{
-		Did:     did,
+		Address: address,
 		Creator: creator,
 	}
 }
@@ -136,5 +136,5 @@ func EmptyDID(did string) bool {
 }
 
 func (a Account) Empty() bool {
-	return EmptyDID(a.Did)
+	return EmptyDID(a.Address)
 }

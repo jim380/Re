@@ -50,9 +50,6 @@ message MarketDataRequest {
 
   // standard Trailer
   Trailer trailer = 8;
-
-  // owner
-  string creator = 9;
 }
 
 // Market Data Snapshot/Full Refresh message
@@ -75,9 +72,6 @@ message MarketDataSnapShotFullRefresh {
 
   // standard Trailer
   Trailer trailer = 6;
-
-  // owner
-  string creator = 7;
 }
 
 // Market Data Incremental message
@@ -98,9 +92,6 @@ message MarketDataIncremental {
 
   // standard Trailer
   Trailer trailer = 5;
-
-  // owner
-  string creator = 6;
 }
 
 // Market Data Entry message
@@ -135,7 +126,4 @@ message MarketDataRequestReject {
 
   // standard Trailer
   Trailer trailer = 5;
-
-  // owner
-  string creator = 6;
 }

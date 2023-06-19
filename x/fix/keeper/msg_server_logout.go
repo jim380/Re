@@ -30,13 +30,12 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 	// check that the address initiating a session logout belongs to the session
 
 	sessionLogoutInitiator := types.SessionLogout{
-		InitiatorAddress:       msg.InitiatorAddress,
 		SessionID:              msg.SessionID,
 		SessionLogoutInitiator: msg.SessionLogoutInitiator,
 	}
 
-	sessionLogoutInitiator.InitiatorAddress = session.InitiatorAddress
 	sessionLogoutInitiator.SessionLogoutInitiator.Header = session.LogonInitiator.Header
+	sessionLogoutInitiator.SessionLogoutInitiator.Header.SenderCompID = session.LogonInitiator.Header.SenderCompID
 	sessionLogoutInitiator.SessionLogoutInitiator.Trailer = session.LogonInitiator.Trailer
 	sessionLogoutInitiator.SessionLogoutInitiator.Header.MsgType = "5"
 	sessionLogoutInitiator.SessionLogoutInitiator.Text = msg.SessionLogoutInitiator.Text
@@ -81,16 +80,14 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 	// check that the address accepting the logout participated in the session
 
 	sessionLogoutAcceptor := types.SessionLogout{
-		AcceptorAddress:        msg.AcceptorAddress,
 		SessionID:              msg.SessionID,
 		SessionLogoutAcceptor:  msg.SessionLogoutAcceptor,
-		InitiatorAddress:       initiatedLogoutSesssion.InitiatorAddress,
 		SessionLogoutInitiator: initiatedLogoutSesssion.SessionLogoutInitiator,
 	}
 
 	// set the session logout to store
-	sessionLogoutAcceptor.AcceptorAddress = session.AcceptorAddress
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Header = session.LogonAcceptor.Header
+	sessionLogoutAcceptor.SessionLogoutAcceptor.Header.SenderCompID = session.LogonAcceptor.Header.SenderCompID
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Trailer = session.LogonAcceptor.Trailer
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Text = msg.SessionLogoutAcceptor.Text
 	sessionLogoutAcceptor.SessionLogoutAcceptor.Header.MsgType = "5"

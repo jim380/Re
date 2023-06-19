@@ -32,7 +32,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -43,7 +43,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 	}
 
 	// check that the owner of the order execution report(the executing party) matches the creator of trade capture report
-	if ordersExecutionReport.Creator != msg.Creator {
+	if ordersExecutionReport.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Order Execution Report Creator: %s", msg.Creator)
 	}
 
@@ -118,7 +118,6 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 			TransactTime:         msg.TransactTime,
 			SettlType:            msg.SettlType,
 			SettlDate:            msg.SettlDate,
-			Creator:              msg.Creator,
 		},
 	}
 
@@ -169,7 +168,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report Acknowledgement
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -180,7 +179,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 	}
 
 	// same account can not used for creating trade capture report and trade capture report acknowledgement with the same TradeReportID
-	if tradeCapture.TradeCaptureReport.Creator == msg.Creator {
+	if tradeCapture.TradeCaptureReport.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
 	}
 
@@ -237,7 +236,6 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 			TradeTransType:          msg.TradeTransType,
 			TradeReportRejectReason: msg.TradeReportRejectReason,
 			Text:                    msg.Text,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -306,7 +304,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report Rejection
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -317,7 +315,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	}
 
 	// same account can not used for creating trade capture report and trade capture report rejection with the same TradeReportID
-	if tradeCapture.TradeCaptureReport.Creator == msg.Creator {
+	if tradeCapture.TradeCaptureReport.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
 	}
 
@@ -351,7 +349,6 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 			TradeReportRejectReason: msg.TradeReportRejectReason,
 			TradeReportRejectRefID:  msg.TradeReportRejectRefID,
 			Text:                    msg.Text,
-			Creator:                 msg.Creator,
 		},
 	}
 

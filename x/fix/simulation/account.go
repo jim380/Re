@@ -58,7 +58,7 @@ func SimulateMsgUpdateAccount(
 			found      = false
 		)
 		for _, obj := range allAccount {
-			simAccount, found = FindAccount(accs, obj.Creator)
+			simAccount, found = FindAccount(accs, obj.Address)
 			if found {
 				account = obj
 				break
@@ -68,7 +68,7 @@ func SimulateMsgUpdateAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Did = account.Did
+		msg.Address = account.Address
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -103,7 +103,7 @@ func SimulateMsgDeleteAccount(
 			found      = false
 		)
 		for _, obj := range allAccount {
-			simAccount, found = FindAccount(accs, obj.Creator)
+			simAccount, found = FindAccount(accs, obj.Address)
 			if found {
 				account = obj
 				break
@@ -113,7 +113,7 @@ func SimulateMsgDeleteAccount(
 			return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "account creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Did = account.Did
+		msg.Address = account.Address
 
 		txCtx := simulation.OperationInput{
 			R:               r,

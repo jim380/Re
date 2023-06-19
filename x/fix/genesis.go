@@ -10,7 +10,7 @@ import (
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// Set all the account
 	for _, elem := range genState.AccountList {
-		k.SetAccount(ctx, elem.Did, elem)
+		k.SetAccount(ctx, elem.Address, elem)
 	}
 
 	// Set all the sessions

@@ -87,9 +87,6 @@ message TradeCaptureReport {
 
   // Standard FIX message trailer.
   Trailer trailer = 23;
-
-  // owner
-  string creator = 24;
 }
 
 // Trade Capture Report Acknowledgement with fields, tags and descriptions.
@@ -140,9 +137,6 @@ message TradeCaptureReportAcknowledgement {
 
   // Standard FIX message trailer.
   Trailer trailer = 15;
-
-  // owner
-  string creator = 16;
 }
 
 // Trade Capture Report Rejection with fields, tags and descriptions.
@@ -165,7 +159,4 @@ message TradeCaptureReportRejection {
 
   // Standard FIX message trailer.
   Trailer trailer = 6;
-
-  // owner
-  string creator = 7;
 }

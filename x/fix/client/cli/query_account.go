@@ -44,18 +44,18 @@ func CmdListAccount() *cobra.Command {
 
 func CmdShowAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-account [did]",
+		Use:   "show-account [address]",
 		Short: "shows an account",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
-			did := args[0]
+			argAddress := args[0]
 
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryGetAccountRequest{
-				Did: did,
+				Address: argAddress,
 			}
 
 			res, err := queryClient.Account(context.Background(), params)

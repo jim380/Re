@@ -33,7 +33,7 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create trading session status request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -120,7 +120,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	}
 
 	// check that the user responding is the recipient of the Trading Session Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Creator: %s", msg.Creator)
 	}
 
@@ -131,7 +131,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	}
 
 	// same account can not used for creating Trading Session Status Request and Trading Session Status with the same TradSesReqID
-	if tradingSession.TradingSessionStatusRequest.Creator == msg.Creator {
+	if tradingSession.TradingSessionStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session Status", msg.Creator))
 	}
 
@@ -176,7 +176,6 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 			SecurityExchange:       msg.SecurityExchange,
 			MarketSegmentID:        msg.MarketSegmentID,
 			MarketID:               msg.MarketID,
-			Creator:                msg.Creator,
 		},
 	}
 
@@ -231,7 +230,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	}
 
 	// check that the user responding is the recipient of the Trading Session Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -242,7 +241,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	}
 
 	// same account can not used for creating Trading Session Status Request and Trading Session Status Request Reject with the same TradSesReqID
-	if tradingSession.TradingSessionStatusRequest.Creator == msg.Creator {
+	if tradingSession.TradingSessionStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session Status Request Reject", msg.Creator))
 	}
 
@@ -271,7 +270,6 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 			RefMsgType:          msg.RefMsgType,
 			SessionRejectReason: msg.SessionRejectReason,
 			Text:                msg.Text,
-			Creator:             msg.Creator,
 		},
 	}
 

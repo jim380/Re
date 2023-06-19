@@ -8,16 +8,16 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-func (k Keeper) SetAccount(ctx sdk.Context, did string, account types.Account) {
+func (k Keeper) SetAccount(ctx sdk.Context, address string, account types.Account) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetAccountKey())
-	key := []byte(did)
+	key := []byte(address)
 	bz := k.cdc.MustMarshalLengthPrefixed(&account)
 	store.Set(key, bz)
 }
 
-func (k Keeper) GetAccount(ctx sdk.Context, did string) types.Account {
+func (k Keeper) GetAccount(ctx sdk.Context, address string) types.Account {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetAccountKey())
-	key := []byte(did)
+	key := []byte(address)
 	bz := store.Get(key)
 	if bz == nil {
 		return types.Account{}
@@ -29,9 +29,9 @@ func (k Keeper) GetAccount(ctx sdk.Context, did string) types.Account {
 }
 
 // RemoveAccount removes a account from the store
-func (k Keeper) RemoveAccount(ctx sdk.Context, did string) {
+func (k Keeper) RemoveAccount(ctx sdk.Context, address string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetAccountKey())
-	store.Delete([]byte(did))
+	store.Delete([]byte(address))
 }
 
 func (k Keeper) getDIDs(ctx sdk.Context) []string {

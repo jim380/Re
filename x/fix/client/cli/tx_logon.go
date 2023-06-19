@@ -150,7 +150,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 func CmdLogonReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-reject [sessionID] [did] [text]",
+		Use:   "logon-reject [sessionID] [address] [text]",
 		Short: "Broadcast message logon-reject",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -161,9 +161,9 @@ func CmdLogonReject() *cobra.Command {
 
 			argSessionID := args[0]
 
-			argDID := args[1]
+			argAddress := args[1]
 			header := types.Header{
-				SenderCompID: argDID,
+				SenderCompID: argAddress,
 			}
 
 			argText := args[2]
@@ -188,12 +188,12 @@ func CmdLogonReject() *cobra.Command {
 
 func CmdTerminateLogon() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "terminate-logon [sessionID] [did]",
+		Use:   "terminate-logon [sessionID] [address]",
 		Short: "Broadcast message terminate-logon",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSessionID := args[0]
-			argDid := args[1]
+			argAddress := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -203,7 +203,7 @@ func CmdTerminateLogon() *cobra.Command {
 			msg := types.NewMsgTerminateLogon(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
-				argDid,
+				argAddress,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -8,11 +8,9 @@ import "re/fix/standard_message.proto";
 message Sessions {
   string sessionID = 1;
   LogonInitiator logonInitiator = 2;
-  string initiatorAddress = 3;
-  LogonAcceptor logonAcceptor = 4;
-  string acceptorAddress = 5;
-  string status = 6;
-  bool IsAccepted = 7;
+  LogonAcceptor logonAcceptor = 3;
+  string status = 4;
+  bool IsAccepted = 5;
 }
 
 // This message is used by the initiator of a FIX session to initiate a

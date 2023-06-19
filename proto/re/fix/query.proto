@@ -37,7 +37,7 @@ service Query {
 
   // Queries a list of Account items.
   rpc Account(QueryGetAccountRequest) returns (QueryGetAccountResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/account/{did}";
+    option (google.api.http).get = "/jim380/Re/fix/account/{address}";
   }
   rpc AccountAll(QueryAllAccountRequest) returns (QueryAllAccountResponse) {
     option (google.api.http).get = "/jim380/Re/fix/account";
@@ -230,7 +230,7 @@ message QueryParamsResponse {
   Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetAccountRequest { string did = 1; }
+message QueryGetAccountRequest { string address = 1; }
 
 message QueryGetAccountResponse {
   Account Account = 1 [ (gogoproto.nullable) = false ];

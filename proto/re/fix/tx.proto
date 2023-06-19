@@ -93,18 +93,18 @@ service Msg {
 }
 message MsgCreateAccount {
   string creator = 1;
-  string did = 2;
+  string address = 2;
   string companyName = 3;
   string website = 4;
   string socialMediaLinks = 5;
   string createdAt = 6;
 }
 
-message MsgCreateAccountResponse { string did = 1; }
+message MsgCreateAccountResponse { string address = 1; }
 
 message MsgUpdateAccount {
   string creator = 1;
-  string did = 2;
+  string address = 2;
   string companyName = 3;
   string website = 4;
   string socialMediaLinks = 5;
@@ -115,7 +115,7 @@ message MsgUpdateAccountResponse {}
 
 message MsgDeleteAccount {
   string creator = 1;
-  string did = 2;
+  string address = 2;
 }
 
 message MsgDeleteAccountResponse {}
@@ -143,7 +143,7 @@ message MsgLogonAcceptorResponse {}
 message MsgTerminateLogon {
   string initiatorAddress = 1;
   string sessionID = 2;
-  string did = 3;
+  string address = 3;
 }
 
 message MsgTerminateLogonResponse {}
@@ -734,3 +734,4 @@ message MsgSecurityTypesRequestReject {
 }
 
 message MsgSecurityTypesRequestRejectResponse {}
+

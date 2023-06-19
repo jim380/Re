@@ -32,7 +32,7 @@ func (k msgServer) SecurityTypesRequest(goCtx context.Context, msg *types.MsgSec
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Security Types Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -46,14 +46,13 @@ func (k msgServer) SecurityTypesRequest(goCtx context.Context, msg *types.MsgSec
 			Product:             msg.Product,
 			SecurityType:        msg.SecurityType,
 			SecuritySubType:     msg.SecuritySubType,
-			Creator:             msg.Creator,
 		},
 	}
 
 	// fetch Header from existing session
 	// Determine whether it is the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -70,7 +69,7 @@ func (k msgServer) SecurityTypesRequest(goCtx context.Context, msg *types.MsgSec
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -111,7 +110,7 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 	}
 
 	// check that the user responding is the recipient of the Security Types Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Types Response Creator: %s", msg.Creator)
 	}
 
@@ -122,7 +121,7 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 	}
 
 	// same account can not used for creating Security Types Request and Security Types Response with the same SecurityReqID
-	if securityTypes.SecurityTypesRequest.Creator == msg.Creator {
+	if securityTypes.SecurityTypesRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Response", msg.Creator))
 	}
 
@@ -154,7 +153,6 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 			TradingSessionID:        msg.TradingSessionID,
 			TradingSessionSubID:     msg.TradingSessionSubID,
 			SubscriptionRequestType: msg.SubscriptionRequestType,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -223,7 +221,7 @@ func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.
 	}
 
 	// check that the user responding is the recipient of the Security Types Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Types Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -234,7 +232,7 @@ func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.
 	}
 
 	// same account can not used for creating Security Types Request and Security Types Request Reject with the same SecurityReqID
-	if securityTypes.SecurityTypesRequest.Creator == msg.Creator {
+	if securityTypes.SecurityTypesRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Request Reject", msg.Creator))
 	}
 
@@ -261,7 +259,6 @@ func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.
 			SecurityReqID: msg.SecurityReqID,
 			RejectReason:  msg.RejectReason,
 			Text:          msg.Text,
-			Creator:       msg.Creator,
 		},
 	}
 

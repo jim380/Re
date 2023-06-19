@@ -139,12 +139,12 @@ const TypeMsgLogonReject = "logon_reject"
 
 var _ sdk.Msg = &MsgLogonReject{}
 
-func NewMsgLogonReject(acceptorAddress string, sessionID string, text string, did Header) *MsgLogonReject {
+func NewMsgLogonReject(acceptorAddress string, sessionID string, text string, address Header) *MsgLogonReject {
 	return &MsgLogonReject{
 		AcceptorAddress: acceptorAddress,
 		SessionID:       sessionID,
 		Text:            text,
-		Header:          &did,
+		Header:          &address,
 	}
 }
 
@@ -181,11 +181,11 @@ const TypeMsgTerminateLogon = "terminate_logon"
 
 var _ sdk.Msg = &MsgTerminateLogon{}
 
-func NewMsgTerminateLogon(initiatorAddress string, sessionID string, did string) *MsgTerminateLogon {
+func NewMsgTerminateLogon(initiatorAddress string, sessionID string, address string) *MsgTerminateLogon {
 	return &MsgTerminateLogon{
 		InitiatorAddress: initiatorAddress,
 		SessionID:        sessionID,
-		Did:              did,
+		Address:          address,
 	}
 }
 

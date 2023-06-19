@@ -42,10 +42,10 @@ func (gs GenesisState) Validate() error {
 	accountDidMap := make(map[string]bool)
 	accountCount := gs.GetAccountCount()
 	for _, elem := range gs.AccountList {
-		if _, ok := accountDidMap[elem.Did]; ok {
+		if _, ok := accountDidMap[elem.Address]; ok {
 			return fmt.Errorf("duplicated id for account")
 		}
-		did, err := strconv.ParseUint(elem.Did, 10, 64)
+		did, err := strconv.ParseUint(elem.Address, 10, 64)
 		if err != nil {
 			// Handle the error if the conversion fails
 			log.Printf("Error occurred: %v", err)
@@ -54,7 +54,7 @@ func (gs GenesisState) Validate() error {
 		if did >= accountCount {
 			return fmt.Errorf("account id should be lower or equal than the last id")
 		}
-		accountDidMap[elem.Did] = true
+		accountDidMap[elem.Address] = true
 	}
 	// Check for duplicated ID in sessions
 	sessionsIDMap := make(map[string]bool)

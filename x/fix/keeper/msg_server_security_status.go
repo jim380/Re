@@ -32,7 +32,7 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Security Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -62,14 +62,13 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 			SubscriptionRequestType: msg.SubscriptionRequestType,
 			TradingSessionID:        msg.TradingSessionID,
 			TradingSessionSubID:     msg.TradingSessionSubID,
-			Creator:                 msg.Creator,
 		},
 	}
 
 	// fetch Header from existing session
 	// Determine whether it is the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -86,7 +85,7 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -127,7 +126,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 	}
 
 	// check that the user responding is the recipient of the Security Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Status Response Creator: %s", msg.Creator)
 	}
 
@@ -138,7 +137,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 	}
 
 	// same account can not used for creating Security Status Request and Security Status Response with the same SecurityStatusReqID
-	if securityStatus.SecurityStatusRequest.Creator == msg.Creator {
+	if securityStatus.SecurityStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Status Response", msg.Creator))
 	}
 
@@ -179,7 +178,6 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 			TransactTime:          msg.TransactTime,
 			Adjustment:            msg.Adjustment,
 			Text:                  msg.Text,
-			Creator:               msg.Creator,
 		},
 	}
 
@@ -248,7 +246,7 @@ func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types
 	}
 
 	// check that the user responding is the recipient of the Security Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Status Response Creator: %s", msg.Creator)
 	}
 
@@ -259,7 +257,7 @@ func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types
 	}
 
 	// same account can not used for creating Security Status Request and Security Status Request Reject with the same SecurityStatusReqID
-	if securityStatus.SecurityStatusRequest.Creator == msg.Creator {
+	if securityStatus.SecurityStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Status Response Reject", msg.Creator))
 	}
 
@@ -286,7 +284,6 @@ func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types
 			SecurityStatusReqID:  msg.SecurityStatusReqID,
 			SecurityRejectReason: msg.SecurityRejectReason,
 			Text:                 msg.Text,
-			Creator:              msg.Creator,
 		},
 	}
 

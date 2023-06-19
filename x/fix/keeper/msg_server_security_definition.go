@@ -31,7 +31,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Trade Capture Report
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -61,7 +61,6 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 			SecurityDesc:        msg.SecurityDesc,
 			SecurityType:        msg.SecurityType,
 			Currency:            msg.Currency,
-			Creator:             msg.Creator,
 		},
 	}
 
@@ -69,7 +68,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 	// In the FIX Protocol, Security Definition Request message can be sent by either the initiator or the acceptor of the FIX session.
 	// Determine whether it is the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -87,7 +86,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -128,7 +127,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 	}
 
 	// check that the user responding is the recipient of the Security Definition Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Definition Creator: %s", msg.Creator)
 	}
 
@@ -139,7 +138,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 	}
 
 	// same account can not used for creating security definition request and security definition with the same SecurityReqID
-	if security.SecurityDefinitionRequest.Creator == msg.Creator {
+	if security.SecurityDefinitionRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", msg.Creator))
 	}
 
@@ -201,7 +200,6 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 			Factor:                  msg.Factor,
 			CreditRating:            msg.CreditRating,
 			SecurityExchangeID:      msg.SecurityExchangeID,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -271,7 +269,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 	}
 
 	// check that the user responding is the recipient of the Security Definition Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security Definition Request Reject: %s", msg.Creator)
 	}
 
@@ -282,7 +280,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 	}
 
 	// same account can not used for creating security definition request and security definition request reject with the same SecurityReqID
-	if security.SecurityDefinitionRequest.Creator == msg.Creator {
+	if security.SecurityDefinitionRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition request reject", &security))
 	}
 
@@ -320,7 +318,6 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 			SecurityRequestError:     msg.SecurityRequestError,
 			SecurityRequestErrorCode: msg.SecurityRequestErrorCode,
 			Text:                     msg.Text,
-			Creator:                  msg.Creator,
 		},
 	}
 

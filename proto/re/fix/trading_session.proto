@@ -75,11 +75,8 @@ message TradingSessionStatusRequest {
   // valid and should be disregarded
   string expirationDate = 18;
 
-  // owner
-  string creator = 19;
-
   // Standard FIX message trailer.
-  Trailer trailer = 20;
+  Trailer trailer = 19;
 }
 
 // Trading Session Status with fields, tags and descriptions.
@@ -145,11 +142,8 @@ message TradingSessionStatus {
   // 1301	Identifies the market or exchange for the trading session
   string marketID = 19;
 
-  // owner
-  string creator = 20;
-
   // Standard FIX message trailer.
-  Trailer trailer = 21;
+  Trailer trailer = 20;
 }
 
 // Trading Session Status Request Reject with fields, tags and descriptions.
@@ -171,9 +165,6 @@ message TradingSessionStatusRequestReject {
   // 58	Free-form text providing additional information about the rejection
   string text = 5;
 
-  // owner
-  string creator = 6;
-
   // Standard FIX message trailer.
-  Trailer trailer = 7;
+  Trailer trailer = 6;
 }

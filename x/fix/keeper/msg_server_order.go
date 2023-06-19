@@ -33,7 +33,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to an Order
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -74,14 +74,13 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 		TimeInForce:  msg.TimeInForce,
 		Text:         msg.Text,
 		TransactTime: msg.TransactTime,
-		Creator:      msg.Creator,
 	}
 
 	// fetch Header from existing session
 	// In the FIX Protocol, New Single Order message can be sent by either the initiator or the acceptor in the FIX session.
 	// Determine whether it is the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -99,7 +98,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	// fetch Trailer from existing session
 	// for now copy trailer from session
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -130,9 +129,14 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	}
 
 	// check for if the provided session ID existss
-	_, found := k.GetSessions(ctx, msg.SessionID)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Order Cancel Request
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
 	// check if order exists
@@ -140,7 +144,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	if !found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
-	if msg.Creator != order.Creator {
+	if msg.Creator != order.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account address is not the creator of the order", &order))
 	}
 
@@ -168,7 +172,6 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 		OrigClOrdID: msg.OrigClOrdID,
 		ClOrdID:     msg.ClOrdID,
 		Trailer:     order.Trailer,
-		Creator:     msg.Creator,
 	}
 
 	// msgType = F
@@ -199,6 +202,11 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Order Execution Report
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
+	}
+
 	// check if order exists
 	order, found := k.GetOrders(ctx, msg.ClOrdID)
 	if !found {
@@ -206,7 +214,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	}
 
 	// same account address can not used for creating New Single Order and Execution Report with the same ClOrdID
-	if msg.Creator == order.Creator {
+	if msg.Creator == order.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create execution report", msg.Creator))
 	}
 
@@ -286,7 +294,6 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 		Text:         msg.Text,
 		TransactTime: msg.TransactTime,
 		Trailer:      session.LogonAcceptor.Trailer,
-		Creator:      msg.Creator,
 	}
 
 	// set header from the existing New Single Order
@@ -345,9 +352,14 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	}
 
 	// check for if the provided session ID existss
-	_, found := k.GetSessions(ctx, msg.SessionID)
+	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
+	}
+
+	// check that the parties involved in a session are the ones using the sessionID and are able to create Order Cancel Reject
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
 	// check if order exists
@@ -357,7 +369,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	}
 
 	// same account can not used to create New Single Order and to Reject the order with the same ClOrdID
-	if msg.Creator == order.Creator {
+	if msg.Creator == order.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to Reject this order", &order))
 	}
 
@@ -388,7 +400,6 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 		CxlRejReason:     msg.CxlRejReason,
 		CxlRejResponseTo: msg.CxlRejResponseTo,
 		TransactTime:     msg.TransactTime,
-		Creator:          msg.Creator,
 	}
 
 	// set header from the existing New Single Order

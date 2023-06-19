@@ -32,7 +32,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Security List Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -56,7 +56,6 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 			TradingSessionID:        msg.TradingSessionID,
 			TradingSessionSubID:     msg.TradingSessionSubID,
 			SubscriptionRequestType: msg.SubscriptionRequestType,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -64,7 +63,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 	// In the FIX Protocol, a Security List Request message can be sent by either the initiator or the acceptor of the FIX session.
 	// Determine whether we are the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -81,7 +80,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -122,7 +121,7 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 	}
 
 	// check that the user to acknowledge the Security List Request is the recipient of the Security List Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security List Response Creator: %s", msg.Creator)
 	}
 
@@ -133,7 +132,7 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 	}
 
 	// check that Security List Request creator address is not same address acknowledging the Security List Response with the same SecurityReqID
-	if securityList.SecurityListRequest.Creator == msg.Creator {
+	if securityList.SecurityListRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Response", msg.Creator))
 	}
 
@@ -176,7 +175,6 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 			Text:                  msg.Text,
 			EncodedTextLen:        msg.EncodedTextLen,
 			EncodedText:           msg.EncodedText,
-			Creator:               msg.Creator,
 		},
 	}
 
@@ -245,7 +243,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 	}
 
 	// check that the user to acknowledge the Security List Request is the recipient of the Security List Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Security List Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -256,7 +254,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 	}
 
 	// check that Security List Request creator address is not same address acknowledging the Security List Request Reject with the same SecurityReqID
-	if securityList.SecurityListRequest.Creator == msg.Creator {
+	if securityList.SecurityListRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Request Reject", msg.Creator))
 	}
 
@@ -289,7 +287,6 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 			Text:                    msg.Text,
 			EncodedTextLen:          msg.EncodedTextLen,
 			EncodedText:             msg.EncodedText,
-			Creator:                 msg.Creator,
 		},
 	}
 

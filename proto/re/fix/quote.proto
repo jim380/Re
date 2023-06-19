@@ -76,9 +76,6 @@ message QuoteRequest {
 
   // Standard trailer for the message
   Trailer trailer = 21;
-
-  // The creator of the message
-  string creator = 22;
 }
 
 message QuoteAcknowledgement {
@@ -162,8 +159,6 @@ message QuoteAcknowledgement {
 
   // standard Trailer
   Trailer trailer = 27;
-
-  string creator = 28;
 }
 
 message QuoteRequestReject {
@@ -181,5 +176,4 @@ message QuoteRequestReject {
   string text = 4;
 
   Trailer trailer = 5;
-  string creator = 6;
 }

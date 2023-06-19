@@ -185,12 +185,10 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		AccountList: []types.Account{
 			{
-				Did:     "",
-				Creator: sample.AccAddress(),
+				Address: sample.AccAddress(),
 			},
 			{
-				Did:     "",
-				Creator: sample.AccAddress(),
+				Address: sample.AccAddress(),
 			},
 		},
 		AccountCount: 2,

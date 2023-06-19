@@ -41,11 +41,8 @@ message TradingSessionListRequest {
   // (263)
   string subscriptionRequestType = 8;
 
-  // owner
-  string creator = 9;
-
   // Standard FIX message trailer.
-  Trailer trailer = 10;
+  Trailer trailer = 9;
 }
 
 // Trading Session List Response with fields, tags and descriptions. MsgType =
@@ -102,11 +99,8 @@ message TradingSessionListResponse {
   // (345)
   string tradSesEndTime = 16;
 
-  // owner
-  string creator = 17;
-
   // Standard FIX message trailer.
-  Trailer trailer = 18;
+  Trailer trailer = 17;
 }
 
 // Trading Session List Request Reject with fields, tags and descriptions.
@@ -131,9 +125,6 @@ message TradingSessionListRequestReject {
   // rejection.
   string text = 5;
 
-  // owner
-  string creator = 6;
-
   // Standard FIX message trailer.
-  Trailer trailer = 7;
+  Trailer trailer = 6;
 }

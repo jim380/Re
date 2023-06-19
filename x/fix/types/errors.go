@@ -10,20 +10,20 @@ import (
 
 const (
 	// DID
-	errInvalidDidDocument uint32 = iota + 101
-	errAccountIsTaken
+	errAccountIsTaken uint32 = iota + 101
 	errNotDIDCreator
 	errDIDIsTaken
 	errCompanyNameIsTaken
 	errWebsiteIstaken
 	errNotAccountCreator
+	errAccountIsEmpty
 
 	// session
-	errSessionNameFound
-	errSessionSameDID
+	errSessionIDFound
+	errSessionSameAddress
 	errEmptySession
 	errWrongSession
-	errIncorrectDID
+	errIncorrectAddress
 	errSessionIsAccepted
 	errSessionIsNotLoggedIn
 
@@ -159,20 +159,20 @@ const (
 // x/fix module sentinel errors
 var (
 	// DID
-	ErrInvalidDidDocument = sdkerrors.Register(ModuleName, errInvalidDidDocument, "Invalid DID Document")
 	ErrAccountIsTaken     = sdkerrors.Register(ModuleName, errAccountIsTaken, "Account Address is used already")
 	ErrNotDIDCreator      = sdkerrors.Register(ModuleName, errNotDIDCreator, "Account creator must be the same with DID creator")
 	ErrDIDIsTaken         = sdkerrors.Register(ModuleName, errDIDIsTaken, "DID exists with an account already")
 	ErrCompanyNameIsTaken = sdkerrors.Register(ModuleName, errCompanyNameIsTaken, "Company Name exists with an account already")
 	ErrWebsiteIstaken     = sdkerrors.Register(ModuleName, errWebsiteIstaken, "Website is used already")
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, errNotAccountCreator, "Incorrect Account Owner")
+	ErrAccountIsEmpty     = sdkerrors.Register(ModuleName, errAccountIsEmpty, "No Account is registered")
 
 	// Session
-	ErrSessionNameFound     = sdkerrors.Register(ModuleName, errSessionNameFound, "Session Name exists")
-	ErrSessionSameDID       = sdkerrors.Register(ModuleName, errSessionSameDID, "Session can not use same DID for senderCompID and targetCompID")
+	ErrSessionIDFound     = sdkerrors.Register(ModuleName, errSessionIDFound, "SessionID exists")
+	ErrSessionSameAddress   = sdkerrors.Register(ModuleName, errSessionSameAddress, "Session can not use same address for senderCompID and targetCompID")
 	ErrEmptySession         = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
 	ErrWrongSession         = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
-	ErrIncorrectDID         = sdkerrors.Register(ModuleName, errIncorrectDID, "senderCompID and targetCompID does not match in session")
+	ErrIncorrectAddress       = sdkerrors.Register(ModuleName, errIncorrectAddress, "senderCompID and targetCompID does not match in session")
 	ErrSessionIsAccepted    = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session accepted already")
 	ErrSessionIsNotLoggedIn = sdkerrors.Register(ModuleName, errSessionIsNotLoggedIn, "There is no active session with this sessionID")
 

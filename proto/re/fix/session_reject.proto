@@ -20,7 +20,4 @@ message SessionReject {
 
   // A FIX protocol trailer containing standard message fields such as checkSum
   Trailer trailer = 4;
-
-  // The address of the user that rejects a session
-  string acceptorAddress = 5;
 }
