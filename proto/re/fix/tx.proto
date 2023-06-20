@@ -4,7 +4,6 @@ package jim380.re.fix;
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
-import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/standard_message.proto";
 import "re/fix/session_logout.proto";
@@ -13,9 +12,6 @@ import "re/fix/market_data.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateAccount(MsgCreateAccount) returns (MsgCreateAccountResponse);
-  rpc UpdateAccount(MsgUpdateAccount) returns (MsgUpdateAccountResponse);
-  rpc DeleteAccount(MsgDeleteAccount) returns (MsgDeleteAccountResponse);
   rpc LogonInitiator(MsgLogonInitiator) returns (MsgLogonInitiatorResponse);
   rpc LogonAcceptor(MsgLogonAcceptor) returns (MsgLogonAcceptorResponse);
   rpc TerminateLogon(MsgTerminateLogon) returns (MsgTerminateLogonResponse);
@@ -90,32 +86,6 @@ service Msg {
       returns (MsgSecurityTypesResponseResponse);
   rpc SecurityTypesRequestReject(MsgSecurityTypesRequestReject)
       returns (MsgSecurityTypesRequestRejectResponse);
-}
-message MsgCreateAccount {
-  string creator = 1;
-  string address = 2;
-  string companyName = 3;
-  string website = 4;
-  string socialMediaLinks = 5;
-  string createdAt = 6;
-}
-
-message MsgCreateAccountResponse { string address = 1; }
-
-message MsgUpdateAccount {
-  string creator = 1;
-  string address = 2;
-  string companyName = 3;
-  string website = 4;
-  string socialMediaLinks = 5;
-  string createdAt = 6;
-}
-
-message MsgUpdateAccountResponse {}
-
-message MsgDeleteAccount {
-  string creator = 1;
-  string address = 2;
 }
 
 message MsgDeleteAccountResponse {}

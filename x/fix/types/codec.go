@@ -8,9 +8,6 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateAccount{}, "fix/CreateAccount", nil)
-	cdc.RegisterConcrete(&MsgUpdateAccount{}, "fix/UpdateAccount", nil)
-	cdc.RegisterConcrete(&MsgDeleteAccount{}, "fix/DeleteAccount", nil)
 	cdc.RegisterConcrete(&MsgLogonInitiator{}, "fix/LogonInitiator", nil)
 	cdc.RegisterConcrete(&MsgLogonAcceptor{}, "fix/LogonAcceptor", nil)
 	cdc.RegisterConcrete(&MsgTerminateLogon{}, "fix/TerminateLogon", nil)
@@ -49,11 +46,6 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgCreateAccount{},
-		&MsgUpdateAccount{},
-		&MsgDeleteAccount{},
-	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogonInitiator{},
 	)

@@ -19,8 +19,8 @@ func KeyPrefix(p string) []byte {
 }
 
 var (
-	AccountKey      = []byte{0x00}
-	AccountCountKey = []byte{0x01}
+	AccountRegistrationKey      = []byte{0x00}
+	AccountRegistrationCountKey = []byte{0x01}
 
 	SessionsKey      = []byte{0x02}
 	SessionsCountKey = []byte{0x03}
@@ -73,12 +73,12 @@ var (
 	SecurityTypesCountKey = []byte{0x033}
 )
 
-func GetAccountKey() []byte {
-	return AccountKey
+func GetAccountRegistrationKey() []byte {
+	return AccountRegistrationKey
 }
 
-func GetAccountCountKey() []byte {
-	return AccountCountKey
+func GetAccountRegistrationCountKey() []byte {
+	return AccountRegistrationCountKey
 }
 
 func GetSessionsKey() []byte {

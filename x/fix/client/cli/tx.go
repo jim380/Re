@@ -23,9 +23,6 @@ func GetTxCmd() *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
-	cmd.AddCommand(CmdCreateAccount())
-	cmd.AddCommand(CmdUpdateAccount())
-	cmd.AddCommand(CmdDeleteAccount())
 	cmd.AddCommand(CmdLogonInitiator())
 	cmd.AddCommand(CmdLogonAcceptor())
 	cmd.AddCommand(CmdTerminateLogon())

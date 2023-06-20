@@ -31,7 +31,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Quote Request
-	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator  {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -256,7 +256,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	}
 
 	// check that the user to Reject the Quote Request is the recipient of the Quote Request
-	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator{
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Quote Acknowledgement Creator: %s", msg.Creator)
 	}
 

@@ -21,16 +21,16 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 
 	// address will be used as senderCompID and targetCompID for both parties
 	// get address from registered accounts
-	senderCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.SenderCompID)
-	if senderCompID.Empty() {
+	senderCompID, found := k.GetAccountRegistration(ctx, msg.LogonInitiator.Header.SenderCompID)
+	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "senderCompID: %s", msg.LogonInitiator.Header.SenderCompID)
 	}
 	if senderCompID.Address != msg.InitiatorAddress {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "senderCompID: %s", msg.InitiatorAddress)
 	}
 
-	targetCompID := k.GetAccount(ctx, msg.LogonInitiator.Header.TargetCompID)
-	if targetCompID.Empty() {
+	targetCompID, found := k.GetAccountRegistration(ctx, msg.LogonInitiator.Header.TargetCompID)
+	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "targetCompID: %s", msg.LogonInitiator.Header.TargetCompID)
 	}
 
@@ -40,7 +40,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	// check for if this session Name exists already
-	_, found := k.GetSessions(ctx, msg.SessionID)
+	_, found = k.GetSessions(ctx, msg.SessionID)
 	if found {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIDFound, "SessionID: %s", msg.SessionID)
 	}
@@ -58,10 +58,10 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	logonInitiator := types.NewLogonInitiator(header, msg.LogonInitiator.EncryptMethod, msg.LogonInitiator.HeartBtInt, trailer)
 
 	newInitiatorSession := types.Sessions{
-		SessionID:        msg.SessionID,
-		LogonInitiator:   &logonInitiator,
-		Status:           "logon-request",
-		IsAccepted:       false,
+		SessionID:      msg.SessionID,
+		LogonInitiator: &logonInitiator,
+		Status:         "logon-request",
+		IsAccepted:     false,
 	}
 
 	// set new Initiator logon session to store
@@ -101,8 +101,8 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	}
 
 	// get address from GetAccount to have access to the account creator
-	senderCompID := k.GetAccount(ctx, msg.LogonAcceptor.Header.SenderCompID)
-	if senderCompID.Empty() {
+	senderCompID, found := k.GetAccountRegistration(ctx, msg.LogonAcceptor.Header.SenderCompID)
+	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.LogonAcceptor.Header.SenderCompID)
 	}
 	if senderCompID.Address != msg.AcceptorAddress {
@@ -128,11 +128,11 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	// }
 
 	newAcceptorSession := types.Sessions{
-		SessionID:        session.SessionID,
-		LogonInitiator:   session.LogonInitiator,
-		LogonAcceptor:    &LogonAcceptor,
-		Status:           "loggedIn",
-		IsAccepted:       true,
+		SessionID:      session.SessionID,
+		LogonInitiator: session.LogonInitiator,
+		LogonAcceptor:  &LogonAcceptor,
+		Status:         "loggedIn",
+		IsAccepted:     true,
 	}
 
 	// set new Acceptor logon session to store
@@ -168,17 +168,17 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
-	// pass TargetCompID through GetAccount to ensure only the owner can reject session
-	getAcc := k.GetAccount(ctx, session.LogonInitiator.Header.TargetCompID)
+	// pass TargetCompID through GetAccountRegistration to ensure only the owner can reject session
+	getAcc, found := k.GetAccountRegistration(ctx, session.LogonInitiator.Header.TargetCompID)
 	if getAcc.Address != msg.AcceptorAddress {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
 	sessionReject := types.SessionReject{
-		SessionID:       msg.SessionID,
-		Header:          msg.Header,
-		Text:            msg.Text,
-		Trailer:         msg.Trailer,
+		SessionID: msg.SessionID,
+		Header:    msg.Header,
+		Text:      msg.Text,
+		Trailer:   msg.Trailer,
 	}
 
 	// set Header and Trailer to session Reject
