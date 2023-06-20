@@ -19,7 +19,7 @@ func (k msgServer) RegisterAccount(goCtx context.Context, msg *types.MsgRegister
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// creator can only register his address
+	// check that the address provided must be the user's address
 	if msg.Address != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
@@ -66,25 +66,28 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// creator can only register his address
+	// check that the address provided must be the user's address
 	if msg.Address != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
 	for _, accounts := range k.GetAllAccountRegistration(ctx) {
+
 		// Checks if an account exists
 		if accounts.Empty() {
 			return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
 		}
+
+		// check that it is only the owner that can update account information
+		if accounts.Address != msg.Creator {
+			return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
+		}
+
 		if accounts.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
 		if accounts.Website == msg.Website {
 			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
-		}
-		// check for if account address is not used already
-		if accounts.Address != msg.Creator {
-			return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
 		}
 	}
 
@@ -112,7 +115,7 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// creator can only register his address
+	// check that the address provided must be the user's address
 	if msg.Address != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
@@ -124,7 +127,7 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Address != existingAccount.Address {
+	if msg.Creator != existingAccount.Address {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Address)
 	}
 

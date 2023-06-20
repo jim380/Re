@@ -9,7 +9,7 @@ import (
 // Error Code Enums
 
 const (
-	// Account
+	// Account Registration
 	errAccountIsTaken uint32 = iota + 101
 	errCompanyNameIsTaken
 	errWebsiteIstaken
@@ -157,7 +157,7 @@ const (
 
 // x/fix module sentinel errors
 var (
-	// Account
+	// Account Registration
 	ErrAccountIsTaken     = sdkerrors.Register(ModuleName, errAccountIsTaken, "Account Address is used already")
 	ErrCompanyNameIsTaken = sdkerrors.Register(ModuleName, errCompanyNameIsTaken, "Company Name exists with an account already")
 	ErrWebsiteIstaken     = sdkerrors.Register(ModuleName, errWebsiteIstaken, "Website is used already")
