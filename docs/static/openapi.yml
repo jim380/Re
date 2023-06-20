@@ -28706,7 +28706,7 @@ paths:
           type: string
       tags:
         - Query
-  /jim380/Re/fix/account_registration:
+  /jim380/Re/fix/account/registration:
     get:
       operationId: Jim380ReFixAccountRegistrationAll
       responses:
@@ -28720,10 +28720,15 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      format: uint64
                     address:
+                      type: string
+                    companyName:
+                      type: string
+                    website:
+                      type: string
+                    socialMediaLinks:
+                      type: string
+                    createdAt:
                       type: string
               pagination:
                 type: object
@@ -28829,7 +28834,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/account_registration/{id}:
+  /jim380/Re/fix/account/registration/{address}:
     get:
       summary: Queries a list of AccountRegistration items.
       operationId: Jim380ReFixAccountRegistration
@@ -28842,10 +28847,15 @@ paths:
               AccountRegistration:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    format: uint64
                   address:
+                    type: string
+                  companyName:
+                    type: string
+                  website:
+                    type: string
+                  socialMediaLinks:
+                    type: string
+                  createdAt:
                     type: string
         default:
           description: An unexpected error response.
@@ -28866,11 +28876,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: id
+        - name: address
           in: path
           required: true
           type: string
-          format: uint64
       tags:
         - Query
   /jim380/Re/fix/market/data:
@@ -63761,10 +63770,15 @@ definitions:
   jim380.re.fix.AccountRegistration:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
       address:
+        type: string
+      companyName:
+        type: string
+      website:
+        type: string
+      socialMediaLinks:
+        type: string
+      createdAt:
         type: string
   jim380.re.fix.Header:
     type: object
@@ -64849,6 +64863,8 @@ definitions:
 
               to a two-character hexadecimal string.
     title: Market Data Snapshot/Full Refresh message
+  jim380.re.fix.MsgDeleteAccountResponse:
+    type: object
   jim380.re.fix.MsgLogonAcceptorResponse:
     type: object
   jim380.re.fix.MsgLogonInitiatorResponse:
@@ -64886,6 +64902,8 @@ definitions:
   jim380.re.fix.MsgQuoteRequestRejectResponse:
     type: object
   jim380.re.fix.MsgQuoteRequestResponse:
+    type: object
+  jim380.re.fix.MsgRegisterAccountResponse:
     type: object
   jim380.re.fix.MsgSecurityDefinitionRequestRejectResponse:
     type: object
@@ -64930,6 +64948,8 @@ definitions:
   jim380.re.fix.MsgTradingSessionStatusRequestResponse:
     type: object
   jim380.re.fix.MsgTradingSessionStatusResponse:
+    type: object
+  jim380.re.fix.MsgUpdateAccountResponse:
     type: object
   jim380.re.fix.OrderMassStatus:
     type: object
@@ -66171,10 +66191,15 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              format: uint64
             address:
+              type: string
+            companyName:
+              type: string
+            website:
+              type: string
+            socialMediaLinks:
+              type: string
+            createdAt:
               type: string
       pagination:
         type: object
@@ -71735,10 +71760,15 @@ definitions:
       AccountRegistration:
         type: object
         properties:
-          id:
-            type: string
-            format: uint64
           address:
+            type: string
+          companyName:
+            type: string
+          website:
+            type: string
+          socialMediaLinks:
+            type: string
+          createdAt:
             type: string
   jim380.re.fix.QueryGetMarketDataResponse:
     type: object

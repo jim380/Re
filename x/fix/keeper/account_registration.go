@@ -40,7 +40,7 @@ func (k Keeper) SetAccountRegistration(ctx sdk.Context, address string, accountR
 	store.Set(key, b)
 }
 
-// GetAccountRegistration returns a accountRegistration using address
+// GetAccountRegistration returns an accountRegistration using address
 func (k Keeper) GetAccountRegistration(ctx sdk.Context, address string) (val types.AccountRegistration, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetAccountRegistrationKey())
 	key := []byte(address)

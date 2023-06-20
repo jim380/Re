@@ -172,6 +172,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSecurityTypesRequestReject int = 100
 
+	opWeightMsgRegisterAccount = "op_weight_msg_register_account"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgRegisterAccount int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -578,6 +582,38 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSecurityTypesRequestReject,
 		fixsimulation.SimulateMsgSecurityTypesRequestReject(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgRegisterAccount int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterAccount, &weightMsgRegisterAccount, nil,
+		func(_ *rand.Rand) {
+			weightMsgRegisterAccount = defaultWeightMsgRegisterAccount
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgRegisterAccount,
+		fixsimulation.SimulateMsgRegisterAccount(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateAccount int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateAccount, &weightMsgUpdateAccount, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateAccount = defaultWeightMsgUpdateAccount
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateAccount,
+		fixsimulation.SimulateMsgUpdateAccount(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+	var weightMsgDeleteAccount int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgDeleteAccount, &weightMsgDeleteAccount, nil,
+		func(_ *rand.Rand) {
+			weightMsgDeleteAccount = defaultWeightMsgDeleteAccount
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDeleteAccount,
+		fixsimulation.SimulateMsgDeleteAccount(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

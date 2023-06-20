@@ -11,8 +11,8 @@ import (
 
 func CmdListAccountRegistration() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-account-registration",
-		Short: "list all account-registration",
+		Use:   "list-accounts",
+		Short: "list all accounts",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -44,8 +44,8 @@ func CmdListAccountRegistration() *cobra.Command {
 
 func CmdShowAccountRegistration() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-account-registration [address]",
-		Short: "shows a account-registration",
+		Use:   "show-account [address]",
+		Short: "get an account using the address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
