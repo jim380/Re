@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -45,7 +47,7 @@ func CmdQuoteRequest() *cobra.Command {
 			argText := args[18]
 
 			// GenerateRandomString function uniquely generates quoteReqID for every Quote Request
-			quoteReqID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
+			quoteReqID, _ := helpers.GenerateRandomString(constants.QuoteReqIDLength)
 
 			quoteRequests := types.NewQuoteRequest(quoteReqID, argSymbol, argSecurityID, argSecurityIDSource, argSide, argOrderQty, argFutSettDate, argSettlDate2, argAccount, argBidPx, argOfferPx, argCurrency, argValidUntilTime, argExpireTime, argQuoteType, argBidSize, argOfferSize, argMIC, argText)
 
@@ -105,7 +107,7 @@ func CmdQuoteAcknowledgement() *cobra.Command {
 			argLegRatioQty := args[24]
 
 			// auto generate QuoteID using GenerateRandomString function
-			quoteID, _ := types.GenerateRandomString(types.QuoteReqIDLength)
+			quoteID, _ := helpers.GenerateRandomString(constants.QuoteReqIDLength)
 
 			quoteAcknowledgement := types.NewQuoteAcknowledgement(argQuoteReqID, quoteID, argQuoteStatus, argQuoteType, argSecurityID, argSecurityIDSource, argSymbol, argSide, argOrderQty, argLastQty, argLastPx, argBidPx, argOfferPx, argCurrency, argSettlDate, argValidUntilTime, argExpireTime, argText, argNoQuoteQualifiers, argQuoteQualifier, argNoLegs, argLegSymbol, argLegSecurityID, argLegSecurityIDSource, argLegRatioQty)
 

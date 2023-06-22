@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -61,7 +63,7 @@ func CmdTradeCaptureReport() *cobra.Command {
 			argSettlDate := args[20]
 
 			// GenerateRandomString function uniquely generates tradeReportID for every Trade Capture Report
-			argTradeReportID, _ := types.GenerateRandomString(types.TradeReportID)
+			argTradeReportID, _ := helpers.GenerateRandomString(constants.TradeReportID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -21,7 +23,7 @@ func CmdMarketDataRequest() *cobra.Command {
 			argSessionID := args[0]
 
 			// GenerateRandomString function uniquely generates MdReqID for every Market Data Request
-			argMdReqID, _ := types.GenerateRandomString(types.MdReqID)
+			argMdReqID, _ := helpers.GenerateRandomString(constants.MdReqID)
 
 			argSubscriptionRequestType, err := strconv.ParseInt(args[1], 10, 32)
 			if err != nil {

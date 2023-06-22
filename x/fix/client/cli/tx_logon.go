@@ -7,6 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
@@ -41,7 +43,7 @@ func CmdLogonInitiator() *cobra.Command {
 				return err
 			}
 
-			sessionName, _ := types.GenerateRandomString(types.SessionNameLength)
+			sessionName, _ := helpers.GenerateRandomString(constants.SessionNameLength)
 
 			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
 
@@ -50,7 +52,7 @@ func CmdLogonInitiator() *cobra.Command {
 			// body length of logon message
 			msgBody := sessionName + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
-			bodyLength := types.BodyLength(msgBody)
+			bodyLength := helpers.BodyLength(msgBody)
 
 			msgSeqNum := int64(0) + 1
 
@@ -58,7 +60,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			// get the length of checksum excluding the checksum field
 			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
-			setCheckSum := types.CalculateChecksum(checkSum)
+			setCheckSum := helpers.CalculateChecksum(checkSum)
 
 			trailer := types.NewTrailer(setCheckSum)
 
@@ -117,7 +119,7 @@ func CmdLogonAcceptor() *cobra.Command {
 			// body length of logon message
 			msgBody := argSessionID + clientCtx.GetFromAddress().String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
 
-			bodyLength := types.BodyLength(msgBody)
+			bodyLength := helpers.BodyLength(msgBody)
 
 			msgSeqNum := int64(0) + 1
 
@@ -125,7 +127,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			// get the length of checksum excluding the checksum field
 			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
-			setCheckSum := types.CalculateChecksum(checkSum)
+			setCheckSum := helpers.CalculateChecksum(checkSum)
 
 			trailer := types.NewTrailer(setCheckSum)
 

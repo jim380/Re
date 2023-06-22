@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
@@ -47,7 +49,7 @@ func CmdTradingSessionStatusRequest() *cobra.Command {
 			argExpirationDate := args[16]
 
 			// GenerateRandomString function uniquely generates TradSesReqID for every Trading Session Status Request
-			argTradSesReqID, _ := types.GenerateRandomString(types.TradSesReqID)
+			argTradSesReqID, _ := helpers.GenerateRandomString(constants.TradSesReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

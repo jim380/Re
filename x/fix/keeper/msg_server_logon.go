@@ -6,6 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -60,7 +61,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	newInitiatorSession := types.Sessions{
 		SessionID:      msg.SessionID,
 		LogonInitiator: &logonInitiator,
-		Status:         "logon-request",
+		Status:         constants.LogonRequestStatus,
 		IsAccepted:     false,
 	}
 
@@ -122,10 +123,10 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	LogonAcceptor := types.NewLogonAcceptor(header, msg.LogonAcceptor.EncryptMethod, msg.LogonAcceptor.HeartBtInt, trailer)
 
 	// check that the acceptor does not accept the logon request if the logon session has already been accepted or rejected
-	if session.Status == "loggedIn" {
+	if session.Status == constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
 	}
-	if session.Status == "rejected" {
+	if session.Status == constants.RejectedStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 
@@ -133,7 +134,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		SessionID:      session.SessionID,
 		LogonInitiator: session.LogonInitiator,
 		LogonAcceptor:  &LogonAcceptor,
-		Status:         "loggedIn",
+		Status:         constants.LoggedInStatus,
 		IsAccepted:     true,
 	}
 
@@ -160,10 +161,10 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	}
 
 	// check that the acceptor does not reject the logon request if the logon session has already been accepted or rejected
-	if session.Status == "loggedIn" {
+	if session.Status == constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
 	}
-	if session.Status == "rejected" {
+	if session.Status == constants.RejectedStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 
@@ -203,7 +204,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	sessionReject.Header.MsgType = "3"
 
 	// set session status to rejected
-	session.Status = "rejected"
+	session.Status = constants.RejectedStatus
 
 	// set rejected session to sore
 	k.SetSessions(ctx, msg.SessionID, session)
@@ -227,10 +228,10 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 	}
 
 	// check that the initiator does not terminate the logon request if the logon session has already been accepted or rejected
-	if session.Status == "loggedIn" {
+	if session.Status == constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
 	}
-	if session.Status == "rejected" {
+	if session.Status == constants.RejectedStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 

@@ -1,36 +1,21 @@
-package types
+package helpers
 
 import (
 	"crypto/rand"
 	"math/big"
-)
 
-const (
-	NameChars           = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	SessionNameLength   = 10
-	QuoteReqIDLength    = 15
-	QuoteID             = 15
-	MdReqID             = 15
-	TradeReportID       = 15
-	SecurityReqID       = 15
-	MassStatusReqID     = 15
-	ClOrdID             = 15
-	TradSesReqID        = 15
-	SecurityStatusReqID = 15
-	SecurityResponseID  = 15
-
-	LoggedInStatus = "loggedIn"
+	"github.com/jim380/Re/utils/constants"
 )
 
 // randomly generate unique string
 func GenerateRandomString(length int) (string, error) {
 	b := make([]byte, length)
 	for i := range b {
-		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(NameChars))))
+		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(constants.NameChars))))
 		if err != nil {
 			return "", err
 		}
-		b[i] = NameChars[n.Int64()]
+		b[i] = constants.NameChars[n.Int64()]
 	}
 	return string(b), nil
 }
