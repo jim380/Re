@@ -22,8 +22,8 @@ var (
 	SessionsKey      = []byte{0x01}
 	SessionsCountKey = []byte{0x02}
 
-	SessionRejectKey      = []byte{0x03}
-	SessionRejectCountKey = []byte{0x04}
+	SessionRejectKey      = []byte{0x0A}
+	SessionRejectCountKey = []byte{0x0B}
 
 	SessionLogoutKey      = []byte{0x05}
 	SessionLogoutCountKey = []byte{0x06}

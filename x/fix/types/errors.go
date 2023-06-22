@@ -24,6 +24,7 @@ const (
 	errWrongSession
 	errIncorrectAddress
 	errSessionIsAccepted
+	errSessionIsRejected
 	errSessionIsNotLoggedIn
 
 	// Quote
@@ -171,7 +172,8 @@ var (
 	ErrEmptySession         = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
 	ErrWrongSession         = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
 	ErrIncorrectAddress     = sdkerrors.Register(ModuleName, errIncorrectAddress, "senderCompID and targetCompID does not match in session")
-	ErrSessionIsAccepted    = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session accepted already")
+	ErrSessionIsAccepted    = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session is accepted already")
+	ErrSessionIsRejected    = sdkerrors.Register(ModuleName, errSessionIsRejected, "session is rejected already")
 	ErrSessionIsNotLoggedIn = sdkerrors.Register(ModuleName, errSessionIsNotLoggedIn, "There is no active session with this sessionID")
 
 	// Quote

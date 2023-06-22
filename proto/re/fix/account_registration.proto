@@ -5,8 +5,8 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 
 message AccountRegistration {
   string address = 1;
-   string companyName = 2;
+  string companyName = 2;
   string website = 3;
   string socialMediaLinks = 4;
-  string createdAt = 5; 
+  string createdAt = 5;
 }

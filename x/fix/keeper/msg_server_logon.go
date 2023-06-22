@@ -121,11 +121,13 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	// set the logon initiator message
 	LogonAcceptor := types.NewLogonAcceptor(header, msg.LogonAcceptor.EncryptMethod, msg.LogonAcceptor.HeartBtInt, trailer)
 
-	// TODO
-	// prevent Txs from being sent once IsAccepted are set to true and check the status
-	// if session.status != "logon-request" || session.status != "rejected"  && session.IsAccepted == false {
-	//
-	// }
+	// check that the acceptor does not accept the logon request if the logon session has already been accepted or rejected
+	if session.Status == "loggedIn" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
+	}
+	if session.Status == "rejected" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
+	}
 
 	newAcceptorSession := types.Sessions{
 		SessionID:      session.SessionID,
@@ -157,15 +159,16 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID %s", msg.SessionID)
 	}
 
-	if session.Status != "logon-request" {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d Logon status is not in request state", &session.Status))
+	// check that the acceptor does not reject the logon request if the logon session has already been accepted or rejected
+	if session.Status == "loggedIn" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
+	}
+	if session.Status == "rejected" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 
 	if session.LogonInitiator.Header.TargetCompID != msg.Header.SenderCompID {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong SenderCompID", msg.Header.SenderCompID))
-	}
-	if session.LogonAcceptor.Header.SenderCompID == msg.AcceptorAddress {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
 	// pass TargetCompID through GetAccountRegistration to ensure only the owner can reject session
@@ -184,6 +187,17 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	// set Header and Trailer to session Reject
 	sessionReject.Header = session.LogonInitiator.Header
 	sessionReject.Trailer = session.LogonInitiator.Trailer
+
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *sessionReject.Header
+
+	// switch senderCompID and targetCompID in the Logon Reject
+	// set senderCompID to the targetCompID
+	newHeader.SenderCompID = session.LogonInitiator.Header.TargetCompID
+
+	// set targetCompID to the senderCompID
+	newHeader.TargetCompID = session.LogonInitiator.Header.SenderCompID
 
 	// set msgType to 3, [msgType 35 = 3] for sesssion rejection
 	sessionReject.Header.MsgType = "3"
@@ -208,13 +222,16 @@ func (k msgServer) TerminateLogon(goCtx context.Context, msg *types.MsgTerminate
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "SessionID: %s", msg.SessionID)
 	}
 
-	if session.LogonInitiator.Header.SenderCompID != msg.InitiatorAddress {
+	if session.LogonInitiator.Header.SenderCompID != msg.InitiatorAddress || msg.Address != msg.InitiatorAddress {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.InitiatorAddress)
 	}
 
-	// check that session is not accepted yet
-	if session.Status != "logon-request" {
-		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Account: %s", msg.SessionID)
+	// check that the initiator does not terminate the logon request if the logon session has already been accepted or rejected
+	if session.Status == "loggedIn" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsAccepted, "Status: %s", session.Status)
+	}
+	if session.Status == "rejected" {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 
 	// remove session from store
