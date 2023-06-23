@@ -10,7 +10,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-func SimulateMsgSecurityDefinitionRequest(
+func SimulateMsgSecurityStatusRequest(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -18,17 +18,17 @@ func SimulateMsgSecurityDefinitionRequest(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgSecurityDefinitionRequest{
+		msg := &types.MsgSecurityStatusRequest{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the SecurityDefinitionRequest simulation
+		// TODO: Handling the SecurityStatusRequest simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityDefinitionRequest simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityStatusRequest simulation not implemented"), nil, nil
 	}
 }
 
-func SimulateMsgSecurityDefinition(
+func SimulateMsgSecurityStatusResponse(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -36,17 +36,17 @@ func SimulateMsgSecurityDefinition(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgSecurityDefinition{
+		msg := &types.MsgSecurityStatusResponse{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the SecurityDefinition simulation
+		// TODO: Handling the SecurityStatusResponse simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityDefinition simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityStatusResponse simulation not implemented"), nil, nil
 	}
 }
 
-func SimulateMsgSecurityDefinitionRequestReject(
+func SimulateMsgSecurityStatusRequestReject(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -54,12 +54,12 @@ func SimulateMsgSecurityDefinitionRequestReject(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgSecurityDefinitionRequestReject{
+		msg := &types.MsgSecurityStatusRequestReject{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the SecurityDefinitionRequestReject simulation
+		// TODO: Handling the SecurityStatusRequestReject simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityDefinitionRequestReject simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SecurityStatusRequestReject simulation not implemented"), nil, nil
 	}
 }

@@ -24,10 +24,6 @@ var (
 )
 
 const (
-	opWeightMsgCreateAccount = "op_weight_msg_account"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateAccount int = 100
-
 	opWeightMsgUpdateAccount = "op_weight_msg_account"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateAccount int = 100

@@ -32,7 +32,6 @@ func (k Keeper) AccountRegistrationAll(goCtx context.Context, req *types.QueryAl
 		accountRegistrations = append(accountRegistrations, accountRegistration)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
