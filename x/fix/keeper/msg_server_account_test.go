@@ -99,10 +99,8 @@ func (suite *KeeperTestSuite) TestRegisterAccount() {
 				suite.Require().Empty(getAcc)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestUpdateAccount() {
@@ -197,10 +195,8 @@ func (suite *KeeperTestSuite) TestUpdateAccount() {
 				suite.Require().Empty(getUpdatedAcc)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestDeleteAccount() {
@@ -265,33 +261,30 @@ func (suite *KeeperTestSuite) TestDeleteAccount() {
 			}
 
 			// call RegisterAccount method
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &msgRegisterAccount)
-
-			// GetAccountRegistration
-			getAcc, _ := suite.fixKeeper.GetAccountRegistration(suite.ctx, tc.args.address)
+			_, _ = suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &msgRegisterAccount)
 
 			// MsgDeleteAccount instance
 			msgDeleteAccount := types.MsgDeleteAccount{
-				Creator: getAcc.Address,
-				Address: getAcc.Address,
+				Creator: tc.args.creator,
+				Address: tc.args.address,
 			}
 
 			// call DeleteAccount method after registering an account
-			_, err := suite.msgServer.DeleteAccount(sdk.WrapSDKContext(suite.ctx), &msgDeleteAccount)
+			res, err := suite.msgServer.DeleteAccount(sdk.WrapSDKContext(suite.ctx), &msgDeleteAccount)
 
 			// get deleted Account
-			getDeletedAcc, found := suite.fixKeeper.GetAccountRegistration(suite.ctx, getAcc.Address)
+			getDeletedAcc, found := suite.fixKeeper.GetAccountRegistration(suite.ctx, tc.args.address)
 
 			if tc.errArgs.shouldPass {
 				suite.Require().False(found)
 				suite.Require().NoError(err, tc.name)
+				suite.Require().NotNil(res)
 				suite.Require().Empty(getDeletedAcc)
 			} else {
 				suite.Require().Error(err, tc.name)
+				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
-
 }
