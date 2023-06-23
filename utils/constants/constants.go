@@ -21,4 +21,7 @@ const (
 	RejectedStatus     = "rejected"
 )
 
-var SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+var (
+	SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	CreatedAt   = time.Now().UTC().Format("20060102-15:04:05.000")
+)
