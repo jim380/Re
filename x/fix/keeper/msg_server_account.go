@@ -2,10 +2,10 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -47,7 +47,7 @@ func (k msgServer) RegisterAccount(goCtx context.Context, msg *types.MsgRegister
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		CreatedAt:        time.Now().UTC().Format("20060102-15:04:05.000"),
+		CreatedAt:        constants.CreatedAt,
 	}
 
 	// set new account data to store
@@ -96,7 +96,7 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
-		CreatedAt:        time.Now().UTC().Format("20060102-15:04:05.000"),
+		CreatedAt:        constants.CreatedAt,
 	}
 
 	// set edited account data to store

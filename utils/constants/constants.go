@@ -22,3 +22,4 @@ const (
 )
 
 var SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+var CreatedAt = time.Now().UTC().Format("20060102-15:04:05.000")
