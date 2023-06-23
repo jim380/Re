@@ -2,10 +2,10 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -26,12 +26,12 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	if session.Status != constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to send Order Mass Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -49,7 +49,7 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 	}
 
 	// check that the owner of the order matches the creator of order mass status request
-	if order.Creator != msg.Creator {
+	if order.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Order Mass Status Creator: %s", msg.Creator)
 	}
 
@@ -84,7 +84,6 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 			Symbol:            msg.Symbol,
 			SecurityID:        msg.SecurityID,
 			TradingSessionID:  msg.TradingSessionID,
-			Creator:           msg.Creator,
 		},
 	}
 
@@ -99,7 +98,7 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 	orderMassStatusRequest.OrderMassStatusRequest.Header.MsgType = "AF"
 
 	// set sending time
-	orderMassStatusRequest.OrderMassStatusRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	orderMassStatusRequest.OrderMassStatusRequest.Header.SendingTime = constants.SendingTime
 
 	// set Trailer from the existing order
 	// TODO
@@ -137,7 +136,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to send Order Mass Status Report
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -148,7 +147,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 	}
 
 	// the account that created order mass status request is not allowed to respond to order mass status report
-	if orderMassStatus.OrderMassStatusRequest.Creator == msg.Creator {
+	if orderMassStatus.OrderMassStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusCreatorIsWrong, "Order Mass Status Report Creator: %s", msg.Creator)
 	}
 
@@ -220,7 +219,6 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 			CumQty:           msg.CumQty,
 			AvgPx:            msg.AvgPx,
 			LeavesQty:        msg.LeavesQty,
-			Creator:          msg.Creator,
 		},
 	}
 
@@ -250,7 +248,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 	newHeader.TargetCompID = orderMassStatus.OrderMassStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	orderMassStatusReport.OrderMassStatusReport.Header = newHeader
@@ -291,7 +289,7 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to send Order Mass Status Request Reject
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -302,7 +300,7 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 	}
 
 	// the account that created order mass status request is not allowed to respond to order mass status request reject
-	if orderMassStatus.OrderMassStatusRequest.Creator == msg.Creator {
+	if orderMassStatus.OrderMassStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrOrderMassStatusCreatorIsWrong, "Order Mass Status Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -333,7 +331,6 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 			RefSeqID: msg.RefSeqID,
 			RejCode:  msg.RejCode,
 			Text:     msg.Text,
-			Creator:  msg.Creator,
 		},
 	}
 
@@ -363,7 +360,7 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 	newHeader.TargetCompID = orderMassStatus.OrderMassStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	orderMassStatusRequestReject.OrderMassStatusRequestReject.Header = newHeader

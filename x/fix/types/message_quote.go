@@ -54,7 +54,7 @@ func (msg *MsgQuoteRequest) ValidateBasic() error {
 	return nil
 }
 
-func NewQuoteRequest(quoteReqID string, symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic string, text string, creator string) *QuoteRequest {
+func NewQuoteRequest(quoteReqID string, symbol string, securityID string, securityIDSource string, side string, orderQty string, futSettDate string, settlDate2 string, account string, bidPx string, offerPx string, currency string, validUntilTime string, expireTime string, quoteType string, bidSize string, offerSize string, mic string, text string) *QuoteRequest {
 	return &QuoteRequest{
 		QuoteReqID:       quoteReqID,
 		Symbol:           symbol,
@@ -75,7 +75,6 @@ func NewQuoteRequest(quoteReqID string, symbol string, securityID string, securi
 		OfferSize:        offerSize,
 		Mic:              mic,
 		Text:             text,
-		Creator:          creator,
 	}
 }
 
@@ -116,7 +115,7 @@ func (msg *MsgQuoteAcknowledgement) ValidateBasic() error {
 	return nil
 }
 
-func NewQuoteAcknowledgement(quoteReqID string, quoteID string, quoteStatus string, quoteType string, securityID string, securityIDSource string, symbol string, side string, orderQty string, lastQty string, lastPx string, bidPx string, offerPx string, currency string, settlDate string, validUntilTime string, expireTime string, text string, noQuoteQualifiers string, quoteQualifier string, noLegs string, legSymbol string, legSecurityID string, legSecurityIDSource string, legRatioQty string, creator string) *QuoteAcknowledgement {
+func NewQuoteAcknowledgement(quoteReqID string, quoteID string, quoteStatus string, quoteType string, securityID string, securityIDSource string, symbol string, side string, orderQty string, lastQty string, lastPx string, bidPx string, offerPx string, currency string, settlDate string, validUntilTime string, expireTime string, text string, noQuoteQualifiers string, quoteQualifier string, noLegs string, legSymbol string, legSecurityID string, legSecurityIDSource string, legRatioQty string) *QuoteAcknowledgement {
 	return &QuoteAcknowledgement{
 		QuoteReqID:          quoteReqID,
 		QuoteID:             quoteID,
@@ -143,7 +142,6 @@ func NewQuoteAcknowledgement(quoteReqID string, quoteID string, quoteStatus stri
 		LegSecurityID:       legSecurityID,
 		LegSecurityIDSource: legSecurityIDSource,
 		LegRatioQty:         legRatioQty,
-		Creator:             creator,
 	}
 }
 
@@ -184,11 +182,10 @@ func (msg *MsgQuoteRequestReject) ValidateBasic() error {
 	return nil
 }
 
-func NewQuoteRequestReject(quoteReqID string, quoteRequestRejectReason string, text string, creator string) *QuoteRequestReject {
+func NewQuoteRequestReject(quoteReqID string, quoteRequestRejectReason string, text string) *QuoteRequestReject {
 	return &QuoteRequestReject{
 		QuoteReqID:               quoteReqID,
 		QuoteRequestRejectReason: quoteRequestRejectReason,
 		Text:                     text,
-		Creator:                  creator,
 	}
 }

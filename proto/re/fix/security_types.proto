@@ -43,9 +43,6 @@ message SecurityTypesRequest {
 
   // Standard FIX message trailer.
   Trailer trailer = 9;
-
-  // owner
-  string creator = 10;
 }
 
 // Security Types Response with fields, tags and descriptions.
@@ -105,9 +102,6 @@ message SecurityTypesResponse {
 
   // Standard FIX message trailer.
   Trailer trailer = 16;
-
-  // owner
-  string creator = 17;
 }
 
 // Security Types Request Reject with fields, tags and descriptions.
@@ -127,7 +121,4 @@ message SecurityTypesRequestReject {
 
   // Standard FIX message trailer.
   Trailer trailer = 5;
-
-  // owner
-  string creator = 6;
 }

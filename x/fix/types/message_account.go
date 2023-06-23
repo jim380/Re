@@ -5,33 +5,29 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const (
-	TypeMsgCreateAccount = "create_account"
-	TypeMsgUpdateAccount = "update_account"
-	TypeMsgDeleteAccount = "delete_account"
-)
+const TypeMsgRegisterAccount = "register_account"
 
-var _ sdk.Msg = &MsgCreateAccount{}
+var _ sdk.Msg = &MsgRegisterAccount{}
 
-func NewMsgCreateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgCreateAccount {
-	return &MsgCreateAccount{
+func NewMsgRegisterAccount(creator string, address string, companyName string, website string, socialMediaLinks string) *MsgRegisterAccount {
+	return &MsgRegisterAccount{
 		Creator:          creator,
-		Did:              did,
+		Address:          address,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
 	}
 }
 
-func (msg *MsgCreateAccount) Route() string {
+func (msg *MsgRegisterAccount) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgCreateAccount) Type() string {
-	return TypeMsgCreateAccount
+func (msg *MsgRegisterAccount) Type() string {
+	return TypeMsgRegisterAccount
 }
 
-func (msg *MsgCreateAccount) GetSigners() []sdk.AccAddress {
+func (msg *MsgRegisterAccount) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -39,12 +35,12 @@ func (msg *MsgCreateAccount) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgCreateAccount) GetSignBytes() []byte {
+func (msg *MsgRegisterAccount) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgCreateAccount) ValidateBasic() error {
+func (msg *MsgRegisterAccount) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
@@ -52,12 +48,14 @@ func (msg *MsgCreateAccount) ValidateBasic() error {
 	return nil
 }
 
+const TypeMsgUpdateAccount = "update_account"
+
 var _ sdk.Msg = &MsgUpdateAccount{}
 
-func NewMsgUpdateAccount(creator string, did string, companyName string, website string, socialMediaLinks string) *MsgUpdateAccount {
+func NewMsgUpdateAccount(creator string, address string, companyName string, website string, socialMediaLinks string) *MsgUpdateAccount {
 	return &MsgUpdateAccount{
 		Creator:          creator,
-		Did:              did,
+		Address:          address,
 		CompanyName:      companyName,
 		Website:          website,
 		SocialMediaLinks: socialMediaLinks,
@@ -93,12 +91,14 @@ func (msg *MsgUpdateAccount) ValidateBasic() error {
 	return nil
 }
 
+const TypeMsgDeleteAccount = "delete_account"
+
 var _ sdk.Msg = &MsgDeleteAccount{}
 
-func NewMsgDeleteAccount(creator string, did string) *MsgDeleteAccount {
+func NewMsgDeleteAccount(creator string, address string) *MsgDeleteAccount {
 	return &MsgDeleteAccount{
-		Did:     did,
 		Creator: creator,
+		Address: address,
 	}
 }
 
@@ -131,10 +131,10 @@ func (msg *MsgDeleteAccount) ValidateBasic() error {
 	return nil
 }
 
-func EmptyDID(did string) bool {
-	return did == ""
+func EmptyAddress(address string) bool {
+	return address == ""
 }
 
-func (a Account) Empty() bool {
-	return EmptyDID(a.Did)
+func (a AccountRegistration) Empty() bool {
+	return EmptyAddress(a.Address)
 }

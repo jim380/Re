@@ -9,8 +9,8 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-// CreateAccount creates account for users of Re Protocol
-func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAccount) (*types.MsgCreateAccountResponse, error) {
+// RegisterAccount creates account for FIX users of Re Protocol
+func (k msgServer) RegisterAccount(goCtx context.Context, msg *types.MsgRegisterAccount) (*types.MsgRegisterAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Validate the message creator
@@ -19,44 +19,31 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// get DID Document from the DID module && check if DID is exists
-	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
-	if getDidDocument.Document.Empty() {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	// check that the address provided must be the user's address
+	if msg.Address != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
-	// creator of DID Document should be same with creator of Account
-	if getDidDocument.Creator != msg.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
-	}
+	for _, accounts := range k.GetAllAccountRegistration(ctx) {
 
-	for _, did := range k.getDIDs(ctx) {
-
-		existingAccount := k.GetAccount(ctx, did)
-
-		if existingAccount.Did == msg.Did {
-			return nil, sdkerrors.Wrapf(types.ErrDIDIsTaken, "DID: %s", msg.Did)
+		// check for if account address is not used already
+		if accounts.Address == msg.Address {
+			return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Address)
 		}
 
 		// check for if the provided company name is not taken
-		if existingAccount.CompanyName == msg.CompanyName {
+		if accounts.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
 
 		// check for if the provided website is not taken
-		if existingAccount.Website == msg.Website {
+		if accounts.Website == msg.Website {
 			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
-		}
-
-		// check for if account address is not used already
-		if existingAccount.Creator == msg.Creator {
-			return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Creator)
 		}
 	}
 
-	newAccount := types.Account{
-		Creator:          msg.Creator,
-		Did:              msg.Did,
+	newAccount := types.AccountRegistration{
+		Address:          msg.Address,
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
@@ -64,12 +51,12 @@ func (k msgServer) CreateAccount(goCtx context.Context, msg *types.MsgCreateAcco
 	}
 
 	// set new account data to store
-	k.SetAccount(ctx, msg.Did, newAccount)
+	k.SetAccountRegistration(ctx, msg.Address, newAccount)
 
-	return &types.MsgCreateAccountResponse{}, nil
+	return &types.MsgRegisterAccountResponse{}, nil
 }
 
-// UpdateAccount updates account for users of Re Protocol
+// UpdateAccount updates account for FIX users of Re Protocol
 func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAccount) (*types.MsgUpdateAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -79,33 +66,33 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// get DID Document from the DID module && check if DID is exists
-	getDidDocument := k.didKeeper.GetDIDDocument(ctx, msg.Did)
-	if getDidDocument.Document.Empty() {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
-	}
-	// creator of DID Document should be same with creator of Account
-	if getDidDocument.Creator != msg.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotDIDCreator, "Account: %s", msg.Creator)
+	// check that the address provided must be the user's address
+	if msg.Address != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
-	for _, did := range k.getDIDs(ctx) {
+	for _, accounts := range k.GetAllAccountRegistration(ctx) {
+
 		// Checks if an account exists
-		existingAccount := k.GetAccount(ctx, did)
-		if existingAccount.Empty() {
-			return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+		if accounts.Empty() {
+			return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
 		}
-		if existingAccount.CompanyName == msg.CompanyName {
+
+		// check that it is only the owner that can update account information
+		if accounts.Address != msg.Creator {
+			return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
+		}
+
+		if accounts.CompanyName == msg.CompanyName {
 			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
 		}
-		if existingAccount.Website == msg.Website {
+		if accounts.Website == msg.Website {
 			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
 		}
 	}
 
-	editedAccount := types.Account{
-		Creator:          msg.Creator,
-		Did:              msg.Did,
+	editedAccount := types.AccountRegistration{
+		Address:          msg.Address,
 		CompanyName:      msg.CompanyName,
 		Website:          msg.Website,
 		SocialMediaLinks: msg.SocialMediaLinks,
@@ -113,12 +100,12 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 	}
 
 	// set edited account data to store
-	k.SetAccount(ctx, msg.Did, editedAccount)
+	k.SetAccountRegistration(ctx, msg.Address, editedAccount)
 
 	return &types.MsgUpdateAccountResponse{}, nil
 }
 
-// DeleteAccount deletes an account for users of Re Protocol
+// DeleteAccount deletes an account for FIX users of Re Protocol
 func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAccount) (*types.MsgDeleteAccountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -128,18 +115,23 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
+	// check that the address provided must be the user's address
+	if msg.Address != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
+	}
+
 	// Checks if an account exists
-	existingAccount := k.GetAccount(ctx, msg.Did)
-	if existingAccount.Empty() {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidDidDocument, "DID Document: %s", msg.Did)
+	existingAccount, found := k.GetAccountRegistration(ctx, msg.Address)
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != existingAccount.Creator {
-		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
+	if msg.Creator != existingAccount.Address {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Address)
 	}
 
-	k.RemoveAccount(ctx, msg.Did)
+	k.RemoveAccountRegistration(ctx, msg.Address)
 
 	return &types.MsgDeleteAccountResponse{}, nil
 }

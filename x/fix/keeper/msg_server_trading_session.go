@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -28,12 +28,12 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	if session.Status != constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create trading session status request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -81,7 +81,7 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	// set sending time to current time at creating Trading Session Status Request
 	tradingSessionStatusRequest.TradingSessionStatusRequest.Header = session.LogonInitiator.Header
 	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.MsgType = "g"
-	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
@@ -120,7 +120,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	}
 
 	// check that the user responding is the recipient of the Trading Session Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Creator: %s", msg.Creator)
 	}
 
@@ -131,7 +131,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	}
 
 	// same account can not used for creating Trading Session Status Request and Trading Session Status with the same TradSesReqID
-	if tradingSession.TradingSessionStatusRequest.Creator == msg.Creator {
+	if tradingSession.TradingSessionStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session Status", msg.Creator))
 	}
 
@@ -176,7 +176,6 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 			SecurityExchange:       msg.SecurityExchange,
 			MarketSegmentID:        msg.MarketSegmentID,
 			MarketID:               msg.MarketID,
-			Creator:                msg.Creator,
 		},
 	}
 
@@ -192,7 +191,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	// set sending time to current time at creating Trading Session Status
 	tradingSessionStatus.TradingSessionStatus.Header = session.LogonAcceptor.Header
 	tradingSessionStatus.TradingSessionStatus.Header.MsgType = "h"
-	tradingSessionStatus.TradingSessionStatus.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatus.TradingSessionStatus.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
@@ -231,7 +230,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	}
 
 	// check that the user responding is the recipient of the Trading Session Status Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session Status Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -242,7 +241,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	}
 
 	// same account can not used for creating Trading Session Status Request and Trading Session Status Request Reject with the same TradSesReqID
-	if tradingSession.TradingSessionStatusRequest.Creator == msg.Creator {
+	if tradingSession.TradingSessionStatusRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session Status Request Reject", msg.Creator))
 	}
 
@@ -271,7 +270,6 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 			RefMsgType:          msg.RefMsgType,
 			SessionRejectReason: msg.SessionRejectReason,
 			Text:                msg.Text,
-			Creator:             msg.Creator,
 		},
 	}
 
@@ -287,7 +285,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	// set sending time to current time at creating Trading Session Status Request Reject
 	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header = session.LogonAcceptor.Header
 	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.MsgType = "j"
-	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated

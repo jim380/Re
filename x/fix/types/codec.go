@@ -8,9 +8,6 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateAccount{}, "fix/CreateAccount", nil)
-	cdc.RegisterConcrete(&MsgUpdateAccount{}, "fix/UpdateAccount", nil)
-	cdc.RegisterConcrete(&MsgDeleteAccount{}, "fix/DeleteAccount", nil)
 	cdc.RegisterConcrete(&MsgLogonInitiator{}, "fix/LogonInitiator", nil)
 	cdc.RegisterConcrete(&MsgLogonAcceptor{}, "fix/LogonAcceptor", nil)
 	cdc.RegisterConcrete(&MsgTerminateLogon{}, "fix/TerminateLogon", nil)
@@ -45,15 +42,13 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSecurityTypesRequest{}, "fix/SecurityTypesRequest", nil)
 	cdc.RegisterConcrete(&MsgSecurityTypesResponse{}, "fix/SecurityTypesResponse", nil)
 	cdc.RegisterConcrete(&MsgSecurityTypesRequestReject{}, "fix/SecurityTypesRequestReject", nil)
+	cdc.RegisterConcrete(&MsgRegisterAccount{}, "fix/RegisterAccount", nil)
+	cdc.RegisterConcrete(&MsgUpdateAccount{}, "fix/UpdateAccount", nil)
+	cdc.RegisterConcrete(&MsgDeleteAccount{}, "fix/DeleteAccount", nil)
 	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgCreateAccount{},
-		&MsgUpdateAccount{},
-		&MsgDeleteAccount{},
-	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogonInitiator{},
 	)
@@ -155,6 +150,16 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityTypesRequestReject{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRegisterAccount{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateAccount{},
+	)
+
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgDeleteAccount{},
 	)
 	// this line is used by starport scaffolding # 3
 

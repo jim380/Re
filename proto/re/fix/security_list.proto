@@ -59,9 +59,6 @@ message SecurityListRequest {
 
   // Standard FIX message trailer.
   Trailer trailer = 13;
-
-  // owner
-  string creator = 14;
 }
 
 // Security List Response  with fields, tags and descriptions and MsgType = y
@@ -126,9 +123,6 @@ message SecurityListResponse {
 
   // Standard FIX message trailer.
   Trailer trailer = 19;
-
-  // owner
-  string creator = 20;
 }
 
 // Security List Request Reject with fields, tags and descriptions and MsgType =
@@ -160,7 +154,4 @@ message SecurityListRequestReject {
 
   // Standard FIX message trailer.
   Trailer trailer = 8;
-
-  // owner
-  string creator = 9;
 }

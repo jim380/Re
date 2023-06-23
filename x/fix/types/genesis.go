@@ -2,7 +2,6 @@ package types
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 )
 
@@ -12,7 +11,6 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		AccountList:               []Account{},
 		SessionsList:              []Sessions{},
 		SessionRejectList:         []SessionReject{},
 		SessionLogoutList:         []SessionLogout{},
@@ -30,6 +28,7 @@ func DefaultGenesis() *GenesisState {
 		SecurityListList:          []SecurityList{},
 		SecurityStatusList:        []SecurityStatus{},
 		SecurityTypesList:         []SecurityTypes{},
+		AccountRegistrationList:   []AccountRegistration{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -38,24 +37,6 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	// Check for duplicated ID in account
-	accountDidMap := make(map[string]bool)
-	accountCount := gs.GetAccountCount()
-	for _, elem := range gs.AccountList {
-		if _, ok := accountDidMap[elem.Did]; ok {
-			return fmt.Errorf("duplicated id for account")
-		}
-		did, err := strconv.ParseUint(elem.Did, 10, 64)
-		if err != nil {
-			// Handle the error if the conversion fails
-			log.Printf("Error occurred: %v", err)
-			return err
-		}
-		if did >= accountCount {
-			return fmt.Errorf("account id should be lower or equal than the last id")
-		}
-		accountDidMap[elem.Did] = true
-	}
 	// Check for duplicated ID in sessions
 	sessionsIDMap := make(map[string]bool)
 	sessionsCount := gs.GetSessionsCount()
@@ -276,6 +257,19 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("securityTypes id should be lower or equal than the last id")
 		}
 		securityTypesIDMap[elem.SecurityTypesRequest.SecurityReqID] = true
+	}
+	// Check for duplicated ID in accountRegistration
+	accountRegistrationIDMap := make(map[string]bool)
+	accountRegistrationCount := gs.GetAccountRegistrationCount()
+	for _, elem := range gs.AccountRegistrationList {
+		if _, ok := accountRegistrationIDMap[elem.Address]; ok {
+			return fmt.Errorf("duplicated id for accountRegistration")
+		}
+		address, _ := strconv.ParseUint(elem.Address, 10, 64)
+		if address >= accountRegistrationCount {
+			return fmt.Errorf("accountRegistration id should be lower or equal than the last id")
+		}
+		accountRegistrationIDMap[elem.Address] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

@@ -3,10 +3,10 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -27,12 +27,12 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	if session.Status != constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create trading session list request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -60,7 +60,6 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 			TradSesMethod:           msg.TradSesMethod,
 			TradSesMode:             msg.TradSesMode,
 			SubscriptionRequestType: msg.SubscriptionRequestType,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -75,7 +74,7 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	// set sending time to current time at creating Trading Session List Request
 	tradingSessionListRequest.TradingSessionListRequestReject.Header = session.LogonInitiator.Header
 	tradingSessionListRequest.TradingSessionListRequestReject.Header.MsgType = "BI"
-	tradingSessionListRequest.TradingSessionListRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListRequest.TradingSessionListRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO
@@ -114,7 +113,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 	}
 
 	// check that the user responding is the recipient of the Trading Session List Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session List Response Creator: %s", msg.Creator)
 	}
 
@@ -125,7 +124,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 	}
 
 	// same account can not used for creating Trading Session List Request and Trading Session List Response with the same TradSesReqID
-	if tradingSessionList.TradingSessionListRequest.Creator == msg.Creator {
+	if tradingSessionList.TradingSessionListRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Response", msg.Creator))
 	}
 
@@ -169,7 +168,6 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 			TradSesPreCloseTime:    msg.TradSesPreCloseTime,
 			TradSesCloseTime:       msg.TradSesCloseTime,
 			TradSesEndTime:         msg.TradSesEndTime,
-			Creator:                msg.Creator,
 		},
 	}
 
@@ -184,7 +182,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 	// set sending time to current time at creating Trading Session List Response
 	tradingSessionListResponse.TradingSessionListResponse.Header = session.LogonAcceptor.Header
 	tradingSessionListResponse.TradingSessionListResponse.Header.MsgType = "BJ"
-	tradingSessionListResponse.TradingSessionListResponse.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListResponse.TradingSessionListResponse.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO
@@ -222,7 +220,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 	}
 
 	// check that the user responding is the recipient of the Trading Session List Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Trading Session List Request Reject Creator: %s", msg.Creator)
 	}
 
@@ -233,7 +231,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 	}
 
 	// same account can not used for creating Trading Session List Request and Trading Session List Request Reject with the same TradSesReqID
-	if tradingSessionList.TradingSessionListRequest.Creator == msg.Creator {
+	if tradingSessionList.TradingSessionListRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Request Reject", msg.Creator))
 	}
 
@@ -264,7 +262,6 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 			TradSesStatus:          msg.TradSesStatus,
 			TradSesStatusRejReason: msg.TradSesStatusRejReason,
 			Text:                   msg.Text,
-			Creator:                msg.Creator,
 		},
 	}
 
@@ -279,7 +276,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 	// set sending time to current time at creating Trading Session List Request Reject
 	tradingSessionListRequestReject.TradingSessionListRequestReject.Header = session.LogonAcceptor.Header
 	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.MsgType = "BK"
-	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO

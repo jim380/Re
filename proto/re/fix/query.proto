@@ -6,7 +6,6 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "re/fix/params.proto";
-import "re/fix/account.proto";
 import "re/fix/sessions.proto";
 import "re/fix/session_reject.proto";
 import "re/fix/session_logout.proto";
@@ -24,6 +23,7 @@ import "re/fix/trading_session_list.proto";
 import "re/fix/security_list.proto";
 import "re/fix/security_status.proto";
 import "re/fix/security_types.proto";
+import "re/fix/account_registration.proto";
 
 option go_package = "github.com/jim380/Re/x/fix/types";
 
@@ -33,14 +33,6 @@ service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/params";
-  }
-
-  // Queries a list of Account items.
-  rpc Account(QueryGetAccountRequest) returns (QueryGetAccountResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/account/{did}";
-  }
-  rpc AccountAll(QueryAllAccountRequest) returns (QueryAllAccountResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/account";
   }
 
   // Queries a list of Sessions items.
@@ -219,6 +211,17 @@ service Query {
       returns (QueryAllSecurityTypesResponse) {
     option (google.api.http).get = "/jim380/Re/fix/security/types";
   }
+
+  // Queries a list of AccountRegistration items.
+  rpc AccountRegistration(QueryGetAccountRegistrationRequest)
+      returns (QueryGetAccountRegistrationResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/account/registration/{address}";
+  }
+  rpc AccountRegistrationAll(QueryAllAccountRegistrationRequest)
+      returns (QueryAllAccountRegistrationResponse) {
+    option (google.api.http).get = "/jim380/Re/fix/account/registration";
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -228,21 +231,6 @@ message QueryParamsResponse {
 
   // params holds all the parameters of this module.
   Params params = 1 [ (gogoproto.nullable) = false ];
-}
-
-message QueryGetAccountRequest { string did = 1; }
-
-message QueryGetAccountResponse {
-  Account Account = 1 [ (gogoproto.nullable) = false ];
-}
-
-message QueryAllAccountRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllAccountResponse {
-  repeated Account Account = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryGetSessionsRequest { string sessionID = 1; }
@@ -510,5 +498,21 @@ message QueryAllSecurityTypesRequest {
 
 message QueryAllSecurityTypesResponse {
   repeated SecurityTypes SecurityTypes = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAccountRegistrationRequest { string address = 1; }
+
+message QueryGetAccountRegistrationResponse {
+  AccountRegistration AccountRegistration = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllAccountRegistrationRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAccountRegistrationResponse {
+  repeated AccountRegistration AccountRegistration = 1
+      [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

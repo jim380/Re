@@ -8,11 +8,6 @@ import (
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
-	// Set all the account
-	for _, elem := range genState.AccountList {
-		k.SetAccount(ctx, elem.Did, elem)
-	}
-
 	// Set all the sessions
 	for _, elem := range genState.SessionsList {
 		k.SetSessions(ctx, elem.SessionID, elem)
@@ -118,6 +113,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set securityTypes count
 	k.SetSecurityTypesCount(ctx, genState.SecurityTypesCount)
+	// Set all the accountRegistration
+	for _, elem := range genState.AccountRegistrationList {
+		k.SetAccountRegistration(ctx, elem.Address, elem)
+	}
+
+	// Set accountRegistration count
+	k.SetAccountRegistrationCount(ctx, genState.AccountRegistrationCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -127,7 +129,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 	genesis.Params = k.GetParams(ctx)
 
-	genesis.AccountList = k.GetAllAccount(ctx)
 	genesis.SessionsList = k.GetAllSessions(ctx)
 	genesis.SessionsCount = k.GetSessionsCount(ctx)
 
@@ -150,6 +151,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.SecurityStatusCount = k.GetSecurityStatusCount(ctx)
 	genesis.SecurityTypesList = k.GetAllSecurityTypes(ctx)
 	genesis.SecurityTypesCount = k.GetSecurityTypesCount(ctx)
+	genesis.AccountRegistrationList = k.GetAllAccountRegistration(ctx)
+	genesis.AccountRegistrationCount = k.GetAccountRegistrationCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

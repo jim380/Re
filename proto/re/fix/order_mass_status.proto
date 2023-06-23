@@ -43,9 +43,6 @@ message OrderMassStatusRequest {
 
   // standard Trailer
   Trailer trailer = 9;
-
-  // owner
-  string creator = 10;
 }
 
 // Order Mass Status Report with fields, tags and descriptions.
@@ -96,9 +93,6 @@ message OrderMassStatusReport {
 
   // standard Trailer
   Trailer trailer = 15;
-
-  // owner
-  string creator = 16;
 }
 
 // Order Mass Status Request Reject with fields, tags and descriptions.
@@ -128,7 +122,4 @@ message OrderMassStatusRequestReject {
 
   // standard Trailer
   Trailer trailer = 5;
-
-  // owner
-  string creator = 6;
 }

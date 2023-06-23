@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -28,12 +28,12 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	}
 
 	// check that logon is established between both parties and that logon status equals to "loggedIn"
-	if session.Status != types.LoggedInStatus {
+	if session.Status != constants.LoggedInStatus {
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", msg.SessionID)
 	}
 
 	// check that the parties involved in a session are the ones using the sessionID and are able to create Market Data Request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Session Creator: %s", msg.Creator)
 	}
 
@@ -64,7 +64,6 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 			MdUpdateType:            msg.MdUpdateType,
 			NoRelatedSym:            msg.NoRelatedSym,
 			Symbol:                  msg.Symbol,
-			Creator:                 msg.Creator,
 		},
 	}
 
@@ -72,7 +71,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	// In the FIX Protocol, Market Data Request message can be sent by either the initiator or the acceptor of the FIX session.
 	// Determine whether we are the initiator or acceptor
 	var header *types.Header
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		header = session.LogonInitiator.Header
 	} else {
 		header = session.LogonAcceptor.Header
@@ -85,12 +84,12 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	// set sending time to current time at creating market data request
 	marketDataRequest.MarketDataRequest.Header = header
 	marketDataRequest.MarketDataRequest.Header.MsgType = "V"
-	marketDataRequest.MarketDataRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	marketDataRequest.MarketDataRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
 	var trailer *types.Trailer
-	if session.InitiatorAddress == msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID == msg.Creator {
 		trailer = session.LogonInitiator.Trailer
 	} else {
 		trailer = session.LogonAcceptor.Trailer
@@ -131,7 +130,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	}
 
 	// check that the user responding is the recipient of the market data request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Market Data Snap Shot Full Refresh Creator: %s", msg.Creator)
 	}
 
@@ -142,7 +141,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	}
 
 	// check that Market Data Request creator address is not same responding to the Market Data Request
-	if marketDataRequest.MarketDataRequest.Creator == msg.Creator {
+	if marketDataRequest.MarketDataRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrMarketDataSnapShotFullRefreshCreatorIsWrong, "Market Data Snapshot Full Refresh: %s", msg.Creator)
 	}
 
@@ -191,7 +190,6 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 			Symbol:      msg.Symbol,
 			NoMDEntries: msg.NoMDEntries,
 			MdEntries:   msg.MdEntries,
-			Creator:     msg.Creator,
 		},
 	}
 
@@ -221,7 +219,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	newHeader.TargetCompID = marketDataRequest.MarketDataRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header = newHeader
@@ -270,7 +268,7 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 	}
 
 	// check that the user responding is the recipient of the market data request
-	if session.InitiatorAddress != msg.Creator && session.AcceptorAddress != msg.Creator {
+	if session.LogonInitiator.Header.SenderCompID != msg.Creator && session.LogonAcceptor.Header.SenderCompID != msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Market Data Request Creator: %s", msg.Creator)
 	}
 
@@ -281,7 +279,7 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 	}
 
 	// check that Market Data Request creator address is not same responding to the Market Data Request Reject
-	if marketDataRequest.MarketDataRequest.Creator == msg.Creator {
+	if marketDataRequest.MarketDataRequest.Header.SenderCompID == msg.Creator {
 		return nil, sdkerrors.Wrapf(types.ErrMarketDataRequestRejectCreatorIsWrong, "Market Data Request Reject: %s", msg.Creator)
 	}
 
@@ -311,7 +309,6 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 			MdReqID:        msg.MdReqID,
 			MdReqRejReason: msg.MdReqRejReason,
 			Text:           msg.Text,
-			Creator:        msg.Creator,
 		},
 	}
 
@@ -341,7 +338,7 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 	newHeader.TargetCompID = marketDataRequest.MarketDataRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	marketDataRequestReject.MarketDataRequestReject.Header = newHeader

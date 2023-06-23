@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListAccount() *cobra.Command {
+func CmdListAccountRegistration() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-account",
-		Short: "list all account",
+		Use:   "list-accounts",
+		Short: "list all accounts",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,11 +23,11 @@ func CmdListAccount() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllAccountRequest{
+			params := &types.QueryAllAccountRegistrationRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.AccountAll(context.Background(), params)
+			res, err := queryClient.AccountRegistrationAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -42,23 +42,23 @@ func CmdListAccount() *cobra.Command {
 	return cmd
 }
 
-func CmdShowAccount() *cobra.Command {
+func CmdShowAccountRegistration() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-account [did]",
-		Short: "shows an account",
+		Use:   "show-account [address]",
+		Short: "get an account using the address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
-			did := args[0]
-
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryGetAccountRequest{
-				Did: did,
+			argAddress := args[0]
+
+			params := &types.QueryGetAccountRegistrationRequest{
+				Address: argAddress,
 			}
 
-			res, err := queryClient.Account(context.Background(), params)
+			res, err := queryClient.AccountRegistration(context.Background(), params)
 			if err != nil {
 				return err
 			}

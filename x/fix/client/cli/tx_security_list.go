@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -31,7 +33,7 @@ func CmdSecurityListRequest() *cobra.Command {
 			argSubscriptionRequestType := args[10]
 
 			// GenerateRandomString function uniquely generates SecurityReqID for every Security List Request
-			argSecurityReqID, _ := types.GenerateRandomString(types.SecurityReqID)
+			argSecurityReqID, _ := helpers.GenerateRandomString(constants.SecurityReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

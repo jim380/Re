@@ -19,25 +19,22 @@ func KeyPrefix(p string) []byte {
 }
 
 var (
-	AccountKey      = []byte{0x00}
-	AccountCountKey = []byte{0x01}
+	SessionsKey      = []byte{0x01}
+	SessionsCountKey = []byte{0x02}
 
-	SessionsKey      = []byte{0x02}
-	SessionsCountKey = []byte{0x03}
+	SessionRejectKey      = []byte{0x0A}
+	SessionRejectCountKey = []byte{0x0B}
 
-	SessionRejectKey      = []byte{0x04}
-	SessionRejectCountKey = []byte{0x05}
+	SessionLogoutKey      = []byte{0x05}
+	SessionLogoutCountKey = []byte{0x06}
 
-	SessionLogoutKey      = []byte{0x06}
-	SessionLogoutCountKey = []byte{0x07}
+	OrdersKey      = []byte{0x07}
+	OrdersCountKey = []byte{0x08}
 
-	OrdersKey      = []byte{0x08}
-	OrdersCountKey = []byte{0x09}
+	OrdersCancelRequestKey      = []byte{0x09}
+	OrdersCancelRequestCountKey = []byte{0x010}
 
-	OrdersCancelRequestKey      = []byte{0x010}
-	OrdersCancelRequestCountKey = []byte{0x011}
-
-	OrdersCancelRejectKey      = []byte{0x012}
+	OrdersCancelRejectKey      = []byte{0x011}
 	OrdersCancelRejectCountKey = []byte{0x012}
 
 	OrdersExecutionReportKey      = []byte{0x013}
@@ -71,15 +68,10 @@ var (
 
 	SecurityTypesKey      = []byte{0x032}
 	SecurityTypesCountKey = []byte{0x033}
+
+	AccountRegistrationKey      = []byte{0x034}
+	AccountRegistrationCountKey = []byte{0x035}
 )
-
-func GetAccountKey() []byte {
-	return AccountKey
-}
-
-func GetAccountCountKey() []byte {
-	return AccountCountKey
-}
 
 func GetSessionsKey() []byte {
 	return SessionsKey
@@ -211,4 +203,12 @@ func GetSecurityTypesKey() []byte {
 
 func GetSecurityTypesCountKey() []byte {
 	return SecurityTypesCountKey
+}
+
+func GetAccountRegistrationKey() []byte {
+	return AccountRegistrationKey
+}
+
+func GetAccountRegistrationCountKey() []byte {
+	return AccountRegistrationCountKey
 }

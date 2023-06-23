@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"strconv"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -8,13 +10,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdCreateAccount() *cobra.Command {
+var _ = strconv.Itoa(0)
+
+func CmdRegisterAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-account [did] [company-name] [website] [social-media-links]",
-		Short: "Create a new account",
+		Use:   "register-account [address] [company-name] [website] [social-media-links]",
+		Short: "Broadcast message register-account",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argDid := args[0]
+			argAddress := args[0]
 			argCompanyName := args[1]
 			argWebsite := args[2]
 			argSocialMediaLinks := args[3]
@@ -24,7 +28,13 @@ func CmdCreateAccount() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateAccount(clientCtx.GetFromAddress().String(), argDid, argCompanyName, argWebsite, argSocialMediaLinks)
+			msg := types.NewMsgRegisterAccount(
+				clientCtx.GetFromAddress().String(),
+				argAddress,
+				argCompanyName,
+				argWebsite,
+				argSocialMediaLinks,
+			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -39,16 +49,13 @@ func CmdCreateAccount() *cobra.Command {
 
 func CmdUpdateAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-account [did] [company-name] [website] [social-media-links]",
-		Short: "Update an account",
+		Use:   "update-account [address] [company-name] [website] [social-media-links]",
+		Short: "Broadcast message update-account",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argDid := args[0]
-
+			argAddress := args[0]
 			argCompanyName := args[1]
-
 			argWebsite := args[2]
-
 			argSocialMediaLinks := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -56,7 +63,13 @@ func CmdUpdateAccount() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdateAccount(clientCtx.GetFromAddress().String(), argDid, argCompanyName, argWebsite, argSocialMediaLinks)
+			msg := types.NewMsgUpdateAccount(
+				clientCtx.GetFromAddress().String(),
+				argAddress,
+				argCompanyName,
+				argWebsite,
+				argSocialMediaLinks,
+			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -71,18 +84,21 @@ func CmdUpdateAccount() *cobra.Command {
 
 func CmdDeleteAccount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-account [did]",
-		Short: "Delete an account by did",
+		Use:   "delete-account [address]",
+		Short: "Broadcast message delete-account",
 		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			did := args[0]
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argAddress := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgDeleteAccount(clientCtx.GetFromAddress().String(), did)
+			msg := types.NewMsgDeleteAccount(
+				clientCtx.GetFromAddress().String(),
+				argAddress,
+			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

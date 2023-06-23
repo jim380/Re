@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -27,7 +29,7 @@ func CmdOrderMassStatusRequest() *cobra.Command {
 			argTradingSessionID := args[6]
 
 			// GenerateRandomString function uniquely generates MassStatusReqID for every Order Mass Status Request
-			argMassStatusReqID, _ := types.GenerateRandomString(types.MassStatusReqID)
+			argMassStatusReqID, _ := helpers.GenerateRandomString(constants.MassStatusReqID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

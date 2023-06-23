@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -33,7 +35,7 @@ func CmdSecurityStatusRequest() *cobra.Command {
 			// GenerateRandomString function uniquely generates SecurityStatusReqID for every Security Status Request
 			// Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2)
 			if argSecurityStatusReqID == "" {
-				argSecurityStatusReqID, _ = types.GenerateRandomString(types.SecurityStatusReqID)
+				argSecurityStatusReqID, _ = helpers.GenerateRandomString(constants.SecurityStatusReqID)
 			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)

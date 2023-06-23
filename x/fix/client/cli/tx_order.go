@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
@@ -49,7 +51,7 @@ func CmdNewOrderSingle() *cobra.Command {
 			argText := args[7]
 
 			// GenerateRandomString function uniquely generates ClOrdID for every New Order Single
-			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
+			argClOrdID, _ := helpers.GenerateRandomString(constants.ClOrdID)
 
 			msg := types.NewMsgNewOrderSingle(
 				clientCtx.GetFromAddress().String(),
@@ -86,7 +88,7 @@ func CmdOrderCancelRequest() *cobra.Command {
 			argOrigClOrdID := args[1]
 
 			// GenerateRandomString function uniquely generates ClOrdID for every Order Cancel Request
-			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
+			argClOrdID, _ := helpers.GenerateRandomString(constants.ClOrdID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -237,7 +239,7 @@ func CmdOrderCancelReject() *cobra.Command {
 			}
 
 			// GenerateRandomString function uniquely generates ClOrdID for every Order Cancel Reject
-			argClOrdID, _ := types.GenerateRandomString(types.ClOrdID)
+			argClOrdID, _ := helpers.GenerateRandomString(constants.ClOrdID)
 
 			msg := types.NewMsgOrderCancelReject(
 				clientCtx.GetFromAddress().String(),

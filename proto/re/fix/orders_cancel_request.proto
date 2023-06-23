@@ -25,7 +25,4 @@ message OrdersCancelRequest {
   // A Trailer field that contains standard trailer information for the message,
   // such as the message checksum
   Trailer trailer = 5;
-
-  // An optional string field that identifies the creator of the message
-  string creator = 6;
 }

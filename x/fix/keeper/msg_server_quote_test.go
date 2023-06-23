@@ -49,7 +49,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -66,9 +65,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: suite.address[1].String(),
-					Status:          "loggedIn",
-					IsAccepted:      true,
+					Status:     "loggedIn",
+					IsAccepted: true,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -110,7 +108,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[0].String(),
 				},
 			},
 			errArgs{
@@ -140,7 +137,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: suite.address[1].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -157,9 +153,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: suite.address[0].String(),
-					Status:          "loggedIn",
-					IsAccepted:      true,
+					Status:     "loggedIn",
+					IsAccepted: true,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -201,7 +196,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[1].String(),
 				},
 			},
 			errArgs{
@@ -231,7 +225,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -248,9 +241,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: suite.address[1].String(),
-					Status:          "loggedIn",
-					IsAccepted:      true,
+					Status:     "loggedIn",
+					IsAccepted: true,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -292,7 +284,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[0].String(),
 				},
 			},
 			errArgs{
@@ -322,7 +313,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -339,9 +329,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: suite.address[1].String(),
-					Status:          "logon-request",
-					IsAccepted:      false,
+					Status:     "logon-request",
+					IsAccepted: false,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -383,7 +372,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[0].String(),
 				},
 			},
 			errArgs{
@@ -413,7 +401,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					InitiatorAddress: suite.address[0].String(),
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
@@ -430,9 +417,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 10,
 						},
 					},
-					AcceptorAddress: suite.address[1].String(),
-					Status:          "loggedIn",
-					IsAccepted:      true,
+					Status:     "loggedIn",
+					IsAccepted: true,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -474,7 +460,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[0].String(),
 				},
 			},
 			errArgs{
@@ -504,7 +489,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 0,
 						},
 					},
-					InitiatorAddress: "",
 					LogonAcceptor: &types.LogonAcceptor{
 						Header: &types.Header{
 							BeginString:  " ",
@@ -521,9 +505,8 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 							CheckSum: 0,
 						},
 					},
-					AcceptorAddress: "",
-					Status:          " ",
-					IsAccepted:      false,
+					Status:     " ",
+					IsAccepted: false,
 				},
 				marketIdentificationCode: micTypes.MarketIdentificationCode{
 					MIC:                   "XNYS",
@@ -565,7 +548,6 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 					OfferSize:        "75",
 					Mic:              "XNYS",
 					Text:             "Example quote request",
-					Creator:          suite.address[0].String(),
 				},
 			},
 			errArgs{
@@ -592,7 +574,7 @@ func (suite *KeeperTestSuite) TestQuoteRequest() {
 			mic, _ := suite.micKeeper.GetMarketIdentificationCode(suite.ctx, tc.args.marketIdentificationCode.MIC)
 
 			// set QuoteRequest
-			quoteRequest := types.NewQuoteRequest(tc.args.quoteRequest.QuoteReqID, tc.args.quoteRequest.Symbol, tc.args.quoteRequest.SecurityID, tc.args.quoteRequest.SecurityIDSource, tc.args.quoteRequest.Side, tc.args.quoteRequest.OrderQty, tc.args.quoteRequest.FutSettDate, tc.args.quoteRequest.SettlDate2, tc.args.quoteRequest.Account, tc.args.quoteRequest.BidPx, tc.args.quoteRequest.OfferPx, tc.args.quoteRequest.Currency, tc.args.quoteRequest.ValidUntilTime, tc.args.quoteRequest.ExpireTime, tc.args.quoteRequest.QuoteType, tc.args.quoteRequest.BidSize, tc.args.quoteRequest.OfferSize, mic.MIC, tc.args.quoteRequest.Text, tc.args.creator)
+			quoteRequest := types.NewQuoteRequest(tc.args.quoteRequest.QuoteReqID, tc.args.quoteRequest.Symbol, tc.args.quoteRequest.SecurityID, tc.args.quoteRequest.SecurityIDSource, tc.args.quoteRequest.Side, tc.args.quoteRequest.OrderQty, tc.args.quoteRequest.FutSettDate, tc.args.quoteRequest.SettlDate2, tc.args.quoteRequest.Account, tc.args.quoteRequest.BidPx, tc.args.quoteRequest.OfferPx, tc.args.quoteRequest.Currency, tc.args.quoteRequest.ValidUntilTime, tc.args.quoteRequest.ExpireTime, tc.args.quoteRequest.QuoteType, tc.args.quoteRequest.BidSize, tc.args.quoteRequest.OfferSize, mic.MIC, tc.args.quoteRequest.Text)
 
 			// NewMsgQuoteRequest instance
 			msg := types.NewMsgQuoteRequest(tc.args.creator, session.SessionID, quoteRequest)

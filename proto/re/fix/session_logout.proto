@@ -10,17 +10,11 @@ message SessionLogout {
   // A string that identifies the session being logged out of
   string sessionID = 1;
 
-  // The address of the party that initiated the logout
-  string initiatorAddress = 2;
-
-  // The address of the party that confirmed the logout
-  string acceptorAddress = 3;
-
   // The message sent by the party that initiates the logout
-  SessionLogoutInitiator sessionLogoutInitiator = 4;
+  SessionLogoutInitiator sessionLogoutInitiator = 2;
 
   // The message sent by the party that confirms the logout
-  SessionLogoutAcceptor sessionLogoutAcceptor = 5;
+  SessionLogoutAcceptor sessionLogoutAcceptor = 3;
 }
 
 // This message is sent by the party that initiates the logout
