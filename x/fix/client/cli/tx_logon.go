@@ -2,7 +2,6 @@ package cli
 
 import (
 	"strconv"
-	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			sessionName, _ := helpers.GenerateRandomString(constants.SessionNameLength)
 
-			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
+			sendingTime := constants.SendingTime
 
 			// sample of the msg
 			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
@@ -112,7 +111,7 @@ func CmdLogonAcceptor() *cobra.Command {
 				return err
 			}
 
-			sendingTime := time.Now().UTC().Format("20060102-15:04:05.000")
+			sendingTime := constants.SendingTime
 
 			// sample of the msg
 			// "8=FIX.4.4|9=59|35=A|34=1|49=SenderCompID|52=20230219-10:30:00.000|56=TargetCompID|98=0|108=30|141=Y|10=118|"
@@ -152,9 +151,9 @@ func CmdLogonAcceptor() *cobra.Command {
 
 func CmdLogonReject() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-reject [sessionID] [address] [text]",
+		Use:   "logon-reject [sessionID] [text]",
 		Short: "Broadcast message logon-reject",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -163,18 +162,12 @@ func CmdLogonReject() *cobra.Command {
 
 			argSessionID := args[0]
 
-			argAddress := args[1]
-			header := types.Header{
-				SenderCompID: argAddress,
-			}
-
-			argText := args[2]
+			argText := args[1]
 
 			msg := types.NewMsgLogonReject(
 				clientCtx.GetFromAddress().String(),
 				argSessionID,
 				argText,
-				header,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

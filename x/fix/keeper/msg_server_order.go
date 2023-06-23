@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -94,7 +93,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	// set sending time to current time at creating New Single Order
 	newOrder.Header = header
 	newOrder.Header.MsgType = "D"
-	newOrder.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newOrder.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session
@@ -323,7 +322,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	newHeader.TargetCompID = order.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	newOrderExecutionReport.Header = newHeader
@@ -429,7 +428,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	newHeader.TargetCompID = order.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	newOrderCancelReject.Header = newHeader

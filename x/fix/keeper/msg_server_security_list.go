@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -77,7 +76,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 	// set sending time to current time at creating Security List Request
 	securityListRequest.SecurityListRequest.Header = header
 	securityListRequest.SecurityListRequest.Header.MsgType = "x"
-	securityListRequest.SecurityListRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	securityListRequest.SecurityListRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
@@ -205,7 +204,7 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 	newHeader.TargetCompID = securityList.SecurityListRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	securityListResponse.SecurityListResponse.Header = newHeader
@@ -317,7 +316,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 	newHeader.TargetCompID = securityList.SecurityListRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	securityListRequestReject.SecurityListRequestReject.Header = newHeader

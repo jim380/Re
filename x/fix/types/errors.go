@@ -163,7 +163,7 @@ var (
 	ErrCompanyNameIsTaken = sdkerrors.Register(ModuleName, errCompanyNameIsTaken, "Company Name exists with an account already")
 	ErrWebsiteIstaken     = sdkerrors.Register(ModuleName, errWebsiteIstaken, "Website is used already")
 	ErrNotAccountCreator  = sdkerrors.Register(ModuleName, errNotAccountCreator, "Incorrect Account Owner")
-	ErrAccountIsEmpty     = sdkerrors.Register(ModuleName, errAccountIsEmpty, "No Account is registered")
+	ErrAccountIsEmpty     = sdkerrors.Register(ModuleName, errAccountIsEmpty, "This Account Address is not registered")
 	ErrAddressNotMatched  = sdkerrors.Register(ModuleName, errAddressNotMatched, "This Address does not match the account creator")
 
 	// Session

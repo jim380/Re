@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -99,7 +98,7 @@ func (k msgServer) OrderMassStatusRequest(goCtx context.Context, msg *types.MsgO
 	orderMassStatusRequest.OrderMassStatusRequest.Header.MsgType = "AF"
 
 	// set sending time
-	orderMassStatusRequest.OrderMassStatusRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	orderMassStatusRequest.OrderMassStatusRequest.Header.SendingTime = constants.SendingTime
 
 	// set Trailer from the existing order
 	// TODO
@@ -249,7 +248,7 @@ func (k msgServer) OrderMassStatusReport(goCtx context.Context, msg *types.MsgOr
 	newHeader.TargetCompID = orderMassStatus.OrderMassStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	orderMassStatusReport.OrderMassStatusReport.Header = newHeader
@@ -361,7 +360,7 @@ func (k msgServer) OrderMassStatusRequestReject(goCtx context.Context, msg *type
 	newHeader.TargetCompID = orderMassStatus.OrderMassStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	orderMassStatusRequestReject.OrderMassStatusRequestReject.Header = newHeader

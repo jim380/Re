@@ -1,5 +1,7 @@
 package constants
 
+import "time"
+
 const (
 	NameChars           = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	SessionNameLength   = 10
@@ -18,3 +20,5 @@ const (
 	LoggedInStatus     = "loggedIn"
 	RejectedStatus     = "rejected"
 )
+
+var SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")

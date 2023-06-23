@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -85,7 +84,7 @@ func (k msgServer) MarketDataRequest(goCtx context.Context, msg *types.MsgMarket
 	// set sending time to current time at creating market data request
 	marketDataRequest.MarketDataRequest.Header = header
 	marketDataRequest.MarketDataRequest.Header.MsgType = "V"
-	marketDataRequest.MarketDataRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	marketDataRequest.MarketDataRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
@@ -220,7 +219,7 @@ func (k msgServer) MarketDataSnapshotFullRefresh(goCtx context.Context, msg *typ
 	newHeader.TargetCompID = marketDataRequest.MarketDataRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	marketDataSnapShotFullRefresh.MarketDataSnapShotFullRefresh.Header = newHeader
@@ -339,7 +338,7 @@ func (k msgServer) MarketDataRequestReject(goCtx context.Context, msg *types.Msg
 	newHeader.TargetCompID = marketDataRequest.MarketDataRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	marketDataRequestReject.MarketDataRequestReject.Header = newHeader

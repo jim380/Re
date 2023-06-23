@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -133,7 +132,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 	tradeCaptureReport.TradeCaptureReport.Header.MsgType = "AE"
 
 	// set sending time
-	tradeCaptureReport.TradeCaptureReport.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradeCaptureReport.TradeCaptureReport.Header.SendingTime = constants.SendingTime
 
 	// set Trailer from the existing order execution report
 	// checksum should be recalculated
@@ -266,7 +265,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 	newHeader.TargetCompID = tradeCapture.TradeCaptureReport.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	tradeCaptureReportAcknowledgement.TradeCaptureReportAcknowledgement.Header = newHeader
@@ -379,7 +378,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	newHeader.TargetCompID = tradeCapture.TradeCaptureReport.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	tradeCaptureReportRejection.TradeCaptureReportRejection.Header = newHeader

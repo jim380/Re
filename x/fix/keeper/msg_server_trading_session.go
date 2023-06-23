@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -82,7 +81,7 @@ func (k msgServer) TradingSessionStatusRequest(goCtx context.Context, msg *types
 	// set sending time to current time at creating Trading Session Status Request
 	tradingSessionStatusRequest.TradingSessionStatusRequest.Header = session.LogonInitiator.Header
 	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.MsgType = "g"
-	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatusRequest.TradingSessionStatusRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
@@ -192,7 +191,7 @@ func (k msgServer) TradingSessionStatus(goCtx context.Context, msg *types.MsgTra
 	// set sending time to current time at creating Trading Session Status
 	tradingSessionStatus.TradingSessionStatus.Header = session.LogonAcceptor.Header
 	tradingSessionStatus.TradingSessionStatus.Header.MsgType = "h"
-	tradingSessionStatus.TradingSessionStatus.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatus.TradingSessionStatus.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated
@@ -286,7 +285,7 @@ func (k msgServer) TradingSessionStatusRequestReject(goCtx context.Context, msg 
 	// set sending time to current time at creating Trading Session Status Request Reject
 	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header = session.LogonAcceptor.Header
 	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.MsgType = "j"
-	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionStatusRequestReject.TradingSessionStatusRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// for now copy trailer from session, it should be re-calculated

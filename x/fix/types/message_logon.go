@@ -139,12 +139,11 @@ const TypeMsgLogonReject = "logon_reject"
 
 var _ sdk.Msg = &MsgLogonReject{}
 
-func NewMsgLogonReject(acceptorAddress string, sessionID string, text string, address Header) *MsgLogonReject {
+func NewMsgLogonReject(acceptorAddress string, sessionID string, text string) *MsgLogonReject {
 	return &MsgLogonReject{
 		AcceptorAddress: acceptorAddress,
 		SessionID:       sessionID,
 		Text:            text,
-		Header:          &address,
 	}
 }
 

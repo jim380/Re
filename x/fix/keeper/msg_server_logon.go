@@ -168,19 +168,13 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 		return nil, sdkerrors.Wrapf(types.ErrSessionIsRejected, "Status: %s", session.Status)
 	}
 
-	if session.LogonInitiator.Header.TargetCompID != msg.Header.SenderCompID {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong SenderCompID", msg.Header.SenderCompID))
-	}
-
-	// pass TargetCompID through GetAccountRegistration to ensure only the owner can reject session
-	getAcc, found := k.GetAccountRegistration(ctx, session.LogonInitiator.Header.TargetCompID)
-	if getAcc.Address != msg.AcceptorAddress {
+	// check that only the acceptor can reject the logon request
+	if session.LogonInitiator.Header.TargetCompID != msg.AcceptorAddress {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
 	sessionReject := types.SessionReject{
 		SessionID: msg.SessionID,
-		Header:    msg.Header,
 		Text:      msg.Text,
 		Trailer:   msg.Trailer,
 	}
@@ -199,6 +193,12 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 
 	// set targetCompID to the senderCompID
 	newHeader.TargetCompID = session.LogonInitiator.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = constants.SendingTime
+
+	// pass all the edited values to the newHeader
+	sessionReject.Header = newHeader
 
 	// set msgType to 3, [msgType 35 = 3] for sesssion rejection
 	sessionReject.Header.MsgType = "3"

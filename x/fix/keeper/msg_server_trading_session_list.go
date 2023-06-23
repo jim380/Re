@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -75,7 +74,7 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	// set sending time to current time at creating Trading Session List Request
 	tradingSessionListRequest.TradingSessionListRequestReject.Header = session.LogonInitiator.Header
 	tradingSessionListRequest.TradingSessionListRequestReject.Header.MsgType = "BI"
-	tradingSessionListRequest.TradingSessionListRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListRequest.TradingSessionListRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO
@@ -183,7 +182,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 	// set sending time to current time at creating Trading Session List Response
 	tradingSessionListResponse.TradingSessionListResponse.Header = session.LogonAcceptor.Header
 	tradingSessionListResponse.TradingSessionListResponse.Header.MsgType = "BJ"
-	tradingSessionListResponse.TradingSessionListResponse.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListResponse.TradingSessionListResponse.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO
@@ -277,7 +276,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 	// set sending time to current time at creating Trading Session List Request Reject
 	tradingSessionListRequestReject.TradingSessionListRequestReject.Header = session.LogonAcceptor.Header
 	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.MsgType = "BK"
-	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	tradingSessionListRequestReject.TradingSessionListRequestReject.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO

@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -92,7 +91,7 @@ func (k msgServer) QuoteRequest(goCtx context.Context, msg *types.MsgQuoteReques
 	// set sending time to current time at creating Quote Request
 	newQuoteRequest.QuoteRequest.Header = header
 	newQuoteRequest.QuoteRequest.Header.MsgType = "R"
-	newQuoteRequest.QuoteRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newQuoteRequest.QuoteRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
@@ -218,7 +217,7 @@ func (k msgServer) QuoteAcknowledgement(goCtx context.Context, msg *types.MsgQuo
 	newHeader.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	newQuoteAcknowledgement.QuoteAcknowledgement.Header = newHeader
@@ -327,7 +326,7 @@ func (k msgServer) QuoteRequestReject(goCtx context.Context, msg *types.MsgQuote
 	newHeader.TargetCompID = quoteRequest.QuoteRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	newQuoteRequestReject.QuoteRequestReject.Header = newHeader

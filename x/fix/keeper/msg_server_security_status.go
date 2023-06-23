@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -82,7 +81,7 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 	// set sending time to current time at creating Security Status Request
 	securityStatusRequest.SecurityStatusRequest.Header = header
 	securityStatusRequest.SecurityStatusRequest.Header.MsgType = "x"
-	securityStatusRequest.SecurityStatusRequest.Header.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	securityStatusRequest.SecurityStatusRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	var trailer *types.Trailer
@@ -208,7 +207,7 @@ func (k msgServer) SecurityStatusResponse(goCtx context.Context, msg *types.MsgS
 	newHeader.TargetCompID = securityStatus.SecurityStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	securityStatusResponse.SecurityStatusResponse.Header = newHeader
@@ -314,7 +313,7 @@ func (k msgServer) SecurityStatusRequestReject(goCtx context.Context, msg *types
 	newHeader.TargetCompID = securityStatus.SecurityStatusRequest.Header.SenderCompID
 
 	// set sending time
-	newHeader.SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
+	newHeader.SendingTime = constants.SendingTime
 
 	// pass all the edited values to the newHeader
 	securityStatusRequestReject.SecurityStatusRequestReject.Header = newHeader
