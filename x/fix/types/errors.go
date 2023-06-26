@@ -26,6 +26,9 @@ const (
 	errSessionIsAccepted
 	errSessionIsRejected
 	errSessionIsNotLoggedIn
+	errSessionLogoutIsInitiated
+	errSessionLogoutIsAccepted
+	errSessionLogoutIsNotInitiated
 
 	// Quote
 	errQuoteIsEmpty
@@ -167,14 +170,17 @@ var (
 	ErrAddressNotMatched  = sdkerrors.Register(ModuleName, errAddressNotMatched, "This Address does not match the account creator")
 
 	// Session
-	ErrSessionIDFound       = sdkerrors.Register(ModuleName, errSessionIDFound, "SessionID exists")
-	ErrSessionSameAddress   = sdkerrors.Register(ModuleName, errSessionSameAddress, "Session can not use same address for senderCompID and targetCompID")
-	ErrEmptySession         = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
-	ErrWrongSession         = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
-	ErrIncorrectAddress     = sdkerrors.Register(ModuleName, errIncorrectAddress, "senderCompID and targetCompID does not match in session")
-	ErrSessionIsAccepted    = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session is accepted already")
-	ErrSessionIsRejected    = sdkerrors.Register(ModuleName, errSessionIsRejected, "session is rejected already")
-	ErrSessionIsNotLoggedIn = sdkerrors.Register(ModuleName, errSessionIsNotLoggedIn, "There is no active session with this sessionID")
+	ErrSessionIDFound              = sdkerrors.Register(ModuleName, errSessionIDFound, "SessionID exists")
+	ErrSessionSameAddress          = sdkerrors.Register(ModuleName, errSessionSameAddress, "Session can not use same address for senderCompID and targetCompID")
+	ErrEmptySession                = sdkerrors.Register(ModuleName, errEmptySession, "Session does not Exist")
+	ErrWrongSession                = sdkerrors.Register(ModuleName, errWrongSession, "The Session provided does not tally with account")
+	ErrIncorrectAddress            = sdkerrors.Register(ModuleName, errIncorrectAddress, "senderCompID and targetCompID does not match in session")
+	ErrSessionIsAccepted           = sdkerrors.Register(ModuleName, errSessionIsAccepted, "session is accepted already")
+	ErrSessionIsRejected           = sdkerrors.Register(ModuleName, errSessionIsRejected, "session is rejected already")
+	ErrSessionIsNotLoggedIn        = sdkerrors.Register(ModuleName, errSessionIsNotLoggedIn, "There is no active session with this sessionID")
+	ErrSessionLogoutIsInitiated    = sdkerrors.Register(ModuleName, errSessionLogoutIsInitiated, "Session Logout is initiated already")
+	ErrSessionLogoutIsAccepted     = sdkerrors.Register(ModuleName, errSessionLogoutIsAccepted, "Session Logout is accepted already")
+	ErrSessionLogoutIsNotInitiated = sdkerrors.Register(ModuleName, errSessionLogoutIsNotInitiated, "Session Logout is not initiated")
 
 	// Quote
 	ErrQuoteIsEmpty                       = sdkerrors.Register(ModuleName, errQuoteIsEmpty, "Quote Is Empty")

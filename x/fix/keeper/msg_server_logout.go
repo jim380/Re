@@ -6,6 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -19,16 +20,27 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.InitiatorAddress)
 	}
 
-	// check for if this session Name exists already
+	// check for if this sessionID exists already
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
 	}
 
-	// TODO
-	// include all cheecks
-	// check that the address initiating a session logout belongs to the session
+	// check that logon is established between both parties and that logon status equals to "loggedIn"
+	if session.Status != constants.LoggedInStatus {
+		return nil, sdkerrors.Wrapf(types.ErrSessionIsNotLoggedIn, "Status of Session: %s", session.Status)
+	}
 
+	// check that the address initiating a session logout belongs to the session
+	if session.LogonInitiator.Header.SenderCompID != msg.InitiatorAddress && session.LogonAcceptor.Header.SenderCompID != msg.InitiatorAddress {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Logout Initiator: %s", msg.InitiatorAddress)
+	}
+
+	// check for if this sessionLogout exists already
+	initiatedLogoutSesssion, found := k.GetSessionLogout(ctx, msg.SessionID)
+	if found {
+		return nil, sdkerrors.Wrapf(types.ErrSessionLogoutIsInitiated, "Session Logout: %s", initiatedLogoutSesssion.SessionID)
+	}
 	sessionLogoutInitiator := types.SessionLogout{
 		SessionID:              msg.SessionID,
 		SessionLogoutInitiator: msg.SessionLogoutInitiator,
@@ -56,28 +68,26 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
 	}
 
-	// check for if this session Name exists already
-	session, found := k.GetSessions(ctx, msg.SessionID)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)
-	}
-
 	// get logout session, if not found, then logout is not initiated
 	initiatedLogoutSesssion, found := k.GetSessionLogout(ctx, msg.SessionID)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Logout was not initiated", msg.SessionID))
+		return nil, sdkerrors.Wrapf(types.ErrSessionLogoutIsNotInitiated, "Session Logout: %s", initiatedLogoutSesssion.SessionID)
 	}
 
-	/*
-		if initiatedLogoutSesssion.InitiatorAddress == msg.AcceptorAddress {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong account address", msg.AcceptorAddress))
-		}
-	*/
-
-	// TODO
-	// Include checks
-	// when logout is accpted, session name should be removed from the store
 	// check that the address accepting the logout participated in the session
+	if initiatedLogoutSesssion.SessionLogoutInitiator.Header.SenderCompID != msg.AcceptorAddress && initiatedLogoutSesssion.SessionLogoutInitiator.Header.TargetCompID != msg.AcceptorAddress {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Logout Acceptor: %s", msg.AcceptorAddress)
+	}
+
+	// check that the session logout has not been accepted
+	if initiatedLogoutSesssion.SessionLogoutAcceptor != nil {
+		return nil, sdkerrors.Wrapf(types.ErrSessionLogoutIsAccepted, "Session Logout: %s", initiatedLogoutSesssion.SessionLogoutAcceptor)
+	}
+
+	// check that the initiator and the acceptor address are not the same
+	if initiatedLogoutSesssion.SessionLogoutInitiator.Header.SenderCompID == msg.AcceptorAddress {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
+	}
 
 	sessionLogoutAcceptor := types.SessionLogout{
 		SessionID:              msg.SessionID,
@@ -85,13 +95,41 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 		SessionLogoutInitiator: initiatedLogoutSesssion.SessionLogoutInitiator,
 	}
 
-	// set the session logout to store
-	sessionLogoutAcceptor.SessionLogoutAcceptor.Header = session.LogonAcceptor.Header
-	sessionLogoutAcceptor.SessionLogoutAcceptor.Header.SenderCompID = session.LogonAcceptor.Header.SenderCompID
-	sessionLogoutAcceptor.SessionLogoutAcceptor.Trailer = session.LogonAcceptor.Trailer
-	sessionLogoutAcceptor.SessionLogoutAcceptor.Text = msg.SessionLogoutAcceptor.Text
-	sessionLogoutAcceptor.SessionLogoutAcceptor.Header.MsgType = "5"
+	// set header from the existing session logout initiator
+	sessionLogoutAcceptor.SessionLogoutAcceptor.Header = initiatedLogoutSesssion.SessionLogoutInitiator.Header
 
+	// create a copy of the Header
+	newHeader := new(types.Header)
+	*newHeader = *sessionLogoutAcceptor.SessionLogoutAcceptor.Header
+
+	// set bodyLength
+	// TODO
+	// Recalculate the bodyLength in the header
+	newHeader.BodyLength = initiatedLogoutSesssion.SessionLogoutInitiator.Header.BodyLength
+
+	// set msgSeqNum
+	newHeader.MsgSeqNum = initiatedLogoutSesssion.SessionLogoutInitiator.Header.MsgSeqNum
+
+	// set the msgType to session logout acceptor
+	newHeader.MsgType = "5"
+
+	// switch senderCompID and targetCompID between Session Logout Acceptor and Session Logout Initiator
+	// set senderCompID of Session Logout Acceptor to the targetCompID of Session Logout Initiator in the header
+	newHeader.SenderCompID = initiatedLogoutSesssion.SessionLogoutInitiator.Header.TargetCompID
+
+	// set targetCompID of Session Logout Acceptor to the senderCompID of Session Logout Initiator in the header
+	newHeader.TargetCompID = initiatedLogoutSesssion.SessionLogoutInitiator.Header.SenderCompID
+
+	// set sending time
+	newHeader.SendingTime = constants.SendingTime
+
+	// pass all the edited values to the newHeader
+	sessionLogoutAcceptor.SessionLogoutAcceptor.Header = newHeader
+
+	// set Trailer from the existing session logout initiator
+	sessionLogoutAcceptor.SessionLogoutAcceptor.Trailer = initiatedLogoutSesssion.SessionLogoutInitiator.Trailer
+
+	// set session logout acceptor to store
 	k.SetSessionLogout(ctx, msg.SessionID, sessionLogoutAcceptor)
 
 	// remove session from store
