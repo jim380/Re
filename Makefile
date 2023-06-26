@@ -1,23 +1,22 @@
 #!/usr/bin/make -f
 
-BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+PACKAGES_SIMTEST=$(shell go list ./... | grep '/simulation')
+VERSION := $(shell git describe --tags 2>/dev/null | sed 's/^v//')?
 COMMIT := $(shell git log -1 --format='%H')
-
-# don't override user values
-ifeq (,$(VERSION))
-  VERSION := $(shell git describe --exact-match 2>/dev/null)
-  # if VERSION is empty, then populate it with branch's name and raw commit hash
-  ifeq (,$(VERSION))
-    VERSION := $(BRANCH)-$(COMMIT)
-  endif
-endif
-
-CHAIN_NAME = re
-DAEMON_NAME = red
-
 LEDGER_ENABLED ?= true
-TM_VERSION := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::') # grab everything after the space in "github.com/tendermint/tendermint v0.34.7"
+SDK_PACK := $(shell go list -m github.com/cosmos/cosmos-sdk | sed  's/ /\@/g')
+BINDIR ?= $(GOPATH)/bin
+SIMAPP = ./app
+ENABLED_PROPOSALS := SudoContract,UpdateAdmin,ClearAdmin,PinCodes,UnpinCodes
+GO_VERSION=1.20.0
 BUILDDIR ?= $(CURDIR)/build
+
+# for dockerized protobuf tools
+DOCKER := $(shell which docker)
+HTTPS_GIT := https://github.com/jim3880/re.git
+
+GO_SYSTEM_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1-2)
+REQUIRE_GO_VERSION = 1.20
 
 export GO111MODULE = on
 
@@ -47,88 +46,197 @@ ifeq ($(LEDGER_ENABLED),true)
   endif
 endif
 
+ifeq ($(WITH_CLEVELDB),yes)
+  build_tags += gcc
+endif
 build_tags += $(BUILD_TAGS)
 build_tags := $(strip $(build_tags))
 
+build_tags_test_binary = $(build_tags)
+build_tags_test_binary += skip_ccv_msg_filter
+
 whitespace :=
-whitespace += $(whitespace)
+empty = $(whitespace) $(whitespace)
 comma := ,
-build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
+build_tags_comma_sep := $(subst $(empty),$(comma),$(build_tags))
+build_tags_test_binary_comma_sep := $(subst $(empty),$(comma),$(build_tags_test_binary))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=$(CHAIN_NAME) \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=$(DAEMON_NAME) \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=re \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=red \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-			-X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
+		  -X "github.com/jim380/re/app.EnableSpecificProposals=$(ENABLED_PROPOSALS)"
 
+ifeq ($(WITH_CLEVELDB),yes)
+  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
+endif
 ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
-BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
+BUILD_FLAGS := -tags "$(build_tags_comma_sep)" -ldflags '$(ldflags)' -trimpath
+BUILD_FLAGS_TEST_BINARY := -tags "$(build_tags_test_binary_comma_sep)" -ldflags '$(ldflags)' -trimpath
 
+# The below include contains the tools and runsim targets.
+include contrib/devtools/Makefile
 
-###############################################################################
-###                              Building / Install                         ###
-###############################################################################
+check_version:
+ifneq ($(GO_SYSTEM_VERSION), $(REQUIRE_GO_VERSION))
+	@echo "ERROR: Go version ${REQUIRE_GO_VERSION} is required for $(VERSION) of Re."
+	exit 1
+endif
 
-all: install
+all: install lint test
 
-install: go.sum
+build: check_version go.sum
+ifeq ($(OS),Windows_NT)
+	exit 1
+else
+	go build -mod=readonly $(BUILD_FLAGS) -o build/red ./cmd/red
+endif
+
+build-static-linux-amd64: go.sum $(BUILDDIR)/
+	$(DOCKER) buildx create --name rebuilder || true
+	$(DOCKER) buildx use rebuilder
+	$(DOCKER) buildx build \
+		--build-arg GO_VERSION=$(GO_VERSION) \
+		--build-arg GIT_VERSION=$(VERSION) \
+		--build-arg GIT_COMMIT=$(COMMIT) \
+		--build-arg BUILD_TAGS=$(build_tags_comma_sep) \
+		--build-arg ENABLED_PROPOSALS=$(ENABLED_PROPOSALS) \
+		--platform linux/amd64 \
+		-t re-amd64 \
+		--load \
+		-f Dockerfile.builder .
+	$(DOCKER) rm -f rebinary || true
+	$(DOCKER) create -ti --name rebinary re-amd64
+	$(DOCKER) cp rebinary:/bin/red $(BUILDDIR)/red-linux-amd64
+	$(DOCKER) rm -f rebinary
+
+install: check_version go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/red
 
-build:
-	go build $(BUILD_FLAGS) -o bin/red ./cmd/red
+install-test-binary: check_version go.sum
+	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/red
 
+########################################
+### Tools & dependencies
+
+go-mod-cache: go.sum
+	@echo "--> Download go modules to local cache"
+	@go mod download
+
+go.sum: go.mod
+	@echo "--> Ensure dependencies have not been modified"
+	@go mod verify
+
+draw-deps:
+	@# requires brew install graphviz or apt-get install graphviz
+	go get github.com/RobotsAndPencils/goviz
+	@goviz -i ./cmd/red -d 2 | dot -Tpng -o dependency-graph.png
+
+clean:
+	rm -rf snapcraft-local.yaml build/
+
+distclean: clean
+	rm -rf vendor/
+
+########################################
+### Testing
+
+
+test: test-unit
+test-all: check test-race test-cover
+
+test-unit:
+	@VERSION=$(VERSION) go test -mod=readonly -tags='ledger test_ledger_mock' ./...
+
+test-race:
+	@VERSION=$(VERSION) go test -mod=readonly -race -tags='ledger test_ledger_mock' ./...
+
+test-cover:
+	@go test -mod=readonly -timeout 30m -race -coverprofile=coverage.txt -covermode=atomic -tags='ledger test_ledger_mock' ./...
+
+benchmark:
+	@go test -mod=readonly -bench=. ./...
+
+test-sim-import-export: runsim
+	@echo "Running application import/export simulation. This may take several minutes..."
+	@$(BINDIR)/runsim -Jobs=4 -SimAppPkg=$(SIMAPP) -ExitOnFail 50 5 TestAppImportExport
+
+test-sim-multi-seed-short: runsim
+	@echo "Running short multi-seed application simulation. This may take awhile!"
+	@$(BINDIR)/runsim -Jobs=4 -SimAppPkg=$(SIMAPP) -ExitOnFail 50 10 TestFullAppSimulation
 
 ###############################################################################
 ###                                Linting                                  ###
 ###############################################################################
 
-
 lint:
-	@echo "--> Running linter"
-	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
-	@golangci-lint run --timeout=10m
+	golangci-lint run --tests=false
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "*_test.go" | xargs gofmt -d -s
 
-
+format:
+	@go install mvdan.cc/gofumpt@latest
+	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -path "./tests/mocks/*" -not -name "*.pb.go" -not -name "*.pb.gw.go" -not -name "*.pulsar.go" -not -path "./crypto/keys/secp256k1/*" | xargs gofumpt -w -l
+	golangci-lint run --fix
+.PHONY: format
 
 ###############################################################################
 ###                                Protobuf                                 ###
 ###############################################################################
-
-containerProtoVer=v0.7
-containerProtoImage=tendermintdev/sdk-proto-gen:$(containerProtoVer)
-containerProtoGen=cosmos-sdk-proto-gen-$(containerProtoVer)
-containerProtoGenSwagger=cosmos-sdk-proto-gen-swagger-$(containerProtoVer)
-containerProtoFmt=cosmos-sdk-proto-fmt-$(containerProtoVer)
-
-proto-all: proto-format proto-lint proto-gen
+PROTO_FORMATTER_IMAGE=tendermintdev/docker-build-proto@sha256:aabcfe2fc19c31c0f198d4cd26393f5e5ca9502d7ea3feafbfe972448fee7cae
 
 proto-format:
 	@echo "Formatting Protobuf files"
-	@if docker ps -a --format '{{.Names}}' | grep -Eq "^${containerProtoFmt}$$"; then docker start -a $(containerProtoFmt); else docker run --name $(containerProtoFmt) -v $(CURDIR):/workspace --workdir /workspace tendermintdev/docker-build-proto \
-		find ./proto -name "*.proto" -exec clang-format -i {} \; ; fi
+	$(DOCKER) run --rm -v $(CURDIR):/workspace \
+	--workdir /workspace $(PROTO_FORMATTER_IMAGE) \
+	find ./ -not -path "./third_party/*" -name *.proto -exec clang-format -i {} \;
 
 
+.PHONY: all install install-debug \
+	go-mod-cache draw-deps clean build format \
+	test test-all test-build test-cover test-unit test-race \
+	test-sim-import-export \
 
-###############################################################################
-###                                Build Image                              ###
-###############################################################################
-get-heighliner:
-	git clone https://github.com/strangelove-ventures/heighliner.git
-	cd heighliner && go build
-	mv ./heighliner/heighliner $(GOPATH)/bin/
-	rm -rf heighliner
+init: kill-dev install-test-binary
+	@echo "Building gaiad binary..."
+	@cd ./../gaia/ && make install
+	@echo "Initializing both blockchains..."
+	./network/init-and-start-both.sh
+	@echo "Initializing relayer..."
+	./network/hermes/restore-keys.sh
+	./network/hermes/create-conn.sh
 
-local-image:
-ifeq (,$(shell which heighliner))
-	echo 'heighliner' binary not found. Consider running `make get-heighliner`
-else
-	heighliner build -c re --local -f ./chains.yaml
-endif
+start: kill-dev install-test-binary
+	@echo "Starting up red alone..."
+	export BINARY=red CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=ure && \
+	./network/init.sh && ./network/start.sh
 
-.PHONY: all build-linux install lint \
-	go-mod-cache build ibctest get-heighliner local-image \
+start-rly:
+	./network/hermes/start.sh
+
+kill-dev:
+	@echo "Killing red and removing previous data"
+	-@rm -rf ./data
+	-@killall red 2>/dev/null
+	-@killall gaiad 2>/dev/null
+
+build-docker-image:
+
+	@docker buildx build --load --build-context app=. -t re-node --build-arg BINARY=red .
+
+start-docker-container:
+
+	@docker run --rm --name re -it -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 re-node
+
+
+stop-docker-container:
+	@docker stop re
+
+mocks:
+	@echo "Regenerate mocks..."
+	@go generate ./...
