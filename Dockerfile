@@ -11,4 +11,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD \
   curl -f http://127.0.0.1:1317/blocks/1 >/dev/null 2>&1 || exit 1
 
 CMD bash /opt/re/network/init.sh && \
+  bash /opt/re/network/init-red.sh && \
   bash /opt/re/network/start.sh

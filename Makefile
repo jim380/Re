@@ -212,9 +212,9 @@ init: kill-dev install-test-binary
 	./network/hermes/create-conn.sh
 
 start: kill-dev install-test-binary
-	@echo "Starting up red alone..."
-	export BINARY=red CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=ure && \
-	./network/init.sh && ./network/start.sh
+	@echo "Starting up neutrond alone..."
+	export BINARY=neutrond CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=untrn && \
+	./network/init.sh && ./network/init-red.sh && ./network/start.sh
 
 start-rly:
 	./network/hermes/start.sh
@@ -231,7 +231,7 @@ build-docker-image:
 
 start-docker-container:
 
-	@docker run --rm --name re -it -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 re-node
+	@docker run --rm --name re -d -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 re-node
 
 
 stop-docker-container:

@@ -14,6 +14,7 @@ export GRPCWEB=8091
 export STAKEDENOM=ure
 
 "$script_full_path"/init.sh
+"$script_full_path"/init-red.sh
 "$script_full_path"/start.sh
 
 export BINARY=gaiad
