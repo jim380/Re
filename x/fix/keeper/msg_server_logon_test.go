@@ -150,8 +150,8 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 			suite.SetupTest()
 
 			// call RegisterAccount method
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount1)
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount2)
+			_, _ = suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount1)
+			_, _ = suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount2)
 
 			// call LogonInitiator method
 			res, err := suite.msgServer.LogonInitiator(sdk.WrapSDKContext(suite.ctx), &tc.args.msgLogonInitiator)
@@ -168,7 +168,6 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 				suite.Require().Empty(session)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
@@ -470,7 +469,7 @@ func (suite *KeeperTestSuite) TestLogonAcceptor() {
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
 
 			// call RegisterAccount method
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount1)
+			_, _ = suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount1)
 
 			// call LogonAcceptor method
 			res, err := suite.msgServer.LogonAcceptor(sdk.WrapSDKContext(suite.ctx), &tc.args.msgLogonAcceptor)
@@ -485,7 +484,6 @@ func (suite *KeeperTestSuite) TestLogonAcceptor() {
 				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
@@ -768,7 +766,6 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
@@ -991,7 +988,6 @@ func (suite *KeeperTestSuite) TestTerminateLogon() {
 				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
