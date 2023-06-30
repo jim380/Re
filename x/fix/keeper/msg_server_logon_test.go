@@ -11,6 +11,7 @@ import (
 func (suite *KeeperTestSuite) TestLogonInitiator() {
 	type args struct {
 		msgRegisterAccount1 types.MsgRegisterAccount
+		msgRegisterAccount2 types.MsgRegisterAccount
 		msgLogonInitiator   types.MsgLogonInitiator
 	}
 
@@ -27,6 +28,20 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 		{
 			"Valid Logon Request",
 			args{
+				msgRegisterAccount1: types.MsgRegisterAccount{
+					Creator:          suite.address[0].String(),
+					Address:          suite.address[0].String(),
+					CompanyName:      "",
+					Website:          "",
+					SocialMediaLinks: "",
+				},
+				msgRegisterAccount2: types.MsgRegisterAccount{
+					Creator:          suite.address[1].String(),
+					Address:          suite.address[1].String(),
+					CompanyName:      "cypherCore",
+					Website:          "cypherCore.io",
+					SocialMediaLinks: "@cypherCore",
+				},
 				msgLogonInitiator: *types.NewMsgLogonInitiator(suite.address[0].String(), "sessionID1", types.LogonInitiator{
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
@@ -52,6 +67,20 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 		{
 			"Same Address can not used for SenderCompID & TargetCompID",
 			args{
+				msgRegisterAccount1: types.MsgRegisterAccount{
+					Creator:          suite.address[0].String(),
+					Address:          suite.address[0].String(),
+					CompanyName:      "",
+					Website:          "",
+					SocialMediaLinks: "",
+				},
+				msgRegisterAccount2: types.MsgRegisterAccount{
+					Creator:          suite.address[1].String(),
+					Address:          suite.address[1].String(),
+					CompanyName:      "cypherCore",
+					Website:          "cypherCore.io",
+					SocialMediaLinks: "@cypherCore",
+				},
 				msgLogonInitiator: *types.NewMsgLogonInitiator(suite.address[0].String(), "sessionID2", types.LogonInitiator{
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
@@ -77,6 +106,20 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 		{
 			"InitiatorAddress is different from SenderCompID",
 			args{
+				msgRegisterAccount1: types.MsgRegisterAccount{
+					Creator:          suite.address[0].String(),
+					Address:          suite.address[0].String(),
+					CompanyName:      "",
+					Website:          "",
+					SocialMediaLinks: "",
+				},
+				msgRegisterAccount2: types.MsgRegisterAccount{
+					Creator:          suite.address[1].String(),
+					Address:          suite.address[1].String(),
+					CompanyName:      "cypherCore",
+					Website:          "cypherCore.io",
+					SocialMediaLinks: "@cypherCore",
+				},
 				msgLogonInitiator: *types.NewMsgLogonInitiator(suite.address[0].String(), "sessionID3", types.LogonInitiator{
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
@@ -105,26 +148,9 @@ func (suite *KeeperTestSuite) TestLogonInitiator() {
 		suite.Run(tc.name, func() {
 			suite.SetupTest()
 
-			// Register both address
-			msgRegisterAccount1 := types.MsgRegisterAccount{
-				Creator:          tc.args.msgLogonInitiator.LogonInitiator.Header.SenderCompID,
-				Address:          tc.args.msgLogonInitiator.LogonInitiator.Header.SenderCompID,
-				CompanyName:      "",
-				Website:          "",
-				SocialMediaLinks: "",
-			}
-
-			msgRegisterAccount2 := types.MsgRegisterAccount{
-				Creator:          tc.args.msgLogonInitiator.LogonInitiator.Header.TargetCompID,
-				Address:          tc.args.msgLogonInitiator.LogonInitiator.Header.TargetCompID,
-				CompanyName:      "cypherCore",
-				Website:          "cypherCore.io",
-				SocialMediaLinks: "@cypherCore",
-			}
-
 			// call RegisterAccount method
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &msgRegisterAccount1)
-			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &msgRegisterAccount2)
+			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount1)
+			suite.msgServer.RegisterAccount(sdk.WrapSDKContext(suite.ctx), &tc.args.msgRegisterAccount2)
 
 			// call LogonInitiator method
 			res, err := suite.msgServer.LogonInitiator(sdk.WrapSDKContext(suite.ctx), &tc.args.msgLogonInitiator)
