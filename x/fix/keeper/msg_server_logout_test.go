@@ -188,7 +188,6 @@ func (suite *KeeperTestSuite) TestLogoutInitiator() {
 				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
@@ -347,7 +346,6 @@ func (suite *KeeperTestSuite) TestLogoutAcceptor() {
 				suite.Require().Nil(res)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
-
 		})
 	}
 }
