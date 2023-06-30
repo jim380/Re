@@ -772,3 +772,226 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 		})
 	}
 }
+
+func (suite *KeeperTestSuite) TestTerminateLogon() {
+	type args struct {
+		session           types.Sessions
+		msgTerminateLogon types.MsgTerminateLogon
+	}
+
+	type errArgs struct {
+		shouldPass bool
+		contains   string
+	}
+
+	tests := []struct {
+		name    string
+		args    args
+		errArgs errArgs
+	}{
+		{
+			"Logon Request can be Terminated when the request has not been accepted or rejected",
+			args{
+				session: types.Sessions{
+					SessionID: "sessionID1",
+					LogonInitiator: &types.LogonInitiator{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						EncryptMethod: 1,
+						HeartBtInt:    1,
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
+					},
+					LogonAcceptor: &types.LogonAcceptor{},
+					Status:        constants.LogonRequestStatus,
+					IsAccepted:    false,
+				},
+				msgTerminateLogon: types.MsgTerminateLogon{
+					InitiatorAddress: suite.address[0].String(),
+					SessionID:        "sessionID1",
+					Address:          suite.address[0].String(),
+				},
+			},
+			errArgs{
+				shouldPass: true,
+				contains:   "",
+			},
+		},
+		{
+			"SessionID is not found",
+			args{
+				session: types.Sessions{
+					SessionID: "sessionID1xyz",
+					LogonInitiator: &types.LogonInitiator{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						EncryptMethod: 1,
+						HeartBtInt:    1,
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
+					},
+					LogonAcceptor: &types.LogonAcceptor{},
+					Status:        constants.LogonRequestStatus,
+					IsAccepted:    false,
+				},
+				msgTerminateLogon: types.MsgTerminateLogon{
+					InitiatorAddress: suite.address[0].String(),
+					SessionID:        "sessionID1",
+					Address:          suite.address[0].String(),
+				},
+			},
+			errArgs{
+				shouldPass: false,
+				contains:   "",
+			},
+		},
+		{
+			"Wrong Account Address",
+			args{
+				session: types.Sessions{
+					SessionID: "sessionID1",
+					LogonInitiator: &types.LogonInitiator{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						EncryptMethod: 1,
+						HeartBtInt:    1,
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
+					},
+					LogonAcceptor: &types.LogonAcceptor{},
+					Status:        constants.LogonRequestStatus,
+					IsAccepted:    true,
+				},
+				msgTerminateLogon: types.MsgTerminateLogon{
+					InitiatorAddress: suite.address[1].String(),
+					SessionID:        "sessionID1",
+					Address:          suite.address[1].String(),
+				},
+			},
+			errArgs{
+				shouldPass: false,
+				contains:   "",
+			},
+		},
+		{
+			"Logon Request has been accepted",
+			args{
+				session: types.Sessions{
+					SessionID: "sessionID1",
+					LogonInitiator: &types.LogonInitiator{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						EncryptMethod: 1,
+						HeartBtInt:    1,
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
+					},
+					LogonAcceptor: &types.LogonAcceptor{},
+					Status:        constants.LoggedInStatus,
+					IsAccepted:    false,
+				},
+				msgTerminateLogon: types.MsgTerminateLogon{
+					InitiatorAddress: suite.address[0].String(),
+					SessionID:        "sessionID1",
+					Address:          suite.address[0].String(),
+				},
+			},
+			errArgs{
+				shouldPass: false,
+				contains:   "",
+			},
+		},
+		{
+			"Logon Request has been rejected",
+			args{
+				session: types.Sessions{
+					SessionID: "sessionID1",
+					LogonInitiator: &types.LogonInitiator{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						EncryptMethod: 1,
+						HeartBtInt:    1,
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
+					},
+					LogonAcceptor: &types.LogonAcceptor{},
+					Status:        constants.RejectedStatus,
+					IsAccepted:    false,
+				},
+				msgTerminateLogon: types.MsgTerminateLogon{
+					InitiatorAddress: suite.address[0].String(),
+					SessionID:        "sessionID1",
+					Address:          suite.address[0].String(),
+				},
+			},
+			errArgs{
+				shouldPass: false,
+				contains:   "",
+			},
+		},
+	}
+
+	for _, tc := range tests {
+		suite.Run(tc.name, func() {
+			suite.SetupTest()
+
+			// set session
+			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
+
+			// call TerminateLogon method
+			res, err := suite.msgServer.TerminateLogon(sdk.WrapSDKContext(suite.ctx), &tc.args.msgTerminateLogon)
+			_, found := suite.fixKeeper.GetSessions(suite.ctx, tc.args.msgTerminateLogon.SessionID)
+
+			if tc.errArgs.shouldPass {
+				suite.Require().False(found)
+				suite.Require().NoError(err, tc.name)
+				suite.Require().NotNil(res)
+			} else {
+				suite.Require().Error(err, tc.name)
+				suite.Require().Nil(res)
+				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
+			}
+
+		})
+	}
+}
