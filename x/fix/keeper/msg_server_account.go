@@ -24,22 +24,10 @@ func (k msgServer) RegisterAccount(goCtx context.Context, msg *types.MsgRegister
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
-	for _, accounts := range k.GetAllAccountRegistration(ctx) {
-
-		// check for if account address is not used already
-		if accounts.Address == msg.Address {
-			return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Address)
-		}
-
-		// check for if the provided company name is not taken
-		if accounts.CompanyName == msg.CompanyName {
-			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
-		}
-
-		// check for if the provided website is not taken
-		if accounts.Website == msg.Website {
-			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
-		}
+	// Check if an account exists
+	_, found := k.GetAccountRegistration(ctx, msg.Address)
+	if found {
+		return nil, sdkerrors.Wrapf(types.ErrAccountIsTaken, "Account: %s", msg.Address)
 	}
 
 	newAccount := types.AccountRegistration{
@@ -71,24 +59,15 @@ func (k msgServer) UpdateAccount(goCtx context.Context, msg *types.MsgUpdateAcco
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
-	for _, accounts := range k.GetAllAccountRegistration(ctx) {
+	account, found := k.GetAccountRegistration(ctx, msg.Address)
+	// Check if an account exists
+	if !found {
+		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
+	}
 
-		// Checks if an account exists
-		if accounts.Empty() {
-			return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
-		}
-
-		// check that it is only the owner that can update account information
-		if accounts.Address != msg.Creator {
-			return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
-		}
-
-		if accounts.CompanyName == msg.CompanyName {
-			return nil, sdkerrors.Wrapf(types.ErrCompanyNameIsTaken, "Company Name: %s", msg.CompanyName)
-		}
-		if accounts.Website == msg.Website {
-			return nil, sdkerrors.Wrapf(types.ErrWebsiteIstaken, "Website: %s", msg.Website)
-		}
+	// check that it is only the owner that can update account information
+	if account.Address != msg.Creator {
+		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Creator)
 	}
 
 	editedAccount := types.AccountRegistration{
@@ -120,14 +99,14 @@ func (k msgServer) DeleteAccount(goCtx context.Context, msg *types.MsgDeleteAcco
 		return nil, sdkerrors.Wrapf(types.ErrAddressNotMatched, "Address: %s", msg.Creator)
 	}
 
-	// Checks if an account exists
-	existingAccount, found := k.GetAccountRegistration(ctx, msg.Address)
+	// Check if an account exists
+	account, found := k.GetAccountRegistration(ctx, msg.Address)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrAccountIsEmpty, "Account: %s", msg.Address)
 	}
 
-	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != existingAccount.Address {
+	// Check if the msg creator is the same as the current owner
+	if msg.Creator != account.Address {
 		return nil, sdkerrors.Wrapf(types.ErrNotAccountCreator, "Account: %s", msg.Address)
 	}
 
