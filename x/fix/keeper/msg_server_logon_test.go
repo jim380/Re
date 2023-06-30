@@ -535,7 +535,7 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "A",
+						MsgType:      "3",
 						SenderCompID: suite.address[1].String(),
 						TargetCompID: suite.address[0].String(),
 						MsgSeqNum:    1,
@@ -583,7 +583,7 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "A",
+						MsgType:      "3",
 						SenderCompID: suite.address[1].String(),
 						TargetCompID: suite.address[0].String(),
 						MsgSeqNum:    1,
@@ -631,7 +631,7 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "A",
+						MsgType:      "3",
 						SenderCompID: suite.address[0].String(),
 						TargetCompID: suite.address[1].String(),
 						MsgSeqNum:    1,
@@ -679,7 +679,7 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "A",
+						MsgType:      "3",
 						SenderCompID: suite.address[1].String(),
 						TargetCompID: suite.address[0].String(),
 						MsgSeqNum:    1,
@@ -727,7 +727,7 @@ func (suite *KeeperTestSuite) TestLogonReject() {
 					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "A",
+						MsgType:      "3",
 						SenderCompID: suite.address[1].String(),
 						TargetCompID: suite.address[0].String(),
 						MsgSeqNum:    1,
