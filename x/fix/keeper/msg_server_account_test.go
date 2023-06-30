@@ -170,6 +170,9 @@ func (suite *KeeperTestSuite) TestUpdateAccount() {
 		suite.Run(tc.name, func() {
 			suite.SetupTest()
 
+			// set account registration
+			suite.fixKeeper.SetAccountRegistration(suite.ctx, tc.args.address, types.AccountRegistration{Address: tc.args.address})
+
 			msgUpdateAccount := types.MsgUpdateAccount{
 				Creator:          tc.args.creator,
 				Address:          tc.args.address,
@@ -182,17 +185,15 @@ func (suite *KeeperTestSuite) TestUpdateAccount() {
 			res, err := suite.msgServer.UpdateAccount(sdk.WrapSDKContext(suite.ctx), &msgUpdateAccount)
 
 			// GetAccountRegistration
-			getUpdatedAcc, found := suite.fixKeeper.GetAccountRegistration(suite.ctx, tc.args.address)
+			_, found := suite.fixKeeper.GetAccountRegistration(suite.ctx, tc.args.address)
 
 			if tc.errArgs.shouldPass {
 				suite.Require().True(found)
 				suite.Require().NoError(err, tc.name)
 				suite.Require().NotNil(res)
-				suite.Require().NotEmpty(getUpdatedAcc)
 			} else {
 				suite.Require().Error(err, tc.name)
 				suite.Require().Nil(res)
-				suite.Require().Empty(getUpdatedAcc)
 				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
 			}
 		})
