@@ -1,6 +1,6 @@
 module github.com/jim380/Re
 
-go 1.19
+go 1.20
 
 require (
 	github.com/CosmWasm/wasmd v0.31.0
