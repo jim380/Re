@@ -113,8 +113,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
-	Name                 = "Re"
+	Name = "red"
 )
 
 var (

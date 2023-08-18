@@ -1,0 +1,157 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "jim380/re/fix/standard_message.proto";
+
+message SecurityList {
+  string sessionID = 1;
+  SecurityListRequest securityListRequest = 2;
+  SecurityListResponse SecurityListResponse = 3;
+  SecurityListRequestReject securityListRequestReject = 4;
+}
+
+// Security List Request with fields, tags and descriptions and MsgType = x
+message SecurityListRequest {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (Tag 320): Unique identifier assigned by the requester to the security
+  // List Request message
+  string securityReqID = 2;
+
+  // (559) Type of Security List Request (x) being made
+  string securityListRequestType = 3;
+
+  // (711) Undly	N	Number of underlyings
+  string noUnderlyings = 4;
+
+  // (555) Number of legs that make up the Security
+  string noLegs = 5;
+
+  // (15)
+  string currency = 6;
+
+  // (58)	Comment, instructions, or other identifying information.
+  string text = 7;
+
+  // (354) Must be set if EncodedText (355) field is specified and must
+  // immediately precede it.
+  string encodedTextLen = 8;
+
+  // (355) Encoded (non-ASCII characters) representation of the Text (58) field
+  // in the encoded format specified via the MessageEncoding (347) field.
+  string encodedText = 9;
+
+  // (336) Optional Trading Session Identifier to specify a particular trading
+  // session for which you want to obtain a list of securities that are
+  // tradeable.
+  string tradingSessionID = 10;
+
+  // (625)
+  string tradingSessionSubID = 11;
+
+  // (263) Subscribe or unsubscribe for security status to security specified in
+  // request.
+  string subscriptionRequestType = 12;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 13;
+}
+
+// Security List Response  with fields, tags and descriptions and MsgType = y
+message SecurityListResponse {
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (Tag 320): Unique identifier assigned by the requester to the security
+  // List Request message
+  string securityReqID = 2;
+
+  // (322) Identifier for the Security List (y) message
+  string securityResponseID = 3;
+
+  // (560) Result of the Security Request identified by the SecurityReqID (320)
+  string securityRequestResult = 4;
+
+  // (393) Used to indicate if the total number of securities being returned for
+  // this request. Used in the event that message fragmentation is required.
+  string totNoRelatedSym = 5;
+
+  // string (893) Indicates if this message in a fragmented response
+  string lastFragment = 6;
+
+  // (146) Specifies the number of repeating symbols (instruments) specified
+  string noRelatedSym = 7;
+
+  // (711) Number of underlyings
+  string noUnderlyings = 8;
+
+  // (15)
+  string currency = 9;
+
+  // (555) Number of legs that make up the Security
+  string noLegs = 10;
+
+  // (561)
+  string roundLot = 11;
+
+  // (562)
+  string minTradeVol = 12;
+
+  // (336)
+  string tradingSessionID = 13;
+
+  // (625)
+  string tradingSessionSubID = 14;
+
+  // (827)
+  string expirationCycle = 15;
+
+  // (58) Comment, instructions, or other identifying information.
+  string text = 16;
+
+  // (354) Must be set if EncodedText (355) field is specified and must
+  // immediately precede it.
+  string encodedTextLen = 17;
+
+  // (355) Encoded (non-ASCII characters) representation of the Text (58) field
+  // in the encoded format specified via the MessageEncoding (347) field
+  string encodedText = 18;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 19;
+}
+
+// Security List Request Reject with fields, tags and descriptions and MsgType =
+// y
+message SecurityListRequestReject {
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (Tag 320): Unique identifier assigned by the requester to the security
+  // List Request message
+  string securityReqID = 2;
+
+  // (559) Type of security list request being made
+  string securityListRequestType = 3;
+
+  // (560)	Result of the security list request
+  string securityRequestResult = 4;
+
+  // (58)	Comment, instructions, or other identifying information
+  string text = 5;
+
+  // (354)  Must be set if EncodedText (355) field is specified and must
+  // immediately precede it
+  string encodedTextLen = 6;
+
+  // (355)	Encoded (non-ASCII characters) representation of the Text (58)
+  // field
+  string encodedText = 7;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 8;
+}

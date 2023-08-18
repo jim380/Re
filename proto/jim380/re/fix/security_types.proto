@@ -1,0 +1,124 @@
+syntax = "proto3";
+package jim380.re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "jim380/re/fix/standard_message.proto";
+
+message SecurityTypes {
+  string sessionID = 1;
+  SecurityTypesRequest securityTypesRequest = 2;
+  SecurityTypesResponse SecurityTypesResponse = 3;
+  SecurityTypesRequestReject SecurityTypesRequestReject = 4;
+}
+
+// Security Types Request with fields, tags and descriptions.
+message SecurityTypesRequest {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (320)
+  string securityReqID = 2;
+
+  // (58) Comment, instructions, or other identifying information.
+  string text = 3;
+
+  // (336) Optional Trading Session Identifier to specify a particular trading
+  // session for which you want to obtain a list of securities that are
+  // tradeable.
+  string tradingSessionID = 4;
+
+  // (625)
+  string tradingSessionSubID = 5;
+
+  // (460) Used to qualify which security types are returned
+  string product = 6;
+
+  // (167) Used to qualify which security type is returned
+  string securityType = 7;
+
+  // (762) Used to qualify which security types are returned
+  string securitySubType = 8;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 9;
+}
+
+// Security Types Response with fields, tags and descriptions.
+message SecurityTypesResponse {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (320)
+  string securityReqID = 2;
+
+  // (322) Identifier for the security response message
+  string securityResponseID = 3;
+
+  // (323) The result of the security request identified by SecurityReqID (320)
+  string securityResponseType = 4;
+
+  // (557) Indicates total number of security types in the event that multiple
+  // Security Type messages are used to return results
+  string totNoSecurityTypes = 5;
+
+  // (893) Indicates if this message in a fragmented response
+  string lastFragment = 6;
+
+  // (558)
+  string noSecurityTypes = 7;
+
+  // (167) Required if NoSecurityTypes (558) > 0
+  string securityType = 8;
+
+  // (762)
+  string securitySubType = 9;
+
+  // (460)
+  string product = 10;
+
+  // (461) Indicates the type of security using ISO 10962 standard,
+  // Classification of Financial Instruments (CFI code) values. ISO 10962 is
+  // maintained by ANNA (Association of National Numbering Agencies) acting as
+  // Registration Authority
+  string cFICode = 11;
+
+  // (58) Comment, instructions, or other identifying information.
+  string text = 12;
+
+  // (336) Optional Trading Session Identifier to specify a particular trading
+  // session for which you want to obtain a list of securities that are
+  // tradeable.
+  string tradingSessionID = 13;
+
+  // (625)
+  string tradingSessionSubID = 14;
+
+  // (263) Subscribe or unsubscribe for security status to security specified in
+  // request.
+  string subscriptionRequestType = 15;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 16;
+}
+
+// Security Types Request Reject with fields, tags and descriptions.
+message SecurityTypesRequestReject {
+
+  // Standard FIX message header.
+  Header header = 1;
+
+  // (320) Identifier for the security request message that was rejected
+  string securityReqID = 2;
+
+  // (350) Reason for rejecting the security request
+  string rejectReason = 3;
+
+  // (58) Comment, instructions, or other identifying information
+  string text = 4;
+
+  // Standard FIX message trailer.
+  Trailer trailer = 5;
+}
