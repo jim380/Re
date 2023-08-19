@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package jim380.re.mic;
+package re.mic;
 
 import "gogoproto/gogo.proto";
 import "re/mic/market_identification_code.proto";

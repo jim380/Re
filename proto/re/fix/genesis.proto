@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package jim380.re.fix;
+package re.fix;
 
 import "gogoproto/gogo.proto";
 import "re/fix/params.proto";
