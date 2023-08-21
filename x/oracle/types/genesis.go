@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"strconv"
 )
 
 // DefaultIndex is the default global index
@@ -20,16 +21,17 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated ID in multiChainTxOracle
-	multiChainTxOracleIdMap := make(map[uint64]bool)
+	multiChainTxOracleIdMap := make(map[string]bool)
 	multiChainTxOracleCount := gs.GetMultiChainTxOracleCount()
 	for _, elem := range gs.MultiChainTxOracleList {
-		if _, ok := multiChainTxOracleIdMap[elem.Id]; ok {
+		if _, ok := multiChainTxOracleIdMap[elem.OracleId]; ok {
 			return fmt.Errorf("duplicated id for multiChainTxOracle")
 		}
-		if elem.Id >= multiChainTxOracleCount {
+		oracleID, _ := strconv.ParseUint(elem.OracleId, 10, 64)
+		if oracleID >= multiChainTxOracleCount {
 			return fmt.Errorf("multiChainTxOracle id should be lower or equal than the last id")
 		}
-		multiChainTxOracleIdMap[elem.Id] = true
+		multiChainTxOracleIdMap[elem.OracleId] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

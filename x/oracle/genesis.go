@@ -10,7 +10,7 @@ import (
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// Set all the multiChainTxOracle
 	for _, elem := range genState.MultiChainTxOracleList {
-		k.SetMultiChainTxOracle(ctx, elem)
+		k.SetMultiChainTxOracle(ctx, elem.OracleId, elem)
 	}
 
 	// Set multiChainTxOracle count

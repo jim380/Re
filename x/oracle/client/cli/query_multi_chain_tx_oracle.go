@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -45,7 +44,7 @@ func CmdListMultiChainTxOracle() *cobra.Command {
 
 func CmdShowMultiChainTxOracle() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-multi-chain-tx-oracle [id]",
+		Use:   "show-multi-chain-tx-oracle [oracle-id]",
 		Short: "shows a multi-chain-tx-oracle",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,13 +52,10 @@ func CmdShowMultiChainTxOracle() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+			argOracleId := args[0]
 
 			params := &types.QueryGetMultiChainTxOracleRequest{
-				Id: id,
+				OracleId: argOracleId,
 			}
 
 			res, err := queryClient.MultiChainTxOracle(context.Background(), params)

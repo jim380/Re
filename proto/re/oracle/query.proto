@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package jim380.re.oracle;
+package re.oracle;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
@@ -21,11 +21,11 @@ service Query {
   
   // Queries a list of MultiChainTxOracle items.
   rpc MultiChainTxOracle    (QueryGetMultiChainTxOracleRequest) returns (QueryGetMultiChainTxOracleResponse) {
-    option (google.api.http).get = "/jim380/Re/oracle/multi_chain_tx_oracle/{id}";
+    option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracle/{oracleId}";
   
   }
   rpc MultiChainTxOracleAll (QueryAllMultiChainTxOracleRequest) returns (QueryAllMultiChainTxOracleResponse) {
-    option (google.api.http).get = "/jim380/Re/oracle/multi_chain_tx_oracle";
+    option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracles";
   
   }
 }
@@ -40,7 +40,7 @@ message QueryParamsResponse {
 }
 
 message QueryGetMultiChainTxOracleRequest {
-  uint64 id = 1;
+   string oracleId = 1;
 }
 
 message QueryGetMultiChainTxOracleResponse {

@@ -46,7 +46,7 @@ func (k Keeper) MultiChainTxOracle(goCtx context.Context, req *types.QueryGetMul
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	multiChainTxOracle, found := k.GetMultiChainTxOracle(ctx, req.Id)
+	multiChainTxOracle, found := k.GetMultiChainTxOracle(ctx, req.OracleId)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

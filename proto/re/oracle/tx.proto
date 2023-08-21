@@ -1,5 +1,5 @@
 syntax = "proto3";
-package jim380.re.oracle;
+package re.oracle;
 
 option go_package = "github.com/jim380/Re/x/oracle/types";
 

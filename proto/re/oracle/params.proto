@@ -1,5 +1,5 @@
 syntax = "proto3";
-package jim380.re.oracle;
+package re.oracle;
 
 import "gogoproto/gogo.proto";
 

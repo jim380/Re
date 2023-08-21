@@ -1,12 +1,11 @@
 syntax = "proto3";
-package jim380.re.oracle;
+package re.oracle;
 
 option go_package = "github.com/jim380/Re/x/oracle/types";
 
 message MultiChainTxOracle {
-  uint64 id = 1;
-  string oracleId = 2; 
-  string address = 3; 
-  string timestamp = 4; 
+  string oracleId = 1; 
+  string address = 2; 
+  string timestamp = 3; 
   
 }

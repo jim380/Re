@@ -62,15 +62,15 @@ func request_Query_MultiChainTxOracle_0(ctx context.Context, marshaler runtime.M
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["oracleId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "oracleId")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.OracleId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "oracleId", err)
 	}
 
 	msg, err := client.MultiChainTxOracle(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -89,15 +89,15 @@ func local_request_Query_MultiChainTxOracle_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["oracleId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "oracleId")
 	}
 
-	protoReq.Id, err = runtime.Uint64(val)
+	protoReq.OracleId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "oracleId", err)
 	}
 
 	msg, err := server.MultiChainTxOracle(ctx, &protoReq)
@@ -323,9 +323,9 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 var (
 	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "oracle", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MultiChainTxOracle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "oracle", "multi_chain_tx_oracle", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MultiChainTxOracle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 2, 1, 0, 4, 1, 5, 6}, []string{"jim380", "Re", "oracle", "multi", "chain", "tx", "oracleId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MultiChainTxOracleAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"jim380", "Re", "oracle", "multi_chain_tx_oracle"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MultiChainTxOracleAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6}, []string{"jim380", "Re", "oracle", "multi", "chain", "tx", "oracles"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
