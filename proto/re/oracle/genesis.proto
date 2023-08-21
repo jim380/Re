@@ -1,0 +1,12 @@
+syntax = "proto3";
+package jim380.re.oracle;
+
+import "gogoproto/gogo.proto";
+import "re/oracle/params.proto";
+
+option go_package = "github.com/jim380/Re/x/oracle/types";
+
+// GenesisState defines the oracle module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
