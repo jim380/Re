@@ -18,7 +18,15 @@ func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
-const (
-	MultiChainTxOracleKey      = "MultiChainTxOracle/value/"
-	MultiChainTxOracleCountKey = "MultiChainTxOracle/count/"
+var (
+	MultiChainTxOracleKey      = []byte{0x01}
+	MultiChainTxOracleCountKey = []byte{0x02}
 )
+
+func GetMultiChainTxOracleKey() []byte {
+	return MultiChainTxOracleKey
+}
+
+func GetMultiChainTxOracleCountKey() []byte {
+	return MultiChainTxOracleCountKey
+}

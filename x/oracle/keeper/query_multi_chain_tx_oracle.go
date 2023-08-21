@@ -21,7 +21,7 @@ func (k Keeper) MultiChainTxOracleAll(goCtx context.Context, req *types.QueryAll
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	multiChainTxOracleStore := prefix.NewStore(store, types.KeyPrefix(types.MultiChainTxOracleKey))
+	multiChainTxOracleStore := prefix.NewStore(store, types.GetMultiChainTxOracleKey())
 
 	pageRes, err := query.Paginate(multiChainTxOracleStore, req.Pagination, func(key []byte, value []byte) error {
 		var multiChainTxOracle types.MultiChainTxOracle
