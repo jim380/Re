@@ -15,6 +15,7 @@ const (
 	TradSesReqID        = 15
 	SecurityStatusReqID = 15
 	SecurityResponseID  = 15
+	OracleID  = 15
 
 	LogonRequestStatus = "logon-request"
 	LoggedInStatus     = "loggedIn"
