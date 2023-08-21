@@ -26,7 +26,7 @@ func CmdCosmoshubTxs() *cobra.Command {
 
 			argOracleId := oracleID
 
-			argAddress := args[1]
+			argAddress := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

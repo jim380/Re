@@ -6,7 +6,14 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+// Error Code Enums
+const (
+	errSample = iota + 101
+	errWrongAddress
+)
+
 // x/oracle module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrSample       = sdkerrors.Register(ModuleName, errSample, "sample error")
+	ErrWrongAddress = sdkerrors.Register(ModuleName, errWrongAddress, "The account address provided does not match the creator of the oracle")
 )
