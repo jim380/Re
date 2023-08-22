@@ -7,6 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
+	cosmostxs "github.com/jim380/Re/utils/cosmos_txs"
+	"github.com/jim380/Re/utils/helpers"
 	fixTypes "github.com/jim380/Re/x/fix/types"
 	"github.com/jim380/Re/x/oracle/types"
 )
@@ -26,48 +28,25 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	// set cosmoshub txs, map to the fix module
 
 	// test, update fix module from oracle
-	Accounts := []fixTypes.AccountRegistration{
-		{
-			Address:          "re1a34ffvsapzu6f35xzrzlc2nl6ytnrly0cg9n0mhhhhpppppppp",
-			CompanyName:      "CompanyAu",
+
+	// start refetching data every 5 seconds
+	//go cosmostxs.RefetchTxsDataPeriodically()
+	data, err := cosmostxs.GetTxsDataWithCache()
+	for _, tx := range data {
+		d, _ := helpers.GenerateRandomString(19)
+		account := fixTypes.AccountRegistration{
+			Address:          d,
+			CompanyName:      tx.Title,
 			Website:          "www.companya.commm",
 			SocialMediaLinks: "@CompanyppA",
-			CreatedAt:        constants.CreatedAt,
-		},
-		{
-			Address:          "re1a34ffvsapzu6f35xzrzlc2nl6ytnrly0cg9n0myuuyyyyyyyyy",
-			CompanyName:      "CompanyAbbb",
-			Website:          "www.companya.com",
-			SocialMediaLinks: "@CompanyAaaa",
-			CreatedAt:        constants.CreatedAt,
-		},
-		{
-			Address:          "re1a34ffvsapzu6f35xzrzlc2nl6ytnrly0cg9n0mtygggvzzzzzzz",
-			CompanyName:      "CompanyAbbb",
-			Website:          "www.companya.commmmm",
-			SocialMediaLinks: "@CompanyAui",
-			CreatedAt:        constants.CreatedAt,
-		},
-	}
-
-	for i, account := range Accounts {
-		// set
-		log.Println("When it is in range", account, i)
-		k.fixKeeper.SetAccountRegistration(ctx, account.Address, account)
-	}
-
-	/*
-		account := fixTypes.AccountRegistration{
-			Address:          msg.Creator,
-			CompanyName:      "danielllll",
-			Website:          "www.daniel",
-			SocialMediaLinks: "@danii",
 			CreatedAt:        constants.CreatedAt,
 		}
 
 		// set
-		k.fixKeeper.SetAccountRegistration(ctx, msg.Creator, account)
-	*/
+		log.Println("When it is in range", account)
+		k.fixKeeper.SetAccountRegistration(ctx, account.Address, account)
+	}
+
 	oracle := types.MultiChainTxOracle{
 		OracleId:  msg.OracleId,
 		Address:   msg.Address,
