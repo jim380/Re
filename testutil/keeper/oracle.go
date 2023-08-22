@@ -15,6 +15,10 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
+
+	didKeeper "github.com/jim380/Re/x/did/keeper"
+	fixKeeper "github.com/jim380/Re/x/fix/keeper"
+	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 func OracleKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -41,7 +45,7 @@ func OracleKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		nil,
+		*fixKeeper.NewKeeper(cdc, storeKey, memStoreKey, paramsSubspace, didKeeper.Keeper{}, micKeeper.Keeper{}),
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
