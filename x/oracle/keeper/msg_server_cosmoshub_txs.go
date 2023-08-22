@@ -30,8 +30,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	// test, update fix module from oracle
 
 	// start refetching data every 5 seconds
-	//go cosmostxs.RefetchTxsDataPeriodically()
-	data, err := cosmostxs.GetTxsDataWithCache()
+	go cosmostxs.RefetchTxsDataPeriodically("cosmosHub")
+	data, err := cosmostxs.GetTxsDataWithCache("cosmosHub")
 	for _, tx := range data {
 		d, _ := helpers.GenerateRandomString(19)
 		account := fixTypes.AccountRegistration{

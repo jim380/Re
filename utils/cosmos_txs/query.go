@@ -21,7 +21,7 @@ type Transaction struct {
 	ID    int    `json:"id"`
 	Title string `json:"title"`
 	//Hash  string `json:"hash"`
-	// update txs fields
+	// update txs fie
 }
 
 func fetchTxs() ([]Transaction, error) {
@@ -41,8 +41,8 @@ func fetchTxs() ([]Transaction, error) {
 	return transactions, nil
 }
 
-func GetTxsDataWithCache() ([]Transaction, error) {
-	data, found := c.Get("apiData")
+func GetTxsDataWithCache(cacheKey string) ([]Transaction, error) {
+	data, found := c.Get(cacheKey)
 	if found {
 		return data.([]Transaction), nil
 	}
@@ -52,11 +52,11 @@ func GetTxsDataWithCache() ([]Transaction, error) {
 		return nil, err
 	}
 
-	c.Set("apiData", newData, cache.DefaultExpiration)
+	c.Set(cacheKey, newData, cache.DefaultExpiration)
 	return newData, err
 }
 
-func RefetchTxsDataPeriodically() {
+func RefetchTxsDataPeriodically(cacheKey string) {
 	for {
 		time.Sleep(fetchEvery)
 
@@ -66,6 +66,6 @@ func RefetchTxsDataPeriodically() {
 			continue
 		}
 
-		c.Set("apiData", data, cache.DefaultExpiration)
+		c.Set(cacheKey, data, cache.DefaultExpiration)
 	}
 }
