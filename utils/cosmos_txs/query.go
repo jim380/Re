@@ -1,7 +1,8 @@
-package cosmostxs
+package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -10,22 +11,51 @@ import (
 )
 
 const (
-	apiURL     = "https://jsonplaceholder.typicode.com/todos/"
-	cacheTTL   = 5 * time.Second
-	fetchEvery = 5 * time.Second
+	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=10"
+	cacheTTL        = 5 * time.Second
+	fetchEvery      = 5 * time.Second
 )
 
 var c = cache.New(cacheTTL, 10*time.Minute)
 
 type Transaction struct {
-	ID    int    `json:"id"`
-	Title string `json:"title"`
-	//Hash  string `json:"hash"`
-	// update txs fie
+	ID       string    `json:"_id"`
+	TxHash   string    `json:"txHash"`
+	Messages []Message `json:"messages"`
+	Result   int       `json:"result"`
+	Fee      []Coin    `json:"fee"`
+	Height   int       `json:"height"`
+	Time     string    `json:"time"`
+}
+
+type Message struct {
+	Type        string `json:"@type"`
+	FromAddress string `json:"from_address,omitempty"`
+	ToAddress   string `json:"to_address,omitempty"`
+	//Amount      []Coin `json:"amount,omitempty"`
+	//Token       []Coin `json:"token,omitempty"`
+	ProposalID string `json:"proposal_id,omitempty"`
+	Voter      string `json:"voter,omitempty"`
+	Option     string `json:"option,omitempty"`
+	Delegator  string `json:"delegator_address,omitempty"`
+	Validator  string `json:"validator_address,omitempty"`
+	Msgs       []Msg  `json:"msgs,omitempty"`
+}
+
+type Msg struct {
+	Type      string `json:"@type"`
+	Delegator string `json:"delegator_address,omitempty"`
+	Validator string `json:"validator_address,omitempty"`
+	Amount    Coin   `json:"amount,omitempty"`
+}
+
+type Coin struct {
+	Denom  string `json:"denom"`
+	Amount string `json:"amount"`
 }
 
 func fetchTxs() ([]Transaction, error) {
-	resp, err := http.Get(apiURL)
+	resp, err := http.Get(cosmosHubTxsAPI)
 	if err != nil {
 		return nil, err
 	}
@@ -67,5 +97,12 @@ func RefetchTxsDataPeriodically(cacheKey string) {
 		}
 
 		c.Set(cacheKey, data, cache.DefaultExpiration)
+	}
+}
+
+func main() {
+	t, _ := fetchTxs()
+	for _, a := range t {
+		fmt.Println(a)
 	}
 }
