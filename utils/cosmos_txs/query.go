@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -19,7 +20,6 @@ const (
 var c = cache.New(cacheTTL, 10*time.Minute)
 
 type Transaction struct {
-	ID       string    `json:"_id"`
 	TxHash   string    `json:"txHash"`
 	Messages []Message `json:"messages"`
 	Result   int       `json:"result"`
@@ -29,17 +29,19 @@ type Transaction struct {
 }
 
 type Message struct {
-	Type        string `json:"@type"`
-	FromAddress string `json:"from_address,omitempty"`
-	ToAddress   string `json:"to_address,omitempty"`
-	//Amount      []Coin `json:"amount,omitempty"`
-	//Token       []Coin `json:"token,omitempty"`
-	ProposalID string `json:"proposal_id,omitempty"`
-	Voter      string `json:"voter,omitempty"`
-	Option     string `json:"option,omitempty"`
-	Delegator  string `json:"delegator_address,omitempty"`
-	Validator  string `json:"validator_address,omitempty"`
-	Msgs       []Msg  `json:"msgs,omitempty"`
+	Type        string          `json:"@type"`
+	FromAddress string          `json:"from_address,omitempty"`
+	ToAddress   string          `json:"to_address,omitempty"`
+	Amount      json.RawMessage `json:"amount,omitempty"`
+	Token       Coin            `json:"token,omitempty"`
+	ProposalID  string          `json:"proposal_id,omitempty"`
+	Voter       string          `json:"voter,omitempty"`
+	Option      string          `json:"option,omitempty"`
+	Delegator   string          `json:"delegator_address,omitempty"`
+	Validator   string          `json:"validator_address,omitempty"`
+	Sender      string          `json:"sender,omitempty"`
+	Receiver    string          `json:"receiver,omitempty"`
+	Msgs        []Msg           `json:"msgs,omitempty"`
 }
 
 type Msg struct {
@@ -103,6 +105,10 @@ func RefetchTxsDataPeriodically(cacheKey string) {
 func main() {
 	t, _ := fetchTxs()
 	for _, a := range t {
-		fmt.Println(a)
+		for _, d := range a.Messages {
+			//fmt.Println(d.Type)
+			fmt.Println(helpers.AbbrTxMessage(d.Type))
+		}
+		//fmt.Println(helpers.AbbrTxMessage(a))
 	}
 }

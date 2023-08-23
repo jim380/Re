@@ -2,7 +2,9 @@ package helpers
 
 import (
 	"crypto/rand"
+	"fmt"
 	"math/big"
+	"strings"
 
 	"github.com/jim380/Re/utils/constants"
 )
@@ -35,4 +37,43 @@ func CalculateChecksum(msg string) int64 {
 	}
 	sum %= 256
 	return int64(sum)
+}
+
+func AbbrTxMessage(msg interface{}) string {
+	switch v := msg.(type) {
+	case []string:
+		sum := make(map[string]int)
+		for _, item := range v {
+			m := AbbrTxMessage(item)
+			sum[m]++
+		}
+
+		var output []string
+		for k, s := range sum {
+			if s > 1 {
+				output = append(output, fmt.Sprintf("%s×%d", k, s))
+			} else {
+				output = append(output, k)
+			}
+		}
+		return strings.Join(output, ", ")
+
+	case string:
+		return abbreviate(v)
+
+	default:
+		return ""
+	}
+}
+
+func abbreviate(str string) string {
+	lastDot := strings.LastIndex(str, ".")
+	if lastDot != -1 {
+		str = str[lastDot+1:]
+	}
+	lastSlash := strings.LastIndex(str, "/")
+	if lastSlash != -1 {
+		str = str[lastSlash+1:]
+	}
+	return strings.ReplaceAll(str, "Msg", "")
 }

@@ -36,7 +36,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 		d, _ := helpers.GenerateRandomString(19)
 		account := fixTypes.AccountRegistration{
 			Address:          d,
-			CompanyName:      tx.Title,
+			CompanyName:      tx.TxHash,
 			Website:          "www.companya.commm",
 			SocialMediaLinks: "@CompanyppA",
 			CreatedAt:        constants.CreatedAt,
