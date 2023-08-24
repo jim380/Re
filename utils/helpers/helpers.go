@@ -39,6 +39,17 @@ func CalculateChecksum(msg string) int64 {
 	return int64(sum)
 }
 
+// AbbrTxMessage abbreviates a message or a list of messages by:
+// 1. Removing any prefix up to and including the last "." or "/" character.
+// 2. Removing any "Msg" substring.
+// If provided an array of strings, the function will also aggregate duplicates
+// and provide a count of each unique abbreviated message in the format: "message×count".
+// For example:
+// Given ["/cosmos.gov.v1beta1.MsgVote", "/cosmos.bank.v1beta1.MsgSend", "/cosmos.bank.v1beta1.MsgSend"],
+// the function will return: "Vote, Send×2".
+// If provided a single string, it will simply return the abbreviated form.
+// For instance:
+// Given "/cosmos.bank.v1beta1.MsgSend", the function will return: "Send".
 func AbbrTxMessage(msg interface{}) string {
 	switch v := msg.(type) {
 	case []string:

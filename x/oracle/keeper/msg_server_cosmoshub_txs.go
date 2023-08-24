@@ -8,7 +8,6 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	cosmostxs "github.com/jim380/Re/utils/cosmos_txs"
-	"github.com/jim380/Re/utils/helpers"
 	fixTypes "github.com/jim380/Re/x/fix/types"
 	"github.com/jim380/Re/x/oracle/types"
 )
@@ -31,15 +30,14 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 	// start refetching data every 5 seconds
 	go cosmostxs.RefetchTxsDataPeriodically("cosmosHub")
-	data, err := cosmostxs.GetTxsDataWithCache("cosmosHub")
-	for _, tx := range data {
-		d, _ := helpers.GenerateRandomString(19)
+	transactions, err := cosmostxs.GetTxsDataWithCache("cosmosHub")
+	for _, tx := range transactions {
 		account := fixTypes.AccountRegistration{
-			Address:          d,
-			CompanyName:      tx.TxHash,
+			Address:          tx.TxHash,
+			CompanyName:      tx.Memo,
 			Website:          "www.companya.commm",
 			SocialMediaLinks: "@CompanyppA",
-			CreatedAt:        constants.CreatedAt,
+			CreatedAt:        tx.Time,
 		}
 
 		// set
