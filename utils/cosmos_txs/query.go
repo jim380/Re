@@ -1,13 +1,11 @@
-package main
+package cosmostxs
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/jim380/Re/utils/helpers"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -22,6 +20,7 @@ var c = cache.New(cacheTTL, 10*time.Minute)
 type Transaction struct {
 	TxHash   string    `json:"txHash"`
 	Messages []Message `json:"messages"`
+	Memo     string    `json:"memo"`
 	Result   int       `json:"result"`
 	Fee      []Coin    `json:"fee"`
 	Height   int       `json:"height"`
@@ -99,16 +98,5 @@ func RefetchTxsDataPeriodically(cacheKey string) {
 		}
 
 		c.Set(cacheKey, data, cache.DefaultExpiration)
-	}
-}
-
-func main() {
-	t, _ := fetchTxs()
-	for _, a := range t {
-		for _, d := range a.Messages {
-			//fmt.Println(d.Type)
-			fmt.Println(helpers.AbbrTxMessage(d.Type))
-		}
-		//fmt.Println(helpers.AbbrTxMessage(a))
 	}
 }
