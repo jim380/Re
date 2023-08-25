@@ -13,6 +13,7 @@ const (
 	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=10"
 	cacheTTL        = 5 * time.Second
 	fetchEvery      = 5 * time.Second
+	CacheKey        = "cosmosHub"
 )
 
 var c = cache.New(cacheTTL, 10*time.Minute)
@@ -88,15 +89,19 @@ func GetTxsDataWithCache(cacheKey string) ([]Transaction, error) {
 }
 
 func RefetchTxsDataPeriodically(cacheKey string) {
+	ticker := time.NewTicker(fetchEvery)
+	defer ticker.Stop()
+
 	for {
-		time.Sleep(fetchEvery)
+		select {
+		case <-ticker.C:
+			data, err := fetchTxs()
+			if err != nil {
+				log.Printf("Error fetching data: %v", err)
+				continue
+			}
 
-		data, err := fetchTxs()
-		if err != nil {
-			log.Printf("Error fetching data: %v", err)
-			continue
+			c.Set(cacheKey, data, cache.DefaultExpiration)
 		}
-
-		c.Set(cacheKey, data, cache.DefaultExpiration)
 	}
 }

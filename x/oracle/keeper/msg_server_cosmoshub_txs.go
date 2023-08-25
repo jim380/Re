@@ -25,12 +25,10 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	}
 
 	// set cosmoshub txs, map to the fix module
-
-	// test, update fix module from oracle
-
+	// update fix module from oracle
 	// start refetching data every 5 seconds
-	go cosmostxs.RefetchTxsDataPeriodically("cosmosHub")
-	transactions, err := cosmostxs.GetTxsDataWithCache("cosmosHub")
+	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
+	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
 	for _, tx := range transactions {
 		account := fixTypes.AccountRegistration{
 			Address:          tx.TxHash,
