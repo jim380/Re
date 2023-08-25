@@ -8,6 +8,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	cosmostxs "github.com/jim380/Re/utils/cosmos_txs"
+	"github.com/jim380/Re/utils/helpers"
 	fixTypes "github.com/jim380/Re/x/fix/types"
 	"github.com/jim380/Re/x/oracle/types"
 )
@@ -30,18 +31,51 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
 	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
 	for _, tx := range transactions {
-		account := fixTypes.AccountRegistration{
-			Address:          tx.TxHash,
-			CompanyName:      tx.Memo,
-			Website:          "www.companya.commm",
-			SocialMediaLinks: "@CompanyppA",
-			CreatedAt:        tx.Time,
-		}
+		for _, message := range tx.Messages {
+			
+			// type of message = Send
+			if helpers.AbbrTxMessage(message.Type) == "Send" {
+				// set sessions for parties existing in the transactions
+				session := fixTypes.Sessions{
+					SessionID: tx.TxHash,
+					LogonInitiator: &fixTypes.LogonInitiator{
+						Header: &fixTypes.Header{
+							BeginString:  "fix4.4",
+							MsgType:      "A",
+							SenderCompID: message.FromAddress,
+							TargetCompID: message.ToAddress,
+							SendingTime:  tx.Time,
+						},
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					},
+					LogonAcceptor: &fixTypes.LogonAcceptor{
+						Header: &fixTypes.Header{
+							BeginString:  "fix4.4",
+							MsgType:      "A",
+							SenderCompID: message.ToAddress,
+							TargetCompID: message.FromAddress,
+							SendingTime:  tx.Time,
+						},
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					},
+					Status:     "loggedIn",
+					IsAccepted: true,
+				}
 
-		// set
-		log.Println("When it is in range", account)
-		k.fixKeeper.SetAccountRegistration(ctx, account.Address, account)
+				// set new session to store
+				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
+				log.Println("When it is in range", session)
+			}
+		}
 	}
+
+	// set
+	//log.Println("When it is in range", account)
+	//k.fixKeeper.SetAccountRegistration(ctx, account.Address, account)
 
 	oracle := types.MultiChainTxOracle{
 		OracleId:  msg.OracleId,

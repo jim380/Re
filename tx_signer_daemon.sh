@@ -31,7 +31,7 @@ PASSPHRASE="YOUR_PASSPHRASE_HERE"
 while true; do
     # Use expect to automatically provide the passphrase
     expect << EOF
-    spawn red tx oracle cosmoshub-txs re1a34ffvsapzu6f35xzrzlc2nl6ytnrly0cg9n0m --from alice --chain-id test --keyring-backend test --gas 12899100
+    spawn red tx oracle cosmoshub-txs re12s762t9xxder7ztkdw0m4f7e2vgg6jdgs5f7tz --from alice --chain-id test --keyring-backend test --gas 12899100
     expect "Enter keyring passphrase:"
     send "${PASSPHRASE}\r"
     expect eof
