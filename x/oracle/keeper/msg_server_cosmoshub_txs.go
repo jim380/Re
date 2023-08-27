@@ -32,8 +32,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
 	for _, tx := range transactions {
 		for _, message := range tx.Messages {
-			
-			// type of message = Send
+
+			// type of Txs message = Send
 			if helpers.AbbrTxMessage(message.Type) == "Send" {
 				// set sessions for parties existing in the transactions
 				session := fixTypes.Sessions{
@@ -65,10 +65,82 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					Status:     "loggedIn",
 					IsAccepted: true,
 				}
-
 				// set new session to store
 				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
 				log.Println("When it is in range", session)
+
+				// set New Single Order
+				// check that Txs was success
+				if tx.Result != 0 {
+					// orders here were rejected
+					ordersCancelReject := fixTypes.OrdersCancelReject{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString: "FIX4.2",
+						},
+						OrderID:      tx.TxHash,
+						OrigClOrdID:  tx.TxHash,
+						ClOrdID:      tx.TxHash,
+						CxlRejReason: 4,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrdersCancelReject(ctx, tx.TxHash, ordersCancelReject)
+
+				} else {
+					// set successful orders
+					order := &fixTypes.Orders{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString: "FIX4.2",
+							MsgType:     "D",
+						},
+						ClOrdID:      tx.TxHash,
+						Symbol:       "",
+						Side:         2,
+						OrderQty:     "",
+						OrdType:      1,
+						Price:        "",
+						TimeInForce:  1,
+						Text:         "",
+						TransactTime: "",
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+
+					// set execution report
+					orderExecutionReport := &fixTypes.OrdersExecutionReport{
+						SessionID:    tx.TxHash,
+						Header:       &fixTypes.Header{},
+						ClOrdID:      tx.TxHash,
+						OrderID:      "",
+						ExecID:       "",
+						OrdStatus:    "",
+						ExecType:     "",
+						Symbol:       "",
+						Side:         2,
+						OrderQty:     "",
+						Price:        "",
+						TimeInForce:  1,
+						LastPx:       2,
+						LastQty:      2,
+						LeavesQty:    2,
+						CumQty:       2,
+						AvgPx:        2,
+						Text:         "",
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrdersExecutionReport(ctx, tx.TxHash, *orderExecutionReport)
+
+				}
+
 			}
 		}
 	}
