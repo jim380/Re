@@ -35,7 +35,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 		for _, message := range tx.Messages {
 
 			// type of Txs message = Send
-			if helpers.AbbrTxMessage(message.Type) == "Send" {
+			switch helpers.AbbrTxMessage(message.Type) {
+			case "Send":
 				// set sessions for parties existing in the transactions
 				session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
@@ -58,7 +59,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "A",
 							SenderCompID: message.ToAddress,
 							TargetCompID: message.FromAddress,
-							MsgSeqNum: tx.Height,
+							MsgSeqNum:    tx.Height,
 							SendingTime:  tx.Time,
 						},
 						Trailer: &fixTypes.Trailer{
@@ -85,7 +86,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "9",
 							SenderCompID: message.ToAddress,
 							TargetCompID: message.FromAddress,
-							MsgSeqNum: tx.Height,
+							MsgSeqNum:    tx.Height,
 							SendingTime:  tx.Time,
 						},
 						OrderID:      tx.TxHash,
@@ -98,6 +99,14 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						},
 					}
 					k.fixKeeper.SetOrdersCancelReject(ctx, tx.TxHash, ordersCancelReject)
+
+					// set Trade Capture Report
+					rejectTradeCapture := &fixTypes.TradeCapture{
+						SessionID:                   tx.TxHash,
+						TradeCaptureReport:          &fixTypes.TradeCaptureReport{},
+						TradeCaptureReportRejection: &fixTypes.TradeCaptureReportRejection{},
+					}
+					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *rejectTradeCapture)
 
 				} else {
 					// unmarshal Amount manually before using it
@@ -115,7 +124,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "D",
 							SenderCompID: message.FromAddress,
 							TargetCompID: message.ToAddress,
-							MsgSeqNum: tx.Height,
+							MsgSeqNum:    tx.Height,
 							SendingTime:  tx.Time,
 						},
 						ClOrdID:      tx.TxHash,
@@ -141,7 +150,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "8",
 							SenderCompID: message.ToAddress,
 							TargetCompID: message.FromAddress,
-							MsgSeqNum: tx.Height,
+							MsgSeqNum:    tx.Height,
 							SendingTime:  tx.Time,
 						},
 						ClOrdID:      tx.TxHash,
@@ -167,8 +176,16 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					}
 					k.fixKeeper.SetOrdersExecutionReport(ctx, tx.TxHash, *orderExecutionReport)
 
+					// set successful Trade Capture Report
+					tradeCapture := &fixTypes.TradeCapture{
+						SessionID:                         tx.TxHash,
+						TradeCaptureReport:                &fixTypes.TradeCaptureReport{},
+						TradeCaptureReportAcknowledgement: &fixTypes.TradeCaptureReportAcknowledgement{},
+					}
+					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
 				}
 
+			case "Transfer":
 			}
 		}
 	}
