@@ -72,6 +72,13 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// set new session to store
 				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
 
+				// unmarshal Amount manually before using it
+				var coins []cosmostxs.Coin
+				err := json.Unmarshal(message.Amount, &coins)
+				if err != nil {
+					return nil, fmt.Errorf("Failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
+				}
+
 				// set New Single Order
 				// set Orders Execution Report
 				// set Orders Rejection
@@ -100,21 +107,58 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					}
 					k.fixKeeper.SetOrdersCancelReject(ctx, tx.TxHash, ordersCancelReject)
 
-					// set Trade Capture Report
-					rejectTradeCapture := &fixTypes.TradeCapture{
-						SessionID:                   tx.TxHash,
-						TradeCaptureReport:          &fixTypes.TradeCaptureReport{},
-						TradeCaptureReportRejection: &fixTypes.TradeCaptureReportRejection{},
+					// set Trade Capture Report Reject when Txs fails
+					tradeCaptureReportReject := &fixTypes.TradeCapture{
+						SessionID: tx.TxHash,
+						TradeCaptureReport: &fixTypes.TradeCaptureReport{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AE",
+								SenderCompID: message.FromAddress,
+								TargetCompID: message.ToAddress,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:        tx.TxHash,
+							TradeReportTransType: "New",
+							TradeReportType:      "real-time",
+							TrdType:              "Send",
+							TrdSubType:           "",
+							Side:                 "2",
+							OrderQty:             "",
+							LastQty:              "",
+							LastPx:               "",
+							GrossTradeAmt:        coins[0].Amount,
+							ExecID:               tx.TxHash,
+							OrderID:              tx.TxHash,
+							TradeID:              tx.TxHash,
+							Symbol:               coins[0].Denom,
+							TransactTime:         tx.Time,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+						TradeCaptureReportRejection: &fixTypes.TradeCaptureReportRejection{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "j",
+								SenderCompID: message.ToAddress,
+								TargetCompID: message.FromAddress,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:           tx.TxHash,
+							TradeReportRejectReason: 0,
+							TradeReportRejectRefID:  tx.TxHash,
+							Text:                    tx.Memo,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
 					}
-					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *rejectTradeCapture)
+					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCaptureReportReject)
 
 				} else {
-					// unmarshal Amount manually before using it
-					var coins []cosmostxs.Coin
-					err := json.Unmarshal(message.Amount, &coins)
-					if err != nil {
-						return nil, fmt.Errorf("Failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
-					}
 
 					// set successful orders
 					order := &fixTypes.Orders{
@@ -176,7 +220,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					}
 					k.fixKeeper.SetOrdersExecutionReport(ctx, tx.TxHash, *orderExecutionReport)
 
-					// set successful Trade Capture Report
+					// set Trade Capture Report if Txs was successful
 					tradeCapture := &fixTypes.TradeCapture{
 						SessionID:                         tx.TxHash,
 						TradeCaptureReport:                &fixTypes.TradeCaptureReport{},
