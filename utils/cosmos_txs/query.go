@@ -24,7 +24,7 @@ type Transaction struct {
 	Memo     string    `json:"memo"`
 	Result   int       `json:"result"`
 	Fee      []Coin    `json:"fee"`
-	Height   int       `json:"height"`
+	Height   int64     `json:"height"`
 	Time     string    `json:"time"`
 }
 

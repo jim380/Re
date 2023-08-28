@@ -2,7 +2,8 @@ package keeper
 
 import (
 	"context"
-	"log"
+	"encoding/json"
+	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -44,6 +45,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "A",
 							SenderCompID: message.FromAddress,
 							TargetCompID: message.ToAddress,
+							MsgSeqNum:    tx.Height,
 							SendingTime:  tx.Time,
 						},
 						Trailer: &fixTypes.Trailer{
@@ -56,6 +58,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							MsgType:      "A",
 							SenderCompID: message.ToAddress,
 							TargetCompID: message.FromAddress,
+							MsgSeqNum: tx.Height,
 							SendingTime:  tx.Time,
 						},
 						Trailer: &fixTypes.Trailer{
@@ -67,16 +70,23 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				}
 				// set new session to store
 				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
-				log.Println("When it is in range", session)
 
 				// set New Single Order
+				// set Orders Execution Report
+				// set Orders Rejection
+				// set Trade Capture
 				// check that Txs was success
 				if tx.Result != 0 {
 					// orders here were rejected
 					ordersCancelReject := fixTypes.OrdersCancelReject{
 						SessionID: tx.TxHash,
 						Header: &fixTypes.Header{
-							BeginString: "FIX4.2",
+							BeginString:  "FIX4.2",
+							MsgType:      "9",
+							SenderCompID: message.ToAddress,
+							TargetCompID: message.FromAddress,
+							MsgSeqNum: tx.Height,
+							SendingTime:  tx.Time,
 						},
 						OrderID:      tx.TxHash,
 						OrigClOrdID:  tx.TxHash,
@@ -90,22 +100,33 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					k.fixKeeper.SetOrdersCancelReject(ctx, tx.TxHash, ordersCancelReject)
 
 				} else {
+					// unmarshal Amount manually before using it
+					var coins []cosmostxs.Coin
+					err := json.Unmarshal(message.Amount, &coins)
+					if err != nil {
+						return nil, fmt.Errorf("Failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
+					}
+
 					// set successful orders
 					order := &fixTypes.Orders{
 						SessionID: tx.TxHash,
 						Header: &fixTypes.Header{
-							BeginString: "FIX4.2",
-							MsgType:     "D",
+							BeginString:  "FIX4.2",
+							MsgType:      "D",
+							SenderCompID: message.FromAddress,
+							TargetCompID: message.ToAddress,
+							MsgSeqNum: tx.Height,
+							SendingTime:  tx.Time,
 						},
 						ClOrdID:      tx.TxHash,
-						Symbol:       "",
+						Symbol:       coins[0].Denom,
 						Side:         2,
 						OrderQty:     "",
 						OrdType:      1,
-						Price:        "",
+						Price:        coins[0].Amount,
 						TimeInForce:  1,
-						Text:         "",
-						TransactTime: "",
+						Text:         tx.Memo,
+						TransactTime: tx.Time,
 						Trailer: &fixTypes.Trailer{
 							CheckSum: 0,
 						},
@@ -114,24 +135,31 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 					// set execution report
 					orderExecutionReport := &fixTypes.OrdersExecutionReport{
-						SessionID:    tx.TxHash,
-						Header:       &fixTypes.Header{},
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "8",
+							SenderCompID: message.ToAddress,
+							TargetCompID: message.FromAddress,
+							MsgSeqNum: tx.Height,
+							SendingTime:  tx.Time,
+						},
 						ClOrdID:      tx.TxHash,
-						OrderID:      "",
-						ExecID:       "",
-						OrdStatus:    "",
-						ExecType:     "",
-						Symbol:       "",
+						OrderID:      tx.TxHash,
+						ExecID:       tx.TxHash,
+						OrdStatus:    "New",
+						ExecType:     "New",
+						Symbol:       coins[0].Denom,
 						Side:         2,
 						OrderQty:     "",
-						Price:        "",
+						Price:        coins[0].Amount,
 						TimeInForce:  1,
-						LastPx:       2,
-						LastQty:      2,
-						LeavesQty:    2,
-						CumQty:       2,
-						AvgPx:        2,
-						Text:         "",
+						LastPx:       0,
+						LastQty:      0,
+						LeavesQty:    0,
+						CumQty:       0,
+						AvgPx:        0,
+						Text:         tx.Memo,
 						TransactTime: tx.Time,
 						Trailer: &fixTypes.Trailer{
 							CheckSum: 0,
@@ -144,10 +172,6 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 			}
 		}
 	}
-
-	// set
-	//log.Println("When it is in range", account)
-	//k.fixKeeper.SetAccountRegistration(ctx, account.Address, account)
 
 	oracle := types.MultiChainTxOracle{
 		OracleId:  msg.OracleId,
