@@ -14,6 +14,8 @@ import (
 	"github.com/jim380/Re/x/oracle/types"
 )
 
+// CosmoshubTxs generate the logon, new single order, execution report and
+// trade capture report for transactions on the Cosmos Hub
 func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTxs) (*types.MsgCosmoshubTxsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -122,7 +124,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							TradeReportID:        tx.TxHash,
 							TradeReportTransType: "New",
 							TradeReportType:      "real-time",
-							TrdType:              "Send",
+							TrdType:              "Block Trade",
 							TrdSubType:           "",
 							Side:                 "2",
 							OrderQty:             "",
@@ -222,9 +224,59 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 					// set Trade Capture Report if Txs was successful
 					tradeCapture := &fixTypes.TradeCapture{
-						SessionID:                         tx.TxHash,
-						TradeCaptureReport:                &fixTypes.TradeCaptureReport{},
-						TradeCaptureReportAcknowledgement: &fixTypes.TradeCaptureReportAcknowledgement{},
+						SessionID: tx.TxHash,
+						TradeCaptureReport: &fixTypes.TradeCaptureReport{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AE",
+								SenderCompID: message.FromAddress,
+								TargetCompID: message.ToAddress,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:        tx.TxHash,
+							TradeReportTransType: "New",
+							TradeReportType:      "real-time",
+							TrdType:              "Block Trade",
+							TrdSubType:           "Send",
+							Side:                 "2",
+							OrderQty:             "",
+							LastQty:              "",
+							LastPx:               "",
+							GrossTradeAmt:        coins[0].Amount,
+							ExecID:               tx.TxHash,
+							OrderID:              tx.TxHash,
+							TradeID:              tx.TxHash,
+							Symbol:               coins[0].Denom,
+							TransactTime:         tx.Time,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+						TradeCaptureReportAcknowledgement: &fixTypes.TradeCaptureReportAcknowledgement{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AR",
+								SenderCompID: message.ToAddress,
+								TargetCompID: message.FromAddress,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:          tx.TxHash,
+							TradeID:                tx.TxHash,
+							SecondaryTradeID:       "",
+							TradeReportType:        "real-time",
+							TrdType:                "Block Trade",
+							ExecType:               "New",
+							TradeReportRefID:       tx.TxHash,
+							SecondaryTradeReportID: "",
+							TradeReportStatus:      "Accepted",
+							TradeTransType:         "Send",
+							Text:                   tx.Memo,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
 					}
 					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
 				}
