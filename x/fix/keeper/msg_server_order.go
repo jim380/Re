@@ -417,7 +417,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	// set msgSeqNum
 	newHeader.MsgSeqNum = order.Header.MsgSeqNum
 
-	// set the msgType to Order Execution Report
+	// set the msgType to Order Cancel Reject
 	newHeader.MsgType = "9"
 
 	// switch senderCompID and targetCompID between New Single Order and Order Cancel Reject

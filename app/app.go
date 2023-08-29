@@ -109,6 +109,9 @@ import (
 	micmodule "github.com/jim380/Re/x/mic"
 	micmodulekeeper "github.com/jim380/Re/x/mic/keeper"
 	micmoduletypes "github.com/jim380/Re/x/mic/types"
+	oraclemodule "github.com/jim380/Re/x/oracle"
+	oraclemodulekeeper "github.com/jim380/Re/x/oracle/keeper"
+	oraclemoduletypes "github.com/jim380/Re/x/oracle/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -187,6 +190,7 @@ var (
 		did.AppModuleBasic{},
 		micmodule.AppModuleBasic{},
 		fixmodule.AppModuleBasic{},
+		oraclemodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -267,6 +271,8 @@ type ReApp struct {
 	MicKeeper micmodulekeeper.Keeper
 
 	FixKeeper fixmodulekeeper.Keeper
+
+	OracleKeeper oraclemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -320,6 +326,7 @@ func NewReApp(
 		didtypes.StoreKey,
 		micmoduletypes.StoreKey,
 		fixmoduletypes.StoreKey,
+		oraclemoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -555,6 +562,16 @@ func NewReApp(
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.OracleKeeper = *oraclemodulekeeper.NewKeeper(
+		appCodec,
+		keys[oraclemoduletypes.StoreKey],
+		keys[oraclemoduletypes.MemStoreKey],
+		app.GetSubspace(oraclemoduletypes.ModuleName),
+
+		app.FixKeeper,
+	)
+	oracleModule := oraclemodule.NewAppModule(appCodec, app.OracleKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -601,6 +618,7 @@ func NewReApp(
 		did.NewAppModule(appCodec, app.DidKeeper),
 		micModule,
 		fixModule,
+		oracleModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -631,6 +649,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -656,6 +675,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -686,6 +706,7 @@ func NewReApp(
 		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -715,6 +736,7 @@ func NewReApp(
 		// didModule,
 		micModule,
 		fixModule,
+		oracleModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -937,6 +959,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(didtypes.ModuleName)
 	paramsKeeper.Subspace(micmoduletypes.ModuleName)
 	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
+	paramsKeeper.Subspace(oraclemoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
