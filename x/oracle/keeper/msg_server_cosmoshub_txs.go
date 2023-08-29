@@ -90,6 +90,32 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// check that Txs was success
 				if tx.Result != 0 {
 					// orders here were rejected
+					order := &fixTypes.Orders{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "D",
+							SenderCompID: message.FromAddress,
+							TargetCompID: message.ToAddress,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						ClOrdID:      tx.TxHash,
+						Symbol:       coins[0].Denom,
+						Side:         2,
+						OrderQty:     "",
+						OrdType:      1,
+						Price:        coins[0].Amount,
+						TimeInForce:  1,
+						Text:         tx.Memo,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+
+					// when a send transaction fails, order cancel reject is generated
 					ordersCancelReject := fixTypes.OrdersCancelReject{
 						SessionID: tx.TxHash,
 						Header: &fixTypes.Header{
