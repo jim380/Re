@@ -21,7 +21,7 @@ service Query {
   
   // Queries a list of MultiChainTxOracle items.
   rpc MultiChainTxOracle    (QueryGetMultiChainTxOracleRequest) returns (QueryGetMultiChainTxOracleResponse) {
-    option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracle/{oracleId}";
+    option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracle/{oracleID}";
   
   }
   rpc MultiChainTxOracleAll (QueryAllMultiChainTxOracleRequest) returns (QueryAllMultiChainTxOracleResponse) {
@@ -40,7 +40,7 @@ message QueryParamsResponse {
 }
 
 message QueryGetMultiChainTxOracleRequest {
-   string oracleId = 1;
+   string oracleID = 1;
 }
 
 message QueryGetMultiChainTxOracleResponse {

@@ -10,7 +10,7 @@ service Msg {
 }
 message MsgCosmoshubTxs {
   string creator  = 1;
-  string oracleId = 2;
+  string oracleID = 2;
   string address  = 3;
 }
 

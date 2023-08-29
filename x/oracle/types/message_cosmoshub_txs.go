@@ -9,10 +9,10 @@ const TypeMsgCosmoshubTxs = "cosmoshub_txs"
 
 var _ sdk.Msg = &MsgCosmoshubTxs{}
 
-func NewMsgCosmoshubTxs(creator string, oracleId string, address string) *MsgCosmoshubTxs {
+func NewMsgCosmoshubTxs(creator string, oracleID string, address string) *MsgCosmoshubTxs {
 	return &MsgCosmoshubTxs{
 		Creator:  creator,
-		OracleId: oracleId,
+		OracleID: oracleID,
 		Address:  address,
 	}
 }

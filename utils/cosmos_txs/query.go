@@ -92,16 +92,13 @@ func RefetchTxsDataPeriodically(cacheKey string) {
 	ticker := time.NewTicker(fetchEvery)
 	defer ticker.Stop()
 
-	for {
-		select {
-		case <-ticker.C:
-			data, err := fetchTxs()
-			if err != nil {
-				log.Printf("Error fetching data: %v", err)
-				continue
-			}
-
-			c.Set(cacheKey, data, cache.DefaultExpiration)
+	for range ticker.C {
+		data, err := fetchTxs()
+		if err != nil {
+			log.Printf("Error fetching data: %v", err)
+			continue
 		}
+
+		c.Set(cacheKey, data, cache.DefaultExpiration)
 	}
 }

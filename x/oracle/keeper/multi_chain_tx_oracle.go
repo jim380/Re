@@ -33,17 +33,17 @@ func (k Keeper) SetMultiChainTxOracleCount(ctx sdk.Context, count uint64) {
 }
 
 // SetMultiChainTxOracle set a specific multiChainTxOracle in the store
-func (k Keeper) SetMultiChainTxOracle(ctx sdk.Context, oracleId string, multiChainTxOracle types.MultiChainTxOracle) {
+func (k Keeper) SetMultiChainTxOracle(ctx sdk.Context, oracleID string, multiChainTxOracle types.MultiChainTxOracle) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMultiChainTxOracleKey())
-	key := []byte(oracleId)
+	key := []byte(oracleID)
 	b := k.cdc.MustMarshal(&multiChainTxOracle)
 	store.Set(key, b)
 }
 
 // GetMultiChainTxOracle returns a multiChainTxOracle from its id
-func (k Keeper) GetMultiChainTxOracle(ctx sdk.Context, oracleId string) (val types.MultiChainTxOracle, found bool) {
+func (k Keeper) GetMultiChainTxOracle(ctx sdk.Context, oracleID string) (val types.MultiChainTxOracle, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMultiChainTxOracleKey())
-	key := []byte(oracleId)
+	key := []byte(oracleID)
 	b := store.Get(key)
 	if b == nil {
 		return val, false
@@ -53,9 +53,9 @@ func (k Keeper) GetMultiChainTxOracle(ctx sdk.Context, oracleId string) (val typ
 }
 
 // RemoveMultiChainTxOracle removes a multiChainTxOracle from the store
-func (k Keeper) RemoveMultiChainTxOracle(ctx sdk.Context, oracleId string) {
+func (k Keeper) RemoveMultiChainTxOracle(ctx sdk.Context, oracleID string) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMultiChainTxOracleKey())
-	key := []byte(oracleId)
+	key := []byte(oracleID)
 	store.Delete(key)
 }
 

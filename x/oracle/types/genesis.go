@@ -21,17 +21,17 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated ID in multiChainTxOracle
-	multiChainTxOracleIdMap := make(map[string]bool)
+	multiChainTxOracleIDMap := make(map[string]bool)
 	multiChainTxOracleCount := gs.GetMultiChainTxOracleCount()
 	for _, elem := range gs.MultiChainTxOracleList {
-		if _, ok := multiChainTxOracleIdMap[elem.OracleId]; ok {
+		if _, ok := multiChainTxOracleIDMap[elem.OracleID]; ok {
 			return fmt.Errorf("duplicated id for multiChainTxOracle")
 		}
-		oracleID, _ := strconv.ParseUint(elem.OracleId, 10, 64)
+		oracleID, _ := strconv.ParseUint(elem.OracleID, 10, 64)
 		if oracleID >= multiChainTxOracleCount {
 			return fmt.Errorf("multiChainTxOracle id should be lower or equal than the last id")
 		}
-		multiChainTxOracleIdMap[elem.OracleId] = true
+		multiChainTxOracleIDMap[elem.OracleID] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

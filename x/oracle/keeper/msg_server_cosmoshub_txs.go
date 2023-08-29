@@ -33,9 +33,11 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	// start refetching data every 5 seconds
 	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
 	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
+	if err != nil {
+		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
+	}
 	for _, tx := range transactions {
 		for _, message := range tx.Messages {
-
 			// type of Txs message = Send
 			switch helpers.AbbrTxMessage(message.Type) {
 			case "Send":
@@ -78,7 +80,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				var coins []cosmostxs.Coin
 				err := json.Unmarshal(message.Amount, &coins)
 				if err != nil {
-					return nil, fmt.Errorf("Failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
+					return nil, fmt.Errorf("failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
 				}
 
 				// set New Single Order
@@ -287,13 +289,13 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	}
 
 	oracle := types.MultiChainTxOracle{
-		OracleId:  msg.OracleId,
+		OracleID:  msg.OracleID,
 		Address:   msg.Address,
 		Timestamp: constants.CreatedAt,
 	}
 
 	// set oracle to store
-	k.SetMultiChainTxOracle(ctx, msg.OracleId, oracle)
+	k.SetMultiChainTxOracle(ctx, msg.OracleID, oracle)
 
 	// emit event
 	err = ctx.EventManager().EmitTypedEvent(msg)

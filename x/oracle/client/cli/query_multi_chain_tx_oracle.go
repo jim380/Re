@@ -52,10 +52,10 @@ func CmdShowMultiChainTxOracle() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argOracleId := args[0]
+			argOracleID := args[0]
 
 			params := &types.QueryGetMultiChainTxOracleRequest{
-				OracleId: argOracleId,
+				OracleID: argOracleID,
 			}
 
 			res, err := queryClient.MultiChainTxOracle(context.Background(), params)

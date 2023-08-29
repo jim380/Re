@@ -32,7 +32,6 @@ func (k Keeper) MultiChainTxOracleAll(goCtx context.Context, req *types.QueryAll
 		multiChainTxOracles = append(multiChainTxOracles, multiChainTxOracle)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -46,7 +45,7 @@ func (k Keeper) MultiChainTxOracle(goCtx context.Context, req *types.QueryGetMul
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	multiChainTxOracle, found := k.GetMultiChainTxOracle(ctx, req.OracleId)
+	multiChainTxOracle, found := k.GetMultiChainTxOracle(ctx, req.OracleID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
