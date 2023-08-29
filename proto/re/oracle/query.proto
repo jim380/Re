@@ -12,21 +12,21 @@ option go_package = "github.com/jim380/Re/x/oracle/types";
 
 // Query defines the gRPC querier service.
 service Query {
-  
+
   // Parameters queries the parameters of the module.
-  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/jim380/Re/oracle/params";
-  
   }
-  
+
   // Queries a list of MultiChainTxOracle items.
-  rpc MultiChainTxOracle    (QueryGetMultiChainTxOracleRequest) returns (QueryGetMultiChainTxOracleResponse) {
-    option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracle/{oracleID}";
-  
+  rpc MultiChainTxOracle(QueryGetMultiChainTxOracleRequest)
+      returns (QueryGetMultiChainTxOracleResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/oracle/multi/chain/tx/oracle/{oracleID}";
   }
-  rpc MultiChainTxOracleAll (QueryAllMultiChainTxOracleRequest) returns (QueryAllMultiChainTxOracleResponse) {
+  rpc MultiChainTxOracleAll(QueryAllMultiChainTxOracleRequest)
+      returns (QueryAllMultiChainTxOracleResponse) {
     option (google.api.http).get = "/jim380/Re/oracle/multi/chain/tx/oracles";
-  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -34,17 +34,15 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-  
+
   // params holds all the parameters of this module.
-  Params params = 1 [(gogoproto.nullable) = false];
+  Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetMultiChainTxOracleRequest {
-   string oracleID = 1;
-}
+message QueryGetMultiChainTxOracleRequest { string oracleID = 1; }
 
 message QueryGetMultiChainTxOracleResponse {
-  MultiChainTxOracle MultiChainTxOracle = 1 [(gogoproto.nullable) = false];
+  MultiChainTxOracle MultiChainTxOracle = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllMultiChainTxOracleRequest {
@@ -52,7 +50,7 @@ message QueryAllMultiChainTxOracleRequest {
 }
 
 message QueryAllMultiChainTxOracleResponse {
-  repeated MultiChainTxOracle                     MultiChainTxOracle = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
+  repeated MultiChainTxOracle MultiChainTxOracle = 1
+      [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
-

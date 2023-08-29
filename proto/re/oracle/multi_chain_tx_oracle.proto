@@ -4,8 +4,7 @@ package re.oracle;
 option go_package = "github.com/jim380/Re/x/oracle/types";
 
 message MultiChainTxOracle {
-  string oracleID = 1; 
-  string address = 2; 
-  string timestamp = 3; 
-  
+  string oracleID = 1;
+  string address = 2;
+  string timestamp = 3;
 }
