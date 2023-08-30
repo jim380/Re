@@ -23,6 +23,7 @@ type Transaction struct {
 	Messages []Message `json:"messages"`
 	Memo     string    `json:"memo"`
 	Result   int       `json:"result"`
+	Raw_log  string    `json:"raw_log"`
 	Fee      []Coin    `json:"fee"`
 	Height   int64     `json:"height"`
 	Time     string    `json:"time"`
