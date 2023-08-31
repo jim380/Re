@@ -135,6 +135,33 @@ func (k Keeper) OrdersExecutionReport(goCtx context.Context, req *types.QueryGet
 	return &types.QueryGetOrdersExecutionReportResponse{OrdersExecutionReport: ordersExecutionReport}, nil
 }
 
+func (k Keeper) OrdersExecutionReportByAddress(goCtx context.Context, req *types.QueryGetOrdersExecutionReportByAddressRequest) (*types.QueryGetOrdersExecutionReportByAddressResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	var ordersExecutionReports []types.OrdersExecutionReport
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	store := ctx.KVStore(k.storeKey)
+	ordersExecutionReportStore := prefix.NewStore(store, types.GetOrdersExecutionReportKey())
+
+	pageRes, err := query.Paginate(ordersExecutionReportStore, req.Pagination, func(key []byte, value []byte) error {
+		var ordersExecutionReport types.OrdersExecutionReport
+		if err := k.cdc.Unmarshal(value, &ordersExecutionReport); err != nil {
+			return err
+		}
+		if ordersExecutionReport.Header.SenderCompID == req.Address || ordersExecutionReport.Header.TargetCompID == req.Address {
+			ordersExecutionReports = append(ordersExecutionReports, ordersExecutionReport)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &types.QueryGetOrdersExecutionReportByAddressResponse{OrdersExecutionReport: ordersExecutionReports, Pagination: pageRes}, nil
+}
+
 func (k Keeper) OrdersCancelRejectAll(goCtx context.Context, req *types.QueryAllOrdersCancelRejectRequest) (*types.QueryAllOrdersCancelRejectResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")

@@ -198,6 +198,42 @@ func CmdShowOrdersExecutionReport() *cobra.Command {
 	return cmd
 }
 
+func CmdShowOrdersExecutionReportByAddress() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-orders-execution-report-by-address [address]",
+		Short: "shows an orders execution report by address",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			argAddress := args[0]
+
+			params := &types.QueryGetOrdersExecutionReportByAddressRequest{
+				Address:    argAddress,
+				Pagination: pageReq,
+			}
+
+			res, err := queryClient.OrdersExecutionReportByAddress(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
 func CmdListOrdersCancelReject() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list-orders-cancel-reject",
