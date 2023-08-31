@@ -3654,7 +3654,7 @@ var (
 
 	pattern_Query_SessionLogoutAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"jim380", "Re", "fix", "session", "logouts"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Orders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "order", "clOrdID"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrdersByAddress_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"jim380", "Re", "fix", "orders", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 

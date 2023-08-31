@@ -67,7 +67,8 @@ service Query {
   rpc Orders(QueryGetOrdersRequest) returns (QueryGetOrdersResponse) {
     option (google.api.http).get = "/jim380/Re/fix/order/{clOrdID}";
   }
-   rpc OrdersByAddress(QueryGetOrdersByAddressRequest) returns (QueryGetOrdersByAddressResponse) {
+  rpc OrdersByAddress(QueryGetOrdersByAddressRequest)
+      returns (QueryGetOrdersByAddressResponse) {
     option (google.api.http).get = "/jim380/Re/fix/orders/{address}";
   }
   rpc OrdersAll(QueryAllOrdersRequest) returns (QueryAllOrdersResponse) {
@@ -293,8 +294,8 @@ message QueryGetOrdersResponse {
   Orders Orders = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetOrdersByAddressRequest { 
-  string address = 1; 
+message QueryGetOrdersByAddressRequest {
+  string address = 1;
   cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
