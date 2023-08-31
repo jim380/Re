@@ -41,7 +41,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 			// type of Txs message = Send
 			switch helpers.AbbrTxMessage(message.Type) {
 			case "Send":
-				// set sessions for parties existing in the transactions
+				// set sessions for parties existing in the SEND transactions
 				session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
 					LogonInitiator: &fixTypes.LogonInitiator{
@@ -153,7 +153,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							TradeReportTransType: "New",
 							TradeReportType:      "real-time",
 							TrdType:              "Block Trade",
-							TrdSubType:           "",
+							TrdSubType:           "Send",
 							Side:                 "2",
 							OrderQty:             "",
 							LastQty:              "",
@@ -310,6 +310,267 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				}
 
 			case "Transfer":
+				// set sessions for parties existing in the Transfer transactions
+				session := fixTypes.Sessions{
+					SessionID: tx.TxHash,
+					LogonInitiator: &fixTypes.LogonInitiator{
+						Header: &fixTypes.Header{
+							BeginString:  "fix4.4",
+							MsgType:      "A",
+							SenderCompID: message.Sender,
+							TargetCompID: message.Receiver,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					},
+					LogonAcceptor: &fixTypes.LogonAcceptor{
+						Header: &fixTypes.Header{
+							BeginString:  "fix4.4",
+							MsgType:      "A",
+							SenderCompID: message.Receiver,
+							TargetCompID: message.Sender,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					},
+					Status:     "loggedIn",
+					IsAccepted: true,
+				}
+				// set new session to store
+				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
+
+				// set New Single Order
+				// set Orders Execution Report
+				// set Orders Rejection
+				// set Trade Capture
+				// check that Txs was success
+				if tx.Result != 0 {
+					// orders here were rejected
+					order := &fixTypes.Orders{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "D",
+							SenderCompID: message.Sender,
+							TargetCompID: message.Receiver,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						ClOrdID:      tx.TxHash,
+						Symbol:       message.Token.Denom,
+						Side:         2,
+						OrderQty:     "",
+						OrdType:      1,
+						Price:        message.Token.Amount,
+						TimeInForce:  1,
+						Text:         tx.Memo,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+
+					// when a Transfer transaction fails, order cancel reject is generated
+					ordersCancelReject := fixTypes.OrdersCancelReject{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "9",
+							SenderCompID: message.Receiver,
+							TargetCompID: message.Sender,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						OrderID:      tx.TxHash,
+						OrigClOrdID:  tx.TxHash,
+						ClOrdID:      tx.TxHash,
+						CxlRejReason: 4,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrdersCancelReject(ctx, tx.TxHash, ordersCancelReject)
+
+					// set Trade Capture Report Reject when Transfer Txs fails
+					tradeCaptureReportReject := &fixTypes.TradeCapture{
+						SessionID: tx.TxHash,
+						TradeCaptureReport: &fixTypes.TradeCaptureReport{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AE",
+								SenderCompID: message.Sender,
+								TargetCompID: message.Receiver,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:        tx.TxHash,
+							TradeReportTransType: "New",
+							TradeReportType:      "real-time",
+							TrdType:              "Block Trade",
+							TrdSubType:           "Transfer",
+							Side:                 "2",
+							OrderQty:             "",
+							LastQty:              "",
+							LastPx:               "",
+							GrossTradeAmt:        message.Token.Amount,
+							ExecID:               tx.TxHash,
+							OrderID:              tx.TxHash,
+							TradeID:              tx.TxHash,
+							Symbol:               message.Token.Denom,
+							TransactTime:         tx.Time,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+						TradeCaptureReportRejection: &fixTypes.TradeCaptureReportRejection{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "j",
+								SenderCompID: message.Receiver,
+								TargetCompID: message.Sender,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:           tx.TxHash,
+							TradeReportRejectReason: 0,
+							TradeReportRejectRefID:  tx.TxHash,
+							Text:                    tx.Memo + tx.Raw_log,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+					}
+					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCaptureReportReject)
+
+				} else {
+
+					// set successful orders
+					order := &fixTypes.Orders{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "D",
+							SenderCompID: message.Sender,
+							TargetCompID: message.Receiver,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						ClOrdID:      tx.TxHash,
+						Symbol:       message.Token.Denom,
+						Side:         2,
+						OrderQty:     "",
+						OrdType:      1,
+						Price:        message.Token.Amount,
+						TimeInForce:  1,
+						Text:         tx.Memo,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+
+					// set execution report
+					orderExecutionReport := &fixTypes.OrdersExecutionReport{
+						SessionID: tx.TxHash,
+						Header: &fixTypes.Header{
+							BeginString:  "FIX4.2",
+							MsgType:      "8",
+							SenderCompID: message.Receiver,
+							TargetCompID: message.Sender,
+							MsgSeqNum:    tx.Height,
+							SendingTime:  tx.Time,
+						},
+						ClOrdID:      tx.TxHash,
+						OrderID:      tx.TxHash,
+						ExecID:       tx.TxHash,
+						OrdStatus:    "New",
+						ExecType:     "New",
+						Symbol:       message.Token.Denom,
+						Side:         2,
+						OrderQty:     "",
+						Price:        message.Token.Amount,
+						TimeInForce:  1,
+						LastPx:       0,
+						LastQty:      0,
+						LeavesQty:    0,
+						CumQty:       0,
+						AvgPx:        0,
+						Text:         tx.Memo,
+						TransactTime: tx.Time,
+						Trailer: &fixTypes.Trailer{
+							CheckSum: 0,
+						},
+					}
+					k.fixKeeper.SetOrdersExecutionReport(ctx, tx.TxHash, *orderExecutionReport)
+
+					// set Trade Capture Report if Txs was successful
+					tradeCapture := &fixTypes.TradeCapture{
+						SessionID: tx.TxHash,
+						TradeCaptureReport: &fixTypes.TradeCaptureReport{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AE",
+								SenderCompID: message.Sender,
+								TargetCompID: message.Receiver,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:        tx.TxHash,
+							TradeReportTransType: "New",
+							TradeReportType:      "real-time",
+							TrdType:              "Block Trade",
+							TrdSubType:           "Transfer",
+							Side:                 "2",
+							OrderQty:             "",
+							LastQty:              "",
+							LastPx:               "",
+							GrossTradeAmt:        message.Token.Amount,
+							ExecID:               tx.TxHash,
+							OrderID:              tx.TxHash,
+							TradeID:              tx.TxHash,
+							Symbol:               message.Token.Denom,
+							TransactTime:         tx.Time,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+						TradeCaptureReportAcknowledgement: &fixTypes.TradeCaptureReportAcknowledgement{
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.2",
+								MsgType:      "AR",
+								SenderCompID: message.Receiver,
+								TargetCompID: message.Sender,
+								MsgSeqNum:    tx.Height,
+								SendingTime:  tx.Time,
+							},
+							TradeReportID:          tx.TxHash,
+							TradeID:                tx.TxHash,
+							SecondaryTradeID:       "",
+							TradeReportType:        "real-time",
+							TrdType:                "Block Trade",
+							ExecType:               "New",
+							TradeReportRefID:       tx.TxHash,
+							SecondaryTradeReportID: "",
+							TradeReportStatus:      "Accepted",
+							TradeTransType:         "Transfer",
+							Text:                   tx.Memo,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						},
+					}
+					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
+				}
+
 			}
 		}
 	}
