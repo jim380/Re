@@ -44,8 +44,8 @@ func CmdListOrders() *cobra.Command {
 
 func CmdShowOrders() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-orders [clOrdID]",
-		Short: "shows a orders",
+		Use:   "show-order [clOrdID]",
+		Short: "shows an order",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -59,6 +59,42 @@ func CmdShowOrders() *cobra.Command {
 			}
 
 			res, err := queryClient.Orders(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdShowOrdersByAddress() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-orders-by-address [address]",
+		Short: "show orders by address",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			argAddress := args[0]
+
+			params := &types.QueryGetOrdersByAddressRequest{
+				Address:    argAddress,
+				Pagination: pageReq,
+			}
+
+			res, err := queryClient.OrdersByAddress(context.Background(), params)
 			if err != nil {
 				return err
 			}
