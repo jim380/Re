@@ -442,7 +442,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 							TradeReportID:           tx.TxHash,
 							TradeReportRejectReason: 0,
 							TradeReportRejectRefID:  tx.TxHash,
-							Text:                    tx.Memo + tx.Raw_log,
+							Text:                    tx.Memo + tx.RawLog,
 							Trailer: &fixTypes.Trailer{
 								CheckSum: 0,
 							},

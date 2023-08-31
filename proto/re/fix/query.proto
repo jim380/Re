@@ -98,6 +98,11 @@ service Query {
       returns (QueryGetOrdersExecutionReportResponse) {
     option (google.api.http).get =
         "/jim380/Re/fix/orders/execution/report/{clOrdID}";
+  } 
+  rpc OrdersExecutionReportByAddress(QueryGetOrdersExecutionReportByAddressRequest)
+      returns (QueryGetOrdersExecutionReportByAddressResponse) {
+    option (google.api.http).get =
+        "/jim380/Re/fix/orders/execution/reports/{address}";
   }
   rpc OrdersExecutionReportAll(QueryAllOrdersExecutionReportRequest)
       returns (QueryAllOrdersExecutionReportResponse) {
@@ -331,6 +336,18 @@ message QueryGetOrdersExecutionReportResponse {
   OrdersExecutionReport OrdersExecutionReport = 1
       [ (gogoproto.nullable) = false ];
 }
+
+message QueryGetOrdersExecutionReportByAddressRequest { 
+  string address = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+ }
+
+message QueryGetOrdersExecutionReportByAddressResponse {
+  repeated OrdersExecutionReport OrdersExecutionReport = 1
+      [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 
 message QueryAllOrdersExecutionReportRequest {
   cosmos.base.query.v1beta1.PageRequest pagination = 1;
