@@ -24,6 +24,7 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	cmd.AddCommand(CmdCosmoshubTxs())
+	cmd.AddCommand(CmdBitcoinTxs())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

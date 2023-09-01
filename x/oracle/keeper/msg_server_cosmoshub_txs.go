@@ -30,7 +30,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 	// set cosmoshub txs, map to the fix module
 	// update fix module from oracle
-	// start refetching data every 5 seconds and returns 20 latest Txs
+	// start refetching data every 5 seconds and return 20 latest Txs
 	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
 	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
 	if err != nil {

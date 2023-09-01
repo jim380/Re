@@ -123,15 +123,113 @@ func (m *MsgCosmoshubTxsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgCosmoshubTxsResponse proto.InternalMessageInfo
 
+type MsgBitcoinTxs struct {
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	OracleID string `protobuf:"bytes,2,opt,name=oracleID,proto3" json:"oracleID,omitempty"`
+	Address  string `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (m *MsgBitcoinTxs) Reset()         { *m = MsgBitcoinTxs{} }
+func (m *MsgBitcoinTxs) String() string { return proto.CompactTextString(m) }
+func (*MsgBitcoinTxs) ProtoMessage()    {}
+func (*MsgBitcoinTxs) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a13d1dc5a8b2d48, []int{2}
+}
+func (m *MsgBitcoinTxs) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBitcoinTxs) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBitcoinTxs.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBitcoinTxs) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBitcoinTxs.Merge(m, src)
+}
+func (m *MsgBitcoinTxs) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBitcoinTxs) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBitcoinTxs.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBitcoinTxs proto.InternalMessageInfo
+
+func (m *MsgBitcoinTxs) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgBitcoinTxs) GetOracleID() string {
+	if m != nil {
+		return m.OracleID
+	}
+	return ""
+}
+
+func (m *MsgBitcoinTxs) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type MsgBitcoinTxsResponse struct {
+}
+
+func (m *MsgBitcoinTxsResponse) Reset()         { *m = MsgBitcoinTxsResponse{} }
+func (m *MsgBitcoinTxsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgBitcoinTxsResponse) ProtoMessage()    {}
+func (*MsgBitcoinTxsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a13d1dc5a8b2d48, []int{3}
+}
+func (m *MsgBitcoinTxsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBitcoinTxsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBitcoinTxsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBitcoinTxsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBitcoinTxsResponse.Merge(m, src)
+}
+func (m *MsgBitcoinTxsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBitcoinTxsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBitcoinTxsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBitcoinTxsResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCosmoshubTxs)(nil), "re.oracle.MsgCosmoshubTxs")
 	proto.RegisterType((*MsgCosmoshubTxsResponse)(nil), "re.oracle.MsgCosmoshubTxsResponse")
+	proto.RegisterType((*MsgBitcoinTxs)(nil), "re.oracle.MsgBitcoinTxs")
+	proto.RegisterType((*MsgBitcoinTxsResponse)(nil), "re.oracle.MsgBitcoinTxsResponse")
 }
 
 func init() { proto.RegisterFile("re/oracle/tx.proto", fileDescriptor_0a13d1dc5a8b2d48) }
 
 var fileDescriptor_0a13d1dc5a8b2d48 = []byte{
-	// 223 bytes of a gzipped FileDescriptorProto
+	// 265 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2a, 0x4a, 0xd5, 0xcf,
 	0x2f, 0x4a, 0x4c, 0xce, 0x49, 0xd5, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2,
 	0x2c, 0x4a, 0xd5, 0x83, 0x88, 0x29, 0x25, 0x72, 0xf1, 0xfb, 0x16, 0xa7, 0x3b, 0xe7, 0x17, 0xe7,
@@ -139,13 +237,16 @@ var fileDescriptor_0a13d1dc5a8b2d48 = []byte{
 	0x96, 0xe4, 0x17, 0x49, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0xc1, 0xb8, 0x42, 0x52, 0x5c, 0x1c,
 	0x10, 0x6d, 0x9e, 0x2e, 0x12, 0x4c, 0x60, 0x29, 0x38, 0x1f, 0xa4, 0x2b, 0x31, 0x25, 0xa5, 0x28,
 	0xb5, 0xb8, 0x58, 0x82, 0x19, 0xa2, 0x0b, 0xca, 0x55, 0x92, 0xe4, 0x12, 0x47, 0xb3, 0x22, 0x28,
-	0xb5, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0xd5, 0x28, 0x94, 0x8b, 0xd9, 0xb7, 0x38, 0x5d, 0xc8, 0x8f,
-	0x8b, 0x07, 0xc5, 0x05, 0x52, 0x7a, 0x70, 0x07, 0xea, 0xa1, 0x69, 0x95, 0x52, 0xc2, 0x2d, 0x07,
-	0x33, 0xd6, 0xc9, 0xf6, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63,
-	0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0x94, 0xd3,
-	0x33, 0x4b, 0x32, 0x4a, 0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0xb3, 0x32, 0x73, 0x8d, 0x2d, 0x0c,
-	0xf4, 0x83, 0x52, 0xf5, 0x2b, 0xe0, 0x21, 0x54, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x0e, 0x25,
-	0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x33, 0x72, 0xe8, 0x62, 0x3b, 0x01, 0x00, 0x00,
+	0xb5, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x29, 0x9e, 0x8b, 0xd7, 0xb7, 0x38, 0xdd, 0x29, 0xb3,
+	0x24, 0x39, 0x3f, 0x33, 0x8f, 0x16, 0x76, 0x8b, 0x73, 0x89, 0xa2, 0x58, 0x00, 0xb3, 0xd9, 0x68,
+	0x3e, 0x23, 0x17, 0xb3, 0x6f, 0x71, 0xba, 0x90, 0x1f, 0x17, 0x0f, 0x8a, 0xe7, 0xa5, 0xf4, 0xe0,
+	0x61, 0xa3, 0x87, 0xe6, 0x6a, 0x29, 0x25, 0xdc, 0x72, 0x30, 0x73, 0x85, 0x3c, 0xb8, 0xb8, 0x90,
+	0xbd, 0x83, 0xaa, 0x03, 0x21, 0x23, 0xa5, 0x80, 0x4b, 0x06, 0x66, 0x92, 0x93, 0xed, 0x89, 0x47,
+	0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85,
+	0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x29, 0xa7, 0x67, 0x96, 0x64, 0x94, 0x26, 0xe9,
+	0x25, 0xe7, 0xe7, 0xea, 0x67, 0x65, 0xe6, 0x1a, 0x5b, 0x18, 0xe8, 0x07, 0xa5, 0xea, 0x57, 0xc0,
+	0xa3, 0xb9, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c, 0xd5, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0xdb, 0x20, 0x59, 0xaf, 0x00, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -161,6 +262,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	CosmoshubTxs(ctx context.Context, in *MsgCosmoshubTxs, opts ...grpc.CallOption) (*MsgCosmoshubTxsResponse, error)
+	BitcoinTxs(ctx context.Context, in *MsgBitcoinTxs, opts ...grpc.CallOption) (*MsgBitcoinTxsResponse, error)
 }
 
 type msgClient struct {
@@ -180,9 +282,19 @@ func (c *msgClient) CosmoshubTxs(ctx context.Context, in *MsgCosmoshubTxs, opts 
 	return out, nil
 }
 
+func (c *msgClient) BitcoinTxs(ctx context.Context, in *MsgBitcoinTxs, opts ...grpc.CallOption) (*MsgBitcoinTxsResponse, error) {
+	out := new(MsgBitcoinTxsResponse)
+	err := c.cc.Invoke(ctx, "/re.oracle.Msg/BitcoinTxs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CosmoshubTxs(context.Context, *MsgCosmoshubTxs) (*MsgCosmoshubTxsResponse, error)
+	BitcoinTxs(context.Context, *MsgBitcoinTxs) (*MsgBitcoinTxsResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -191,6 +303,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) CosmoshubTxs(ctx context.Context, req *MsgCosmoshubTxs) (*MsgCosmoshubTxsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CosmoshubTxs not implemented")
+}
+func (*UnimplementedMsgServer) BitcoinTxs(ctx context.Context, req *MsgBitcoinTxs) (*MsgBitcoinTxsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BitcoinTxs not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -215,6 +330,24 @@ func _Msg_CosmoshubTxs_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_BitcoinTxs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBitcoinTxs)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BitcoinTxs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/re.oracle.Msg/BitcoinTxs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BitcoinTxs(ctx, req.(*MsgBitcoinTxs))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "re.oracle.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -222,6 +355,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CosmoshubTxs",
 			Handler:    _Msg_CosmoshubTxs_Handler,
+		},
+		{
+			MethodName: "BitcoinTxs",
+			Handler:    _Msg_BitcoinTxs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -295,6 +432,73 @@ func (m *MsgCosmoshubTxsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgBitcoinTxs) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBitcoinTxs) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBitcoinTxs) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Address)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.OracleID) > 0 {
+		i -= len(m.OracleID)
+		copy(dAtA[i:], m.OracleID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OracleID)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgBitcoinTxsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBitcoinTxsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBitcoinTxsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -328,6 +532,36 @@ func (m *MsgCosmoshubTxs) Size() (n int) {
 }
 
 func (m *MsgCosmoshubTxsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgBitcoinTxs) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OracleID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgBitcoinTxsResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -515,6 +749,202 @@ func (m *MsgCosmoshubTxsResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgCosmoshubTxsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBitcoinTxs) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBitcoinTxs: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBitcoinTxs: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OracleID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OracleID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBitcoinTxsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBitcoinTxsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBitcoinTxsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

@@ -6,12 +6,22 @@ option go_package = "github.com/jim380/Re/x/oracle/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CosmoshubTxs(MsgCosmoshubTxs) returns (MsgCosmoshubTxsResponse);
+  rpc CosmoshubTxs (MsgCosmoshubTxs) returns (MsgCosmoshubTxsResponse);
+  rpc BitcoinTxs   (MsgBitcoinTxs  ) returns (MsgBitcoinTxsResponse  );
 }
 message MsgCosmoshubTxs {
-  string creator = 1;
+  string creator  = 1;
   string oracleID = 2;
-  string address = 3;
+  string address  = 3;
 }
 
 message MsgCosmoshubTxsResponse {}
+
+message MsgBitcoinTxs {
+  string creator  = 1;
+  string oracleID = 2;
+  string address  = 3;
+}
+
+message MsgBitcoinTxsResponse {}
+
