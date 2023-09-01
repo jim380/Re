@@ -15,8 +15,8 @@ import (
 
 var (
 	address1 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
-	adress2  = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
-	address    = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
+	address2 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
+	address3 = sdk.AccAddress(ed25519.GenPrivKey().PubKey().Address().Bytes())
 )
 
 // shared setup
@@ -36,9 +36,9 @@ func (suite *KeeperTestSuite) SetupTest() {
 	suite.ctx = suite.app.BaseApp.NewContext(false, tmproto.Header{})
 	suite.fixKeeper = suite.app.FixKeeper
 	suite.oracleKeeper = suite.app.OracleKeeper
-	suite.msgServer = fixKeeper.NewMsgServerImpl(suite.app.FixKeeper)
+	suite.msgServer = oracleKeeper.NewMsgServerImpl(suite.app.OracleKeeper)
 
-	suite.address = []sdk.AccAddress{address1, address2, address}
+	suite.address = []sdk.AccAddress{address1, address2, address3}
 }
 
 func TestKeeperTestSuite(t *testing.T) {
