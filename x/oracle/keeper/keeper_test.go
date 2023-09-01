@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	reapp "github.com/jim380/Re/app"
 	fixKeeper "github.com/jim380/Re/x/fix/keeper"
-	"github.com/jim380/Re/x/oracle/types"
 	oracleKeeper "github.com/jim380/Re/x/oracle/keeper"
+	"github.com/jim380/Re/x/oracle/types"
 	"github.com/stretchr/testify/suite"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
@@ -23,12 +23,12 @@ var (
 type KeeperTestSuite struct {
 	suite.Suite
 
-	address   []sdk.AccAddress
-	app       *reapp.ReApp
-	ctx       sdk.Context
-	fixKeeper fixKeeper.Keeper
+	address      []sdk.AccAddress
+	app          *reapp.ReApp
+	ctx          sdk.Context
+	fixKeeper    fixKeeper.Keeper
 	oracleKeeper oracleKeeper.Keeper
-	msgServer types.MsgServer
+	msgServer    types.MsgServer
 }
 
 func (suite *KeeperTestSuite) SetupTest() {
