@@ -36,7 +36,7 @@ type Transaction struct {
 	Sigops        int      `json:"sigops"`
 	Size          int      `json:"size"`
 	Version       int      `json:"version"`
-	Vsize         int      `json:"vsize"`
+	//Vsize         int      `json:"vsize"`
 	Weight        int      `json:"weight"`
 	WitnessHash   string   `json:"witness_hash"`
 	Inputs        []Input  `json:"inputs"`
