@@ -31,8 +31,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	// set cosmoshub txs, map to the fix module
 	// update fix module from oracle
 	// start refetching data every 5 seconds and return 20 latest Txs
-	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
-	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
+	go cosmostxs.RefetchCosmosTxsDataPeriodically(cosmostxs.CacheKey)
+	transactions, err := cosmostxs.GetCachedCosmosTransactions(cosmostxs.CacheKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}

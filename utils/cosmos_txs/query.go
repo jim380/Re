@@ -57,7 +57,7 @@ type Coin struct {
 	Amount string `json:"amount"`
 }
 
-func fetchTxs() ([]Transaction, error) {
+func fetchCosmosTxs() ([]Transaction, error) {
 	resp, err := http.Get(cosmosHubTxsAPI)
 	if err != nil {
 		return nil, err
@@ -74,13 +74,13 @@ func fetchTxs() ([]Transaction, error) {
 	return transactions, nil
 }
 
-func GetTxsDataWithCache(cacheKey string) ([]Transaction, error) {
+func GetCachedCosmosTransactions(cacheKey string) ([]Transaction, error) {
 	data, found := c.Get(cacheKey)
 	if found {
 		return data.([]Transaction), nil
 	}
 
-	newData, err := fetchTxs()
+	newData, err := fetchCosmosTxs()
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +89,12 @@ func GetTxsDataWithCache(cacheKey string) ([]Transaction, error) {
 	return newData, err
 }
 
-func RefetchTxsDataPeriodically(cacheKey string) {
+func RefetchCosmosTxsDataPeriodically(cacheKey string) {
 	ticker := time.NewTicker(fetchEvery)
 	defer ticker.Stop()
 
 	for range ticker.C {
-		data, err := fetchTxs()
+		data, err := fetchCosmosTxs()
 		if err != nil {
 			log.Printf("Error fetching data: %v", err)
 			continue
