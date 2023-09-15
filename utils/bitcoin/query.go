@@ -1,6 +1,10 @@
 package bitcoin
 
-import "time"
+import (
+	"encoding/json"
+	"net/http"
+	"time"
+)
 
 const (
 	bitcoinTxsAPI = "http://localhost:5001/bitcoin/txs?limit=15"
@@ -40,4 +44,21 @@ type Transaction struct {
 
 type TransactionResponse struct {
 	Transactions []Transaction `json:"transactions"`
+}
+
+func fetchBitcoinTxs() (*TransactionResponse, error) {
+	resp, err := http.Get(bitcoinTxsAPI)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var transactions TransactionResponse
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&transactions)
+	if err != nil {
+		return nil, err
+	}
+
+	return &TransactionResponse{}, nil
 }
