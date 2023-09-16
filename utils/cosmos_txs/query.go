@@ -15,8 +15,6 @@ const (
 	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=20"
 )
 
-var c = cache.New(constants.CacheTTL, 10*time.Minute)
-
 func fetchCosmosTxs() (*types.TransactionResponse, error) {
 	resp, err := http.Get(cosmosHubTxsAPI)
 	if err != nil {
@@ -35,7 +33,7 @@ func fetchCosmosTxs() (*types.TransactionResponse, error) {
 }
 
 func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, error) {
-	data, found := c.Get(cacheKey)
+	data, found := constants.C.Get(cacheKey)
 	if found {
 		return data.(*types.TransactionResponse), nil
 	}
@@ -45,7 +43,7 @@ func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, e
 		return nil, err
 	}
 
-	c.Set(cacheKey, newData, cache.DefaultExpiration)
+	constants.C.Set(cacheKey, newData, cache.DefaultExpiration)
 	return newData, err
 }
 
@@ -60,6 +58,6 @@ func RefetchCosmosTxsDataPeriodically(cacheKey string) {
 			continue
 		}
 
-		c.Set(cacheKey, data, cache.DefaultExpiration)
+		constants.C.Set(cacheKey, data, cache.DefaultExpiration)
 	}
 }
