@@ -6,78 +6,38 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/cosmos_txs/types"
 	"github.com/patrickmn/go-cache"
 )
 
 const (
 	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=20"
-	cacheTTL        = 5 * time.Second
-	fetchEvery      = 5 * time.Second
-	CacheKey        = "cosmosHub"
 )
 
-var c = cache.New(cacheTTL, 10*time.Minute)
+var c = cache.New(constants.CacheTTL, 10*time.Minute)
 
-type Transaction struct {
-	TxHash   string    `json:"txHash"`
-	Messages []Message `json:"messages"`
-	Memo     string    `json:"memo"`
-	Result   int       `json:"result"`
-	RawLog   string    `json:"raw_log"`
-	Fee      []Coin    `json:"fee"`
-	Height   int64     `json:"height"`
-	Time     string    `json:"time"`
-}
-
-type Message struct {
-	Type             string          `json:"@type"`
-	FromAddress      string          `json:"from_address,omitempty"`
-	ToAddress        string          `json:"to_address,omitempty"`
-	Amount           json.RawMessage `json:"amount,omitempty"`
-	Token            Coin            `json:"token,omitempty"`
-	ProposalID       string          `json:"proposal_id,omitempty"`
-	Voter            string          `json:"voter,omitempty"`
-	Option           string          `json:"option,omitempty"`
-	DelegatorAddress string          `json:"delegator_address,omitempty"`
-	ValidatorAddress string          `json:"validator_address,omitempty"`
-	Sender           string          `json:"sender,omitempty"`
-	Receiver         string          `json:"receiver,omitempty"`
-	Msgs             []Msg           `json:"msgs,omitempty"`
-}
-
-type Msg struct {
-	Type      string `json:"@type"`
-	Delegator string `json:"delegator_address,omitempty"`
-	Validator string `json:"validator_address,omitempty"`
-	Amount    Coin   `json:"amount,omitempty"`
-}
-
-type Coin struct {
-	Denom  string `json:"denom"`
-	Amount string `json:"amount"`
-}
-
-func fetchCosmosTxs() ([]Transaction, error) {
+func fetchCosmosTxs() (*types.TransactionResponse, error) {
 	resp, err := http.Get(cosmosHubTxsAPI)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	var transactions []Transaction
+	var transactions types.TransactionResponse
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&transactions)
 	if err != nil {
 		return nil, err
 	}
 
-	return transactions, nil
+	return &types.TransactionResponse{}, nil
 }
 
-func GetCachedCosmosTransactions(cacheKey string) ([]Transaction, error) {
+func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, error) {
 	data, found := c.Get(cacheKey)
 	if found {
-		return data.([]Transaction), nil
+		return data.(*types.TransactionResponse), nil
 	}
 
 	newData, err := fetchCosmosTxs()
@@ -90,7 +50,7 @@ func GetCachedCosmosTransactions(cacheKey string) ([]Transaction, error) {
 }
 
 func RefetchCosmosTxsDataPeriodically(cacheKey string) {
-	ticker := time.NewTicker(fetchEvery)
+	ticker := time.NewTicker(constants.FetchEvery)
 	defer ticker.Stop()
 
 	for range ticker.C {

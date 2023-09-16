@@ -1,6 +1,10 @@
 package constants
 
-import "time"
+import (
+	"time"
+
+	"github.com/patrickmn/go-cache"
+)
 
 const (
 	NameChars           = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -20,9 +24,19 @@ const (
 	LogonRequestStatus = "logon-request"
 	LoggedInStatus     = "loggedIn"
 	RejectedStatus     = "rejected"
+
+	// cache
+	CacheTTL          = 5 * time.Second
+	FetchEvery        = 5 * time.Second
+	CosmosHubCacheKey = "cosmosHub"
 )
 
 var (
 	SendingTime = time.Now().UTC().Format("20060102-15:04:05.000")
 	CreatedAt   = time.Now().UTC().Format("20060102-15:04:05.000")
+)
+
+// cache
+var (
+	C = cache.New(CacheTTL, 10*time.Minute)
 )
