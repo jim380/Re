@@ -33,6 +33,9 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}
 	for _, tx := range transactions.Transactions {
+         // bitcoin coinbase txs type 
+		 switch "" {
+		 case "":
 		// set sessions for parties existing in the transactions
 		session := fixTypes.Sessions{
 			SessionID: tx.Hash,
@@ -68,7 +71,7 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 		// set new session to store
 		k.fixKeeper.SetSessions(ctx, tx.Hash, session)
 	}
-
+}
 	oracle := types.MultiChainTxOracle{
 		OracleID:  msg.OracleID,
 		Address:   msg.Address,
