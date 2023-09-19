@@ -22,6 +22,7 @@ type Transaction struct {
 	Hash          string   `json:"hash"`
 	BlockTime     string   `json:"block_time"`
 	Fee           int      `json:"fee"`
+	IsCoinbase    bool     `json:"is_coinbase"`
 	IsDoubleSpend bool     `json:"is_double_spend"`
 	OutputsCount  int      `json:"outputs_count"`
 	OutputsValue  int      `json:"outputs_value"`

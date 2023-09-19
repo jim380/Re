@@ -33,45 +33,52 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}
 	for _, tx := range transactions.Transactions {
-         // bitcoin coinbase txs type 
-		 switch "" {
-		 case "":
-		// set sessions for parties existing in the transactions
-		session := fixTypes.Sessions{
-			SessionID: tx.Hash,
-			LogonInitiator: &fixTypes.LogonInitiator{
-				Header: &fixTypes.Header{
-					BeginString:  "fix4.4",
-					MsgType:      "A",
-					SenderCompID: "",
-					TargetCompID: "",
-					MsgSeqNum:    int64(tx.BlockHeight),
-					SendingTime:  tx.BlockTime,
+		// bitcoin coinbase txs type
+		switch tx.IsCoinbase {
+		case true:
+			// set sessions for parties existing in the transactions
+			// A Coinbase transaction, often referred to as a "coinbase tx" or "generation transaction,"
+			// is a special type of transaction in the Bitcoin blockchain.
+			// It plays a crucial role in the functioning of the Bitcoin network and
+			// is the first transaction in a new block, in the context of Bitcoin,
+			// "Coinbase" refers to the transaction that creates new cryptocurrency coins as a
+			// block reward for miners. This is sometimes referred to as the "coinbase reward"
+			// or "block reward.
+			session := fixTypes.Sessions{
+				SessionID: tx.Hash,
+				LogonInitiator: &fixTypes.LogonInitiator{
+					Header: &fixTypes.Header{
+						BeginString:  "fix4.4",
+						MsgType:      "A",
+						SenderCompID: "",
+						TargetCompID: "",
+						MsgSeqNum:    int64(tx.BlockHeight),
+						SendingTime:  tx.BlockTime,
+					},
+					Trailer: &fixTypes.Trailer{
+						CheckSum: 0,
+					},
 				},
-				Trailer: &fixTypes.Trailer{
-					CheckSum: 0,
+				LogonAcceptor: &fixTypes.LogonAcceptor{
+					Header: &fixTypes.Header{
+						BeginString:  "fix4.4",
+						MsgType:      "A",
+						SenderCompID: "",
+						TargetCompID: "",
+						MsgSeqNum:    int64(tx.BlockHeight),
+						SendingTime:  tx.BlockTime,
+					},
+					Trailer: &fixTypes.Trailer{
+						CheckSum: 0,
+					},
 				},
-			},
-			LogonAcceptor: &fixTypes.LogonAcceptor{
-				Header: &fixTypes.Header{
-					BeginString:  "fix4.4",
-					MsgType:      "A",
-					SenderCompID: "",
-					TargetCompID: "",
-					MsgSeqNum:    int64(tx.BlockHeight),
-					SendingTime:  tx.BlockTime,
-				},
-				Trailer: &fixTypes.Trailer{
-					CheckSum: 0,
-				},
-			},
-			Status:     "loggedIn",
-			IsAccepted: true,
+				Status:     "loggedIn",
+				IsAccepted: true,
+			}
+			// set new session to store
+			k.fixKeeper.SetSessions(ctx, tx.Hash, session)
 		}
-		// set new session to store
-		k.fixKeeper.SetSessions(ctx, tx.Hash, session)
 	}
-}
 	oracle := types.MultiChainTxOracle{
 		OracleID:  msg.OracleID,
 		Address:   msg.Address,
