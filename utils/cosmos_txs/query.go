@@ -22,14 +22,19 @@ func fetchCosmosTxs() (*types.TransactionResponse, error) {
 	}
 	defer resp.Body.Close()
 
-	var transactions types.TransactionResponse
+	var transactions []types.Transaction
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&transactions)
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.TransactionResponse{}, nil
+	// Create TransactionResponse object and set the transactions field
+	response := &types.TransactionResponse{
+		Transactions: transactions,
+	}
+
+	return response, nil
 }
 
 func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, error) {

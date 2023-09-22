@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/oracle/types"
 	"github.com/spf13/cobra"
 )
@@ -14,12 +16,15 @@ var _ = strconv.Itoa(0)
 
 func CmdBitcoinTxs() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bitcoin-txs [oracle-id] [address]",
+		Use:   "bitcoin-txs [address]",
 		Short: "Broadcast message bitcoin-txs",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argOracleID := args[0]
-			argAddress := args[1]
+
+			// GenerateRandomString function uniquely generates oracleID for every  Bitcoin-txs initiated
+			oracleID, _ := helpers.GenerateRandomString(constants.OracleID)
+
+			argAddress := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -28,7 +33,7 @@ func CmdBitcoinTxs() *cobra.Command {
 
 			msg := types.NewMsgBitcoinTxs(
 				clientCtx.GetFromAddress().String(),
-				argOracleID,
+				oracleID,
 				argAddress,
 			)
 			if err := msg.ValidateBasic(); err != nil {

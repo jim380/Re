@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"log"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -33,6 +34,31 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}
 	for _, tx := range transactions.Transactions {
+
+		inputs := tx.Inputs
+		outputs := tx.Outputs
+
+		log.Println("testing", outputs)
+
+		minLen := len(inputs)
+		if len(outputs) < minLen {
+			minLen = len(outputs)
+		}
+
+		for i := 0; i < minLen; i++ {
+			log.Println("inputs", inputs[i])
+			log.Println("outputs", outputs[i])
+		}
+
+		/* for i := 0; i < len(inputs) || i < len(outputs); i++ {
+			input, output := inputs[i], outputs[i]
+			if i >= len(inputs) || i >= len(outputs) {
+				input, output = bitcoinTypes.Input{}, bitcoinTypes.Output{}
+			}
+			//log.Println("hellooooo", output, input)
+			fmt.Println(input, output)
+		}*/
+
 		// bitcoin coinbase txs type
 		switch tx.IsCoinbase {
 		case true:
