@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -54,8 +55,8 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 							Header: &fixTypes.Header{
 								BeginString:  "fix4.4",
 								MsgType:      "A",
-								SenderCompID: tx.WitnessHash,
-								TargetCompID: output.Addresses[0],
+								SenderCompID: output.Addresses[0],
+								TargetCompID: tx.WitnessHash,
 								MsgSeqNum:    int64(tx.BlockHeight),
 								SendingTime:  tx.BlockTime,
 							},
@@ -67,8 +68,8 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 							Header: &fixTypes.Header{
 								BeginString:  "fix4.4",
 								MsgType:      "A",
-								SenderCompID: output.Addresses[0],
-								TargetCompID: tx.WitnessHash,
+								SenderCompID: tx.WitnessHash,
+								TargetCompID: output.Addresses[0],
 								MsgSeqNum:    int64(tx.BlockHeight),
 								SendingTime:  tx.BlockTime,
 							},
@@ -87,9 +88,108 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 					// set Orders Rejection
 					// set Trade Capture
 					// check that Txs was successful
-					if tx.IsDoubleSpend == true {
-						// orders are rejected
-						
+					if tx.IsDoubleSpend != true {
+						// orders here were rejected
+						order := &fixTypes.Orders{
+							SessionID: tx.Hash,
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.4",
+								MsgType:      "D",
+								SenderCompID: output.Addresses[0],
+								TargetCompID: tx.WitnessHash,
+								MsgSeqNum:    int64(tx.BlockHeight),
+								SendingTime:  tx.BlockTime,
+							},
+							ClOrdID:      tx.Hash,
+							Symbol:       "btc",
+							Side:         2,
+							OrderQty:     "",
+							OrdType:      1,
+							Price:        strconv.Itoa(output.Value),
+							TimeInForce:  1,
+							Text:         "",
+							TransactTime: tx.BlockTime,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						}
+						k.fixKeeper.SetOrders(ctx, tx.Hash, *order)
+
+						// when a send transaction fails, order cancel reject is generated
+						ordersCancelReject := fixTypes.OrdersCancelReject{
+							SessionID: tx.Hash,
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.4",
+								MsgType:      "9",
+								SenderCompID: tx.WitnessHash,
+								TargetCompID: output.Addresses[0],
+								MsgSeqNum:    int64(tx.BlockHeight),
+								SendingTime:  tx.BlockTime,
+							},
+							OrderID:      tx.Hash,
+							OrigClOrdID:  tx.Hash,
+							ClOrdID:      tx.Hash,
+							CxlRejReason: 4,
+							TransactTime: tx.BlockTime,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						}
+						k.fixKeeper.SetOrdersCancelReject(ctx, tx.Hash, ordersCancelReject)
+
+						// set Trade Capture Report Reject when Txs fails
+						tradeCaptureReportReject := &fixTypes.TradeCapture{
+							SessionID: tx.Hash,
+							TradeCaptureReport: &fixTypes.TradeCaptureReport{
+								Header: &fixTypes.Header{
+									BeginString:  "FIX4.4",
+									MsgType:      "AE",
+									SenderCompID: output.Addresses[0],
+									TargetCompID: tx.WitnessHash,
+									MsgSeqNum:    int64(tx.BlockHeight),
+									SendingTime:  tx.BlockTime,
+								},
+								TradeReportID:        tx.Hash,
+								TradeReportTransType: "New",
+								TradeReportType:      "real-time",
+								TrdType:              "Block Trade",
+								TrdSubType:           "Send",
+								Side:                 "2",
+								OrderQty:             "",
+								LastQty:              "",
+								LastPx:               "",
+								GrossTradeAmt:        strconv.Itoa(output.Value),
+								ExecID:               tx.Hash,
+								OrderID:              tx.Hash,
+								TradeID:              tx.Hash,
+								Symbol:               "btc",
+								TransactTime:         tx.BlockTime,
+								Trailer: &fixTypes.Trailer{
+									CheckSum: 0,
+								},
+							},
+							TradeCaptureReportRejection: &fixTypes.TradeCaptureReportRejection{
+								Header: &fixTypes.Header{
+									BeginString:  "FIX4.4",
+									MsgType:      "j",
+									SenderCompID: tx.WitnessHash,
+									TargetCompID: output.Addresses[0],
+									MsgSeqNum:    int64(tx.BlockHeight),
+									SendingTime:  tx.BlockTime,
+								},
+								TradeReportID:           tx.Hash,
+								TradeReportRejectReason: 0,
+								TradeReportRejectRefID:  tx.Hash,
+								Text:                    "",
+								Trailer: &fixTypes.Trailer{
+									CheckSum: 0,
+								},
+							},
+						}
+						k.fixKeeper.SetTradeCapture(ctx, tx.Hash, *tradeCaptureReportReject)
+
+					} else {
+
 					}
 
 				}
