@@ -11,7 +11,7 @@ import (
 
 func (suite *KeeperTestSuite) TestNewOrderSingle() {
 	type args struct {
-		session            types.Sessions
+		session           types.Sessions
 		msgNewOrderSingle types.MsgNewOrderSingle
 	}
 
@@ -34,7 +34,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -50,7 +50,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -65,7 +65,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[0].String(), "sessionID", "clOrdID", "TEXT_SYMBOL", 1, "100", 1,"500", 4, "New Order Single"),
+				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[0].String(), "sessionID", "clOrdID", "TEXT_SYMBOL", 1, "100", 1, "500", 4, "New Order Single"),
 			},
 			errArgs{
 				shouldPass: true,
@@ -81,7 +81,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -97,7 +97,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -112,7 +112,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[2].String(), "sessionID", "clOrdID", "TEXT_SYMBOL", 1, "100", 1,"500", 4, "New Order Single"),
+				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[2].String(), "sessionID", "clOrdID", "TEXT_SYMBOL", 1, "100", 1, "500", 4, "New Order Single"),
 			},
 			errArgs{
 				shouldPass: false,
@@ -128,7 +128,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -144,7 +144,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "D",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -159,7 +159,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[2].String(), "sessionIDxyzs", "clOrdID", "TEXT_SYMBOL", 1, "100", 1,"500", 4, "New Order Single"),
+				msgNewOrderSingle: *types.NewMsgNewOrderSingle(suite.address[2].String(), "sessionIDxyzs", "clOrdID", "TEXT_SYMBOL", 1, "100", 1, "500", 4, "New Order Single"),
 			},
 			errArgs{
 				shouldPass: false,
@@ -172,9 +172,7 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 		suite.Run(tc.name, func() {
 			suite.SetupTest()
 			// set session
-			suite.fixKeeper.SetSessions(tc.args.session.SessionID, tc.args.session)
-			// set order
-			suite.fixKeeper.SetOrders(suite.ctx, tc.args.msgNewOrderSingle.ClOrdID, tc.args.msgNewOrderSingle)
+			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
 
 			// call  New Single Order method
 			res, err := suite.msgServer.NewOrderSingle(sdk.WrapSDKContext(suite.ctx), &tc.args.msgNewOrderSingle)
@@ -193,9 +191,9 @@ func (suite *KeeperTestSuite) TestNewOrderSingle() {
 
 func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 	type args struct {
-		session     		  types.Sessions
+		session               types.Sessions
 		msgOrderCancelRequest types.MsgOrderCancelRequest
-		newOrderCancelRequest types.OrdersCancelRequest
+		order                 types.Orders
 	}
 
 	type errArgs struct {
@@ -217,7 +215,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -233,7 +231,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -248,21 +246,28 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[0].String(), "sessionID", "origClOrdID", "clOrdID"),
-				newOrderCancelRequest: types.OrdersCancelRequest{
-					SessionID:   "sessionID",
-					Header:      &types.Header{
+				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[0].String(), "sessionID", "OrgclOrdID", "clOrdID"),
+				order: types.Orders{
+					SessionID: "sessionID",
+					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "F",
+						MsgType:      "A",
 						SenderCompID: suite.address[0].String(),
 						TargetCompID: suite.address[1].String(),
 						MsgSeqNum:    1,
 						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
 					},
-					OrigClOrdID: "origClOrdID",
-					ClOrdID:     "clOrdID",
-					Trailer:     &types.Trailer{
+					ClOrdID:      "OrgclOrdID",
+					Symbol:       "TEXT_SYMBOL",
+					Side:         1,
+					OrderQty:     "10",
+					OrdType:      1,
+					Price:        "500",
+					TimeInForce:  5,
+					Text:         "This is an order",
+					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
+					Trailer: &types.Trailer{
 						CheckSum: 10,
 					},
 				},
@@ -281,7 +286,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -297,7 +302,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -312,25 +317,32 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[4].String(), "sessionID", "origClOrdID", "clOrdID"),
-				newOrderCancelRequest: types.OrdersCancelRequest{
-					SessionID:   "sessionID",
-					Header:      &types.Header{
+				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[2].String(), "sessionID", "OrgclOrdID", "clOrdID"),
+				order: types.Orders{
+					SessionID: "sessionID",
+					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "F",
+						MsgType:      "A",
 						SenderCompID: suite.address[0].String(),
 						TargetCompID: suite.address[1].String(),
 						MsgSeqNum:    1,
 						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
 					},
-					OrigClOrdID: "origClOrdID",
-					ClOrdID:     "clOrdID",
-					Trailer:     &types.Trailer{
+					ClOrdID:      "OrgclOrdID",
+					Symbol:       "TEXT_SYMBOL",
+					Side:         1,
+					OrderQty:     "10",
+					OrdType:      1,
+					Price:        "500",
+					TimeInForce:  5,
+					Text:         "This is an order",
+					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
+					Trailer: &types.Trailer{
 						CheckSum: 10,
 					},
+				},
 			},
-		},
 			errArgs{
 				shouldPass: false,
 				contains:   "",
@@ -345,7 +357,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[0].String(),
 							TargetCompID: suite.address[1].String(),
 							MsgSeqNum:    1,
@@ -361,7 +373,7 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 						Header: &types.Header{
 							BeginString:  "FIX4.4",
 							BodyLength:   10,
-							MsgType:      "F",
+							MsgType:      "A",
 							SenderCompID: suite.address[1].String(),
 							TargetCompID: suite.address[0].String(),
 							MsgSeqNum:    1,
@@ -376,21 +388,28 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[0].String(), "sessionIDqwerrty", "origClOrdID", "clOrdID"),
-				newOrderCancelRequest: types.OrdersCancelRequest{
-					SessionID:   "sessionID",
-					Header:      &types.Header{
+				msgOrderCancelRequest: *types.NewMsgOrderCancelRequest(suite.address[0].String(), "sessionIDqwerrty", "OrgclOrdID", "clOrdID"),
+				order: types.Orders{
+					SessionID: "sessionID",
+					Header: &types.Header{
 						BeginString:  "FIX4.4",
 						BodyLength:   10,
-						MsgType:      "F",
+						MsgType:      "A",
 						SenderCompID: suite.address[0].String(),
 						TargetCompID: suite.address[1].String(),
 						MsgSeqNum:    1,
 						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
 					},
-					OrigClOrdID: "origClOrdID",
-					ClOrdID:     "clOrdID",
-					Trailer:     &types.Trailer{
+					ClOrdID:      "OrgclOrdID",
+					Symbol:       "TEXT_SYMBOL",
+					Side:         1,
+					OrderQty:     "10",
+					OrdType:      1,
+					Price:        "500",
+					TimeInForce:  5,
+					Text:         "This is an order",
+					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
+					Trailer: &types.Trailer{
 						CheckSum: 10,
 					},
 				},
@@ -402,14 +421,13 @@ func (suite *KeeperTestSuite) TestOrderCancelRequest() {
 		},
 	}
 
-
 	for _, tc := range tests {
 		suite.Run(tc.name, func() {
 			suite.SetupTest()
 			// set session
-			suite.fixKeeper.SetSessions(tc.args.session.SessionID, tc.args.session)
+			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
 			// set order cancel request
-			suite.fixKeeper.SetOrdersCancelRequest(suite.ctx, tc.args.msgOrderCancelRequest.ClOrdID, tc.args.newOrderCancelRequest)
+			suite.fixKeeper.SetOrders(suite.ctx, tc.args.order.ClOrdID, tc.args.order)
 
 			// call Order cancel request method
 			res, err := suite.msgServer.OrderCancelRequest(sdk.WrapSDKContext(suite.ctx), &tc.args.msgOrderCancelRequest)
