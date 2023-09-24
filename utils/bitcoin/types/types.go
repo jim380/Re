@@ -26,6 +26,7 @@ type Transaction struct {
 	IsDoubleSpend bool     `json:"is_double_spend"`
 	OutputsCount  int      `json:"outputs_count"`
 	OutputsValue  int      `json:"outputs_value"`
+	WitnessHash   string   `json:"witness_hash"`
 	Inputs        []Input  `json:"inputs"`
 	Outputs       []Output `json:"outputs"`
 }

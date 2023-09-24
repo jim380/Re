@@ -88,7 +88,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// set Orders Execution Report
 				// set Orders Rejection
 				// set Trade Capture
-				// check that Txs was success
+				// check that Txs was successful
 				if tx.Result != 0 {
 					// orders here were rejected
 					order := &fixTypes.Orders{
