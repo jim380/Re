@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=20"
+	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=15"
 )
 
 func fetchCosmosTxs() (*types.TransactionResponse, error) {

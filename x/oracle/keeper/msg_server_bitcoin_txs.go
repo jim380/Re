@@ -13,6 +13,8 @@ import (
 	"github.com/jim380/Re/x/oracle/types"
 )
 
+// BitcoinTxs generate the logon, new single order, execution report and
+// trade capture report for transactions on Bitcoin
 func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (*types.MsgBitcoinTxsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -88,7 +90,7 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 					// set Orders Rejection
 					// set Trade Capture
 					// check that Txs was successful
-					if tx.IsDoubleSpend != true {
+					if tx.IsDoubleSpend == true {
 						// orders here were rejected
 						order := &fixTypes.Orders{
 							SessionID: tx.Hash,
@@ -153,7 +155,7 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 								TradeReportTransType: "New",
 								TradeReportType:      "real-time",
 								TrdType:              "Block Trade",
-								TrdSubType:           "Send",
+								TrdSubType:           "Coinbase",
 								Side:                 "2",
 								OrderQty:             "",
 								LastQty:              "",
@@ -189,11 +191,131 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 						k.fixKeeper.SetTradeCapture(ctx, tx.Hash, *tradeCaptureReportReject)
 
 					} else {
+						// set successful orders
+						order := &fixTypes.Orders{
+							SessionID: tx.Hash,
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.4",
+								MsgType:      "D",
+								SenderCompID: output.Addresses[0],
+								TargetCompID: tx.WitnessHash,
+								MsgSeqNum:    int64(tx.BlockHeight),
+								SendingTime:  tx.BlockTime,
+							},
+							ClOrdID:      tx.Hash,
+							Symbol:       "btc",
+							Side:         2,
+							OrderQty:     "",
+							OrdType:      1,
+							Price:        strconv.Itoa(output.Value),
+							TimeInForce:  1,
+							Text:         "",
+							TransactTime: tx.BlockTime,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						}
+						k.fixKeeper.SetOrders(ctx, tx.Hash, *order)
 
+						// set execution report
+						orderExecutionReport := &fixTypes.OrdersExecutionReport{
+							SessionID: tx.Hash,
+							Header: &fixTypes.Header{
+								BeginString:  "FIX4.4",
+								MsgType:      "8",
+								SenderCompID: tx.WitnessHash,
+								TargetCompID: output.Addresses[0],
+								MsgSeqNum:    int64(tx.BlockHeight),
+								SendingTime:  tx.BlockTime,
+							},
+							ClOrdID:      tx.Hash,
+							OrderID:      tx.Hash,
+							ExecID:       tx.Hash,
+							OrdStatus:    "New",
+							ExecType:     "New",
+							Symbol:       "btc",
+							Side:         2,
+							OrderQty:     "",
+							Price:        strconv.Itoa(output.Value),
+							TimeInForce:  1,
+							LastPx:       0,
+							LastQty:      0,
+							LeavesQty:    0,
+							CumQty:       0,
+							AvgPx:        0,
+							Text:         "",
+							TransactTime: tx.BlockTime,
+							Trailer: &fixTypes.Trailer{
+								CheckSum: 0,
+							},
+						}
+						k.fixKeeper.SetOrdersExecutionReport(ctx, tx.Hash, *orderExecutionReport)
+
+						// set Trade Capture Report if Txs was successful
+						tradeCapture := &fixTypes.TradeCapture{
+							SessionID: tx.Hash,
+							TradeCaptureReport: &fixTypes.TradeCaptureReport{
+								Header: &fixTypes.Header{
+									BeginString:  "FIX4.4",
+									MsgType:      "AE",
+									SenderCompID: output.Addresses[0],
+									TargetCompID: tx.WitnessHash,
+									MsgSeqNum:    int64(tx.BlockHeight),
+									SendingTime:  tx.BlockTime,
+								},
+								TradeReportID:        tx.Hash,
+								TradeReportTransType: "New",
+								TradeReportType:      "real-time",
+								TrdType:              "Block Trade",
+								TrdSubType:           "Coinbase",
+								Side:                 "2",
+								OrderQty:             "",
+								LastQty:              "",
+								LastPx:               "",
+								GrossTradeAmt:        strconv.Itoa(output.Value),
+								ExecID:               tx.Hash,
+								OrderID:              tx.Hash,
+								TradeID:              tx.Hash,
+								Symbol:               "btc",
+								TransactTime:         tx.BlockTime,
+								Trailer: &fixTypes.Trailer{
+									CheckSum: 0,
+								},
+							},
+							TradeCaptureReportAcknowledgement: &fixTypes.TradeCaptureReportAcknowledgement{
+								Header: &fixTypes.Header{
+									BeginString:  "FIX4.4",
+									MsgType:      "AR",
+									SenderCompID: tx.WitnessHash,
+									TargetCompID: output.Addresses[0],
+									MsgSeqNum:    int64(tx.BlockHeight),
+									SendingTime:  tx.BlockTime,
+								},
+								TradeReportID:          tx.Hash,
+								TradeID:                tx.Hash,
+								SecondaryTradeID:       "",
+								TradeReportType:        "real-time",
+								TrdType:                "Block Trade",
+								ExecType:               "New",
+								TradeReportRefID:       tx.Hash,
+								SecondaryTradeReportID: "",
+								TradeReportStatus:      "Accepted",
+								TradeTransType:         "Coinbase",
+								Text:                   "",
+								Trailer: &fixTypes.Trailer{
+									CheckSum: 0,
+								},
+							},
+						}
+						k.fixKeeper.SetTradeCapture(ctx, tx.Hash, *tradeCapture)
 					}
-
 				}
 			}
+
+		case false:
+			// TODO
+			// add other types of bitcoin transactions
+
 		}
 	}
 
