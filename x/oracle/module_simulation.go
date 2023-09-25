@@ -28,6 +28,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCosmoshubTxs int = 100
 
+	opWeightMsgBitcoinTxs = "op_weight_msg_bitcoin_txs"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgBitcoinTxs int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -70,6 +74,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCosmoshubTxs,
 		oraclesimulation.SimulateMsgCosmoshubTxs(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgBitcoinTxs int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBitcoinTxs, &weightMsgBitcoinTxs, nil,
+		func(_ *rand.Rand) {
+			weightMsgBitcoinTxs = defaultWeightMsgBitcoinTxs
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgBitcoinTxs,
+		oraclesimulation.SimulateMsgBitcoinTxs(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

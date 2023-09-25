@@ -14,13 +14,13 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCosmoshubTxs() *cobra.Command {
+func CmdBitcoinTxs() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "cosmoshub-txs [address]",
-		Short: "Broadcast message cosmoshub-txs",
+		Use:   "bitcoin-txs [address]",
+		Short: "Broadcast message bitcoin-txs",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			// GenerateRandomString function uniquely generates oracleID for every cosmoshub-txs initiated
+			// GenerateRandomString function uniquely generates oracleID for every  Bitcoin-txs initiated
 			oracleID, _ := helpers.GenerateRandomString(constants.OracleID)
 
 			argAddress := args[0]
@@ -30,7 +30,7 @@ func CmdCosmoshubTxs() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCosmoshubTxs(
+			msg := types.NewMsgBitcoinTxs(
 				clientCtx.GetFromAddress().String(),
 				oracleID,
 				argAddress,
