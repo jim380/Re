@@ -782,10 +782,10 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 			suite.SetupTest()
 			// set session
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
-			// set order
+			// set trading session
 			suite.fixKeeper.SetTradingSession(suite.ctx, tc.args.tradingSession.TradingSessionStatusRequest.TradSesReqID, tc.args.tradingSession)
 
-			// call Order cancel request method
+			// call trading session status method
 			res, err := suite.msgServer.TradingSessionStatus(sdk.WrapSDKContext(suite.ctx), &tc.args.msgTradingSessionStatus)
 
 			if tc.errArgs.shouldPass {
@@ -800,11 +800,11 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 	}
 }
 
-/*func (suite *KeeperTestSuite) TestOrderExecutionReport() {
+func (suite *KeeperTestSuite) TestTradingSessionStatusRequestReject() {
 	type args struct {
-		session                 types.Sessions
-		MsgOrderExecutionReport types.MsgOrderExecutionReport
-		order                   types.Orders
+		session                              types.Sessions
+		msgTradingSessionStatusRequestReject types.MsgTradingSessionStatusRequestReject
+		tradingSession                       types.TradingSession
 	}
 
 	type errArgs struct {
@@ -818,7 +818,7 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 		errArgs errArgs
 	}{
 		{
-			"Valid Order Execution Report",
+			"Valid Trading Session Status Request Reject",
 			args{
 				session: types.Sessions{
 					SessionID: "sessionID",
@@ -857,29 +857,39 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				MsgOrderExecutionReport: *types.NewMsgOrderExecutionReport(suite.address[1].String(), "sessionID", "clOrdID", "orderID", "execID", "ordStatus", "execType", "symbol", 1, "500", "700", 5, 2, 1, 1, 2, 1, "Order execution report"),
-				order: types.Orders{
+				msgTradingSessionStatusRequestReject: *types.NewMsgTradingSessionStatusRequestReject(suite.address[1].String(), "sessionID", "refSeqNum", "refMsgType", 2, "text"),
+				tradingSession: types.TradingSession{
 					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "clOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
+					TradingSessionStatusRequest: &types.TradingSessionStatusRequest{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						TradingSessionID:      "TradingSessionID",
+						TradingSessionSubID:   "TradingSessionSubID",
+						TradSesReqID:          "refSeqNum",
+						MarketID:              "MarketID",
+						SubscriptionRequest:   "SubscriptionRequest",
+						SecurityID:            "SecurityID",
+						SecurityIDSource:      "SecurityIDSource",
+						Symbol:                "Symbol",
+						SecurityExchange:      "SecurityExchange",
+						MarketSegmentID:       "MarketSegmentID",
+						TradSesReqType:        1,
+						TradSesSubReqType:     2,
+						TradSesMode:           1,
+						TradingSessionDate:    "2023-09-25",
+						TradingSessionTime:    time.Now().Format("2006-01-02 15:04:05"),
+						TradingSessionSubTime: time.Now().Format("2006-01-02 15:04:05"),
+						ExpirationDate:        "2023-09-25",
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
 					},
 				},
 			},
@@ -889,7 +899,7 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 			},
 		},
 		{
-			"Same account address can not used for creating New Single Order and Execution Report with the same ClOrdID",
+			"SessionID does not exist",
 			args{
 				session: types.Sessions{
 					SessionID: "sessionID",
@@ -928,29 +938,39 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				MsgOrderExecutionReport: *types.NewMsgOrderExecutionReport(suite.address[0].String(), "sessionID", "clOrdID", "orderID", "execID", "ordStatus", "execType", "symbol", 1, "500", "700", 5, 2, 1, 1, 2, 1, "Order execution report"),
-				order: types.Orders{
+				msgTradingSessionStatusRequestReject: *types.NewMsgTradingSessionStatusRequestReject(suite.address[1].String(), "sessionIDfeffed5", "refSeqNum", "refMsgType", 2, "text"),
+				tradingSession: types.TradingSession{
 					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "clOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
+					TradingSessionStatusRequest: &types.TradingSessionStatusRequest{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						TradingSessionID:      "TradingSessionID",
+						TradingSessionSubID:   "TradingSessionSubID",
+						TradSesReqID:          "refSeqNum",
+						MarketID:              "MarketID",
+						SubscriptionRequest:   "SubscriptionRequest",
+						SecurityID:            "SecurityID",
+						SecurityIDSource:      "SecurityIDSource",
+						Symbol:                "Symbol",
+						SecurityExchange:      "SecurityExchange",
+						MarketSegmentID:       "MarketSegmentID",
+						TradSesReqType:        1,
+						TradSesSubReqType:     2,
+						TradSesMode:           1,
+						TradingSessionDate:    "2023-09-25",
+						TradingSessionTime:    time.Now().Format("2006-01-02 15:04:05"),
+						TradingSessionSubTime: time.Now().Format("2006-01-02 15:04:05"),
+						ExpirationDate:        "2023-09-25",
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
 					},
 				},
 			},
@@ -960,7 +980,7 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 			},
 		},
 		{
-			"Account address is not the creator of the order execution report",
+			"Account address is not the creator of the trading session status request reject",
 			args{
 				session: types.Sessions{
 					SessionID: "sessionID",
@@ -999,29 +1019,39 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				MsgOrderExecutionReport: *types.NewMsgOrderExecutionReport(suite.address[2].String(), "sessionID", "clOrdID", "orderID", "execID", "ordStatus", "execType", "symbol", 1, "500", "700", 5, 2, 1, 1, 2, 1, "Order execution report"),
-				order: types.Orders{
+				msgTradingSessionStatusRequestReject: *types.NewMsgTradingSessionStatusRequestReject(suite.address[2].String(), "sessionID", "refSeqNum", "refMsgType", 2, "text"),
+				tradingSession: types.TradingSession{
 					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "clOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
+					TradingSessionStatusRequest: &types.TradingSessionStatusRequest{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						TradingSessionID:      "TradingSessionID",
+						TradingSessionSubID:   "TradingSessionSubID",
+						TradSesReqID:          "refSeqNum",
+						MarketID:              "MarketID",
+						SubscriptionRequest:   "SubscriptionRequest",
+						SecurityID:            "SecurityID",
+						SecurityIDSource:      "SecurityIDSource",
+						Symbol:                "Symbol",
+						SecurityExchange:      "SecurityExchange",
+						MarketSegmentID:       "MarketSegmentID",
+						TradSesReqType:        1,
+						TradSesSubReqType:     2,
+						TradSesMode:           1,
+						TradingSessionDate:    "2023-09-25",
+						TradingSessionTime:    time.Now().Format("2006-01-02 15:04:05"),
+						TradingSessionSubTime: time.Now().Format("2006-01-02 15:04:05"),
+						ExpirationDate:        "2023-09-25",
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
 					},
 				},
 			},
@@ -1031,7 +1061,7 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 			},
 		},
 		{
-			"The sessionID does not exist",
+			"Same account can not used for creating Trading Session Status Request Reject",
 			args{
 				session: types.Sessions{
 					SessionID: "sessionID",
@@ -1070,29 +1100,39 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				MsgOrderExecutionReport: *types.NewMsgOrderExecutionReport(suite.address[1].String(), "sessionID575757", "clOrdID", "orderID", "execID", "ordStatus", "execType", "symbol", 1, "500", "700", 5, 2, 1, 1, 2, 1, "Order execution report"),
-				order: types.Orders{
+				msgTradingSessionStatusRequestReject: *types.NewMsgTradingSessionStatusRequestReject(suite.address[0].String(), "sessionID", "refSeqNum", "refMsgType", 2, "text"),
+				tradingSession: types.TradingSession{
 					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "clOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
+					TradingSessionStatusRequest: &types.TradingSessionStatusRequest{
+						Header: &types.Header{
+							BeginString:  "FIX4.4",
+							BodyLength:   10,
+							MsgType:      "A",
+							SenderCompID: suite.address[0].String(),
+							TargetCompID: suite.address[1].String(),
+							MsgSeqNum:    1,
+							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
+						},
+						TradingSessionID:      "TradingSessionID",
+						TradingSessionSubID:   "TradingSessionSubID",
+						TradSesReqID:          "refSeqNum",
+						MarketID:              "MarketID",
+						SubscriptionRequest:   "SubscriptionRequest",
+						SecurityID:            "SecurityID",
+						SecurityIDSource:      "SecurityIDSource",
+						Symbol:                "Symbol",
+						SecurityExchange:      "SecurityExchange",
+						MarketSegmentID:       "MarketSegmentID",
+						TradSesReqType:        1,
+						TradSesSubReqType:     2,
+						TradSesMode:           1,
+						TradingSessionDate:    "2023-09-25",
+						TradingSessionTime:    time.Now().Format("2006-01-02 15:04:05"),
+						TradingSessionSubTime: time.Now().Format("2006-01-02 15:04:05"),
+						ExpirationDate:        "2023-09-25",
+						Trailer: &types.Trailer{
+							CheckSum: 10,
+						},
 					},
 				},
 			},
@@ -1108,337 +1148,11 @@ func (suite *KeeperTestSuite) TestTradingSessionStatus() {
 			suite.SetupTest()
 			// set session
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
-			// set order
-			suite.fixKeeper.SetOrders(suite.ctx, tc.args.order.ClOrdID, tc.args.order)
+			// set trading session
+			suite.fixKeeper.SetTradingSession(suite.ctx, tc.args.tradingSession.TradingSessionStatusRequest.TradSesReqID, tc.args.tradingSession)
 
-			// call Order execution report method
-			res, err := suite.msgServer.OrderExecutionReport(sdk.WrapSDKContext(suite.ctx), &tc.args.MsgOrderExecutionReport)
-
-			if tc.errArgs.shouldPass {
-				suite.Require().NoError(err, tc.name)
-				suite.Require().NotNil(res)
-			} else {
-				suite.Require().Error(err, tc.name)
-				suite.Require().Nil(res)
-				suite.Require().True(strings.Contains(err.Error(), tc.errArgs.contains))
-			}
-		})
-	}
-}
-
-func (suite *KeeperTestSuite) TestOrderCancelReject() {
-	type args struct {
-		session              types.Sessions
-		msgOrderCancelReject types.MsgOrderCancelReject
-		order                types.Orders
-	}
-
-	type errArgs struct {
-		shouldPass bool
-		contains   string
-	}
-
-	tests := []struct {
-		name    string
-		args    args
-		errArgs errArgs
-	}{
-		{
-			"Valid Order Cancel Reject",
-			args{
-				session: types.Sessions{
-					SessionID: "sessionID",
-					LogonInitiator: &types.LogonInitiator{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[0].String(),
-							TargetCompID: suite.address[1].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					LogonAcceptor: &types.LogonAcceptor{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[1].String(),
-							TargetCompID: suite.address[0].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					Status:     constants.LoggedInStatus,
-					IsAccepted: true,
-				},
-				msgOrderCancelReject: *types.NewMsgOrderCancelReject(suite.address[1].String(), "sessionID", "orderID", "OrgclOrdID", "clOrdID", 2, 2),
-				order: types.Orders{
-					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "OrgclOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
-					},
-				},
-			},
-			errArgs{
-				shouldPass: true,
-				contains:   "",
-			},
-		},
-		{
-			"Same account address can not used for creating New Single Order and Execution Report with the same ClOrdID",
-			args{
-				session: types.Sessions{
-					SessionID: "sessionID",
-					LogonInitiator: &types.LogonInitiator{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[0].String(),
-							TargetCompID: suite.address[1].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					LogonAcceptor: &types.LogonAcceptor{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[1].String(),
-							TargetCompID: suite.address[0].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					Status:     constants.LoggedInStatus,
-					IsAccepted: true,
-				},
-				msgOrderCancelReject: *types.NewMsgOrderCancelReject(suite.address[0].String(), "sessionID", "orderID", "OrgclOrdID", "clOrdID", 2, 2),
-				order: types.Orders{
-					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "OrgclOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
-					},
-				},
-			},
-			errArgs{
-				shouldPass: false,
-				contains:   "",
-			},
-		},
-		{
-			"Account address is not the creator of the order cancel reject",
-			args{
-				session: types.Sessions{
-					SessionID: "sessionID",
-					LogonInitiator: &types.LogonInitiator{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[0].String(),
-							TargetCompID: suite.address[1].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					LogonAcceptor: &types.LogonAcceptor{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[1].String(),
-							TargetCompID: suite.address[0].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					Status:     constants.LoggedInStatus,
-					IsAccepted: true,
-				},
-				msgOrderCancelReject: *types.NewMsgOrderCancelReject(suite.address[2].String(), "sessionID", "orderID", "OrgclOrdID", "clOrdID", 2, 2),
-				order: types.Orders{
-					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "clOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
-					},
-				},
-			},
-			errArgs{
-				shouldPass: false,
-				contains:   "",
-			},
-		},
-		{
-			"The sessionID does not exist",
-			args{
-				session: types.Sessions{
-					SessionID: "sessionID",
-					LogonInitiator: &types.LogonInitiator{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[0].String(),
-							TargetCompID: suite.address[1].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					LogonAcceptor: &types.LogonAcceptor{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[1].String(),
-							TargetCompID: suite.address[0].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					Status:     constants.LoggedInStatus,
-					IsAccepted: true,
-				},
-				msgOrderCancelReject: *types.NewMsgOrderCancelReject(suite.address[0].String(), "sessionID8778787", "OrgclOrdID", "orgClOrdID", "clOrdID", 2, 2),
-				order: types.Orders{
-					SessionID: "sessionID",
-					Header: &types.Header{
-						BeginString:  "FIX4.4",
-						BodyLength:   10,
-						MsgType:      "A",
-						SenderCompID: suite.address[0].String(),
-						TargetCompID: suite.address[1].String(),
-						MsgSeqNum:    1,
-						SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-					},
-					ClOrdID:      "OrgclOrdID",
-					Symbol:       "TEXT_SYMBOL",
-					Side:         1,
-					OrderQty:     "10",
-					OrdType:      1,
-					Price:        "500",
-					TimeInForce:  5,
-					Text:         "This is an order",
-					TransactTime: time.Now().Format("2006-01-02 15:04:05"),
-					Trailer: &types.Trailer{
-						CheckSum: 10,
-					},
-				},
-			},
-			errArgs{
-				shouldPass: false,
-				contains:   "",
-			},
-		},
-	}
-
-	for _, tc := range tests {
-		suite.Run(tc.name, func() {
-			suite.SetupTest()
-			// set session
-			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
-			// set order
-			suite.fixKeeper.SetOrders(suite.ctx, tc.args.order.ClOrdID, tc.args.order)
-
-			// call Order cancel reject method
-			res, err := suite.msgServer.OrderCancelReject(sdk.WrapSDKContext(suite.ctx), &tc.args.msgOrderCancelReject)
+			// call trading session request reject method
+			res, err := suite.msgServer.TradingSessionStatusRequestReject(sdk.WrapSDKContext(suite.ctx), &tc.args.msgTradingSessionStatusRequestReject)
 
 			if tc.errArgs.shouldPass {
 				suite.Require().NoError(err, tc.name)
@@ -1451,4 +1165,3 @@ func (suite *KeeperTestSuite) TestOrderCancelReject() {
 		})
 	}
 }
-*/
