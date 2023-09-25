@@ -20,7 +20,6 @@ func CmdBitcoinTxs() *cobra.Command {
 		Short: "Broadcast message bitcoin-txs",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			// GenerateRandomString function uniquely generates oracleID for every  Bitcoin-txs initiated
 			oracleID, _ := helpers.GenerateRandomString(constants.OracleID)
 

@@ -20,7 +20,6 @@ func CmdCosmoshubTxs() *cobra.Command {
 		Short: "Broadcast message cosmoshub-txs",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			// GenerateRandomString function uniquely generates oracleID for every cosmoshub-txs initiated
 			oracleID, _ := helpers.GenerateRandomString(constants.OracleID)
 

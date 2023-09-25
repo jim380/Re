@@ -90,7 +90,7 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 					// set Orders Rejection
 					// set Trade Capture
 					// check that Txs was successful
-					if tx.IsDoubleSpend == true {
+					if tx.IsDoubleSpend {
 						// orders here were rejected
 						order := &fixTypes.Orders{
 							SessionID: tx.Hash,
