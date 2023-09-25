@@ -31,7 +31,7 @@ PASSPHRASE="YOUR_PASSPHRASE_HERE"
 while true; do
     # Use expect to automatically provide the passphrase for the first command
     expect << EOF
-    spawn red tx oracle cosmoshub-txs <address> --from alice --chain-id test --keyring-backend test --gas 12899100
+    spawn red tx oracle cosmoshub-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
     expect "Enter keyring passphrase:"
     send "${PASSPHRASE}\r"
     expect eof
@@ -42,7 +42,7 @@ EOF
 
     # Use expect to automatically provide the passphrase for the second command
     expect << EOF
-    spawn red tx oracle bitcoin-txs <address> --from bob --chain-id test --keyring-backend test --gas 12899100
+    spawn red tx oracle bitcoin-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
     expect "Enter keyring passphrase:"
     send "${PASSPHRASE}\r"
     expect eof
