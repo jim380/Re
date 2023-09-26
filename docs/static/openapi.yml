@@ -31070,6 +31070,187 @@ paths:
           type: string
       tags:
         - Query
+  /jim380/Re/fix/order/{clOrdID}:
+    get:
+      summary: Queries a list of Orders items.
+      operationId: ReFixOrders
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Orders:
+                type: object
+                properties:
+                  sessionID:
+                    type: string
+                    description: >-
+                      A string used to identify the trading session for which
+                      the message is
+
+                      intended.
+                  header:
+                    description: >-
+                      A FIX protocol header containing standard message fields
+                      such as
+
+                      beginString, bodyLength, msgType, etc.
+                    type: object
+                    properties:
+                      beginString:
+                        type: string
+                        description: >-
+                          This field specifies the version of the FIX protocol
+                          being used. For
+
+                          example, "FIX.4.4" indicates version 4.4 of the
+                          protocol.
+                      bodyLength:
+                        type: string
+                        format: int64
+                        description: >-
+                          This field specifies the length of the message body in
+                          bytes.
+                      msgType:
+                        type: string
+                        title: >-
+                          This field identifies the type of message being sent.
+                          For example, "D"
+
+                          indicates a New Order Single message
+                      senderCompID:
+                        type: string
+                        title: >-
+                          This field identifies the sender of the message. This
+                          is typically a unique
+
+                          identifier assigned to each party that uses the FIX
+                          protocol
+                      targetCompID:
+                        type: string
+                        description: This field identifies the recipient of the message.
+                      msgSeqNum:
+                        type: string
+                        format: int64
+                        title: >-
+                          Is a field in the FIX protocol message header that is
+                          used to assign a
+
+                          unique sequence number to each message
+                      sendingTime:
+                        type: string
+                        title: >-
+                          This field specifies the time that the message was
+                          sent
+                    title: >-
+                      This message header contains fields that identify the
+                      message being sent and
+
+                      its sender and recipient
+                  clOrdID:
+                    type: string
+                    title: >-
+                      A unique identifier assigned by the client to the order.
+                      It is used to
+
+                      identify the order in future messages related to the order
+                  symbol:
+                    type: string
+                    description: The symbol or instrument that the order is for.
+                  side:
+                    type: string
+                    format: int64
+                    title: >-
+                      An integer indicating whether the order is a buy or a
+                      sell. The values are
+
+                      typically 1 for buy and 2 for sell
+                  orderQty:
+                    type: string
+                    title: The quantity of the instrument that the order is for
+                  ordType:
+                    type: string
+                    format: int64
+                    title: >-
+                      An integer indicating the type of order. Common values
+                      include 1 for
+
+                      market, 2 for limit, 3 for stop, and 4 for stop limit
+                  price:
+                    type: string
+                    title: >-
+                      The price at which the order should be executed. This
+                      field is required for
+
+                      limit and stop limit orders
+                  timeInForce:
+                    type: string
+                    format: int64
+                    title: >-
+                      An integer indicating how long the order should remain
+                      active. Common
+
+                      values include 0 for day, 1 for good till canceled, and 2
+                      for fill or kill
+                  text:
+                    type: string
+                    description: >-
+                      A free-form text field that can be used to provide
+                      additional information
+
+                      about the order.
+                  transactTime:
+                    type: string
+                    title: >-
+                      The time the message was sent, expressed in UTC timestamp
+                      format
+                  trailer:
+                    title: >-
+                      A FIX protocol trailer containing standard message fields
+                      such as checkSum
+                    type: object
+                    properties:
+                      checkSum:
+                        type: string
+                        format: int64
+                        description: >-
+                          The checksum value is calculated by summing the ASCII
+                          values of all
+
+                          characters in the message (excluding the SOH (start of
+                          header) and ETX (end
+
+                          of text) characters), taking the sum modulo 256, and
+                          converting the result
+
+                          to a two-character hexadecimal string.
+                title: This message is used to represent orders in the FIX protocol
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: clOrdID
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /jim380/Re/fix/orders:
     get:
       operationId: ReFixOrdersAll
@@ -32880,162 +33061,312 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/fix/orders/{clOrdID}:
+  /jim380/Re/fix/orders/execution/reports/{address}:
     get:
-      summary: Queries a list of Orders items.
-      operationId: ReFixOrders
+      operationId: ReFixOrdersExecutionReportByAddress
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              Orders:
+              OrdersExecutionReport:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sessionID:
+                      type: string
+                      description: >-
+                        A string field that specifies the FIX session ID for the
+                        message.
+                    header:
+                      description: >-
+                        A Header field that contains standard header information
+                        for the message,
+
+                        such as the message type, sender and receiver
+                        identification, and sequence
+
+                        number.
+                      type: object
+                      properties:
+                        beginString:
+                          type: string
+                          description: >-
+                            This field specifies the version of the FIX protocol
+                            being used. For
+
+                            example, "FIX.4.4" indicates version 4.4 of the
+                            protocol.
+                        bodyLength:
+                          type: string
+                          format: int64
+                          description: >-
+                            This field specifies the length of the message body
+                            in bytes.
+                        msgType:
+                          type: string
+                          title: >-
+                            This field identifies the type of message being
+                            sent. For example, "D"
+
+                            indicates a New Order Single message
+                        senderCompID:
+                          type: string
+                          title: >-
+                            This field identifies the sender of the message.
+                            This is typically a unique
+
+                            identifier assigned to each party that uses the FIX
+                            protocol
+                        targetCompID:
+                          type: string
+                          description: This field identifies the recipient of the message.
+                        msgSeqNum:
+                          type: string
+                          format: int64
+                          title: >-
+                            Is a field in the FIX protocol message header that
+                            is used to assign a
+
+                            unique sequence number to each message
+                        sendingTime:
+                          type: string
+                          title: >-
+                            This field specifies the time that the message was
+                            sent
+                      title: >-
+                        This message header contains fields that identify the
+                        message being sent and
+
+                        its sender and recipient
+                    clOrdID:
+                      type: string
+                      description: >-
+                        A string field that contains the client order ID for the
+                        order being
+
+                        reported.
+                    orderID:
+                      type: string
+                      title: >-
+                        A string field that contains the ID of the order being
+                        reported. OrderID is
+
+                        a string field that contains the unique identifier
+                        assigned to an order by
+
+                        the system or trading platform. It is typically
+                        generated by the system
+
+                        upon order submission and is used to uniquely identify
+                        the order within the
+
+                        system. The orderID is useful for internal system
+                        processes, such as order
+
+                        matching, order book management, and order status
+                        tracking
+                    execID:
+                      type: string
+                      title: >-
+                        A string field that contains the ID of the execution
+                        being reported, if
+
+                        any. It is a string field that contains the identifier
+                        assigned to a
+
+                        particular execution of an order. Each execution of an
+                        order typically has
+
+                        a separate execID associated with it. The execID can be
+                        used to uniquely
+
+                        identify and track a specific execution in the order
+                        execution report. It
+
+                        is useful for monitoring the status, details, and timing
+                        of individual
+
+                        executions within the overall order lifecycle. The
+                        execID field in the FIX
+
+                        protocol can be auto-generated by the trading venue or
+                        the FIX protocol
+
+                        software when responding with an execution report. The
+                        trading venue's
+
+                        execID serves as a local identifier within their own
+                        system to track and
+
+                        reference executions. It allows the trading venue to
+                        uniquely identify each
+
+                        execution and associate it with the relevant order and
+                        trade details. When
+
+                        sending an execution report to clients or counterparties
+                        via the FIX
+
+                        protocol, the trading venue includes its own generated
+                        execID value in the
+
+                        execution report message. This enables the recipient to
+                        correlate the
+
+                        execution report with the specific execution on the
+                        trading venue's side
+                    ordStatus:
+                      type: string
+                      description: >-
+                        A string field that indicates the current status of the
+                        order, such as
+
+                        "New", "Partially filled", "Filled", "Cancelled",
+                        "Pending Cancel",
+
+                        "Rejected", etc.
+                    execType:
+                      type: string
+                      description: >-
+                        A string field that indicates the type of the execution
+                        being reported,
+
+                        such as "New", "Partial fill", "Fill", "Done for day",
+                        "Cancelled", etc.
+                    symbol:
+                      type: string
+                      description: >-
+                        A string field that identifies the security being
+                        traded.
+                    side:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the side of the order
+                        (buy or sell).
+                    orderQty:
+                      type: string
+                      description: >-
+                        An integer field that specifies the quantity of the
+                        order.
+                    price:
+                      type: string
+                      description: An integer field that specifies the price of the order.
+                    timeInForce:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the time-in-force value
+                        for the order, such
+
+                        as "Day", "GTC" (Good 'Til Cancelled), "IOC" (Immediate
+                        or Cancel), etc.
+                    lastPx:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the price of the last
+                        execution, if any.
+                    lastQty:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the quantity of the last
+                        execution, if any.
+                    leavesQty:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the quantity of the
+                        order that remains open
+
+                        and has not yet been filled or cancelled.
+                    cumQty:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the total quantity of
+                        the order that has
+
+                        been filled.
+                    avgPx:
+                      type: string
+                      format: int64
+                      description: >-
+                        An integer field that specifies the average price of all
+                        executions that
+
+                        have occurred for the order.
+                    text:
+                      type: string
+                      description: >-
+                        A string field that provides additional information
+                        about the order status
+
+                        or execution, such as an error message or reason for
+                        rejection.
+                    transactTime:
+                      type: string
+                      description: >-
+                        A string field that specifies the time of the
+                        transaction.
+                    trailer:
+                      description: >-
+                        A Trailer field that contains standard trailer
+                        information for the message,
+
+                        such as the message checksum.
+                      type: object
+                      properties:
+                        checkSum:
+                          type: string
+                          format: int64
+                          description: >-
+                            The checksum value is calculated by summing the
+                            ASCII values of all
+
+                            characters in the message (excluding the SOH (start
+                            of header) and ETX (end
+
+                            of text) characters), taking the sum modulo 256, and
+                            converting the result
+
+                            to a two-character hexadecimal string.
+                      title: >-
+                        This message trailer contains a checksum field that is
+                        used to ensure message
+
+                        integrity
+              pagination:
                 type: object
                 properties:
-                  sessionID:
+                  next_key:
                     type: string
-                    description: >-
-                      A string used to identify the trading session for which
-                      the message is
-
-                      intended.
-                  header:
-                    description: >-
-                      A FIX protocol header containing standard message fields
-                      such as
-
-                      beginString, bodyLength, msgType, etc.
-                    type: object
-                    properties:
-                      beginString:
-                        type: string
-                        description: >-
-                          This field specifies the version of the FIX protocol
-                          being used. For
-
-                          example, "FIX.4.4" indicates version 4.4 of the
-                          protocol.
-                      bodyLength:
-                        type: string
-                        format: int64
-                        description: >-
-                          This field specifies the length of the message body in
-                          bytes.
-                      msgType:
-                        type: string
-                        title: >-
-                          This field identifies the type of message being sent.
-                          For example, "D"
-
-                          indicates a New Order Single message
-                      senderCompID:
-                        type: string
-                        title: >-
-                          This field identifies the sender of the message. This
-                          is typically a unique
-
-                          identifier assigned to each party that uses the FIX
-                          protocol
-                      targetCompID:
-                        type: string
-                        description: This field identifies the recipient of the message.
-                      msgSeqNum:
-                        type: string
-                        format: int64
-                        title: >-
-                          Is a field in the FIX protocol message header that is
-                          used to assign a
-
-                          unique sequence number to each message
-                      sendingTime:
-                        type: string
-                        title: >-
-                          This field specifies the time that the message was
-                          sent
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
                     title: >-
-                      This message header contains fields that identify the
-                      message being sent and
+                      total is total number of results available if
+                      PageRequest.count_total
 
-                      its sender and recipient
-                  clOrdID:
-                    type: string
-                    title: >-
-                      A unique identifier assigned by the client to the order.
-                      It is used to
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
 
-                      identify the order in future messages related to the order
-                  symbol:
-                    type: string
-                    description: The symbol or instrument that the order is for.
-                  side:
-                    type: string
-                    format: int64
-                    title: >-
-                      An integer indicating whether the order is a buy or a
-                      sell. The values are
+                  corresponding request message has used PageRequest.
 
-                      typically 1 for buy and 2 for sell
-                  orderQty:
-                    type: string
-                    title: The quantity of the instrument that the order is for
-                  ordType:
-                    type: string
-                    format: int64
-                    title: >-
-                      An integer indicating the type of order. Common values
-                      include 1 for
-
-                      market, 2 for limit, 3 for stop, and 4 for stop limit
-                  price:
-                    type: string
-                    title: >-
-                      The price at which the order should be executed. This
-                      field is required for
-
-                      limit and stop limit orders
-                  timeInForce:
-                    type: string
-                    format: int64
-                    title: >-
-                      An integer indicating how long the order should remain
-                      active. Common
-
-                      values include 0 for day, 1 for good till canceled, and 2
-                      for fill or kill
-                  text:
-                    type: string
-                    description: >-
-                      A free-form text field that can be used to provide
-                      additional information
-
-                      about the order.
-                  transactTime:
-                    type: string
-                    title: >-
-                      The time the message was sent, expressed in UTC timestamp
-                      format
-                  trailer:
-                    title: >-
-                      A FIX protocol trailer containing standard message fields
-                      such as checkSum
-                    type: object
-                    properties:
-                      checkSum:
-                        type: string
-                        format: int64
-                        description: >-
-                          The checksum value is calculated by summing the ASCII
-                          values of all
-
-                          characters in the message (excluding the SOH (start of
-                          header) and ETX (end
-
-                          of text) characters), taking the sum modulo 256, and
-                          converting the result
-
-                          to a two-character hexadecimal string.
-                title: This message is used to represent orders in the FIX protocol
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
         default:
           description: An unexpected error response.
           schema:
@@ -33055,10 +33386,332 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: clOrdID
+        - name: address
           in: path
           required: true
           type: string
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /jim380/Re/fix/orders/{address}:
+    get:
+      operationId: ReFixOrdersByAddress
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Orders:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sessionID:
+                      type: string
+                      description: >-
+                        A string used to identify the trading session for which
+                        the message is
+
+                        intended.
+                    header:
+                      description: >-
+                        A FIX protocol header containing standard message fields
+                        such as
+
+                        beginString, bodyLength, msgType, etc.
+                      type: object
+                      properties:
+                        beginString:
+                          type: string
+                          description: >-
+                            This field specifies the version of the FIX protocol
+                            being used. For
+
+                            example, "FIX.4.4" indicates version 4.4 of the
+                            protocol.
+                        bodyLength:
+                          type: string
+                          format: int64
+                          description: >-
+                            This field specifies the length of the message body
+                            in bytes.
+                        msgType:
+                          type: string
+                          title: >-
+                            This field identifies the type of message being
+                            sent. For example, "D"
+
+                            indicates a New Order Single message
+                        senderCompID:
+                          type: string
+                          title: >-
+                            This field identifies the sender of the message.
+                            This is typically a unique
+
+                            identifier assigned to each party that uses the FIX
+                            protocol
+                        targetCompID:
+                          type: string
+                          description: This field identifies the recipient of the message.
+                        msgSeqNum:
+                          type: string
+                          format: int64
+                          title: >-
+                            Is a field in the FIX protocol message header that
+                            is used to assign a
+
+                            unique sequence number to each message
+                        sendingTime:
+                          type: string
+                          title: >-
+                            This field specifies the time that the message was
+                            sent
+                      title: >-
+                        This message header contains fields that identify the
+                        message being sent and
+
+                        its sender and recipient
+                    clOrdID:
+                      type: string
+                      title: >-
+                        A unique identifier assigned by the client to the order.
+                        It is used to
+
+                        identify the order in future messages related to the
+                        order
+                    symbol:
+                      type: string
+                      description: The symbol or instrument that the order is for.
+                    side:
+                      type: string
+                      format: int64
+                      title: >-
+                        An integer indicating whether the order is a buy or a
+                        sell. The values are
+
+                        typically 1 for buy and 2 for sell
+                    orderQty:
+                      type: string
+                      title: The quantity of the instrument that the order is for
+                    ordType:
+                      type: string
+                      format: int64
+                      title: >-
+                        An integer indicating the type of order. Common values
+                        include 1 for
+
+                        market, 2 for limit, 3 for stop, and 4 for stop limit
+                    price:
+                      type: string
+                      title: >-
+                        The price at which the order should be executed. This
+                        field is required for
+
+                        limit and stop limit orders
+                    timeInForce:
+                      type: string
+                      format: int64
+                      title: >-
+                        An integer indicating how long the order should remain
+                        active. Common
+
+                        values include 0 for day, 1 for good till canceled, and
+                        2 for fill or kill
+                    text:
+                      type: string
+                      description: >-
+                        A free-form text field that can be used to provide
+                        additional information
+
+                        about the order.
+                    transactTime:
+                      type: string
+                      title: >-
+                        The time the message was sent, expressed in UTC
+                        timestamp format
+                    trailer:
+                      title: >-
+                        A FIX protocol trailer containing standard message
+                        fields such as checkSum
+                      type: object
+                      properties:
+                        checkSum:
+                          type: string
+                          format: int64
+                          description: >-
+                            The checksum value is calculated by summing the
+                            ASCII values of all
+
+                            characters in the message (excluding the SOH (start
+                            of header) and ETX (end
+
+                            of text) characters), taking the sum modulo 256, and
+                            converting the result
+
+                            to a two-character hexadecimal string.
+                  title: This message is used to represent orders in the FIX protocol
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/fix/params:
@@ -43079,7 +43732,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /jim380/Re/oracle/multi/chain/tx/oracle/{oracleId}:
+  /jim380/Re/oracle/multi/chain/tx/oracle/{oracleID}:
     get:
       summary: Queries a list of MultiChainTxOracle items.
       operationId: ReOracleMultiChainTxOracle
@@ -43092,7 +43745,7 @@ paths:
               MultiChainTxOracle:
                 type: object
                 properties:
-                  oracleId:
+                  oracleID:
                     type: string
                   address:
                     type: string
@@ -43117,7 +43770,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: oracleId
+        - name: oracleID
           in: path
           required: true
           type: string
@@ -43137,7 +43790,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    oracleId:
+                    oracleID:
                       type: string
                     address:
                       type: string
@@ -43232,16 +43885,6 @@ paths:
             when key
 
             is set.
-          in: query
-          required: false
-          type: boolean
-        - name: pagination.reverse
-          description: >-
-            reverse is set to true if results are to be returned in the
-            descending order.
-
-
-            Since: cosmos-sdk 0.43
           in: query
           required: false
           type: boolean
@@ -73341,6 +73984,174 @@ definitions:
             description: >-
               Order Mass Status Request Reject with fields, tags and
               descriptions.
+  re.fix.QueryGetOrdersByAddressResponse:
+    type: object
+    properties:
+      Orders:
+        type: array
+        items:
+          type: object
+          properties:
+            sessionID:
+              type: string
+              description: >-
+                A string used to identify the trading session for which the
+                message is
+
+                intended.
+            header:
+              description: |-
+                A FIX protocol header containing standard message fields such as
+                beginString, bodyLength, msgType, etc.
+              type: object
+              properties:
+                beginString:
+                  type: string
+                  description: >-
+                    This field specifies the version of the FIX protocol being
+                    used. For
+
+                    example, "FIX.4.4" indicates version 4.4 of the protocol.
+                bodyLength:
+                  type: string
+                  format: int64
+                  description: >-
+                    This field specifies the length of the message body in
+                    bytes.
+                msgType:
+                  type: string
+                  title: >-
+                    This field identifies the type of message being sent. For
+                    example, "D"
+
+                    indicates a New Order Single message
+                senderCompID:
+                  type: string
+                  title: >-
+                    This field identifies the sender of the message. This is
+                    typically a unique
+
+                    identifier assigned to each party that uses the FIX protocol
+                targetCompID:
+                  type: string
+                  description: This field identifies the recipient of the message.
+                msgSeqNum:
+                  type: string
+                  format: int64
+                  title: >-
+                    Is a field in the FIX protocol message header that is used
+                    to assign a
+
+                    unique sequence number to each message
+                sendingTime:
+                  type: string
+                  title: This field specifies the time that the message was sent
+              title: >-
+                This message header contains fields that identify the message
+                being sent and
+
+                its sender and recipient
+            clOrdID:
+              type: string
+              title: >-
+                A unique identifier assigned by the client to the order. It is
+                used to
+
+                identify the order in future messages related to the order
+            symbol:
+              type: string
+              description: The symbol or instrument that the order is for.
+            side:
+              type: string
+              format: int64
+              title: >-
+                An integer indicating whether the order is a buy or a sell. The
+                values are
+
+                typically 1 for buy and 2 for sell
+            orderQty:
+              type: string
+              title: The quantity of the instrument that the order is for
+            ordType:
+              type: string
+              format: int64
+              title: >-
+                An integer indicating the type of order. Common values include 1
+                for
+
+                market, 2 for limit, 3 for stop, and 4 for stop limit
+            price:
+              type: string
+              title: >-
+                The price at which the order should be executed. This field is
+                required for
+
+                limit and stop limit orders
+            timeInForce:
+              type: string
+              format: int64
+              title: >-
+                An integer indicating how long the order should remain active.
+                Common
+
+                values include 0 for day, 1 for good till canceled, and 2 for
+                fill or kill
+            text:
+              type: string
+              description: >-
+                A free-form text field that can be used to provide additional
+                information
+
+                about the order.
+            transactTime:
+              type: string
+              title: The time the message was sent, expressed in UTC timestamp format
+            trailer:
+              title: >-
+                A FIX protocol trailer containing standard message fields such
+                as checkSum
+              type: object
+              properties:
+                checkSum:
+                  type: string
+                  format: int64
+                  description: >-
+                    The checksum value is calculated by summing the ASCII values
+                    of all
+
+                    characters in the message (excluding the SOH (start of
+                    header) and ETX (end
+
+                    of text) characters), taking the sum modulo 256, and
+                    converting the result
+
+                    to a two-character hexadecimal string.
+          title: This message is used to represent orders in the FIX protocol
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   re.fix.QueryGetOrdersCancelRejectResponse:
     type: object
     properties:
@@ -73614,6 +74425,292 @@ definitions:
                   converting the result
 
                   to a two-character hexadecimal string.
+  re.fix.QueryGetOrdersExecutionReportByAddressResponse:
+    type: object
+    properties:
+      OrdersExecutionReport:
+        type: array
+        items:
+          type: object
+          properties:
+            sessionID:
+              type: string
+              description: >-
+                A string field that specifies the FIX session ID for the
+                message.
+            header:
+              description: >-
+                A Header field that contains standard header information for the
+                message,
+
+                such as the message type, sender and receiver identification,
+                and sequence
+
+                number.
+              type: object
+              properties:
+                beginString:
+                  type: string
+                  description: >-
+                    This field specifies the version of the FIX protocol being
+                    used. For
+
+                    example, "FIX.4.4" indicates version 4.4 of the protocol.
+                bodyLength:
+                  type: string
+                  format: int64
+                  description: >-
+                    This field specifies the length of the message body in
+                    bytes.
+                msgType:
+                  type: string
+                  title: >-
+                    This field identifies the type of message being sent. For
+                    example, "D"
+
+                    indicates a New Order Single message
+                senderCompID:
+                  type: string
+                  title: >-
+                    This field identifies the sender of the message. This is
+                    typically a unique
+
+                    identifier assigned to each party that uses the FIX protocol
+                targetCompID:
+                  type: string
+                  description: This field identifies the recipient of the message.
+                msgSeqNum:
+                  type: string
+                  format: int64
+                  title: >-
+                    Is a field in the FIX protocol message header that is used
+                    to assign a
+
+                    unique sequence number to each message
+                sendingTime:
+                  type: string
+                  title: This field specifies the time that the message was sent
+              title: >-
+                This message header contains fields that identify the message
+                being sent and
+
+                its sender and recipient
+            clOrdID:
+              type: string
+              description: >-
+                A string field that contains the client order ID for the order
+                being
+
+                reported.
+            orderID:
+              type: string
+              title: >-
+                A string field that contains the ID of the order being reported.
+                OrderID is
+
+                a string field that contains the unique identifier assigned to
+                an order by
+
+                the system or trading platform. It is typically generated by the
+                system
+
+                upon order submission and is used to uniquely identify the order
+                within the
+
+                system. The orderID is useful for internal system processes,
+                such as order
+
+                matching, order book management, and order status tracking
+            execID:
+              type: string
+              title: >-
+                A string field that contains the ID of the execution being
+                reported, if
+
+                any. It is a string field that contains the identifier assigned
+                to a
+
+                particular execution of an order. Each execution of an order
+                typically has
+
+                a separate execID associated with it. The execID can be used to
+                uniquely
+
+                identify and track a specific execution in the order execution
+                report. It
+
+                is useful for monitoring the status, details, and timing of
+                individual
+
+                executions within the overall order lifecycle. The execID field
+                in the FIX
+
+                protocol can be auto-generated by the trading venue or the FIX
+                protocol
+
+                software when responding with an execution report. The trading
+                venue's
+
+                execID serves as a local identifier within their own system to
+                track and
+
+                reference executions. It allows the trading venue to uniquely
+                identify each
+
+                execution and associate it with the relevant order and trade
+                details. When
+
+                sending an execution report to clients or counterparties via the
+                FIX
+
+                protocol, the trading venue includes its own generated execID
+                value in the
+
+                execution report message. This enables the recipient to
+                correlate the
+
+                execution report with the specific execution on the trading
+                venue's side
+            ordStatus:
+              type: string
+              description: >-
+                A string field that indicates the current status of the order,
+                such as
+
+                "New", "Partially filled", "Filled", "Cancelled", "Pending
+                Cancel",
+
+                "Rejected", etc.
+            execType:
+              type: string
+              description: >-
+                A string field that indicates the type of the execution being
+                reported,
+
+                such as "New", "Partial fill", "Fill", "Done for day",
+                "Cancelled", etc.
+            symbol:
+              type: string
+              description: A string field that identifies the security being traded.
+            side:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the side of the order (buy or
+                sell).
+            orderQty:
+              type: string
+              description: An integer field that specifies the quantity of the order.
+            price:
+              type: string
+              description: An integer field that specifies the price of the order.
+            timeInForce:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the time-in-force value for the
+                order, such
+
+                as "Day", "GTC" (Good 'Til Cancelled), "IOC" (Immediate or
+                Cancel), etc.
+            lastPx:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the price of the last execution,
+                if any.
+            lastQty:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the quantity of the last
+                execution, if any.
+            leavesQty:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the quantity of the order that
+                remains open
+
+                and has not yet been filled or cancelled.
+            cumQty:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the total quantity of the order
+                that has
+
+                been filled.
+            avgPx:
+              type: string
+              format: int64
+              description: >-
+                An integer field that specifies the average price of all
+                executions that
+
+                have occurred for the order.
+            text:
+              type: string
+              description: >-
+                A string field that provides additional information about the
+                order status
+
+                or execution, such as an error message or reason for rejection.
+            transactTime:
+              type: string
+              description: A string field that specifies the time of the transaction.
+            trailer:
+              description: >-
+                A Trailer field that contains standard trailer information for
+                the message,
+
+                such as the message checksum.
+              type: object
+              properties:
+                checkSum:
+                  type: string
+                  format: int64
+                  description: >-
+                    The checksum value is calculated by summing the ASCII values
+                    of all
+
+                    characters in the message (excluding the SOH (start of
+                    header) and ETX (end
+
+                    of text) characters), taking the sum modulo 256, and
+                    converting the result
+
+                    to a two-character hexadecimal string.
+              title: >-
+                This message trailer contains a checksum field that is used to
+                ensure message
+
+                integrity
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   re.fix.QueryGetOrdersExecutionReportResponse:
     type: object
     properties:
@@ -84671,12 +85768,14 @@ definitions:
             type: string
             description: Address for MIC creator.
         title: Definition of MarketIdentificationCode message
+  re.oracle.MsgBitcoinTxsResponse:
+    type: object
   re.oracle.MsgCosmoshubTxsResponse:
     type: object
   re.oracle.MultiChainTxOracle:
     type: object
     properties:
-      oracleId:
+      oracleID:
         type: string
       address:
         type: string
@@ -84693,7 +85792,7 @@ definitions:
         items:
           type: object
           properties:
-            oracleId:
+            oracleID:
               type: string
             address:
               type: string
@@ -84730,7 +85829,7 @@ definitions:
       MultiChainTxOracle:
         type: object
         properties:
-          oracleId:
+          oracleID:
             type: string
           address:
             type: string

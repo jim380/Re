@@ -1,4 +1,4 @@
-package cosmostxs
+package bitcoin
 
 import (
 	"encoding/json"
@@ -6,17 +6,17 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/jim380/Re/utils/bitcoin/types"
 	"github.com/jim380/Re/utils/constants"
-	"github.com/jim380/Re/utils/cosmos_txs/types"
 	"github.com/patrickmn/go-cache"
 )
 
 const (
-	cosmosHubTxsAPI = "http://localhost:5001/cosmos/txs?limit=15"
+	bitcoinTxsAPI = "http://localhost:5001/bitcoin/txs?limit=15"
 )
 
-func fetchCosmosTxs() (*types.TransactionResponse, error) {
-	resp, err := http.Get(cosmosHubTxsAPI)
+func fetchBitcoinTxs() (*types.TransactionResponse, error) {
+	resp, err := http.Get(bitcoinTxsAPI)
 	if err != nil {
 		return nil, err
 	}
@@ -37,13 +37,13 @@ func fetchCosmosTxs() (*types.TransactionResponse, error) {
 	return response, nil
 }
 
-func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, error) {
+func GetCachedBitcoinTransactions(cacheKey string) (*types.TransactionResponse, error) {
 	data, found := constants.C.Get(cacheKey)
 	if found {
 		return data.(*types.TransactionResponse), nil
 	}
 
-	newData, err := fetchCosmosTxs()
+	newData, err := fetchBitcoinTxs()
 	if err != nil {
 		return nil, err
 	}
@@ -52,12 +52,12 @@ func GetCachedCosmosTransactions(cacheKey string) (*types.TransactionResponse, e
 	return newData, err
 }
 
-func RefetchCosmosTxsDataPeriodically(cacheKey string) {
+func RefetchBitcoinTxsDataPeriodically(cacheKey string) {
 	ticker := time.NewTicker(constants.FetchEvery)
 	defer ticker.Stop()
 
 	for range ticker.C {
-		data, err := fetchCosmosTxs()
+		data, err := fetchBitcoinTxs()
 		if err != nil {
 			log.Printf("Error fetching data: %v", err)
 			continue

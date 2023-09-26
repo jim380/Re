@@ -29,13 +29,26 @@ set -e
 PASSPHRASE="YOUR_PASSPHRASE_HERE"
 
 while true; do
-    # Use expect to automatically provide the passphrase
+    # Use expect to automatically provide the passphrase for the first command
     expect << EOF
-    spawn red tx oracle cosmoshub-txs re12s762t9xxder7ztkdw0m4f7e2vgg6jdgs5f7tz --from alice --chain-id test --keyring-backend test --gas 12899100
+    spawn red tx oracle cosmoshub-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
     expect "Enter keyring passphrase:"
     send "${PASSPHRASE}\r"
     expect eof
 EOF
 
+    # Sleep briefly between commands
+    sleep 5
+
+    # Use expect to automatically provide the passphrase for the second command
+    expect << EOF
+    spawn red tx oracle bitcoin-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
+    expect "Enter keyring passphrase:"
+    send "${PASSPHRASE}\r"
+    expect eof
+EOF
+
+    # Sleep before repeating the loop
     sleep 5
 done
+
