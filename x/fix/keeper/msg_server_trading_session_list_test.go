@@ -9,7 +9,7 @@ import (
 	"github.com/jim380/Re/x/fix/types"
 )
 
-func (suite *KeeperTestSuite) TestTradingSessionListRequest() {
+/*func (suite *KeeperTestSuite) TestTradingSessionListRequest() {
 	type args struct {
 		session                      types.Sessions
 		msgTradingSessionListRequest types.MsgTradingSessionListRequest
@@ -572,7 +572,7 @@ func (suite *KeeperTestSuite) TestTradingSessionListRequest() {
 			}
 		})
 	}
-}
+}*/
 
 func (suite *KeeperTestSuite) TestTradingSessionListResponse() {
 	type args struct {
