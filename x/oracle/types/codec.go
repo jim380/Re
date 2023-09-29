@@ -10,6 +10,7 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCosmoshubTxs{}, "oracle/CosmoshubTxs", nil)
 	cdc.RegisterConcrete(&MsgBitcoinTxs{}, "oracle/BitcoinTxs", nil)
+	cdc.RegisterConcrete(&MsgEthereumTxs{}, "oracle/EthereumTxs", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -19,6 +20,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgBitcoinTxs{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEthereumTxs{},
 	)
 	// this line is used by starport scaffolding # 3
 
