@@ -9,6 +9,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	cosmostxs "github.com/jim380/Re/utils/cosmos_txs"
+	cosmosTxTypes "github.com/jim380/Re/utils/cosmos_txs/types"
 	"github.com/jim380/Re/utils/helpers"
 	fixTypes "github.com/jim380/Re/x/fix/types"
 	"github.com/jim380/Re/x/oracle/types"
@@ -30,13 +31,13 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 	// set cosmoshub txs, map to the fix module
 	// update fix module from oracle
-	// start refetching data every 5 seconds and returns 20 latest Txs
-	go cosmostxs.RefetchTxsDataPeriodically(cosmostxs.CacheKey)
-	transactions, err := cosmostxs.GetTxsDataWithCache(cosmostxs.CacheKey)
+	// start refetching data every 5 seconds and return 20 latest Txs
+	go cosmostxs.RefetchCosmosTxsDataPeriodically(constants.CosmosHubCacheKey)
+	transactions, err := cosmostxs.GetCachedCosmosTransactions(constants.CosmosHubCacheKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}
-	for _, tx := range transactions {
+	for _, tx := range transactions.Transactions {
 		for _, message := range tx.Messages {
 			// type of Txs message = Send
 			switch helpers.AbbrTxMessage(message.Type) {
@@ -77,7 +78,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
 
 				// unmarshal Amount manually before using it
-				var coins []cosmostxs.Coin
+				var coins []cosmosTxTypes.Coin
 				err := json.Unmarshal(message.Amount, &coins)
 				if err != nil {
 					return nil, fmt.Errorf("failed to unmarshal Amount as an array of Coin objects. Details: %w", err)
@@ -87,7 +88,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// set Orders Execution Report
 				// set Orders Rejection
 				// set Trade Capture
-				// check that Txs was success
+				// check that Txs was successful
 				if tx.Result != 0 {
 					// orders here were rejected
 					order := &fixTypes.Orders{
