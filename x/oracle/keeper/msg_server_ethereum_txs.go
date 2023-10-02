@@ -13,6 +13,8 @@ import (
 	"github.com/jim380/Re/x/oracle/types"
 )
 
+// EthereumTxs generate the logon, new single order, execution report and
+// trade capture report for transactions on Ethereum
 func (k msgServer) EthereumTxs(goCtx context.Context, msg *types.MsgEthereumTxs) (*types.MsgEthereumTxsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

@@ -6,6 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/oracle/types"
 	"github.com/spf13/cobra"
 )
@@ -14,12 +16,15 @@ var _ = strconv.Itoa(0)
 
 func CmdEthereumTxs() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "ethereum-txs [oracle-id] [address]",
+		Use:   "ethereum-txs [address]",
 		Short: "Broadcast message ethereum-txs",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argOracleID := args[0]
-			argAddress := args[1]
+
+			argAddress := args[0]
+
+			// GenerateRandomString function uniquely generates oracleID for every ethereum-txs initiated
+			argOracleID, _ := helpers.GenerateRandomString(constants.OracleID)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
