@@ -1,4 +1,4 @@
-package bitcoin
+package ethereum
 
 import (
 	"encoding/json"
@@ -6,17 +6,17 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jim380/Re/utils/bitcoin/types"
 	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/ethereum/types"
 	"github.com/patrickmn/go-cache"
 )
 
 const (
-	bitcoinTxsAPI = "http://localhost:5001/bitcoin/txs?limit=100"
+	ethereumTxsAPI = "http://localhost:5001/ethereum/txs?limit=120"
 )
 
-func fetchBitcoinTxs() (*types.TransactionResponse, error) {
-	resp, err := http.Get(bitcoinTxsAPI)
+func fetchEthereumTxs() (*types.TransactionResponse, error) {
+	resp, err := http.Get(ethereumTxsAPI)
 	if err != nil {
 		return nil, err
 	}
@@ -37,13 +37,13 @@ func fetchBitcoinTxs() (*types.TransactionResponse, error) {
 	return response, nil
 }
 
-func GetCachedBitcoinTransactions(cacheKey string) (*types.TransactionResponse, error) {
+func GetCachedEthereumTransactions(cacheKey string) (*types.TransactionResponse, error) {
 	data, found := constants.C.Get(cacheKey)
 	if found {
 		return data.(*types.TransactionResponse), nil
 	}
 
-	newData, err := fetchBitcoinTxs()
+	newData, err := fetchEthereumTxs()
 	if err != nil {
 		return nil, err
 	}
@@ -52,12 +52,12 @@ func GetCachedBitcoinTransactions(cacheKey string) (*types.TransactionResponse, 
 	return newData, err
 }
 
-func RefetchBitcoinTxsDataPeriodically(cacheKey string) {
+func RefetchEthereumTxsDataPeriodically(cacheKey string) {
 	ticker := time.NewTicker(constants.FetchEvery)
 	defer ticker.Stop()
 
 	for range ticker.C {
-		data, err := fetchBitcoinTxs()
+		data, err := fetchEthereumTxs()
 		if err != nil {
 			log.Printf("Error fetching data: %v", err)
 			continue
