@@ -20,7 +20,6 @@ func CmdEthereumTxs() *cobra.Command {
 		Short: "Broadcast message ethereum-txs",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			argAddress := args[0]
 
 			// GenerateRandomString function uniquely generates oracleID for every ethereum-txs initiated
