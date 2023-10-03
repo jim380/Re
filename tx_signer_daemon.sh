@@ -29,26 +29,44 @@ set -e
 PASSPHRASE="YOUR_PASSPHRASE_HERE"
 
 while true; do
-    # Use expect to automatically provide the passphrase for the first command
-    expect << EOF
-    spawn red tx oracle cosmoshub-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
-    expect "Enter keyring passphrase:"
-    send "${PASSPHRASE}\r"
-    expect eof
+    # Use '&' to run the commands in the background
+    (
+        # Use expect to automatically provide the passphrase for the first command
+        expect << EOF
+        spawn red tx oracle cosmoshub-txs re1xcyuw0x6c4u3tfdtp6cm67x7ytrpnmjqupmpff --from alice --chain-id test --keyring-backend test --gas 12899100
+        expect "Enter keyring passphrase:"
+        send "${PASSPHRASE}\r"
+        expect eof
 EOF
+    ) &
 
-    # Sleep briefly between commands
+    # Sleep briefly between commands (optional)
     sleep 5
 
-    # Use expect to automatically provide the passphrase for the second command
-    expect << EOF
-    spawn red tx oracle bitcoin-txs <address> --from <name> --chain-id test --keyring-backend test --gas 12899100
-    expect "Enter keyring passphrase:"
-    send "${PASSPHRASE}\r"
-    expect eof
+    (
+        # Use expect to automatically provide the passphrase for the second command
+        expect << EOF
+        spawn red tx oracle bitcoin-txs re1hz4ukdm9rytlrskqa0q928qe2m9fj0rnjpa2gw --from dan --chain-id test --keyring-backend test --gas 12899100
+        expect "Enter keyring passphrase:"
+        send "${PASSPHRASE}\r"
+        expect eof
 EOF
+    ) &
+
+    # Use '&' to run the third command in the background
+    (
+        # Use expect to automatically provide the passphrase for the third command
+        expect << EOF
+        spawn red tx oracle ethereum-txs  re1k6zz7eaca2mxp4hll3hsg72yn2je4s7zyjq2fd --from bob --chain-id test --keyring-backend test --gas 12899100
+        expect "Enter keyring passphrase:"
+        send "${PASSPHRASE}\r"
+        expect eof
+EOF
+    ) &
+
+    # Optionally, wait for background jobs to complete
+    wait
 
     # Sleep before repeating the loop
     sleep 5
 done
-

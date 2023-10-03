@@ -43888,6 +43888,16 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /jim380/Re/oracle/params:
@@ -85771,6 +85781,8 @@ definitions:
   re.oracle.MsgBitcoinTxsResponse:
     type: object
   re.oracle.MsgCosmoshubTxsResponse:
+    type: object
+  re.oracle.MsgEthereumTxsResponse:
     type: object
   re.oracle.MultiChainTxOracle:
     type: object

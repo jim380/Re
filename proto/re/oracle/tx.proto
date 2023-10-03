@@ -8,6 +8,7 @@ option go_package = "github.com/jim380/Re/x/oracle/types";
 service Msg {
   rpc CosmoshubTxs(MsgCosmoshubTxs) returns (MsgCosmoshubTxsResponse);
   rpc BitcoinTxs(MsgBitcoinTxs) returns (MsgBitcoinTxsResponse);
+  rpc EthereumTxs(MsgEthereumTxs) returns (MsgEthereumTxsResponse);
 }
 message MsgCosmoshubTxs {
   string creator = 1;
@@ -24,3 +25,11 @@ message MsgBitcoinTxs {
 }
 
 message MsgBitcoinTxsResponse {}
+
+message MsgEthereumTxs {
+  string creator = 1;
+  string oracleID = 2;
+  string address = 3;
+}
+
+message MsgEthereumTxsResponse {}
