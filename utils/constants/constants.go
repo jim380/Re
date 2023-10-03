@@ -30,6 +30,7 @@ const (
 	FetchEvery        = 5 * time.Second
 	CosmosHubCacheKey = "cosmosHub"
 	BitcoinCacheKey   = "bitcoin"
+	EthereumCacheKey  = "ethereum"
 )
 
 var (
