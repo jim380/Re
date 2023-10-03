@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
-	"github.com/jim380/Re/utils/ethereum"
+	ethereumTxs "github.com/jim380/Re/utils/ethereum"
 	fixTypes "github.com/jim380/Re/x/fix/types"
 	"github.com/jim380/Re/x/oracle/types"
 )
@@ -30,8 +30,8 @@ func (k msgServer) EthereumTxs(goCtx context.Context, msg *types.MsgEthereumTxs)
 	// set ethereum txs, map to the fix module
 	// update fix module from oracle
 	// start refetching data every 5 seconds and return latest ethereum Txs
-	go ethereum.RefetchEthereumTxsDataPeriodically(constants.EthereumCacheKey)
-	transactions, err := ethereum.GetCachedEthereumTransactions(constants.BitcoinCacheKey)
+	go ethereumTxs.RefetchEthereumTxsDataPeriodically(constants.EthereumCacheKey)
+	transactions, err := ethereumTxs.GetCachedEthereumTransactions(constants.EthereumCacheKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed to return queried chain transactions data: %w", err)
 	}

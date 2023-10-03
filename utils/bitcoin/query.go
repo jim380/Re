@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	bitcoinTxsAPI = "http://localhost:5001/bitcoin/txs?limit=15"
+	bitcoinTxsAPI = "http://localhost:5001/bitcoin/txs?limit=100"
 )
 
 func fetchBitcoinTxs() (*types.TransactionResponse, error) {
