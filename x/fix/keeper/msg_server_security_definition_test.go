@@ -819,7 +819,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -891,7 +891,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[0].String(), "sessionID", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[0].String(), "sessionID", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -963,7 +963,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityStatusReqID", "", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityReqID", "", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -1035,7 +1035,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[2].String(), "sessionID", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[2].String(), "sessionID", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -1107,7 +1107,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -1198,7 +1198,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionID", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
@@ -1305,7 +1305,7 @@ func (suite *KeeperTestSuite) TestSecurityDefinitionRequestReject() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionIDjbjfbfj", "SecurityStatusReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
+				msgSecurityDefinitionRequestReject: *types.NewMsgSecurityDefinitionRequestReject(suite.address[1].String(), "sessionIDjbjfbfj", "SecurityReqID", "securityRequestResult", "securityRequestError", "securityRequestErrorCode", "text"),
 				security: types.Security{
 					SessionID: "sessionID",
 					SecurityDefinitionRequest: &types.SecurityDefinitionRequest{
