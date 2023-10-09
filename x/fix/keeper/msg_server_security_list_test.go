@@ -159,7 +159,7 @@ func (suite *KeeperTestSuite) TestSecurityListRequest() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgSecurityListRequest: *types.NewMsgSecurityListRequest(suite.address[0].String(), "sessionID", "securityReqID", "securityListRequestType", "noUnderlyings", "noLegs", "currency", "text", "encodedTextLen", "encodedText", "tradingSessionID", "tradingSessionSubID", "subscriptionRequestType"),
+				msgSecurityListRequest: *types.NewMsgSecurityListRequest(suite.address[2].String(), "sessionID", "securityReqID", "securityListRequestType", "noUnderlyings", "noLegs", "currency", "text", "encodedTextLen", "encodedText", "tradingSessionID", "tradingSessionSubID", "subscriptionRequestType"),
 			},
 			errArgs{
 				shouldPass: false,
