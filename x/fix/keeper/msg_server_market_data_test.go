@@ -292,18 +292,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
@@ -403,18 +405,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[0].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[0].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
@@ -514,18 +518,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[2].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[2].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
@@ -625,18 +631,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
@@ -753,18 +761,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionID", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
@@ -895,18 +905,20 @@ func (suite *KeeperTestSuite) TestMarketDataSnapshotFullRefresh() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionIDnfenfk", "MdReqID", "symbol", 7, []*types.MDEntry{{
-					MdUpdateAction: 2,
-					MdEntryType:    2,
-					MdEntryPx:      "MdEntryPx",
-					MdEntrySize:    "MdEntrySize",
-				},
+				msgMarketDataSnapshotFullRefresh: *types.NewMsgMarketDataSnapshotFullRefresh(suite.address[1].String(), "sessionIDnfenfk", "MdReqID", "symbol", 7, []*types.MDEntry{
+					{
+						MdUpdateAction: 2,
+						MdEntryType:    2,
+						MdEntryPx:      "MdEntryPx",
+						MdEntrySize:    "MdEntrySize",
+					},
 					{
 						MdUpdateAction: 9,
 						MdEntryType:    8,
 						MdEntryPx:      "MdEntryPx",
 						MdEntrySize:    "MdEntrySize",
-					}}),
+					},
+				}),
 				marketData: types.MarketData{
 					SessionID: "sessionID",
 					MarketDataRequest: &types.MarketDataRequest{
