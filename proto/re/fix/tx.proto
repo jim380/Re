@@ -107,7 +107,6 @@ message MsgLogonAcceptor {
   string status = 3;
   bool IsAccepted = 4;
   string acceptorAddress = 5;
-  string chainID = 6;
 }
 
 message MsgLogonAcceptorResponse {}
@@ -116,7 +115,6 @@ message MsgTerminateLogon {
   string initiatorAddress = 1;
   string sessionID = 2;
   string address = 3;
-  string chainID = 4;
 }
 
 message MsgTerminateLogonResponse {}
@@ -127,7 +125,6 @@ message MsgLogonReject {
   Header header = 3;
   string text = 4;
   Trailer trailer = 5;
-  string chainID = 6;
 }
 
 message MsgLogonRejectResponse {}
@@ -136,7 +133,6 @@ message MsgLogoutInitiator {
   string initiatorAddress = 1;
   string sessionID = 2;
   SessionLogoutInitiator sessionLogoutInitiator = 3;
-  string chainID = 4;
 }
 
 message MsgLogoutInitiatorResponse {}
@@ -145,7 +141,6 @@ message MsgLogoutAcceptor {
   string acceptorAddress = 1;
   string sessionID = 2;
   SessionLogoutAcceptor sessionLogoutAcceptor = 3;
-  string chainID = 4;
 }
 
 message MsgLogoutAcceptorResponse {}
@@ -165,7 +160,6 @@ message MsgNewOrderSingle {
   string transactTime = 12;
   Trailer trailer = 13;
   string status = 14;
-  string chainID = 15;
 }
 
 message MsgNewOrderSingleResponse {}
@@ -177,7 +171,6 @@ message MsgOrderCancelRequest {
   string clOrdID = 4;
   Trailer trailer = 5;
   string creator = 6;
-  string chainID = 7;
 }
 
 message MsgOrderCancelRequestResponse {}
@@ -193,7 +186,6 @@ message MsgOrderCancelReject {
   string TransactTime = 8;
   Trailer trailer = 9;
   string creator = 10;
-  string chainID = 11;
 }
 
 message MsgOrderCancelRejectResponse {}
@@ -220,7 +212,6 @@ message MsgOrderExecutionReport {
   string transactTime = 19;
   Trailer trailer = 20;
   string creator = 21;
-  string chainID = 22;
 }
 
 message MsgOrderExecutionReportResponse {}
@@ -229,7 +220,6 @@ message MsgQuoteRequest {
   string sessionID = 1;
   QuoteRequest quoteRequest = 2;
   string creator = 3;
-  string chainID = 4;
 }
 
 message MsgQuoteRequestResponse {}
@@ -238,7 +228,6 @@ message MsgQuoteAcknowledgement {
   string creator = 1;
   string sessionID = 2;
   QuoteAcknowledgement quoteAcknowledgement = 3;
-  string chainID = 4;
 }
 
 message MsgQuoteAcknowledgementResponse {}
@@ -247,7 +236,6 @@ message MsgQuoteRequestReject {
   string creator = 1;
   string sessionID = 2;
   QuoteRequestReject quoteRequestReject = 3;
-  string chainID = 4;
 }
 
 message MsgQuoteRequestRejectResponse {}
@@ -276,7 +264,6 @@ message MsgTradeCaptureReport {
   string settlType = 21;
   string settlDate = 22;
   string sessionID = 23;
-  string chainID = 24;
 }
 
 message MsgTradeCaptureReportResponse {}
@@ -297,7 +284,6 @@ message MsgTradeCaptureReportAcknowledgement {
   int64 tradeReportRejectReason = 13;
   string text = 14;
   string sessionID = 15;
-  string chainID = 16;
 }
 
 message MsgTradeCaptureReportAcknowledgementResponse {}
@@ -309,7 +295,6 @@ message MsgTradeCaptureReportRejection {
   string tradeReportRejectRefID = 4;
   string text = 5;
   string sessionID = 6;
-  string chainID = 7;
 }
 
 message MsgTradeCaptureReportRejectionResponse {}
@@ -323,7 +308,6 @@ message MsgMarketDataRequest {
   int64 noRelatedSym = 6;
   string symbol = 7;
   string sessionID = 8;
-  string chainID = 9;
 }
 
 message MsgMarketDataRequestResponse {}
@@ -335,7 +319,6 @@ message MsgMarketDataSnapshotFullRefresh {
   int64 noMDEntries = 4;
   repeated MDEntry mdEntries = 5;
   string sessionID = 6;
-  string chainID = 7;
 }
 
 message MsgMarketDataSnapshotFullRefreshResponse {}
@@ -346,7 +329,6 @@ message MsgMarketDataIncremental {
   int64 noMDEntries = 3;
   repeated MDEntry mdEntries = 4;
   string sessionID = 5;
-  string chainID = 6;
 }
 
 message MsgMarketDataIncrementalResponse {}
@@ -357,7 +339,6 @@ message MsgMarketDataRequestReject {
   int64 mdReqRejReason = 3;
   string text = 4;
   string sessionID = 5;
-  string chainID = 6;
 }
 
 message MsgMarketDataRequestRejectResponse {}
@@ -373,7 +354,6 @@ message MsgSecurityDefinitionRequest {
   string securityType = 8;
   string currency = 9;
   string sessionID = 10;
-  string chainID = 11;
 }
 
 message MsgSecurityDefinitionRequestResponse {}
@@ -402,7 +382,6 @@ message MsgSecurityDefinition {
   string creditRating = 21;
   string securityExchangeID = 22;
   string sessionID = 23;
-  string chainID = 24;
 }
 
 message MsgSecurityDefinitionResponse {}
@@ -415,7 +394,6 @@ message MsgSecurityDefinitionRequestReject {
   string securityRequestError = 5;
   string securityRequestErrorCode = 6;
   string text = 7;
-  string chainID = 8;
 }
 
 message MsgSecurityDefinitionRequestRejectResponse {}
@@ -430,7 +408,6 @@ message MsgOrderMassStatusRequest {
   string symbol = 7;
   string securityID = 8;
   string tradingSessionID = 9;
-  string chainID = 10;
 }
 
 message MsgOrderMassStatusRequestResponse {}
@@ -451,7 +428,6 @@ message MsgOrderMassStatusReport {
   string cumQty = 13;
   string avgPx = 14;
   string leavesQty = 15;
-  string chainID = 16;
 }
 
 message MsgOrderMassStatusReportResponse {}
@@ -462,7 +438,6 @@ message MsgOrderMassStatusRequestReject {
   string refSeqID = 3;
   string rejCode = 4;
   string text = 5;
-  string chainID = 6;
 }
 
 message MsgOrderMassStatusRequestRejectResponse {}
@@ -487,7 +462,6 @@ message MsgTradingSessionStatusRequest {
   string tradingSessionSubTime = 17;
   string expirationDate = 18;
   string sessionID = 19;
-  string chainID = 20;
 }
 
 message MsgTradingSessionStatusRequestResponse {}
@@ -513,7 +487,6 @@ message MsgTradingSessionStatus {
   string marketSegmentID = 18;
   string marketID = 19;
   string sessionID = 20;
-  string chainID = 21;
 }
 
 message MsgTradingSessionStatusResponse {}
@@ -525,7 +498,6 @@ message MsgTradingSessionStatusRequestReject {
   int32 sessionRejectReason = 4;
   string text = 5;
   string sessionID = 6;
-  string chainID = 7;
 }
 
 message MsgTradingSessionStatusRequestRejectResponse {}
@@ -540,7 +512,6 @@ message MsgTradingSessionListRequest {
   string tradSesMethod = 7;
   string tradSesMode = 8;
   string subscriptionRequestType = 9;
-  string chainID = 10;
 }
 
 message MsgTradingSessionListRequestResponse {}
@@ -563,7 +534,6 @@ message MsgTradingSessionListResponse {
   string tradSesPreCloseTime = 15;
   string tradSesCloseTime = 16;
   string tradSesEndTime = 17;
-  string chainID = 18;
 }
 
 message MsgTradingSessionListResponseResponse {}
@@ -575,7 +545,6 @@ message MsgTradingSessionListRequestReject {
   string tradSesStatus = 4;
   string tradSesStatusRejReason = 5;
   string text = 6;
-  string chainID = 7;
 }
 
 message MsgTradingSessionListRequestRejectResponse {}
@@ -594,7 +563,6 @@ message MsgSecurityListRequest {
   string tradingSessionID = 11;
   string tradingSessionSubID = 12;
   string subscriptionRequestType = 13;
-  string chainID = 14;
 }
 
 message MsgSecurityListRequestResponse {}
@@ -619,7 +587,6 @@ message MsgSecurityListResponse {
   string text = 17;
   string encodedTextLen = 18;
   string encodedText = 19;
-  string chainID = 20;
 }
 
 message MsgSecurityListResponseResponse {}
@@ -633,7 +600,6 @@ message MsgSecurityListRequestReject {
   string text = 6;
   string encodedTextLen = 7;
   string encodedText = 8;
-  string chainID = 9;
 }
 
 message MsgSecurityListRequestRejectResponse {}
@@ -651,7 +617,6 @@ message MsgSecurityStatusRequest {
   string subscriptionRequestType = 10;
   string tradingSessionID = 11;
   string tradingSessionSubID = 12;
-  string chainID = 13;
 }
 
 message MsgSecurityStatusRequestResponse {}
@@ -682,7 +647,6 @@ message MsgSecurityStatusResponse {
   string transactTime = 23;
   string adjustment = 24;
   string text = 25;
-  string chainID = 26;
 }
 
 message MsgSecurityStatusResponseResponse {}
@@ -693,7 +657,6 @@ message MsgSecurityStatusRequestReject {
   string securityStatusReqID = 3;
   string securityRejectReason = 4;
   string text = 5;
-  string chainID = 6;
 }
 
 message MsgSecurityStatusRequestRejectResponse {}
@@ -708,7 +671,6 @@ message MsgSecurityTypesRequest {
   string product = 7;
   string securityType = 8;
   string securitySubType = 9;
-  string chainID = 10;
 }
 
 message MsgSecurityTypesRequestResponse {}
@@ -730,7 +692,6 @@ message MsgSecurityTypesResponse {
   string tradingSessionID = 14;
   string tradingSessionSubID = 15;
   string subscriptionRequestType = 16;
-  string chainID = 17;
 }
 
 message MsgSecurityTypesResponseResponse {}
@@ -741,7 +702,6 @@ message MsgSecurityTypesRequestReject {
   string securityReqID = 3;
   string rejectReason = 4;
   string text = 5;
-  string chainID = 6;
 }
 
 message MsgSecurityTypesRequestRejectResponse {}
