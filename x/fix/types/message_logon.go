@@ -54,7 +54,7 @@ func (msg *MsgLogonInitiator) FIXVersionByInitiator() string {
 	return msg.LogonInitiator.Header.BeginString
 }
 
-func NewHeader(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string) Header {
+func NewHeader(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string, chainID string) Header {
 	return Header{
 		BodyLength:   bodyLength,
 		MsgType:      msgType,
@@ -62,6 +62,7 @@ func NewHeader(bodyLength int64, msgType string, senderCompID string, targetComp
 		TargetCompID: targetCompID,
 		MsgSeqNum:    msgSeqNum,
 		SendingTime:  sendingTime,
+		ChainID:      chainID,
 	}
 }
 
