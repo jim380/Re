@@ -28,8 +28,9 @@ func (k Keeper) SessionsAll(goCtx context.Context, req *types.QueryAllSessionsRe
 		if err := k.cdc.Unmarshal(value, &sessions); err != nil {
 			return err
 		}
-
-		sessionss = append(sessionss, sessions)
+		if sessions.LogonInitiator.Header.ChainID == req.ChainID {
+			sessionss = append(sessionss, sessions)
+		}
 		return nil
 	})
 	if err != nil {

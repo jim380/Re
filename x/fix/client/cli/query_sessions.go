@@ -11,8 +11,9 @@ import (
 
 func CmdListSessions() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-sessions",
+		Use:   "list-sessions [chainID]",
 		Short: "list all sessions",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,7 +24,10 @@ func CmdListSessions() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
+			argChainID := args[0]
+
 			params := &types.QueryAllSessionsRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
