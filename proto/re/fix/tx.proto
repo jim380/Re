@@ -96,7 +96,6 @@ message MsgLogonInitiator {
   string status = 3;
   bool IsAccepted = 4;
   string initiatorAddress = 5;
-  string chainID = 6;
 }
 
 message MsgLogonInitiatorResponse {}

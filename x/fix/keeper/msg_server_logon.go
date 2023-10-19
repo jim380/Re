@@ -47,7 +47,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	// set the standard header
-	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Address, targetCompID.Address, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime, msg.ChainID)
+	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Address, targetCompID.Address, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime, msg.LogonInitiator.Header.ChainID)
 
 	// set the FIX Version
 	header.BeginString = msg.FIXVersionByInitiator()
