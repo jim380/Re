@@ -57,7 +57,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			msgSeqNum := int64(0) + 1
 
-			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime, argChainID)
+			header := types.NewHeaderInitiator(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime, argChainID)
 
 			// get the length of checksum excluding the checksum field
 			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
@@ -124,7 +124,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			msgSeqNum := int64(0) + 1
 
-			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
+			header := types.NewHeaderAcceptor(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
 
 			// get the length of checksum excluding the checksum field
 			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
