@@ -37,7 +37,8 @@ service Query {
 
   // Queries a list of Sessions items.
   rpc Sessions(QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/sessions/{chainID}/{sessionID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/sessions/{chainID}/{sessionID}";
   }
   rpc SessionsAll(QueryAllSessionsRequest) returns (QueryAllSessionsResponse) {
     option (google.api.http).get = "/jim380/Re/fix/sessions/{chainID}";
@@ -46,7 +47,8 @@ service Query {
   // Queries a list of SessionReject items.
   rpc SessionReject(QueryGetSessionRejectRequest)
       returns (QueryGetSessionRejectResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/reject/{chainID}/{sessionID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/session/reject/{chainID}/{sessionID}";
   }
   rpc SessionRejectAll(QueryAllSessionRejectRequest)
       returns (QueryAllSessionRejectResponse) {
@@ -56,7 +58,8 @@ service Query {
   // Queries a list of SessionLogout items.
   rpc SessionLogout(QueryGetSessionLogoutRequest)
       returns (QueryGetSessionLogoutResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/session/logout/{chainID}/{sessionID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/session/logout/{chainID}/{sessionID}";
   }
   rpc SessionLogoutAll(QueryAllSessionLogoutRequest)
       returns (QueryAllSessionLogoutResponse) {
@@ -83,7 +86,8 @@ service Query {
   }
   rpc OrdersCancelRequestAll(QueryAllOrdersCancelRequestRequest)
       returns (QueryAllOrdersCancelRequestResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/requests/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/orders/cancel/requests/{chainID}";
   }
 
   // Queries a list of OrdersCancelReject items.
@@ -94,7 +98,8 @@ service Query {
   }
   rpc OrdersCancelRejectAll(QueryAllOrdersCancelRejectRequest)
       returns (QueryAllOrdersCancelRejectResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/cancel/rejects/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/orders/cancel/rejects/{chainID}";
   }
 
   // Queries a list of OrdersExecutionReport items.
@@ -111,12 +116,14 @@ service Query {
   }
   rpc OrdersExecutionReportAll(QueryAllOrdersExecutionReportRequest)
       returns (QueryAllOrdersExecutionReportResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/orders/execution/reports/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/orders/execution/reports/{chainID}";
   }
 
   // Queries a list of Quote items.
   rpc Quote(QueryGetQuoteRequest) returns (QueryGetQuoteResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/quote/{chainID}/{quoteReqID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/quote/{chainID}/{quoteReqID}";
   }
   rpc QuotesBySessionID(QuerySessionByIDQuoteRequest)
       returns (QuerySessionByIDQuoteResponse) {
@@ -140,7 +147,8 @@ service Query {
   // Queries a list of MarketData items.
   rpc MarketData(QueryGetMarketDataRequest)
       returns (QueryGetMarketDataResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/market/data/{chainID}/{mdReqID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/market/data/{chainID}/{mdReqID}";
   }
   rpc MarketDataAll(QueryAllMarketDataRequest)
       returns (QueryAllMarketDataResponse) {
@@ -153,7 +161,8 @@ service Query {
         "/jim380/Re/fix/security/definition/{chainID}/{securityReqID}";
   }
   rpc SecurityAll(QueryAllSecurityRequest) returns (QueryAllSecurityResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/security/definition/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/security/definition/{chainID}";
   }
 
   // Queries a list of OrderMassStatus items.
@@ -186,7 +195,8 @@ service Query {
   }
   rpc TradingSessionListAll(QueryAllTradingSessionListRequest)
       returns (QueryAllTradingSessionListResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/trading/session/list/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/trading/session/list/{chainID}";
   }
 
   // Queries a list of SecurityList items.
@@ -230,7 +240,8 @@ service Query {
   }
   rpc AccountRegistrationAll(QueryAllAccountRegistrationRequest)
       returns (QueryAllAccountRegistrationResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/account/registrations/{chainID}";
+    option (google.api.http).get =
+        "/jim380/Re/fix/account/registrations/{chainID}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -243,18 +254,18 @@ message QueryParamsResponse {
   Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetSessionsRequest { 
-   string sessionID = 1;
-   string chainID = 2;
- }
+message QueryGetSessionsRequest {
+  string sessionID = 1;
+  string chainID = 2;
+}
 
 message QueryGetSessionsResponse {
   Sessions Sessions = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllSessionsRequest {
-   string chainID = 1;
-   cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  string chainID = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryAllSessionsResponse {
@@ -262,9 +273,9 @@ message QueryAllSessionsResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSessionRejectRequest { 
-   string sessionID = 1;
-   string chainID = 2;
+message QueryGetSessionRejectRequest {
+  string sessionID = 1;
+  string chainID = 2;
 }
 
 message QueryGetSessionRejectResponse {
@@ -272,8 +283,8 @@ message QueryGetSessionRejectResponse {
 }
 
 message QueryAllSessionRejectRequest {
-   string chainID = 1;
-   cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  string chainID = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryAllSessionRejectResponse {
@@ -281,9 +292,9 @@ message QueryAllSessionRejectResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSessionLogoutRequest { 
-   string sessionID = 1; 
-   string chainID = 2;
+message QueryGetSessionLogoutRequest {
+  string sessionID = 1;
+  string chainID = 2;
 }
 
 message QueryGetSessionLogoutResponse {
@@ -291,8 +302,8 @@ message QueryGetSessionLogoutResponse {
 }
 
 message QueryAllSessionLogoutRequest {
-   string chainID = 1;
-   cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  string chainID = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryAllSessionLogoutResponse {
@@ -300,9 +311,9 @@ message QueryAllSessionLogoutResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersRequest { 
-   string clOrdID = 1; 
-   string chainID = 2;
+message QueryGetOrdersRequest {
+  string clOrdID = 1;
+  string chainID = 2;
 }
 
 message QueryGetOrdersResponse {
@@ -321,8 +332,8 @@ message QueryGetOrdersByAddressResponse {
 }
 
 message QueryAllOrdersRequest {
-   string chainID = 1;
-   cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  string chainID = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryAllOrdersResponse {
@@ -330,9 +341,9 @@ message QueryAllOrdersResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersCancelRequestRequest { 
-string clOrdID = 1; 
-string chainID = 2;
+message QueryGetOrdersCancelRequestRequest {
+  string clOrdID = 1;
+  string chainID = 2;
 }
 
 message QueryGetOrdersCancelRequestResponse {
@@ -350,9 +361,9 @@ message QueryAllOrdersCancelRequestResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersCancelRejectRequest { 
- string clOrdID = 1; 
- string chainID = 2;
+message QueryGetOrdersCancelRejectRequest {
+  string clOrdID = 1;
+  string chainID = 2;
 }
 
 message QueryGetOrdersCancelRejectResponse {
@@ -370,9 +381,9 @@ message QueryAllOrdersCancelRejectResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrdersExecutionReportRequest { 
- string clOrdID = 1; 
- string chainID = 2;
+message QueryGetOrdersExecutionReportRequest {
+  string clOrdID = 1;
+  string chainID = 2;
 }
 
 message QueryGetOrdersExecutionReportResponse {
@@ -403,9 +414,9 @@ message QueryAllOrdersExecutionReportResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetQuoteRequest { 
- string quoteReqID = 1; 
- string chainID = 2;
+message QueryGetQuoteRequest {
+  string quoteReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetQuoteResponse {
@@ -413,9 +424,9 @@ message QueryGetQuoteResponse {
 }
 
 // get Quotes by SessionID
-message QuerySessionByIDQuoteRequest { 
- string sessionID = 1; 
- string chainID = 2;
+message QuerySessionByIDQuoteRequest {
+  string sessionID = 1;
+  string chainID = 2;
 }
 
 // get Quotes Response by sessionID
@@ -433,9 +444,9 @@ message QueryAllQuoteResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetTradeCaptureRequest { 
- string tradeReportID = 1; 
- string chainID = 2;
+message QueryGetTradeCaptureRequest {
+  string tradeReportID = 1;
+  string chainID = 2;
 }
 
 message QueryGetTradeCaptureResponse {
@@ -452,9 +463,9 @@ message QueryAllTradeCaptureResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetMarketDataRequest { 
- string mdReqID = 1; 
- string chainID = 2;
+message QueryGetMarketDataRequest {
+  string mdReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetMarketDataResponse {
@@ -471,9 +482,9 @@ message QueryAllMarketDataResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSecurityRequest { 
- string securityReqID = 1; 
- string chainID = 2;
+message QueryGetSecurityRequest {
+  string securityReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetSecurityResponse {
@@ -490,9 +501,9 @@ message QueryAllSecurityResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetOrderMassStatusRequest { 
- string massStatusReqID = 1; 
- string chainID = 2;
+message QueryGetOrderMassStatusRequest {
+  string massStatusReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetOrderMassStatusResponse {
@@ -509,9 +520,9 @@ message QueryAllOrderMassStatusResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetTradingSessionRequest { 
- string tradSesReqID = 1; 
- string chainID = 2;
+message QueryGetTradingSessionRequest {
+  string tradSesReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetTradingSessionResponse {
@@ -528,9 +539,9 @@ message QueryAllTradingSessionResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetTradingSessionListRequest { 
- string tradSesReqID = 1; 
- string chainID = 2;
+message QueryGetTradingSessionListRequest {
+  string tradSesReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetTradingSessionListResponse {
@@ -548,8 +559,8 @@ message QueryAllTradingSessionListResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSecurityListRequest { 
-  string securityReqID = 1; 
+message QueryGetSecurityListRequest {
+  string securityReqID = 1;
   string chainID = 2;
 }
 
@@ -567,9 +578,9 @@ message QueryAllSecurityListResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSecurityStatusRequest { 
- string securityStatusReqID = 1; 
- string chainID = 2;
+message QueryGetSecurityStatusRequest {
+  string securityStatusReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetSecurityStatusResponse {
@@ -586,9 +597,9 @@ message QueryAllSecurityStatusResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetSecurityTypesRequest { 
- string securityReqID = 1; 
- string chainID = 2;
+message QueryGetSecurityTypesRequest {
+  string securityReqID = 1;
+  string chainID = 2;
 }
 
 message QueryGetSecurityTypesResponse {
@@ -605,9 +616,9 @@ message QueryAllSecurityTypesResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetAccountRegistrationRequest { 
- string address = 1; 
- string chainID = 2;
+message QueryGetAccountRegistrationRequest {
+  string address = 1;
+  string chainID = 2;
 }
 
 message QueryGetAccountRegistrationResponse {
