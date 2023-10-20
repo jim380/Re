@@ -30,6 +30,13 @@ message Header {
 
   // This field specifies the time that the message was sent
   string sendingTime = 7;
+
+  // Add a new field for chain ID
+  // In a blockchain network, there are multiple chains, each with its unique
+  // features, rules, and assets. By including a chainID, you can indicate
+  // whether the message should be processed on the Ethereum network, Binance
+  // Smart Chain, or any other blockchain
+  string chainID = 8;
 }
 
 // This message trailer contains a checksum field that is used to ensure message

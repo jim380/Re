@@ -47,7 +47,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	}
 
 	// set the standard header
-	header := types.NewHeader(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Address, targetCompID.Address, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime)
+	header := types.NewHeaderInitiator(msg.LogonInitiator.Header.BodyLength, msg.LogonInitiator.Header.MsgType, senderCompID.Address, targetCompID.Address, msg.LogonInitiator.Header.MsgSeqNum, msg.LogonInitiator.Header.SendingTime, msg.LogonInitiator.Header.ChainID)
 
 	// set the FIX Version
 	header.BeginString = msg.FIXVersionByInitiator()
@@ -111,7 +111,8 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	}
 
 	// set the standard header
-	header := types.NewHeader(session.LogonInitiator.Header.BodyLength, msg.LogonAcceptor.Header.MsgType, msg.LogonAcceptor.Header.SenderCompID, msg.LogonAcceptor.Header.TargetCompID, session.LogonInitiator.Header.MsgSeqNum, msg.LogonAcceptor.Header.SendingTime)
+	// pass the chainID from initiator using session.LogonInitiator.Header.ChainID
+	header := types.NewHeaderAcceptor(session.LogonInitiator.Header.BodyLength, msg.LogonAcceptor.Header.MsgType, msg.LogonAcceptor.Header.SenderCompID, msg.LogonAcceptor.Header.TargetCompID, session.LogonInitiator.Header.MsgSeqNum, msg.LogonAcceptor.Header.SendingTime)
 
 	// set the FIX Version
 	header.BeginString = msg.FIXVersionByAcceptor()
@@ -137,6 +138,9 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 		Status:         constants.LoggedInStatus,
 		IsAccepted:     true,
 	}
+
+	// set the chainID
+	newAcceptorSession.LogonAcceptor.Header.ChainID = session.LogonInitiator.Header.ChainID
 
 	// set new Acceptor logon session to store
 	k.SetSessions(ctx, msg.SessionID, newAcceptorSession)
