@@ -28,8 +28,9 @@ func (k Keeper) QuoteAll(goCtx context.Context, req *types.QueryAllQuoteRequest)
 		if err := k.cdc.Unmarshal(value, &quote); err != nil {
 			return err
 		}
-
-		quotes = append(quotes, quote)
+		if quote.QuoteRequest.Header.ChainID == req.ChainID {
+			quotes = append(quotes, quote)
+		}
 		return nil
 	})
 	if err != nil {
@@ -49,6 +50,9 @@ func (k Keeper) Quote(goCtx context.Context, req *types.QueryGetQuoteRequest) (*
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
+	if quote.QuoteRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
+	}
 
 	return &types.QueryGetQuoteResponse{Quote: quote}, nil
 }
@@ -66,7 +70,7 @@ func (k Keeper) QuotesBySessionID(goCtx context.Context, req *types.QuerySession
 	allQuote := k.GetAllQuote(ctx)
 	for _, quotes := range allQuote {
 		// check for if the requested sessionID matches with any sessionID returned from GetAllQuote()
-		if quotes.SessionID == req.SessionID {
+		if quotes.SessionID == req.SessionID && quotes.QuoteRequest.Header.ChainID == req.ChainID {
 			quotesBySessionID = append(quotesBySessionID, quotes)
 		}
 	}

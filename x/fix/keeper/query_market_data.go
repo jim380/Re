@@ -28,8 +28,9 @@ func (k Keeper) MarketDataAll(goCtx context.Context, req *types.QueryAllMarketDa
 		if err := k.cdc.Unmarshal(value, &marketData); err != nil {
 			return err
 		}
-
-		marketDatas = append(marketDatas, marketData)
+		if marketData.MarketDataRequest.Header.ChainID == req.ChainID {
+			marketDatas = append(marketDatas, marketData)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) MarketData(goCtx context.Context, req *types.QueryGetMarketDataR
 	marketData, found := k.GetMarketData(ctx, req.MdReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if marketData.MarketDataRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetMarketDataResponse{MarketData: marketData}, nil

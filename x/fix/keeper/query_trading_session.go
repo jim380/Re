@@ -28,8 +28,9 @@ func (k Keeper) TradingSessionAll(goCtx context.Context, req *types.QueryAllTrad
 		if err := k.cdc.Unmarshal(value, &tradingSession); err != nil {
 			return err
 		}
-
-		tradingSessions = append(tradingSessions, tradingSession)
+		if tradingSession.TradingSessionStatusRequest.Header.ChainID == req.ChainID {
+			tradingSessions = append(tradingSessions, tradingSession)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) TradingSession(goCtx context.Context, req *types.QueryGetTrading
 	tradingSession, found := k.GetTradingSession(ctx, req.TradSesReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if tradingSession.TradingSessionStatusRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetTradingSessionResponse{TradingSession: tradingSession}, nil
