@@ -92,7 +92,7 @@ func CmdShowQuotesBySessionID() *cobra.Command {
 			argSessionID := args[1]
 
 			params := &types.QuerySessionByIDQuoteRequest{
-				ChainID: argChainID,
+				ChainID:   argChainID,
 				SessionID: argSessionID,
 			}
 
