@@ -236,12 +236,12 @@ service Query {
   rpc AccountRegistration(QueryGetAccountRegistrationRequest)
       returns (QueryGetAccountRegistrationResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/account/registration/{chainID}/{address}";
+        "/jim380/Re/fix/account/registration/{address}";
   }
   rpc AccountRegistrationAll(QueryAllAccountRegistrationRequest)
       returns (QueryAllAccountRegistrationResponse) {
     option (google.api.http).get =
-        "/jim380/Re/fix/account/registrations/{chainID}";
+        "/jim380/Re/fix/account/registrations";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -618,7 +618,6 @@ message QueryAllSecurityTypesResponse {
 
 message QueryGetAccountRegistrationRequest {
   string address = 1;
-  string chainID = 2;
 }
 
 message QueryGetAccountRegistrationResponse {
@@ -626,8 +625,7 @@ message QueryGetAccountRegistrationResponse {
 }
 
 message QueryAllAccountRegistrationRequest {
-  string chainID = 1;
-  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
 message QueryAllAccountRegistrationResponse {

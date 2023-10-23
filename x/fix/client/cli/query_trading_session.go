@@ -11,8 +11,9 @@ import (
 
 func CmdListTradingSession() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-trading-session",
+		Use:   "list-trading-session [chainID]",
 		Short: "list all trading-session",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -21,9 +22,12 @@ func CmdListTradingSession() *cobra.Command {
 				return err
 			}
 
+			argChainID := args[0]
+
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryAllTradingSessionRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListTradingSession() *cobra.Command {
 
 func CmdShowTradingSession() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-trading-session [tradSesReqID]",
+		Use:   "show-trading-session [chainID] [tradSesReqID]",
 		Short: "shows a trading-session",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argTradSesReqID := args[0]
+			argChainID := args[0]
+			argTradSesReqID := args[1]
 
 			params := &types.QueryGetTradingSessionRequest{
+				ChainID:      argChainID,
 				TradSesReqID: argTradSesReqID,
 			}
 
