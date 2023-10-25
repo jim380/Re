@@ -44,7 +44,10 @@ type Header struct {
 	// This field specifies the time that the message was sent
 	SendingTime string `protobuf:"bytes,7,opt,name=sendingTime,proto3" json:"sendingTime,omitempty"`
 	// Add a new field for chain ID
-	// In a blockchain network, there are multiple chains, each with its unique features, rules, and assets. By including a chainID, you can indicate whether the message should be processed on the Ethereum network, Binance Smart Chain, or any other blockchain
+	// In a blockchain network, there are multiple chains, each with its unique
+	// features, rules, and assets. By including a chainID, you can indicate
+	// whether the message should be processed on the Ethereum network, Binance
+	// Smart Chain, or any other blockchain
 	ChainID string `protobuf:"bytes,8,opt,name=chainID,proto3" json:"chainID,omitempty"`
 }
 

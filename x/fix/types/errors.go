@@ -29,6 +29,7 @@ const (
 	errSessionLogoutIsInitiated
 	errSessionLogoutIsAccepted
 	errSessionLogoutIsNotInitiated
+	errWrongChainID
 
 	// Quote
 	errQuoteIsEmpty
@@ -181,6 +182,7 @@ var (
 	ErrSessionLogoutIsInitiated    = sdkerrors.Register(ModuleName, errSessionLogoutIsInitiated, "Session Logout is initiated already")
 	ErrSessionLogoutIsAccepted     = sdkerrors.Register(ModuleName, errSessionLogoutIsAccepted, "Session Logout is accepted already")
 	ErrSessionLogoutIsNotInitiated = sdkerrors.Register(ModuleName, errSessionLogoutIsNotInitiated, "Session Logout is not initiated")
+	ErrWrongChainID                = sdkerrors.Register(ModuleName, errWrongChainID, "The provided chainID is wrong")
 
 	// Quote
 	ErrQuoteIsEmpty                       = sdkerrors.Register(ModuleName, errQuoteIsEmpty, "Quote Is Empty")

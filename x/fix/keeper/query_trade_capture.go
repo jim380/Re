@@ -28,8 +28,9 @@ func (k Keeper) TradeCaptureAll(goCtx context.Context, req *types.QueryAllTradeC
 		if err := k.cdc.Unmarshal(value, &tradeCapture); err != nil {
 			return err
 		}
-
-		tradeCaptures = append(tradeCaptures, tradeCapture)
+		if tradeCapture.TradeCaptureReport.Header.ChainID == req.ChainID {
+			tradeCaptures = append(tradeCaptures, tradeCapture)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) TradeCapture(goCtx context.Context, req *types.QueryGetTradeCapt
 	tradeCapture, found := k.GetTradeCapture(ctx, req.TradeReportID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if tradeCapture.TradeCaptureReport.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetTradeCaptureResponse{TradeCapture: tradeCapture}, nil

@@ -28,8 +28,9 @@ func (k Keeper) OrdersAll(goCtx context.Context, req *types.QueryAllOrdersReques
 		if err := k.cdc.Unmarshal(value, &orders); err != nil {
 			return err
 		}
-
-		orderss = append(orderss, orders)
+		if orders.Header.ChainID == req.ChainID {
+			orderss = append(orderss, orders)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) Orders(goCtx context.Context, req *types.QueryGetOrdersRequest) 
 	orders, found := k.GetOrders(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if orders.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetOrdersResponse{Orders: orders}, nil
@@ -69,7 +73,7 @@ func (k Keeper) OrdersByAddress(goCtx context.Context, req *types.QueryGetOrders
 		if err := k.cdc.Unmarshal(value, &orders); err != nil {
 			return err
 		}
-		if orders.Header.SenderCompID == req.Address || orders.Header.TargetCompID == req.Address {
+		if orders.Header.SenderCompID == req.Address || orders.Header.TargetCompID == req.Address && orders.Header.ChainID == req.ChainID {
 			orderss = append(orderss, orders)
 		}
 		return nil
@@ -97,8 +101,9 @@ func (k Keeper) OrdersCancelRequestAll(goCtx context.Context, req *types.QueryAl
 		if err := k.cdc.Unmarshal(value, &ordersCancelRequest); err != nil {
 			return err
 		}
-
-		ordersCancelRequests = append(ordersCancelRequests, ordersCancelRequest)
+		if ordersCancelRequest.Header.ChainID == req.ChainID {
+			ordersCancelRequests = append(ordersCancelRequests, ordersCancelRequest)
+		}
 		return nil
 	})
 	if err != nil {
@@ -117,6 +122,9 @@ func (k Keeper) OrdersCancelRequest(goCtx context.Context, req *types.QueryGetOr
 	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if ordersCancelRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetOrdersCancelRequestResponse{OrdersCancelRequest: ordersCancelRequest}, nil
@@ -138,8 +146,9 @@ func (k Keeper) OrdersExecutionReportAll(goCtx context.Context, req *types.Query
 		if err := k.cdc.Unmarshal(value, &ordersExecutionReport); err != nil {
 			return err
 		}
-
-		ordersExecutionReports = append(ordersExecutionReports, ordersExecutionReport)
+		if ordersExecutionReport.Header.ChainID == req.ChainID {
+			ordersExecutionReports = append(ordersExecutionReports, ordersExecutionReport)
+		}
 		return nil
 	})
 	if err != nil {
@@ -158,6 +167,9 @@ func (k Keeper) OrdersExecutionReport(goCtx context.Context, req *types.QueryGet
 	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if ordersExecutionReport.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetOrdersExecutionReportResponse{OrdersExecutionReport: ordersExecutionReport}, nil
@@ -179,7 +191,7 @@ func (k Keeper) OrdersExecutionReportByAddress(goCtx context.Context, req *types
 		if err := k.cdc.Unmarshal(value, &ordersExecutionReport); err != nil {
 			return err
 		}
-		if ordersExecutionReport.Header.SenderCompID == req.Address || ordersExecutionReport.Header.TargetCompID == req.Address {
+		if ordersExecutionReport.Header.SenderCompID == req.Address || ordersExecutionReport.Header.TargetCompID == req.Address && ordersExecutionReport.Header.ChainID == req.ChainID {
 			ordersExecutionReports = append(ordersExecutionReports, ordersExecutionReport)
 		}
 		return nil
@@ -206,8 +218,9 @@ func (k Keeper) OrdersCancelRejectAll(goCtx context.Context, req *types.QueryAll
 		if err := k.cdc.Unmarshal(value, &ordersCancelReject); err != nil {
 			return err
 		}
-
-		ordersCancelRejects = append(ordersCancelRejects, ordersCancelReject)
+		if ordersCancelReject.Header.ChainID == req.ChainID {
+			ordersCancelRejects = append(ordersCancelRejects, ordersCancelReject)
+		}
 		return nil
 	})
 	if err != nil {
@@ -226,6 +239,9 @@ func (k Keeper) OrdersCancelReject(goCtx context.Context, req *types.QueryGetOrd
 	ordersCancelReject, found := k.GetOrdersCancelReject(ctx, req.ClOrdID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if ordersCancelReject.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetOrdersCancelRejectResponse{OrdersCancelReject: ordersCancelReject}, nil

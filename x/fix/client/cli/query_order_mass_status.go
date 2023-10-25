@@ -11,8 +11,9 @@ import (
 
 func CmdListOrderMassStatus() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-order-mass-status",
+		Use:   "list-order-mass-status [chainID]",
 		Short: "list all order-mass-status",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,7 +24,10 @@ func CmdListOrderMassStatus() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
+			argChainID := args[0]
+
 			params := &types.QueryAllOrderMassStatusRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListOrderMassStatus() *cobra.Command {
 
 func CmdShowOrderMassStatus() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-order-mass-status [massStatusReqID]",
+		Use:   "show-order-mass-status [chainID] [massStatusReqID]",
 		Short: "shows a order-mass-status",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argMassStatusReqID := args[0]
+			argChainID := args[0]
+			argMassStatusReqID := args[1]
 
 			params := &types.QueryGetOrderMassStatusRequest{
+				ChainID:         argChainID,
 				MassStatusReqID: argMassStatusReqID,
 			}
 
