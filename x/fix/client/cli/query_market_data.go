@@ -11,8 +11,9 @@ import (
 
 func CmdListMarketData() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-market-data",
+		Use:   "list-market-data [chainID]",
 		Short: "list all market-data",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,7 +24,10 @@ func CmdListMarketData() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
+			argChainID := args[0]
+
 			params := &types.QueryAllMarketDataRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListMarketData() *cobra.Command {
 
 func CmdShowMarketData() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-market-data [mdReqID]",
+		Use:   "show-market-data [chainID] [mdReqID]",
 		Short: "shows a market-data",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argmdReqID := args[0]
+			argChainID := args[0]
+			argmdReqID := args[1]
 
 			params := &types.QueryGetMarketDataRequest{
+				ChainID: argChainID,
 				MdReqID: argmdReqID,
 			}
 

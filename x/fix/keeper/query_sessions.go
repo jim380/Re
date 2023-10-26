@@ -28,8 +28,9 @@ func (k Keeper) SessionsAll(goCtx context.Context, req *types.QueryAllSessionsRe
 		if err := k.cdc.Unmarshal(value, &sessions); err != nil {
 			return err
 		}
-
-		sessionss = append(sessionss, sessions)
+		if sessions.LogonInitiator.Header.ChainID == req.ChainID {
+			sessionss = append(sessionss, sessions)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) Sessions(goCtx context.Context, req *types.QueryGetSessionsReque
 	sessions, found := k.GetSessions(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if sessions.LogonInitiator.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetSessionsResponse{Sessions: sessions}, nil
@@ -69,8 +73,9 @@ func (k Keeper) SessionRejectAll(goCtx context.Context, req *types.QueryAllSessi
 		if err := k.cdc.Unmarshal(value, &sessionReject); err != nil {
 			return err
 		}
-
-		sessionRejects = append(sessionRejects, sessionReject)
+		if sessionReject.Header.ChainID == req.ChainID {
+			sessionRejects = append(sessionRejects, sessionReject)
+		}
 		return nil
 	})
 	if err != nil {
@@ -89,6 +94,9 @@ func (k Keeper) SessionReject(goCtx context.Context, req *types.QueryGetSessionR
 	sessionReject, found := k.GetSessionReject(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if sessionReject.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetSessionRejectResponse{SessionReject: sessionReject}, nil
@@ -110,8 +118,9 @@ func (k Keeper) SessionLogoutAll(goCtx context.Context, req *types.QueryAllSessi
 		if err := k.cdc.Unmarshal(value, &sessionLogout); err != nil {
 			return err
 		}
-
-		sessionLogouts = append(sessionLogouts, sessionLogout)
+		if sessionLogout.SessionLogoutInitiator.Header.ChainID == req.ChainID {
+			sessionLogouts = append(sessionLogouts, sessionLogout)
+		}
 		return nil
 	})
 	if err != nil {
@@ -130,6 +139,9 @@ func (k Keeper) SessionLogout(goCtx context.Context, req *types.QueryGetSessionL
 	sessionLogout, found := k.GetSessionLogout(ctx, req.SessionID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if sessionLogout.SessionLogoutInitiator.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetSessionLogoutResponse{SessionLogout: sessionLogout}, nil

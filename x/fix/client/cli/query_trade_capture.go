@@ -11,8 +11,9 @@ import (
 
 func CmdListTradeCapture() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-trade-capture",
+		Use:   "list-trade-capture [chainID]",
 		Short: "list all trade-capture",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -21,9 +22,12 @@ func CmdListTradeCapture() *cobra.Command {
 				return err
 			}
 
+			argChainID := args[0]
+
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryAllTradeCaptureRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListTradeCapture() *cobra.Command {
 
 func CmdShowTradeCapture() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-trade-capture [tradeReportID]",
+		Use:   "show-trade-capture [chainID] [tradeReportID]",
 		Short: "shows a trade-capture",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argTradeReportID := args[0]
+			argChainID := args[0]
+			argTradeReportID := args[1]
 
 			params := &types.QueryGetTradeCaptureRequest{
+				ChainID:       argChainID,
 				TradeReportID: argTradeReportID,
 			}
 

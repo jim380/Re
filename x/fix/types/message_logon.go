@@ -54,7 +54,7 @@ func (msg *MsgLogonInitiator) FIXVersionByInitiator() string {
 	return msg.LogonInitiator.Header.BeginString
 }
 
-func NewHeader(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string) Header {
+func NewHeaderInitiator(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string, chainID string) Header {
 	return Header{
 		BodyLength:   bodyLength,
 		MsgType:      msgType,
@@ -62,6 +62,7 @@ func NewHeader(bodyLength int64, msgType string, senderCompID string, targetComp
 		TargetCompID: targetCompID,
 		MsgSeqNum:    msgSeqNum,
 		SendingTime:  sendingTime,
+		ChainID:      chainID,
 	}
 }
 
@@ -124,6 +125,17 @@ func (msg *MsgLogonAcceptor) ValidateBasic() error {
 func (msg *MsgLogonAcceptor) FIXVersionByAcceptor() string {
 	msg.LogonAcceptor.Header.BeginString = fixVersion
 	return msg.LogonAcceptor.Header.BeginString
+}
+
+func NewHeaderAcceptor(bodyLength int64, msgType string, senderCompID string, targetCompID string, msgSeqNum int64, sendingTime string) Header {
+	return Header{
+		BodyLength:   bodyLength,
+		MsgType:      msgType,
+		SenderCompID: senderCompID,
+		TargetCompID: targetCompID,
+		MsgSeqNum:    msgSeqNum,
+		SendingTime:  sendingTime,
+	}
 }
 
 func NewLogonAcceptor(header Header, encryptMethod int64, heartBtInt int64, trailer Trailer) LogonAcceptor {

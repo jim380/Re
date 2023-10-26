@@ -17,9 +17,9 @@ var _ = strconv.Itoa(0)
 
 func CmdLogonInitiator() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "logon-initiator [msgType] [senderCompID] [targetCompID] [encryptMethod] [heartBeatInt]",
+		Use:   "logon-initiator [msgType] [senderCompID] [targetCompID] [encryptMethod] [heartBeatInt] [chainID]",
 		Short: "Broadcast message logon-initiator",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -42,6 +42,8 @@ func CmdLogonInitiator() *cobra.Command {
 				return err
 			}
 
+			argChainID := args[5]
+
 			sessionName, _ := helpers.GenerateRandomString(constants.SessionNameLength)
 
 			sendingTime := constants.SendingTime
@@ -55,7 +57,7 @@ func CmdLogonInitiator() *cobra.Command {
 
 			msgSeqNum := int64(0) + 1
 
-			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
+			header := types.NewHeaderInitiator(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime, argChainID)
 
 			// get the length of checksum excluding the checksum field
 			checkSum := sessionName + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)
@@ -122,7 +124,7 @@ func CmdLogonAcceptor() *cobra.Command {
 
 			msgSeqNum := int64(0) + 1
 
-			header := types.NewHeader(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
+			header := types.NewHeaderAcceptor(bodyLength, argMsgType, argSenderCompID, argTargetCompID, msgSeqNum, sendingTime)
 
 			// get the length of checksum excluding the checksum field
 			checkSum := argSessionID + clientCtx.GetFromAddress().String() + header.String() + strconv.FormatInt(int64(argEncryptMethod), 10) + strconv.FormatInt(int64(argHeartBtInt), 10)

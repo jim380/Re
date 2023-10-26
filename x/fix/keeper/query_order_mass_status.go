@@ -28,8 +28,9 @@ func (k Keeper) OrderMassStatusAll(goCtx context.Context, req *types.QueryAllOrd
 		if err := k.cdc.Unmarshal(value, &orderMassStatus); err != nil {
 			return err
 		}
-
-		orderMassStatuss = append(orderMassStatuss, orderMassStatus)
+		if orderMassStatus.OrderMassStatusRequest.Header.ChainID == req.ChainID {
+			orderMassStatuss = append(orderMassStatuss, orderMassStatus)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) OrderMassStatus(goCtx context.Context, req *types.QueryGetOrderM
 	orderMassStatus, found := k.GetOrderMassStatus(ctx, req.MassStatusReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if orderMassStatus.OrderMassStatusRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetOrderMassStatusResponse{OrderMassStatus: orderMassStatus}, nil
