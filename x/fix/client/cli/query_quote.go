@@ -11,8 +11,9 @@ import (
 
 func CmdListQuote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-quote",
+		Use:   "list-quote [chainID]",
 		Short: "list all quote",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -21,9 +22,12 @@ func CmdListQuote() *cobra.Command {
 				return err
 			}
 
+			argChainID := args[0]
+
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryAllQuoteRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListQuote() *cobra.Command {
 
 func CmdShowQuote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-quote [quoteReqID]",
+		Use:   "show-quote [chainID] [quoteReqID]",
 		Short: "shows a quote",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argQuoteReqID := args[0]
+			argChainID := args[0]
+			argQuoteReqID := args[1]
 
 			params := &types.QueryGetQuoteRequest{
+				ChainID:    argChainID,
 				QuoteReqID: argQuoteReqID,
 			}
 
@@ -74,17 +80,19 @@ func CmdShowQuote() *cobra.Command {
 
 func CmdShowQuotesBySessionID() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-session-quotes [sessionID]",
+		Use:   "show-session-quotes [chainID] [sessionID]",
 		Short: "shows a quote",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSessionID := args[0]
+			argChainID := args[0]
+			argSessionID := args[1]
 
 			params := &types.QuerySessionByIDQuoteRequest{
+				ChainID:   argChainID,
 				SessionID: argSessionID,
 			}
 

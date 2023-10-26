@@ -28,8 +28,9 @@ func (k Keeper) SecurityListAll(goCtx context.Context, req *types.QueryAllSecuri
 		if err := k.cdc.Unmarshal(value, &securityList); err != nil {
 			return err
 		}
-
-		securityLists = append(securityLists, securityList)
+		if securityList.SecurityListRequest.Header.ChainID == req.ChainID {
+			securityLists = append(securityLists, securityList)
+		}
 		return nil
 	})
 	if err != nil {
@@ -48,6 +49,9 @@ func (k Keeper) SecurityList(goCtx context.Context, req *types.QueryGetSecurityL
 	securityList, found := k.GetSecurityList(ctx, req.SecurityReqID)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
+	}
+	if securityList.SecurityListRequest.Header.ChainID != req.ChainID {
+		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
 	}
 
 	return &types.QueryGetSecurityListResponse{SecurityList: securityList}, nil

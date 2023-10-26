@@ -11,8 +11,9 @@ import (
 
 func CmdListSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-security-definition",
+		Use:   "list-security-definition [chainID]",
 		Short: "list all security definition",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -21,9 +22,12 @@ func CmdListSecurity() *cobra.Command {
 				return err
 			}
 
+			argChainID := args[0]
+
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryAllSecurityRequest{
+				ChainID:    argChainID,
 				Pagination: pageReq,
 			}
 
@@ -44,17 +48,19 @@ func CmdListSecurity() *cobra.Command {
 
 func CmdShowSecurity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-security-definition [securityReqID]",
+		Use:   "show-security-definition [chainID] [securityReqID]",
 		Short: "shows a security definition",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argSecurityReqID := args[0]
+			argChainID := args[0]
+			argSecurityReqID := args[1]
 
 			params := &types.QueryGetSecurityRequest{
+				ChainID:       argChainID,
 				SecurityReqID: argSecurityReqID,
 			}
 
