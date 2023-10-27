@@ -6,8 +6,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/jim380/Re/utils/constants"
-	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -28,12 +26,6 @@ func CmdTradingSessionListRequest() *cobra.Command {
 			argTradSesMethod := args[5]
 			argTradSesMode := args[6]
 			argSubscriptionRequestType := args[7]
-
-			// GenerateRandomString function uniquely generates TradSesReqID for every Trading Session List Request
-			// Must be unique, or the ID of previous Trading Session Status Request (g) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Update Request (2).
-			if argTradSesReqID == "" {
-				argTradSesReqID, _ = helpers.GenerateRandomString(constants.TradSesReqID)
-			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

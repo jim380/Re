@@ -7,6 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -42,12 +43,17 @@ func (k msgServer) SecurityStatusRequest(goCtx context.Context, msg *types.MsgSe
 	}
 
 	// Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2)
-	if msg.SecurityStatusReqID != "" {
+	if msg.SecurityStatusReqID == "" {
+		// Generate a random TradSesReqID using helpers.GenerateRandomString
+		securityStatusReqID, _ := helpers.GenerateRandomString(constants.TradSesReqID)
+		msg.SecurityStatusReqID = securityStatusReqID
+	} else {
 		// check that the provided SecurityStatusReqID exists from the Security Status
 		securityStatus, found := k.GetSecurityStatus(ctx, msg.SecurityStatusReqID)
 		if !found {
 			return nil, sdkerrors.Wrapf(types.ErrSecurityStatusIsNotFound, ": %s", securityStatus.SecurityStatusRequest)
 		}
+		msg.SecurityStatusReqID = securityStatus.SecurityStatusRequest.SecurityStatusReqID
 	}
 
 	securityStatusRequest := types.SecurityStatus{
