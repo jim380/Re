@@ -7,6 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
+	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 )
 
@@ -42,12 +43,17 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	}
 
 	// when TradSesReqID is from the previous Trading Session Status Request (g)
-	if msg.TradSesReqID != "" {
+	if msg.TradSesReqID == "" {
+		// Generate a random TradSesReqID using helpers.GenerateRandomString
+		tradSesReqID, _ := helpers.GenerateRandomString(constants.TradSesReqID)
+		msg.TradSesReqID = tradSesReqID
+	} else {
 		// check that the provided TradSesReqID exists from the Trading Session
 		tradingSession, found := k.GetTradingSession(ctx, msg.TradSesReqID)
 		if !found {
 			return nil, sdkerrors.Wrapf(types.ErrTradingSessionIsNotFound, ": %s", tradingSession.TradingSessionStatusRequest)
 		}
+		msg.TradSesReqID = tradingSession.TradingSessionStatusRequest.TradSesReqID
 	}
 
 	tradingSessionListRequest := types.TradingSessionList{
@@ -72,14 +78,14 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	// TargetCompID (56) contains the ID of the target (trading venue).
 	// BodyLength should be calculated using the BodyLength function
 	// set sending time to current time at creating Trading Session List Request
-	tradingSessionListRequest.TradingSessionListRequestReject.Header = session.LogonInitiator.Header
-	tradingSessionListRequest.TradingSessionListRequestReject.Header.MsgType = "BI"
-	tradingSessionListRequest.TradingSessionListRequestReject.Header.SendingTime = constants.SendingTime
+	tradingSessionListRequest.TradingSessionListRequest.Header = session.LogonInitiator.Header
+	tradingSessionListRequest.TradingSessionListRequest.Header.MsgType = "BI"
+	tradingSessionListRequest.TradingSessionListRequest.Header.SendingTime = constants.SendingTime
 
 	// fetch Trailer from existing session
 	// TODO
 	// checksum in the trailer can be recalculated using CalculateChecksum function
-	tradingSessionListRequest.TradingSessionListRequestReject.Trailer = session.LogonInitiator.Trailer
+	tradingSessionListRequest.TradingSessionListRequest.Trailer = session.LogonInitiator.Trailer
 
 	// set Trade Session List Request to store
 	k.SetTradingSessionList(ctx, msg.TradSesReqID, tradingSessionListRequest)

@@ -31,6 +31,11 @@ const (
 	CosmosHubCacheKey = "cosmosHub"
 	BitcoinCacheKey   = "bitcoin"
 	EthereumCacheKey  = "ethereum"
+
+	// chainID
+	CosmosChainID   = "cosmos"
+	EthereumChainID = "ethereum"
+	BitcoinChainID  = "bitcoin"
 )
 
 var (
