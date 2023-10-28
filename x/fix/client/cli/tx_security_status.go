@@ -6,8 +6,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/jim380/Re/utils/constants"
-	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
 	"github.com/spf13/cobra"
 )
@@ -16,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSecurityStatusRequest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "security-status-request [sessionID] [instrument] [noUnderlyings] [underlyingInstrument] [noLegs] [instrumentLeg] [currency] [subscriptionRequestType] [tradingSessionID] [tradingSessionSubID]",
+		Use:   "security-status-request [sessionID] [securityStatusReqID] [instrument] [noUnderlyings] [underlyingInstrument] [noLegs] [instrumentLeg] [currency] [subscriptionRequestType] [tradingSessionID] [tradingSessionSubID]",
 		Short: "Broadcast message security-status-request",
 		Args:  cobra.ExactArgs(11),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -31,12 +29,6 @@ func CmdSecurityStatusRequest() *cobra.Command {
 			argSubscriptionRequestType := args[8]
 			argTradingSessionID := args[9]
 			argTradingSessionSubID := args[10]
-
-			// GenerateRandomString function uniquely generates SecurityStatusReqID for every Security Status Request
-			// Must be unique, or the ID of previous Security Status Request (e) to disable if SubscriptionRequestType (263) = Disable previous Snapshot + Updates Request (2)
-			if argSecurityStatusReqID == "" {
-				argSecurityStatusReqID, _ = helpers.GenerateRandomString(constants.SecurityStatusReqID)
-			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
