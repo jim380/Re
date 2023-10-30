@@ -20,7 +20,7 @@ func (k msgServer) SecurityTypesRequest(goCtx context.Context, msg *types.MsgSec
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
 	}
 
-	// check for if the provided session ID existss
+	// check for if the provided session ID exists
 	session, found := k.GetSessions(ctx, msg.SessionID)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrEmptySession, "Session Name: %s", msg.SessionID)

@@ -779,7 +779,7 @@ func (suite *KeeperTestSuite) TestOrderExecutionReport() {
 			suite.SetupTest()
 			// set session
 			suite.fixKeeper.SetSessions(suite.ctx, tc.args.session.SessionID, tc.args.session)
-			// set order request
+			// set order
 			suite.fixKeeper.SetOrders(suite.ctx, tc.args.order.ClOrdID, tc.args.order)
 
 			// call Order execution report method
