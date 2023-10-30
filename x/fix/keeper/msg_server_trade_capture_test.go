@@ -149,7 +149,7 @@ func (suite *KeeperTestSuite) TestTradeCaptureReport() {
 					Status:     constants.LoggedInStatus,
 					IsAccepted: true,
 				},
-				msgTradeCaptureReport: *types.NewMsgTradeCaptureReport(suite.address[0].String(), "sessionID", "tradeReportID", "tradeReportTransType", "tradeReportType", "trdType", "trdSubType", "side", "orderQty", "lastQty", "lastPx", "400", "execID", "OrderID", "tradeID", "origTradeID", "symbol", "securityID", "securityIDSource", "tradeDate", "transactTime", "settlType", "settlDate"),
+				msgTradeCaptureReport: *types.NewMsgTradeCaptureReport(suite.address[2].String(), "sessionID", "tradeReportID", "tradeReportTransType", "tradeReportType", "trdType", "trdSubType", "side", "orderQty", "lastQty", "lastPx", "400", "execID", "OrderID", "tradeID", "origTradeID", "symbol", "securityID", "securityIDSource", "tradeDate", "transactTime", "settlType", "settlDate"),
 				ordersExecutionReport: types.OrdersExecutionReport{
 					SessionID: "sessionID",
 					Header: &types.Header{

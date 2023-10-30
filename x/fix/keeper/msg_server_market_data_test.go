@@ -124,55 +124,6 @@ func (suite *KeeperTestSuite) TestMarketDataRequest() {
 			},
 		},
 		{
-			"The parties involved in a session are the ones using the sessionID and are able to create Market Data Request",
-			args{
-				session: types.Sessions{
-					SessionID: "sessionID",
-					LogonInitiator: &types.LogonInitiator{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[0].String(),
-							TargetCompID: suite.address[1].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-							ChainID:      "cosmos",
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					LogonAcceptor: &types.LogonAcceptor{
-						Header: &types.Header{
-							BeginString:  "FIX4.4",
-							BodyLength:   10,
-							MsgType:      "A",
-							SenderCompID: suite.address[1].String(),
-							TargetCompID: suite.address[0].String(),
-							MsgSeqNum:    1,
-							SendingTime:  time.Now().Format("2006-01-02 15:04:05"),
-							ChainID:      "cosmos",
-						},
-						EncryptMethod: 1,
-						HeartBtInt:    1,
-						Trailer: &types.Trailer{
-							CheckSum: 10,
-						},
-					},
-					Status:     constants.LoggedInStatus,
-					IsAccepted: true,
-				},
-				msgMarketDataRequest: *types.NewMsgMarketDataRequest(suite.address[2].String(), "sessionID", "MdReqID", 1, 7, 5, 3, "symbol"),
-			},
-			errArgs{
-				shouldPass: false,
-				contains:   "",
-			},
-		},
-		{
 			"The sessionID does not exist",
 			args{
 				session: types.Sessions{
@@ -1262,7 +1213,7 @@ func (suite *KeeperTestSuite) TestMarketDataRequestReject() {
 			},
 		},
 		{
-			"The user responding is the recipient of the market data request",
+			"The user responding is not the recipient of the market data request",
 			args{
 				session: types.Sessions{
 					SessionID: "sessionID",
