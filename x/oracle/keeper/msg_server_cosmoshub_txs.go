@@ -869,7 +869,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					}
 					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
 				}
-
+			case "UnbondingDelegation":
+			case "Redelegate":
 			}
 		}
 	}
