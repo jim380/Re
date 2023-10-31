@@ -43,7 +43,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 			switch helpers.AbbrTxMessage(message.Type) {
 			case "Send":
 				// set sessions for parties existing in the SEND transactions
-				session := fixTypes.Sessions{
+				SessionOperation(ctx, k.fixKeeper, tx.TxHash, message.FromAddress, message.ToAddress, tx.Height, tx.Time, constants.CosmosChainID)
+
+				/*session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
 					LogonInitiator: &fixTypes.LogonInitiator{
 						Header: &fixTypes.Header{
@@ -77,8 +79,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					IsAccepted: true,
 				}
 				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
-
+				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
+   
 				// unmarshal Amount manually before using it
 				var coins []cosmosTxTypes.Coin
 				err := json.Unmarshal(message.Amount, &coins)
