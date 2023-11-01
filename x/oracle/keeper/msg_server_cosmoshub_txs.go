@@ -12,6 +12,7 @@ import (
 	cosmosTxTypes "github.com/jim380/Re/utils/cosmos_txs/types"
 	"github.com/jim380/Re/utils/helpers"
 	fixTypes "github.com/jim380/Re/x/fix/types"
+	fixoperations "github.com/jim380/Re/x/oracle/keeper/FIXOperations"
 	"github.com/jim380/Re/x/oracle/types"
 )
 
@@ -41,9 +42,10 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 		for _, message := range tx.Messages {
 			// type of Txs message = Send
 			switch helpers.AbbrTxMessage(message.Type) {
+
 			case "Send":
 				// set sessions for parties existing in the SEND transactions
-				session := SessionData{
+				session := fixoperations.SessionData {
 					SessionID:    tx.TxHash,
 					SenderCompID: message.FromAddress,
 					TargetCompID: message.ToAddress,
@@ -51,43 +53,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					SendingTime:  tx.Time,
 					ChainID:      constants.CosmosChainID,
 				}
-				SessionOperation(ctx, k.fixKeeper, session)
-
-				/*session := fixTypes.Sessions{
-					SessionID: tx.TxHash,
-					LogonInitiator: &fixTypes.LogonInitiator{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.FromAddress,
-							TargetCompID: message.ToAddress,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					LogonAcceptor: &fixTypes.LogonAcceptor{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.ToAddress,
-							TargetCompID: message.FromAddress,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					Status:     "loggedIn",
-					IsAccepted: true,
-				}
-				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
+				fixoperations.SessionOperation(ctx, k.fixKeeper, session)
 
 				// unmarshal Amount manually before using it
 				var coins []cosmosTxTypes.Coin
@@ -332,7 +298,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 			case "Transfer":
 				// set sessions for parties existing in the Transfer transactions
-				session := SessionData{
+				session := fixoperations.SessionData{
 					SessionID:    tx.TxHash,
 					SenderCompID: message.Sender,
 					TargetCompID: message.Receiver,
@@ -340,43 +306,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					SendingTime:  tx.Time,
 					ChainID:      constants.CosmosChainID,
 				}
-				SessionOperation(ctx, k.fixKeeper, session)
-
-				/*session := fixTypes.Sessions{
-					SessionID: tx.TxHash,
-					LogonInitiator: &fixTypes.LogonInitiator{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.Sender,
-							TargetCompID: message.Receiver,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					LogonAcceptor: &fixTypes.LogonAcceptor{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.Receiver,
-							TargetCompID: message.Sender,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					Status:     "loggedIn",
-					IsAccepted: true,
-				}
-				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
+				fixoperations.SessionOperation(ctx, k.fixKeeper, session)
 
 				// set New Single Order
 				// set Orders Execution Report
@@ -611,9 +541,10 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					}
 					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
 				}
+
 			case "Delegate":
 				// set sessions for parties existing in the Delegate transactions
-				session := SessionData{
+				session := fixoperations.SessionData{
 					SessionID:    tx.TxHash,
 					SenderCompID: message.DelegatorAddress,
 					TargetCompID: message.ValidatorAddress,
@@ -621,43 +552,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					SendingTime:  tx.Time,
 					ChainID:      constants.CosmosChainID,
 				}
-				SessionOperation(ctx, k.fixKeeper, session)
-
-				/*session := fixTypes.Sessions{
-					SessionID: tx.TxHash,
-					LogonInitiator: &fixTypes.LogonInitiator{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.DelegatorAddress,
-							TargetCompID: message.ValidatorAddress,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					LogonAcceptor: &fixTypes.LogonAcceptor{
-						Header: &fixTypes.Header{
-							BeginString:  "fix4.4",
-							MsgType:      "A",
-							SenderCompID: message.ValidatorAddress,
-							TargetCompID: message.DelegatorAddress,
-							MsgSeqNum:    tx.Height,
-							SendingTime:  tx.Time,
-							ChainID:      constants.CosmosChainID,
-						},
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
-					},
-					Status:     "loggedIn",
-					IsAccepted: true,
-				}
-				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
+				fixoperations.SessionOperation(ctx, k.fixKeeper, session)
 
 				// unmarshal Amount manually before using it
 				var coins cosmosTxTypes.Coin
