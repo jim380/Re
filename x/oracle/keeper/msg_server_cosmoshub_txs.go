@@ -43,7 +43,15 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 			switch helpers.AbbrTxMessage(message.Type) {
 			case "Send":
 				// set sessions for parties existing in the SEND transactions
-				SessionOperation(ctx, k.fixKeeper, tx.TxHash, message.FromAddress, message.ToAddress, tx.Height, tx.Time, constants.CosmosChainID)
+				session := SessionData{
+					SessionID:    tx.TxHash,
+					SenderCompID: message.FromAddress,
+					TargetCompID: message.ToAddress,
+					MsgSeqNum:    tx.Height,
+					SendingTime:  tx.Time,
+					ChainID:      constants.CosmosChainID,
+				}
+				SessionOperation(ctx, k.fixKeeper, session)
 
 				/*session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
@@ -80,7 +88,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				}
 				// set new session to store
 				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
-   
+
 				// unmarshal Amount manually before using it
 				var coins []cosmosTxTypes.Coin
 				err := json.Unmarshal(message.Amount, &coins)
@@ -324,7 +332,17 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 			case "Transfer":
 				// set sessions for parties existing in the Transfer transactions
-				session := fixTypes.Sessions{
+				session := SessionData{
+					SessionID:    tx.TxHash,
+					SenderCompID: message.Sender,
+					TargetCompID: message.Receiver,
+					MsgSeqNum:    tx.Height,
+					SendingTime:  tx.Time,
+					ChainID:      constants.CosmosChainID,
+				}
+				SessionOperation(ctx, k.fixKeeper, session)
+
+				/*session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
 					LogonInitiator: &fixTypes.LogonInitiator{
 						Header: &fixTypes.Header{
@@ -358,7 +376,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					IsAccepted: true,
 				}
 				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
+				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
 
 				// set New Single Order
 				// set Orders Execution Report
@@ -595,7 +613,17 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				}
 			case "Delegate":
 				// set sessions for parties existing in the Delegate transactions
-				session := fixTypes.Sessions{
+				session := SessionData{
+					SessionID:    tx.TxHash,
+					SenderCompID: message.DelegatorAddress,
+					TargetCompID: message.ValidatorAddress,
+					MsgSeqNum:    tx.Height,
+					SendingTime:  tx.Time,
+					ChainID:      constants.CosmosChainID,
+				}
+				SessionOperation(ctx, k.fixKeeper, session)
+
+				/*session := fixTypes.Sessions{
 					SessionID: tx.TxHash,
 					LogonInitiator: &fixTypes.LogonInitiator{
 						Header: &fixTypes.Header{
@@ -629,7 +657,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					IsAccepted: true,
 				}
 				// set new session to store
-				k.fixKeeper.SetSessions(ctx, tx.TxHash, session)
+				k.fixKeeper.SetSessions(ctx, tx.TxHash, session) */
 
 				// unmarshal Amount manually before using it
 				var coins cosmosTxTypes.Coin

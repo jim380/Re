@@ -6,22 +6,28 @@ import (
 	fixTypes "github.com/jim380/Re/x/fix/types"
 )
 
+type SessionData struct {
+	SessionID    string
+	SenderCompID string
+	TargetCompID string
+	MsgSeqNum    int64
+	SendingTime  string
+	ChainID      string
+}
+
 // SessionOperation creates and sets the sessions for both logon initiator and acceptor
-func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionID, senderCompID, targetCompID string, msgSeqNum int64, sendingTime, chainID string) {
-
-	// session setup logic
-
+func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionData SessionData) {
 	session := fixTypes.Sessions{
-		SessionID: sessionID,
+		SessionID: sessionData.SessionID,
 		LogonInitiator: &fixTypes.LogonInitiator{
 			Header: &fixTypes.Header{
 				BeginString:  "fix4.4",
 				MsgType:      "A",
-				SenderCompID: senderCompID,
-				TargetCompID: targetCompID,
-				MsgSeqNum:    msgSeqNum,
-				SendingTime:  sendingTime,
-				ChainID:      chainID,
+				SenderCompID: sessionData.SenderCompID,
+				TargetCompID: sessionData.TargetCompID,
+				MsgSeqNum:    sessionData.MsgSeqNum,
+				SendingTime:  sessionData.SendingTime,
+				ChainID:      sessionData.ChainID,
 			},
 			Trailer: &fixTypes.Trailer{
 				CheckSum: 0,
@@ -31,11 +37,11 @@ func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionID, senderComp
 			Header: &fixTypes.Header{
 				BeginString:  "fix4.4",
 				MsgType:      "A",
-				SenderCompID: targetCompID,
-				TargetCompID: senderCompID,
-				MsgSeqNum:    msgSeqNum,
-				SendingTime:  sendingTime,
-				ChainID:      chainID,
+				SenderCompID: sessionData.TargetCompID,
+				TargetCompID: sessionData.SenderCompID,
+				MsgSeqNum:    sessionData.MsgSeqNum,
+				SendingTime:  sessionData.SendingTime,
+				ChainID:      sessionData.ChainID,
 			},
 			Trailer: &fixTypes.Trailer{
 				CheckSum: 0,
@@ -45,5 +51,5 @@ func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionID, senderComp
 		IsAccepted: true,
 	}
 
-	k.SetSessions(ctx, sessionID, session)
+	k.SetSessions(ctx, sessionData.SessionID, session)
 }
