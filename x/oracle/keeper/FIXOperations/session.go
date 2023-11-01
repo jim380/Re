@@ -8,6 +8,8 @@ import (
 
 type SessionData struct {
 	SessionID    string
+	MsgType     string
+	MsgType_     string
 	SenderCompID string
 	TargetCompID string
 	MsgSeqNum    int64
@@ -22,7 +24,7 @@ func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionData SessionDa
 		LogonInitiator: &fixTypes.LogonInitiator{
 			Header: &fixTypes.Header{
 				BeginString:  "fix4.4",
-				MsgType:      "A",
+				MsgType:      sessionData.MsgType,
 				SenderCompID: sessionData.SenderCompID,
 				TargetCompID: sessionData.TargetCompID,
 				MsgSeqNum:    sessionData.MsgSeqNum,
@@ -36,7 +38,7 @@ func SessionOperation(ctx sdk.Context, k fixKeeper.Keeper, sessionData SessionDa
 		LogonAcceptor: &fixTypes.LogonAcceptor{
 			Header: &fixTypes.Header{
 				BeginString:  "fix4.4",
-				MsgType:      "A",
+				MsgType:      sessionData.MsgType_,
 				SenderCompID: sessionData.TargetCompID,
 				TargetCompID: sessionData.SenderCompID,
 				MsgSeqNum:    sessionData.MsgSeqNum,

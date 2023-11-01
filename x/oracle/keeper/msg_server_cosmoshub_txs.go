@@ -45,8 +45,10 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 
 			case "Send":
 				// set sessions for parties existing in the SEND transactions
-				session := fixoperations.SessionData {
+				session := fixoperations.SessionData{
 					SessionID:    tx.TxHash,
+					MsgType:      "A",
+					MsgType_:     "A",
 					SenderCompID: message.FromAddress,
 					TargetCompID: message.ToAddress,
 					MsgSeqNum:    tx.Height,
@@ -300,6 +302,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// set sessions for parties existing in the Transfer transactions
 				session := fixoperations.SessionData{
 					SessionID:    tx.TxHash,
+					MsgType:      "A",
+					MsgType_:     "A",
 					SenderCompID: message.Sender,
 					TargetCompID: message.Receiver,
 					MsgSeqNum:    tx.Height,
@@ -546,6 +550,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// set sessions for parties existing in the Delegate transactions
 				session := fixoperations.SessionData{
 					SessionID:    tx.TxHash,
+					MsgType:      "A",
+					MsgType_:     "A",
 					SenderCompID: message.DelegatorAddress,
 					TargetCompID: message.ValidatorAddress,
 					MsgSeqNum:    tx.Height,
