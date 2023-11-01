@@ -20,7 +20,7 @@ type OrdersData struct {
 }
 
 // OrdersOperations creates and sets orders based on the provided data
-func OrdersOperations(ctx sdk.Context, k fixKeeper.Keeper, ordersData OrdersData) {
+func OrdersOperation(ctx sdk.Context, k fixKeeper.Keeper, ordersData OrdersData) {
 	order := &fixTypes.Orders{
 		SessionID: ordersData.SessionData.SessionID,
 		Header: &fixTypes.Header{
