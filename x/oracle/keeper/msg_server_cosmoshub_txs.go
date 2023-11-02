@@ -71,10 +71,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// check that Txs was successful
 				if tx.Result != 0 {
 					// orders here were rejected
-					order := &fixTypes.Orders{
-						SessionID: tx.TxHash,
-						Header: &fixTypes.Header{
-							BeginString:  "FIX4.4",
+					orders := fixoperations.OrdersData{
+						SessionData: fixoperations.SessionData{
+							SessionID:    tx.TxHash,
 							MsgType:      "D",
 							SenderCompID: message.FromAddress,
 							TargetCompID: message.ToAddress,
@@ -91,11 +90,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						TimeInForce:  1,
 						Text:         tx.Memo,
 						TransactTime: tx.Time,
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
 					}
-					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+					fixoperations.OrdersOperation(ctx, k.fixKeeper, orders)
 
 					// when a send transaction fails, order cancel reject is generated
 					ordersCancelReject := fixTypes.OrdersCancelReject{
@@ -176,10 +172,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				} else {
 
 					// set successful orders
-					order := &fixTypes.Orders{
-						SessionID: tx.TxHash,
-						Header: &fixTypes.Header{
-							BeginString:  "FIX4.4",
+					orders := fixoperations.OrdersData{
+						SessionData: fixoperations.SessionData{
+							SessionID:    tx.TxHash,
 							MsgType:      "D",
 							SenderCompID: message.FromAddress,
 							TargetCompID: message.ToAddress,
@@ -196,11 +191,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						TimeInForce:  1,
 						Text:         tx.Memo,
 						TransactTime: tx.Time,
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
 					}
-					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+					fixoperations.OrdersOperation(ctx, k.fixKeeper, orders)
 
 					// set execution report
 					orderExecutionReport := &fixTypes.OrdersExecutionReport{
@@ -319,10 +311,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// check that Txs was success
 				if tx.Result != 0 {
 					// orders here were rejected
-					order := &fixTypes.Orders{
-						SessionID: tx.TxHash,
-						Header: &fixTypes.Header{
-							BeginString:  "FIX4.4",
+					orders := fixoperations.OrdersData{
+						SessionData: fixoperations.SessionData{
+							SessionID:    tx.TxHash,
 							MsgType:      "D",
 							SenderCompID: message.Sender,
 							TargetCompID: message.Receiver,
@@ -339,11 +330,8 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						TimeInForce:  1,
 						Text:         tx.Memo,
 						TransactTime: tx.Time,
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
 					}
-					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+					fixoperations.OrdersOperation(ctx, k.fixKeeper, orders)
 
 					// when a Transfer transaction fails, order cancel reject is generated
 					ordersCancelReject := fixTypes.OrdersCancelReject{
@@ -574,10 +562,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				// check that Txs was success
 				if tx.Result != 0 {
 					// orders here were rejected
-					order := &fixTypes.Orders{
-						SessionID: tx.TxHash,
-						Header: &fixTypes.Header{
-							BeginString:  "FIX4.4",
+					orders := fixoperations.OrdersData{
+						SessionData: fixoperations.SessionData{
+							SessionID:    tx.TxHash,
 							MsgType:      "D",
 							SenderCompID: message.DelegatorAddress,
 							TargetCompID: message.ValidatorAddress,
@@ -590,15 +577,12 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						Side:         2,
 						OrderQty:     "",
 						OrdType:      1,
-						Price:        coins.Amount,
+						Price:        coins.Denom,
 						TimeInForce:  1,
 						Text:         tx.Memo,
 						TransactTime: tx.Time,
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
 					}
-					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+					fixoperations.OrdersOperation(ctx, k.fixKeeper, orders)
 
 					// when a send transaction fails, order cancel reject is generated
 					ordersCancelReject := fixTypes.OrdersCancelReject{
@@ -679,10 +663,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 				} else {
 
 					// set successful orders
-					order := &fixTypes.Orders{
-						SessionID: tx.TxHash,
-						Header: &fixTypes.Header{
-							BeginString:  "FIX4.4",
+					orders := fixoperations.OrdersData{
+						SessionData: fixoperations.SessionData{
+							SessionID:    tx.TxHash,
 							MsgType:      "D",
 							SenderCompID: message.DelegatorAddress,
 							TargetCompID: message.ValidatorAddress,
@@ -695,15 +678,12 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 						Side:         2,
 						OrderQty:     "",
 						OrdType:      1,
-						Price:        coins.Amount,
+						Price:        coins.Denom,
 						TimeInForce:  1,
 						Text:         tx.Memo,
 						TransactTime: tx.Time,
-						Trailer: &fixTypes.Trailer{
-							CheckSum: 0,
-						},
 					}
-					k.fixKeeper.SetOrders(ctx, tx.TxHash, *order)
+					fixoperations.OrdersOperation(ctx, k.fixKeeper, orders)
 
 					// set execution report
 					orderExecutionReport := &fixTypes.OrdersExecutionReport{
@@ -801,7 +781,9 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 					k.fixKeeper.SetTradeCapture(ctx, tx.TxHash, *tradeCapture)
 				}
 			case "UnbondingDelegation":
+				// add logic
 			case "Redelegate":
+				// add logic
 			}
 		}
 	}

@@ -8,7 +8,7 @@ import (
 
 type SessionData struct {
 	SessionID    string
-	MsgType     string
+	MsgType      string
 	MsgType_     string
 	SenderCompID string
 	TargetCompID string
