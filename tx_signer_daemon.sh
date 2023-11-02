@@ -33,7 +33,7 @@ while true; do
     (
         # Use expect to automatically provide the passphrase for the first command
         expect << EOF
-        spawn red tx oracle cosmoshub-txs re1xcyuw0x6c4u3tfdtp6cm67x7ytrpnmjqupmpff --from alice --chain-id test --keyring-backend test --gas 12899100
+        spawn red tx oracle cosmoshub-txs re1p89cpyfelqhf40dgz8cc3ggxgqnkdra2k4u5wd --from alice --chain-id test --keyring-backend test --gas 12899100
         expect "Enter keyring passphrase:"
         send "${PASSPHRASE}\r"
         expect eof
@@ -46,7 +46,7 @@ EOF
     (
         # Use expect to automatically provide the passphrase for the second command
         expect << EOF
-        spawn red tx oracle bitcoin-txs re1hz4ukdm9rytlrskqa0q928qe2m9fj0rnjpa2gw --from dan --chain-id test --keyring-backend test --gas 12899100
+        spawn red tx oracle bitcoin-txs re1t2r44rvmzqn7x3nwpnm9z2x8kfd87m8unxmqdu --from bob --chain-id test --keyring-backend test --gas 12899100
         expect "Enter keyring passphrase:"
         send "${PASSPHRASE}\r"
         expect eof
@@ -57,7 +57,7 @@ EOF
     (
         # Use expect to automatically provide the passphrase for the third command
         expect << EOF
-        spawn red tx oracle ethereum-txs  re1k6zz7eaca2mxp4hll3hsg72yn2je4s7zyjq2fd --from bob --chain-id test --keyring-backend test --gas 12899100
+        spawn red tx oracle ethereum-txs  re1t2r44rvmzqn7x3nwpnm9z2x8kfd87m8unxmqdu --from bob --chain-id test --keyring-backend test --gas 12899100
         expect "Enter keyring passphrase:"
         send "${PASSPHRASE}\r"
         expect eof
