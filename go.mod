@@ -4,11 +4,11 @@ go 1.20
 
 require (
 	github.com/CosmWasm/wasmd v0.31.0
-	github.com/btcsuite/btcd v0.23.0
+	github.com/btcsuite/btcd v0.23.2
 	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce
 	github.com/bufbuild/buf v1.26.1
 	github.com/cosmos/admin-module v0.0.0-00010101000000-000000000000
-	github.com/cosmos/cosmos-sdk v0.45.15
+	github.com/cosmos/cosmos-sdk v0.46.15
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/gogoproto v1.4.6
 	github.com/cosmos/ibc-go/v4 v4.3.0
@@ -28,7 +28,7 @@ require (
 	github.com/tendermint/tm-db v0.6.7
 	golang.org/x/crypto v0.14.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230822172742-b8732ec3820d
-	google.golang.org/grpc v1.58.0
+	google.golang.org/grpc v1.58.3
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -44,6 +44,8 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
+	github.com/btcsuite/btcd/btcutil v1.1.3 // indirect
+	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2 // indirect
 	github.com/bufbuild/connect-go v1.9.0 // indirect
 	github.com/bufbuild/connect-opentelemetry-go v0.4.0 // indirect
 	github.com/bufbuild/protocompile v0.6.0 // indirect
@@ -58,7 +60,7 @@ require (
 	github.com/cosmos/cosmos-proto v1.0.0-beta.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/creachadair/taskgroup v0.3.2 // indirect
-	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
+	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/docker/cli v24.0.4+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker v24.0.7+incompatible // indirect
