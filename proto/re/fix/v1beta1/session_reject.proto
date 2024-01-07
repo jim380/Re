@@ -1,0 +1,23 @@
+syntax = "proto3";
+package re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/v1beta1/standard_message.proto";
+
+// This message is used to reject a FIX session
+message SessionReject {
+  // A string that identifies the session to which the rejected message belongs.
+  string sessionID = 1;
+
+  // A FIX protocol header containing standard message fields such as
+  // beginString, bodyLength, msgType, etc
+  Header header = 2;
+
+  // A free-form text field that provides information about the rejection, such
+  // as the reason for the rejection or a description of the error
+  string text = 3;
+
+  // A FIX protocol trailer containing standard message fields such as checkSum
+  Trailer trailer = 4;
+}

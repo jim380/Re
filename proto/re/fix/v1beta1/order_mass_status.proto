@@ -1,0 +1,125 @@
+syntax = "proto3";
+package re.fix;
+
+option go_package = "github.com/jim380/Re/x/fix/types";
+
+import "re/fix/v1beta1/standard_message.proto";
+
+message OrderMassStatus {
+  string sessionID = 1;
+  OrderMassStatusRequest orderMassStatusRequest = 2;
+  OrderMassStatusReport orderMassStatusReport = 3;
+  OrderMassStatusRequestReject OrderMassStatusRequestReject = 4;
+}
+
+// Order Mass Status Request with fields, tags and descriptions.
+message OrderMassStatusRequest {
+
+  // standard Header
+  Header header = 1;
+
+  // (586) The unique identifier for the status request.
+  string massStatusReqID = 2;
+
+  // (585) The type of status request. Valid values are "All" to request the
+  // status of all orders in the group, or "Partial" to request the status of a
+  // subset of orders in the group.
+  string massStatusReqType = 3;
+
+  // (49) The unique identifier for the group of orders.
+  string clOrdID = 4;
+
+  // (1) The account that the orders belong to.
+  string account = 5;
+
+  // (55) The symbol of the security that the orders are for.
+  string symbol = 6;
+
+  // (48) The security identifier of the security that the orders are for.
+  string securityID = 7;
+
+  // (336) The trading session that the orders are for.
+  string tradingSessionID = 8;
+
+  // standard Trailer
+  Trailer trailer = 9;
+}
+
+// Order Mass Status Report with fields, tags and descriptions.
+message OrderMassStatusReport {
+  // standard Header
+  Header header = 1;
+
+  // (49) The unique identifier for the order.
+  string clOrdID = 2;
+
+  // (585) The unique identifier for the status request.
+  string massStatusReqID = 3;
+
+  // (1) The account that the order belongs to.
+  string account = 4;
+
+  // (55) The symbol of the security that the order is for.
+  string symbol = 5;
+
+  // (48) The security identifier of the security that the order is for.
+  string securityID = 6;
+
+  // (336) The trading session that the order is for.
+  string tradingSessionID = 7;
+
+  // (39)  The status of the order. Valid values are "New", "Pending",
+  // "PartiallyFilled", "Filled", "Cancelled", and "Expired".
+  string ordStatus = 8;
+
+  // (150) The type of execution report. Valid values are "New", "Replace",
+  // "Cancel", and "Status".
+  string execType = 9;
+
+  // (38) The quantity of the order that has been executed.
+  string ordQty = 10;
+
+  // (31) The last price at which the order was executed.
+  string lastPx = 11;
+
+  // (44) The total quantity of the order that has been executed.
+  string cumQty = 12;
+
+  // (69) The average price at which the order has been executed.
+  string avgPx = 13;
+
+  // (11) The quantity of the order that remains to be executed.
+  string leavesQty = 14;
+
+  // standard Trailer
+  Trailer trailer = 15;
+}
+
+// Order Mass Status Request Reject with fields, tags and descriptions.
+message OrderMassStatusRequestReject {
+  // standard Header
+  Header header = 1;
+
+  // (34) The unique identifier for the rejected message.
+  // the RefSeqID field in the Order Mass Status Request Reject (AR) message
+  // will contain the same value as the MassStatusReqID field in the original
+  // Order Mass Status Request (AF) message.
+  string refSeqID = 2;
+
+  // (587) The reason for the rejection. Valid values are:
+  // 1: Invalid message type
+  // 2: Invalid field
+  // 3: Invalid value
+  // 4: Unsupported feature
+  // 5: Insufficient permissions
+  // 6: Internal error
+  // 7: Timeout
+  // 8: Other
+  string rejCode = 3;
+
+  // (588) A text description of the reason for the rejection.
+  string text = 4;
+
+  // standard Trailer
+  Trailer trailer = 5;
+}

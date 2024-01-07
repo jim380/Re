@@ -5,20 +5,19 @@ VERSION := $(shell git describe --tags 2>/dev/null | sed 's/^v//')?
 COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 SDK_PACK := $(shell go list -m github.com/cosmos/cosmos-sdk | sed  's/ /\@/g')
-BINDIR ?= $(GOPATH)/bin
+TM_VERSION := $(shell go list -m github.com/cometbft/cometbft | sed 's:.* ::')
+BINDIR ?= $(CURDIR)/build
+DOCKER := $(shell which docker)
+
 SIMAPP = ./app
 ENABLED_PROPOSALS := SudoContract,UpdateAdmin,ClearAdmin,PinCodes,UnpinCodes
-GO_VERSION=1.20.0
+GO_VERSION=1.21
 BUILDDIR ?= $(CURDIR)/build
 
-# for dockerized protobuf tools
-DOCKER := $(shell which docker)
-HTTPS_GIT := https://github.com/jim3880/re.git
-
-GO_SYSTEM_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1-2)
-REQUIRE_GO_VERSION = 1.20
-
 export GO111MODULE = on
+
+GO_MAJOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1)
+GO_MINOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
 
 # process build tags
 
@@ -82,15 +81,16 @@ BUILD_FLAGS_TEST_BINARY := -tags "$(build_tags_test_binary_comma_sep)" -ldflags 
 # The below include contains the tools and runsim targets.
 include contrib/devtools/Makefile
 
-check_version:
-ifneq ($(GO_SYSTEM_VERSION), $(REQUIRE_GO_VERSION))
-	@echo "ERROR: Go version ${REQUIRE_GO_VERSION} is required for $(VERSION) of Re."
+check_go_version:
+	@echo "Go version: $(GO_MAJOR_VERSION).$(GO_MINOR_VERSION)"
+ifneq ($(GO_MINOR_VERSION),21)
+	@echo "ERROR: Go version 1.21 is required for this version of Re"
 	exit 1
 endif
 
 all: install lint test
 
-build: check_version go.sum
+build: check_go_version
 ifeq ($(OS),Windows_NT)
 	exit 1
 else
@@ -115,10 +115,10 @@ build-static-linux-amd64: go.sum $(BUILDDIR)/
 	$(DOCKER) cp rebinary:/bin/red $(BUILDDIR)/red-linux-amd64
 	$(DOCKER) rm -f rebinary
 
-install: check_version go.sum
+install: check_go_version
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/red
 
-install-test-binary: check_version go.sum
+install-test-binary: check_go_version
 	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/red
 
 ########################################
@@ -188,8 +188,17 @@ format:
 ###############################################################################
 ###                                Protobuf                                 ###
 ###############################################################################
+protoVer=0.14.0
+protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
+protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
 PROTO_FORMATTER_IMAGE=tendermintdev/docker-build-proto@sha256:aabcfe2fc19c31c0f198d4cd26393f5e5ca9502d7ea3feafbfe972448fee7cae
 
+proto-all: proto-format proto-lint proto-gen format
+
+proto-gen:
+	@$(protoImage) sh ./scripts/protocgen.sh
+	@go mod tidy
+	
 proto-format:
 	@echo "Formatting Protobuf files"
 	$(DOCKER) run --rm -v $(CURDIR):/workspace \
@@ -200,42 +209,7 @@ proto-format:
 .PHONY: all install install-debug \
 	go-mod-cache draw-deps clean build format \
 	test test-all test-build test-cover test-unit test-race \
-	test-sim-import-export \
-
-init: kill-dev install-test-binary
-	@echo "Building gaiad binary..."
-	@cd ./../gaia/ && make install
-	@echo "Initializing both blockchains..."
-	./network/init-and-start-both.sh
-	@echo "Initializing relayer..."
-	./network/hermes/restore-keys.sh
-	./network/hermes/create-conn.sh
-
-start: kill-dev install-test-binary
-	@echo "Starting up neutrond alone..."
-	export BINARY=neutrond CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=ure && \
-	./network/init.sh && ./network/init-red.sh && ./network/start.sh
-
-start-rly:
-	./network/hermes/start.sh
-
-kill-dev:
-	@echo "Killing red and removing previous data"
-	-@rm -rf ./data
-	-@killall red 2>/dev/null
-	-@killall gaiad 2>/dev/null
-
-build-docker-image:
-
-	@docker buildx build --load --build-context app=. -t re-node --build-arg BINARY=red .
-
-start-docker-container:
-
-	@docker run --rm --name re -d -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 re-node
-
-
-stop-docker-container:
-	@docker stop re
+	test-sim-import-export
 
 mocks:
 	@echo "Regenerate mocks..."
