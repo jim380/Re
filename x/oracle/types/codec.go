@@ -17,11 +17,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCosmoshubTxs{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgBitcoinTxs{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgEthereumTxs{},
 	)
 	// this line is used by starport scaffolding # 3

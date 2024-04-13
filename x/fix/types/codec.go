@@ -51,116 +51,44 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogonInitiator{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogonAcceptor{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTerminateLogon{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogonReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogoutInitiator{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgLogoutAcceptor{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgNewOrderSingle{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderCancelRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderCancelReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderExecutionReport{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgQuoteRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgQuoteAcknowledgement{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgQuoteRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityDefinitionRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityDefinition{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityDefinitionRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderMassStatusRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderMassStatusReport{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgOrderMassStatusRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionStatusRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionStatus{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionStatusRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionListRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionListResponse{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgTradingSessionListRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityListRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityListResponse{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityListRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityStatusRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityStatusResponse{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityStatusRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityTypesRequest{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityTypesResponse{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSecurityTypesRequestReject{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgRegisterAccount{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUpdateAccount{},
-	)
-
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgDeleteAccount{},
 	)
+
 	// this line is used by starport scaffolding # 3
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

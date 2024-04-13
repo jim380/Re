@@ -7,11 +7,9 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/tendermint/tendermint/libs/log"
-
-	didKeeper "github.com/jim380/Re/x/did/keeper"
 	"github.com/jim380/Re/x/fix/types"
 	micKeeper "github.com/jim380/Re/x/mic/keeper"
+	"github.com/tendermint/tendermint/libs/log"
 )
 
 type (
@@ -20,9 +18,7 @@ type (
 		storeKey   storetypes.StoreKey
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
-
-		didKeeper didKeeper.Keeper
-		micKeeper micKeeper.Keeper
+		micKeeper  micKeeper.Keeper
 	}
 )
 
@@ -31,8 +27,6 @@ func NewKeeper(
 	storeKey,
 	memKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
-
-	didKeeper didKeeper.Keeper,
 	micKeeper micKeeper.Keeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -45,9 +39,7 @@ func NewKeeper(
 		storeKey:   storeKey,
 		memKey:     memKey,
 		paramstore: ps,
-
-		didKeeper: didKeeper,
-		micKeeper: micKeeper,
+		micKeeper:  micKeeper,
 	}
 }
 

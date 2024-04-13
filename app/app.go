@@ -99,10 +99,6 @@ import (
 	// "github.com/jim380/Re/cmd"
 	appparams "github.com/jim380/Re/app/params"
 
-	"github.com/jim380/Re/x/did"
-	didkeeper "github.com/jim380/Re/x/did/keeper"
-	didtypes "github.com/jim380/Re/x/did/types"
-
 	fixmodule "github.com/jim380/Re/x/fix"
 	fixmodulekeeper "github.com/jim380/Re/x/fix/keeper"
 	fixmoduletypes "github.com/jim380/Re/x/fix/types"
@@ -186,8 +182,6 @@ var (
 				upgraderest.ProposalCancelRESTHandler,
 			),
 		),
-
-		did.AppModuleBasic{},
 		micmodule.AppModuleBasic{},
 		fixmodule.AppModuleBasic{},
 		oraclemodule.AppModuleBasic{},
@@ -264,14 +258,9 @@ type ReApp struct {
 	ScopedCCVConsumerKeeper capabilitykeeper.ScopedKeeper
 	ScopedWasmKeeper        capabilitykeeper.ScopedKeeper
 
-	WasmKeeper wasm.Keeper
-
-	DidKeeper didkeeper.Keeper
-
-	MicKeeper micmodulekeeper.Keeper
-
-	FixKeeper fixmodulekeeper.Keeper
-
+	WasmKeeper   wasm.Keeper
+	MicKeeper    micmodulekeeper.Keeper
+	FixKeeper    fixmodulekeeper.Keeper
 	OracleKeeper oraclemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
@@ -323,7 +312,6 @@ func NewReApp(
 		ccvconsumertypes.StoreKey,
 		adminmodulemoduletypes.StoreKey,
 		wasm.StoreKey,
-		didtypes.StoreKey,
 		micmoduletypes.StoreKey,
 		fixmoduletypes.StoreKey,
 		oraclemoduletypes.StoreKey,
@@ -514,13 +502,6 @@ func NewReApp(
 		IsProposalWhitelisted,
 	)
 	adminModule := adminmodulemodule.NewAppModule(appCodec, app.AdminmoduleKeeper)
-
-	app.DidKeeper = *didkeeper.NewKeeper(
-		appCodec,
-		keys[didtypes.StoreKey],
-		keys[didtypes.MemStoreKey],
-	)
-
 	// wasmOpts = append(wasmbinding.RegisterCustomPlugins(&app.InterchainTxsKeeper, &app.InterchainQueriesKeeper, app.TransferKeeper, &app.AdminmoduleKeeper, app.FeeBurnerKeeper), wasmOpts...)
 
 	app.WasmKeeper = wasm.NewKeeper(
@@ -556,8 +537,6 @@ func NewReApp(
 		keys[fixmoduletypes.StoreKey],
 		keys[fixmoduletypes.MemStoreKey],
 		app.GetSubspace(fixmoduletypes.ModuleName),
-
-		app.DidKeeper,
 		app.MicKeeper,
 	)
 	fixModule := fixmodule.NewAppModule(appCodec, app.FixKeeper, app.AccountKeeper, app.BankKeeper)
@@ -614,8 +593,6 @@ func NewReApp(
 		consumerModule,
 		adminModule,
 		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.AccountKeeper, app.BankKeeper),
-
-		did.NewAppModule(appCodec, app.DidKeeper),
 		micModule,
 		fixModule,
 		oracleModule,
@@ -645,8 +622,6 @@ func NewReApp(
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
 		wasm.ModuleName,
-
-		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
 		oraclemoduletypes.ModuleName,
@@ -671,8 +646,6 @@ func NewReApp(
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
 		wasm.ModuleName,
-
-		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
 		oraclemoduletypes.ModuleName,
@@ -702,8 +675,6 @@ func NewReApp(
 		ccvconsumertypes.ModuleName,
 		adminmodulemoduletypes.ModuleName,
 		wasm.ModuleName,
-
-		didtypes.ModuleName,
 		micmoduletypes.ModuleName,
 		fixmoduletypes.ModuleName,
 		oraclemoduletypes.ModuleName,
@@ -955,8 +926,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
 	paramsKeeper.Subspace(wasm.ModuleName)
-
-	paramsKeeper.Subspace(didtypes.ModuleName)
 	paramsKeeper.Subspace(micmoduletypes.ModuleName)
 	paramsKeeper.Subspace(fixmoduletypes.ModuleName)
 	paramsKeeper.Subspace(oraclemoduletypes.ModuleName)

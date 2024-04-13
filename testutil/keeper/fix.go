@@ -11,13 +11,11 @@ import (
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/jim380/Re/x/fix/keeper"
 	"github.com/jim380/Re/x/fix/types"
+	micKeeper "github.com/jim380/Re/x/mic/keeper"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
-
-	didKeeper "github.com/jim380/Re/x/did/keeper"
-	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -44,7 +42,6 @@ func FixKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		*didKeeper.NewKeeper(cdc, storeKey, memStoreKey),
 		*micKeeper.NewKeeper(cdc, storeKey, memStoreKey),
 	)
 

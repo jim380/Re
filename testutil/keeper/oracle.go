@@ -9,16 +9,14 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
+	fixKeeper "github.com/jim380/Re/x/fix/keeper"
+	micKeeper "github.com/jim380/Re/x/mic/keeper"
 	"github.com/jim380/Re/x/oracle/keeper"
 	"github.com/jim380/Re/x/oracle/types"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
-
-	didKeeper "github.com/jim380/Re/x/did/keeper"
-	fixKeeper "github.com/jim380/Re/x/fix/keeper"
-	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 func OracleKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -45,7 +43,7 @@ func OracleKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		*fixKeeper.NewKeeper(cdc, storeKey, memStoreKey, paramsSubspace, didKeeper.Keeper{}, micKeeper.Keeper{}),
+		*fixKeeper.NewKeeper(cdc, storeKey, memStoreKey, paramsSubspace, micKeeper.Keeper{}),
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
