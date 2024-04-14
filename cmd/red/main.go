@@ -3,20 +3,21 @@ package main
 import (
 	"os"
 
+	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
 	"github.com/jim380/Re/app"
 )
 
 func main() {
-	config := app.GetDefaultConfig()
-	config.Seal()
-
 	rootCmd, _ := NewRootCmd()
+	if err := svrcmd.Execute(rootCmd, EnvironmentPrefix, app.DefaultNodeHome); err != nil {
+		switch e := err.(type) {
+		case server.ErrorCode:
+			os.Exit(e.Code)
 
-	rootCmd.AddCommand(AddConsumerSectionCmd(app.DefaultNodeHome))
-
-	if err := svrcmd.Execute(rootCmd, app.DefaultNodeHome); err != nil {
-		os.Exit(1)
+		default:
+			os.Exit(1)
+		}
 	}
 }
