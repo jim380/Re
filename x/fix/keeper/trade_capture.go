@@ -62,7 +62,7 @@ func (k Keeper) RemoveTradeCapture(ctx sdk.Context, tradeReportID string) {
 // GetAllTradeCapture returns all tradeCapture
 func (k Keeper) GetAllTradeCapture(ctx sdk.Context) (list []types.TradeCapture) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetTradeCaptureKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

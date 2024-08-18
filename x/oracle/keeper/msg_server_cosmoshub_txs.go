@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	cosmostxs "github.com/jim380/Re/utils/cosmos_txs"
 	cosmosTxTypes "github.com/jim380/Re/utils/cosmos_txs/types"
@@ -24,7 +25,7 @@ func (k msgServer) CosmoshubTxs(goCtx context.Context, msg *types.MsgCosmoshubTx
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 	if msg.Creator != msg.Address {
 		return nil, sdkerrors.Wrapf(types.ErrWrongAddress, "Address: %s", msg.Address)

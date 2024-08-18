@@ -1,8 +1,9 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgMarketDataRequest = "market_data_request"
@@ -46,7 +47,7 @@ func (msg *MsgMarketDataRequest) GetSignBytes() []byte {
 func (msg *MsgMarketDataRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -90,7 +91,7 @@ func (msg *MsgMarketDataSnapshotFullRefresh) GetSignBytes() []byte {
 func (msg *MsgMarketDataSnapshotFullRefresh) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -131,7 +132,7 @@ func (msg *MsgMarketDataIncremental) GetSignBytes() []byte {
 func (msg *MsgMarketDataIncremental) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -174,7 +175,7 @@ func (msg *MsgMarketDataRequestReject) GetSignBytes() []byte {
 func (msg *MsgMarketDataRequestReject) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }

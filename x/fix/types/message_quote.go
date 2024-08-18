@@ -1,8 +1,9 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const (
@@ -49,7 +50,7 @@ func (msg *MsgQuoteRequest) GetSignBytes() []byte {
 func (msg *MsgQuoteRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -110,7 +111,7 @@ func (msg *MsgQuoteAcknowledgement) GetSignBytes() []byte {
 func (msg *MsgQuoteAcknowledgement) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -177,7 +178,7 @@ func (msg *MsgQuoteRequestReject) GetSignBytes() []byte {
 func (msg *MsgQuoteRequestReject) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }

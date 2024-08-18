@@ -61,7 +61,7 @@ func (k Keeper) RemoveSessions(ctx sdk.Context, sessionID string) {
 // GetAllSessions returns all sessions
 func (k Keeper) GetAllSessions(ctx sdk.Context) (list []types.Sessions) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSessionsKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

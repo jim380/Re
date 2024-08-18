@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -17,7 +18,7 @@ func (k msgServer) SecurityListRequest(goCtx context.Context, msg *types.MsgSecu
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -106,7 +107,7 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -133,7 +134,7 @@ func (k msgServer) SecurityListResponse(goCtx context.Context, msg *types.MsgSec
 
 	// check that Security List Request creator address is not same address acknowledging the Security List Response with the same SecurityReqID
 	if securityList.SecurityListRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Response", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Response", msg.Creator))
 	}
 
 	// check that this Security List Request to be acknowledged has not been rejected
@@ -228,7 +229,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -255,7 +256,7 @@ func (k msgServer) SecurityListRequestReject(goCtx context.Context, msg *types.M
 
 	// check that Security List Request creator address is not same address acknowledging the Security List Request Reject with the same SecurityReqID
 	if securityList.SecurityListRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Request Reject", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security List Request Reject", msg.Creator))
 	}
 
 	// check that this Security List Request to be acknowledged has not been rejected

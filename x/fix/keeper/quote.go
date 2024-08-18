@@ -36,7 +36,7 @@ func (k Keeper) RemoveQuote(ctx sdk.Context, quoteReqID string) {
 // GetAllQuote returns all quote
 func (k Keeper) GetAllQuote(ctx sdk.Context) (list []types.Quote) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetQuoteKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

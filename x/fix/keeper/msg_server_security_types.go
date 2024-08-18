@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -17,7 +18,7 @@ func (k msgServer) SecurityTypesRequest(goCtx context.Context, msg *types.MsgSec
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -95,7 +96,7 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -122,7 +123,7 @@ func (k msgServer) SecurityTypesResponse(goCtx context.Context, msg *types.MsgSe
 
 	// same account can not used for creating Security Types Request and Security Types Response with the same SecurityReqID
 	if securityTypes.SecurityTypesRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Response", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Response", msg.Creator))
 	}
 
 	// check that the Security Types Request is not rejected already
@@ -206,7 +207,7 @@ func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -233,7 +234,7 @@ func (k msgServer) SecurityTypesRequestReject(goCtx context.Context, msg *types.
 
 	// same account can not used for creating Security Types Request and Security Types Request Reject with the same SecurityReqID
 	if securityTypes.SecurityTypesRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Request Reject", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Security Types Request Reject", msg.Creator))
 	}
 
 	// check that the Security Types Request is not rejected already

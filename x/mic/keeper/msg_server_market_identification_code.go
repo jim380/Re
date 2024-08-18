@@ -3,8 +3,9 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/x/mic/types"
 )
 
@@ -15,7 +16,7 @@ func (k msgServer) RegisterMarketIdentificationCode(goCtx context.Context, msg *
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	for _, val := range k.GetAllMarketIdentificationCode(ctx) {
@@ -102,7 +103,7 @@ func (k msgServer) UpdateMarketIdentificationCode(goCtx context.Context, msg *ty
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// Check that the old MIC exists
@@ -195,7 +196,7 @@ func (k msgServer) DeleteMarketIdentificationCode(goCtx context.Context, msg *ty
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// Check that the element exists

@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/bitcoin"
 	"github.com/jim380/Re/utils/constants"
 	fixTypes "github.com/jim380/Re/x/fix/types"
@@ -21,7 +22,7 @@ func (k msgServer) BitcoinTxs(goCtx context.Context, msg *types.MsgBitcoinTxs) (
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 	if msg.Creator != msg.Address {
 		return nil, sdkerrors.Wrapf(types.ErrWrongAddress, "Address: %s", msg.Address)

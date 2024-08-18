@@ -62,7 +62,7 @@ func (k Keeper) RemoveMultiChainTxOracle(ctx sdk.Context, oracleID string) {
 // GetAllMultiChainTxOracle returns all multiChainTxOracle
 func (k Keeper) GetAllMultiChainTxOracle(ctx sdk.Context) (list []types.MultiChainTxOracle) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMultiChainTxOracleKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

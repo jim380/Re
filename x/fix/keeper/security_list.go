@@ -62,7 +62,7 @@ func (k Keeper) RemoveSecurityList(ctx sdk.Context, securityReqID string) {
 // GetAllSecurityList returns all securityList
 func (k Keeper) GetAllSecurityList(ctx sdk.Context) (list []types.SecurityList) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityListKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

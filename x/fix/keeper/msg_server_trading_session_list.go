@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/utils/helpers"
 	"github.com/jim380/Re/x/fix/types"
@@ -18,7 +19,7 @@ func (k msgServer) TradingSessionListRequest(goCtx context.Context, msg *types.M
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -104,7 +105,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -131,7 +132,7 @@ func (k msgServer) TradingSessionListResponse(goCtx context.Context, msg *types.
 
 	// same account can not used for creating Trading Session List Request and Trading Session List Response with the same TradSesReqID
 	if tradingSessionList.TradingSessionListRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Response", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Response", msg.Creator))
 	}
 
 	// check that the Trading Session List Request is not rejected already
@@ -211,7 +212,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -238,7 +239,7 @@ func (k msgServer) TradingSessionListRequestReject(goCtx context.Context, msg *t
 
 	// same account can not used for creating Trading Session List Request and Trading Session List Request Reject with the same TradSesReqID
 	if tradingSessionList.TradingSessionListRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Request Reject", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create Trading Session List Request Reject", msg.Creator))
 	}
 
 	// check that the Trading Session List Request is not rejected already

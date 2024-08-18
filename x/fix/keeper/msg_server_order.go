@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -18,7 +19,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -40,7 +41,7 @@ func (k msgServer) NewOrderSingle(goCtx context.Context, msg *types.MsgNewOrderS
 	// check if order exists
 	order, found := k.GetOrders(ctx, msg.ClOrdID)
 	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order exist already", &order))
 	}
 
 	// check that these mandatory fields are not empty
@@ -125,7 +126,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -142,16 +143,16 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 	// check if order exists
 	order, found := k.GetOrders(ctx, msg.OrigClOrdID)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
 	if msg.Creator != order.Header.SenderCompID {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account address is not the creator of the order", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account address is not the creator of the order", &order))
 	}
 
 	// check that this order cancellation has not been requested already
 	orderCancelRequest, found := k.GetOrdersCancelRequest(ctx, msg.OrigClOrdID)
 	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s The creator has requested to cancel this order already", &orderCancelRequest))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s The creator has requested to cancel this order already", &orderCancelRequest))
 	}
 
 	// An OrderCancelRequest can only be made if the New Single Order has not been executed or rejected
@@ -162,7 +163,7 @@ func (k msgServer) OrderCancelRequest(goCtx context.Context, msg *types.MsgOrder
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.OrigClOrdID)
 	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
 	}
 
 	// set order cancel request
@@ -193,7 +194,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -210,12 +211,12 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 	// check if order exists
 	order, found := k.GetOrders(ctx, msg.ClOrdID)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
 
 	// same account address can not used for creating New Single Order and Execution Report with the same ClOrdID
 	if msg.Creator == order.Header.SenderCompID {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create execution report", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create execution report", msg.Creator))
 	}
 
 	// An OrderExecutionReport can only be made if the New Single Order has not been executed or rejected
@@ -226,7 +227,7 @@ func (k msgServer) OrderExecutionReport(goCtx context.Context, msg *types.MsgOrd
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.ClOrdID)
 	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
 	}
 
 	// check that these mandatory fields are not empty
@@ -348,7 +349,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -365,12 +366,12 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 	// check if order exists
 	order, found := k.GetOrders(ctx, msg.OrigClOrdID)
 	if !found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order doesn't exist", &order))
 	}
 
 	// same account can not used to create New Single Order and to Reject the order with the same ClOrdID
 	if msg.Creator == order.Header.SenderCompID {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to Reject this order", &order))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to Reject this order", &order))
 	}
 
 	// An OrderCancelRequest can only be made if the New Single Order has not been executed or rejected
@@ -381,7 +382,7 @@ func (k msgServer) OrderCancelReject(goCtx context.Context, msg *types.MsgOrderC
 
 	orderCancelReject, found := k.GetOrdersCancelReject(ctx, msg.OrigClOrdID)
 	if found {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Order is Rejected already", &orderCancelReject))
 	}
 
 	// check that these mandatory fields are not empty

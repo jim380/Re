@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
@@ -48,7 +49,7 @@ func (k Keeper) Sessions(goCtx context.Context, req *types.QueryGetSessionsReque
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	sessions, found := k.GetSessions(ctx, req.SessionID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if sessions.LogonInitiator.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
@@ -93,7 +94,7 @@ func (k Keeper) SessionReject(goCtx context.Context, req *types.QueryGetSessionR
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	sessionReject, found := k.GetSessionReject(ctx, req.SessionID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if sessionReject.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
@@ -138,7 +139,7 @@ func (k Keeper) SessionLogout(goCtx context.Context, req *types.QueryGetSessionL
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	sessionLogout, found := k.GetSessionLogout(ctx, req.SessionID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if sessionLogout.SessionLogoutInitiator.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)

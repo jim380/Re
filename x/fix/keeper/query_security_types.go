@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
@@ -48,7 +49,7 @@ func (k Keeper) SecurityTypes(goCtx context.Context, req *types.QueryGetSecurity
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	securityTypes, found := k.GetSecurityTypes(ctx, req.SecurityReqID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if securityTypes.SecurityTypesRequest.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)

@@ -61,7 +61,7 @@ func (k Keeper) RemoveSecurityTypes(ctx sdk.Context, securityReqID string) {
 // GetAllSecurityTypes returns all securityTypes
 func (k Keeper) GetAllSecurityTypes(ctx sdk.Context) (list []types.SecurityTypes) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetSecurityTypesKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

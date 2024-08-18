@@ -1,8 +1,9 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgSecurityListResponse = "security_list_response"
@@ -57,7 +58,7 @@ func (msg *MsgSecurityListResponse) GetSignBytes() []byte {
 func (msg *MsgSecurityListResponse) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -108,7 +109,7 @@ func (msg *MsgSecurityListRequest) GetSignBytes() []byte {
 func (msg *MsgSecurityListRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -154,7 +155,7 @@ func (msg *MsgSecurityListRequestReject) GetSignBytes() []byte {
 func (msg *MsgSecurityListRequestReject) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }

@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/jim380/Re/x/fix/types"
 	"google.golang.org/grpc/codes"
@@ -48,7 +49,7 @@ func (k Keeper) Orders(goCtx context.Context, req *types.QueryGetOrdersRequest) 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	orders, found := k.GetOrders(ctx, req.ClOrdID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if orders.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
@@ -121,7 +122,7 @@ func (k Keeper) OrdersCancelRequest(goCtx context.Context, req *types.QueryGetOr
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	ordersCancelRequest, found := k.GetOrdersCancelRequest(ctx, req.ClOrdID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if ordersCancelRequest.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
@@ -166,7 +167,7 @@ func (k Keeper) OrdersExecutionReport(goCtx context.Context, req *types.QueryGet
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	ordersExecutionReport, found := k.GetOrdersExecutionReport(ctx, req.ClOrdID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if ordersExecutionReport.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
@@ -238,7 +239,7 @@ func (k Keeper) OrdersCancelReject(goCtx context.Context, req *types.QueryGetOrd
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	ordersCancelReject, found := k.GetOrdersCancelReject(ctx, req.ClOrdID)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, sdkerrorstypes.ErrKeyNotFound
 	}
 	if ordersCancelReject.Header.ChainID != req.ChainID {
 		return nil, sdkerrors.Wrapf(types.ErrWrongChainID, "chainID: %s", req.ChainID)
