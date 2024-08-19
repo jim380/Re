@@ -122,7 +122,7 @@ import (
 )
 
 const (
-	Name = "Re"
+	Name = "re"
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals

@@ -214,3 +214,9 @@ proto-format:
 mocks:
 	@echo "Regenerate mocks..."
 	@go generate ./...
+
+###############################################################################
+###                                LOCALNET                                 ###
+###############################################################################
+localnet-single-node:
+	./scripts/localnet_single_node.sh
