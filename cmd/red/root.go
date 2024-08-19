@@ -88,7 +88,7 @@ func NewRootCmd() *cobra.Command {
 
 	rootCmd := &cobra.Command{
 		Use:   version.AppName,
-		Short: "Re App",
+		Short: "Start the Re node",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -221,7 +221,6 @@ func txCommand() *cobra.Command {
 		authcmd.GetDecodeCommand(),
 	)
 
-	app.ModuleBasics.AddTxCommands(cmd)
 	cmd.PersistentFlags().String(flags.FlagChainID, "", "The network chain ID")
 
 	return cmd

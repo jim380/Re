@@ -98,14 +98,6 @@ import (
 	"github.com/cosmos/ibc-go/modules/capability"
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
-	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
-	icacontroller "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller"
-	icacontrollerkeeper "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/keeper"
-	icacontrollertypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types"
-	icahost "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/host"
-	icahostkeeper "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/host/keeper"
-	icahosttypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/host/types"
-	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
 	ibcfee "github.com/cosmos/ibc-go/v8/modules/apps/29-fee"
 	ibcfeekeeper "github.com/cosmos/ibc-go/v8/modules/apps/29-fee/keeper"
 	ibcfeetypes "github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types"
@@ -168,7 +160,6 @@ var (
 		ibc.AppModuleBasic{},
 		ibcfee.AppModuleBasic{},
 		transfer.AppModuleBasic{},
-		ica.AppModuleBasic{},
 		packetforward.AppModuleBasic{},
 		// custom modules
 		micmodule.AppModuleBasic{},
@@ -185,7 +176,6 @@ var (
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 		ibcfeetypes.ModuleName:         nil,
-		icatypes.ModuleName:            nil,
 		wasmtypes.ModuleName:           {authtypes.Burner},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
@@ -313,10 +303,8 @@ func NewApp(
 		// ibc
 		capabilitytypes.StoreKey,
 		ibctransfertypes.StoreKey,
-		icahosttypes.StoreKey,
 		ibcexported.StoreKey,
 		ibcfeetypes.StoreKey,
-		icacontrollertypes.StoreKey,
 		packetforwardtypes.StoreKey,
 
 		// re module store keys
@@ -378,8 +366,6 @@ func NewApp(
 
 	// grant capabilities for the ibc and ibc-transfer modules
 	scopedIBCKeeper := app.CapabilityKeeper.ScopeToModule(ibcexported.ModuleName)
-	scopedICAHostKeeper := app.CapabilityKeeper.ScopeToModule(icahosttypes.SubModuleName)
-	scopedICAControllerKeeper := app.CapabilityKeeper.ScopeToModule(icacontrollertypes.SubModuleName)
 	scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	scopedWasmKeeper := app.CapabilityKeeper.ScopeToModule(wasmtypes.ModuleName)
 	app.CapabilityKeeper.Seal()
@@ -530,28 +516,6 @@ func NewApp(
 
 	app.PacketForwardKeeper.SetTransferKeeper(app.TransferKeeper)
 
-	app.ICAHostKeeper = icahostkeeper.NewKeeper(
-		appCodec,
-		keys[icahosttypes.StoreKey],
-		nil,
-		app.IBCFeeKeeper,
-		app.IBCKeeper.ChannelKeeper,
-		app.IBCKeeper.PortKeeper,
-		app.AccountKeeper,
-		scopedICAHostKeeper,
-		app.MsgServiceRouter(),
-		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
-	)
-	icaControllerKeeper := icacontrollerkeeper.NewKeeper(
-		appCodec, keys[icacontrollertypes.StoreKey],
-		nil,
-		app.IBCFeeKeeper,
-		app.IBCKeeper.ChannelKeeper,
-		app.IBCKeeper.PortKeeper,
-		scopedICAControllerKeeper, app.MsgServiceRouter(),
-		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
-	)
-
 	// Create evidence Keeper for to register the IBC light client misbehavior evidence route
 	evidenceKeeper := evidencekeeper.NewKeeper(
 		appCodec,
@@ -672,21 +636,6 @@ func NewApp(
 	transferStack = ibcfee.NewIBCMiddleware(transferStack, app.IBCFeeKeeper)
 
 	// ================================
-	//           ICA STACK
-	// ================================
-	// icaAuthModuleKeeper.SendTx -> icaController.SendPacket -> fee.SendPacket -> channel.SendPacket
-	var icaControllerStack ibcporttypes.IBCModule
-	var noAuthzModule ibcporttypes.IBCModule
-	icaControllerStack = icacontroller.NewIBCMiddleware(noAuthzModule, app.ICAControllerKeeper)
-	icaControllerStack = ibcfee.NewIBCMiddleware(icaControllerStack, app.IBCFeeKeeper)
-
-	// RecvPacket, message that originates from core IBC and goes down to app, the flow is:
-	// channel.RecvPacket -> fee.OnRecvPacket -> icaHost.OnRecvPacket
-	var icaHostStack ibcporttypes.IBCModule
-	icaHostStack = icahost.NewIBCModule(app.ICAHostKeeper)
-	icaHostStack = ibcfee.NewIBCMiddleware(icaHostStack, app.IBCFeeKeeper)
-
-	// ================================
 	//           WASM STACK
 	// ================================
 	var wasmStack ibcporttypes.IBCModule
@@ -698,9 +647,7 @@ func NewApp(
 	// ================================
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter().
-		AddRoute(icahosttypes.SubModuleName, icaHostStack).
 		AddRoute(wasmtypes.ModuleName, wasmStack).
-		AddRoute(icacontrollertypes.SubModuleName, icaControllerStack).
 		AddRoute(ibctransfertypes.ModuleName, transferStack)
 	app.IBCKeeper.SetRouter(ibcRouter)
 
@@ -753,7 +700,6 @@ func NewApp(
 		ibc.NewAppModule(app.IBCKeeper),
 		ibcfee.NewAppModule(app.IBCFeeKeeper),
 		transfer.NewAppModule(app.TransferKeeper),
-		ica.NewAppModule(&icaControllerKeeper, &app.ICAHostKeeper),
 		ibctm.AppModule{},
 		packetforward.NewAppModule(app.PacketForwardKeeper, nil),
 
@@ -808,7 +754,6 @@ func NewApp(
 		// ibc
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
-		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		wasmtypes.ModuleName,
 		packetforwardtypes.ModuleName,
@@ -838,7 +783,6 @@ func NewApp(
 		// ibc
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
-		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		wasmtypes.ModuleName,
 		packetforwardtypes.ModuleName,
@@ -874,7 +818,6 @@ func NewApp(
 		// ibc
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
-		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		wasmtypes.ModuleName, // wasm after ibc transfer
 		packetforwardtypes.ModuleName,
@@ -962,8 +905,6 @@ func NewApp(
 	app.ScopedIBCKeeper = scopedIBCKeeper
 	app.ScopedTransferKeeper = scopedTransferKeeper
 	app.ScopedWasmKeeper = scopedWasmKeeper
-	app.ScopedICAHostKeeper = scopedICAHostKeeper
-	app.ScopedICAControllerKeeper = scopedICAControllerKeeper
 
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
