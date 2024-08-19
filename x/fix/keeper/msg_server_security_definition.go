@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -16,7 +17,7 @@ func (k msgServer) SecurityDefinitionRequest(goCtx context.Context, msg *types.M
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -112,7 +113,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -139,7 +140,7 @@ func (k msgServer) SecurityDefinition(goCtx context.Context, msg *types.MsgSecur
 
 	// same account can not used for creating security definition request and security definition with the same SecurityReqID
 	if security.SecurityDefinitionRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition", msg.Creator))
 	}
 
 	// check that the Security Definition Request is not rejected already
@@ -254,7 +255,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID exists
@@ -281,7 +282,7 @@ func (k msgServer) SecurityDefinitionRequestReject(goCtx context.Context, msg *t
 
 	// same account can not used for creating security definition request and security definition request reject with the same SecurityReqID
 	if security.SecurityDefinitionRequest.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition request reject", &security))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create security definition request reject", &security))
 	}
 
 	// check that the Security Definition Request is not rejected already

@@ -1,8 +1,9 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgTradingSessionStatusRequest = "trading_session_status_request"
@@ -57,7 +58,7 @@ func (msg *MsgTradingSessionStatusRequest) GetSignBytes() []byte {
 func (msg *MsgTradingSessionStatusRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -115,7 +116,7 @@ func (msg *MsgTradingSessionStatus) GetSignBytes() []byte {
 func (msg *MsgTradingSessionStatus) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -159,7 +160,7 @@ func (msg *MsgTradingSessionStatusRequestReject) GetSignBytes() []byte {
 func (msg *MsgTradingSessionStatusRequestReject) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }

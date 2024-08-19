@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -17,7 +18,7 @@ func (k msgServer) LogonInitiator(goCtx context.Context, msg *types.MsgLogonInit
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.InitiatorAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.InitiatorAddress)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.InitiatorAddress)
 	}
 
 	// address will be used as senderCompID and targetCompID for both parties
@@ -78,7 +79,7 @@ func (k msgServer) LogonAcceptor(goCtx context.Context, msg *types.MsgLogonAccep
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.AcceptorAddress)
 	}
 
 	// check for if this session Name exists already
@@ -155,7 +156,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.AcceptorAddress)
 	}
 
 	// check for if this session Name exists already
@@ -174,7 +175,7 @@ func (k msgServer) LogonReject(goCtx context.Context, msg *types.MsgLogonReject)
 
 	// check that only the acceptor can reject the logon request
 	if session.LogonInitiator.Header.TargetCompID != msg.AcceptorAddress {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
 	sessionReject := types.SessionReject{

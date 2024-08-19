@@ -3,7 +3,7 @@ package keeper
 import (
 	"encoding/binary"
 
-	"github.com/cosmos/cosmos-sdk/store/prefix"
+	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -62,7 +62,7 @@ func (k Keeper) RemoveMarketData(ctx sdk.Context, mdReqID string) {
 // GetAllMarketData returns all marketData
 func (k Keeper) GetAllMarketData(ctx sdk.Context) []types.MarketData {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.GetMarketDataKey())
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

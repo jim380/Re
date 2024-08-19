@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/cosmos/cosmos-sdk/store/prefix"
+	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/jim380/Re/x/mic/types"
 )
@@ -34,7 +34,7 @@ func (k Keeper) RemoveMarketIdentificationCode(ctx sdk.Context, mic string) {
 // GetAllMarketIdentificationCode returns all marketIdentificationCode
 func (k Keeper) GetAllMarketIdentificationCode(ctx sdk.Context) (list []types.MarketIdentificationCode) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MarketIdentificationCodeKeyPrefix))
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := store.Iterator([]byte{}, []byte{})
 
 	defer iterator.Close()
 

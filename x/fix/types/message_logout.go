@@ -1,8 +1,9 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgLogoutInitiator = "logout_initiator"
@@ -41,7 +42,7 @@ func (msg *MsgLogoutInitiator) GetSignBytes() []byte {
 func (msg *MsgLogoutInitiator) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.InitiatorAddress)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }
@@ -82,7 +83,7 @@ func (msg *MsgLogoutAcceptor) GetSignBytes() []byte {
 func (msg *MsgLogoutAcceptor) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrorstypes.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
 }

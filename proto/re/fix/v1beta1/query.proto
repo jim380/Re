@@ -5,7 +5,6 @@ package re.fix;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "re/fix/v1beta1/params.proto";
 import "re/fix/v1beta1/sessions.proto";
 import "re/fix/v1beta1/session_reject.proto";
 import "re/fix/v1beta1/session_logout.proto";
@@ -29,12 +28,6 @@ option go_package = "github.com/jim380/Re/x/fix/types";
 
 // Query defines the gRPC querier service.
 service Query {
-
-  // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/jim380/Re/fix/params";
-  }
-
   // Queries a list of Sessions items.
   rpc Sessions(QueryGetSessionsRequest) returns (QueryGetSessionsResponse) {
     option (google.api.http).get =
@@ -242,15 +235,6 @@ service Query {
       returns (QueryAllAccountRegistrationResponse) {
     option (google.api.http).get = "/jim380/Re/fix/account/registrations";
   }
-}
-// QueryParamsRequest is request type for the Query/Params RPC method.
-message QueryParamsRequest {}
-
-// QueryParamsResponse is response type for the Query/Params RPC method.
-message QueryParamsResponse {
-
-  // params holds all the parameters of this module.
-  Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryGetSessionsRequest {

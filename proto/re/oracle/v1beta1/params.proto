@@ -1,9 +1,0 @@
-syntax = "proto3";
-package re.oracle;
-
-import "gogoproto/gogo.proto";
-
-option go_package = "github.com/jim380/Re/x/oracle/types";
-
-// Params defines the parameters for the module.
-message Params { option (gogoproto.goproto_stringer) = false; }

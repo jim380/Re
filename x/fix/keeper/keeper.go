@@ -3,22 +3,20 @@ package keeper
 import (
 	"fmt"
 
-	"github.com/cometbft/cometbft/libs/log"
+	"cosmossdk.io/log"
+	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/codec"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/jim380/Re/x/fix/types"
 	micKeeper "github.com/jim380/Re/x/mic/keeper"
 )
 
 type (
 	Keeper struct {
-		cdc        codec.Codec
-		storeKey   storetypes.StoreKey
-		memKey     storetypes.StoreKey
-		paramstore paramtypes.Subspace
-		micKeeper  micKeeper.Keeper
+		cdc       codec.Codec
+		storeKey  storetypes.StoreKey
+		memKey    storetypes.StoreKey
+		micKeeper micKeeper.Keeper
 	}
 )
 
@@ -26,20 +24,13 @@ func NewKeeper(
 	cdc codec.Codec,
 	storeKey,
 	memKey storetypes.StoreKey,
-	ps paramtypes.Subspace,
 	micKeeper micKeeper.Keeper,
 ) *Keeper {
-	// set KeyTable if it has not already been set
-	if !ps.HasKeyTable() {
-		ps = ps.WithKeyTable(types.ParamKeyTable())
-	}
-
 	return &Keeper{
-		cdc:        cdc,
-		storeKey:   storeKey,
-		memKey:     memKey,
-		paramstore: ps,
-		micKeeper:  micKeeper,
+		cdc:       cdc,
+		storeKey:  storeKey,
+		memKey:    memKey,
+		micKeeper: micKeeper,
 	}
 }
 

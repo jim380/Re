@@ -1,7 +1,11 @@
 package keeper
 
-import (
-	"github.com/jim380/Re/x/fix/types"
-)
+type Querier struct {
+	Keeper
+}
 
-var _ types.QueryServer = Keeper{}
+func NewQuerierImpl(keeper Keeper) *Querier {
+	return &Querier{
+		keeper,
+	}
+}

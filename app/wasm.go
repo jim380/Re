@@ -1,9 +1,5 @@
 package app
 
-import (
-	"strings"
-)
-
 var wasmCapabilities = []string{
 	"iterator",
 	"staking",
@@ -14,6 +10,6 @@ var wasmCapabilities = []string{
 	"cosmwasm_1_4",
 }
 
-func GetWasmCapabilities() string {
-	return strings.Join(wasmCapabilities, ",")
+func GetWasmCapabilities() []string {
+	return wasmCapabilities
 }

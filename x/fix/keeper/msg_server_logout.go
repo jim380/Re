@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -17,7 +18,7 @@ func (k msgServer) LogoutInitiator(goCtx context.Context, msg *types.MsgLogoutIn
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.InitiatorAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.InitiatorAddress)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.InitiatorAddress)
 	}
 
 	// check for if this sessionID exists already
@@ -65,7 +66,7 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.AcceptorAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.AcceptorAddress)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.AcceptorAddress)
 	}
 
 	// get logout session, if not found, then logout is not initiated
@@ -86,7 +87,7 @@ func (k msgServer) LogoutAcceptor(goCtx context.Context, msg *types.MsgLogoutAcc
 
 	// check that the initiator and the acceptor address are not the same
 	if initiatedLogoutSesssion.SessionLogoutInitiator.Header.SenderCompID == msg.AcceptorAddress {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s Wrong Account Address", msg.AcceptorAddress))
 	}
 
 	sessionLogoutAcceptor := types.SessionLogout{

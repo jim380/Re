@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrorstypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/jim380/Re/utils/constants"
 	"github.com/jim380/Re/x/fix/types"
 )
@@ -17,7 +18,7 @@ func (k msgServer) TradeCaptureReport(goCtx context.Context, msg *types.MsgTrade
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -153,7 +154,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -180,7 +181,7 @@ func (k msgServer) TradeCaptureReportAcknowledgement(goCtx context.Context, msg 
 
 	// same account can not used for creating trade capture report and trade capture report acknowledgement with the same TradeReportID
 	if tradeCapture.TradeCaptureReport.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
 	}
 
 	// check that the mandatory fields match the values from Trade Capture Report
@@ -289,7 +290,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 	// Validate the message creator
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Creator)
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrInvalidAddress, msg.Creator)
 	}
 
 	// check for if the provided session ID existss
@@ -316,7 +317,7 @@ func (k msgServer) TradeCaptureReportRejection(goCtx context.Context, msg *types
 
 	// same account can not used for creating trade capture report and trade capture report rejection with the same TradeReportID
 	if tradeCapture.TradeCaptureReport.Header.SenderCompID == msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
+		return nil, sdkerrors.Wrap(sdkerrorstypes.ErrKeyNotFound, fmt.Sprintf("key %s This account can not be used to create trade capture report acknowledgement", &tradeCapture))
 	}
 
 	// check that the mandatory field matches the value from Trade Capture Report
