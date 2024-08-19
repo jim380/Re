@@ -5,14 +5,15 @@ import (
 	"io"
 	"os"
 
+	"cosmossdk.io/client/v2/autocli"
+	"cosmossdk.io/client/v2/autocli/flag"
+	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
-	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	dbm "github.com/cometbft/cometbft-db"
 	tmcfg "github.com/cometbft/cometbft/config"
 	tmcli "github.com/cometbft/cometbft/libs/cli"
-	"github.com/cometbft/cometbft/libs/log"
+	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
@@ -21,6 +22,7 @@ import (
 	sdkflags "github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
+	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/server"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
@@ -34,6 +36,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/reflect/protoregistry"
 
 	"github.com/jim380/Re/app"
 	"github.com/jim380/Re/app/params"
@@ -43,7 +47,7 @@ const EnvironmentPrefix = "RE"
 
 // NewRootCmd creates a new root command for red. It is called once in the
 // main function.
-func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
+func NewRootCmd() *cobra.Command {
 	cfg := sdk.GetConfig()
 	cfg.SetBech32PrefixForAccount(app.Bech32PrefixAccAddr, app.Bech32PrefixAccPub)
 	cfg.SetBech32PrefixForValidator(app.Bech32PrefixValAddr, app.Bech32PrefixValPub)
@@ -51,12 +55,10 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	cfg.SetAddressVerifier(wasmtypes.VerifyAddressLen())
 	cfg.Seal()
 
-	encodingConfig := app.MakeEncodingConfig()
-
 	// "Pre-instantiate" the application for getting the injected/configured
 	// encoding configuration note, this is not necessary when using app wiring,
 	// as depinject can be directly used (see root_v2.go)
-	tempApp := app.NewReApp(
+	tempApp := app.NewApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,
@@ -64,11 +66,15 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		map[int64]bool{},
 		app.DefaultNodeHome,
 		0,
-		encodingConfig,
 		simtestutil.NewAppOptionsWithFlagHome(tempDir()),
-		[]wasmkeeper.Option{},
 		baseapp.SetChainID("tempchainid"),
 	)
+	encodingConfig := app.EncodingConfig{
+		InterfaceRegistry: tempApp.InterfaceRegistry(),
+		Marshaler:         tempApp.AppCodec(),
+		TxConfig:          tempApp.TxConfig(),
+		Amino:             tempApp.LegacyAmino(),
+	}
 
 	initClientCtx := client.Context{}.
 		WithCodec(encodingConfig.Marshaler).
@@ -112,7 +118,33 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 
 	initRootCmd(rootCmd, encodingConfig.TxConfig, app.ModuleBasics)
 
-	return rootCmd, encodingConfig
+	autoCliOpts := tempApp.AutoCliOpts()
+	initClientCtx, _ = config.ReadFromClientConfig(initClientCtx)
+	autoCliOpts.Keyring, _ = keyring.NewAutoCLIKeyring(initClientCtx.Keyring)
+	autoCliOpts.ClientCtx = initClientCtx
+
+	builder := &autocli.Builder{
+		Builder: flag.Builder{
+			TypeResolver:          protoregistry.GlobalTypes,
+			FileResolver:          autoCliOpts.ClientCtx.InterfaceRegistry,
+			AddressCodec:          autoCliOpts.AddressCodec,
+			ValidatorAddressCodec: autoCliOpts.ValidatorAddressCodec,
+			ConsensusAddressCodec: autoCliOpts.ConsensusAddressCodec,
+			Keyring:               autoCliOpts.Keyring,
+		},
+		ClientCtx:    autoCliOpts.ClientCtx,
+		TxConfigOpts: autoCliOpts.TxConfigOpts,
+		GetClientConn: func(cmd *cobra.Command) (grpc.ClientConnInterface, error) {
+			return client.GetClientQueryContext(cmd)
+		},
+		AddQueryConnFlags: sdkflags.AddQueryFlagsToCmd,
+		AddTxConnFlags:    sdkflags.AddTxFlagsToCmd,
+	}
+	if err := autoCliOpts.EnhanceRootCommandWithBuilder(rootCmd, builder); err != nil {
+		panic(err)
+	}
+
+	return rootCmd
 }
 
 func initRootCmd(
@@ -195,7 +227,7 @@ func txCommand() *cobra.Command {
 	return cmd
 }
 
-// reApp = app.NewReApp(
+// reApp = app.NewApp(
 // 	logger,
 // 	db,
 // 	traceStore,
@@ -226,7 +258,7 @@ func newApp(
 		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
 	}
 
-	reApp := app.NewReApp(
+	reApp := app.NewApp(
 		logger,
 		db,
 		traceStore,
@@ -235,11 +267,10 @@ func newApp(
 		cast.ToString(appOpts.Get(sdkflags.FlagHome)),
 		cast.ToUint(appOpts.Get(server.FlagInvCheckPeriod)),
 		appOpts,
-		wasmOpts,
 		baseappOptions...,
 	)
 	if reApp == nil {
-		panic("failed to create ReApp")
+		panic("failed to create App")
 	}
 	return reApp
 }
@@ -254,35 +285,29 @@ func appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
-	var reApp *app.ReApp
-	homePath, ok := appOpts.Get(flags.FlagHome).(string)
+	homePath, ok := appOpts.Get(sdkflags.FlagHome).(string)
 	if !ok || homePath == "" {
-		return servertypes.ExportedApp{}, errors.New("application home is not set")
+		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
-	loadLatest := height == -1
-	encCfg := app.MakeEncodingConfig()
-	var emptyWasmOpts []wasm.Option //nolint:staticcheck
-	reApp = app.NewReApp(
+	app := app.NewApp(
 		logger,
 		db,
 		traceStore,
-		loadLatest,
+		height == -1, // -1: no height provided
 		map[int64]bool{},
 		homePath,
-		cast.ToUint(appOpts.Get(server.FlagInvCheckPeriod)),
-		encCfg,
+		uint(1),
 		appOpts,
-		emptyWasmOpts,
 	)
 
 	if height != -1 {
-		if err := reApp.LoadHeight(height); err != nil {
+		if err := app.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	}
 
-	return reApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
+	return app.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
 }
 
 var tempDir = func() string {

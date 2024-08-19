@@ -11,7 +11,7 @@ DOCKER := $(shell which docker)
 
 SIMAPP = ./app
 ENABLED_PROPOSALS := SudoContract,UpdateAdmin,ClearAdmin,PinCodes,UnpinCodes
-GO_VERSION=1.21
+GO_VERSION=1.22
 BUILDDIR ?= $(CURDIR)/build
 
 export GO111MODULE = on
@@ -83,8 +83,8 @@ include contrib/devtools/Makefile
 
 check_go_version:
 	@echo "Go version: $(GO_MAJOR_VERSION).$(GO_MINOR_VERSION)"
-ifneq ($(GO_MINOR_VERSION),21)
-	@echo "ERROR: Go version 1.21 is required for this version of Re"
+ifneq ($(GO_MINOR_VERSION),22)
+	@echo "ERROR: Go version 1.22 is required for this version of Re"
 	exit 1
 endif
 
