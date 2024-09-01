@@ -1,46 +1,57 @@
-name: golangci-lint
+name: Lint
+
 on:
   push:
-    tags:
-      - v*
     branches:
-      - master
       - main
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
 permissions:
   contents: read
-  # Optional: allow read access to pull request. Use with `only-new-issues` option.
-  # pull-requests: read
+  repository-projects: read
+  packages: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   golangci:
-    name: lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    timeout-minutes: 10
     steps:
-      - uses: actions/setup-go@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          go-version: '1.19'
-          cache: false
-      - uses: actions/checkout@v3
-      - name: golangci-lint
+          fetch-depth: 0
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-          version: 'v1.51.2'
-          # Optional: working directory, useful for monorepos
-          # working-directory: somedir
-
-          # Optional: golangci-lint command line arguments.
-          # args: --issues-exit-code=0
-
-          # Optional: show only new issues if it's a pull request. The default value is `false`.
-          # only-new-issues: true
-
-          # Optional: if set to true then the all caching functionality will be complete disabled,
-          #           takes precedence over all other caching options.
-          # skip-cache: true
-
-          # Optional: if set to true then the action don't cache or restore ~/go/pkg.
-          # skip-pkg-cache: true
-
-          # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
-          # skip-build-cache: true
+          version: v1.60.0
+          args: --timeout 10m --tests=false --out-format=github-actions
+          skip-pkg-cache: true
+  # TO-DO: Re-enable once fixed locally
+  # protobuf:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Install Buf
+  #       uses: bufbuild/buf-setup-action@v1.26.1
+  #     - name: Lint Proto
+  #       run: make proto-lint
+  #     - name: clang-format Check
+  #       uses: jidicula/clang-format-action@v4.11.0
+  #       with:
+  #         clang-format-version: 17
+  #         extensions: proto
+  #         file: proto
+  #         style: file

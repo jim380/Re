@@ -205,6 +205,8 @@ proto-format:
 	--workdir /workspace $(PROTO_FORMATTER_IMAGE) \
 	find ./ -not -path "./third_party/*" -name *.proto -exec clang-format -i {} \;
 
+proto-lint:
+	@$(protoImage) buf lint proto/ --error-format=json
 
 .PHONY: all install install-debug \
 	go-mod-cache draw-deps clean build format \
