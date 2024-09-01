@@ -95,6 +95,7 @@ ifeq ($(OS),Windows_NT)
 	exit 1
 else
 	go build -mod=readonly $(BUILD_FLAGS) -o build/red ./cmd/red
+	red version
 endif
 
 build-static-linux-amd64: go.sum $(BUILDDIR)/
@@ -117,6 +118,7 @@ build-static-linux-amd64: go.sum $(BUILDDIR)/
 
 install: check_go_version
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/red
+	red version
 
 install-test-binary: check_go_version
 	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/red
