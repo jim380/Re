@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   golangci:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
@@ -38,7 +38,7 @@ jobs:
           skip-pkg-cache: true
   # TO-DO: Re-enable once fixed locally
   # protobuf:
-  #   runs-on: self-hosted
+  #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v4
