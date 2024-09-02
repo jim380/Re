@@ -1,0 +1,37 @@
+ARG GO_VERSION="1.22"
+ARG RUNNER_IMAGE="alpine:3.17"
+
+# --------------------------------------------------------
+# Builder
+# --------------------------------------------------------
+
+FROM golang:${GO_VERSION}-alpine as builder
+
+ARG GIT_VERSION
+ARG GIT_COMMIT
+
+ENV PACKAGES bash curl make git libc-dev gcc \
+    linux-headers eudev-dev python3
+
+# Download go dependencies
+WORKDIR /re
+
+COPY go.mod go.sum ./
+RUN apk add --no-cache $PACKAGES && \
+    --mount=type=cache,target=/root/.cache/go-build \
+    --mount=type=cache,target=/root/go/pkg/mod \
+    go mod download
+
+COPY . .
+# Build binaries for all target platforms
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    --mount=type=cache,target=/root/go/pkg/mod \
+    make build
+
+# --------------------------------------------------------
+# Runner
+# --------------------------------------------------------
+
+FROM ${RUNNER_IMAGE}
+
+COPY --from=builder /re/build/red /build/red

@@ -1,0 +1,110 @@
+---
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+-dev.[0-9]+"
+      - "[v]?[0-9]+.[0-9]+.[0-9]+(-rc|-alpha|-beta)?[0-9]*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  repository-projects: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  publish-red:
+    name: Build and Publish Red
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Github Packages
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Sanitize GitHub ref name
+        id: sanitize
+        run: echo "::set-output name=ref_name::$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9_.-]/-/g' | tr '[:upper:]' '[:lower:]')"
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Static Binary
+        run: |
+          export VERSION=$(echo $(git describe --tags --always --match "v*") | sed 's/^v//')
+          export COMMIT=$(git log -1 --format='%H')
+          docker buildx build --load -t red-static -f ./docker/Dockerfile.static \
+            --build-arg GIT_VERSION="$VERSION" \
+            --build-arg GIT_COMMIT="$COMMIT" \
+            --cache-from type=local,src=/tmp/.buildx-cache \
+            --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max .
+          mkdir build
+          docker run --rm -v $(pwd)/build:/output red-static cp -r /build/. /output/
+
+          # Move the new cache
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Build image and push to GitHub Container Registry
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.tmp.release
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sanitize.outputs.ref_name }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+          outputs: type=image,name=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }},name-canonical=true,push=true
+
+      - name: Image digest
+        run: echo ${{ steps.buildx.outputs.digest }}
+
+      - name: Generate Checksum
+        uses: jmgilman/actions-generate-checksum@v1
+        with:
+          patterns: |
+            build/lcnd-linux-amd64
+            build/lcnd-linux-arm64
