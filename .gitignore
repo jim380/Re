@@ -7,3 +7,4 @@ release/
 .idea/
 ts-client/
 data
+build/

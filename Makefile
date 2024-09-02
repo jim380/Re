@@ -1,24 +1,26 @@
-#!/usr/bin/make -f
-
-PACKAGES_SIMTEST=$(shell go list ./... | grep '/simulation')
-VERSION := $(shell git describe --tags 2>/dev/null | sed 's/^v//')?
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 COMMIT := $(shell git log -1 --format='%H')
+BUILD_DIR ?= $(CURDIR)/build
+DOCKER := $(shell which docker)
 LEDGER_ENABLED ?= true
+DB_BACKEND ?= goleveldb
+CGO_ENABLED=1
+
+# don't override user values
+ifeq (,$(VERSION))
+  VERSION := $(shell git describe --exact-match 2>/dev/null)
+  # if VERSION is empty, then populate it with branch's name and raw commit hash
+  ifeq (,$(VERSION))
+    VERSION := $(BRANCH)-$(COMMIT)
+  endif
+endif
+
 SDK_PACK := $(shell go list -m github.com/cosmos/cosmos-sdk | sed  's/ /\@/g')
 TM_VERSION := $(shell go list -m github.com/cometbft/cometbft | sed 's:.* ::')
-BINDIR ?= $(CURDIR)/build
-DOCKER := $(shell which docker)
 
-SIMAPP = ./app
-ENABLED_PROPOSALS := SudoContract,UpdateAdmin,ClearAdmin,PinCodes,UnpinCodes
-GO_VERSION=1.22
-BUILDDIR ?= $(CURDIR)/build
-
-export GO111MODULE = on
-
-GO_MAJOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1)
-GO_MINOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
-
+###############################################################################
+###                            Build Tags/Flags                             ###
+###############################################################################
 # process build tags
 
 build_tags = netgo
@@ -45,85 +47,125 @@ ifeq ($(LEDGER_ENABLED),true)
   endif
 endif
 
-ifeq ($(WITH_CLEVELDB),yes)
-  build_tags += gcc
+ifeq ($(DB_BACKEND), goleveldb)
+  build_tags += goleveldb
 endif
+
+ifeq ($(DB_BACKEND), cleveldb)
+  build_tags += gcc
+  build_tags += cleveldb
+endif
+
+ifeq ($(DB_BACKEND), boltdb)
+  build_tags += boltdb
+endif
+
+ifeq ($(DB_BACKEND), rocksdb)
+  build_tags += rocksdb
+endif
+
+ifeq ($(DB_BACKEND), badgerdb)
+  build_tags += badgerdb
+endif
+
+build_tags += $(TAG)
 build_tags += $(BUILD_TAGS)
 build_tags := $(strip $(build_tags))
 
-build_tags_test_binary = $(build_tags)
-build_tags_test_binary += skip_ccv_msg_filter
-
-whitespace :=
-empty = $(whitespace) $(whitespace)
-comma := ,
-build_tags_comma_sep := $(subst $(empty),$(comma),$(build_tags))
-build_tags_test_binary_comma_sep := $(subst $(empty),$(comma),$(build_tags_test_binary))
-
 # process linker flags
-
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=re \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=red \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-		  -X "github.com/jim380/re/app.EnableSpecificProposals=$(ENABLED_PROPOSALS)"
+		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
 
-ifeq ($(WITH_CLEVELDB),yes)
+ifeq ($(DB_BACKEND), goleveldb)
+  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=goleveldb
+endif
+
+ifeq ($(DB_BACKEND), cleveldb)
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
 endif
-ldflags += $(LDFLAGS)
+
+ifeq ($(DB_BACKEND), boltdb)
+  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=boltdb
+endif
+
+ifeq ($(DB_BACKEND), rocksdb)
+  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=rocksdb
+endif
+
+ifeq ($(DB_BACKEND), badgerdb)
+  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=badgerdb
+endif
+
+ldflags += -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
+
+ifeq ($(NO_STRIP),false)
+  ldflags += -w -s
+endif
+
+ldflags += $(LD_FLAGS)
 ldflags := $(strip $(ldflags))
 
-BUILD_FLAGS := -tags "$(build_tags_comma_sep)" -ldflags '$(ldflags)' -trimpath
-BUILD_FLAGS_TEST_BINARY := -tags "$(build_tags_test_binary_comma_sep)" -ldflags '$(ldflags)' -trimpath
+# set build flags
 
-# The below include contains the tools and runsim targets.
-include contrib/devtools/Makefile
+BUILD_FLAGS := -tags '$(build_tags)' -ldflags '$(ldflags)'
 
-check_go_version:
-	@echo "Go version: $(GO_MAJOR_VERSION).$(GO_MINOR_VERSION)"
-ifneq ($(GO_MINOR_VERSION),22)
-	@echo "ERROR: Go version 1.22 is required for this version of Re"
-	exit 1
+ifeq ($(NO_STRIP),false)
+  BUILD_FLAGS += -trimpath
 endif
 
-all: install lint test
+###############################################################################
+###                               Go Version                                ###
+###############################################################################
 
-build: check_go_version
-ifeq ($(OS),Windows_NT)
-	exit 1
-else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/red ./cmd/red
-endif
+GO_MAJOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1)
+GO_MINOR_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
+MIN_GO_MAJOR_VERSION = 1
+MIN_GO_MINOR_VERSION = 22
+GO_VERSION_ERROR = Golang version $(GO_MAJOR_VERSION).$(GO_MINOR_VERSION) is not supported, \
+please update to at least $(MIN_GO_MAJOR_VERSION).$(MIN_GO_MINOR_VERSION)
 
-build-static-linux-amd64: go.sum $(BUILDDIR)/
-	$(DOCKER) buildx create --name rebuilder || true
-	$(DOCKER) buildx use rebuilder
-	$(DOCKER) buildx build \
-		--build-arg GO_VERSION=$(GO_VERSION) \
-		--build-arg GIT_VERSION=$(VERSION) \
-		--build-arg GIT_COMMIT=$(COMMIT) \
-		--build-arg BUILD_TAGS=$(build_tags_comma_sep) \
-		--build-arg ENABLED_PROPOSALS=$(ENABLED_PROPOSALS) \
-		--platform linux/amd64 \
-		-t re-amd64 \
-		--load \
-		-f Dockerfile.builder .
-	$(DOCKER) rm -f rebinary || true
-	$(DOCKER) create -ti --name rebinary re-amd64
-	$(DOCKER) cp rebinary:/bin/red $(BUILDDIR)/red-linux-amd64
-	$(DOCKER) rm -f rebinary
+go-version:
+	@echo "Verifying go version..."
+	@if [ $(GO_MAJOR_VERSION) -gt $(MIN_GO_MAJOR_VERSION) ]; then \
+		exit 0; \
+	elif [ $(GO_MAJOR_VERSION) -lt $(MIN_GO_MAJOR_VERSION) ]; then \
+		echo $(GO_VERSION_ERROR); \
+		exit 1; \
+	elif [ $(GO_MINOR_VERSION) -lt $(MIN_GO_MINOR_VERSION) ]; then \
+		echo $(GO_VERSION_ERROR); \
+		exit 1; \
+	fi
 
-install: check_go_version
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/red
+.PHONY: go-version
 
-install-test-binary: check_go_version
-	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/red
+###############################################################################
+###                             Build / Install                             ###
+###############################################################################
 
-########################################
-### Tools & dependencies
+all: install
 
+build: go.sum go-version
+	@mkdir -p $(BUILD_DIR)
+	@if [ -z "$(GOARCH)" ]; then \
+		go build -o $(BUILD_DIR)/red $(CURDIR)/cmd/red; \
+	else \
+		go build -o $(BUILD_DIR)/red-$(GOARCH) $(CURDIR)/cmd/red; \
+	fi
+
+install:
+	@echo "--> ensure dependencies have not been modified"
+	@go mod verify
+	@echo "--> installing red"
+	@go install $(BUILD_FLAGS) -mod=readonly $(CURDIR)/cmd/red
+
+.PHONY: build install
+
+###############################################################################
+###                          Tools & Dependencies                           ###
+###############################################################################
 go-mod-cache: go.sum
 	@echo "--> Download go modules to local cache"
 	@go mod download
@@ -143,9 +185,9 @@ clean:
 distclean: clean
 	rm -rf vendor/
 
-########################################
-### Testing
-
+###############################################################################
+###                                 Tests                                   ###
+###############################################################################
 
 test: test-unit
 test-all: check test-race test-cover
@@ -162,28 +204,23 @@ test-cover:
 benchmark:
 	@go test -mod=readonly -bench=. ./...
 
-test-sim-import-export: runsim
-	@echo "Running application import/export simulation. This may take several minutes..."
-	@$(BINDIR)/runsim -Jobs=4 -SimAppPkg=$(SIMAPP) -ExitOnFail 50 5 TestAppImportExport
-
-test-sim-multi-seed-short: runsim
-	@echo "Running short multi-seed application simulation. This may take awhile!"
-	@$(BINDIR)/runsim -Jobs=4 -SimAppPkg=$(SIMAPP) -ExitOnFail 50 10 TestFullAppSimulation
-
 ###############################################################################
 ###                                Linting                                  ###
 ###############################################################################
 
-lint:
-	golangci-lint run 
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "*_test.go" | xargs gofmt -d -s
+golangci_version=v1.56.0
 
-format:
-	@go install mvdan.cc/gofumpt@latest
-	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -path "./tests/mocks/*" -not -name "*.pb.go" -not -name "*.pb.gw.go" -not -name "*.pulsar.go" -not -path "./crypto/keys/secp256k1/*" | xargs gofumpt -w -l
-	golangci-lint run --fix
-.PHONY: format
+lint:
+	@echo "--> Running linter"
+	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@$(golangci_version)
+	@golangci-lint run ./... --timeout 15m
+
+lint-fix:
+	@echo "--> Running linter and fixing issues"
+	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@$(golangci_version)
+	@golangci-lint run ./... --fix --timeout 15m
+
+.PHONY: lint lint-fix
 
 ###############################################################################
 ###                                Protobuf                                 ###
@@ -191,29 +228,21 @@ format:
 protoVer=0.14.0
 protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
 protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
-PROTO_FORMATTER_IMAGE=tendermintdev/docker-build-proto@sha256:aabcfe2fc19c31c0f198d4cd26393f5e5ca9502d7ea3feafbfe972448fee7cae
 
-proto-all: proto-format proto-lint proto-gen format
+proto-all: proto-format proto-lint proto-gen
 
 proto-gen:
+	@echo "Generating protobuf files..."
 	@$(protoImage) sh ./scripts/protocgen.sh
 	@go mod tidy
-	
+
 proto-format:
-	@echo "Formatting Protobuf files"
-	$(DOCKER) run --rm -v $(CURDIR):/workspace \
-	--workdir /workspace $(PROTO_FORMATTER_IMAGE) \
-	find ./ -not -path "./third_party/*" -name *.proto -exec clang-format -i {} \;
+	@$(protoImage) find ./ -name "*.proto" -exec clang-format -i {} \;
 
+proto-lint:
+	@$(protoImage) buf lint proto/ --error-format=json
 
-.PHONY: all install install-debug \
-	go-mod-cache draw-deps clean build format \
-	test test-all test-build test-cover test-unit test-race \
-	test-sim-import-export
-
-mocks:
-	@echo "Regenerate mocks..."
-	@go generate ./...
+.PHONY: proto-all proto-gen proto-format proto-lint
 
 ###############################################################################
 ###                                LOCALNET                                 ###
