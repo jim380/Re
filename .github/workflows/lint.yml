@@ -33,7 +33,7 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.60.0
+          version: v1.56.0
           args: --timeout 10m --tests=false --out-format=github-actions
           skip-pkg-cache: true
   # TO-DO: Re-enable once fixed locally
